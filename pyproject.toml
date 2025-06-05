@@ -1,0 +1,84 @@
+[project]
+name = "qfeval_functions"
+version = "0.1.0"
+description = "Functions for quantitative finance"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "torch",
+    "numpy",
+]
+
+[project.optional-dependencies]
+cupy = [
+    "cupy",
+]
+
+[dependency-groups]
+dev = [
+    "black==24.3.0",
+    "flake8==7.0.0",
+    "isort==5.13.2",
+    "mypy==1.9.0",
+    "pandas>=2.3.0",
+    "pyproject-flake8==7.0.0",
+    "pytest>=8.3.5",
+    "pytest-cov>=5.0.0",
+    "scikit-learn>=1.6.1",
+    "scipy>=1.13.1",
+    "torch>=2.7.1",
+]
+
+[tool.black]
+line-length = 80
+target-version = ['py311']
+exclude = '/(__pycache__|__init__\.py|\.git|\.cache|\.mypy_cache|docs|build|dist|\.venv)/'
+
+[tool.isort]
+profile = 'black'
+ensure_newline_before_comments = true
+force_grid_wrap = 0
+force_single_line = true
+include_trailing_comma = true
+known_first_party = ["qfeval_functions"]
+skip = [
+    ".cache",
+    ".git",
+    "__pycache__",
+    "docs",
+    "build",
+    "dist",
+    ".venv"
+    ]
+line_length = 80
+multi_line_output = 3
+use_parentheses = true
+
+[tool.flake8]
+ignore = "E203,E231,E501,W503"
+max-line-length = 80
+exclude = [
+    ".cache",
+    ".git",
+    "__pycache__",
+    "docs",
+    "build",
+    "dist",
+    ".venv",
+    "__init__.py",
+    "qfeval_functions",
+    ]
+select = "B,B950,C,E,F,W"
+
+[tool.mypy]
+disallow_untyped_defs = true
+ignore_missing_imports = true
+exclude = [
+    ".cache",
+    ".git",
+    "__pycache__",
+    "docs",
+    "build",
+    "dist",
+    ".venv"
+    ]
