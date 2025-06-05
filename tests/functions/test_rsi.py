@@ -80,16 +80,16 @@ def test_rsi_compare_to_talib(use_sma: bool) -> None:
         rtol_case2,
         atol_case2,
     )
-    results = rsi(torch.stack((input1, input2)), use_sma=use_sma).numpy()
+    results2 = rsi(torch.stack((input1, input2)), use_sma=use_sma).numpy()
     np.testing.assert_allclose(
-        results[0],
+        results2[0],
         expect_out1,
         rtol_case1,
         atol_case1,
     )
 
     np.testing.assert_allclose(
-        results[1],
+        results2[1],
         expect_out2,
         rtol_case2,
         atol_case2,
