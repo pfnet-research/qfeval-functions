@@ -37,7 +37,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip setuptools wheel
           python -m pip install uv
-          uv sync --dev --no-extra cupy
+          uv sync
       - name: Test
         run: |
           uv run black --check --diff --quiet .
