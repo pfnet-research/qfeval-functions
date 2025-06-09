@@ -24,11 +24,11 @@ TBD
 
 # Pitfalls
 
-## Calling qfeval_functions.random.seed without `fast=True` may slow down `QF.rand*`
+## Calling qfeval_functions.random.seed without `fast=True` may slow down `qfeval_functions.functions.rand*`
 
 Calling `qfeval_functions.random.seed` without `fast=True` makes `QF.rand*` functions use
 reproducible random number generators implemented on CPU.
-Setting `fast=True` lets `QF.rand*` functions to use random number generators
+Setting `fast=True` lets `qfeval_functions.functions.rand*` functions to use random number generators
 provided by CUDA via PyTorch.  It is fast, but it is closed source.
 It cannot be reproducible on CPUs, and it may not be reproducible with other
 PyTorch/CUDA versions.
