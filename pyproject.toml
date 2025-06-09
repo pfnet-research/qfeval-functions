@@ -9,11 +9,6 @@ dependencies = [
     "numpy",
 ]
 
-[project.optional-dependencies]
-cupy = [
-    "cupy",
-]
-
 [dependency-groups]
 dev = [
     "black==24.3.0",
@@ -27,6 +22,9 @@ dev = [
     "scikit-learn>=1.6.1",
     "scipy>=1.13.1",
     "torch>=2.7.1",
+]
+cupy = [
+    "cupy",
 ]
 
 [tool.black]
