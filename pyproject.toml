@@ -9,10 +9,6 @@ dependencies = [
     "numpy",
 ]
 
-[project.optional-dependencies]
-cupy = [
-    "cupy",
-]
 
 [dependency-groups]
 dev = [
