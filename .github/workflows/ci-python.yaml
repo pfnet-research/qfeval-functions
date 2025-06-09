@@ -39,7 +39,7 @@ jobs:
           enable-cache: false
       - name: Install dependencies
         run: |
-          uv --python ${{ matrix.python-version }} sync --dev
+          uv sync --python ${{ matrix.python-version }} --dev
       - name: Test
         run: |
           uv run black --check --diff --quiet .
