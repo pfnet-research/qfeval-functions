@@ -5,13 +5,21 @@ qfevalは、Preferred Networks 金融チームが開発している、金融時�
 
 qfeval-functionsは、qfevalの中でも、金融時系列データを効率的に扱うための関数群を提供します。
 
-## インストール
+---
+
+qfeval is a framework developed by Preferred Networks' Financial Solutions team for processing financial time series data.
+It includes: data format specification definitions, a set of classes/functions for efficiently handling financial time series data, and a framework for evaluating financial time series models.
+
+qfeval-functions specifically provides a collection of functions within qfeval that facilitate efficient processing of financial time series data.
+
+
+## Installation
 
 ```bash
 pip install qfeval-functions
 ```
 
-## 使用方法
+## Usage
 TBD
 
 # Pitfalls
