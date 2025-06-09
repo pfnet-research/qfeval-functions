@@ -3,6 +3,7 @@ name: Bump
 on:
   create:
     branches:
+      - release/*
   workflow_dispatch:
 
 jobs:
