@@ -29,7 +29,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v4
-      - uses: Jimver/cuda-toolkit@0.2
+      - uses: Jimver/cuda-toolkit@v0.2
         id: cuda-toolkit
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
