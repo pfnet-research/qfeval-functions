@@ -16,7 +16,7 @@ qfeval-functions specifically provides a collection of functions within qfeval t
 ## Installation
 
 ```bash
-pip install qfeval-functions
+pip install qfeval_functions
 ```
 
 ## Usage
