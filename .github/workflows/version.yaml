@@ -18,7 +18,7 @@ jobs:
         run: pip install poetry
       - name: Bump version
         # TODO(masanori): Use uv to bump version
-        run: git branch --show-current | sed 's|release/||' | xargs poetry version | { printf '::set-output name=PR_TITLE::'; cat; }
+        run: echo "PR_TITLE=$(git branch --show-current | sed 's|release/||' | xargs poetry version)" >> "$GITHUB_OUTPUT"
         id: bump
       - name: Bump qfeval_functions.__version__
         run: git branch --show-current | sed 's|release/||' | xargs -I {} echo '__version__ = "{}"' > qfeval_functions/version.py
