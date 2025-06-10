@@ -1,11 +1,11 @@
 # `release` workflow configuration
 #
-# This workflow is triggered when a release branch is merged into the main
+# This workflow is triggered when a release branch is merged into the master
 # branch. It automates the process of creating a package and releasing it to
 # GitHub and PyPI.
 #
 # Workflow steps:
-# 0. A release branch named release/[TAG] is merged into main via a pull
+# 0. A release branch named release/[TAG] is merged into master via a pull
 #    request.
 # 1. `tagging` job runs:
 #     - A branch named [TAG] is created
@@ -43,7 +43,7 @@ jobs:
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git config --global user.name "github-actions[bot]"
           git fetch origin ${{ github.event.pull_request.head.ref }}
-          git checkout main
+          git checkout master
           git tag -a `echo '${{ github.event.pull_request.head.ref }}' | sed 's/release\///'` -m " "
           git push origin `echo '${{ github.event.pull_request.head.ref }}' | sed 's/release\///'`
 
