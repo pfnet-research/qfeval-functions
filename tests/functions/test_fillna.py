@@ -95,11 +95,16 @@ def test_fillna_dtype_preservation() -> None:
 
 def test_fillna_3d_tensor() -> None:
     """Test fillna with 3D tensor containing various special values."""
-    x = torch.tensor([[[1.0, math.nan], [math.inf, 2.0]], 
-                     [[math.nan, -math.inf], [3.0, 4.0]]])
+    x = torch.tensor(
+        [
+            [[1.0, math.nan], [math.inf, 2.0]],
+            [[math.nan, -math.inf], [3.0, 4.0]],
+        ]
+    )
     result = QF.fillna(x, nan=-1.0, posinf=999.0, neginf=-999.0)
-    expected = torch.tensor([[[1.0, -1.0], [999.0, 2.0]], 
-                            [[-1.0, -999.0], [3.0, 4.0]]])
+    expected = torch.tensor(
+        [[[1.0, -1.0], [999.0, 2.0]], [[-1.0, -999.0], [3.0, 4.0]]]
+    )
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
@@ -158,16 +163,18 @@ def test_fillna_batch_processing() -> None:
     tensors = [
         torch.tensor([math.nan, 1.0, math.inf]),
         torch.tensor([[math.nan, 2.0], [-math.inf, 3.0]]),
-        torch.tensor([[[math.inf, math.nan]]])
+        torch.tensor([[[math.inf, math.nan]]]),
     ]
-    
+
     for i, x in enumerate(tensors):
         result = QF.fillna(x, nan=0.0, posinf=100.0, neginf=-100.0)
-        
+
         # Verify no NaN or infinity remains
         assert not torch.any(torch.isnan(result)), f"NaN found in tensor {i}"
-        assert not torch.any(torch.isinf(result)), f"Infinity found in tensor {i}"
-        
+        assert not torch.any(
+            torch.isinf(result)
+        ), f"Infinity found in tensor {i}"
+
         # Verify shape preservation
         assert result.shape == x.shape, f"Shape mismatch in tensor {i}"
 
@@ -183,7 +190,7 @@ def test_fillna_edge_case_all_special_values() -> None:
 def test_fillna_partial_replacement() -> None:
     """Test fillna with only some parameters specified (using defaults for others)."""
     x = torch.tensor([math.nan, math.inf, -math.inf, 1.0])
-    
+
     # Only replace NaN
     result1 = QF.fillna(x, nan=42.0)
     expected1 = torch.tensor([42.0, math.inf, -math.inf, 1.0])
@@ -215,7 +222,7 @@ def test_fillna_replacement_with_nan() -> None:
     """Test fillna using NaN as replacement for infinity (edge case)."""
     x = torch.tensor([math.inf, -math.inf, 1.0])
     result = QF.fillna(x, posinf=math.nan, neginf=math.nan)
-    
+
     assert torch.isnan(result[0])
     assert torch.isnan(result[1])
     assert result[2] == 1.0
@@ -225,19 +232,19 @@ def test_fillna_stress_test_large_tensor() -> None:
     """Test fillna with large tensor containing scattered special values."""
     size = 1000
     x = torch.randn(size)
-    
+
     # Randomly place some special values
     special_indices = torch.randperm(size)[:100]
     x[special_indices[:33]] = math.nan
     x[special_indices[33:66]] = math.inf
     x[special_indices[66:]] = -math.inf
-    
+
     result = QF.fillna(x, nan=0.0, posinf=1e6, neginf=-1e6)
-    
+
     # Verify no special values remain
     assert not torch.any(torch.isnan(result))
     assert not torch.any(torch.isinf(result))
-    
+
     # Verify replacements are correct
     assert torch.sum(result == 0.0) == 33  # NaN replacements
     assert torch.sum(result == 1e6) == 33  # +inf replacements
