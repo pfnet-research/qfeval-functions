@@ -134,7 +134,6 @@ def test_rcumsum_consistency_with_cumsum() -> None:
     """Test that rcumsum is consistent with flipping, cumsum, and flipping back."""
     x = torch.tensor([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
 
-    forward_cumsum = torch.cumsum(x, dim=1)
     reverse_cumsum = QF.rcumsum(x, dim=1)
 
     # The reverse cumsum should be the same as flipping, cumsum, and flipping back

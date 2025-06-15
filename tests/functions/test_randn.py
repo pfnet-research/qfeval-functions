@@ -1,5 +1,4 @@
 import hashlib
-import math
 
 import numpy as np
 import torch
@@ -92,7 +91,7 @@ def test_randn_device_specification() -> None:
 
         # Test device parameter if supported
         try:
-            x_cpu_explicit = QF.randn(5, device="cpu")
+            x_cpu_explicit = QF.randn(5, device=torch.device("cpu"))
             assert x_cpu_explicit.device.type == "cpu"
         except TypeError:
             # Device parameter might not be supported
