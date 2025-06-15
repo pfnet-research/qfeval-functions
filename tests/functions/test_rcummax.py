@@ -171,9 +171,12 @@ def test_rcummax_with_nan_values() -> None:
     x = torch.tensor([1.0, math.nan, 3.0, 2.0])
     result = QF.rcummax(x, dim=0)
 
-    # NaN should propagate in cummax operations
-    assert not torch.isnan(result.values[0])  # First element might not be NaN
-    assert result.values[0] == 3.0 or torch.isnan(result.values[1])
+    # In reverse cumulative max, NaN propagates backwards from its position
+    # Working backwards: 2.0, then max(3.0, 2.0)=3.0, then max(nan, 3.0)=nan, then max(1.0, nan)=nan
+    assert torch.isnan(result.values[0])  # NaN propagated from position 1
+    assert torch.isnan(result.values[1])  # Original NaN position
+    assert result.values[2] == 3.0  # Not affected by NaN yet
+    assert result.values[3] == 2.0  # Starting position
 
 
 def test_rcummax_with_infinity() -> None:
