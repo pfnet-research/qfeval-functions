@@ -154,9 +154,9 @@ def test_mstd_different_ddof_values() -> None:
     # Test ddof=2
     result_ddof2 = QF.mstd(x, span=3, dim=0, ddof=2)
 
-    # ddof=0 should give larger std than ddof=1, which should be larger than ddof=2
-    # for the same data (when not NaN)
-    assert result_ddof0[3] > result_ddof1[3] > result_ddof2[3]
+    # ddof=0 should give smaller std than ddof=1, which should be smaller than ddof=2
+    # (smaller denominator means larger result)
+    assert result_ddof0[3] < result_ddof1[3] < result_ddof2[3]
 
 
 def test_mstd_very_small_span() -> None:
@@ -213,13 +213,13 @@ def test_mstd_large_span_relative_to_tensor() -> None:
     x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])
     result = QF.mstd(x, span=4, dim=0)
 
-    # Only position 4 should have a valid result
-    assert torch.isnan(result[:4]).all()
-    assert not torch.isnan(result[4])
+    # Only position 3 onwards should have valid results
+    assert torch.isnan(result[:3]).all()
+    assert not torch.isnan(result[3:]).any()
 
-    # Manual calculation for [2,3,4,5]
-    manual_std = torch.std(torch.tensor([2.0, 3.0, 4.0, 5.0]), unbiased=True)
-    np.testing.assert_allclose(result[4].numpy(), manual_std.numpy(), atol=1e-6)
+    # Manual calculation for window starting at position 3: [1,2,3,4]
+    manual_std = torch.std(torch.tensor([1.0, 2.0, 3.0, 4.0]), unbiased=True)
+    np.testing.assert_allclose(result[3].numpy(), manual_std.numpy(), atol=1e-6)
 
 
 def test_mstd_3d_tensor_different_axes() -> None:
@@ -298,10 +298,13 @@ def test_mstd_outlier_handling() -> None:
 
     # The window containing the outlier should have large std
     outlier_std = result[2]  # Window [1, 1, 100]
-    normal_std = result[4]  # Window [1, 1, 1]
+    normal_std = result[4]  # Window [100, 1, 1] - still contains outlier
 
-    assert outlier_std > normal_std
-    assert normal_std == 0.0  # Identical values
+    # Both contain the outlier, but let's check against windows that don't
+    # Position 3: window [1, 100, 1] - also contains outlier
+    # All positions from 2-4 contain the outlier, so they should all be large
+    assert outlier_std > 50.0  # Should be much larger than normal variation
+    assert normal_std > 50.0  # Also contains outlier so should be large
 
 
 def test_mstd_inf_values() -> None:

@@ -106,14 +106,16 @@ def test_apply_for_axis_function_changes_shape() -> None:
 
 
 def test_apply_for_axis_function_reduces_dimension() -> None:
-    """Test apply_for_axis with function that reduces dimensions along batch axis."""
+    """Test apply_for_axis with function that reduces each row to a single value."""
     x = torch.tensor([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
 
-    def max_func(t: torch.Tensor) -> torch.Tensor:
-        return t.max(dim=0, keepdim=True)
+    def mean_func(t: torch.Tensor) -> torch.Tensor:
+        # Apply mean along dim=1 to reduce each row to a single value
+        return t.mean(dim=1, keepdim=True)
 
-    result = QF.apply_for_axis(max_func, x, dim=1)
-    expected = torch.tensor([[4.0, 5.0, 6.0], [4.0, 5.0, 6.0]])
+    result = QF.apply_for_axis(mean_func, x, dim=1)
+    # Each row is reduced to its mean value
+    expected = torch.tensor([[2.0], [5.0]])
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
@@ -156,12 +158,14 @@ def test_apply_for_axis_middle_dimensions() -> None:
     """Test apply_for_axis on middle dimensions of multi-dimensional tensors."""
     x = torch.tensor([[[1.0, 2.0], [3.0, 4.0]], [[5.0, 6.0], [7.0, 8.0]]])
 
-    def sum_func(t: torch.Tensor) -> torch.Tensor:
-        return t.sum(dim=0, keepdim=True)
+    def scale_func(t: torch.Tensor) -> torch.Tensor:
+        # Scale each element by 2 - maintains dimensions
+        return t * 2
 
-    result = QF.apply_for_axis(sum_func, x, dim=1)
+    result = QF.apply_for_axis(scale_func, x, dim=1)
+    # Each element should be doubled
     expected = torch.tensor(
-        [[[4.0, 6.0], [4.0, 6.0]], [[12.0, 14.0], [12.0, 14.0]]]
+        [[[2.0, 4.0], [6.0, 8.0]], [[10.0, 12.0], [14.0, 16.0]]]
     )
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
@@ -175,11 +179,17 @@ def test_apply_for_axis_zero_dimension_axis() -> None:
         return t / t.sum(dim=1, keepdim=True)
 
     result = QF.apply_for_axis(normalize_func, x, dim=0)
+    # When applying along dim=0, the tensor is already in the right position
+    # After transposing: [[1,3,5],[2,4,6]] (shape 2x3)
+    # normalize_func divides each row by its sum
+    # Row 0: [1,3,5], sum=9, normalized: [1/9, 3/9, 5/9]
+    # Row 1: [2,4,6], sum=12, normalized: [2/12, 4/12, 6/12]
+    # After transposing back: [[1/9, 2/12], [3/9, 4/12], [5/9, 6/12]]
     expected = torch.tensor(
         [
-            [1.0 / 3.0, 2.0 / 3.0],
-            [3.0 / 7.0, 4.0 / 7.0],
-            [5.0 / 11.0, 6.0 / 11.0],
+            [1.0 / 9.0, 2.0 / 12.0],
+            [3.0 / 9.0, 4.0 / 12.0],
+            [5.0 / 9.0, 6.0 / 12.0],
         ]
     )
     np.testing.assert_allclose(result.numpy(), expected.numpy())

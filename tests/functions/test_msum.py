@@ -180,7 +180,8 @@ def test_msum_inf_and_nan_mixed() -> None:
     assert torch.isnan(result[1])
     assert torch.isnan(result[2])
     assert torch.isnan(result[3])
-    assert not torch.isnan(result[4]) and not torch.isinf(result[4])
+    # Window at position 4: [nan, 4.0, 5.0] - still contains NaN
+    assert torch.isnan(result[4])
 
 
 def test_msum_edge_case_span_equals_one() -> None:
