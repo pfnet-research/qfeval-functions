@@ -1,4 +1,11 @@
 # qfeval-functions
+[![python](https://img.shields.io/pypi/pyversions/qfeval-functions.svg)](https://pypi.org/project/functions)
+[![pypi](https://img.shields.io/pypi/v/functions.svg)](https://pypi.org/project/functions)
+[![CI](https://github.com/pfnet-research/qfeval-functions/actions/workflows/ci-python.yaml/badge.svg)](https://github.com/pfnet-research/qfeval-functions/actions/workflows/ci-python.yaml)
+[![codecov](https://codecov.io/gh/pfnet-research/qfeval-functions/graph/badge.svg?token=8U6KIJ10CF)](https://codecov.io/gh/pfnet-research/qfeval-functions)
+[![downloads](https://img.shields.io/pypi/dm/qfeval-functions)](https://pypi.org/project/qfeval-functions)
+[![code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 
 qfevalは、Preferred Networks 金融チームが開発している、金融時系列処理のためのフレームワークです。
 データ形式の仕様定義、金融時系列データを効率的に扱うためのクラス/関数群、および金融時系列モデルの評価フレームワークが含まれます。
