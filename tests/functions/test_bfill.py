@@ -86,7 +86,6 @@ def test_bfill_all_nan() -> None:
     """Test backward fill with tensor containing only NaN values."""
     x = torch.tensor([math.nan, math.nan, math.nan, math.nan])
     result = QF.bfill(x, dim=0)
-    expected = torch.tensor([math.nan, math.nan, math.nan, math.nan])
     assert torch.isnan(result).all()
 
 

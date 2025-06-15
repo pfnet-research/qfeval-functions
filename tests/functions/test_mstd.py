@@ -106,8 +106,6 @@ def test_mstd_large_span() -> None:
     x = torch.tensor([1.0, 2.0, 3.0])
     result = QF.mstd(x, span=5, dim=0)
 
-    expected = torch.tensor([math.nan, math.nan, math.nan])
-
     assert torch.isnan(result).all()
 
 

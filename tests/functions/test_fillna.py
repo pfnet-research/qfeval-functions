@@ -193,7 +193,6 @@ def test_fillna_partial_replacement() -> None:
 
     # Only replace NaN
     result1 = QF.fillna(x, nan=42.0)
-    expected1 = torch.tensor([42.0, math.inf, -math.inf, 1.0])
     assert result1[0] == 42.0
     assert torch.isinf(result1[1]) and result1[1] > 0
     assert torch.isinf(result1[2]) and result1[2] < 0
@@ -212,7 +211,6 @@ def test_fillna_replacement_with_infinity() -> None:
     """Test fillna using infinity as replacement value."""
     x = torch.tensor([math.nan, 1.0, 2.0])
     result = QF.fillna(x, nan=math.inf)
-    expected = torch.tensor([math.inf, 1.0, 2.0])
     assert torch.isinf(result[0]) and result[0] > 0
     assert result[1] == 1.0
     assert result[2] == 2.0

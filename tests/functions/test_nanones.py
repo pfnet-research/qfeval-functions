@@ -20,9 +20,9 @@ def test_nanones_with_nan() -> None:
     result = QF.nanones(x)
     expected = torch.tensor([1.0, math.nan, 1.0])
 
-    assert result[0] == 1.0
-    assert torch.isnan(result[1])
-    assert result[2] == 1.0
+    assert result[0] == expected[0]
+    assert torch.isnan(result[1]) and torch.isnan(expected[1])
+    assert result[2] == expected[2]
 
 
 def test_nanones_all_nan() -> None:
@@ -39,11 +39,11 @@ def test_nanones_mixed_values() -> None:
     result = QF.nanones(x)
     expected = torch.tensor([1.0, math.nan, 1.0, 1.0, math.nan])
 
-    assert result[0] == 1.0
-    assert torch.isnan(result[1])
-    assert result[2] == 1.0
-    assert result[3] == 1.0
-    assert torch.isnan(result[4])
+    assert result[0] == expected[0]
+    assert torch.isnan(result[1]) and torch.isnan(expected[1])
+    assert result[2] == expected[2]
+    assert result[3] == expected[3]
+    assert torch.isnan(result[4]) and torch.isnan(expected[4])
 
 
 def test_nanones_2d_tensor() -> None:
@@ -52,10 +52,10 @@ def test_nanones_2d_tensor() -> None:
     result = QF.nanones(x)
     expected = torch.tensor([[1.0, math.nan], [math.nan, 1.0]])
 
-    assert result[0, 0] == 1.0
-    assert torch.isnan(result[0, 1])
-    assert torch.isnan(result[1, 0])
-    assert result[1, 1] == 1.0
+    assert result[0, 0] == expected[0, 0]
+    assert torch.isnan(result[0, 1]) and torch.isnan(expected[0, 1])
+    assert torch.isnan(result[1, 0]) and torch.isnan(expected[1, 0])
+    assert result[1, 1] == expected[1, 1]
 
 
 def test_nanones_3d_tensor() -> None:
@@ -112,10 +112,10 @@ def test_nanones_with_infinity() -> None:
     result = QF.nanones(x)
     expected = torch.tensor([1.0, 1.0, math.nan, 1.0])
 
-    assert result[0] == 1.0
-    assert result[1] == 1.0
-    assert torch.isnan(result[2])
-    assert result[3] == 1.0
+    assert result[0] == expected[0]
+    assert result[1] == expected[1]
+    assert torch.isnan(result[2]) and torch.isnan(expected[2])
+    assert result[3] == expected[3]
 
 
 def test_nanones_large_tensor() -> None:
@@ -144,15 +144,15 @@ def test_nanones_complex_pattern() -> None:
         [[1.0, math.nan, 1.0], [math.nan, 1.0, math.nan], [1.0, math.nan, 1.0]]
     )
 
-    assert result[0, 0] == 1.0
-    assert torch.isnan(result[0, 1])
-    assert result[0, 2] == 1.0
-    assert torch.isnan(result[1, 0])
-    assert result[1, 1] == 1.0
-    assert torch.isnan(result[1, 2])
-    assert result[2, 0] == 1.0
-    assert torch.isnan(result[2, 1])
-    assert result[2, 2] == 1.0
+    assert result[0, 0] == expected[0, 0]
+    assert torch.isnan(result[0, 1]) and torch.isnan(expected[0, 1])
+    assert result[0, 2] == expected[0, 2]
+    assert torch.isnan(result[1, 0]) and torch.isnan(expected[1, 0])
+    assert result[1, 1] == expected[1, 1]
+    assert torch.isnan(result[1, 2]) and torch.isnan(expected[1, 2])
+    assert result[2, 0] == expected[2, 0]
+    assert torch.isnan(result[2, 1]) and torch.isnan(expected[2, 1])
+    assert result[2, 2] == expected[2, 2]
 
 
 def test_nanones_extreme_values() -> None:

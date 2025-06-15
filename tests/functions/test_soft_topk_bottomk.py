@@ -251,7 +251,7 @@ def test_soft_topk_very_large_k() -> None:
     x = torch.tensor([[1.0, 2.0, 3.0]])
 
     try:
-        result = QF.soft_topk(x, k=5, dim=1)
+        QF.soft_topk(x, k=5, dim=1)
         # Should fail or handle gracefully
         assert False, "Expected error for k > dimension size"
     except (AssertionError, RuntimeError):

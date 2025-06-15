@@ -90,7 +90,6 @@ def test_ffill_all_nan() -> None:
     """Test forward fill with tensor containing only NaN values."""
     x = torch.tensor([math.nan, math.nan, math.nan, math.nan])
     result = QF.ffill(x, dim=0)
-    expected = torch.tensor([math.nan, math.nan, math.nan, math.nan])
     assert torch.isnan(result).all()
 
 
