@@ -1,6 +1,6 @@
 # qfeval-functions
-[![python](https://img.shields.io/pypi/pyversions/qfeval-functions.svg)](https://pypi.org/project/functions)
-[![pypi](https://img.shields.io/pypi/v/functions.svg)](https://pypi.org/project/functions)
+[![python](https://img.shields.io/pypi/pyversions/qfeval-functions.svg)](https://pypi.org/project/qfeval-functions/)
+[![pypi](https://img.shields.io/pypi/v/qfeval-functions.svg)](https://pypi.org/project/qfeval-functions/)
 [![CI](https://github.com/pfnet-research/qfeval-functions/actions/workflows/ci-python.yaml/badge.svg)](https://github.com/pfnet-research/qfeval-functions/actions/workflows/ci-python.yaml)
 [![codecov](https://codecov.io/gh/pfnet-research/qfeval-functions/graph/badge.svg?token=8U6KIJ10CF)](https://codecov.io/gh/pfnet-research/qfeval-functions)
 [![downloads](https://img.shields.io/pypi/dm/qfeval-functions)](https://pypi.org/project/qfeval-functions)
