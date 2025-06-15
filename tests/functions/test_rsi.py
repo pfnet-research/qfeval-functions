@@ -28,7 +28,7 @@ def test_ema() -> None:
     )
     np.testing.assert_allclose(
         res.numpy(),
-        df.ewm(alpha=0.1, axis=1, adjust=False).mean().to_numpy(),
+        df.T.ewm(alpha=0.1, adjust=False).mean().T.to_numpy(),
         1e-4,
         1e-4,
     )

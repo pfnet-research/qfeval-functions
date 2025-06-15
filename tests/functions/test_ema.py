@@ -9,7 +9,7 @@ def test_ema() -> None:
     df = pd.DataFrame(a.numpy())
     np.testing.assert_allclose(
         QF.ema(a, 0.1, dim=0).numpy(),
-        df.ewm(alpha=0.1, axis=0).mean().to_numpy(),
+        df.ewm(alpha=0.1).mean().to_numpy(),
         1e-6,
         1e-6,
     )

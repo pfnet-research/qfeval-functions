@@ -1,8 +1,10 @@
+import warnings
 from math import nan
 
 import numpy as np
-import scipy
+import scipy.stats
 import torch
+from scipy.stats._axis_nan_policy import SmallSampleWarning
 
 import qfeval_functions.functions as QF
 
@@ -17,9 +19,20 @@ def test_nankurtosis() -> None:
         ],
         dtype=torch.float64,
     )
+    # Suppress SmallSampleWarning from scipy.stats.kurtosis when testing with sparse data.
+    # This warning occurs because some rows have very few non-NaN values after omission,
+    # which is insufficient for reliable statistical computation. However, this is the
+    # intended test behavior to verify our function handles edge cases consistently
+    # with scipy's reference implementation.
+    # TODO(claude): Consider restructuring test data to have sufficient sample sizes
+    # in all rows, or create separate tests for small sample edge cases vs normal cases.
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", category=SmallSampleWarning)
+        expected = scipy.stats.kurtosis(x, axis=1, bias=True, nan_policy="omit")
+
     np.testing.assert_allclose(
         QF.nankurtosis(x, dim=1, unbiased=False).numpy(),
-        scipy.stats.kurtosis(x, axis=1, bias=True, nan_policy="omit"),
+        expected,
     )
 
 
