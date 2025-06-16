@@ -1,4 +1,7 @@
 import math
+from typing import List
+from typing import Tuple
+from typing import Union
 
 import numpy as np
 import torch
@@ -386,7 +389,7 @@ def test_mulsum_einsum_integration() -> None:
     y = torch.randn(3, 4, 5)
 
     # Test various dimension combinations
-    dims_to_test: list[int | tuple[int, ...]] = [
+    dims_to_test: List[Union[int, Tuple[int, ...]]] = [
         0,
         1,
         2,
