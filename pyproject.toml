@@ -3,6 +3,7 @@ name = "qfeval_functions"
 version = "0.1.0"
 description = "Functions for quantitative finance"
 readme = "README.md"
+# Don't forget to fix the badge in README.md after changing requires-python
 requires-python = ">=3.9"
 dependencies = [
     "torch",
