@@ -48,3 +48,12 @@ jobs:
           uv run pflake8 .
           uv run mypy .
           uv run pytest tests/
+      - name: cov report only for python 3.11 and linux
+        if: ${{ matrix.python-version == '3.11' && matrix.platform == 'ubuntu-latest' }}
+        run: |
+          uv run pytest --cov --cov-branch --cov-report=xml
+      - name: Upload coverage reports to Codecov only for python 3.11 and linux
+        if: ${{ matrix.python-version == '3.11' && matrix.platform == 'ubuntu-latest' }}
+        uses: codecov/codecov-action@v5
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
