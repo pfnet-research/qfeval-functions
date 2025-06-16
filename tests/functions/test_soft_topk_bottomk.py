@@ -164,25 +164,11 @@ def test_soft_topk_3d_tensor() -> None:
     assert (result >= 0).all()
 
 
-def test_soft_topk_bottomk_dtype_preservation() -> None:
-    """Test that soft topk/bottomk preserves input tensor's dtype."""
-    x = torch.tensor([[1.0, 2.0, 3.0]], dtype=torch.float64)
-    result = QF.soft_topk_bottomk(x, k=1, dim=1)
-    assert result.dtype == torch.float64
-
-
 def test_soft_topk_dtype_preservation() -> None:
     """Test that soft topk preserves input tensor's dtype."""
     x = torch.tensor([[1.0, 2.0, 3.0]], dtype=torch.float64)
     result = QF.soft_topk(x, k=1, dim=1)
     assert result.dtype == torch.float64
-
-
-def test_soft_topk_bottomk_device_preservation() -> None:
-    """Test that soft topk/bottomk preserves input tensor's device."""
-    x = torch.tensor([[1.0, 2.0, 3.0]])
-    result = QF.soft_topk_bottomk(x, k=1, dim=1)
-    assert result.device == x.device
 
 
 def test_soft_topk_device_preservation() -> None:

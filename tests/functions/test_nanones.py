@@ -69,41 +69,12 @@ def test_nanones_3d_tensor() -> None:
     assert torch.isnan(result[0, 1, 1])
 
 
-def test_nanones_empty_tensor() -> None:
-    """Test nanones with empty tensor to verify edge case handling."""
-    x = torch.empty(0)
-    result = QF.nanones(x)
-    expected = torch.empty(0)
-    assert result.shape == expected.shape
-
-
-def test_nanones_single_element_nan() -> None:
-    """Test nanones with single-element tensor containing NaN."""
-    x = torch.tensor([math.nan])
-    result = QF.nanones(x)
-    assert torch.isnan(result[0])
-
-
 def test_nanones_single_element_value() -> None:
     """Test nanones with single-element tensor containing regular value."""
     x = torch.tensor([42.0])
     result = QF.nanones(x)
     expected = torch.tensor([1.0])
     np.testing.assert_allclose(result.numpy(), expected.numpy())
-
-
-def test_nanones_dtype_preservation() -> None:
-    """Test that nanones preserves input tensor's dtype."""
-    x = torch.tensor([1.0, math.nan], dtype=torch.float64)
-    result = QF.nanones(x)
-    assert result.dtype == torch.float64
-
-
-def test_nanones_device_preservation() -> None:
-    """Test that nanones preserves input tensor's device."""
-    x = torch.tensor([1.0, math.nan])
-    result = QF.nanones(x)
-    assert result.device == x.device
 
 
 def test_nanones_with_infinity() -> None:

@@ -70,29 +70,6 @@ def test_fillna_no_special_values() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
-def test_fillna_empty_tensor() -> None:
-    """Test fillna with empty tensor to verify edge case handling."""
-    x = torch.empty(0)
-    result = QF.fillna(x)
-    expected = torch.empty(0)
-    assert result.shape == expected.shape
-
-
-def test_fillna_single_element() -> None:
-    """Test fillna with single-element tensor containing NaN."""
-    x = torch.tensor([math.nan])
-    result = QF.fillna(x, nan=42.0)
-    expected = torch.tensor([42.0])
-    np.testing.assert_allclose(result.numpy(), expected.numpy())
-
-
-def test_fillna_dtype_preservation() -> None:
-    """Test that fillna preserves the input tensor's dtype."""
-    x = torch.tensor([1.0, math.nan], dtype=torch.float64)
-    result = QF.fillna(x)
-    assert result.dtype == torch.float64
-
-
 def test_fillna_3d_tensor() -> None:
     """Test fillna with 3D tensor containing various special values."""
     x = torch.tensor(

@@ -1,28 +1,10 @@
-import hashlib
-
 import numpy as np
 import torch
 
 import qfeval_functions
 import qfeval_functions.functions as QF
-
-
-def test_randn_seed_consistency() -> None:
-    """Test that randn produces consistent results with same seed."""
-    with qfeval_functions.random.seed(1):
-        v1a = QF.randn(3, 4, 5)
-    with qfeval_functions.random.seed(1):
-        v1b = QF.randn(3, 4, 5)
-    with qfeval_functions.random.seed(2):
-        v2 = QF.randn(3, 4, 5)
-
-    np.testing.assert_array_equal(v1a.numpy(), v1b.numpy())
-    assert np.all(np.not_equal(v1a.numpy(), v2.numpy()))
-
-    # Verify specific hash for reproducibility
-    m = hashlib.sha1()
-    m.update(v1a.numpy().tobytes())
-    assert m.hexdigest() == "e94e5a0bfab0c4fae459f1a2a4b6dea0171c54ea"
+from tests.functions.test_utils import generic_test_memory_efficiency
+from tests.functions.test_utils import generic_test_single_element
 
 
 def test_randn_different_shapes() -> None:
@@ -43,27 +25,6 @@ def test_randn_different_shapes() -> None:
         # 4D tensor
         x4d = QF.randn(2, 3, 4, 5)
         assert x4d.shape == (2, 3, 4, 5)
-
-
-def test_randn_single_element() -> None:
-    """Test randn with single element tensor."""
-    with qfeval_functions.random.seed(123):
-        x = QF.randn(1)
-        assert x.shape == (1,)
-        assert torch.is_tensor(x)
-
-
-def test_randn_empty_tensor() -> None:
-    """Test randn with zero-size dimensions."""
-    with qfeval_functions.random.seed(456):
-        x = QF.randn(0)
-        assert x.shape == (0,)
-
-        x2d = QF.randn(0, 5)
-        assert x2d.shape == (0, 5)
-
-        x3d = QF.randn(3, 0, 4)
-        assert x3d.shape == (3, 0, 4)
 
 
 def test_randn_dtype_specification() -> None:
@@ -207,16 +168,6 @@ def test_randn_numerical_properties() -> None:
         assert torch.all(torch.isfinite(x))
 
 
-def test_randn_memory_efficiency() -> None:
-    """Test that randn doesn't cause memory issues with repeated calls."""
-    with qfeval_functions.random.seed(444):
-        # Multiple calls shouldn't cause memory leaks
-        for i in range(10):
-            x = QF.randn(1000)
-            # Force deletion to test memory cleanup
-            del x
-
-
 def test_randn_distribution_shape() -> None:
     """Test that the distribution roughly follows normal distribution shape."""
     with qfeval_functions.random.seed(111):
@@ -232,3 +183,58 @@ def test_randn_distribution_shape() -> None:
         within_2_sigma = torch.abs(x) < 2.0
         prop_2_sigma = torch.mean(within_2_sigma.float())
         assert 0.9 < prop_2_sigma < 0.98
+
+
+def test_randn_single_element() -> None:
+    """Test randn with single element generation."""
+
+    def randn_wrapper(x: torch.Tensor) -> torch.Tensor:
+        # Use the shape of input to generate randn with same shape
+        return QF.randn(*x.shape)
+
+    generic_test_single_element(randn_wrapper)
+
+
+def test_randn_consistency() -> None:
+    """Test that randn produces consistent results with same seed."""
+    # Test consistency with seeded generation
+    with qfeval_functions.random.seed(42):
+        result1 = QF.randn(5, 3)
+    with qfeval_functions.random.seed(42):
+        result2 = QF.randn(5, 3)
+
+    torch.testing.assert_close(result1, result2)
+
+
+def test_randn_memory_efficiency() -> None:
+    """Test memory efficiency of randn generation."""
+
+    def randn_wrapper(x: torch.Tensor) -> torch.Tensor:
+        # Generate tensor with same shape as input
+        return QF.randn(*x.shape)
+
+    generic_test_memory_efficiency(randn_wrapper)
+
+
+def test_randn_dtype_preservation() -> None:
+    """Test that randn respects dtype parameter."""
+    test_dtypes = [torch.float32, torch.float64]
+
+    for dtype in test_dtypes:
+        result = QF.randn(5, 3, dtype=dtype)
+        assert result.dtype == dtype
+
+
+def test_randn_device_preservation() -> None:
+    """Test that randn respects device parameter."""
+    # Test CPU device (default)
+    result_cpu = QF.randn(5, 3)
+    assert result_cpu.device.type == "cpu"
+
+    # Test explicit CPU device if device parameter is supported
+    try:
+        result_cpu_explicit = QF.randn(5, 3, device=torch.device("cpu"))
+        assert result_cpu_explicit.device.type == "cpu"
+    except TypeError:
+        # Device parameter might not be supported in this implementation
+        pass

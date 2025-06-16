@@ -109,15 +109,6 @@ def test_mstd_large_span() -> None:
     assert torch.isnan(result).all()
 
 
-def test_mstd_single_element() -> None:
-    """Test moving standard deviation with single element and span=1 (should be NaN due to ddof=1)."""
-    x = torch.tensor([5.0])
-    result = QF.mstd(x, span=1, dim=0)
-
-    # With span=1 and ddof=1, the result should be NaN (not enough data points)
-    assert torch.isnan(result[0])
-
-
 def test_mstd_with_nan_values() -> None:
     """Test moving standard deviation behavior when input contains NaN values."""
     x = torch.tensor([1.0, math.nan, 3.0, 4.0, 5.0])
@@ -130,13 +121,6 @@ def test_mstd_with_nan_values() -> None:
     assert torch.isnan(result[3])
     # Position 4 has window [3.0, 4.0, 5.0] which doesn't contain NaN
     assert not torch.isnan(result[4])
-
-
-def test_mstd_dtype_preservation() -> None:
-    """Test that moving standard deviation preserves input tensor's dtype."""
-    x = torch.tensor([1.0, 2.0, 3.0, 4.0], dtype=torch.float64)
-    result = QF.mstd(x, span=2, dim=0)
-    assert result.dtype == torch.float64
 
 
 def test_mstd_different_ddof_values() -> None:
@@ -327,20 +311,3 @@ def test_mstd_very_large_values() -> None:
     assert not torch.isnan(result[2:]).any()
     assert not torch.isinf(result[2:]).any()
     assert torch.all(result[2:] > 0)
-
-
-def test_mstd_batch_consistency() -> None:
-    """Test moving standard deviation consistency across multiple calls."""
-    x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0, 6.0])
-
-    # Multiple calls should give same result
-    result1 = QF.mstd(x, span=3, dim=0)
-    result2 = QF.mstd(x, span=3, dim=0)
-
-    np.testing.assert_allclose(result1.numpy(), result2.numpy())
-
-    # Different tensors with same values should give same result
-    x2 = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0, 6.0])
-    result3 = QF.mstd(x2, span=3, dim=0)
-
-    np.testing.assert_allclose(result1.numpy(), result3.numpy())

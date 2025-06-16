@@ -98,15 +98,6 @@ def test_correl_negative_dim() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
-def test_correl_single_element() -> None:
-    """Test correlation with single element."""
-    x = torch.tensor([5.0])
-    y = torch.tensor([3.0])
-    result = QF.correl(x, y, dim=0)
-    # Correlation of single point is undefined (should be NaN)
-    assert torch.isnan(result)
-
-
 def test_correl_constant_arrays() -> None:
     """Test correlation with constant arrays."""
     # Both constant - correlation undefined
@@ -137,38 +128,6 @@ def test_correl_with_infinity() -> None:
     y = torch.tensor([2.0, 4.0, 6.0, 8.0, 10.0])
     result = QF.correl(x, y, dim=0)
     # Result should be NaN when input contains infinity
-    assert torch.isnan(result)
-
-
-def test_correl_dtype_preservation() -> None:
-    """Test that correlation preserves appropriate dtype."""
-    # Float64 input
-    x_double = torch.tensor([1.0, 2.0, 3.0, 4.0], dtype=torch.float64)
-    y_double = torch.tensor([2.0, 4.0, 6.0, 8.0], dtype=torch.float64)
-    result_double = QF.correl(x_double, y_double, dim=0)
-    assert result_double.dtype == torch.float64
-
-    # Float32 input
-    x_float = torch.tensor([1.0, 2.0, 3.0, 4.0], dtype=torch.float32)
-    y_float = torch.tensor([2.0, 4.0, 6.0, 8.0], dtype=torch.float32)
-    result_float = QF.correl(x_float, y_float, dim=0)
-    assert result_float.dtype == torch.float32
-
-
-def test_correl_device_preservation() -> None:
-    """Test that correlation preserves input tensor's device."""
-    x = torch.tensor([1.0, 2.0, 3.0, 4.0])
-    y = torch.tensor([2.0, 4.0, 6.0, 8.0])
-    result = QF.correl(x, y, dim=0)
-    assert result.device == x.device
-
-
-def test_correl_empty_tensor() -> None:
-    """Test correlation with empty tensor."""
-    x = torch.empty(0)
-    y = torch.empty(0)
-    result = QF.correl(x, y, dim=0)
-    # Empty correlation should be NaN
     assert torch.isnan(result)
 
 

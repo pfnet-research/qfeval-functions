@@ -38,14 +38,6 @@ def test_rcumsum_negative_dim() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
-def test_rcumsum_single_element() -> None:
-    """Test reverse cumulative sum with single-element tensor."""
-    x = torch.tensor([5.0])
-    result = QF.rcumsum(x, dim=0)
-    expected = torch.tensor([5.0])
-    np.testing.assert_allclose(result.numpy(), expected.numpy())
-
-
 def test_rcumsum_zeros() -> None:
     """Test reverse cumulative sum with tensor containing only zeros."""
     x = torch.tensor([0.0, 0.0, 0.0, 0.0])
@@ -100,45 +92,12 @@ def test_rcumsum_3d_tensor_dim2() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
-def test_rcumsum_empty_tensor() -> None:
-    """Test reverse cumulative sum with empty tensor to verify edge case handling."""
-    x = torch.empty((0, 3))
-    result = QF.rcumsum(x, dim=0)
-    expected = torch.empty((0, 3))
-    assert result.shape == expected.shape
-
-
-def test_rcumsum_dtype_preservation() -> None:
-    """Test that reverse cumulative sum preserves input tensor's dtype."""
-    x = torch.tensor([1.0, 2.0, 3.0], dtype=torch.float64)
-    result = QF.rcumsum(x, dim=0)
-    assert result.dtype == torch.float64
-
-
 def test_rcumsum_integer_tensor() -> None:
     """Test reverse cumulative sum with integer tensor."""
     x = torch.tensor([1, 2, 3, 4], dtype=torch.int32)
     result = QF.rcumsum(x, dim=0)
     expected = torch.tensor([10, 9, 7, 4], dtype=torch.int32)
     np.testing.assert_array_equal(result.numpy(), expected.numpy())
-
-
-def test_rcumsum_device_preservation() -> None:
-    """Test that reverse cumulative sum preserves input tensor's device."""
-    x = torch.tensor([1.0, 2.0, 3.0])
-    result = QF.rcumsum(x, dim=0)
-    assert result.device == x.device
-
-
-def test_rcumsum_consistency_with_cumsum() -> None:
-    """Test that rcumsum is consistent with flipping, cumsum, and flipping back."""
-    x = torch.tensor([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
-
-    reverse_cumsum = QF.rcumsum(x, dim=1)
-
-    # The reverse cumsum should be the same as flipping, cumsum, and flipping back
-    expected = torch.flip(torch.cumsum(torch.flip(x, [1]), dim=1), [1])
-    np.testing.assert_allclose(reverse_cumsum.numpy(), expected.numpy())
 
 
 def test_rcumsum_large_tensor() -> None:

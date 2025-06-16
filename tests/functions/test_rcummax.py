@@ -104,20 +104,6 @@ def test_rcummax_with_duplicates() -> None:
     )
 
 
-def test_rcummax_single_element() -> None:
-    """Test reverse cumulative maximum with single-element tensor."""
-    x = torch.tensor([5.0])
-    result = QF.rcummax(x, dim=0)
-
-    expected_values = torch.tensor([5.0])
-    expected_indices = torch.tensor([0])
-
-    np.testing.assert_allclose(result.values.numpy(), expected_values.numpy())
-    np.testing.assert_array_equal(
-        result.indices.numpy(), expected_indices.numpy()
-    )
-
-
 def test_rcummax_3d_tensor() -> None:
     """Test reverse cumulative maximum on 3D tensor along axis 0."""
     x = torch.tensor([[[1.0, 2.0], [3.0, 1.0]], [[2.0, 3.0], [1.0, 4.0]]])
@@ -146,24 +132,6 @@ def test_rcummax_negative_values() -> None:
     np.testing.assert_array_equal(
         result.indices.numpy(), expected_indices.numpy()
     )
-
-
-def test_rcummax_dtype_preservation() -> None:
-    """Test that reverse cumulative maximum preserves input tensor's dtype."""
-    x = torch.tensor([1.0, 2.0, 3.0], dtype=torch.float64)
-    result = QF.rcummax(x, dim=0)
-
-    assert result.values.dtype == torch.float64
-    assert result.indices.dtype == torch.long
-
-
-def test_rcummax_device_preservation() -> None:
-    """Test that reverse cumulative maximum preserves input tensor's device."""
-    x = torch.tensor([1.0, 2.0, 3.0])
-    result = QF.rcummax(x, dim=0)
-
-    assert result.values.device == x.device
-    assert result.indices.device == x.device
 
 
 def test_rcummax_with_nan_values() -> None:

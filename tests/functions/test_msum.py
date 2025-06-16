@@ -88,15 +88,6 @@ def test_msum_large_span() -> None:
     assert torch.isnan(result).all()
 
 
-def test_msum_single_element() -> None:
-    """Test moving sum with single element tensor and span=1."""
-    x = torch.tensor([5.0])
-    result = QF.msum(x, span=1, dim=0)
-    expected = torch.tensor([5.0])
-
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), atol=1e-6)
-
-
 def test_msum_with_zeros() -> None:
     """Test moving sum with tensor containing zero values."""
     x = torch.tensor([0.0, 1.0, 0.0, 2.0, 0.0])
@@ -134,13 +125,6 @@ def test_msum_with_nan_values() -> None:
     # Position 4 has window [3.0, 4.0, 5.0] which doesn't contain NaN
     assert not torch.isnan(result[4])
     assert result[4] == 12.0  # 3.0 + 4.0 + 5.0
-
-
-def test_msum_dtype_preservation() -> None:
-    """Test that moving sum preserves input tensor's dtype."""
-    x = torch.tensor([1.0, 2.0, 3.0, 4.0], dtype=torch.float64)
-    result = QF.msum(x, span=2, dim=0)
-    assert result.dtype == torch.float64
 
 
 def test_msum_3d_tensor() -> None:

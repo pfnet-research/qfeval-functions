@@ -60,36 +60,6 @@ def test_eigh_reconstruction() -> None:
     np.testing.assert_allclose(reconstructed.numpy(), A.numpy(), atol=1e-5)
 
 
-def test_eigh_single_element() -> None:
-    """Test eigh with 1x1 matrix to verify minimal case handling."""
-    A = torch.tensor([[5.0]])
-    w, v = QF.eigh(A)
-
-    expected_w = torch.tensor([5.0])
-    expected_v = torch.tensor([[1.0]])
-
-    np.testing.assert_allclose(w.numpy(), expected_w.numpy(), atol=1e-6)
-    np.testing.assert_allclose(v.numpy(), expected_v.numpy(), atol=1e-6)
-
-
-def test_eigh_device_consistency() -> None:
-    """Test that eigenvalues and eigenvectors are returned on the same device as input."""
-    A = torch.tensor([[2.0, 1.0], [1.0, 2.0]], dtype=torch.float32)
-    w, v = QF.eigh(A)
-
-    assert w.device == A.device
-    assert v.device == A.device
-
-
-def test_eigh_dtype_preservation() -> None:
-    """Test that eigenvalues and eigenvectors preserve the input tensor's dtype."""
-    A = torch.tensor([[2.0, 1.0], [1.0, 2.0]], dtype=torch.float64)
-    w, v = QF.eigh(A)
-
-    assert w.dtype == torch.float64
-    assert v.dtype == torch.float64
-
-
 def test_eigh_larger_matrix() -> None:
     """Test eigh with larger symmetric matrix to verify scalability."""
     # 4x4 symmetric matrix

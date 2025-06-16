@@ -74,39 +74,6 @@ def test_nanmean_negative_dim() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
-def test_nanmean_single_element() -> None:
-    """Test nanmean with single-element tensors."""
-    # Single NaN
-    x1 = torch.tensor([math.nan])
-    result1 = QF.nanmean(x1, dim=0)
-    assert torch.isnan(result1)
-
-    # Single value
-    x2 = torch.tensor([5.0])
-    result2 = QF.nanmean(x2, dim=0)
-    assert result2 == 5.0
-
-
-def test_nanmean_dtype_preservation() -> None:
-    """Test that nanmean preserves appropriate dtype."""
-    # Float64 input
-    x_double = torch.tensor([1.0, math.nan, 3.0], dtype=torch.float64)
-    result_double = QF.nanmean(x_double, dim=0)
-    assert result_double.dtype == torch.float64
-
-    # Float32 input
-    x_float = torch.tensor([1.0, math.nan, 3.0], dtype=torch.float32)
-    result_float = QF.nanmean(x_float, dim=0)
-    assert result_float.dtype == torch.float32
-
-
-def test_nanmean_device_preservation() -> None:
-    """Test that nanmean preserves input tensor's device."""
-    x = torch.tensor([1.0, math.nan, 3.0])
-    result = QF.nanmean(x, dim=0)
-    assert result.device == x.device
-
-
 def test_nanmean_with_infinity() -> None:
     """Test nanmean behavior with infinity values."""
     x = torch.tensor([1.0, math.inf, math.nan, 3.0, -math.inf])

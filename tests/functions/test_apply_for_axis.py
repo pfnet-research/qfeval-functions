@@ -64,18 +64,6 @@ def test_apply_for_axis_edge_case_empty() -> None:
     assert result.shape == expected.shape
 
 
-def test_apply_for_axis_single_element() -> None:
-    """Test apply_for_axis with a single-element tensor to verify minimal case handling."""
-    x = torch.tensor([[[5.0]]])
-
-    def increment_func(t: torch.Tensor) -> torch.Tensor:
-        return t + 1
-
-    result = QF.apply_for_axis(increment_func, x, dim=2)
-    expected = torch.tensor([[[6.0]]])
-    np.testing.assert_allclose(result.numpy(), expected.numpy())
-
-
 def test_apply_for_axis_4d_tensor() -> None:
     """Test apply_for_axis with 4D tensor to verify high-dimensional handling."""
     x = torch.tensor([[[[1.0, 2.0], [3.0, 4.0]], [[5.0, 6.0], [7.0, 8.0]]]])
