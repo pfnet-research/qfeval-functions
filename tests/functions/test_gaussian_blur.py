@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 import pytest
 import torch
@@ -171,7 +173,7 @@ def test_gaussian_blur_with_nan() -> None:
     # to all positions influenced by the NaN. This would make the function more robust
     # for real-world data with missing values.
     # NaN in middle
-    x_nan_middle = torch.tensor([1.0, 2.0, float("nan"), 4.0, 5.0])
+    x_nan_middle = torch.tensor([1.0, 2.0, math.nan, 4.0, 5.0])
     result = QF.gaussian_blur(x_nan_middle, 0.5)
 
     # Result may contain NaN in positions where NaN values dominate the window
@@ -183,14 +185,14 @@ def test_gaussian_blur_with_nan() -> None:
     assert result.shape == x_nan_middle.shape
 
     # Test with a case where NaN is isolated to ensure finite values away from NaN work
-    x_isolated_nan = torch.tensor([1.0, 2.0, 3.0, float("nan"), 0.0, 0.0, 0.0])
+    x_isolated_nan = torch.tensor([1.0, 2.0, 3.0, math.nan, 0.0, 0.0, 0.0])
     result_isolated = QF.gaussian_blur(x_isolated_nan, 0.5)
     assert result_isolated.shape == x_isolated_nan.shape
 
 
 def test_gaussian_blur_all_nan() -> None:
     """Test gaussian blur with all NaN values."""
-    x_all_nan = torch.full((5,), float("nan"))
+    x_all_nan = torch.full((5,), math.nan)
     result = QF.gaussian_blur(x_all_nan, 1.0)
 
     # When all values are NaN, result should be NaN

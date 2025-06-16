@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 import pytest
 import torch
@@ -531,14 +533,14 @@ def test_soft_topk_error_handling() -> None:
         QF.soft_topk(x, k=k, dim=0, epsilon=0.0)
 
     # Test NaN input
-    x_nan = torch.tensor([1.0, float("nan"), 3.0], dtype=torch.float64)
+    x_nan = torch.tensor([1.0, math.nan, 3.0], dtype=torch.float64)
     with pytest.raises(
         ValueError, match="Input tensor has nan or inf elements"
     ):
         QF.soft_topk(x_nan, k=2, dim=0)
 
     # Test infinite input
-    x_inf = torch.tensor([1.0, float("inf"), 3.0], dtype=torch.float64)
+    x_inf = torch.tensor([1.0, math.inf, 3.0], dtype=torch.float64)
     with pytest.raises(
         ValueError, match="Input tensor has nan or inf elements"
     ):
@@ -559,14 +561,14 @@ def test_soft_topk_bottomk_error_handling() -> None:
         QF.soft_topk_bottomk(x, k=k, dim=0, epsilon=0.0)
 
     # Test NaN input
-    x_nan = torch.tensor([1.0, float("nan"), 3.0], dtype=torch.float64)
+    x_nan = torch.tensor([1.0, math.nan, 3.0], dtype=torch.float64)
     with pytest.raises(
         ValueError, match="Input tensor has nan or inf elements"
     ):
         QF.soft_topk_bottomk(x_nan, k=2, dim=0)
 
     # Test infinite input
-    x_inf = torch.tensor([1.0, float("inf"), 3.0], dtype=torch.float64)
+    x_inf = torch.tensor([1.0, math.inf, 3.0], dtype=torch.float64)
     with pytest.raises(
         ValueError, match="Input tensor has nan or inf elements"
     ):

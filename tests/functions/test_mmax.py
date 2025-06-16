@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 import pandas as pd
 import torch
@@ -103,7 +105,7 @@ def test_mmax_dim_parameter() -> None:
 
 def test_mmax_with_nan_values() -> None:
     """Test moving maximum with NaN input values."""
-    x = torch.tensor([1.0, float("nan"), 3.0, 4.0, 2.0])
+    x = torch.tensor([1.0, math.nan, 3.0, 4.0, 2.0])
     result = QF.mmax(x, 3)
 
     # Shape should be preserved
@@ -390,7 +392,7 @@ def test_mmax_extremes() -> None:
 
 def test_mmax_with_infinity() -> None:
     """Test moving maximum with infinite values."""
-    x = torch.tensor([1.0, float("inf"), 2.0, 3.0])
+    x = torch.tensor([1.0, math.inf, 2.0, 3.0])
     result = QF.mmax(x, 2)
 
     # Check that infinity is handled correctly

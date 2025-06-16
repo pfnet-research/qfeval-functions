@@ -128,7 +128,7 @@ def test_nanpca_with_nan_values() -> None:
 
     # Add some NaN values
     nan_mask = torch.rand_like(x) < 0.1
-    x_with_nan = torch.where(nan_mask, torch.nan, x)
+    x_with_nan = torch.where(nan_mask, math.nan, x)
 
     result = QF.nanpca(x_with_nan)
 
@@ -151,7 +151,7 @@ def test_nanpca_all_nan_column() -> None:
     """Test nanpca behavior with columns that are all NaN."""
     x = torch.randn(50, 4)
     # Make one column all NaN
-    x[:, 2] = torch.nan
+    x[:, 2] = math.nan
 
     result = QF.nanpca(x)
 
@@ -307,7 +307,7 @@ def test_nanpca_reproducibility() -> None:
     torch.manual_seed(123)
     x = torch.randn(60, 4)
     # Add some NaN values
-    x[x < -1.5] = torch.nan
+    x[x < -1.5] = math.nan
 
     result1 = QF.nanpca(x)
     result2 = QF.nanpca(x)
@@ -359,7 +359,7 @@ def test_nanpca_performance() -> None:
     # Test with reasonably large dataset
     x = torch.randn(500, 20)
     # Add some NaN values
-    x[torch.rand_like(x) < 0.05] = torch.nan
+    x[torch.rand_like(x) < 0.05] = math.nan
 
     result = QF.nanpca(x)
 
@@ -431,7 +431,7 @@ def test_nanpca_comparison_benefits() -> None:
     # Create version with NaNs
     x_with_nan = x_clean.clone()
     nan_mask = torch.rand_like(x_with_nan) < 0.2
-    x_with_nan[nan_mask] = torch.nan
+    x_with_nan[nan_mask] = math.nan
 
     # Compare nanpca vs simple zero-filling
     result_nanpca = QF.nanpca(x_with_nan)

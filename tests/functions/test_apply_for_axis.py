@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 import torch
 
@@ -109,7 +111,7 @@ def test_apply_for_axis_function_reduces_dimension() -> None:
 
 def test_apply_for_axis_with_nan_values() -> None:
     """Test apply_for_axis behavior with NaN values in input tensor."""
-    x = torch.tensor([[1.0, float("nan"), 3.0], [4.0, 5.0, float("nan")]])
+    x = torch.tensor([[1.0, math.nan, 3.0], [4.0, 5.0, math.nan]])
 
     def nanmean_func(t: torch.Tensor) -> torch.Tensor:
         return torch.nanmean(t, dim=1, keepdim=True)

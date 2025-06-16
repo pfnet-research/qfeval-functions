@@ -119,9 +119,9 @@ def test_nanmax_nan_handling() -> None:
     # Mixed NaN and regular values
     x = torch.tensor(
         [
-            [1.0, float("nan"), 3.0, 2.0],
-            [float("nan"), 4.0, float("nan"), 1.0],
-            [2.0, 3.0, 1.0, float("nan")],
+            [1.0, math.nan, 3.0, 2.0],
+            [math.nan, 4.0, math.nan, 1.0],
+            [2.0, 3.0, 1.0, math.nan],
         ]
     )
     result = QF.nanmax(x, dim=1)
@@ -134,9 +134,7 @@ def test_nanmax_nan_handling() -> None:
 
 def test_nanmax_all_nan() -> None:
     """Test nanmax behavior when all values are NaN."""
-    x = torch.tensor(
-        [[float("nan"), float("nan"), float("nan")], [1.0, 2.0, 3.0]]
-    )
+    x = torch.tensor([[math.nan, math.nan, math.nan], [1.0, 2.0, 3.0]])
     result = QF.nanmax(x, dim=1)
 
     # All NaN row should return NaN
@@ -150,9 +148,9 @@ def test_nanmax_with_infinity() -> None:
     """Test nanmax with positive and negative infinity."""
     x = torch.tensor(
         [
-            [1.0, float("inf"), 2.0],
-            [float("-inf"), 3.0, 1.0],
-            [float("inf"), float("-inf"), float("nan")],
+            [1.0, math.inf, 2.0],
+            [-math.inf, 3.0, 1.0],
+            [math.inf, -math.inf, math.nan],
         ]
     )
     result = QF.nanmax(x, dim=1)
@@ -174,8 +172,8 @@ def test_nanmax_negative_infinity_only() -> None:
     """Test nanmax when only negative infinity values are present."""
     x = torch.tensor(
         [
-            [float("-inf"), float("-inf"), float("-inf")],
-            [float("-inf"), float("nan"), float("-inf")],
+            [-math.inf, -math.inf, -math.inf],
+            [-math.inf, math.nan, -math.inf],
         ]
     )
     result = QF.nanmax(x, dim=1)
@@ -210,8 +208,8 @@ def test_nanmax_index_correctness() -> None:
     x = torch.tensor(
         [
             [1.0, 5.0, 3.0, 2.0],
-            [float("nan"), 4.0, float("nan"), 6.0],
-            [2.0, float("nan"), 7.0, 1.0],
+            [math.nan, 4.0, math.nan, 6.0],
+            [2.0, math.nan, 7.0, 1.0],
         ]
     )
     result = QF.nanmax(x, dim=1)
@@ -231,7 +229,7 @@ def test_nanmax_large_tensors() -> None:
     """Test nanmax with larger tensors for performance."""
     x = torch.randn(100, 1000)
     # Add some NaN values
-    x[10:15, 100:110] = float("nan")
+    x[10:15, 100:110] = math.nan
 
     result = QF.nanmax(x, dim=1)
     assert result.values.shape == (100,)
@@ -242,9 +240,7 @@ def test_nanmax_large_tensors() -> None:
 
 def test_nanmax_mathematical_properties() -> None:
     """Test mathematical properties of nanmax."""
-    x = torch.tensor(
-        [[1.0, 2.0, 3.0, float("nan")], [4.0, 5.0, float("nan"), 6.0]]
-    )
+    x = torch.tensor([[1.0, 2.0, 3.0, math.nan], [4.0, 5.0, math.nan, 6.0]])
     result = QF.nanmax(x, dim=1)
 
     # Result should be >= all finite values in each row
@@ -277,8 +273,8 @@ def test_nanmax_negative_values() -> None:
     """Test nanmax with negative values."""
     x = torch.tensor(
         [
-            [-5.0, -2.0, -8.0, float("nan")],
-            [float("nan"), -3.0, -1.0, -4.0],
+            [-5.0, -2.0, -8.0, math.nan],
+            [math.nan, -3.0, -1.0, -4.0],
             [-10.0, -6.0, -9.0, -7.0],
         ]
     )
@@ -294,9 +290,9 @@ def test_nanmax_mixed_signs() -> None:
     """Test nanmax with mixed positive and negative values."""
     x = torch.tensor(
         [
-            [-2.0, 3.0, -1.0, float("nan")],
-            [float("nan"), -4.0, 5.0, -3.0],
-            [0.0, -1.0, 1.0, float("nan")],
+            [-2.0, 3.0, -1.0, math.nan],
+            [math.nan, -4.0, 5.0, -3.0],
+            [0.0, -1.0, 1.0, math.nan],
         ]
     )
     result = QF.nanmax(x, dim=1)
@@ -311,9 +307,9 @@ def test_nanmax_numerical_stability() -> None:
     """Test numerical stability with very large and small values."""
     x = torch.tensor(
         [
-            [1e10, 2e10, float("nan"), 1.5e10],
-            [1e-10, float("nan"), 2e-10, 1.5e-10],
-            [float("nan"), -1e15, 1e15, -5e14],
+            [1e10, 2e10, math.nan, 1.5e10],
+            [1e-10, math.nan, 2e-10, 1.5e-10],
+            [math.nan, -1e15, 1e15, -5e14],
         ]
     )
     result = QF.nanmax(x, dim=1)
@@ -330,9 +326,9 @@ def test_nanmax_special_float_values() -> None:
     """Test nanmax with special float values."""
     x = torch.tensor(
         [
-            [0.0, -0.0, 1.0, float("nan")],
-            [float("inf"), float("-inf"), float("nan"), 5.0],
-            [float("nan"), float("nan"), float("inf"), float("-inf")],
+            [0.0, -0.0, 1.0, math.nan],
+            [math.inf, -math.inf, math.nan, 5.0],
+            [math.nan, math.nan, math.inf, -math.inf],
         ]
     )
     result = QF.nanmax(x, dim=1)
@@ -350,7 +346,7 @@ def test_nanmax_special_float_values() -> None:
 def test_nanmax_reproducibility() -> None:
     """Test that nanmax produces consistent results."""
     x = torch.tensor(
-        [[1.0, float("nan"), 3.0, 2.0], [float("nan"), 4.0, float("nan"), 5.0]]
+        [[1.0, math.nan, 3.0, 2.0], [math.nan, 4.0, math.nan, 5.0]]
     )
 
     # Multiple calls should produce same result
@@ -388,7 +384,7 @@ def test_nanmax_comparison_with_numpy() -> None:
 def test_nanmax_gradient_compatibility() -> None:
     """Test that nanmax works with gradient computation."""
     x = torch.tensor(
-        [[1.0, 3.0, 2.0, float("nan")], [4.0, float("nan"), 5.0, 1.0]],
+        [[1.0, 3.0, 2.0, math.nan], [4.0, math.nan, 5.0, 1.0]],
         requires_grad=True,
     )
 

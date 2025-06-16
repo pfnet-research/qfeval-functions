@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 import torch
 
@@ -180,7 +182,7 @@ def test_soft_topk_device_preservation() -> None:
 
 def test_soft_topk_bottomk_error_on_invalid_input() -> None:
     """Test that soft topk/bottomk raises ValueError for NaN input."""
-    x = torch.tensor([[float("nan"), 2.0, 3.0]])
+    x = torch.tensor([[math.nan, 2.0, 3.0]])
     try:
         QF.soft_topk_bottomk(x, k=1, dim=1)
         assert False, "Expected ValueError for nan input"
@@ -190,7 +192,7 @@ def test_soft_topk_bottomk_error_on_invalid_input() -> None:
 
 def test_soft_topk_error_on_invalid_input() -> None:
     """Test that soft topk raises ValueError for NaN input."""
-    x = torch.tensor([[float("nan"), 2.0, 3.0]])
+    x = torch.tensor([[math.nan, 2.0, 3.0]])
     try:
         QF.soft_topk(x, k=1, dim=1)
         assert False, "Expected ValueError for nan input"

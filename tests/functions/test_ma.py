@@ -1,4 +1,4 @@
-from math import nan
+import math
 
 import numpy as np
 import pandas as pd
@@ -16,7 +16,7 @@ def test_ma() -> None:
     x = torch.tensor([0, 0, 0, 1, 0, 0, 0, 0.0])
     np.testing.assert_allclose(
         QF.ma(x, 4).numpy(),
-        np.array([nan, nan, nan, 0.25, 0.25, 0.25, 0.25, 0]),
+        np.array([math.nan, math.nan, math.nan, 0.25, 0.25, 0.25, 0.25, 0]),
     )
 
 
@@ -115,7 +115,7 @@ def test_ma_dim_parameter() -> None:
 
 def test_ma_with_nan_values() -> None:
     """Test moving average with NaN input values."""
-    x = torch.tensor([1.0, float("nan"), 3.0, 4.0, 5.0])
+    x = torch.tensor([1.0, math.nan, 3.0, 4.0, 5.0])
     result = QF.ma(x, 3)
 
     # Shape should be preserved
@@ -125,8 +125,8 @@ def test_ma_with_nan_values() -> None:
     assert torch.isnan(result[:2]).all()
 
     # Values involving NaN should be NaN
-    assert torch.isnan(result[2])  # includes nan at index 1
-    assert torch.isnan(result[3])  # includes nan at index 1
+    assert torch.isnan(result[2])  # includes math.nan at index 1
+    assert torch.isnan(result[3])  # includes math.nan at index 1
 
     # Value not involving NaN should be finite
     torch.testing.assert_close(result[4], torch.tensor(4.0))  # (3+4+5)/3

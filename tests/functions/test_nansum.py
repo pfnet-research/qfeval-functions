@@ -448,14 +448,14 @@ def test_nansum_numerical_edge_cases() -> None:
 def test_nansum_dtype_preservation() -> None:
     """Test that nansum preserves input dtype."""
 
-    x = torch.tensor([1.0, float("nan"), 3.0, 4.0])
+    x = torch.tensor([1.0, math.nan, 3.0, 4.0])
     generic_test_dtype_preservation(QF.nansum, x)
 
 
 def test_nansum_device_preservation() -> None:
     """Test that nansum preserves input device."""
 
-    x = torch.tensor([1.0, float("nan"), 3.0, 4.0])
+    x = torch.tensor([1.0, math.nan, 3.0, 4.0])
     generic_test_device_preservation(QF.nansum, x)
 
 
@@ -486,5 +486,5 @@ def test_nansum_empty_tensor() -> None:
 def test_nansum_consistency() -> None:
     """Test that multiple calls to nansum produce same result."""
 
-    x = torch.tensor([1.0, float("nan"), 3.0, 4.0])
+    x = torch.tensor([1.0, math.nan, 3.0, 4.0])
     generic_test_consistency(QF.nansum, x)

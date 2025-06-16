@@ -254,7 +254,7 @@ def test_shift_with_existing_nans() -> None:
 
 def test_shift_with_infinite_values() -> None:
     """Test shift behavior with infinite values."""
-    x = torch.tensor([1.0, float("inf"), float("-inf"), 4.0])
+    x = torch.tensor([1.0, math.inf, -math.inf, 4.0])
 
     result = QF.shift(x, 1, 0)
 

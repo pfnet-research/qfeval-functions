@@ -137,9 +137,7 @@ def test_stable_sort_with_nan_values() -> None:
     # options. Expected behavior: add parameters like nan_policy='last'|'first'|'raise'
     # to control where NaN values are placed in the sorted result, and nan_comparison
     # to specify how NaN values compare to each other for stability.
-    x = torch.tensor(
-        [3.0, float("nan"), 1.0, float("nan"), 2.0], dtype=torch.float64
-    )
+    x = torch.tensor([3.0, math.nan, 1.0, math.nan, 2.0], dtype=torch.float64)
     result = QF.stable_sort(x, dim=0)
 
     # Non-NaN values should be sorted at the beginning
@@ -156,9 +154,7 @@ def test_stable_sort_with_nan_values() -> None:
 
 def test_stable_sort_with_infinity() -> None:
     """Test stable sort with infinite values."""
-    x = torch.tensor(
-        [3.0, float("inf"), 1.0, float("-inf"), 2.0], dtype=torch.float64
-    )
+    x = torch.tensor([3.0, math.inf, 1.0, -math.inf, 2.0], dtype=torch.float64)
     result = QF.stable_sort(x, dim=0)
 
     # Check ordering: -inf < finite values < inf
@@ -173,11 +169,11 @@ def test_stable_sort_mixed_special_values() -> None:
     x = torch.tensor(
         [
             3.0,
-            float("nan"),
-            float("inf"),
+            math.nan,
+            math.inf,
             1.0,
-            float("-inf"),
-            float("nan"),
+            -math.inf,
+            math.nan,
             2.0,
         ],
         dtype=torch.float64,
@@ -419,7 +415,7 @@ def test_stable_sort_special_float_values() -> None:
     """Test stable sort with special float values."""
     # Test with very specific arrangements of special values
     x = torch.tensor(
-        [0.0, -0.0, float("inf"), float("-inf"), float("nan"), 1.0, -1.0],
+        [0.0, -0.0, math.inf, -math.inf, math.nan, 1.0, -1.0],
         dtype=torch.float64,
     )
     result = QF.stable_sort(x, dim=0)

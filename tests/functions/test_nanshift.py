@@ -1,4 +1,4 @@
-from math import nan
+import math
 
 import numpy as np
 import torch
@@ -9,10 +9,10 @@ import qfeval_functions.functions as QF
 def test_nanshift() -> None:
     x = torch.tensor(
         [
-            [1.0, nan, 2.0, nan, 3.0, 4.0],
-            [nan, 6.0, 7.0, nan, 8.0, nan],
+            [1.0, math.nan, 2.0, math.nan, 3.0, 4.0],
+            [math.nan, 6.0, 7.0, math.nan, 8.0, math.nan],
             [9.0, 10.0, 11.0, 12.0, 13.0, 14.0],
-            [nan, nan, nan, nan, nan, nan],
+            [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
         ]
     )
     np.testing.assert_allclose(
@@ -23,10 +23,10 @@ def test_nanshift() -> None:
         QF.nanshift(x, 1, 1).numpy(),
         np.array(
             [
-                [nan, nan, 1.0, nan, 2.0, 3.0],
-                [nan, nan, 6.0, nan, 7.0, nan],
-                [nan, 9.0, 10.0, 11.0, 12.0, 13.0],
-                [nan, nan, nan, nan, nan, nan],
+                [math.nan, math.nan, 1.0, math.nan, 2.0, 3.0],
+                [math.nan, math.nan, 6.0, math.nan, 7.0, math.nan],
+                [math.nan, 9.0, 10.0, 11.0, 12.0, 13.0],
+                [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
             ]
         ),
     )
@@ -34,10 +34,10 @@ def test_nanshift() -> None:
         QF.nanshift(x, -1, 1).numpy(),
         np.array(
             [
-                [2.0, nan, 3.0, nan, 4.0, nan],
-                [nan, 7.0, 8.0, nan, nan, nan],
-                [10.0, 11.0, 12.0, 13.0, 14.0, nan],
-                [nan, nan, nan, nan, nan, nan],
+                [2.0, math.nan, 3.0, math.nan, 4.0, math.nan],
+                [math.nan, 7.0, 8.0, math.nan, math.nan, math.nan],
+                [10.0, 11.0, 12.0, 13.0, 14.0, math.nan],
+                [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
             ]
         ),
     )
@@ -45,10 +45,10 @@ def test_nanshift() -> None:
         QF.nanshift(x, -3, 1).numpy(),
         np.array(
             [
-                [4.0, nan, nan, nan, nan, nan],
-                [nan, nan, nan, nan, nan, nan],
-                [12.0, 13.0, 14.0, nan, nan, nan],
-                [nan, nan, nan, nan, nan, nan],
+                [4.0, math.nan, math.nan, math.nan, math.nan, math.nan],
+                [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
+                [12.0, 13.0, 14.0, math.nan, math.nan, math.nan],
+                [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
             ]
         ),
     )
@@ -56,10 +56,10 @@ def test_nanshift() -> None:
         QF.nanshift(x, 4, 1).numpy(),
         np.array(
             [
-                [nan, nan, nan, nan, nan, nan],
-                [nan, nan, nan, nan, nan, nan],
-                [nan, nan, nan, nan, 9.0, 10.0],
-                [nan, nan, nan, nan, nan, nan],
+                [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
+                [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
+                [math.nan, math.nan, math.nan, math.nan, 9.0, 10.0],
+                [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
             ]
         ),
     )
@@ -67,10 +67,10 @@ def test_nanshift() -> None:
         QF.nanshift(x, 10, 1).numpy(),
         np.array(
             [
-                [nan, nan, nan, nan, nan, nan],
-                [nan, nan, nan, nan, nan, nan],
-                [nan, nan, nan, nan, nan, nan],
-                [nan, nan, nan, nan, nan, nan],
+                [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
+                [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
+                [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
+                [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
             ]
         ),
     )
@@ -103,12 +103,16 @@ def test_nanshift_basic_functionality() -> None:
 
     # Shift right by 1
     result_right = QF.nanshift(x, 1, 1)
-    expected_right = torch.tensor([[nan, 1.0, 2.0, 3.0], [nan, 5.0, 6.0, 7.0]])
+    expected_right = torch.tensor(
+        [[math.nan, 1.0, 2.0, 3.0], [math.nan, 5.0, 6.0, 7.0]]
+    )
     torch.testing.assert_close(result_right, expected_right, equal_nan=True)
 
     # Shift left by 1
     result_left = QF.nanshift(x, -1, 1)
-    expected_left = torch.tensor([[2.0, 3.0, 4.0, nan], [6.0, 7.0, 8.0, nan]])
+    expected_left = torch.tensor(
+        [[2.0, 3.0, 4.0, math.nan], [6.0, 7.0, 8.0, math.nan]]
+    )
     torch.testing.assert_close(result_left, expected_left, equal_nan=True)
 
 
@@ -132,7 +136,7 @@ def test_nanshift_shape_preservation() -> None:
 
 def test_nanshift_zero_shift() -> None:
     """Test nanshift with zero shift (identity operation)."""
-    x = torch.tensor([[1.0, nan, 3.0], [nan, 5.0, 6.0]])
+    x = torch.tensor([[1.0, math.nan, 3.0], [math.nan, 5.0, 6.0]])
     result = QF.nanshift(x, 0, 1)
     torch.testing.assert_close(result, x, equal_nan=True)
 
@@ -144,28 +148,33 @@ def test_nanshift_different_dimensions() -> None:
     # Shift along dimension 0
     result_dim0 = QF.nanshift(x, 1, 0)
     expected_dim0 = torch.tensor(
-        [[[nan, nan], [nan, nan]], [[1.0, 2.0], [3.0, 4.0]]]
+        [[[math.nan, math.nan], [math.nan, math.nan]], [[1.0, 2.0], [3.0, 4.0]]]
     )
     torch.testing.assert_close(result_dim0, expected_dim0, equal_nan=True)
 
     # Shift along dimension 1
     result_dim1 = QF.nanshift(x, 1, 1)
     expected_dim1 = torch.tensor(
-        [[[nan, nan], [1.0, 2.0]], [[nan, nan], [5.0, 6.0]]]
+        [[[math.nan, math.nan], [1.0, 2.0]], [[math.nan, math.nan], [5.0, 6.0]]]
     )
     torch.testing.assert_close(result_dim1, expected_dim1, equal_nan=True)
 
     # Shift along dimension 2
     result_dim2 = QF.nanshift(x, 1, 2)
     expected_dim2 = torch.tensor(
-        [[[nan, 1.0], [nan, 3.0]], [[nan, 5.0], [nan, 7.0]]]
+        [[[math.nan, 1.0], [math.nan, 3.0]], [[math.nan, 5.0], [math.nan, 7.0]]]
     )
     torch.testing.assert_close(result_dim2, expected_dim2, equal_nan=True)
 
 
 def test_nanshift_with_nan_values() -> None:
     """Test nanshift with NaN values in input."""
-    x = torch.tensor([[1.0, nan, 3.0, 4.0, nan], [nan, 2.0, nan, 5.0, 6.0]])
+    x = torch.tensor(
+        [
+            [1.0, math.nan, 3.0, 4.0, math.nan],
+            [math.nan, 2.0, math.nan, 5.0, 6.0],
+        ]
+    )
 
     # Shift right by 1 - check basic behavior
     result_right = QF.nanshift(x, 1, 1)
@@ -179,14 +188,17 @@ def test_nanshift_with_nan_values() -> None:
     # Shift left by 2
     result_left = QF.nanshift(x, -2, 1)
     expected_left = torch.tensor(
-        [[4.0, nan, nan, nan, nan], [nan, 6.0, nan, nan, nan]]
+        [
+            [4.0, math.nan, math.nan, math.nan, math.nan],
+            [math.nan, 6.0, math.nan, math.nan, math.nan],
+        ]
     )
     torch.testing.assert_close(result_left, expected_left, equal_nan=True)
 
 
 def test_nanshift_all_nan() -> None:
     """Test nanshift with all NaN values."""
-    x = torch.full((2, 4), nan)
+    x = torch.full((2, 4), math.nan)
     result = QF.nanshift(x, 2, 1)
 
     # Should remain all NaN
@@ -212,14 +224,14 @@ def test_nanshift_large_shift() -> None:
 
     # Shift right by more than size
     result_large_right = QF.nanshift(x, 5, 1)
-    expected_large_right = torch.full_like(x, nan)
+    expected_large_right = torch.full_like(x, math.nan)
     torch.testing.assert_close(
         result_large_right, expected_large_right, equal_nan=True
     )
 
     # Shift left by more than size
     result_large_left = QF.nanshift(x, -5, 1)
-    expected_large_left = torch.full_like(x, nan)
+    expected_large_left = torch.full_like(x, math.nan)
     torch.testing.assert_close(
         result_large_left, expected_large_left, equal_nan=True
     )
@@ -244,28 +256,28 @@ def test_nanshift_negative_dimension() -> None:
 def test_nanshift_mixed_nan_patterns() -> None:
     """Test nanshift with various NaN patterns."""
     # Alternating NaN pattern
-    x_alt = torch.tensor([[1.0, nan, 3.0, nan, 5.0]])
+    x_alt = torch.tensor([[1.0, math.nan, 3.0, math.nan, 5.0]])
     result_alt = QF.nanshift(x_alt, 1, 1)
-    expected_alt = torch.tensor([[nan, nan, 1.0, nan, 3.0]])
+    expected_alt = torch.tensor([[math.nan, math.nan, 1.0, math.nan, 3.0]])
     torch.testing.assert_close(result_alt, expected_alt, equal_nan=True)
 
     # Leading NaNs
-    x_lead = torch.tensor([[nan, nan, 1.0, 2.0, 3.0]])
+    x_lead = torch.tensor([[math.nan, math.nan, 1.0, 2.0, 3.0]])
     result_lead = QF.nanshift(x_lead, 1, 1)
-    expected_lead = torch.tensor([[nan, nan, nan, 1.0, 2.0]])
+    expected_lead = torch.tensor([[math.nan, math.nan, math.nan, 1.0, 2.0]])
     torch.testing.assert_close(result_lead, expected_lead, equal_nan=True)
 
     # Trailing NaNs
-    x_trail = torch.tensor([[1.0, 2.0, 3.0, nan, nan]])
+    x_trail = torch.tensor([[1.0, 2.0, 3.0, math.nan, math.nan]])
     result_trail = QF.nanshift(x_trail, 1, 1)
-    expected_trail = torch.tensor([[nan, 1.0, 2.0, nan, nan]])
+    expected_trail = torch.tensor([[math.nan, 1.0, 2.0, math.nan, math.nan]])
     torch.testing.assert_close(result_trail, expected_trail, equal_nan=True)
 
 
 def test_nanshift_numerical_stability() -> None:
     """Test nanshift with various numerical values."""
     # Very large values
-    x_large = torch.tensor([[1e10, 2e10, nan, 3e10]])
+    x_large = torch.tensor([[1e10, 2e10, math.nan, 3e10]])
     result_large = QF.nanshift(x_large, 1, 1)
 
     # Check that finite values are preserved and finite
@@ -273,7 +285,7 @@ def test_nanshift_numerical_stability() -> None:
     assert result_large.shape == x_large.shape
 
     # Very small values
-    x_small = torch.tensor([[1e-10, nan, 2e-10, 3e-10]])
+    x_small = torch.tensor([[1e-10, math.nan, 2e-10, 3e-10]])
     result_small = QF.nanshift(x_small, 1, 1)
 
     # Check that finite values are preserved and finite
@@ -286,9 +298,9 @@ def test_nanshift_batch_processing() -> None:
     batch_size = 3
     x_batch = torch.randn(batch_size, 4, 5)
     # Add some NaN values
-    x_batch[0, 1, :] = nan
-    x_batch[1, :, 2] = nan
-    x_batch[2, 0, 0] = nan
+    x_batch[0, 1, :] = math.nan
+    x_batch[1, :, 2] = math.nan
+    x_batch[2, 0, 0] = math.nan
 
     result_batch = QF.nanshift(x_batch, 2, 2)
     assert result_batch.shape == x_batch.shape
@@ -315,13 +327,18 @@ def test_nanshift_edge_cases() -> None:
     # Very small tensor
     x_small = torch.tensor([[1.0, 2.0]])
     result_small = QF.nanshift(x_small, 1, 1)
-    expected_small = torch.tensor([[nan, 1.0]])
+    expected_small = torch.tensor([[math.nan, 1.0]])
     torch.testing.assert_close(result_small, expected_small, equal_nan=True)
 
 
 def test_nanshift_reproducibility() -> None:
     """Test that nanshift produces consistent results."""
-    x = torch.tensor([[1.0, nan, 3.0, 4.0, nan], [nan, 2.0, nan, 5.0, 6.0]])
+    x = torch.tensor(
+        [
+            [1.0, math.nan, 3.0, 4.0, math.nan],
+            [math.nan, 2.0, math.nan, 5.0, 6.0],
+        ]
+    )
 
     result1 = QF.nanshift(x, 2, 1)
     result2 = QF.nanshift(x, 2, 1)
@@ -344,7 +361,7 @@ def test_nanshift_multiple_shifts() -> None:
 
 def test_nanshift_with_infinity() -> None:
     """Test nanshift with infinite values."""
-    x = torch.tensor([[1.0, float("inf"), nan, float("-inf"), 2.0]])
+    x = torch.tensor([[1.0, math.inf, math.nan, -math.inf, 2.0]])
     result = QF.nanshift(x, 1, 1)
 
     # Infinite values should be treated as regular values, not NaN
@@ -366,7 +383,7 @@ def test_nanshift_performance() -> None:
     """Test nanshift performance with larger tensors."""
     x_large = torch.randn(100, 200)
     # Add some NaN values
-    x_large[torch.rand_like(x_large) < 0.1] = nan
+    x_large[torch.rand_like(x_large) < 0.1] = math.nan
 
     result = QF.nanshift(x_large, 10, 1)
     assert result.shape == x_large.shape
@@ -375,7 +392,7 @@ def test_nanshift_performance() -> None:
 
 def test_nanshift_gradient_compatibility() -> None:
     """Test that nanshift works with gradient computation."""
-    x = torch.tensor([[1.0, 2.0, 3.0, nan]], requires_grad=True)
+    x = torch.tensor([[1.0, 2.0, 3.0, math.nan]], requires_grad=True)
     result = QF.nanshift(x, 1, 1)
 
     # Should be able to compute gradients on finite values
@@ -389,7 +406,9 @@ def test_nanshift_gradient_compatibility() -> None:
 def test_nanshift_special_patterns() -> None:
     """Test nanshift with special data patterns."""
     # Checkerboard pattern of NaN
-    x_check = torch.tensor([[1.0, nan, 3.0, nan], [nan, 2.0, nan, 4.0]])
+    x_check = torch.tensor(
+        [[1.0, math.nan, 3.0, math.nan], [math.nan, 2.0, math.nan, 4.0]]
+    )
     result_check = QF.nanshift(x_check, 1, 1)
 
     # Check that shape is preserved
@@ -399,7 +418,13 @@ def test_nanshift_special_patterns() -> None:
     assert torch.isfinite(result_check[~torch.isnan(result_check)]).all()
 
     # Diagonal pattern
-    x_diag = torch.tensor([[1.0, nan, nan], [nan, 2.0, nan], [nan, nan, 3.0]])
+    x_diag = torch.tensor(
+        [
+            [1.0, math.nan, math.nan],
+            [math.nan, 2.0, math.nan],
+            [math.nan, math.nan, 3.0],
+        ]
+    )
     result_diag = QF.nanshift(x_diag, 1, 1)
 
     # Check that shape is preserved
@@ -434,7 +459,12 @@ def test_nanshift_boundary_behavior() -> None:
 
 def test_nanshift_nan_preservation() -> None:
     """Test that nanshift preserves NaN structure appropriately."""
-    x = torch.tensor([[1.0, nan, 3.0, nan, 5.0], [nan, 2.0, nan, 4.0, nan]])
+    x = torch.tensor(
+        [
+            [1.0, math.nan, 3.0, math.nan, 5.0],
+            [math.nan, 2.0, math.nan, 4.0, math.nan],
+        ]
+    )
 
     result = QF.nanshift(x, 1, 1)
 

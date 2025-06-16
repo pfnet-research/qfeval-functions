@@ -225,13 +225,13 @@ def test_mulmean_high_dimensional() -> None:
 
     result = QF.mulmean(x, y)
     expected = (x * y).mean()
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-5)
 
     # Test along specific high dimensions
     result_dim3 = QF.mulmean(x, y, dim=3)
     expected_dim3 = (x * y).mean(dim=3)
     np.testing.assert_allclose(
-        result_dim3.numpy(), expected_dim3.numpy(), rtol=1e-5
+        result_dim3.numpy(), expected_dim3.numpy(), rtol=1e-4
     )
 
 

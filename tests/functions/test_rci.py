@@ -1,3 +1,5 @@
+import math
+
 import torch
 
 from qfeval_functions.functions.rci import rci
@@ -6,7 +8,7 @@ from qfeval_functions.functions.rci import rci
 def test_rci_known_values() -> None:
     """Test RCI with manually calculated known values."""
     x1 = torch.Tensor([500, 510, 515, 520, 530])
-    y1 = torch.Tensor([torch.nan] * 4 + [100.0])
+    y1 = torch.Tensor([math.nan] * 4 + [100.0])
     assert torch.allclose(
         rci(x1, period=5),
         y1,
@@ -14,7 +16,7 @@ def test_rci_known_values() -> None:
     )
 
     x2 = torch.Tensor([530, 520, 515, 510, 500])
-    y2 = torch.Tensor([torch.nan] * 4 + [-100.0])
+    y2 = torch.Tensor([math.nan] * 4 + [-100.0])
     assert torch.allclose(
         rci(x2, period=5),
         y2,
@@ -27,7 +29,7 @@ def test_rci_known_values() -> None:
     )
 
     x3 = torch.Tensor([float(i) for i in range(50)])
-    y3 = torch.Tensor([torch.nan] * 8 + [100.0] * 42)
+    y3 = torch.Tensor([math.nan] * 8 + [100.0] * 42)
     assert torch.allclose(
         rci(torch.stack((x3, -x3)), period=9),
         torch.stack((y3, -y3)),
@@ -37,7 +39,7 @@ def test_rci_known_values() -> None:
     # rci(x4)[4] : (1- 6*(3^2+1^2+1^2+1^2+0)/5/(5^2-1))*100 =  40
     # rci(-x4)[4]: (1- 6*(1^2+3^2+1^2+1^2+4^2)/5/(5^2-1))*100 =-40
     x4 = torch.Tensor([4, 1, 2, 3, 5])
-    y4 = torch.Tensor([torch.nan] * 4 + [40.0])
+    y4 = torch.Tensor([math.nan] * 4 + [40.0])
 
     assert torch.allclose(
         rci(torch.stack((x4, -x4)), period=5),
@@ -281,7 +283,7 @@ def test_rci_extremes() -> None:
 
 def test_rci_with_inf_values() -> None:
     """Test RCI behavior with infinite values."""
-    x = torch.tensor([1.0, 2.0, float("inf"), 4.0, 5.0])
+    x = torch.tensor([1.0, 2.0, math.inf, 4.0, 5.0])
     result = rci(x, period=5)
 
     # Should handle inf gracefully (behavior may vary)
@@ -291,7 +293,7 @@ def test_rci_with_inf_values() -> None:
 
 def test_rci_with_nan_values() -> None:
     """Test RCI behavior with NaN input values."""
-    x = torch.tensor([1.0, 2.0, float("nan"), 4.0, 5.0])
+    x = torch.tensor([1.0, 2.0, math.nan, 4.0, 5.0])
     result = rci(x, period=5)
 
     # Should handle NaN in input (exact behavior may vary)

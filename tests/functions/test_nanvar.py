@@ -1,5 +1,5 @@
+import math
 import warnings
-from math import nan
 
 import numpy as np
 import torch
@@ -10,10 +10,10 @@ import qfeval_functions.functions as QF
 def test_nanvar() -> None:
     x = torch.tensor(
         [
-            [1.0, nan, 2.0, nan, 3.0, 4.0],
-            [nan, 3.0, 7.0, nan, 8.0, nan],
+            [1.0, math.nan, 2.0, math.nan, 3.0, 4.0],
+            [math.nan, 3.0, 7.0, math.nan, 8.0, math.nan],
             [9.0, 10.0, 11.0, 12.0, 13.0, 20.0],
-            [nan, nan, nan, nan, nan, nan],
+            [math.nan, math.nan, math.nan, math.nan, math.nan, math.nan],
         ],
         dtype=torch.float64,
     )
@@ -98,9 +98,9 @@ def test_nanvar_nan_handling() -> None:
     # Mixed NaN and regular values
     x = torch.tensor(
         [
-            [1.0, float("nan"), 3.0, 5.0],
-            [float("nan"), 4.0, float("nan"), 6.0],
-            [2.0, 3.0, 4.0, float("nan")],
+            [1.0, math.nan, 3.0, 5.0],
+            [math.nan, 4.0, math.nan, 6.0],
+            [2.0, 3.0, 4.0, math.nan],
         ],
         dtype=torch.float64,
     )
@@ -123,7 +123,7 @@ def test_nanvar_nan_handling() -> None:
 def test_nanvar_all_nan() -> None:
     """Test nanvar behavior when all values are NaN."""
     x = torch.tensor(
-        [[float("nan"), float("nan"), float("nan")], [1.0, 2.0, 3.0]],
+        [[math.nan, math.nan, math.nan], [1.0, 2.0, 3.0]],
         dtype=torch.float64,
     )
 
@@ -268,7 +268,7 @@ def test_nanvar_numerical_stability() -> None:
 
 def test_nanvar_reproducibility() -> None:
     """Test that nanvar produces consistent results."""
-    x = torch.tensor([[1.0, float("nan"), 3.0, 4.0]], dtype=torch.float64)
+    x = torch.tensor([[1.0, math.nan, 3.0, 4.0]], dtype=torch.float64)
 
     result1 = QF.nanvar(x, dim=1, unbiased=True)
     result2 = QF.nanvar(x, dim=1, unbiased=True)
@@ -312,7 +312,7 @@ def test_nanvar_comparison_with_numpy() -> None:
 def test_nanvar_gradient_compatibility() -> None:
     """Test that nanvar works with gradient computation."""
     x = torch.tensor(
-        [[1.0, 2.0, 3.0, float("nan")]], dtype=torch.float64, requires_grad=True
+        [[1.0, 2.0, 3.0, math.nan]], dtype=torch.float64, requires_grad=True
     )
     result = QF.nanvar(x, dim=1, unbiased=False)
 
@@ -329,7 +329,7 @@ def test_nanvar_batch_processing() -> None:
     batch_size = 3
     x_batch = torch.randn(batch_size, 20, dtype=torch.float64)
     # Add some NaN values
-    x_batch[x_batch < -1.5] = float("nan")
+    x_batch[x_batch < -1.5] = math.nan
 
     result_batch = QF.nanvar(x_batch, dim=1)
     assert result_batch.shape == (batch_size,)
@@ -359,7 +359,7 @@ def test_nanvar_special_values() -> None:
 
 def test_nanvar_with_infinity() -> None:
     """Test nanvar with infinite values."""
-    x = torch.tensor([[1.0, float("inf"), 2.0]], dtype=torch.float64)
+    x = torch.tensor([[1.0, math.inf, 2.0]], dtype=torch.float64)
     result = QF.nanvar(x, dim=1, unbiased=False)
 
     # Variance involving infinity should be infinity or NaN
@@ -370,7 +370,7 @@ def test_nanvar_performance() -> None:
     """Test nanvar performance with larger tensors."""
     x_large = torch.randn(500, 200, dtype=torch.float64)
     # Add some NaN values
-    x_large[torch.rand_like(x_large) < 0.05] = float("nan")
+    x_large[torch.rand_like(x_large) < 0.05] = math.nan
 
     result = QF.nanvar(x_large, dim=1)
     assert result.shape == (500,)

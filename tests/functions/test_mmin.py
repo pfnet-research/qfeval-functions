@@ -1,3 +1,5 @@
+import math
+
 import numpy as np
 import pandas as pd
 import torch
@@ -103,7 +105,7 @@ def test_mmin_dim_parameter() -> None:
 
 def test_mmin_with_nan_values() -> None:
     """Test moving minimum with NaN input values."""
-    x = torch.tensor([4.0, float("nan"), 1.0, 2.0, 3.0])
+    x = torch.tensor([4.0, math.nan, 1.0, 2.0, 3.0])
     result = QF.mmin(x, 3)
 
     # Shape should be preserved
@@ -411,7 +413,7 @@ def test_mmin_extremes() -> None:
 
 def test_mmin_with_infinity() -> None:
     """Test moving minimum with infinite values."""
-    x = torch.tensor([3.0, float("-inf"), 4.0, 1.0])
+    x = torch.tensor([3.0, -math.inf, 4.0, 1.0])
     result = QF.mmin(x, 2)
 
     # Check that negative infinity is handled correctly

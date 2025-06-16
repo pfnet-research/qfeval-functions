@@ -205,19 +205,19 @@ def test_rms_numerical_stability() -> None:
 def test_rms_with_inf_values() -> None:
     """Test RMS behavior with infinite values."""
     # With positive infinity
-    x_pos_inf = torch.tensor([1.0, float("inf"), 3.0])
+    x_pos_inf = torch.tensor([1.0, math.inf, 3.0])
     result_pos_inf = QF.rms(x_pos_inf)
     assert torch.isinf(result_pos_inf)
 
     # With negative infinity
-    x_neg_inf = torch.tensor([1.0, float("-inf"), 3.0])
+    x_neg_inf = torch.tensor([1.0, -math.inf, 3.0])
     result_neg_inf = QF.rms(x_neg_inf)
     assert torch.isinf(result_neg_inf)
 
 
 def test_rms_with_nan_values() -> None:
     """Test RMS behavior with NaN values."""
-    x_nan = torch.tensor([1.0, float("nan"), 3.0])
+    x_nan = torch.tensor([1.0, math.nan, 3.0])
     result_nan = QF.rms(x_nan)
     assert torch.isnan(result_nan)
 

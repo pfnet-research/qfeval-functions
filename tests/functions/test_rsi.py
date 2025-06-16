@@ -57,7 +57,7 @@ def test_rsi_compare_to_talib(use_sma: bool) -> None:
          53.73696277, 49.25609654, 46.97039567, 51.04635441, 53.1660725,
          55.45432227, 54.69645998, 55.42427616, 49.05848796, 45.23257006,
          48.11649394, 49.51854405, 48.49300354, 46.74952339, 55.5080972])
-    expect_out2 = np.array([torch.nan] * 14 + [0.] * 26)
+    expect_out2 = np.array([math.nan] * 14 + [0.] * 26)
     rtol_case1 = 1e-4
     atol_case1 = 1e-4
     if use_sma:  # If use_sma=True and use_sma=False result is not too far.
