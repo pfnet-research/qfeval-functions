@@ -27,6 +27,9 @@ dev = [
     "pytest-cov>=5.0.0",
     "scikit-learn>=1.6.1",
     "scipy>=1.13.1",
+    "sphinx>=7.0.0,<8.0.0",
+    "sphinx-rtd-theme>=2.0.0",
+    "sphinxcontrib-napoleon>=0.7",
 ]
 
 [tool.uv]

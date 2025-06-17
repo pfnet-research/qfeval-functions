@@ -13,8 +13,7 @@ test: doctest pytest
 
 .PHONY: doctest
 doctest:
-	@echo "To be implemented"
-#	$(RUN) pytest --doctest-modules $(PROJECT_NAME)
+	$(RUN) pytest --doctest-modules qfeval_functions/functions/*.py -v
 
 .PHONY: pytest
 pytest:
@@ -53,3 +52,17 @@ format-black:
 .PHONY: format-isort
 format-isort:
 	$(RUN) isort --quiet .
+
+# Documentation targets
+.PHONY: docs
+docs:
+	cd docs && $(RUN) python -m sphinx -b html . _build/html
+
+.PHONY: docs-test
+docs-test:
+	cd docs && $(RUN) python -m sphinx -b doctest . _build/doctest
+
+.PHONY: docs-clean
+docs-clean:
+	rm -rf docs/_build
+	rm -rf docs/functions/qfeval_functions.*.rst
