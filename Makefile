@@ -58,10 +58,6 @@ format-isort:
 docs:
 	cd docs && $(RUN) python -m sphinx -b html . _build/html
 
-.PHONY: docs-test
-docs-test:
-	cd docs && $(RUN) python -m sphinx -b doctest . _build/doctest
-
 .PHONY: docs-clean
 docs-clean:
 	rm -rf docs/_build
