@@ -162,7 +162,9 @@ def test_covar_broadcasting() -> None:
 
     # Verify specific element matches numpy
     expected = np.cov(x[0, 0].numpy(), y[0, 0].numpy())[0, 1]
-    np.testing.assert_allclose(result[0, 0].numpy(), expected, rtol=1e-5, atol=1e-7)
+    np.testing.assert_allclose(
+        result[0, 0].numpy(), expected, rtol=1e-5, atol=1e-7
+    )
 
 
 def test_covar_with_nan_values() -> None:
