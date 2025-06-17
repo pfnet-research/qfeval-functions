@@ -37,10 +37,6 @@ from tests.functions.test_utils import assert_basic_properties
 assert_basic_properties(result, input_tensor, expected_shape=input_tensor.shape)
 ```
 
-### Known Limitations
-- `apply_for_axis`: Only works with dimension-preserving functions
-- Statistical tests may suppress `SmallSampleWarning` for sparse data
-
 ## Code Standards
 
 - **Imports**: stdlib → third-party → local (use absolute imports)
