@@ -35,11 +35,6 @@ autodoc_default_options = {
 autosummary_generate = True
 autosummary_generate_overwrite = True
 
-# TODO(claude): Sphinx doctest builder limitation with autodoc.
-# The doctest_test_doctest_blocks = 'all' setting doesn't actually test
-# doctests within Python docstrings included via autodoc/autofunction.
-# Sphinx doctest only processes explicit testcode/testoutput blocks in RST files.
-# Function docstrings are tested separately via pytest --doctest-modules.
 # Configure doctest to test docstrings in autodoc
 doctest_test_doctest_blocks = 'all'
 # Test doctests in function docstrings 
