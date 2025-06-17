@@ -37,11 +37,11 @@ lint-isort:
 
 .PHONY: mypy
 mypy:
-	$(RUN) mypy $(PROJECT_NAME)
+	$(RUN) mypy .
 
 .PHONY: flake8
 flake8:
-	$(RUN) pflake8 $(PROJECT_NAME)
+	$(RUN) pflake8 .
 
 .PHONY: format
 format: format-black format-isort
