@@ -11,7 +11,9 @@ def test_mstd() -> None:
     df = pd.Series(x.numpy())
     expected = df.rolling(span).std().to_numpy()
     actual = QF.mstd(x, span=span)
-    np.testing.assert_allclose(actual.numpy(), expected, equal_nan=True, atol=1e-6)
+    np.testing.assert_allclose(
+        actual.numpy(), expected, equal_nan=True, atol=1e-6
+    )
 
 
 def test_mstd_dim1() -> None:
@@ -20,4 +22,6 @@ def test_mstd_dim1() -> None:
     df = pd.DataFrame(x.numpy())
     expected = df.rolling(span, axis=1).std().to_numpy()
     actual = QF.mstd(x, span=span, dim=1)
-    np.testing.assert_allclose(actual.numpy(), expected, equal_nan=True, atol=1e-6)
+    np.testing.assert_allclose(
+        actual.numpy(), expected, equal_nan=True, atol=1e-6
+    )

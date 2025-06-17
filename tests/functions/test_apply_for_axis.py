@@ -14,7 +14,7 @@ def manual_apply(f, x, dim):
 
 def test_apply_for_axis_basic() -> None:
     x = QF.randn(2, 3, 4)
-    f = lambda t: t ** 2 + 1
+    f = lambda t: t**2 + 1
     for dim in range(x.ndim):
         actual = QF.apply_for_axis(f, x, dim=dim)
         expected = manual_apply(f, x, dim)
