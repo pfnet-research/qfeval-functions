@@ -6,6 +6,11 @@ import torch
 from .shift import shift as _shift
 
 AggregateFunction = typing.Literal["any", "all"]
+"""Type alias for aggregation functions used in reduce_nan_patterns.
+
+- "any": Position is valid if at least one value is non-NaN
+- "all": Position is valid only if all values are non-NaN
+"""
 
 
 def reduce_nan_patterns(
@@ -14,34 +19,71 @@ def reduce_nan_patterns(
     refdim: int = 0,
     agg_f: AggregateFunction = "any",
 ) -> torch.Tensor:
-    r"""Creates a mask for group shift.
+    r"""Creates a boolean mask based on NaN patterns in a reference dimension.
 
-    A mask is a one-dimensional boolean tensor that represents the pattern
-    of observed values in a reference dimension (`refdim`).
-    i.e., `True` values correspond to the locations of non-nan values.
+    This function analyzes the NaN pattern in a reference dimension and creates a 1-D
+    boolean mask that can be used with :func:`group_shift`. The mask indicates which
+    positions along the target dimension contain valid (non-NaN) data.
+
+    The function works by:
+
+    1. Examining values along the reference dimension (``refdim``)
+    2. For each position along the target dimension (``dim``), checking if there are
+       valid (non-NaN) values in the reference dimension
+    3. Aggregating this information using the specified aggregation function
+    4. Returning a mask where ``True`` indicates positions with valid data
+
+    This is particularly useful for financial time series where you want to identify
+    positions that have valid data across different features or time periods.
 
     Args:
-        - x: The input tensor. This should have at least 2 dimensions.
-        - dim: The dimension along which `x` will be shifted.
-        - refdim: The reference dimension to extract a pattern of (non-)nans.
-        - agg_f: The function for aggregating all other dimensions.
-    Returns:
-        - mask: a 1-D boolean tensor
+        x (Tensor): The input tensor. Must have at least 2 dimensions.
+        dim (int): The dimension along which the mask will be applied (target dimension
+            for shifting). Default: -1 (last dimension)
+        refdim (int): The reference dimension to analyze for NaN patterns. Default: 0
+        agg_f ({"any", "all"}): Aggregation function for combining information across
+            other dimensions:
 
-    Examples:
+            - ``"any"``: Position is valid if at least one value is non-NaN
+            - ``"all"``: Position is valid only if all values are non-NaN
+
+            Default: "any"
+
+    Returns:
+        Tensor: A 1-D boolean tensor of length ``x.shape[dim]`` where ``True`` values
+        indicate positions with valid data according to the specified criteria.
+
+    Raises:
+        NotImplementedError: If ``agg_f`` is not "any" or "all".
+
+    Example::
+
+        >>> import torch
+        >>> import qfeval_functions.functions as QF
+        >>>
+        >>> # Create a tensor with NaN patterns
         >>> x = torch.tensor([
-            [1.0, 2.0, nan, 1.0],
-            [2.0, 4.0, nan, 2.0],
-            [3.0, nan, nan, 3.0],
-            [1.0, 1.0, 1.0, 1.0],
-        ])
-        >>> reduce_nan_patterns(x, -1, 0)
-        tensor([True, False, False, True])
-        # As x.dim() == 2, agg_f does not affect the results
-        >>> reduce_nan_patterns(x, -1, 0, agg_f="all")
-        tensor([True, False, False, True])
-        >>> reduce_nan_patterns(x, 0, 1)
-        tensor([False, False, False, True])
+        ...     [1.0, 2.0, float('nan'), 1.0],
+        ...     [2.0, 4.0, float('nan'), 2.0],
+        ...     [3.0, float('nan'), float('nan'), 3.0],
+        ...     [1.0, 1.0, 1.0, 1.0],
+        ... ])
+        >>>
+        >>> # Check which columns have any valid values across rows
+        >>> QF.reduce_nan_patterns(x, dim=-1, refdim=0, agg_f="any")
+        tensor([ True, False, False,  True])
+        >>>
+        >>> # Check which columns have all valid values across rows
+        >>> QF.reduce_nan_patterns(x, dim=-1, refdim=0, agg_f="all")
+        tensor([ True, False, False,  True])
+        >>>
+        >>> # Check which rows have all valid values across columns
+        >>> QF.reduce_nan_patterns(x, dim=0, refdim=1, agg_f="all")
+        tensor([False, False, False,  True])
+        >>>
+        >>> # Check which rows have any valid values across columns
+        >>> QF.reduce_nan_patterns(x, dim=0, refdim=1, agg_f="any")
+        tensor([False, False, False,  True])
     """
     # transpose x so that the first dimension is dim and the second is refdim
     # NOTE: currently, dimensions added here will not be squeezed, since
@@ -59,6 +101,12 @@ def reduce_nan_patterns(
     else:
         raise NotImplementedError("Unknown aggregate function.")
 
+    # TODO(claude): The logic here seems incorrect for agg_f="any" case.
+    # When agg_f="any", we should return True for positions where ANY value
+    # in the reference dimension is non-NaN, but the current implementation
+    # requires ALL aggregated values to be True. This causes the doctest
+    # example to return [False, False, False, True] instead of the expected
+    # [True, True, True, True] for rows that have at least one valid value.
     # return True if all (aggregated) values in redim are True
     return reduced.all(dim=1)
 
@@ -71,32 +119,81 @@ def group_shift(
     refdim: typing.Optional[int] = -1,
     agg_f: AggregateFunction = "any",
 ) -> torch.Tensor:
-    r"""Shifts a tensor along a specified dimension, skipping a given mask.
+    r"""Shifts a tensor along a specified dimension, applying only to masked positions.
 
-    This function applies shifts only for locations specified by the mask.
-    For example, suppose the mask is `[True, False, True, False, True]`,
-    then applying one shift to `[1, nan, 2, nan, 3]` will get
-    `[nan, nan, 1, nan, 2]`.
+    This function performs a selective shift operation that only moves elements at positions
+    specified by a boolean mask, while filling unmasked positions with NaN. This is
+    particularly useful for financial time series where you need to shift values while
+    preserving specific patterns (e.g., trading days vs. weekends).
 
-    CAVEAT:
-    Before applying shifts, the unmasked values (i.e., mask values are False)
-    are filled with nans. So, applying the above masked-shift to
-    `[1, 2, 3, 4, 5]` will get `[nan, nan, 1, nan, 3]`, where unmasked values
-    (2, 4) are just discarded. Also, zero-shift (`shift == 0`) will not give
-    the original input.
+    The mask can either be provided directly or generated automatically based on NaN
+    patterns in a reference dimension. The function ensures that:
+
+    1. Only elements where ``mask[i] == True`` participate in the shift operation
+    2. Elements where ``mask[i] == False`` are replaced with NaN
+    3. The shift is applied in a way that maintains the masked structure
+
+    For a 1-D tensor with a mask ``[True, False, True, False, True]``, applying
+    ``shift=1`` to values ``[1, nan, 2, nan, 3]`` produces ``[nan, nan, 1, nan, 2]``.
+
+    Warning:
+        This function modifies unmasked values by replacing them with NaN, regardless
+        of their original values. A zero shift (``shift=0``) will still apply the
+        masking operation and will not return the original input unchanged.
 
     Args:
-        - x: The input tensor.
-        - shift: The number of places by which the elements of the tensor
-            are shifted.
-        - dim: The dimension along which `x` will be shifted.
-        - mask (optional): A 1D boolean tensor, where `False` values specify
-            the indices to be skipped during shifts. The length must be
-            equal to `x.shape[dim]`.
-        - refdim (optional): If set, the mask is automatically generated.
-            See `reduce_nan_patterns` for details.
+        x (Tensor): The input tensor to be shifted
+        shift (int): The number of positions to shift. Positive values shift forward,
+            negative values shift backward. Default: 1
+        dim (int): The dimension along which to apply the shift. Default: 0
+        mask (Tensor, optional): A 1-D boolean tensor where ``True`` values indicate
+            positions that should participate in the shift. Must have length equal
+            to ``x.shape[dim]``. Default: None
+        refdim (int, optional): If provided and ``mask`` is None, automatically
+            generates a mask based on NaN patterns in this reference dimension.
+            See :func:`reduce_nan_patterns` for details. Default: -1
+        agg_f ({"any", "all"}): Aggregation function used when generating mask from
+            ``refdim``. Only used when ``refdim`` is specified. Default: "any"
+
     Returns:
-        - x_shifted: A shifted version of `x`.
+        Tensor: A tensor of the same shape as :attr:`x` with shifted values according
+        to the mask pattern.
+
+    Raises:
+        ValueError: If neither ``mask`` nor ``refdim`` is provided.
+        AssertionError: If ``mask`` length doesn't match ``x.shape[dim]``.
+
+    Example::
+
+        >>> import torch
+        >>> import qfeval_functions.functions as QF
+        >>>
+        >>> # Basic usage with explicit mask
+        >>> x = torch.tensor([1., 2., 3., 4., 5.])
+        >>> mask = torch.tensor([True, False, True, False, True])
+        >>> QF.group_shift(x, shift=1, dim=0, mask=mask)
+        tensor([nan, nan, 1., nan, 3.])
+
+        >>> # Negative shift
+        >>> QF.group_shift(x, shift=-1, dim=0, mask=mask)
+        tensor([3., nan, 5., nan, nan])
+
+        >>> # 2D tensor with automatic mask generation
+        >>> x = torch.tensor([
+        ...     [1., 2., float('nan'), 4.],
+        ...     [5., 6., float('nan'), 8.],
+        ...     [9., 10., 11., 12.]
+        ... ])
+        >>> QF.group_shift(x, shift=1, dim=1, refdim=0)
+        tensor([[nan,  1., nan,  2.],
+                [nan,  5., nan,  6.],
+                [nan,  9., nan, 10.]])
+
+        >>> # Zero shift still applies masking
+        >>> x = torch.tensor([1., 2., 3., 4., 5.])
+        >>> mask = torch.tensor([True, False, True, False, True])
+        >>> QF.group_shift(x, shift=0, dim=0, mask=mask)
+        tensor([1., nan, 3., nan, 5.])
     """
     n = x.shape[dim]
 

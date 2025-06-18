@@ -70,6 +70,8 @@ instance/
 
 # Sphinx documentation
 docs/_build/
+# Auto-generated function documentation
+docs/functions/qfeval_functions.*.rst
 
 # PyBuilder
 .pybuilder/
