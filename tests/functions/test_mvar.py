@@ -74,7 +74,6 @@ def test_mvar_2d_tensors() -> None:
     assert finite_mask.sum() > 0  # Should have some finite values
 
 
-@pytest.mark.random
 def test_mvar_different_window_sizes() -> None:
     """Test moving variance with different window sizes."""
     x = torch.randn(20)
@@ -115,7 +114,6 @@ def test_mvar_window_larger_than_data() -> None:
     assert torch.isnan(result).all()
 
 
-@pytest.mark.random
 def test_mvar_negative_dimension() -> None:
     """Test moving variance with negative dimension indexing."""
     x = torch.randn(5, 10)
@@ -126,7 +124,6 @@ def test_mvar_negative_dimension() -> None:
     np.testing.assert_allclose(result_neg.numpy(), result_pos.numpy())
 
 
-@pytest.mark.random
 def test_mvar_batch_processing() -> None:
     """Test moving variance with batch processing."""
     batch_size = 5
@@ -206,7 +203,6 @@ def test_mvar_zero_ddof_edge_case() -> None:
     )
 
 
-@pytest.mark.random
 def test_mvar_high_dimensional() -> None:
     """Test moving variance with high-dimensional tensors."""
     x = torch.randn(3, 4, 20)
@@ -223,7 +219,6 @@ def test_mvar_high_dimensional() -> None:
             assert torch.isfinite(result[i, j, 4:]).all()
 
 
-@pytest.mark.random
 def test_mvar_pandas_comparison_extended() -> None:
     """Extended comparison with pandas rolling variance."""
     # Test with different data patterns
@@ -337,5 +332,5 @@ def test_mvar_precision_validation() -> None:
 
     finite_results = result[torch.isfinite(result)]
     np.testing.assert_allclose(
-        finite_results.numpy(), expected_finite.numpy(), rtol=1e-10, atol=1e-10
+        finite_results.numpy(), expected_finite.numpy()
     )

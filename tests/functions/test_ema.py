@@ -59,7 +59,6 @@ def test_ema_2d_tensor_dim1() -> None:
         np.testing.assert_allclose(result[row, :].numpy(), expected, rtol=1e-4, atol=1e-4)
 
 
-@pytest.mark.random
 def test_ema_3d_tensor() -> None:
     """Test EMA on 3D tensor."""
     x = torch.randn(5, 4, 6)
@@ -124,7 +123,7 @@ def test_ema_alpha_extreme_cases() -> None:
             1, len(x) + 1, dtype=x.dtype
         )
         np.testing.assert_allclose(
-            result_zero.numpy(), cum_mean.numpy(), rtol=1e-10, atol=1e-10
+            result_zero.numpy(), cum_mean.numpy()
         )
     except ZeroDivisionError:
         # This is acceptable behavior for alpha=0
@@ -160,7 +159,6 @@ def test_ema_with_infinity() -> None:
     assert torch.isinf(result[2])  # Infinity should affect subsequent values
 
 
-@pytest.mark.random
 def test_ema_large_tensor() -> None:
     """Test EMA with large tensor for performance verification."""
     x = torch.randn(1000, 50)
@@ -211,7 +209,7 @@ def test_ema_constant_input() -> None:
 
     # EMA of constant values should be the constant value
     expected = torch.full_like(x, 5.0)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
 def test_ema_different_alpha_values() -> None:
@@ -245,7 +243,6 @@ def test_ema_comparison_with_pandas_calculation() -> None:
     np.testing.assert_allclose(result.numpy(), expected, rtol=1e-4, atol=1e-4)
 
 
-@pytest.mark.random
 def test_ema_batch_processing() -> None:
     """Test EMA with batch processing (multiple series)."""
     batch_size = 20

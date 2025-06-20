@@ -53,7 +53,6 @@ def test_nancorrel_perfect_negative_correlation() -> None:
     assert abs(result.item() + 1.0) < 1e-6
 
 
-@pytest.mark.random
 def test_nancorrel_zero_correlation() -> None:
     """Test NaN correlation with zero correlation."""
     torch.manual_seed(42)
@@ -106,7 +105,6 @@ def test_nancorrel_2d_tensors() -> None:
     assert abs(result[1].item() - 1.0) < 1e-6
 
 
-@pytest.mark.random
 def test_nancorrel_3d_tensors() -> None:
     """Test NaN correlation with 3D tensors."""
     x = torch.randn(3, 4, 50)
@@ -123,7 +121,6 @@ def test_nancorrel_3d_tensors() -> None:
     assert torch.isfinite(result).all()
 
 
-@pytest.mark.random
 def test_nancorrel_keepdim() -> None:
     """Test NaN correlation with keepdim parameter."""
     x = torch.randn(2, 3, 4)
@@ -144,7 +141,6 @@ def test_nancorrel_keepdim() -> None:
     )
 
 
-@pytest.mark.random
 def test_nancorrel_multiple_dimensions() -> None:
     """Test NaN correlation along multiple dimensions."""
     x = torch.randn(2, 3, 4, 5)
@@ -205,7 +201,6 @@ def test_nancorrel_asymmetric_nan_patterns() -> None:
     assert abs(result.item() - 1.0) < 1e-6  # Perfect correlation with 2 points
 
 
-@pytest.mark.random
 def test_nancorrel_batch_processing() -> None:
     """Test NaN correlation with batch processing."""
     batch_size = 10
@@ -256,7 +251,6 @@ def test_nancorrel_mixed_finite_infinite() -> None:
     assert torch.isnan(result) or torch.isinf(result) or torch.isfinite(result)
 
 
-@pytest.mark.random
 def test_nancorrel_negative_dimension() -> None:
     """Test NaN correlation with negative dimension indexing."""
     x = torch.randn(3, 4, 5)
@@ -283,7 +277,6 @@ def test_nancorrel_empty_after_nan_removal() -> None:
     assert torch.isnan(result)
 
 
-@pytest.mark.random
 def test_nancorrel_scipy_comparison() -> None:
     """Test NaN correlation against scipy for validation."""
     torch.manual_seed(123)
@@ -317,7 +310,6 @@ def test_nancorrel_monotonic_relationship() -> None:
     assert result > 0.8
 
 
-@pytest.mark.random
 def test_nancorrel_range_validation() -> None:
     """Test that correlation values are in valid range [-1, 1]."""
     torch.manual_seed(456)

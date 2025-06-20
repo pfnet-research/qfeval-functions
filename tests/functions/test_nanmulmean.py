@@ -207,7 +207,6 @@ def test_nanmulmean_with_infinity() -> None:
     assert torch.isinf(result) or torch.isnan(result)
 
 
-@pytest.mark.random
 def test_nanmulmean_high_dimensional() -> None:
     """Test nanmulmean with high-dimensional tensors."""
     x = torch.randn(2, 3, 4, 5)
@@ -256,7 +255,6 @@ def test_nanmulmean_numerical_stability() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4, atol=1e-4)
 
 
-@pytest.mark.random
 def test_nanmulmean_batch_processing() -> None:
     """Test nanmulmean with batch processing scenarios."""
     batch_size = 3
@@ -296,7 +294,6 @@ def test_nanmulmean_edge_case_patterns() -> None:
     np.testing.assert_allclose(result2.numpy(), expected2.numpy())
 
 
-@pytest.mark.random
 def test_nanmulmean_dimension_validation() -> None:
     """Test that function works with various tensor dimensions."""
     # 1D tensor
@@ -336,7 +333,6 @@ def test_nanmulmean_ddof_parameter() -> None:
     assert result_ddof1.item() > result_ddof0.item()
 
 
-@pytest.mark.random
 def test_nanmulmean_multiple_dimensions() -> None:
     """Test mean calculation along multiple dimensions."""
     x = torch.randn(3, 4, 5)
@@ -357,7 +353,6 @@ def test_nanmulmean_multiple_dimensions() -> None:
     assert torch.isfinite(result_12).all()
 
 
-@pytest.mark.random
 def test_nanmulmean_performance_comparison() -> None:
     """Test that nanmulmean provides memory efficiency compared to naive approach."""
     for size in [50, 100]:

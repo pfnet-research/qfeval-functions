@@ -41,7 +41,6 @@ def test_simple() -> None:
     )
 
 
-@pytest.mark.random
 def test_tensor() -> None:
     x = torch.tensor(
         [[1.0 if i % 2 else 0.0 for i in range(20)] for _ in range(3)]

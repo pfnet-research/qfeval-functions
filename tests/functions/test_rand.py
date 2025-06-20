@@ -261,7 +261,6 @@ def test_rand_distribution_uniformity() -> None:
         assert abs(count.item() - expected_count) < expected_count * 0.1
 
 
-@pytest.mark.random
 def test_rand_seed_isolation() -> None:
     """Test that seed context doesn't affect other random operations."""
     # Generate some random values outside seed context

@@ -47,7 +47,6 @@ def test_mmin_basic_functionality() -> None:
     torch.testing.assert_close(result, expected)
 
 
-@pytest.mark.random
 def test_mmin_shape_preservation() -> None:
     """Test that moving minimum preserves tensor shape."""
     # 1D tensor
@@ -266,7 +265,6 @@ def test_mmin_multidimensional() -> None:
     torch.testing.assert_close(result_dim0, expected_dim0)
 
 
-@pytest.mark.random
 def test_mmin_batch_processing() -> None:
     """Test moving minimum with batch processing scenarios."""
     batch_size = 3
@@ -353,7 +351,6 @@ def test_mmin_monotonicity() -> None:
     assert torch.all(result2 >= result1)
 
 
-@pytest.mark.random
 def test_mmin_performance() -> None:
     """Test moving minimum performance with larger tensors."""
     # Test with moderately large tensor
@@ -439,7 +436,6 @@ def test_mmin_signal_characteristics() -> None:
     assert result_valleys.min() == x_valleys.min()
 
 
-@pytest.mark.random
 def test_mmin_high_dimensional() -> None:
     """Test moving minimum with high-dimensional tensors."""
     # 3D tensor

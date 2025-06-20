@@ -43,14 +43,14 @@ def test_orthonormalize_simple_2d_vectors() -> None:
     identity = torch.eye(2).unsqueeze(0)
 
     np.testing.assert_allclose(
-        gram_matrix.numpy(), identity.numpy(), atol=1e-10
+        gram_matrix.numpy(), identity.numpy()
     )
 
     # Check that all vectors have unit norm
     norms = torch.linalg.norm(result, dim=-1)
     expected_norms = torch.ones(1, 2)
     np.testing.assert_allclose(
-        norms.numpy(), expected_norms.numpy(), atol=1e-10
+        norms.numpy(), expected_norms.numpy()
     )
 
 
@@ -66,14 +66,14 @@ def test_orthonormalize_3d_vectors() -> None:
     identity = torch.eye(3).unsqueeze(0)
 
     np.testing.assert_allclose(
-        gram_matrix.numpy(), identity.numpy(), atol=1e-10
+        gram_matrix.numpy(), identity.numpy()
     )
 
     # Check unit norms
     norms = torch.linalg.norm(result, dim=-1)
     expected_norms = torch.ones(1, 3)
     np.testing.assert_allclose(
-        norms.numpy(), expected_norms.numpy(), atol=1e-10
+        norms.numpy(), expected_norms.numpy()
     )
 
 
@@ -90,11 +90,10 @@ def test_orthonormalize_already_orthonormal() -> None:
     identity = torch.eye(3).unsqueeze(0)
 
     np.testing.assert_allclose(
-        gram_matrix.numpy(), identity.numpy(), atol=1e-10
+        gram_matrix.numpy(), identity.numpy()
     )
 
 
-@pytest.mark.random
 def test_orthonormalize_orthogonality_property() -> None:
     """Test that result vectors are orthogonal to each other."""
     batch_size = 3
@@ -111,7 +110,6 @@ def test_orthonormalize_orthogonality_property() -> None:
             np.testing.assert_allclose(dot_products.numpy(), 0.0, atol=1e-4)
 
 
-@pytest.mark.random
 def test_orthonormalize_normalization_property() -> None:
     """Test that result vectors have unit norm."""
     batch_size = 5
@@ -128,7 +126,6 @@ def test_orthonormalize_normalization_property() -> None:
     np.testing.assert_allclose(norms.numpy(), expected_norms.numpy(), atol=1e-4)
 
 
-@pytest.mark.random
 def test_orthonormalize_gram_matrix_identity() -> None:
     """Test that Q^T Q = I (Gram matrix is identity)."""
     a = torch.randn(2, 4, 8)
@@ -171,7 +168,6 @@ def test_orthonormalize_span_preservation() -> None:
     )
 
 
-@pytest.mark.random
 def test_orthonormalize_shape_preservation() -> None:
     """Test that orthonormalization preserves input tensor shape."""
     shapes = [(1, 2, 3), (2, 3, 4), (3, 2, 5), (4, 3, 6)]
@@ -249,7 +245,7 @@ def test_orthonormalize_numerical_stability() -> None:
     # Should still be orthonormal
     gram_small = torch.einsum("bij,bik->bjk", result_small, result_small)
     identity = torch.eye(2, dtype=torch.float64).unsqueeze(0)
-    np.testing.assert_allclose(gram_small.numpy(), identity.numpy(), atol=1e-12)
+    np.testing.assert_allclose(gram_small.numpy(), identity.numpy())
 
     # Very large values
     a_large = torch.tensor([[[1e10, 2e10], [2e10, 1e10]]], dtype=torch.float64)
@@ -281,7 +277,6 @@ def test_orthonormalize_with_infinity() -> None:
     assert torch.isnan(result).any() or torch.isinf(result).any()
 
 
-@pytest.mark.random
 def test_orthonormalize_batch_processing() -> None:
     """Test orthonormalization with multiple batches."""
     batch_size = 10
@@ -300,7 +295,6 @@ def test_orthonormalize_batch_processing() -> None:
         )
 
 
-@pytest.mark.random
 def test_orthonormalize_high_dimensional() -> None:
     """Test orthonormalization with high-dimensional vectors."""
     num_vectors = 5
@@ -316,7 +310,6 @@ def test_orthonormalize_high_dimensional() -> None:
     np.testing.assert_allclose(gram_matrix.numpy(), identity.numpy(), atol=1e-4)
 
 
-@pytest.mark.random
 def test_orthonormalize_determinant_preservation() -> None:
     """Test that orthonormalization preserves orientation when possible."""
     # For square matrices, the determinant should be ±1
@@ -330,7 +323,6 @@ def test_orthonormalize_determinant_preservation() -> None:
         assert abs(abs(det.item()) - 1.0) < 1e-6
 
 
-@pytest.mark.random
 def test_orthonormalize_reconstruction_property() -> None:
     """Test that original vectors can be reconstructed from orthonormal basis."""
     a = torch.randn(1, 3, 5)
@@ -366,14 +358,14 @@ def test_orthonormalize_invariance_under_orthonormal_transform() -> None:
     identity = torch.eye(3).unsqueeze(0)
 
     np.testing.assert_allclose(
-        gram_matrix.numpy(), identity.numpy(), atol=1e-10
+        gram_matrix.numpy(), identity.numpy()
     )
 
     # Check that each vector has unit norm
     norms = torch.linalg.norm(result, dim=-1)
     expected_norms = torch.ones(1, 3)
     np.testing.assert_allclose(
-        norms.numpy(), expected_norms.numpy(), atol=1e-10
+        norms.numpy(), expected_norms.numpy()
     )
 
 
@@ -410,5 +402,5 @@ def test_orthonormalize_sign_consistency() -> None:
     identity = torch.eye(2).unsqueeze(0)
 
     np.testing.assert_allclose(
-        gram_matrix.numpy(), identity.numpy(), atol=1e-10
+        gram_matrix.numpy(), identity.numpy()
     )

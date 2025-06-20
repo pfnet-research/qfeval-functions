@@ -84,7 +84,6 @@ def test_rms_dim_parameter() -> None:
     torch.testing.assert_close(result_dim1, expected_dim1)
 
 
-@pytest.mark.random
 def test_rms_multiple_dims() -> None:
     """Test RMS with multiple dimensions."""
     x = torch.randn(2, 3, 4)
@@ -137,7 +136,6 @@ def test_rms_edge_cases() -> None:
     assert torch.allclose(result_zeros, torch.tensor(0.0))
 
 
-@pytest.mark.random
 def test_rms_multidimensional() -> None:
     """Test RMS with high-dimensional tensors."""
     x = torch.randn(2, 3, 4, 5)
@@ -249,7 +247,6 @@ def test_rms_scaling_property() -> None:
     assert torch.allclose(rms_scaled, scale * rms_original)
 
 
-@pytest.mark.random
 def test_rms_batch_processing() -> None:
     """Test RMS with batch processing."""
     batch_size = 4
@@ -269,7 +266,6 @@ def test_rms_batch_processing() -> None:
         assert torch.allclose(result[i], individual_rms)
 
 
-@pytest.mark.random
 def test_rms_statistical_properties() -> None:
     """Test statistical properties of RMS."""
     # For normal distribution, RMS ≈ standard deviation
@@ -323,7 +319,6 @@ def test_rms_formula_verification() -> None:
     assert torch.allclose(rms2, torch.tensor(expected2))
 
 
-@pytest.mark.random
 def test_rms_performance() -> None:
     """Test RMS performance with large tensors."""
     for size in [1000, 5000]:

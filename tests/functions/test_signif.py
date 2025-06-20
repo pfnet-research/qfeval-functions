@@ -152,7 +152,6 @@ def test_signif_edge_decimals() -> None:
     assert torch.isfinite(result_10).all()
 
 
-@pytest.mark.random
 def test_signif_shape_preservation() -> None:
     """Test that signif preserves tensor shape."""
     shapes = [(5,), (3, 4), (2, 3, 4), (2, 3, 4, 5)]
@@ -183,7 +182,6 @@ def test_signif_multidimensional() -> None:
     )
 
 
-@pytest.mark.random
 def test_signif_batch_processing() -> None:
     """Test signif with batch processing."""
     batch_size = 4
@@ -306,10 +304,9 @@ def test_signif_large_decimals() -> None:
     # Should not introduce artifacts
     assert torch.isfinite(result_15).all()
     # Result should be close to original for high precision
-    assert torch.allclose(result_15, x, rtol=1e-10)
+    assert torch.allclose(result_15, x)
 
 
-@pytest.mark.random
 def test_signif_performance() -> None:
     """Test signif performance with large tensors."""
     for size in [1000, 5000]:

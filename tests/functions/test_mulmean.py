@@ -81,7 +81,6 @@ def test_mulmean_dimensions() -> None:
     np.testing.assert_allclose(result_dim2.numpy(), expected_dim2.numpy())
 
 
-@pytest.mark.random
 def test_mulmean_multiple_dimensions() -> None:
     """Test mean calculation along multiple dimensions."""
     x = torch.randn(3, 4, 5)
@@ -101,7 +100,6 @@ def test_mulmean_multiple_dimensions() -> None:
     )
 
 
-@pytest.mark.random
 def test_mulmean_keepdim() -> None:
     """Test keepdim parameter functionality."""
     x = torch.randn(3, 4, 5)
@@ -122,7 +120,6 @@ def test_mulmean_keepdim() -> None:
     )
 
 
-@pytest.mark.random
 def test_mulmean_negative_dimensions() -> None:
     """Test negative dimension indexing."""
     x = torch.randn(3, 4, 5)
@@ -222,7 +219,6 @@ def test_mulmean_with_infinity() -> None:
     assert torch.isinf(expected) or torch.isnan(expected)
 
 
-@pytest.mark.random
 def test_mulmean_high_dimensional() -> None:
     """Test mulmean with high-dimensional tensors."""
     x = torch.randn(2, 3, 4, 5, 6)
@@ -240,7 +236,6 @@ def test_mulmean_high_dimensional() -> None:
     )
 
 
-@pytest.mark.random
 def test_mulmean_empty_dimension() -> None:
     """Test mulmean with empty dimension tuple."""
     x = torch.randn(3, 4)
@@ -284,7 +279,6 @@ def test_mulmean_numerical_stability() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
-@pytest.mark.random
 def test_mulmean_batch_processing() -> None:
     """Test mulmean with batch processing scenarios."""
     batch_size = 4

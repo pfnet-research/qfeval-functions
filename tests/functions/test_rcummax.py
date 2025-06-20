@@ -160,7 +160,6 @@ def test_rcummax_with_infinity() -> None:
     assert result.values[3] == 2.0
 
 
-@pytest.mark.random
 def test_rcummax_large_tensor() -> None:
     """Test reverse cumulative maximum with large tensor."""
     x = torch.randn(1000)

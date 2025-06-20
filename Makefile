@@ -25,7 +25,7 @@ test-cov:
 
 .PHONY: test-flakiness
 test-flakiness:
-	$(RUN) pytest -m random --count=100 -x
+	$(RUN) pytest --count=100 -x
 
 .PHONY: lint
 lint: lint-black lint-isort flake8 mypy

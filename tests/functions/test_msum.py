@@ -194,6 +194,6 @@ def test_msum_very_small_values() -> None:
     )
 
     np.testing.assert_allclose(
-        result[1:].numpy(), expected[1:].numpy(), atol=1e-15
+        result[1:].numpy(), expected[1:].numpy()
     )
     assert torch.isnan(result[0])

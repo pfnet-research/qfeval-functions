@@ -36,11 +36,11 @@ def test_orthogonalize_simple_2d_vectors() -> None:
     result = QF.orthogonalize(x, y, dim=1)
     expected = torch.tensor([[0.0, 1.0]])  # Should be [0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected.numpy())
 
     # Verify orthogonality
     dot_product = (result * y).sum(dim=1)
-    np.testing.assert_allclose(dot_product.numpy(), 0.0, atol=1e-10)
+    np.testing.assert_allclose(dot_product.numpy(), 0.0)
 
 
 def test_orthogonalize_3d_vectors() -> None:
@@ -52,11 +52,11 @@ def test_orthogonalize_3d_vectors() -> None:
     result = QF.orthogonalize(x, y, dim=1)
     expected = torch.tensor([[0.0, 1.0, 1.0]])  # Should be [0, 1, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected.numpy())
 
     # Verify orthogonality
     dot_product = (result * y).sum(dim=1)
-    np.testing.assert_allclose(dot_product.numpy(), 0.0, atol=1e-10)
+    np.testing.assert_allclose(dot_product.numpy(), 0.0)
 
 
 def test_orthogonalize_already_orthogonal() -> None:
@@ -67,7 +67,7 @@ def test_orthogonalize_already_orthogonal() -> None:
     result = QF.orthogonalize(x, y, dim=1)
 
     # Should remain unchanged since they're already orthogonal
-    np.testing.assert_allclose(result.numpy(), x.numpy(), atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), x.numpy())
 
 
 def test_orthogonalize_parallel_vectors() -> None:
@@ -80,7 +80,7 @@ def test_orthogonalize_parallel_vectors() -> None:
 
     # Result should be zero vector since x is in the span of y
     np.testing.assert_allclose(
-        result.numpy(), torch.zeros(1, 2).numpy(), atol=1e-10
+        result.numpy(), torch.zeros(1, 2).numpy()
     )
 
 
@@ -94,7 +94,7 @@ def test_orthogonalize_antiparallel_vectors() -> None:
 
     # Result should be zero vector since x is in the span of y
     np.testing.assert_allclose(
-        result.numpy(), torch.zeros(1, 2).numpy(), atol=1e-10
+        result.numpy(), torch.zeros(1, 2).numpy()
     )
 
 
@@ -109,7 +109,7 @@ def test_orthogonalize_different_dimensions() -> None:
     # Verify orthogonality
     dot_products = (result_dim2 * y).sum(dim=2)
     np.testing.assert_allclose(
-        dot_products.numpy(), torch.zeros(2, 2).numpy(), atol=1e-10
+        dot_products.numpy(), torch.zeros(2, 2).numpy()
     )
 
     # Test along dim=1
@@ -119,7 +119,7 @@ def test_orthogonalize_different_dimensions() -> None:
     result_dim1 = QF.orthogonalize(x_1d, y_1d, dim=1)
     dot_products_1d = (result_dim1 * y_1d).sum(dim=1)
     np.testing.assert_allclose(
-        dot_products_1d.numpy(), torch.zeros(2).numpy(), atol=1e-10
+        dot_products_1d.numpy(), torch.zeros(2).numpy()
     )
 
 
@@ -151,13 +151,13 @@ def test_orthogonalize_gram_schmidt_property() -> None:
 
     # Check that u2 and v1 are orthogonal
     dot_u2_v1 = (u2 * v1).sum(dim=1)
-    np.testing.assert_allclose(dot_u2_v1.numpy(), 0.0, atol=1e-10)
+    np.testing.assert_allclose(dot_u2_v1.numpy(), 0.0)
 
     # Check that u3 is orthogonal to both v1 and u2
     dot_u3_v1 = (u3 * v1).sum(dim=1)
     dot_u3_u2 = (u3 * u2).sum(dim=1)
-    np.testing.assert_allclose(dot_u3_v1.numpy(), 0.0, atol=1e-10)
-    np.testing.assert_allclose(dot_u3_u2.numpy(), 0.0, atol=1e-10)
+    np.testing.assert_allclose(dot_u3_v1.numpy(), 0.0)
+    np.testing.assert_allclose(dot_u3_u2.numpy(), 0.0)
 
 
 def test_orthogonalize_projection_formula() -> None:
@@ -174,7 +174,7 @@ def test_orthogonalize_projection_formula() -> None:
     result = QF.orthogonalize(x, y, dim=1)
 
     np.testing.assert_allclose(
-        result.numpy(), expected_result.numpy(), atol=1e-10
+        result.numpy(), expected_result.numpy()
     )
 
 
@@ -185,7 +185,7 @@ def test_orthogonalize_with_zero_vector() -> None:
     y = torch.tensor([[1.0, 0.0]])
     result_zero_x = QF.orthogonalize(x_zero, y, dim=1)
     np.testing.assert_allclose(
-        result_zero_x.numpy(), x_zero.numpy(), atol=1e-10
+        result_zero_x.numpy(), x_zero.numpy()
     )
 
     # Zero y vector (should cause division by zero, handle gracefully)
@@ -241,7 +241,6 @@ def test_orthogonalize_numerical_stability() -> None:
     )  # Allow some tolerance for large numbers
 
 
-@pytest.mark.random
 def test_orthogonalize_batch_processing() -> None:
     """Test orthogonalization with batch processing."""
     batch_size = 5
@@ -261,7 +260,6 @@ def test_orthogonalize_batch_processing() -> None:
     )
 
 
-@pytest.mark.random
 def test_orthogonalize_high_dimensional() -> None:
     """Test orthogonalization with high-dimensional vectors."""
     dim = 1000
@@ -292,7 +290,7 @@ def test_orthogonalize_linearity_property() -> None:
     result_linear = a * result_x1 + b * result_x2
 
     np.testing.assert_allclose(
-        result_combined.numpy(), result_linear.numpy(), atol=1e-10
+        result_combined.numpy(), result_linear.numpy()
     )
 
 
@@ -306,8 +304,8 @@ def test_orthogonalize_invariance_under_scaling() -> None:
     result3 = QF.orthogonalize(x, 0.5 * y, dim=1)
 
     # Results should be identical (direction invariant under scaling)
-    np.testing.assert_allclose(result1.numpy(), result2.numpy(), atol=1e-10)
-    np.testing.assert_allclose(result1.numpy(), result3.numpy(), atol=1e-10)
+    np.testing.assert_allclose(result1.numpy(), result2.numpy())
+    np.testing.assert_allclose(result1.numpy(), result3.numpy())
 
 
 def test_orthogonalize_idempotency() -> None:
@@ -321,7 +319,7 @@ def test_orthogonalize_idempotency() -> None:
     # Second orthogonalization (should be idempotent)
     result2 = QF.orthogonalize(result1, y, dim=1)
 
-    np.testing.assert_allclose(result1.numpy(), result2.numpy(), atol=1e-10)
+    np.testing.assert_allclose(result1.numpy(), result2.numpy())
 
 
 def test_orthogonalize_complex_gram_schmidt() -> None:
@@ -367,4 +365,4 @@ def test_orthogonalize_span_preservation() -> None:
 
     # x should equal orth_x + proj_x_onto_y (decomposition)
     reconstructed = orth_x + proj_x_onto_y
-    np.testing.assert_allclose(reconstructed.numpy(), x.numpy(), atol=1e-10)
+    np.testing.assert_allclose(reconstructed.numpy(), x.numpy())

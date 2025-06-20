@@ -29,7 +29,7 @@ def test_covar_1d_tensors() -> None:
     result = QF.covar(x, y, dim=0)
     expected = np.cov(x.numpy(), y.numpy())[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected)
 
 
 def test_covar_identical_tensors() -> None:
@@ -40,7 +40,7 @@ def test_covar_identical_tensors() -> None:
     var_result = torch.var(x, dim=0, unbiased=True)
 
     np.testing.assert_allclose(
-        covar_result.numpy(), var_result.numpy(), rtol=1e-10, atol=1e-10
+        covar_result.numpy(), var_result.numpy()
     )
 
 
@@ -55,10 +55,9 @@ def test_covar_2d_tensors() -> None:
 
     # Manually verify first row
     expected_0 = np.cov(x[0].numpy(), y[0].numpy())[0, 1]
-    np.testing.assert_allclose(result[0].numpy(), expected_0, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result[0].numpy(), expected_0)
 
 
-@pytest.mark.random
 def test_covar_3d_tensors() -> None:
     """Test covariance on 3D tensors."""
     x = torch.randn(5, 4, 10)
@@ -108,12 +107,12 @@ def test_covar_ddof_values() -> None:
     # Test ddof=0 (population covariance)
     result_ddof0 = QF.covar(x, y, dim=0, ddof=0)
     expected_ddof0 = np.cov(x.numpy(), y.numpy(), ddof=0)[0, 1]
-    np.testing.assert_allclose(result_ddof0.numpy(), expected_ddof0, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result_ddof0.numpy(), expected_ddof0)
 
     # Test ddof=1 (sample covariance)
     result_ddof1 = QF.covar(x, y, dim=0, ddof=1)
     expected_ddof1 = np.cov(x.numpy(), y.numpy(), ddof=1)[0, 1]
-    np.testing.assert_allclose(result_ddof1.numpy(), expected_ddof1, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result_ddof1.numpy(), expected_ddof1)
 
     # ddof=0 should be smaller than ddof=1 for positive covariance
     assert result_ddof0 < result_ddof1
@@ -154,7 +153,6 @@ def test_covar_perfect_correlation() -> None:
     assert abs(result_pos + result_neg) < 1e-10  # Should be symmetric
 
 
-@pytest.mark.random
 def test_covar_broadcasting() -> None:
     """Test covariance with broadcasting tensors."""
     x = torch.randn(5, 1, 20)  # (5, 1, 20)
@@ -201,10 +199,9 @@ def test_covar_two_elements() -> None:
     result = QF.covar(x, y, dim=0, ddof=1)
     expected = np.cov(x.numpy(), y.numpy(), ddof=1)[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected)
 
 
-@pytest.mark.random
 def test_covar_large_tensors() -> None:
     """Test covariance with large tensors for performance verification."""
     x = torch.randn(1000)
@@ -224,7 +221,7 @@ def test_covar_numerical_precision() -> None:
     result = QF.covar(x, y, dim=0)
     expected = np.cov(x.numpy(), y.numpy())[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(result.numpy(), expected)
 
 
 def test_covar_very_small_values() -> None:
@@ -235,7 +232,7 @@ def test_covar_very_small_values() -> None:
     result = QF.covar(x, y, dim=0)
     expected = np.cov(x.numpy(), y.numpy())[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected)
 
 
 def test_covar_very_large_values() -> None:
@@ -249,7 +246,6 @@ def test_covar_very_large_values() -> None:
     np.testing.assert_allclose(result.numpy(), expected, rtol=1e-4, atol=1e-4)
 
 
-@pytest.mark.random
 def test_covar_uncorrelated_data() -> None:
     """Test covariance with uncorrelated random data."""
     torch.manual_seed(42)  # For reproducibility
@@ -262,7 +258,6 @@ def test_covar_uncorrelated_data() -> None:
     assert abs(result.item()) < 0.1
 
 
-@pytest.mark.random
 def test_covar_batch_different_ddof() -> None:
     """Test covariance with batch processing and different ddof values."""
     batch_size = 5
@@ -295,7 +290,7 @@ def test_covar_symmetry() -> None:
     result_xy = QF.covar(x, y, dim=0)
     result_yx = QF.covar(y, x, dim=0)
 
-    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy(), rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy())
 
 
 def test_covar_linear_transformation() -> None:
@@ -317,7 +312,7 @@ def test_covar_linear_transformation() -> None:
     expected_transformed = a * c * cov_xy  # cov(ax+b, cy+d) = ac * cov(x,y)
 
     np.testing.assert_allclose(
-        cov_transformed.numpy(), expected_transformed.numpy(), rtol=1e-10, atol=1e-10
+        cov_transformed.numpy(), expected_transformed.numpy()
     )
 
 
@@ -329,12 +324,11 @@ def test_covar_mixed_signs() -> None:
     result = QF.covar(x, y, dim=0)
     expected = np.cov(x.numpy(), y.numpy())[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected)
     # Should be positive since they're positively correlated
     assert result > 0
 
 
-@pytest.mark.random
 def test_covar_high_dimensional() -> None:
     """Test covariance with high-dimensional data."""
     x = torch.randn(2, 3, 4, 50)

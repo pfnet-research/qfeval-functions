@@ -101,7 +101,6 @@ def test_rcumsum_integer_tensor() -> None:
     np.testing.assert_array_equal(result.numpy(), expected.numpy())
 
 
-@pytest.mark.random
 def test_rcumsum_large_tensor() -> None:
     """Test reverse cumulative sum with large tensor to verify scalability."""
     x = torch.randn(100, 50)

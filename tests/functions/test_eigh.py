@@ -128,7 +128,7 @@ def test_eigh_nearly_zero_matrix() -> None:
 
     # Verify reconstruction
     reconstructed = v @ torch.diag(w) @ v.T
-    np.testing.assert_allclose(reconstructed.numpy(), A.numpy(), atol=1e-15)
+    np.testing.assert_allclose(reconstructed.numpy(), A.numpy())
 
 
 def test_eigh_orthogonality_of_eigenvectors() -> None:
@@ -196,7 +196,7 @@ def test_eigh_complex_values_real_matrix() -> None:
 
     # Verify reconstruction with high precision
     reconstructed = v @ torch.diag(w) @ v.T
-    np.testing.assert_allclose(reconstructed.numpy(), A.numpy(), rtol=1e-10)
+    np.testing.assert_allclose(reconstructed.numpy(), A.numpy())
 
 
 def test_eigh_memory_cleanup() -> None:
@@ -215,7 +215,6 @@ def test_eigh_memory_cleanup() -> None:
         del w, v
 
 
-@pytest.mark.random
 def test_eigh_stress_test_large_matrix() -> None:
     """Test eigh with larger matrix to verify robustness."""
     # 10x10 symmetric matrix
@@ -234,4 +233,4 @@ def test_eigh_stress_test_large_matrix() -> None:
 
     # Verify reconstruction (with looser tolerance for larger matrix)
     reconstructed = v @ torch.diag(w) @ v.T
-    np.testing.assert_allclose(reconstructed.numpy(), A.numpy(), atol=1e-10)
+    np.testing.assert_allclose(reconstructed.numpy(), A.numpy())

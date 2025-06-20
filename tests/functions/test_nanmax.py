@@ -73,7 +73,6 @@ def test_nanmax_return_type() -> None:
     assert isinstance(result.indices, torch.Tensor)
 
 
-@pytest.mark.random
 def test_nanmax_shape_preservation() -> None:
     """Test that nanmax preserves correct output shapes."""
     # 2D tensor
@@ -227,7 +226,6 @@ def test_nanmax_index_correctness() -> None:
         )
 
 
-@pytest.mark.random
 def test_nanmax_large_tensors() -> None:
     """Test nanmax with larger tensors for performance."""
     x = torch.randn(100, 1000)

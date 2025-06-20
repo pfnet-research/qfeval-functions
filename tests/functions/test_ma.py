@@ -54,7 +54,6 @@ def test_ma_basic_functionality() -> None:
     torch.testing.assert_close(result[4], torch.tensor(expected_4))
 
 
-@pytest.mark.random
 def test_ma_shape_preservation() -> None:
     """Test that moving average preserves tensor shape."""
     # 1D tensor
@@ -276,7 +275,6 @@ def test_ma_multidimensional() -> None:
     )
 
 
-@pytest.mark.random
 def test_ma_batch_processing() -> None:
     """Test moving average with batch processing scenarios."""
     batch_size = 3

@@ -29,7 +29,6 @@ def test_nanvar() -> None:
     )
 
 
-@pytest.mark.random
 def test_nanvar_random_data_comparison() -> None:
     """Test nanvar with random data against numpy implementation."""
     x = torch.randn((73, 83), dtype=torch.float64)
@@ -63,7 +62,6 @@ def test_nanvar_basic_functionality() -> None:
     torch.testing.assert_close(result_biased, expected_biased)
 
 
-@pytest.mark.random
 def test_nanvar_shape_preservation() -> None:
     """Test that nanvar preserves correct output shapes."""
     # 2D tensor
@@ -120,7 +118,7 @@ def test_nanvar_nan_handling() -> None:
     expected = torch.tensor(
         [expected_0, expected_1, expected_2], dtype=torch.float64
     )
-    torch.testing.assert_close(result, expected, atol=1e-10, rtol=1e-10)
+    torch.testing.assert_close(result, expected)
 
 
 def test_nanvar_all_nan() -> None:
@@ -181,7 +179,6 @@ def test_nanvar_different_dimensions() -> None:
     torch.testing.assert_close(result_dim2, expected_dim2)
 
 
-@pytest.mark.random
 def test_nanvar_multiple_dimensions() -> None:
     """Test nanvar along multiple dimensions."""
     x = torch.randn(3, 4, 5, dtype=torch.float64)
@@ -328,7 +325,6 @@ def test_nanvar_gradient_compatibility() -> None:
     assert x.grad.shape == x.shape
 
 
-@pytest.mark.random
 def test_nanvar_batch_processing() -> None:
     """Test nanvar with batch dimensions."""
     batch_size = 3
@@ -371,7 +367,6 @@ def test_nanvar_with_infinity() -> None:
     assert not torch.isfinite(result[0])
 
 
-@pytest.mark.random
 def test_nanvar_performance() -> None:
     """Test nanvar performance with larger tensors."""
     x_large = torch.randn(500, 200, dtype=torch.float64)

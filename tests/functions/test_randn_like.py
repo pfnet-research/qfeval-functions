@@ -142,7 +142,6 @@ def test_randn_like_statistical_properties() -> None:
     assert abs(percentage_within_one_std - 0.68) < 0.05
 
 
-@pytest.mark.random
 def test_randn_like_different_input_values() -> None:
     """Test that randn_like output is independent of input tensor values."""
     shape = (10, 10)

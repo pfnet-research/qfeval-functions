@@ -229,7 +229,6 @@ def test_bincount_comparison_with_torch() -> None:
             torch.testing.assert_close(result_qf, result_torch)
 
 
-@pytest.mark.random
 def test_bincount_batch_processing() -> None:
     """Test bincount with batch processing scenarios."""
     batch_size = 4
@@ -278,7 +277,6 @@ def test_bincount_with_gaps() -> None:
     torch.testing.assert_close(result, expected)
 
 
-@pytest.mark.random
 def test_bincount_performance() -> None:
     """Test bincount performance with larger tensors."""
     # Test with moderately large tensor

@@ -206,7 +206,6 @@ def test_nanmulsum_with_infinity() -> None:
     assert torch.isinf(result) or torch.isnan(result)
 
 
-@pytest.mark.random
 def test_nanmulsum_high_dimensional() -> None:
     """Test nanmulsum with high-dimensional tensors."""
     x = torch.randn(2, 3, 4, 5)
@@ -255,7 +254,6 @@ def test_nanmulsum_numerical_stability() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4, atol=1e-4)
 
 
-@pytest.mark.random
 def test_nanmulsum_batch_processing() -> None:
     """Test nanmulsum with batch processing scenarios."""
     batch_size = 3
@@ -295,7 +293,6 @@ def test_nanmulsum_edge_case_patterns() -> None:
     np.testing.assert_allclose(result2.numpy(), expected2.numpy())
 
 
-@pytest.mark.random
 def test_nanmulsum_dimension_validation() -> None:
     """Test that function works with various tensor dimensions."""
     # 1D tensor
@@ -319,7 +316,6 @@ def test_nanmulsum_dimension_validation() -> None:
     assert result3d.shape == (2, 4)
 
 
-@pytest.mark.random
 def test_nanmulsum_multiple_dimensions() -> None:
     """Test sum calculation along multiple dimensions."""
     x = torch.randn(3, 4, 5)
@@ -340,7 +336,6 @@ def test_nanmulsum_multiple_dimensions() -> None:
     assert torch.isfinite(result_12).all()
 
 
-@pytest.mark.random
 def test_nanmulsum_performance_comparison() -> None:
     """Test that nanmulsum provides memory efficiency compared to naive approach."""
     for size in [50, 100]:

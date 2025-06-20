@@ -128,7 +128,6 @@ def test_gaussian_blur_basic_functionality() -> None:
     assert result[2] == result.max()
 
 
-@pytest.mark.random
 def test_gaussian_blur_shape_preservation() -> None:
     """Test that gaussian blur preserves tensor shape."""
     # 1D tensor
@@ -355,7 +354,6 @@ def test_gaussian_blur_smoothing_property() -> None:
     assert blurred_tv < original_tv
 
 
-@pytest.mark.random
 def test_gaussian_blur_performance() -> None:
     """Test gaussian blur performance with larger tensors."""
     # Test with moderately large tensor

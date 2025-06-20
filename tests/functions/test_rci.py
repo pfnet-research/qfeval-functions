@@ -98,7 +98,6 @@ def test_rci_default_period() -> None:
     assert torch.allclose(result[8:], torch.tensor([100.0] * 7))
 
 
-@pytest.mark.random
 def test_rci_shape_preservation() -> None:
     """Test that RCI preserves input tensor shape."""
     # 1D tensor
@@ -156,7 +155,6 @@ def test_rci_edge_cases() -> None:
     assert torch.allclose(result_two[1:], torch.tensor([100.0]))
 
 
-@pytest.mark.random
 def test_rci_mathematical_properties() -> None:
     """Test mathematical properties of RCI."""
     # RCI should be in range [-100, 100]
@@ -216,7 +214,6 @@ def test_rci_with_small_values() -> None:
     assert torch.allclose(result[4:], torch.tensor([100.0]))
 
 
-@pytest.mark.random
 def test_rci_multidimensional() -> None:
     """Test RCI with multidimensional tensors."""
     batch_size = 3
@@ -235,7 +232,6 @@ def test_rci_multidimensional() -> None:
     assert torch.all(valid_values <= 100)
 
 
-@pytest.mark.random
 def test_rci_with_random_data() -> None:
     """Test RCI with random data for stability."""
     torch.manual_seed(42)
@@ -376,7 +372,6 @@ def test_rci_numerical_stability() -> None:
     assert torch.allclose(result_large[4:], torch.tensor([100.0]))
 
 
-@pytest.mark.random
 def test_rci_batch_processing() -> None:
     """Test RCI with batch processing."""
     batch_size = 4

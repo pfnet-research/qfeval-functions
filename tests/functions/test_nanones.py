@@ -90,7 +90,6 @@ def test_nanones_with_infinity() -> None:
     assert result[3] == expected[3]
 
 
-@pytest.mark.random
 def test_nanones_large_tensor() -> None:
     """Test nanones with large tensor containing scattered NaN values."""
     x = torch.randn(100, 50)

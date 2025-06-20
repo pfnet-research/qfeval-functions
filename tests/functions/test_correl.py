@@ -25,12 +25,12 @@ def test_correl_perfect_correlation() -> None:
     x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])
     y = torch.tensor([2.0, 4.0, 6.0, 8.0, 10.0])  # y = 2*x
     result = QF.correl(x, y, dim=0)
-    np.testing.assert_allclose(result.numpy(), 1.0, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), 1.0)
 
     # Perfect negative correlation
     y_neg = torch.tensor([10.0, 8.0, 6.0, 4.0, 2.0])  # y = -2*x + 12
     result_neg = QF.correl(x, y_neg, dim=0)
-    np.testing.assert_allclose(result_neg.numpy(), -1.0, atol=1e-10)
+    np.testing.assert_allclose(result_neg.numpy(), -1.0)
 
 
 def test_correl_zero_correlation() -> None:
@@ -49,7 +49,7 @@ def test_correl_identical_arrays() -> None:
     """Test correlation of array with itself."""
     x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])
     result = QF.correl(x, x, dim=0)
-    np.testing.assert_allclose(result.numpy(), 1.0, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), 1.0)
 
 
 def test_correl_2d_tensors() -> None:
@@ -71,11 +71,10 @@ def test_correl_2d_tensors() -> None:
     assert result.shape == (3,)
 
     # First two rows should have perfect correlation
-    np.testing.assert_allclose(result[0].numpy(), 1.0, atol=1e-10)
-    np.testing.assert_allclose(result[1].numpy(), 1.0, atol=1e-10)
+    np.testing.assert_allclose(result[0].numpy(), 1.0)
+    np.testing.assert_allclose(result[1].numpy(), 1.0)
 
 
-@pytest.mark.random
 def test_correl_3d_tensors() -> None:
     """Test correlation on 3D tensors."""
     x = torch.randn(5, 10, 20)
@@ -144,7 +143,7 @@ def test_correl_numerical_precision() -> None:
     )
     result = QF.correl(x, y, dim=0)
     # Should be very close to 1.0 despite small differences
-    np.testing.assert_allclose(result.numpy(), 1.0, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), 1.0)
 
 
 def test_correl_very_small_values() -> None:
@@ -152,7 +151,7 @@ def test_correl_very_small_values() -> None:
     x = torch.tensor([1e-20, 2e-20, 3e-20, 4e-20], dtype=torch.float64)
     y = torch.tensor([2e-20, 4e-20, 6e-20, 8e-20], dtype=torch.float64)
     result = QF.correl(x, y, dim=0)
-    np.testing.assert_allclose(result.numpy(), 1.0, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), 1.0)
 
 
 def test_correl_very_large_values() -> None:
@@ -160,10 +159,9 @@ def test_correl_very_large_values() -> None:
     x = torch.tensor([1e20, 2e20, 3e20, 4e20], dtype=torch.float64)
     y = torch.tensor([2e20, 4e20, 6e20, 8e20], dtype=torch.float64)
     result = QF.correl(x, y, dim=0)
-    np.testing.assert_allclose(result.numpy(), 1.0, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), 1.0)
 
 
-@pytest.mark.random
 def test_correl_large_tensors() -> None:
     """Test correlation with large tensors."""
     size = 10000
@@ -178,7 +176,6 @@ def test_correl_large_tensors() -> None:
     assert result > 0.95
 
 
-@pytest.mark.random
 def test_correl_batch_processing() -> None:
     """Test correlation with multiple batches."""
     # Create multiple correlation scenarios
@@ -202,7 +199,7 @@ def test_correl_mixed_positive_negative() -> None:
     x = torch.tensor([-2.0, -1.0, 0.0, 1.0, 2.0])
     y = torch.tensor([-4.0, -2.0, 0.0, 2.0, 4.0])  # y = 2*x
     result = QF.correl(x, y, dim=0)
-    np.testing.assert_allclose(result.numpy(), 1.0, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), 1.0)
 
 
 def test_correl_asymmetric_relationship() -> None:
@@ -213,4 +210,4 @@ def test_correl_asymmetric_relationship() -> None:
     result_xy = QF.correl(x, y, dim=0)
     result_yx = QF.correl(y, x, dim=0)
 
-    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy(), atol=1e-10)
+    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy())

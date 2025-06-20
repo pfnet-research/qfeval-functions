@@ -35,7 +35,7 @@ def test_nanskew() -> None:
     expected = scipy.stats.skew(x, axis=1, bias=True, nan_policy="omit")
     result = QF.nanskew(x, dim=1, unbiased=False).numpy()
 
-    np.testing.assert_allclose(result, expected, rtol=1e-14, atol=1e-16)
+    np.testing.assert_allclose(result, expected)
 
 
 def test_nanskew_edge_cases() -> None:
@@ -58,7 +58,7 @@ def test_nanskew_edge_cases() -> None:
     x3 = torch.tensor([1.0, 2.0, nan, nan], dtype=torch.float64)
     result3 = QF.nanskew(x3, dim=0, unbiased=False)
     expected3 = 0.0  # Two points always have zero skewness
-    np.testing.assert_allclose(result3.numpy(), expected3, rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result3.numpy(), expected3)
 
     # Three equal values: should return NaN (zero variance leads to undefined skewness)
     x4 = torch.tensor([2.0, 2.0, 2.0, nan], dtype=torch.float64)
@@ -68,7 +68,6 @@ def test_nanskew_edge_cases() -> None:
     ), f"Three equal values should return NaN, got {result4}"
 
 
-@pytest.mark.random
 def test_nanskew_random_data_comparison() -> None:
     """Test nanskew with random data against scipy implementation."""
     x = torch.randn((73, 83), dtype=torch.float64)

@@ -86,7 +86,6 @@ def test_mulsum_dimensions() -> None:
     np.testing.assert_allclose(result_dim2.numpy(), expected_dim2.numpy())
 
 
-@pytest.mark.random
 def test_mulsum_multiple_dimensions() -> None:
     """Test sum calculation along multiple dimensions."""
     x = torch.randn(3, 4, 5)
@@ -106,7 +105,6 @@ def test_mulsum_multiple_dimensions() -> None:
     )
 
 
-@pytest.mark.random
 def test_mulsum_keepdim() -> None:
     """Test keepdim parameter functionality."""
     x = torch.randn(3, 4, 5)
@@ -127,7 +125,6 @@ def test_mulsum_keepdim() -> None:
     )
 
 
-@pytest.mark.random
 def test_mulsum_mean_mode() -> None:
     """Test mean mode functionality."""
     x = torch.randn(3, 4, 5)
@@ -148,7 +145,6 @@ def test_mulsum_mean_mode() -> None:
     )
 
 
-@pytest.mark.random
 def test_mulsum_negative_dimensions() -> None:
     """Test negative dimension indexing."""
     x = torch.randn(3, 4, 5)
@@ -252,7 +248,6 @@ def test_mulsum_with_infinity() -> None:
     assert torch.isinf(expected) or torch.isnan(expected)
 
 
-@pytest.mark.random
 def test_mulsum_high_dimensional() -> None:
     """Test mulsum with high-dimensional tensors."""
     x = torch.randn(2, 3, 4, 5, 6)
@@ -270,7 +265,6 @@ def test_mulsum_high_dimensional() -> None:
     )
 
 
-@pytest.mark.random
 def test_mulsum_empty_dimension() -> None:
     """Test mulsum with empty dimension tuple."""
     x = torch.randn(3, 4)
@@ -314,7 +308,6 @@ def test_mulsum_numerical_stability() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
-@pytest.mark.random
 def test_mulsum_batch_processing() -> None:
     """Test mulsum with batch processing scenarios."""
     batch_size = 4
@@ -350,7 +343,6 @@ def test_mulsum_zero_size_tensor() -> None:
     assert result.item() == expected.item() == 0
 
 
-@pytest.mark.random
 def test_mulsum_ddof_parameter() -> None:
     """Test _ddof parameter in mean mode."""
     x = torch.randn(3, 4)
@@ -372,7 +364,6 @@ def test_mulsum_ddof_parameter() -> None:
     )
 
 
-@pytest.mark.random
 def test_mulsum_complex_broadcasting() -> None:
     """Test complex broadcasting scenarios."""
     # Test with compatible shapes that can broadcast
@@ -392,7 +383,6 @@ def test_mulsum_complex_broadcasting() -> None:
     np.testing.assert_allclose(result2.numpy(), expected2.numpy(), rtol=1e-4, atol=1e-4)
 
 
-@pytest.mark.random
 def test_mulsum_einsum_integration() -> None:
     """Test that mulsum properly integrates with einsum."""
     # Test case that exercises the einsum logic
@@ -416,7 +406,6 @@ def test_mulsum_einsum_integration() -> None:
         np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4, atol=1e-4)
 
 
-@pytest.mark.random
 def test_mulsum_performance_comparison() -> None:
     """Test that mulsum provides memory efficiency compared to naive approach."""
     # This test verifies the function works correctly for larger tensors

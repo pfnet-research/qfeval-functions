@@ -67,7 +67,6 @@ def test_nanpca_with_nans() -> None:
     assert failed / (failed + succeeded) <= 0.1
 
 
-@pytest.mark.random
 def test_nanpca_basic_functionality() -> None:
     """Test basic NaN-aware PCA functionality."""
     # Simple 2D case - create data with known structure
@@ -90,7 +89,6 @@ def test_nanpca_basic_functionality() -> None:
     )
 
 
-@pytest.mark.random
 def test_nanpca_return_type() -> None:
     """Test that nanpca returns proper dataclass."""
     x = torch.randn(20, 4)
@@ -102,7 +100,6 @@ def test_nanpca_return_type() -> None:
     assert isinstance(result, QF.nanpca(x).__class__)
 
 
-@pytest.mark.random
 def test_nanpca_shape_preservation() -> None:
     """Test that nanpca handles different input shapes correctly."""
     # 2D input
@@ -124,7 +121,6 @@ def test_nanpca_shape_preservation() -> None:
     assert result_4d.explained_variance.shape == (2, 3, 5)
 
 
-@pytest.mark.random
 def test_nanpca_with_nan_values() -> None:
     """Test nanpca with NaN values in input."""
     torch.manual_seed(42)
@@ -151,7 +147,6 @@ def test_nanpca_with_nan_values() -> None:
     )
 
 
-@pytest.mark.random
 def test_nanpca_all_nan_column() -> None:
     """Test nanpca behavior with columns that are all NaN."""
     x = torch.randn(50, 4)
@@ -169,7 +164,6 @@ def test_nanpca_all_nan_column() -> None:
     assert torch.isfinite(result.explained_variance).all()
 
 
-@pytest.mark.random
 def test_nanpca_mathematical_properties() -> None:
     """Test mathematical properties of PCA."""
     torch.manual_seed(42)
@@ -190,7 +184,6 @@ def test_nanpca_mathematical_properties() -> None:
     torch.testing.assert_close(norms, expected_norms, atol=1e-5, rtol=1e-5)
 
 
-@pytest.mark.random
 def test_nanpca_explained_variance_properties() -> None:
     """Test properties of explained variance."""
     torch.manual_seed(42)
@@ -215,7 +208,6 @@ def test_nanpca_explained_variance_properties() -> None:
     )
 
 
-@pytest.mark.random
 def test_nanpca_single_feature() -> None:
     """Test nanpca with single feature."""
     x = torch.randn(50, 1)
@@ -230,7 +222,6 @@ def test_nanpca_single_feature() -> None:
     )
 
 
-@pytest.mark.random
 def test_nanpca_identical_features() -> None:
     """Test nanpca with identical features."""
     x = torch.randn(50, 1)
@@ -248,7 +239,6 @@ def test_nanpca_identical_features() -> None:
     assert torch.all(result.explained_variance[1:] < 1e-5)
 
 
-@pytest.mark.random
 def test_nanpca_zero_variance_feature() -> None:
     """Test nanpca with zero variance feature."""
     x = torch.randn(50, 3)
@@ -265,7 +255,6 @@ def test_nanpca_zero_variance_feature() -> None:
     assert torch.isfinite(result.explained_variance).all()
 
 
-@pytest.mark.random
 def test_nanpca_batch_processing() -> None:
     """Test nanpca with batch processing."""
     torch.manual_seed(42)
@@ -298,7 +287,6 @@ def test_nanpca_batch_processing() -> None:
         )
 
 
-@pytest.mark.random
 def test_nanpca_numerical_stability() -> None:
     """Test numerical stability with various scales."""
     # Test with very small values
@@ -314,7 +302,6 @@ def test_nanpca_numerical_stability() -> None:
     assert torch.isfinite(result_large.explained_variance).all()
 
 
-@pytest.mark.random
 def test_nanpca_reproducibility() -> None:
     """Test that nanpca produces consistent results."""
     torch.manual_seed(123)
@@ -331,7 +318,6 @@ def test_nanpca_reproducibility() -> None:
     )
 
 
-@pytest.mark.random
 def test_nanpca_high_dimensional() -> None:
     """Test nanpca with higher dimensional data."""
     # Test with more features than samples
@@ -350,7 +336,6 @@ def test_nanpca_high_dimensional() -> None:
     )  # At least some non-zero components
 
 
-@pytest.mark.random
 def test_nanpca_centering() -> None:
     """Test that PCA properly centers the data."""
     # Create data with non-zero mean
@@ -369,7 +354,6 @@ def test_nanpca_centering() -> None:
     torch.testing.assert_close(gram_matrix, identity, atol=1e-4, rtol=1e-4)
 
 
-@pytest.mark.random
 def test_nanpca_performance() -> None:
     """Test nanpca performance with moderately large data."""
     # Test with reasonably large dataset
@@ -385,7 +369,6 @@ def test_nanpca_performance() -> None:
     assert torch.isfinite(result.explained_variance).all()
 
 
-@pytest.mark.random
 def test_nanpca_edge_cases() -> None:
     """Test nanpca edge cases."""
     # Very small dataset
@@ -410,7 +393,6 @@ def test_nanpca_edge_cases() -> None:
         pass
 
 
-@pytest.mark.random
 def test_nanpca_gradient_compatibility() -> None:
     """Test that nanpca works with gradient computation."""
     # Note: nanpca may not support gradients due to eigenvalue decomposition
@@ -434,7 +416,6 @@ def test_nanpca_gradient_compatibility() -> None:
             raise
 
 
-@pytest.mark.random
 def test_nanpca_comparison_benefits() -> None:
     """Test that nanpca provides benefits over simple imputation."""
     torch.manual_seed(42)

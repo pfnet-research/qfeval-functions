@@ -241,7 +241,6 @@ def test_nancumprod_mixed_special_values() -> None:
     assert result[4].item() == 0.0
 
 
-@pytest.mark.random
 def test_nancumprod_different_dimensions() -> None:
     """Test cumulative product along different dimensions."""
     x = torch.randn(3, 4, 5)
@@ -276,7 +275,6 @@ def test_nancumprod_numerical_stability() -> None:
     assert result[3].item() >= 0
 
 
-@pytest.mark.random
 def test_nancumprod_batch_processing() -> None:
     """Test cumulative product with batch processing."""
     batch_size = 3
@@ -330,7 +328,6 @@ def test_nancumprod_edge_case_patterns() -> None:
     assert result2[3].item() == 8.0
 
 
-@pytest.mark.random
 def test_nancumprod_dimension_validation() -> None:
     """Test that function works with various tensor dimensions."""
     # 1D tensor
