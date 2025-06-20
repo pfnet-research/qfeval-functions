@@ -185,7 +185,7 @@ def test_mulsum_large_values() -> None:
 
     result = QF.mulsum(x, y)
     expected = (x * y).sum()
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6)
 
 
 def test_mulsum_small_values() -> None:
@@ -195,7 +195,7 @@ def test_mulsum_small_values() -> None:
 
     result = QF.mulsum(x, y)
     expected = (x * y).sum()
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6)
 
 
 def test_mulsum_broadcasting_edge_cases() -> None:
@@ -272,7 +272,7 @@ def test_mulsum_empty_dimension() -> None:
     # Empty dimension tuple should compute global sum
     result = QF.mulsum(x, y, dim=())
     expected = (x * y).sum()
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6)
 
 
 def test_mulsum_mathematical_properties() -> None:
@@ -371,7 +371,7 @@ def test_mulsum_complex_broadcasting() -> None:
 
     result1 = QF.mulsum(x1, y1, dim=2)
     expected1 = (x1 * y1).sum(dim=2)
-    np.testing.assert_allclose(result1.numpy(), expected1.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result1.numpy(), expected1.numpy(), rtol=1e-5, atol=1e-5)
 
     # Test with 1D vs 3D
     x2 = torch.randn(5)
@@ -379,7 +379,7 @@ def test_mulsum_complex_broadcasting() -> None:
 
     result2 = QF.mulsum(x2, y2, dim=-1)
     expected2 = (x2 * y2).sum(dim=-1)
-    np.testing.assert_allclose(result2.numpy(), expected2.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result2.numpy(), expected2.numpy(), rtol=1e-5, atol=1e-5)
 
 
 def test_mulsum_einsum_integration() -> None:

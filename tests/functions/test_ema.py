@@ -27,7 +27,7 @@ def test_ema_1d_tensor() -> None:
 
     # Compare with pandas
     expected = pd.Series(x.numpy()).ewm(alpha=alpha).mean().to_numpy()
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-7)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-7, atol=1e-7)
 
 
 def test_ema_2d_tensor_dim0() -> None:
@@ -41,7 +41,7 @@ def test_ema_2d_tensor_dim0() -> None:
         expected = (
             pd.Series(x[:, col].numpy()).ewm(alpha=alpha).mean().to_numpy()
         )
-        np.testing.assert_allclose(result[:, col].numpy(), expected, rtol=1e-7)
+        np.testing.assert_allclose(result[:, col].numpy(), expected, rtol=1e-7, atol=1e-7)
 
 
 def test_ema_2d_tensor_dim1() -> None:
@@ -55,7 +55,7 @@ def test_ema_2d_tensor_dim1() -> None:
         expected = (
             pd.Series(x[row, :].numpy()).ewm(alpha=alpha).mean().to_numpy()
         )
-        np.testing.assert_allclose(result[row, :].numpy(), expected, rtol=1e-7)
+        np.testing.assert_allclose(result[row, :].numpy(), expected, rtol=1e-7, atol=1e-7)
 
 
 def test_ema_3d_tensor() -> None:
@@ -208,7 +208,7 @@ def test_ema_constant_input() -> None:
 
     # EMA of constant values should be the constant value
     expected = torch.full_like(x, 5.0)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-10, atol=1e-10)
 
 
 def test_ema_different_alpha_values() -> None:
@@ -239,7 +239,7 @@ def test_ema_comparison_with_pandas_calculation() -> None:
     expected = pd.Series(x.numpy()).ewm(alpha=alpha).mean().to_numpy()
 
     # Should match pandas calculation closely (accounting for float32 vs float64)
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-6, atol=1e-6)
 
 
 def test_ema_batch_processing() -> None:

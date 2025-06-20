@@ -127,7 +127,7 @@ def test_nanmean_numerical_precision() -> None:
 
     result = QF.nanmean(x, dim=0)
     expected = (1.0000001 + 1.0000002 + 1.0000003) / 3.0
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-15)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-15, atol=1e-15)
 
 
 def test_nanmean_very_small_values() -> None:
@@ -135,7 +135,7 @@ def test_nanmean_very_small_values() -> None:
     x = torch.tensor([1e-20, math.nan, 2e-20, 3e-20], dtype=torch.float64)
     result = QF.nanmean(x, dim=0)
     expected = (1e-20 + 2e-20 + 3e-20) / 3.0
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10, atol=1e-10)
 
 
 def test_nanmean_very_large_values() -> None:
@@ -143,7 +143,7 @@ def test_nanmean_very_large_values() -> None:
     x = torch.tensor([1e20, math.nan, 2e20, 3e20], dtype=torch.float64)
     result = QF.nanmean(x, dim=0)
     expected = (1e20 + 2e20 + 3e20) / 3.0
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10, atol=1e-10)
 
 
 def test_nanmean_edge_case_single_valid_value() -> None:

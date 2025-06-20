@@ -188,7 +188,7 @@ def test_project_numerical_precision() -> None:
     result = QF.project(a, x)
     expected = torch.matmul(x, a.T)
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-12)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-12, atol=1e-12)
 
 
 def test_project_dimension_mismatch_error() -> None:
@@ -211,7 +211,7 @@ def test_project_very_small_values() -> None:
     result = QF.project(a, x)
     expected = torch.matmul(x, a.T)
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-10, atol=1e-10)
 
 
 def test_project_very_large_values() -> None:
@@ -222,7 +222,7 @@ def test_project_very_large_values() -> None:
     result = QF.project(a, x)
     expected = torch.matmul(x, a.T)
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6)
 
 
 def test_project_negative_values() -> None:

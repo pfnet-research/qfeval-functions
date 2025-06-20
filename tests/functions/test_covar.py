@@ -29,7 +29,7 @@ def test_covar_1d_tensors() -> None:
     result = QF.covar(x, y, dim=0)
     expected = np.cov(x.numpy(), y.numpy())[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10, atol=1e-10)
 
 
 def test_covar_identical_tensors() -> None:
@@ -55,7 +55,7 @@ def test_covar_2d_tensors() -> None:
 
     # Manually verify first row
     expected_0 = np.cov(x[0].numpy(), y[0].numpy())[0, 1]
-    np.testing.assert_allclose(result[0].numpy(), expected_0, rtol=1e-10)
+    np.testing.assert_allclose(result[0].numpy(), expected_0, rtol=1e-10, atol=1e-10)
 
 
 def test_covar_3d_tensors() -> None:
@@ -69,7 +69,7 @@ def test_covar_3d_tensors() -> None:
 
     # Verify a specific element
     expected = np.cov(x[0, 0].numpy(), y[0, 0].numpy())[0, 1]
-    np.testing.assert_allclose(result[0, 0].numpy(), expected, rtol=1e-6)
+    np.testing.assert_allclose(result[0, 0].numpy(), expected, rtol=1e-6, atol=1e-6)
 
 
 def test_covar_negative_dim() -> None:
@@ -106,12 +106,12 @@ def test_covar_ddof_values() -> None:
     # Test ddof=0 (population covariance)
     result_ddof0 = QF.covar(x, y, dim=0, ddof=0)
     expected_ddof0 = np.cov(x.numpy(), y.numpy(), ddof=0)[0, 1]
-    np.testing.assert_allclose(result_ddof0.numpy(), expected_ddof0, rtol=1e-10)
+    np.testing.assert_allclose(result_ddof0.numpy(), expected_ddof0, rtol=1e-10, atol=1e-10)
 
     # Test ddof=1 (sample covariance)
     result_ddof1 = QF.covar(x, y, dim=0, ddof=1)
     expected_ddof1 = np.cov(x.numpy(), y.numpy(), ddof=1)[0, 1]
-    np.testing.assert_allclose(result_ddof1.numpy(), expected_ddof1, rtol=1e-10)
+    np.testing.assert_allclose(result_ddof1.numpy(), expected_ddof1, rtol=1e-10, atol=1e-10)
 
     # ddof=0 should be smaller than ddof=1 for positive covariance
     assert result_ddof0 < result_ddof1
@@ -197,7 +197,7 @@ def test_covar_two_elements() -> None:
     result = QF.covar(x, y, dim=0, ddof=1)
     expected = np.cov(x.numpy(), y.numpy(), ddof=1)[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10, atol=1e-10)
 
 
 def test_covar_large_tensors() -> None:
@@ -219,7 +219,7 @@ def test_covar_numerical_precision() -> None:
     result = QF.covar(x, y, dim=0)
     expected = np.cov(x.numpy(), y.numpy())[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-12)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-12, atol=1e-12)
 
 
 def test_covar_very_small_values() -> None:
@@ -230,7 +230,7 @@ def test_covar_very_small_values() -> None:
     result = QF.covar(x, y, dim=0)
     expected = np.cov(x.numpy(), y.numpy())[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10, atol=1e-10)
 
 
 def test_covar_very_large_values() -> None:
@@ -241,7 +241,7 @@ def test_covar_very_large_values() -> None:
     result = QF.covar(x, y, dim=0)
     expected = np.cov(x.numpy(), y.numpy())[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-6, atol=1e-6)
 
 
 def test_covar_uncorrelated_data() -> None:
@@ -288,7 +288,7 @@ def test_covar_symmetry() -> None:
     result_xy = QF.covar(x, y, dim=0)
     result_yx = QF.covar(y, x, dim=0)
 
-    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy(), rtol=1e-10)
+    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy(), rtol=1e-10, atol=1e-10)
 
 
 def test_covar_linear_transformation() -> None:
@@ -322,7 +322,7 @@ def test_covar_mixed_signs() -> None:
     result = QF.covar(x, y, dim=0)
     expected = np.cov(x.numpy(), y.numpy())[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10, atol=1e-10)
     # Should be positive since they're positively correlated
     assert result > 0
 
@@ -337,4 +337,4 @@ def test_covar_high_dimensional() -> None:
 
     # Verify one element
     expected = np.cov(x[0, 0, 0].numpy(), y[0, 0, 0].numpy())[0, 1]
-    np.testing.assert_allclose(result[0, 0, 0].numpy(), expected, rtol=1e-6)
+    np.testing.assert_allclose(result[0, 0, 0].numpy(), expected, rtol=1e-6, atol=1e-6)

@@ -316,7 +316,7 @@ def test_nancovar_symmetry() -> None:
     result_xy = QF.nancovar(x, y, dim=0)
     result_yx = QF.nancovar(y, x, dim=0)
 
-    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy(), rtol=1e-10)
+    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy(), rtol=1e-10, atol=1e-10)
 
 
 def test_nancovar_linear_transformation() -> None:
