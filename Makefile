@@ -24,6 +24,10 @@ pytest:
 test-cov:
 	$(RUN) pytest --cov=$(PROJECT_NAME) --cov-report=xml
 
+.PHONY: test-flakiness
+test-flakiness:
+	$(RUN) pytest --count=10 tests
+
 .PHONY: lint
 lint: lint-black lint-isort flake8 mypy
 

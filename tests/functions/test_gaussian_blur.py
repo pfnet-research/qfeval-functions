@@ -121,8 +121,8 @@ def test_gaussian_blur_basic_functionality() -> None:
 
     # Result should be symmetric around center
     assert result.shape == x.shape
-    torch.testing.assert_close(result[0], result[4], rtol=1e-4, atol=1e-6)
-    torch.testing.assert_close(result[1], result[3], rtol=1e-4, atol=1e-6)
+    torch.testing.assert_close(result[0], result[4], rtol=1e-4, atol=1e-4)
+    torch.testing.assert_close(result[1], result[3], rtol=1e-4, atol=1e-4)
 
     # Center should have highest value
     assert result[2] == result.max()

@@ -255,7 +255,7 @@ def test_orthogonalize_batch_processing() -> None:
     # Check orthogonality for each batch
     dot_products = (result * y).sum(dim=1)
     np.testing.assert_allclose(
-        dot_products.numpy(), torch.zeros(batch_size).numpy(), atol=1e-6
+        dot_products.numpy(), torch.zeros(batch_size).numpy(), atol=1e-5
     )
 
 

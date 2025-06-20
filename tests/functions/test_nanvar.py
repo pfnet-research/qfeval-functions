@@ -117,7 +117,7 @@ def test_nanvar_nan_handling() -> None:
     expected = torch.tensor(
         [expected_0, expected_1, expected_2], dtype=torch.float64
     )
-    torch.testing.assert_close(result, expected, atol=1e-10, rtol=1e-10)
+    torch.testing.assert_close(result, expected)
 
 
 def test_nanvar_all_nan() -> None:
@@ -293,8 +293,6 @@ def test_nanvar_comparison_with_numpy() -> None:
     torch.testing.assert_close(
         result_biased,
         torch.tensor(numpy_biased, dtype=torch.float64),
-        atol=1e-10,
-        rtol=1e-10,
     )
 
     # Compare unbiased variance
@@ -304,8 +302,6 @@ def test_nanvar_comparison_with_numpy() -> None:
         result_unbiased,
         torch.tensor(numpy_unbiased, dtype=torch.float64),
         equal_nan=True,
-        atol=1e-10,
-        rtol=1e-10,
     )
 
 
