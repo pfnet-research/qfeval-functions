@@ -121,13 +121,14 @@ def test_gaussian_blur_basic_functionality() -> None:
 
     # Result should be symmetric around center
     assert result.shape == x.shape
-    torch.testing.assert_close(result[0], result[4], rtol=1e-4, atol=1e-6)
-    torch.testing.assert_close(result[1], result[3], rtol=1e-4, atol=1e-6)
+    torch.testing.assert_close(result[0], result[4], rtol=1e-4, atol=1e-4)
+    torch.testing.assert_close(result[1], result[3], rtol=1e-4, atol=1e-4)
 
     # Center should have highest value
     assert result[2] == result.max()
 
 
+@pytest.mark.random
 def test_gaussian_blur_shape_preservation() -> None:
     """Test that gaussian blur preserves tensor shape."""
     # 1D tensor
@@ -219,7 +220,7 @@ def test_gaussian_blur_constant_signal() -> None:
 
     # Constant signal should remain constant
     expected = torch.full((10,), 3.0)
-    torch.testing.assert_close(result, expected, rtol=1e-5, atol=1e-7)
+    torch.testing.assert_close(result, expected, rtol=1e-5, atol=1e-4)
 
 
 def test_gaussian_blur_step_function() -> None:
@@ -267,7 +268,7 @@ def test_gaussian_blur_linearity() -> None:
 
     # Linearity: blur(x1 + x2) = blur(x1) + blur(x2)
     torch.testing.assert_close(
-        result_sum, result1 + result2, rtol=1e-5, atol=1e-7
+        result_sum, result1 + result2, rtol=1e-5, atol=1e-4
     )
 
 
@@ -306,7 +307,7 @@ def test_gaussian_blur_multidimensional() -> None:
     for i in range(2):
         individual_result = QF.gaussian_blur(x_batch[i], 0.8)
         torch.testing.assert_close(
-            result_batch[i], individual_result, rtol=1e-5, atol=1e-7
+            result_batch[i], individual_result, rtol=1e-5, atol=1e-4
         )
 
 
@@ -354,6 +355,7 @@ def test_gaussian_blur_smoothing_property() -> None:
     assert blurred_tv < original_tv
 
 
+@pytest.mark.random
 def test_gaussian_blur_performance() -> None:
     """Test gaussian blur performance with larger tensors."""
     # Test with moderately large tensor

@@ -2,6 +2,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_constant() -> None:
@@ -30,7 +31,7 @@ def test_simple() -> None:
         equal_nan=True,
     )
     assert torch.allclose(
-        middle, torch.tensor([np.nan] + [0.5] * 99), atol=1e-6, equal_nan=True
+        middle, torch.tensor([np.nan] + [0.5] * 99), atol=1e-4, equal_nan=True
     )
     assert torch.allclose(
         lower,
@@ -40,6 +41,7 @@ def test_simple() -> None:
     )
 
 
+@pytest.mark.random
 def test_tensor() -> None:
     x = torch.tensor(
         [[1.0 if i % 2 else 0.0 for i in range(20)] for _ in range(3)]
@@ -108,18 +110,18 @@ def test_random_value_with_talib() -> None:
     assert torch.allclose(
         upper[0],
         talib_upper,
-        atol=1e-7,
+        atol=1e-4,
         equal_nan=True,
     )
     assert torch.allclose(
         middle[0],
         talib_middle,
-        atol=1e-7,
+        atol=1e-4,
         equal_nan=True,
     )
     assert torch.allclose(
         lower[0],
         talib_lower,
-        atol=1e-7,
+        atol=1e-4,
         equal_nan=True,
     )

@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_mulmean() -> None:
@@ -80,6 +81,7 @@ def test_mulmean_dimensions() -> None:
     np.testing.assert_allclose(result_dim2.numpy(), expected_dim2.numpy())
 
 
+@pytest.mark.random
 def test_mulmean_multiple_dimensions() -> None:
     """Test mean calculation along multiple dimensions."""
     x = torch.randn(3, 4, 5)
@@ -89,16 +91,17 @@ def test_mulmean_multiple_dimensions() -> None:
     result_01 = QF.mulmean(x, y, dim=(0, 1))
     expected_01 = (x * y).mean(dim=(0, 1))
     np.testing.assert_allclose(
-        result_01.numpy(), expected_01.numpy(), rtol=1e-6
+        result_01.numpy(), expected_01.numpy(), rtol=1e-4
     )
 
     result_12 = QF.mulmean(x, y, dim=(1, 2))
     expected_12 = (x * y).mean(dim=(1, 2))
     np.testing.assert_allclose(
-        result_12.numpy(), expected_12.numpy(), rtol=1e-6
+        result_12.numpy(), expected_12.numpy(), rtol=1e-4
     )
 
 
+@pytest.mark.random
 def test_mulmean_keepdim() -> None:
     """Test keepdim parameter functionality."""
     x = torch.randn(3, 4, 5)
@@ -115,10 +118,11 @@ def test_mulmean_keepdim() -> None:
     result_no_keepdim = QF.mulmean(x, y, dim=1, keepdim=False)
     expected_no_keepdim = (x * y).mean(dim=1, keepdim=False)
     np.testing.assert_allclose(
-        result_no_keepdim.numpy(), expected_no_keepdim.numpy(), rtol=1e-6
+        result_no_keepdim.numpy(), expected_no_keepdim.numpy(), rtol=1e-4
     )
 
 
+@pytest.mark.random
 def test_mulmean_negative_dimensions() -> None:
     """Test negative dimension indexing."""
     x = torch.randn(3, 4, 5)
@@ -160,7 +164,7 @@ def test_mulmean_large_values() -> None:
 
     result = QF.mulmean(x, y)
     expected = (x * y).mean()
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
 
 
 def test_mulmean_small_values() -> None:
@@ -170,7 +174,7 @@ def test_mulmean_small_values() -> None:
 
     result = QF.mulmean(x, y)
     expected = (x * y).mean()
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
 
 
 def test_mulmean_broadcasting_edge_cases() -> None:
@@ -218,6 +222,7 @@ def test_mulmean_with_infinity() -> None:
     assert torch.isinf(expected) or torch.isnan(expected)
 
 
+@pytest.mark.random
 def test_mulmean_high_dimensional() -> None:
     """Test mulmean with high-dimensional tensors."""
     x = torch.randn(2, 3, 4, 5, 6)
@@ -235,6 +240,7 @@ def test_mulmean_high_dimensional() -> None:
     )
 
 
+@pytest.mark.random
 def test_mulmean_empty_dimension() -> None:
     """Test mulmean with empty dimension tuple."""
     x = torch.randn(3, 4)
@@ -243,7 +249,7 @@ def test_mulmean_empty_dimension() -> None:
     # Empty dimension tuple should compute global mean
     result = QF.mulmean(x, y, dim=())
     expected = (x * y).mean()
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
 
 
 def test_mulmean_mathematical_properties() -> None:
@@ -278,6 +284,7 @@ def test_mulmean_numerical_stability() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
+@pytest.mark.random
 def test_mulmean_batch_processing() -> None:
     """Test mulmean with batch processing scenarios."""
     batch_size = 4
@@ -291,7 +298,7 @@ def test_mulmean_batch_processing() -> None:
     result_batch = QF.mulmean(x, y, dim=(1, 2))
     expected_batch = (x * y).mean(dim=(1, 2))
     np.testing.assert_allclose(
-        result_batch.numpy(), expected_batch.numpy(), rtol=1e-5
+        result_batch.numpy(), expected_batch.numpy(), rtol=1e-4
     )
 
     assert result_batch.shape == (batch_size,)

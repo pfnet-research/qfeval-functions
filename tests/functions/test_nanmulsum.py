@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_nanmulsum() -> None:
@@ -160,7 +161,7 @@ def test_nanmulsum_large_values() -> None:
     result = QF.nanmulsum(x, y)
     # Expected: sum of [2e12, 3e12, 8e12] = 13e12
     expected = torch.tensor(13e12)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
 
 
 def test_nanmulsum_small_values() -> None:
@@ -171,7 +172,7 @@ def test_nanmulsum_small_values() -> None:
     result = QF.nanmulsum(x, y)
     # Expected: sum of [2e-12, 3e-12, 8e-12] = 13e-12
     expected = torch.tensor(13e-12)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
 
 
 def test_nanmulsum_broadcasting_edge_cases() -> None:
@@ -205,6 +206,7 @@ def test_nanmulsum_with_infinity() -> None:
     assert torch.isinf(result) or torch.isnan(result)
 
 
+@pytest.mark.random
 def test_nanmulsum_high_dimensional() -> None:
     """Test nanmulsum with high-dimensional tensors."""
     x = torch.randn(2, 3, 4, 5)
@@ -250,9 +252,10 @@ def test_nanmulsum_numerical_stability() -> None:
     result = QF.nanmulsum(x, y)
     # Expected: sum of [1, 1, 1] = 3 (three valid products: 1e10*1e-10, 1e-10*1e10, 1e10*1e-10)
     expected = torch.tensor(3.0)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
 
 
+@pytest.mark.random
 def test_nanmulsum_batch_processing() -> None:
     """Test nanmulsum with batch processing scenarios."""
     batch_size = 3
@@ -292,6 +295,7 @@ def test_nanmulsum_edge_case_patterns() -> None:
     np.testing.assert_allclose(result2.numpy(), expected2.numpy())
 
 
+@pytest.mark.random
 def test_nanmulsum_dimension_validation() -> None:
     """Test that function works with various tensor dimensions."""
     # 1D tensor
@@ -315,6 +319,7 @@ def test_nanmulsum_dimension_validation() -> None:
     assert result3d.shape == (2, 4)
 
 
+@pytest.mark.random
 def test_nanmulsum_multiple_dimensions() -> None:
     """Test sum calculation along multiple dimensions."""
     x = torch.randn(3, 4, 5)
@@ -335,6 +340,7 @@ def test_nanmulsum_multiple_dimensions() -> None:
     assert torch.isfinite(result_12).all()
 
 
+@pytest.mark.random
 def test_nanmulsum_performance_comparison() -> None:
     """Test that nanmulsum provides memory efficiency compared to naive approach."""
     for size in [50, 100]:

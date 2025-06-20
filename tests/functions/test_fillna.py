@@ -1,6 +1,7 @@
 import math
 
 import numpy as np
+import pytest
 import torch
 
 import qfeval_functions.functions as QF
@@ -203,6 +204,7 @@ def test_fillna_replacement_with_nan() -> None:
     assert result[2] == 1.0
 
 
+@pytest.mark.random
 def test_fillna_stress_test_large_tensor() -> None:
     """Test fillna with large tensor containing scattered special values."""
     size = 1000

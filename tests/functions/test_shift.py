@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_shift() -> None:
@@ -195,6 +196,7 @@ def test_shift_large_shifts() -> None:
     assert torch.isnan(result_equal_size_neg).all()
 
 
+@pytest.mark.random
 def test_shift_shape_preservation() -> None:
     """Test that shift preserves tensor shape."""
     shapes = [(5,), (3, 4), (2, 3, 4), (2, 3, 4, 5)]
@@ -222,6 +224,7 @@ def test_shift_negative_dimensions() -> None:
     assert torch.isnan(result_neg2).any()
 
 
+@pytest.mark.random
 def test_shift_high_dimensional() -> None:
     """Test shift with high-dimensional tensors."""
     x = torch.randn(2, 3, 4, 5)
@@ -264,6 +267,7 @@ def test_shift_with_infinite_values() -> None:
     assert torch.isinf(result[3]) and result[3] < 0
 
 
+@pytest.mark.random
 def test_shift_batch_processing() -> None:
     """Test shift with batch processing."""
     batch_size = 3
@@ -397,6 +401,7 @@ def test_shift_multidimensional_combinations() -> None:
         assert torch.isnan(result).any()
 
 
+@pytest.mark.random
 def test_shift_performance() -> None:
     """Test shift performance with large tensors."""
     for size in [1000, 5000]:
@@ -412,6 +417,7 @@ def test_shift_performance() -> None:
         del x, result
 
 
+@pytest.mark.random
 def test_shift_zero_shift_identity() -> None:
     """Test that zero shift is identity operation."""
     shapes = [(5,), (3, 4), (2, 3, 4)]

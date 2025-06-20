@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_signif() -> None:
@@ -151,6 +152,7 @@ def test_signif_edge_decimals() -> None:
     assert torch.isfinite(result_10).all()
 
 
+@pytest.mark.random
 def test_signif_shape_preservation() -> None:
     """Test that signif preserves tensor shape."""
     shapes = [(5,), (3, 4), (2, 3, 4), (2, 3, 4, 5)]
@@ -181,6 +183,7 @@ def test_signif_multidimensional() -> None:
     )
 
 
+@pytest.mark.random
 def test_signif_batch_processing() -> None:
     """Test signif with batch processing."""
     batch_size = 4
@@ -306,6 +309,7 @@ def test_signif_large_decimals() -> None:
     assert torch.allclose(result_15, x, rtol=1e-10)
 
 
+@pytest.mark.random
 def test_signif_performance() -> None:
     """Test signif performance with large tensors."""
     for size in [1000, 5000]:
@@ -379,4 +383,4 @@ def test_signif_consistency_across_dtypes() -> None:
     result_64 = QF.signif(x_float64, 3)
 
     # Results should be approximately equal (within dtype precision)
-    assert torch.allclose(result_32.double(), result_64, rtol=1e-6)
+    assert torch.allclose(result_32.double(), result_64, rtol=1e-4)

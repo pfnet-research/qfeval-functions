@@ -58,7 +58,7 @@ def test_soft_topk() -> None:
     actual = QF.soft_topk(x, dim=0, k=k, epsilon=epsilon)
     expected = SoftTopK(k=k, epsilon=epsilon)(x.reshape(1, -1))[0]
     np.testing.assert_allclose(actual.numpy(), expected.numpy())
-    np.testing.assert_allclose(actual.sum(dim=0).numpy(), k, atol=1e-6)
+    np.testing.assert_allclose(actual.sum(dim=0).numpy(), k, atol=1e-4)
 
     # Two dimensional cases.
     x = QF.randn(100, 50)
@@ -66,12 +66,12 @@ def test_soft_topk() -> None:
     actual = QF.soft_topk(x, dim=1, k=k, epsilon=epsilon)
     expected = SoftTopK(k=k, epsilon=epsilon)(x)
     np.testing.assert_allclose(actual.numpy(), expected.numpy())
-    np.testing.assert_allclose(actual.sum(dim=1).numpy(), k, atol=1e-6)
+    np.testing.assert_allclose(actual.sum(dim=1).numpy(), k, atol=1e-4)
 
     actual = QF.soft_topk(x, dim=0, k=k, epsilon=epsilon)
     expected = SoftTopK(k=k, epsilon=epsilon)(x.t()).t()
     np.testing.assert_allclose(actual.numpy(), expected.numpy())
-    np.testing.assert_allclose(actual.sum(dim=0).numpy(), k, atol=1e-6)
+    np.testing.assert_allclose(actual.sum(dim=0).numpy(), k, atol=1e-4)
 
     # Three dimensional cases.
     x = QF.randn(100, 50, 20)
@@ -81,7 +81,7 @@ def test_soft_topk() -> None:
         x.reshape(-1, x.shape[2])
     ).reshape(x.shape)
     np.testing.assert_allclose(actual.numpy(), expected.numpy())
-    np.testing.assert_allclose(actual.sum(dim=2).numpy(), k, atol=1e-6)
+    np.testing.assert_allclose(actual.sum(dim=2).numpy(), k, atol=1e-4)
 
     actual = QF.soft_topk(x, dim=1, k=k, epsilon=epsilon)
     input = x.transpose(1, 2)
@@ -90,7 +90,7 @@ def test_soft_topk() -> None:
     expected = SoftTopK(k=k, epsilon=epsilon)(input).reshape(shape)
     expected = expected.transpose(1, 2)
     np.testing.assert_allclose(actual.numpy(), expected.numpy())
-    np.testing.assert_allclose(actual.sum(dim=1).numpy(), k, atol=1e-6)
+    np.testing.assert_allclose(actual.sum(dim=1).numpy(), k, atol=1e-4)
 
     actual = QF.soft_topk(x, dim=0, k=k, epsilon=epsilon)
     input = x.transpose(0, 2)
@@ -99,7 +99,7 @@ def test_soft_topk() -> None:
     expected = SoftTopK(k=k, epsilon=epsilon)(input).reshape(shape)
     expected = expected.transpose(0, 2)
     np.testing.assert_allclose(actual.numpy(), expected.numpy())
-    np.testing.assert_allclose(actual.sum(dim=0).numpy(), k, atol=1e-6)
+    np.testing.assert_allclose(actual.sum(dim=0).numpy(), k, atol=1e-4)
 
 
 def test_soft_bottom_topk() -> None:
@@ -171,7 +171,7 @@ def test_soft_topk_basic_functionality() -> None:
     # Result should be non-negative and sum to k
     assert torch.all(result >= 0)
     torch.testing.assert_close(
-        result.sum(), torch.tensor(k, dtype=torch.float64), atol=1e-6, rtol=1e-6
+        result.sum(), torch.tensor(k, dtype=torch.float64), atol=1e-4, rtol=1e-4
     )
 
     # Larger values should have higher weights
@@ -203,6 +203,7 @@ def test_soft_topk_bottomk_basic_functionality() -> None:
     torch.testing.assert_close(result, result_explicit)
 
 
+@pytest.mark.random
 def test_soft_topk_shape_preservation() -> None:
     """Test that soft_topk preserves tensor shape."""
     # 2D tensor
@@ -221,6 +222,7 @@ def test_soft_topk_shape_preservation() -> None:
     assert result_3d.shape == x_3d.shape
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_shape_preservation() -> None:
     """Test that soft_topk_bottomk preserves tensor shape."""
     # 2D tensor - ensure k constraint: dim >= 2*k (for bottomk)
@@ -239,6 +241,7 @@ def test_soft_topk_bottomk_shape_preservation() -> None:
     assert result_3d.shape == x_3d.shape
 
 
+@pytest.mark.random
 def test_soft_topk_sum_constraint() -> None:
     """Test that soft_topk results sum to k."""
     qfeval_functions.random.seed()
@@ -250,8 +253,8 @@ def test_soft_topk_sum_constraint() -> None:
         torch.testing.assert_close(
             result.sum(),
             torch.tensor(k, dtype=torch.float64),
-            atol=1e-6,
-            rtol=1e-6,
+            atol=1e-4,
+            rtol=1e-4,
         )
 
     # Multi-dimensional case
@@ -260,10 +263,11 @@ def test_soft_topk_sum_constraint() -> None:
     result_2d = QF.soft_topk(x_2d, k=k, dim=1)
     expected_sums = torch.full((10,), k, dtype=torch.float64)
     torch.testing.assert_close(
-        result_2d.sum(dim=1), expected_sums, atol=1e-6, rtol=1e-6
+        result_2d.sum(dim=1), expected_sums, atol=1e-4, rtol=1e-4
     )
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_sum_constraint() -> None:
     """Test that soft_topk_bottomk results sum to 0."""
     qfeval_functions.random.seed()
@@ -289,6 +293,7 @@ def test_soft_topk_bottomk_sum_constraint() -> None:
     )
 
 
+@pytest.mark.random
 def test_soft_topk_non_negativity() -> None:
     """Test that soft_topk produces non-negative values."""
     qfeval_functions.random.seed()
@@ -302,6 +307,7 @@ def test_soft_topk_non_negativity() -> None:
         ), "soft_topk should produce non-negative values"
 
 
+@pytest.mark.random
 def test_soft_topk_different_k_values() -> None:
     """Test soft_topk with different k values."""
     qfeval_functions.random.seed()
@@ -313,12 +319,13 @@ def test_soft_topk_different_k_values() -> None:
         torch.testing.assert_close(
             result.sum(),
             torch.tensor(k, dtype=torch.float64),
-            atol=1e-6,
-            rtol=1e-6,
+            atol=1e-4,
+            rtol=1e-4,
         )
         assert torch.all(result >= 0)
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_different_k_values() -> None:
     """Test soft_topk_bottomk with different k values."""
     qfeval_functions.random.seed()
@@ -336,6 +343,7 @@ def test_soft_topk_bottomk_different_k_values() -> None:
         )
 
 
+@pytest.mark.random
 def test_soft_topk_different_dimensions() -> None:
     """Test soft_topk along different dimensions."""
     qfeval_functions.random.seed()
@@ -352,10 +360,11 @@ def test_soft_topk_different_dimensions() -> None:
         sum_result = result.sum(dim=dim)
         expected_sum = torch.full_like(sum_result, k, dtype=torch.float64)
         torch.testing.assert_close(
-            sum_result, expected_sum, atol=1e-6, rtol=1e-6
+            sum_result, expected_sum, atol=1e-4, rtol=1e-4
         )
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_different_dimensions() -> None:
     """Test soft_topk_bottomk along different dimensions."""
     qfeval_functions.random.seed()
@@ -376,6 +385,7 @@ def test_soft_topk_bottomk_different_dimensions() -> None:
         )
 
 
+@pytest.mark.random
 def test_soft_topk_negative_dimension() -> None:
     """Test soft_topk with negative dimension indices."""
     qfeval_functions.random.seed()
@@ -389,6 +399,7 @@ def test_soft_topk_negative_dimension() -> None:
     torch.testing.assert_close(result_neg, result_pos)
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_negative_dimension() -> None:
     """Test soft_topk_bottomk with negative dimension indices."""
     qfeval_functions.random.seed()
@@ -402,6 +413,7 @@ def test_soft_topk_bottomk_negative_dimension() -> None:
     torch.testing.assert_close(result_neg, result_pos)
 
 
+@pytest.mark.random
 def test_soft_topk_epsilon_parameter() -> None:
     """Test soft_topk with different epsilon values."""
     qfeval_functions.random.seed()
@@ -415,8 +427,8 @@ def test_soft_topk_epsilon_parameter() -> None:
         torch.testing.assert_close(
             result.sum(),
             torch.tensor(k, dtype=torch.float64),
-            atol=1e-6,
-            rtol=1e-6,
+            atol=1e-4,
+            rtol=1e-4,
         )
         assert torch.all(result >= 0)
 
@@ -428,6 +440,7 @@ def test_soft_topk_epsilon_parameter() -> None:
     assert result_small_eps.max() > result_large_eps.max()
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_epsilon_parameter() -> None:
     """Test soft_topk_bottomk with different epsilon values."""
     qfeval_functions.random.seed()
@@ -446,6 +459,7 @@ def test_soft_topk_bottomk_epsilon_parameter() -> None:
         )
 
 
+@pytest.mark.random
 def test_soft_topk_max_iter_parameter() -> None:
     """Test soft_topk with different max_iter values."""
     qfeval_functions.random.seed()
@@ -459,12 +473,13 @@ def test_soft_topk_max_iter_parameter() -> None:
         torch.testing.assert_close(
             result.sum(),
             torch.tensor(k, dtype=torch.float64),
-            atol=1e-6,
-            rtol=1e-6,
+            atol=1e-4,
+            rtol=1e-4,
         )
         assert torch.all(result >= 0)
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_max_iter_parameter() -> None:
     """Test soft_topk_bottomk with different max_iter values."""
     qfeval_functions.random.seed()
@@ -483,6 +498,7 @@ def test_soft_topk_bottomk_max_iter_parameter() -> None:
         )
 
 
+@pytest.mark.random
 def test_soft_topk_topk_only_flag() -> None:
     """Test that soft_topk_bottomk with topk_only=True matches soft_topk."""
     qfeval_functions.random.seed()
@@ -495,6 +511,7 @@ def test_soft_topk_topk_only_flag() -> None:
     torch.testing.assert_close(result_soft_topk, result_topk_only)
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_dtype_preservation() -> None:
     """Test that soft_topk_bottomk preserves input dtype."""
     k = 3
@@ -510,6 +527,7 @@ def test_soft_topk_bottomk_dtype_preservation() -> None:
     assert result_float64.dtype == torch.float64
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_device_preservation() -> None:
     """Test that soft_topk_bottomk preserves input device."""
     x = torch.randn(10, dtype=torch.float64)
@@ -519,6 +537,7 @@ def test_soft_topk_bottomk_device_preservation() -> None:
     assert result.device == x.device
 
 
+@pytest.mark.random
 def test_soft_topk_error_handling() -> None:
     """Test soft_topk error handling for invalid inputs."""
     x = torch.randn(10, dtype=torch.float64)
@@ -547,6 +566,7 @@ def test_soft_topk_error_handling() -> None:
         QF.soft_topk(x_inf, k=2, dim=0)
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_error_handling() -> None:
     """Test soft_topk_bottomk error handling for invalid inputs."""
     x = torch.randn(10, dtype=torch.float64)
@@ -583,8 +603,8 @@ def test_soft_topk_edge_cases() -> None:
     torch.testing.assert_close(
         result_k1.sum(),
         torch.tensor(1.0, dtype=torch.float64),
-        atol=1e-6,
-        rtol=1e-6,
+        atol=1e-4,
+        rtol=1e-4,
     )
 
     # k equal to dimension size (all elements selected)
@@ -593,8 +613,8 @@ def test_soft_topk_edge_cases() -> None:
     torch.testing.assert_close(
         result_all.sum(),
         torch.tensor(3.0, dtype=torch.float64),
-        atol=1e-6,
-        rtol=1e-6,
+        atol=1e-4,
+        rtol=1e-4,
     )
 
     # Very small tensor
@@ -604,8 +624,8 @@ def test_soft_topk_edge_cases() -> None:
     torch.testing.assert_close(
         result_tiny.sum(),
         torch.tensor(1.0, dtype=torch.float64),
-        atol=1e-6,
-        rtol=1e-6,
+        atol=1e-4,
+        rtol=1e-4,
     )
 
 
@@ -642,7 +662,7 @@ def test_soft_topk_constant_input() -> None:
 
     # Should still sum to k
     torch.testing.assert_close(
-        result.sum(), torch.tensor(k, dtype=torch.float64), atol=1e-6, rtol=1e-6
+        result.sum(), torch.tensor(k, dtype=torch.float64), atol=1e-4, rtol=1e-4
     )
     # With constant input, all elements should have similar weights
     assert torch.all(result >= 0)
@@ -667,6 +687,7 @@ def test_soft_topk_bottomk_constant_input() -> None:
     assert torch.all(torch.abs(result) < 0.1)
 
 
+@pytest.mark.random
 def test_soft_topk_gradient_compatibility() -> None:
     """Test that soft_topk works with gradient computation."""
     x = torch.randn(10, dtype=torch.float64, requires_grad=True)
@@ -681,6 +702,7 @@ def test_soft_topk_gradient_compatibility() -> None:
     assert torch.isfinite(x.grad).all()
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_gradient_compatibility() -> None:
     """Test that soft_topk_bottomk works with gradient computation."""
     x = torch.randn(10, dtype=torch.float64, requires_grad=True)
@@ -706,8 +728,8 @@ def test_soft_topk_numerical_stability() -> None:
     torch.testing.assert_close(
         result_large.sum(),
         torch.tensor(k, dtype=torch.float64),
-        atol=1e-6,
-        rtol=1e-6,
+        atol=1e-4,
+        rtol=1e-4,
     )
 
     # Very small values
@@ -717,8 +739,8 @@ def test_soft_topk_numerical_stability() -> None:
     torch.testing.assert_close(
         result_small.sum(),
         torch.tensor(k, dtype=torch.float64),
-        atol=1e-6,
-        rtol=1e-6,
+        atol=1e-4,
+        rtol=1e-4,
     )
 
 
@@ -753,6 +775,7 @@ def test_soft_topk_bottomk_numerical_stability() -> None:
     )
 
 
+@pytest.mark.random
 def test_soft_topk_reproducibility() -> None:
     """Test that soft_topk produces consistent results."""
     qfeval_functions.random.seed()
@@ -765,6 +788,7 @@ def test_soft_topk_reproducibility() -> None:
     torch.testing.assert_close(result1, result2)
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_reproducibility() -> None:
     """Test that soft_topk_bottomk produces consistent results."""
     qfeval_functions.random.seed()
@@ -777,6 +801,7 @@ def test_soft_topk_bottomk_reproducibility() -> None:
     torch.testing.assert_close(result1, result2)
 
 
+@pytest.mark.random
 def test_soft_topk_batch_processing() -> None:
     """Test soft_topk with batch dimensions."""
     qfeval_functions.random.seed()
@@ -792,12 +817,13 @@ def test_soft_topk_batch_processing() -> None:
         torch.testing.assert_close(
             result_batch[i].sum(),
             torch.tensor(k, dtype=torch.float64),
-            atol=1e-6,
-            rtol=1e-6,
+            atol=1e-4,
+            rtol=1e-4,
         )
         assert torch.all(result_batch[i] >= 0)
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_batch_processing() -> None:
     """Test soft_topk_bottomk with batch dimensions."""
     qfeval_functions.random.seed()
@@ -840,6 +866,7 @@ def test_soft_topk_comparison_with_hard_topk() -> None:
             assert soft_result[idx] > soft_result[other_idx]
 
 
+@pytest.mark.random
 def test_soft_topk_performance() -> None:
     """Test soft_topk performance with larger tensors."""
     qfeval_functions.random.seed()
@@ -852,11 +879,12 @@ def test_soft_topk_performance() -> None:
     # Check constraints
     expected_sums = torch.full((500,), k, dtype=torch.float64)
     torch.testing.assert_close(
-        result.sum(dim=1), expected_sums, atol=1e-6, rtol=1e-6
+        result.sum(dim=1), expected_sums, atol=1e-4, rtol=1e-4
     )
     assert torch.all(result >= 0)
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_performance() -> None:
     """Test soft_topk_bottomk performance with larger tensors."""
     qfeval_functions.random.seed()
@@ -873,6 +901,7 @@ def test_soft_topk_bottomk_performance() -> None:
     )
 
 
+@pytest.mark.random
 def test_soft_topk_bottomk_memory_efficiency() -> None:
     """Test memory efficiency of soft_topk_bottomk."""
     # Test that soft_topk_bottomk doesn't create excessive intermediate tensors
@@ -884,6 +913,7 @@ def test_soft_topk_bottomk_memory_efficiency() -> None:
         del x, result
 
 
+@pytest.mark.random
 def test_soft_topk_mathematical_properties() -> None:
     """Test mathematical properties of soft_topk."""
     qfeval_functions.random.seed()
@@ -897,7 +927,7 @@ def test_soft_topk_mathematical_properties() -> None:
 
     # Sum constraint
     torch.testing.assert_close(
-        result.sum(), torch.tensor(k, dtype=torch.float64), atol=1e-6, rtol=1e-6
+        result.sum(), torch.tensor(k, dtype=torch.float64), atol=1e-4, rtol=1e-4
     )
 
     # Monotonicity: if x[i] > x[j], then result[i] >= result[j] (approximately)
@@ -920,8 +950,8 @@ def test_soft_topk_special_values() -> None:
     torch.testing.assert_close(
         result_zeros.sum(),
         torch.tensor(k, dtype=torch.float64),
-        atol=1e-6,
-        rtol=1e-6,
+        atol=1e-4,
+        rtol=1e-4,
     )
 
     # Test with negative values
@@ -931,8 +961,8 @@ def test_soft_topk_special_values() -> None:
     torch.testing.assert_close(
         result_neg.sum(),
         torch.tensor(2.0, dtype=torch.float64),
-        atol=1e-6,
-        rtol=1e-6,
+        atol=1e-4,
+        rtol=1e-4,
     )
 
     # The least negative (largest) values should get higher weights

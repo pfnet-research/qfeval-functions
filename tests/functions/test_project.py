@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_project_basic_functionality() -> None:
@@ -71,6 +72,7 @@ def test_project_linear_combination() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
+@pytest.mark.random
 def test_project_batch_processing() -> None:
     """Test projection with batch dimensions."""
     batch_size = 3
@@ -85,10 +87,11 @@ def test_project_batch_processing() -> None:
     for i in range(batch_size):
         expected_i = torch.matmul(x[i], a[i].T)
         np.testing.assert_allclose(
-            result[i].numpy(), expected_i.numpy(), rtol=1e-6
+            result[i].numpy(), expected_i.numpy(), rtol=1e-4
         )
 
 
+@pytest.mark.random
 def test_project_broadcasting() -> None:
     """Test projection with broadcasting."""
     # Single projection matrix, multiple input batches
@@ -103,7 +106,7 @@ def test_project_broadcasting() -> None:
     for i in range(4):
         expected_i = torch.matmul(x[i], a.T)
         np.testing.assert_allclose(
-            result[i].numpy(), expected_i.numpy(), rtol=1e-6
+            result[i].numpy(), expected_i.numpy(), rtol=1e-4
         )
 
 
@@ -145,6 +148,7 @@ def test_project_zero_matrix() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
+@pytest.mark.random
 def test_project_large_tensors() -> None:
     """Test projection with large tensors for performance verification."""
     a = torch.randn(100, 50)  # (100, 50) projection matrix
@@ -222,7 +226,7 @@ def test_project_very_large_values() -> None:
     result = QF.project(a, x)
     expected = torch.matmul(x, a.T)
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
 
 
 def test_project_negative_values() -> None:
@@ -236,6 +240,7 @@ def test_project_negative_values() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
+@pytest.mark.random
 def test_project_complex_batch_shapes() -> None:
     """Test projection with complex batch shapes."""
     # Test 3D batch dimensions

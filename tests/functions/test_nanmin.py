@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_nanmin() -> None:
@@ -70,6 +71,7 @@ def test_nanmin_return_type() -> None:
     assert isinstance(result.indices, torch.Tensor)
 
 
+@pytest.mark.random
 def test_nanmin_shape_preservation() -> None:
     """Test that nanmin preserves correct output shapes."""
     # 2D tensor
@@ -223,6 +225,7 @@ def test_nanmin_index_correctness() -> None:
         )
 
 
+@pytest.mark.random
 def test_nanmin_large_tensors() -> None:
     """Test nanmin with larger tensors for performance."""
     x = torch.randn(100, 1000)
@@ -444,6 +447,7 @@ def test_nanmin_with_duplicates() -> None:
     assert result.indices[1] == 1  # First 2.0
 
 
+@pytest.mark.random
 def test_nanmin_performance() -> None:
     """Test nanmin performance with moderately large tensors."""
     x_large = torch.randn(500, 200)

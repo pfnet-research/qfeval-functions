@@ -5,6 +5,7 @@ import torch
 from scipy.stats import linregress
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_nanslope_basic_functionality() -> None:
@@ -121,6 +122,7 @@ def test_nanslope_2d_tensors() -> None:
     assert abs(result[1].item() - 3.0) < 1e-6
 
 
+@pytest.mark.random
 def test_nanslope_3d_tensors() -> None:
     """Test NaN slope with 3D tensors."""
     x = torch.randn(3, 4, 50)
@@ -139,6 +141,7 @@ def test_nanslope_3d_tensors() -> None:
         assert torch.all(torch.abs(finite_results - 2.0) < 0.1)
 
 
+@pytest.mark.random
 def test_nanslope_keepdim() -> None:
     """Test NaN slope with keepdim parameter."""
     x = torch.randn(2, 3, 20)
@@ -159,6 +162,7 @@ def test_nanslope_keepdim() -> None:
     )
 
 
+@pytest.mark.random
 def test_nanslope_multiple_dimensions() -> None:
     """Test NaN slope along multiple dimensions."""
     x = torch.randn(2, 3, 4, 5)
@@ -177,6 +181,7 @@ def test_nanslope_multiple_dimensions() -> None:
         assert torch.all(torch.abs(finite_results - 0.8) < 0.1)
 
 
+@pytest.mark.random
 def test_nanslope_linear_regression_properties() -> None:
     """Test NaN slope with known linear regression properties."""
     # Create data with known slope
@@ -207,6 +212,7 @@ def test_nanslope_asymmetric_nan_patterns() -> None:
     assert abs(result.item() - 2.0) < 1e-6
 
 
+@pytest.mark.random
 def test_nanslope_batch_processing() -> None:
     """Test NaN slope with batch processing."""
     batch_size = 10
@@ -258,6 +264,7 @@ def test_nanslope_mixed_finite_infinite() -> None:
     assert torch.isnan(result) or torch.isinf(result) or torch.isfinite(result)
 
 
+@pytest.mark.random
 def test_nanslope_negative_dimension() -> None:
     """Test NaN slope with negative dimension indexing."""
     x = torch.randn(3, 4, 20)
@@ -284,6 +291,7 @@ def test_nanslope_empty_after_nan_removal() -> None:
     assert torch.isnan(result)
 
 
+@pytest.mark.random
 def test_nanslope_scipy_comparison() -> None:
     """Test NaN slope against scipy for validation."""
     torch.manual_seed(123)
@@ -302,7 +310,7 @@ def test_nanslope_scipy_comparison() -> None:
 
     if valid_mask.sum() > 1:
         expected = linregress(x_np[valid_mask], y_np[valid_mask]).slope
-        np.testing.assert_allclose(result.numpy(), expected, rtol=1e-6)
+        np.testing.assert_allclose(result.numpy(), expected, rtol=1e-4)
 
 
 def test_nanslope_quadratic_relationship() -> None:

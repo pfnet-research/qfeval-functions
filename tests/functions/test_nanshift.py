@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_nanshift() -> None:
@@ -116,6 +117,7 @@ def test_nanshift_basic_functionality() -> None:
     torch.testing.assert_close(result_left, expected_left, equal_nan=True)
 
 
+@pytest.mark.random
 def test_nanshift_shape_preservation() -> None:
     """Test that nanshift preserves tensor shape."""
     # 2D tensor
@@ -206,6 +208,7 @@ def test_nanshift_all_nan() -> None:
     assert result.shape == x.shape
 
 
+@pytest.mark.random
 def test_nanshift_no_nan() -> None:
     """Test nanshift consistency with regular shift when no NaN."""
     x = torch.randn(3, 5)
@@ -293,6 +296,7 @@ def test_nanshift_numerical_stability() -> None:
     assert result_small.shape == x_small.shape
 
 
+@pytest.mark.random
 def test_nanshift_batch_processing() -> None:
     """Test nanshift with batch dimensions."""
     batch_size = 3
@@ -379,6 +383,7 @@ def test_nanshift_with_infinity() -> None:
     assert torch.isneginf(result).any()
 
 
+@pytest.mark.random
 def test_nanshift_performance() -> None:
     """Test nanshift performance with larger tensors."""
     x_large = torch.randn(100, 200)

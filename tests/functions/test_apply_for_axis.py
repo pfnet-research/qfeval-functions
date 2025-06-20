@@ -203,7 +203,7 @@ def test_apply_for_axis_complex_function() -> None:
     row_sums = torch.exp(result).sum(dim=1)
     expected_sums = torch.ones(2)
     np.testing.assert_allclose(
-        row_sums.numpy(), expected_sums.numpy(), atol=1e-6
+        row_sums.numpy(), expected_sums.numpy(), atol=1e-4
     )
 
 

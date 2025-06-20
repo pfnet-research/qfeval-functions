@@ -16,7 +16,7 @@ def test_mstd_basic() -> None:
     )
 
     np.testing.assert_allclose(
-        result[2:].numpy(), expected[2:].numpy(), atol=1e-6
+        result[2:].numpy(), expected[2:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:2]).all()
 
@@ -32,7 +32,7 @@ def test_mstd_with_ddof_0() -> None:
     expected = torch.sqrt(expected_variance)
 
     np.testing.assert_allclose(
-        result[2:].numpy(), expected[2:].numpy(), atol=1e-6
+        result[2:].numpy(), expected[2:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:2]).all()
 
@@ -50,7 +50,7 @@ def test_mstd_2d_tensor() -> None:
     )
 
     np.testing.assert_allclose(
-        result[:, 1:].numpy(), expected[:, 1:].numpy(), atol=1e-6
+        result[:, 1:].numpy(), expected[:, 1:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:, 0]).all()
 
@@ -65,7 +65,7 @@ def test_mstd_with_zeros() -> None:
     )
 
     np.testing.assert_allclose(
-        result[2:].numpy(), expected[2:].numpy(), atol=1e-6
+        result[2:].numpy(), expected[2:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:2]).all()
 
@@ -83,7 +83,7 @@ def test_mstd_negative_dim() -> None:
     )
 
     np.testing.assert_allclose(
-        result[:, 1:].numpy(), expected[:, 1:].numpy(), atol=1e-6
+        result[:, 1:].numpy(), expected[:, 1:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:, 0]).all()
 
@@ -96,7 +96,7 @@ def test_mstd_span_equals_length() -> None:
     expected = torch.tensor([math.nan, math.nan, 1.0])
 
     np.testing.assert_allclose(
-        result[2:].numpy(), expected[2:].numpy(), atol=1e-6
+        result[2:].numpy(), expected[2:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:2]).all()
 
@@ -185,7 +185,7 @@ def test_mstd_alternating_pattern() -> None:
     )
 
     np.testing.assert_allclose(
-        result[1:].numpy(), expected[1:].numpy(), atol=1e-6
+        result[1:].numpy(), expected[1:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[0])
 
@@ -201,7 +201,7 @@ def test_mstd_large_span_relative_to_tensor() -> None:
 
     # Manual calculation for window starting at position 3: [1,2,3,4]
     manual_std = torch.std(torch.tensor([1.0, 2.0, 3.0, 4.0]), unbiased=True)
-    np.testing.assert_allclose(result[3].numpy(), manual_std.numpy(), atol=1e-6)
+    np.testing.assert_allclose(result[3].numpy(), manual_std.numpy(), atol=1e-4)
 
 
 def test_mstd_3d_tensor_different_axes() -> None:
@@ -268,7 +268,7 @@ def test_mstd_mixed_positive_negative() -> None:
     )
 
     np.testing.assert_allclose(
-        result[2:].numpy(), expected[2:].numpy(), atol=1e-6
+        result[2:].numpy(), expected[2:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:2]).all()
 

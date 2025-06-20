@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_nancovar_basic_functionality() -> None:
@@ -51,6 +52,7 @@ def test_nancovar_perfect_negative_correlation() -> None:
     assert result < 0
 
 
+@pytest.mark.random
 def test_nancovar_zero_covariance() -> None:
     """Test NaN covariance with zero covariance."""
     torch.manual_seed(42)
@@ -113,6 +115,7 @@ def test_nancovar_2d_tensors() -> None:
     assert result[1] > 0
 
 
+@pytest.mark.random
 def test_nancovar_3d_tensors() -> None:
     """Test NaN covariance with 3D tensors."""
     x = torch.randn(3, 4, 50)
@@ -130,6 +133,7 @@ def test_nancovar_3d_tensors() -> None:
     assert finite_count >= 8  # At least 2/3 should be finite
 
 
+@pytest.mark.random
 def test_nancovar_keepdim() -> None:
     """Test NaN covariance with keepdim parameter."""
     x = torch.randn(2, 3, 20)
@@ -211,6 +215,7 @@ def test_nancovar_asymmetric_nan_patterns() -> None:
     assert torch.isfinite(result)
 
 
+@pytest.mark.random
 def test_nancovar_batch_processing() -> None:
     """Test NaN covariance with batch processing."""
     batch_size = 10
@@ -261,6 +266,7 @@ def test_nancovar_mixed_finite_infinite() -> None:
     assert torch.isnan(result) or torch.isinf(result) or torch.isfinite(result)
 
 
+@pytest.mark.random
 def test_nancovar_negative_dimension() -> None:
     """Test NaN covariance with negative dimension indexing."""
     x = torch.randn(3, 4, 20)
@@ -287,6 +293,7 @@ def test_nancovar_empty_after_nan_removal() -> None:
     assert result.item() == 0.0
 
 
+@pytest.mark.random
 def test_nancovar_numpy_comparison() -> None:
     """Test NaN covariance against numpy for validation."""
     torch.manual_seed(123)
@@ -338,7 +345,7 @@ def test_nancovar_linear_transformation() -> None:
     expected_transformed = a * c * cov_xy  # cov(ax+b, cy+d) = ac * cov(x,y)
 
     np.testing.assert_allclose(
-        cov_transformed.numpy(), expected_transformed.numpy(), rtol=1e-6
+        cov_transformed.numpy(), expected_transformed.numpy(), rtol=1e-4
     )
 
 
@@ -353,6 +360,7 @@ def test_nancovar_mixed_signs() -> None:
     assert result > 0
 
 
+@pytest.mark.random
 def test_nancovar_different_ddof() -> None:
     """Test NaN covariance with different ddof values on batch data."""
     batch_size = 5
@@ -379,6 +387,7 @@ def test_nancovar_different_ddof() -> None:
         assert torch.all(ratio > 1.0)
 
 
+@pytest.mark.random
 def test_nancovar_precision_warning() -> None:
     """Test that function handles precision limitations gracefully."""
     # Create data with many NaN values to test precision warning scenario

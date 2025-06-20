@@ -3,6 +3,7 @@ import torch
 
 import qfeval_functions
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_rand_like() -> None:
@@ -137,6 +138,7 @@ def test_rand_like_statistical_properties() -> None:
     assert result.max().item() < 1.0
 
 
+@pytest.mark.random
 def test_rand_like_different_input_values() -> None:
     """Test that rand_like output is independent of input tensor values."""
     shape = (10, 10)

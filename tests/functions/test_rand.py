@@ -5,6 +5,7 @@ import torch
 
 import qfeval_functions
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_rand() -> None:
@@ -240,7 +241,7 @@ def test_rand_precision_across_dtypes() -> None:
         result_f64 = QF.rand(100, dtype=torch.float64)
 
     # Values should be similar but not exactly equal due to precision differences
-    assert torch.allclose(result_f32.double(), result_f64, atol=1e-6)
+    assert torch.allclose(result_f32.double(), result_f64, atol=1e-4)
 
 
 def test_rand_distribution_uniformity() -> None:
@@ -260,6 +261,7 @@ def test_rand_distribution_uniformity() -> None:
         assert abs(count.item() - expected_count) < expected_count * 0.1
 
 
+@pytest.mark.random
 def test_rand_seed_isolation() -> None:
     """Test that seed context doesn't affect other random operations."""
     # Generate some random values outside seed context

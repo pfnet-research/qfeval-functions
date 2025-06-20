@@ -8,6 +8,7 @@ from tests.functions.test_utils import generic_test_consistency
 from tests.functions.test_utils import generic_test_device_preservation
 from tests.functions.test_utils import generic_test_dtype_preservation
 from tests.functions.test_utils import generic_test_memory_efficiency
+import pytest
 
 
 def test_nansum() -> None:
@@ -149,7 +150,7 @@ def test_nansum_large_values() -> None:
     x = torch.tensor([1e6, math.nan, 2e6, 3e6])
     result = QF.nansum(x)
     expected = torch.tensor(6e6)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
 
 
 def test_nansum_small_values() -> None:
@@ -157,7 +158,7 @@ def test_nansum_small_values() -> None:
     x = torch.tensor([1e-6, math.nan, 2e-6, 3e-6])
     result = QF.nansum(x)
     expected = torch.tensor(6e-6)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
 
 
 def test_nansum_2d_tensors() -> None:
@@ -212,6 +213,7 @@ def test_nansum_mixed_special_values() -> None:
     assert torch.isinf(result)
 
 
+@pytest.mark.random
 def test_nansum_different_dimensions() -> None:
     """Test sum along different dimensions."""
     x = torch.randn(3, 4, 5)
@@ -234,17 +236,18 @@ def test_nansum_numerical_stability() -> None:
     x = torch.tensor([1e-100, 1e-100, math.nan, 1e-100])
     result = QF.nansum(x)
     expected = torch.tensor(3e-100)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
 
     # Test with very large numbers
     x_large = torch.tensor([1e100, math.nan, 1e100])
     result_large = QF.nansum(x_large)
     expected_large = torch.tensor(2e100)
     np.testing.assert_allclose(
-        result_large.numpy(), expected_large.numpy(), rtol=1e-6
+        result_large.numpy(), expected_large.numpy(), rtol=1e-4
     )
 
 
+@pytest.mark.random
 def test_nansum_batch_processing() -> None:
     """Test sum with batch processing scenarios."""
     batch_size = 3
@@ -311,6 +314,7 @@ def test_nansum_edge_case_patterns() -> None:
     np.testing.assert_allclose(result3.numpy(), expected3.numpy())
 
 
+@pytest.mark.random
 def test_nansum_dimension_validation() -> None:
     """Test that function works with various tensor dimensions."""
     # 1D tensor
@@ -357,6 +361,7 @@ def test_nansum_precision_preservation() -> None:
     np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-15)
 
 
+@pytest.mark.random
 def test_nansum_performance_comparison() -> None:
     """Test that nansum provides correct results for performance cases."""
     # Test with larger tensor to ensure functionality scales

@@ -5,6 +5,7 @@ import pandas as pd
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_mmax() -> None:
@@ -46,6 +47,7 @@ def test_mmax_basic_functionality() -> None:
     torch.testing.assert_close(result, expected)
 
 
+@pytest.mark.random
 def test_mmax_shape_preservation() -> None:
     """Test that moving maximum preserves tensor shape."""
     # 1D tensor
@@ -264,6 +266,7 @@ def test_mmax_multidimensional() -> None:
     torch.testing.assert_close(result_dim0, expected_dim0)
 
 
+@pytest.mark.random
 def test_mmax_batch_processing() -> None:
     """Test moving maximum with batch processing scenarios."""
     batch_size = 3
@@ -414,6 +417,7 @@ def test_mmax_signal_characteristics() -> None:
     assert result_peaks.max() == x_peaks.max()
 
 
+@pytest.mark.random
 def test_mmax_high_dimensional() -> None:
     """Test moving maximum with high-dimensional tensors."""
     # 3D tensor

@@ -10,6 +10,7 @@ from tests.functions.test_utils import generic_test_device_preservation
 from tests.functions.test_utils import generic_test_dtype_preservation
 from tests.functions.test_utils import generic_test_memory_efficiency
 from tests.functions.test_utils import generic_test_single_element
+import pytest
 
 
 def test_ma() -> None:
@@ -53,6 +54,7 @@ def test_ma_basic_functionality() -> None:
     torch.testing.assert_close(result[4], torch.tensor(expected_4))
 
 
+@pytest.mark.random
 def test_ma_shape_preservation() -> None:
     """Test that moving average preserves tensor shape."""
     # 1D tensor
@@ -274,6 +276,7 @@ def test_ma_multidimensional() -> None:
     )
 
 
+@pytest.mark.random
 def test_ma_batch_processing() -> None:
     """Test moving average with batch processing scenarios."""
     batch_size = 3

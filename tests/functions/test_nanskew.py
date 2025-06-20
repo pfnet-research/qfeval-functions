@@ -5,6 +5,7 @@ import scipy.stats
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_nanskew() -> None:
@@ -67,6 +68,7 @@ def test_nanskew_edge_cases() -> None:
     ), f"Three equal values should return NaN, got {result4}"
 
 
+@pytest.mark.random
 def test_nanskew_random_data_comparison() -> None:
     """Test nanskew with random data against scipy implementation."""
     x = torch.randn((73, 83), dtype=torch.float64)

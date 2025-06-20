@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_nancumsum() -> None:
@@ -238,6 +239,7 @@ def test_nancumsum_mixed_special_values() -> None:
     )  # large + 2 = large
 
 
+@pytest.mark.random
 def test_nancumsum_different_dimensions() -> None:
     """Test cumulative sum along different dimensions."""
     x = torch.randn(3, 4, 5)
@@ -271,6 +273,7 @@ def test_nancumsum_numerical_stability() -> None:
     assert result[3].item() >= result[1].item()
 
 
+@pytest.mark.random
 def test_nancumsum_batch_processing() -> None:
     """Test cumulative sum with batch processing."""
     batch_size = 3
@@ -324,6 +327,7 @@ def test_nancumsum_edge_case_patterns() -> None:
     assert result2[3].item() == 6.0
 
 
+@pytest.mark.random
 def test_nancumsum_dimension_validation() -> None:
     """Test that function works with various tensor dimensions."""
     # 1D tensor
@@ -378,6 +382,7 @@ def test_nancumsum_precision_preservation() -> None:
     assert abs(result[3].item() - 0.6) < 1e-15
 
 
+@pytest.mark.random
 def test_nancumsum_performance_comparison() -> None:
     """Test that nancumsum provides correct results for performance cases."""
     # Test with larger tensor to ensure functionality scales

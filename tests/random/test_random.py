@@ -2,6 +2,7 @@ import random
 import typing
 
 import numpy as np
+import pytest
 import torch
 
 from qfeval_functions import random as qfeval_random
@@ -15,6 +16,7 @@ def generate_random_values() -> typing.List[float]:
     ]
 
 
+@pytest.mark.random
 def test_seed() -> None:
     with qfeval_random.seed():
         a = generate_random_values()
@@ -34,6 +36,7 @@ def test_seed() -> None:
     )
 
 
+@pytest.mark.random
 def test_seed_has_compatiblity() -> None:
     r"""Tests if random generators have backward compatiblity.
 
@@ -51,6 +54,7 @@ def test_seed_has_compatiblity() -> None:
         assert len(set(values)) > 1, "Random values should be different"
 
 
+@pytest.mark.random
 def test_seed_with_none() -> None:
     r"""Tests if seed with None has enough randomness.
 

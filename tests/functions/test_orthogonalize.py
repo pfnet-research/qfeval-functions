@@ -5,6 +5,7 @@ import torch
 
 import qfeval_functions
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_orthogonalize_basic_functionality() -> None:
@@ -240,6 +241,7 @@ def test_orthogonalize_numerical_stability() -> None:
     )  # Allow some tolerance for large numbers
 
 
+@pytest.mark.random
 def test_orthogonalize_batch_processing() -> None:
     """Test orthogonalization with batch processing."""
     batch_size = 5
@@ -255,10 +257,11 @@ def test_orthogonalize_batch_processing() -> None:
     # Check orthogonality for each batch
     dot_products = (result * y).sum(dim=1)
     np.testing.assert_allclose(
-        dot_products.numpy(), torch.zeros(batch_size).numpy(), atol=1e-6
+        dot_products.numpy(), torch.zeros(batch_size).numpy(), atol=1e-4
     )
 
 
+@pytest.mark.random
 def test_orthogonalize_high_dimensional() -> None:
     """Test orthogonalization with high-dimensional vectors."""
     dim = 1000

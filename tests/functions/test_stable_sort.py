@@ -5,6 +5,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_stable_sort() -> None:
@@ -73,6 +74,7 @@ def test_stable_sort_stability_property() -> None:
     torch.testing.assert_close(result.indices, expected_indices)
 
 
+@pytest.mark.random
 def test_stable_sort_shape_preservation() -> None:
     """Test that stable sort preserves tensor shape."""
     # 2D tensor
@@ -119,6 +121,7 @@ def test_stable_sort_different_dimensions() -> None:
                 assert result.values[prev_idx] <= result.values[idx]
 
 
+@pytest.mark.random
 def test_stable_sort_negative_dimension() -> None:
     """Test stable sort with negative dimension indices."""
     x = torch.randn(3, 4, 5, dtype=torch.float64)
@@ -228,6 +231,7 @@ def test_stable_sort_reverse_sorted() -> None:
     torch.testing.assert_close(result.indices, expected_indices)
 
 
+@pytest.mark.random
 def test_stable_sort_large_tensor() -> None:
     """Test stable sort with larger tensors."""
     x = torch.randn(100, dtype=torch.float64)
@@ -295,6 +299,7 @@ def test_stable_sort_comparison_with_numpy() -> None:
     )
 
 
+@pytest.mark.random
 def test_stable_sort_batch_processing() -> None:
     """Test stable sort with batch dimensions."""
     batch_size = 5
@@ -364,6 +369,7 @@ def test_stable_sort_reproducibility() -> None:
     torch.testing.assert_close(result1.indices, result2.indices)
 
 
+@pytest.mark.random
 def test_stable_sort_performance() -> None:
     """Test stable sort performance with larger tensors."""
     x_large = torch.randn(500, 200, dtype=torch.float64)

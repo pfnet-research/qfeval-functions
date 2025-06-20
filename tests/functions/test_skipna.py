@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_skipna() -> None:
@@ -124,6 +125,7 @@ def test_skipna_different_operations() -> None:
     torch.testing.assert_close(result_cummin, expected_cummin, equal_nan=True)
 
 
+@pytest.mark.random
 def test_skipna_shape_preservation() -> None:
     """Test that skipna preserves tensor shape."""
     shapes = [(5,), (3, 4), (2, 3, 4)]
@@ -196,6 +198,7 @@ def test_skipna_order_preservation() -> None:
     torch.testing.assert_close(result, expected, equal_nan=True)
 
 
+@pytest.mark.random
 def test_skipna_batch_processing() -> None:
     """Test skipna with batch processing."""
     batch_size = 3
@@ -277,6 +280,7 @@ def test_skipna_gradient_compatibility() -> None:
     assert not torch.isnan(x.grad[3])  # Should have gradient
 
 
+@pytest.mark.random
 def test_skipna_high_dimensional() -> None:
     """Test skipna with high-dimensional tensors."""
     x = torch.randn(2, 3, 4, 5)
@@ -315,6 +319,7 @@ def test_skipna_lambda_functions() -> None:
         torch.testing.assert_close(result, expected, equal_nan=True)
 
 
+@pytest.mark.random
 def test_skipna_performance() -> None:
     """Test skipna performance with large tensors."""
     for size in [1000, 5000]:

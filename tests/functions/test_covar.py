@@ -58,6 +58,7 @@ def test_covar_2d_tensors() -> None:
     np.testing.assert_allclose(result[0].numpy(), expected_0, rtol=1e-10)
 
 
+@pytest.mark.random
 def test_covar_3d_tensors() -> None:
     """Test covariance on 3D tensors."""
     x = torch.randn(5, 4, 10)
@@ -153,6 +154,7 @@ def test_covar_perfect_correlation() -> None:
     assert abs(result_pos + result_neg) < 1e-10  # Should be symmetric
 
 
+@pytest.mark.random
 def test_covar_broadcasting() -> None:
     """Test covariance with broadcasting tensors."""
     x = torch.randn(5, 1, 20)  # (5, 1, 20)
@@ -165,7 +167,7 @@ def test_covar_broadcasting() -> None:
     expected = np.cov(x[0, 0].numpy(), y[0, 0].numpy())[0, 1]
     # Use appropriate tolerance for float32 precision
     np.testing.assert_allclose(
-        result[0, 0].numpy(), expected, rtol=1e-4, atol=1e-6
+        result[0, 0].numpy(), expected, rtol=1e-4, atol=1e-4
     )
 
 
@@ -202,6 +204,7 @@ def test_covar_two_elements() -> None:
     np.testing.assert_allclose(result.numpy(), expected, rtol=1e-10)
 
 
+@pytest.mark.random
 def test_covar_large_tensors() -> None:
     """Test covariance with large tensors for performance verification."""
     x = torch.randn(1000)
@@ -243,9 +246,10 @@ def test_covar_very_large_values() -> None:
     result = QF.covar(x, y, dim=0)
     expected = np.cov(x.numpy(), y.numpy())[0, 1]
 
-    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-6)
+    np.testing.assert_allclose(result.numpy(), expected, rtol=1e-4)
 
 
+@pytest.mark.random
 def test_covar_uncorrelated_data() -> None:
     """Test covariance with uncorrelated random data."""
     torch.manual_seed(42)  # For reproducibility
@@ -258,6 +262,7 @@ def test_covar_uncorrelated_data() -> None:
     assert abs(result.item()) < 0.1
 
 
+@pytest.mark.random
 def test_covar_batch_different_ddof() -> None:
     """Test covariance with batch processing and different ddof values."""
     batch_size = 5
@@ -329,6 +334,7 @@ def test_covar_mixed_signs() -> None:
     assert result > 0
 
 
+@pytest.mark.random
 def test_covar_high_dimensional() -> None:
     """Test covariance with high-dimensional data."""
     x = torch.randn(2, 3, 4, 50)

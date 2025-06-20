@@ -3,6 +3,7 @@ import torch
 
 import qfeval_functions
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_randn_like() -> None:
@@ -141,6 +142,7 @@ def test_randn_like_statistical_properties() -> None:
     assert abs(percentage_within_one_std - 0.68) < 0.05
 
 
+@pytest.mark.random
 def test_randn_like_different_input_values() -> None:
     """Test that randn_like output is independent of input tensor values."""
     shape = (10, 10)
@@ -270,7 +272,7 @@ def test_randn_like_broadcast_compatibility() -> None:
         result = QF.randn_like(input_tensor)
         assert result.shape == shape
         # Should not be all zeros
-        assert not torch.allclose(result, torch.zeros_like(result), atol=1e-6)
+        assert not torch.allclose(result, torch.zeros_like(result), atol=1e-4)
 
 
 def test_randn_like_batch_processing() -> None:

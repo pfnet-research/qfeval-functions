@@ -4,6 +4,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_nanmean_basic_2d() -> None:
@@ -89,6 +90,7 @@ def test_nanmean_empty_after_nan_removal() -> None:
     assert torch.isnan(result).all()
 
 
+@pytest.mark.random
 def test_nanmean_large_tensor() -> None:
     """Test nanmean with large tensor."""
     size = 1000

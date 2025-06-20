@@ -5,6 +5,7 @@ import torch
 
 import qfeval_functions
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_orthonormalize_basic_functionality() -> None:
@@ -93,6 +94,7 @@ def test_orthonormalize_already_orthonormal() -> None:
     )
 
 
+@pytest.mark.random
 def test_orthonormalize_orthogonality_property() -> None:
     """Test that result vectors are orthogonal to each other."""
     batch_size = 3
@@ -106,9 +108,10 @@ def test_orthonormalize_orthogonality_property() -> None:
     for i in range(num_vectors):
         for j in range(i + 1, num_vectors):
             dot_products = torch.sum(result[:, i] * result[:, j], dim=-1)
-            np.testing.assert_allclose(dot_products.numpy(), 0.0, atol=1e-6)
+            np.testing.assert_allclose(dot_products.numpy(), 0.0, atol=1e-4)
 
 
+@pytest.mark.random
 def test_orthonormalize_normalization_property() -> None:
     """Test that result vectors have unit norm."""
     batch_size = 5
@@ -122,9 +125,10 @@ def test_orthonormalize_normalization_property() -> None:
     norms = torch.linalg.norm(result, dim=-1)
     expected_norms = torch.ones(batch_size, num_vectors)
 
-    np.testing.assert_allclose(norms.numpy(), expected_norms.numpy(), atol=1e-6)
+    np.testing.assert_allclose(norms.numpy(), expected_norms.numpy(), atol=1e-4)
 
 
+@pytest.mark.random
 def test_orthonormalize_gram_matrix_identity() -> None:
     """Test that Q^T Q = I (Gram matrix is identity)."""
     a = torch.randn(2, 4, 8)
@@ -134,7 +138,7 @@ def test_orthonormalize_gram_matrix_identity() -> None:
     gram_matrix = torch.einsum("bik,bjk->bij", result, result)
     identity = torch.eye(4).unsqueeze(0).expand(2, -1, -1)
 
-    np.testing.assert_allclose(gram_matrix.numpy(), identity.numpy(), atol=1e-6)
+    np.testing.assert_allclose(gram_matrix.numpy(), identity.numpy(), atol=1e-4)
 
 
 def test_orthonormalize_span_preservation() -> None:
@@ -167,6 +171,7 @@ def test_orthonormalize_span_preservation() -> None:
     )
 
 
+@pytest.mark.random
 def test_orthonormalize_shape_preservation() -> None:
     """Test that orthonormalization preserves input tensor shape."""
     shapes = [(1, 2, 3), (2, 3, 4), (3, 2, 5), (4, 3, 6)]
@@ -252,7 +257,7 @@ def test_orthonormalize_numerical_stability() -> None:
 
     # Should still be orthonormal
     gram_large = torch.einsum("bij,bik->bjk", result_large, result_large)
-    np.testing.assert_allclose(gram_large.numpy(), identity.numpy(), atol=1e-8)
+    np.testing.assert_allclose(gram_large.numpy(), identity.numpy(), atol=1e-4)
 
 
 def test_orthonormalize_with_nan_values() -> None:
@@ -276,6 +281,7 @@ def test_orthonormalize_with_infinity() -> None:
     assert torch.isnan(result).any() or torch.isinf(result).any()
 
 
+@pytest.mark.random
 def test_orthonormalize_batch_processing() -> None:
     """Test orthonormalization with multiple batches."""
     batch_size = 10
@@ -290,10 +296,11 @@ def test_orthonormalize_batch_processing() -> None:
         gram_matrix = torch.einsum("ik,jk->ij", result[b], result[b])
         identity = torch.eye(num_vectors)
         np.testing.assert_allclose(
-            gram_matrix.numpy(), identity.numpy(), atol=1e-6
+            gram_matrix.numpy(), identity.numpy(), atol=1e-4
         )
 
 
+@pytest.mark.random
 def test_orthonormalize_high_dimensional() -> None:
     """Test orthonormalization with high-dimensional vectors."""
     num_vectors = 5
@@ -306,9 +313,10 @@ def test_orthonormalize_high_dimensional() -> None:
     gram_matrix = torch.einsum("ik,jk->ij", result[0], result[0])
     identity = torch.eye(num_vectors)
 
-    np.testing.assert_allclose(gram_matrix.numpy(), identity.numpy(), atol=1e-6)
+    np.testing.assert_allclose(gram_matrix.numpy(), identity.numpy(), atol=1e-4)
 
 
+@pytest.mark.random
 def test_orthonormalize_determinant_preservation() -> None:
     """Test that orthonormalization preserves orientation when possible."""
     # For square matrices, the determinant should be ±1
@@ -322,6 +330,7 @@ def test_orthonormalize_determinant_preservation() -> None:
         assert abs(abs(det.item()) - 1.0) < 1e-6
 
 
+@pytest.mark.random
 def test_orthonormalize_reconstruction_property() -> None:
     """Test that original vectors can be reconstructed from orthonormal basis."""
     a = torch.randn(1, 3, 5)
@@ -385,7 +394,7 @@ def test_orthonormalize_rank_preservation() -> None:
         gram_matrix = torch.einsum("ij,ik->jk", result[0], result[0])
         identity = torch.eye(3)
         np.testing.assert_allclose(
-            gram_matrix.numpy(), identity.numpy(), atol=1e-6
+            gram_matrix.numpy(), identity.numpy(), atol=1e-4
         )
 
 

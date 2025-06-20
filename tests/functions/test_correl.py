@@ -5,6 +5,7 @@ import torch
 from scipy.stats import linregress
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_correl_basic_scipy_comparison() -> None:
@@ -74,6 +75,7 @@ def test_correl_2d_tensors() -> None:
     np.testing.assert_allclose(result[1].numpy(), 1.0, atol=1e-10)
 
 
+@pytest.mark.random
 def test_correl_3d_tensors() -> None:
     """Test correlation on 3D tensors."""
     x = torch.randn(5, 10, 20)
@@ -161,6 +163,7 @@ def test_correl_very_large_values() -> None:
     np.testing.assert_allclose(result.numpy(), 1.0, atol=1e-10)
 
 
+@pytest.mark.random
 def test_correl_large_tensors() -> None:
     """Test correlation with large tensors."""
     size = 10000
@@ -175,6 +178,7 @@ def test_correl_large_tensors() -> None:
     assert result > 0.95
 
 
+@pytest.mark.random
 def test_correl_batch_processing() -> None:
     """Test correlation with multiple batches."""
     # Create multiple correlation scenarios

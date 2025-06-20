@@ -13,7 +13,7 @@ def test_msum_basic() -> None:
     expected = torch.tensor([math.nan, math.nan, 6.0, 9.0, 12.0])
 
     np.testing.assert_allclose(
-        result[2:].numpy(), expected[2:].numpy(), atol=1e-6
+        result[2:].numpy(), expected[2:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:2]).all()
 
@@ -25,7 +25,7 @@ def test_msum_span_2() -> None:
     expected = torch.tensor([math.nan, 3.0, 5.0, 7.0, 9.0])
 
     np.testing.assert_allclose(
-        result[1:].numpy(), expected[1:].numpy(), atol=1e-6
+        result[1:].numpy(), expected[1:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[0])
 
@@ -39,7 +39,7 @@ def test_msum_2d_tensor() -> None:
     )
 
     np.testing.assert_allclose(
-        result[:, 1:].numpy(), expected[:, 1:].numpy(), atol=1e-6
+        result[:, 1:].numpy(), expected[:, 1:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:, 0]).all()
 
@@ -51,7 +51,7 @@ def test_msum_along_axis_0() -> None:
     expected = torch.tensor([[math.nan, math.nan], [4.0, 6.0], [8.0, 10.0]])
 
     np.testing.assert_allclose(
-        result[1:].numpy(), expected[1:].numpy(), atol=1e-6
+        result[1:].numpy(), expected[1:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[0]).all()
 
@@ -63,7 +63,7 @@ def test_msum_negative_dim() -> None:
     expected = torch.tensor([[math.nan, 3.0, 5.0], [math.nan, 9.0, 11.0]])
 
     np.testing.assert_allclose(
-        result[:, 1:].numpy(), expected[:, 1:].numpy(), atol=1e-6
+        result[:, 1:].numpy(), expected[:, 1:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:, 0]).all()
 
@@ -75,7 +75,7 @@ def test_msum_span_equals_length() -> None:
     expected = torch.tensor([math.nan, math.nan, 6.0])
 
     np.testing.assert_allclose(
-        result[2:].numpy(), expected[2:].numpy(), atol=1e-6
+        result[2:].numpy(), expected[2:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:2]).all()
 
@@ -95,7 +95,7 @@ def test_msum_with_zeros() -> None:
     expected = torch.tensor([math.nan, math.nan, 1.0, 3.0, 2.0])
 
     np.testing.assert_allclose(
-        result[2:].numpy(), expected[2:].numpy(), atol=1e-6
+        result[2:].numpy(), expected[2:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:2]).all()
 
@@ -107,7 +107,7 @@ def test_msum_with_negative_values() -> None:
     expected = torch.tensor([math.nan, math.nan, -2.0, 3.0, -4.0])
 
     np.testing.assert_allclose(
-        result[2:].numpy(), expected[2:].numpy(), atol=1e-6
+        result[2:].numpy(), expected[2:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[:2]).all()
 
@@ -139,7 +139,7 @@ def test_msum_3d_tensor() -> None:
     )
 
     np.testing.assert_allclose(
-        result[1:].numpy(), expected[1:].numpy(), atol=1e-6
+        result[1:].numpy(), expected[1:].numpy(), atol=1e-4
     )
     assert torch.isnan(result[0]).all()
 

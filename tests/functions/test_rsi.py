@@ -16,6 +16,7 @@ def _naive_ema_1dim(x: torch.Tensor, alpha: float) -> torch.Tensor:
     return torch.Tensor(y)
 
 
+@pytest.mark.random
 def test_rsi_ema_helper_function() -> None:
     """Test the EMA helper function used by RSI."""
     test_input = torch.rand(20, 30)
@@ -242,6 +243,7 @@ def test_rsi_different_spans() -> None:
             assert torch.all(finite_values <= 100)
 
 
+@pytest.mark.random
 def test_rsi_sma_vs_ema() -> None:
     """Test RSI with SMA vs EMA calculation methods."""
     prices = torch.randn(30) + 50  # Random walk around 50
@@ -317,6 +319,7 @@ def test_rsi_2d_tensors() -> None:
     assert result[1, 14].item() < 50
 
 
+@pytest.mark.random
 def test_rsi_dimension_handling() -> None:
     """Test RSI with different dimension specifications."""
     prices = torch.randn(5, 20) + 50
@@ -532,6 +535,7 @@ def test_rsi_mathematical_properties() -> None:
     assert result_gains[14].item() > 90  # Should be very high RSI
 
 
+@pytest.mark.random
 def test_rsi_ema_implementation() -> None:
     """Test EMA implementation used in RSI calculation."""
     test_data = torch.randn(5, 20)
@@ -552,6 +556,7 @@ def test_rsi_ema_implementation() -> None:
     )
 
 
+@pytest.mark.random
 def test_rsi_batch_processing() -> None:
     """Test RSI with batch processing across multiple series."""
     batch_size = 4

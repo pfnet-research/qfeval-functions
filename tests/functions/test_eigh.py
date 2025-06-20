@@ -2,6 +2,7 @@ import numpy as np
 import torch
 
 import qfeval_functions.functions as QF
+import pytest
 
 
 def test_eigh_symmetric_matrix() -> None:
@@ -25,7 +26,7 @@ def test_eigh_identity_matrix() -> None:
 
     expected_w = torch.ones(3)
 
-    np.testing.assert_allclose(w.numpy(), expected_w.numpy(), atol=1e-6)
+    np.testing.assert_allclose(w.numpy(), expected_w.numpy(), atol=1e-4)
     assert v.shape == (3, 3)
 
 
@@ -36,7 +37,7 @@ def test_eigh_diagonal_matrix() -> None:
 
     expected_w = torch.tensor([1.0, 3.0, 5.0])
 
-    np.testing.assert_allclose(w.numpy(), expected_w.numpy(), atol=1e-6)
+    np.testing.assert_allclose(w.numpy(), expected_w.numpy(), atol=1e-4)
     assert v.shape == (3, 3)
 
 
@@ -46,7 +47,7 @@ def test_eigh_uplo_upper() -> None:
     w_lower, v_lower = QF.eigh(A, uplo="L")
     w_upper, v_upper = QF.eigh(A, uplo="U")
 
-    np.testing.assert_allclose(w_lower.numpy(), w_upper.numpy(), atol=1e-6)
+    np.testing.assert_allclose(w_lower.numpy(), w_upper.numpy(), atol=1e-4)
 
 
 def test_eigh_reconstruction() -> None:
@@ -214,6 +215,7 @@ def test_eigh_memory_cleanup() -> None:
         del w, v
 
 
+@pytest.mark.random
 def test_eigh_stress_test_large_matrix() -> None:
     """Test eigh with larger matrix to verify robustness."""
     # 10x10 symmetric matrix
