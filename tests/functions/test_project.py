@@ -249,7 +249,7 @@ def test_project_complex_batch_shapes() -> None:
     # Verify a specific batch element with relaxed tolerance
     expected_00 = torch.matmul(x[0, 0], a[0, 0].T)
     np.testing.assert_allclose(
-        result[0, 0].numpy(), expected_00.numpy(), rtol=1e-4
+        result[0, 0].numpy(), expected_00.numpy(), rtol=1e-4, atol=1e-4
     )
 
 

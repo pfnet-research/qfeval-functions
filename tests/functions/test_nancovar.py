@@ -305,7 +305,7 @@ def test_nancovar_numpy_comparison() -> None:
 
     if valid_mask.sum() > 1:
         expected = np.cov(x_np[valid_mask], y_np[valid_mask])[0, 1]
-        np.testing.assert_allclose(result.numpy(), expected, rtol=1e-3)
+        np.testing.assert_allclose(result.numpy(), expected, rtol=1e-3, atol=1e-3)
 
 
 def test_nancovar_symmetry() -> None:

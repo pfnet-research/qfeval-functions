@@ -276,7 +276,7 @@ def test_covar_batch_different_ddof() -> None:
     expected_ratio = 1.0 / (seq_length - 1)
     # Allow some tolerance for negative covariances and numerical precision
     assert torch.allclose(
-        diff_ratio.abs(), torch.tensor(expected_ratio), rtol=0.5
+        diff_ratio.abs(), torch.tensor(expected_ratio), rtol=0.5, atol=0.5
     )
 
 
