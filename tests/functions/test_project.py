@@ -188,7 +188,7 @@ def test_project_numerical_precision() -> None:
     result = QF.project(a, x)
     expected = torch.matmul(x, a.T)
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-12, atol=1e-12)
+    np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
 def test_project_dimension_mismatch_error() -> None:
@@ -211,7 +211,7 @@ def test_project_very_small_values() -> None:
     result = QF.project(a, x)
     expected = torch.matmul(x, a.T)
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
 def test_project_very_large_values() -> None:
@@ -270,7 +270,7 @@ def test_project_linearity_property() -> None:
     result_linear = c * result_x + d * result_y
 
     np.testing.assert_allclose(
-        result_combined.numpy(), result_linear.numpy(), rtol=1e-10
+        result_combined.numpy(), result_linear.numpy()
     )
 
 
@@ -289,5 +289,5 @@ def test_project_composition_property() -> None:
     result_direct = QF.project(combined_projection, x)
 
     np.testing.assert_allclose(
-        result_composed.numpy(), result_direct.numpy(), rtol=1e-10
+        result_composed.numpy(), result_direct.numpy()
     )

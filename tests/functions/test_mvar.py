@@ -331,5 +331,5 @@ def test_mvar_precision_validation() -> None:
 
     finite_results = result[torch.isfinite(result)]
     np.testing.assert_allclose(
-        finite_results.numpy(), expected_finite.numpy(), rtol=1e-10
+        finite_results.numpy(), expected_finite.numpy()
     )

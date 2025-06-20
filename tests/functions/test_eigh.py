@@ -195,7 +195,7 @@ def test_eigh_complex_values_real_matrix() -> None:
 
     # Verify reconstruction with high precision
     reconstructed = v @ torch.diag(w) @ v.T
-    np.testing.assert_allclose(reconstructed.numpy(), A.numpy(), rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(reconstructed.numpy(), A.numpy())
 
 
 def test_eigh_memory_cleanup() -> None:

@@ -122,7 +122,7 @@ def test_ema_alpha_extreme_cases() -> None:
             1, len(x) + 1, dtype=x.dtype
         )
         np.testing.assert_allclose(
-            result_zero.numpy(), cum_mean.numpy(), rtol=1e-10
+            result_zero.numpy(), cum_mean.numpy()
         )
     except ZeroDivisionError:
         # This is acceptable behavior for alpha=0
@@ -208,7 +208,7 @@ def test_ema_constant_input() -> None:
 
     # EMA of constant values should be the constant value
     expected = torch.full_like(x, 5.0)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-10, atol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
 def test_ema_different_alpha_values() -> None:

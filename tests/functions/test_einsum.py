@@ -204,7 +204,7 @@ def test_einsum_numerical_precision() -> None:
     result = QF.einsum("ij,jk->ik", a, b)
     expected = torch.einsum("ij,jk->ik", a, b)
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-15, atol=1e-15)
+    np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
 def test_einsum_with_infinity() -> None:

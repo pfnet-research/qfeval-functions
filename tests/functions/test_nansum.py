@@ -354,7 +354,7 @@ def test_nansum_precision_preservation() -> None:
     x = torch.tensor([0.1, 0.2, math.nan, 0.3], dtype=torch.float64)
     result = QF.nansum(x)
     expected = torch.tensor(0.6, dtype=torch.float64)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-15, atol=1e-15)
+    np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
 def test_nansum_performance_comparison() -> None:

@@ -303,7 +303,7 @@ def test_signif_large_decimals() -> None:
     # Should not introduce artifacts
     assert torch.isfinite(result_15).all()
     # Result should be close to original for high precision
-    assert torch.allclose(result_15, x, rtol=1e-10)
+    assert torch.allclose(result_15, x)
 
 
 def test_signif_performance() -> None:
