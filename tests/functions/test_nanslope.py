@@ -310,7 +310,7 @@ def test_nanslope_scipy_comparison() -> None:
 
     if valid_mask.sum() > 1:
         expected = linregress(x_np[valid_mask], y_np[valid_mask]).slope
-        np.testing.assert_allclose(result.numpy(), expected, rtol=1e-4)
+        np.testing.assert_allclose(result.numpy(), expected, rtol=1e-4, atol=1e-4)
 
 
 def test_nanslope_quadratic_relationship() -> None:

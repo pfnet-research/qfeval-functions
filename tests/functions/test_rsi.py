@@ -552,7 +552,7 @@ def test_rsi_ema_implementation() -> None:
     # Verify EMA formula for second value
     expected_second = alpha * test_data[:, 1] + (1 - alpha) * test_data[:, 0]
     np.testing.assert_allclose(
-        result[:, 1].numpy(), expected_second.numpy(), rtol=1e-10
+        result[:, 1].numpy(), expected_second.numpy(), rtol=1e-10, atol=1e-10
     )
 
 

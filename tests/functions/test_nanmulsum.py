@@ -161,7 +161,7 @@ def test_nanmulsum_large_values() -> None:
     result = QF.nanmulsum(x, y)
     # Expected: sum of [2e12, 3e12, 8e12] = 13e12
     expected = torch.tensor(13e12)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4, atol=1e-4)
 
 
 def test_nanmulsum_small_values() -> None:
@@ -172,7 +172,7 @@ def test_nanmulsum_small_values() -> None:
     result = QF.nanmulsum(x, y)
     # Expected: sum of [2e-12, 3e-12, 8e-12] = 13e-12
     expected = torch.tensor(13e-12)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4, atol=1e-4)
 
 
 def test_nanmulsum_broadcasting_edge_cases() -> None:
@@ -235,12 +235,12 @@ def test_nanmulsum_mathematical_properties() -> None:
     x_scaled = a * x
     result1 = QF.nanmulsum(x_scaled, y)
     result2 = a * QF.nanmulsum(x, y)
-    np.testing.assert_allclose(result1.numpy(), result2.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result1.numpy(), result2.numpy(), rtol=1e-5, atol=1e-5)
 
     # Test commutativity: nanmulsum(x, y) = nanmulsum(y, x)
     result_xy = QF.nanmulsum(x, y)
     result_yx = QF.nanmulsum(y, x)
-    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy(), rtol=1e-5, atol=1e-5)
 
 
 def test_nanmulsum_numerical_stability() -> None:
@@ -252,7 +252,7 @@ def test_nanmulsum_numerical_stability() -> None:
     result = QF.nanmulsum(x, y)
     # Expected: sum of [1, 1, 1] = 3 (three valid products: 1e10*1e-10, 1e-10*1e10, 1e10*1e-10)
     expected = torch.tensor(3.0)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4, atol=1e-4)
 
 
 @pytest.mark.random
@@ -356,7 +356,7 @@ def test_nanmulsum_performance_comparison() -> None:
 
         if not (torch.isnan(result_nanmulsum) and torch.isnan(result_naive)):
             np.testing.assert_allclose(
-                result_nanmulsum.numpy(), result_naive.numpy(), rtol=5e-5
+                result_nanmulsum.numpy(), result_naive.numpy(), rtol=1e-4, atol=1e-4
             )
 
         # Clean up

@@ -272,7 +272,7 @@ def test_orthogonalize_high_dimensional() -> None:
 
     # Check orthogonality
     dot_product = (result * y).sum(dim=1)
-    assert abs(dot_product.item()) < 2e-5
+    assert abs(dot_product.item()) < 1.5e-5
 
 
 def test_orthogonalize_linearity_property() -> None:

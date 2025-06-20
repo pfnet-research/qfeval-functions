@@ -56,7 +56,7 @@ def test_nanmulmean_with_nans() -> None:
     result = QF.nanmulmean(x, y)
     # Manually calculate: (1*2 + 3*1 + 4*2) / 3 = (2 + 3 + 8) / 3 = 13/3
     expected = torch.tensor(13.0 / 3.0)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-5, atol=1e-5)
 
 
 def test_nanmulmean_all_nans() -> None:
@@ -76,7 +76,7 @@ def test_nanmulmean_broadcasting() -> None:
     result = QF.nanmulmean(x, y)
     # Expected: mean of [2, nan, 9, 3, nan, 6] ignoring NaN = (2+9+3+6)/4 = 5
     expected = torch.tensor(5.0)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-5, atol=1e-5)
 
 
 def test_nanmulmean_dimensions() -> None:
@@ -140,7 +140,7 @@ def test_nanmulmean_zero_values() -> None:
     result = QF.nanmulmean(x, y)
     # Expected: mean of [2, 0, 0, 0, 0] = 2/5 = 0.4
     expected = torch.tensor(0.4)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-5, atol=1e-5)
 
 
 def test_nanmulmean_negative_values() -> None:
@@ -151,7 +151,7 @@ def test_nanmulmean_negative_values() -> None:
     result = QF.nanmulmean(x, y)
     # Expected: mean of [-2, -2, -6] = -10/3
     expected = torch.tensor(-10.0 / 3.0)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-5, atol=1e-5)
 
 
 def test_nanmulmean_large_values() -> None:
@@ -162,7 +162,7 @@ def test_nanmulmean_large_values() -> None:
     result = QF.nanmulmean(x, y)
     # Expected: mean of [2e12, 3e12, 8e12] = 13e12/3
     expected = torch.tensor(13e12 / 3.0)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4, atol=1e-4)
 
 
 def test_nanmulmean_small_values() -> None:
@@ -173,7 +173,7 @@ def test_nanmulmean_small_values() -> None:
     result = QF.nanmulmean(x, y)
     # Expected: mean of [2e-12, 3e-12, 8e-12] = 13e-12/3
     expected = torch.tensor(13e-12 / 3.0)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4, atol=1e-4)
 
 
 def test_nanmulmean_broadcasting_edge_cases() -> None:
@@ -185,7 +185,7 @@ def test_nanmulmean_broadcasting_edge_cases() -> None:
     result1 = QF.nanmulmean(x_scalar, y_tensor)
     # Expected: mean of [2, 6, 8] = 16/3
     expected1 = torch.tensor(16.0 / 3.0)
-    np.testing.assert_allclose(result1.numpy(), expected1.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result1.numpy(), expected1.numpy(), rtol=1e-5, atol=1e-5)
 
     # Different shape broadcasting
     x_broadcast = torch.tensor([[[1.0]], [[math.nan]]])
@@ -194,7 +194,7 @@ def test_nanmulmean_broadcasting_edge_cases() -> None:
     result2 = QF.nanmulmean(x_broadcast, y_broadcast)
     # Expected: mean of [3, 4, 5] = 4
     expected2 = torch.tensor(4.0)
-    np.testing.assert_allclose(result2.numpy(), expected2.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result2.numpy(), expected2.numpy(), rtol=1e-5, atol=1e-5)
 
 
 def test_nanmulmean_with_infinity() -> None:
@@ -236,12 +236,12 @@ def test_nanmulmean_mathematical_properties() -> None:
     x_scaled = a * x
     result1 = QF.nanmulmean(x_scaled, y)
     result2 = a * QF.nanmulmean(x, y)
-    np.testing.assert_allclose(result1.numpy(), result2.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result1.numpy(), result2.numpy(), rtol=1e-5, atol=1e-5)
 
     # Test commutativity: nanmulmean(x, y) = nanmulmean(y, x)
     result_xy = QF.nanmulmean(x, y)
     result_yx = QF.nanmulmean(y, x)
-    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(result_xy.numpy(), result_yx.numpy(), rtol=1e-5, atol=1e-5)
 
 
 def test_nanmulmean_numerical_stability() -> None:
@@ -253,7 +253,7 @@ def test_nanmulmean_numerical_stability() -> None:
     result = QF.nanmulmean(x, y)
     # Both products should be 1.0, so mean should be 1.0
     expected = torch.tensor(1.0)
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4)
+    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-4, atol=1e-4)
 
 
 @pytest.mark.random

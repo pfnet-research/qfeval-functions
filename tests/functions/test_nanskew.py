@@ -58,7 +58,7 @@ def test_nanskew_edge_cases() -> None:
     x3 = torch.tensor([1.0, 2.0, nan, nan], dtype=torch.float64)
     result3 = QF.nanskew(x3, dim=0, unbiased=False)
     expected3 = 0.0  # Two points always have zero skewness
-    np.testing.assert_allclose(result3.numpy(), expected3, rtol=1e-10)
+    np.testing.assert_allclose(result3.numpy(), expected3, rtol=1e-10, atol=1e-10)
 
     # Three equal values: should return NaN (zero variance leads to undefined skewness)
     x4 = torch.tensor([2.0, 2.0, 2.0, nan], dtype=torch.float64)

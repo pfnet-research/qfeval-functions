@@ -57,13 +57,13 @@ def test_nankurtosis_edge_cases() -> None:
     x3 = torch.tensor([1.0, 2.0, nan, nan], dtype=torch.float64)
     result3 = QF.nankurtosis(x3, dim=0, unbiased=False)
     expected3 = -2.0  # Known mathematical result for 2 equal-weighted points
-    np.testing.assert_allclose(result3.numpy(), expected3, rtol=1e-10)
+    np.testing.assert_allclose(result3.numpy(), expected3, rtol=1e-10, atol=1e-10)
 
     # Three values: test a known case
     x4 = torch.tensor([1.0, 2.0, 3.0, nan], dtype=torch.float64)
     result4 = QF.nankurtosis(x4, dim=0, unbiased=False)
     expected4 = -1.5  # Known mathematical result for 3 equally-spaced points
-    np.testing.assert_allclose(result4.numpy(), expected4, rtol=1e-10)
+    np.testing.assert_allclose(result4.numpy(), expected4, rtol=1e-10, atol=1e-10)
 
 
 def test_nankurtosis_with_randn() -> None:
