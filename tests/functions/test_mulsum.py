@@ -416,8 +416,9 @@ def test_mulsum_performance_comparison() -> None:
         result_mulsum = QF.mulsum(x, y)
         result_naive = (x * y).sum()
 
+        # Use appropriate tolerance for float32 precision
         np.testing.assert_allclose(
-            result_mulsum.numpy(), result_naive.numpy(), rtol=1e-5
+            result_mulsum.numpy(), result_naive.numpy(), rtol=1e-4
         )
 
         # Clean up

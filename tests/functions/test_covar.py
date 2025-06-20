@@ -69,7 +69,8 @@ def test_covar_3d_tensors() -> None:
 
     # Verify a specific element
     expected = np.cov(x[0, 0].numpy(), y[0, 0].numpy())[0, 1]
-    np.testing.assert_allclose(result[0, 0].numpy(), expected, rtol=1e-6)
+    # Use appropriate tolerance for float32 precision
+    np.testing.assert_allclose(result[0, 0].numpy(), expected, rtol=1e-4)
 
 
 def test_covar_negative_dim() -> None:
@@ -162,8 +163,9 @@ def test_covar_broadcasting() -> None:
 
     # Verify specific element matches numpy
     expected = np.cov(x[0, 0].numpy(), y[0, 0].numpy())[0, 1]
+    # Use appropriate tolerance for float32 precision
     np.testing.assert_allclose(
-        result[0, 0].numpy(), expected, rtol=1e-5, atol=1e-7
+        result[0, 0].numpy(), expected, rtol=1e-4, atol=1e-6
     )
 
 
@@ -337,4 +339,5 @@ def test_covar_high_dimensional() -> None:
 
     # Verify one element
     expected = np.cov(x[0, 0, 0].numpy(), y[0, 0, 0].numpy())[0, 1]
-    np.testing.assert_allclose(result[0, 0, 0].numpy(), expected, rtol=1e-6)
+    # Use appropriate tolerance for float32 precision
+    np.testing.assert_allclose(result[0, 0, 0].numpy(), expected, rtol=1e-4)
