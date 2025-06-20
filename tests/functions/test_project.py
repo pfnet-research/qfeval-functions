@@ -222,7 +222,9 @@ def test_project_very_large_values() -> None:
     result = QF.project(a, x)
     expected = torch.matmul(x, a.T)
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6)
+    np.testing.assert_allclose(
+        result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6
+    )
 
 
 def test_project_negative_values() -> None:
@@ -269,9 +271,7 @@ def test_project_linearity_property() -> None:
     result_y = QF.project(a, y)
     result_linear = c * result_x + d * result_y
 
-    np.testing.assert_allclose(
-        result_combined.numpy(), result_linear.numpy()
-    )
+    np.testing.assert_allclose(result_combined.numpy(), result_linear.numpy())
 
 
 def test_project_composition_property() -> None:
@@ -288,6 +288,4 @@ def test_project_composition_property() -> None:
     combined_projection = torch.matmul(b, a)  # (1, 3)
     result_direct = QF.project(combined_projection, x)
 
-    np.testing.assert_allclose(
-        result_composed.numpy(), result_direct.numpy()
-    )
+    np.testing.assert_allclose(result_composed.numpy(), result_direct.numpy())

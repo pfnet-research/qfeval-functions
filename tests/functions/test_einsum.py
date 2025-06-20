@@ -189,7 +189,9 @@ def test_einsum_large_tensors() -> None:
     expected = torch.einsum("ij,jk->ik", a, b)
 
     assert result.shape == expected.shape
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6)
+    np.testing.assert_allclose(
+        result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6
+    )
 
 
 def test_einsum_numerical_precision() -> None:

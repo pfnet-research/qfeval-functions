@@ -39,8 +39,7 @@ def test_covar_identical_tensors() -> None:
     covar_result = QF.covar(x, x, dim=0, ddof=1)
     var_result = torch.var(x, dim=0, unbiased=True)
 
-    np.testing.assert_allclose(
-        covar_result.numpy(), var_result.numpy()    )
+    np.testing.assert_allclose(covar_result.numpy(), var_result.numpy())
 
 
 def test_covar_2d_tensors() -> None:
@@ -68,7 +67,9 @@ def test_covar_3d_tensors() -> None:
 
     # Verify a specific element
     expected = np.cov(x[0, 0].numpy(), y[0, 0].numpy())[0, 1]
-    np.testing.assert_allclose(result[0, 0].numpy(), expected, rtol=1e-6, atol=1e-6)
+    np.testing.assert_allclose(
+        result[0, 0].numpy(), expected, rtol=1e-6, atol=1e-6
+    )
 
 
 def test_covar_negative_dim() -> None:
@@ -309,7 +310,8 @@ def test_covar_linear_transformation() -> None:
     expected_transformed = a * c * cov_xy  # cov(ax+b, cy+d) = ac * cov(x,y)
 
     np.testing.assert_allclose(
-        cov_transformed.numpy(), expected_transformed.numpy()    )
+        cov_transformed.numpy(), expected_transformed.numpy()
+    )
 
 
 def test_covar_mixed_signs() -> None:
@@ -335,4 +337,6 @@ def test_covar_high_dimensional() -> None:
 
     # Verify one element
     expected = np.cov(x[0, 0, 0].numpy(), y[0, 0, 0].numpy())[0, 1]
-    np.testing.assert_allclose(result[0, 0, 0].numpy(), expected, rtol=1e-6, atol=1e-6)
+    np.testing.assert_allclose(
+        result[0, 0, 0].numpy(), expected, rtol=1e-6, atol=1e-6
+    )

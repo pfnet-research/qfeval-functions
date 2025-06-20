@@ -294,7 +294,9 @@ def test_nancorrel_scipy_comparison() -> None:
 
     if valid_mask.sum() > 1:
         expected = np.corrcoef(x_np[valid_mask], y_np[valid_mask])[0, 1]
-        np.testing.assert_allclose(result.numpy(), expected, rtol=1e-6, atol=1e-6)
+        np.testing.assert_allclose(
+            result.numpy(), expected, rtol=1e-6, atol=1e-6
+        )
 
 
 def test_nancorrel_monotonic_relationship() -> None:

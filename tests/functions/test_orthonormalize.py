@@ -340,7 +340,10 @@ def test_orthonormalize_reconstruction_property() -> None:
 
         # Should match original vector (they span the same space)
         np.testing.assert_allclose(
-            reconstructed_vec.numpy(), original_vec.numpy(), rtol=1e-4, atol=1e-4
+            reconstructed_vec.numpy(),
+            original_vec.numpy(),
+            rtol=1e-4,
+            atol=1e-4,
         )
 
 

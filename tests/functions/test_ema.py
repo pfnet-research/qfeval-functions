@@ -41,7 +41,9 @@ def test_ema_2d_tensor_dim0() -> None:
         expected = (
             pd.Series(x[:, col].numpy()).ewm(alpha=alpha).mean().to_numpy()
         )
-        np.testing.assert_allclose(result[:, col].numpy(), expected, rtol=1e-7, atol=1e-7)
+        np.testing.assert_allclose(
+            result[:, col].numpy(), expected, rtol=1e-7, atol=1e-7
+        )
 
 
 def test_ema_2d_tensor_dim1() -> None:
@@ -55,7 +57,9 @@ def test_ema_2d_tensor_dim1() -> None:
         expected = (
             pd.Series(x[row, :].numpy()).ewm(alpha=alpha).mean().to_numpy()
         )
-        np.testing.assert_allclose(result[row, :].numpy(), expected, rtol=1e-7, atol=1e-7)
+        np.testing.assert_allclose(
+            result[row, :].numpy(), expected, rtol=1e-7, atol=1e-7
+        )
 
 
 def test_ema_3d_tensor() -> None:
@@ -121,9 +125,7 @@ def test_ema_alpha_extreme_cases() -> None:
         cum_mean = torch.cumsum(x, dim=0) / torch.arange(
             1, len(x) + 1, dtype=x.dtype
         )
-        np.testing.assert_allclose(
-            result_zero.numpy(), cum_mean.numpy()
-        )
+        np.testing.assert_allclose(result_zero.numpy(), cum_mean.numpy())
     except ZeroDivisionError:
         # This is acceptable behavior for alpha=0
         pass
