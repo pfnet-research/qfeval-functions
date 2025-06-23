@@ -382,8 +382,10 @@ def test_nancovar_different_ddof() -> None:
             / result_ddof0[non_zero_mask].abs()
         )
         # Most ratios should be close to n/(n-1), but allow some numerical tolerance
-        # Due to NaN pattern differences and finite sample effects, allow 95% tolerance
-        assert torch.mean((abs_ratio > 0.95).float()) >= 0.8
+        # Due to NaN pattern differences and finite sample effects, allow thresholds for tolerance
+        TOLERANCE_THRESHOLD = 0.95  # Minimum acceptable ratio for numerical tolerance
+        FRACTION_THRESHOLD = 0.8  # Minimum fraction of ratios meeting the tolerance
+        assert torch.mean((abs_ratio > TOLERANCE_THRESHOLD).float()) >= FRACTION_THRESHOLD
 
 
 def test_nancovar_precision_warning() -> None:
