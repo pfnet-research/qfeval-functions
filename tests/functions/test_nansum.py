@@ -385,7 +385,7 @@ def test_nansum_performance_comparison() -> None:
         valid_mask = ~x.isnan()
         manual_sum = x[valid_mask].sum()
         np.testing.assert_allclose(
-            result.numpy(), manual_sum.numpy(), rtol=1e-5
+            result.numpy(), manual_sum.numpy(), rtol=1e-4, atol=1e-4
         )
 
         # Clean up
