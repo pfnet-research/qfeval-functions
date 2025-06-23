@@ -105,13 +105,13 @@ def test_ema_alpha_boundary_values() -> None:
         1, len(x) + 1, dtype=x.dtype
     )
     # Allow some tolerance due to numerical precision
-    assert torch.allclose(result_small, cum_mean, rtol=1e-3, atol=1e-3)
+    assert torch.allclose(result_small, cum_mean)
 
     # Alpha close to 1 (should behave like the input itself)
     alpha_large = 0.999
     result_large = QF.ema(x, alpha_large, dim=0)
     # With large alpha, result should be close to input values
-    assert torch.allclose(result_large, x, rtol=1e-2, atol=1e-2)
+    assert torch.allclose(result_large, x, rtol=1e-3)
 
 
 def test_ema_alpha_extreme_cases() -> None:
