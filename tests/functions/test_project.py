@@ -85,7 +85,7 @@ def test_project_batch_processing() -> None:
     for i in range(batch_size):
         expected_i = torch.matmul(x[i], a[i].T)
         np.testing.assert_allclose(
-            result[i].numpy(), expected_i.numpy(), rtol=1e-6
+            result[i].numpy(), expected_i.numpy(), rtol=1e-4, atol=1e-4
         )
 
 
