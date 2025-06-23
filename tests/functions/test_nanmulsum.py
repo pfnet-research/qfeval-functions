@@ -360,7 +360,10 @@ def test_nanmulsum_performance_comparison() -> None:
 
         if not (torch.isnan(result_nanmulsum) and torch.isnan(result_naive)):
             np.testing.assert_allclose(
-                result_nanmulsum.numpy(), result_naive.numpy(), rtol=1e-4, atol=1e-4
+                result_nanmulsum.numpy(),
+                result_naive.numpy(),
+                rtol=1e-4,
+                atol=1e-4,
             )
 
         # Clean up

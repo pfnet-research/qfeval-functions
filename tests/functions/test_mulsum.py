@@ -120,7 +120,10 @@ def test_mulsum_keepdim() -> None:
     result_no_keepdim = QF.mulsum(x, y, dim=1, keepdim=False)
     expected_no_keepdim = (x * y).sum(dim=1, keepdim=False)
     np.testing.assert_allclose(
-        result_no_keepdim.numpy(), expected_no_keepdim.numpy(), rtol=1e-4, atol=1e-7
+        result_no_keepdim.numpy(),
+        expected_no_keepdim.numpy(),
+        rtol=1e-4,
+        atol=1e-7,
     )
 
 
