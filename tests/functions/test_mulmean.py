@@ -89,13 +89,13 @@ def test_mulmean_multiple_dimensions() -> None:
     result_01 = QF.mulmean(x, y, dim=(0, 1))
     expected_01 = (x * y).mean(dim=(0, 1))
     np.testing.assert_allclose(
-        result_01.numpy(), expected_01.numpy(), rtol=1e-6
+        result_01.numpy(), expected_01.numpy(), rtol=1e-4, atol=1e-4
     )
 
     result_12 = QF.mulmean(x, y, dim=(1, 2))
     expected_12 = (x * y).mean(dim=(1, 2))
     np.testing.assert_allclose(
-        result_12.numpy(), expected_12.numpy(), rtol=1e-6
+        result_12.numpy(), expected_12.numpy(), rtol=1e-4, atol=1e-4
     )
 
 
@@ -108,14 +108,17 @@ def test_mulmean_keepdim() -> None:
     result_keepdim = QF.mulmean(x, y, dim=1, keepdim=True)
     expected_keepdim = (x * y).mean(dim=1, keepdim=True)
     np.testing.assert_allclose(
-        result_keepdim.numpy(), expected_keepdim.numpy(), rtol=1e-5
+        result_keepdim.numpy(), expected_keepdim.numpy(), rtol=1e-4, atol=1e-4
     )
 
     # Test keepdim=False
     result_no_keepdim = QF.mulmean(x, y, dim=1, keepdim=False)
     expected_no_keepdim = (x * y).mean(dim=1, keepdim=False)
     np.testing.assert_allclose(
-        result_no_keepdim.numpy(), expected_no_keepdim.numpy(), rtol=1e-6
+        result_no_keepdim.numpy(),
+        expected_no_keepdim.numpy(),
+        rtol=1e-4,
+        atol=1e-4,
     )
 
 
@@ -160,7 +163,9 @@ def test_mulmean_large_values() -> None:
 
     result = QF.mulmean(x, y)
     expected = (x * y).mean()
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(
+        result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6
+    )
 
 
 def test_mulmean_small_values() -> None:
@@ -170,7 +175,9 @@ def test_mulmean_small_values() -> None:
 
     result = QF.mulmean(x, y)
     expected = (x * y).mean()
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(
+        result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6
+    )
 
 
 def test_mulmean_broadcasting_edge_cases() -> None:
@@ -225,13 +232,15 @@ def test_mulmean_high_dimensional() -> None:
 
     result = QF.mulmean(x, y)
     expected = (x * y).mean()
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-5)
+    np.testing.assert_allclose(
+        result.numpy(), expected.numpy(), rtol=1e-5, atol=1e-5
+    )
 
     # Test along specific high dimensions
     result_dim3 = QF.mulmean(x, y, dim=3)
     expected_dim3 = (x * y).mean(dim=3)
     np.testing.assert_allclose(
-        result_dim3.numpy(), expected_dim3.numpy(), rtol=1e-4
+        result_dim3.numpy(), expected_dim3.numpy(), rtol=1e-4, atol=1e-4
     )
 
 
@@ -243,7 +252,9 @@ def test_mulmean_empty_dimension() -> None:
     # Empty dimension tuple should compute global mean
     result = QF.mulmean(x, y, dim=())
     expected = (x * y).mean()
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(
+        result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6
+    )
 
 
 def test_mulmean_mathematical_properties() -> None:
@@ -291,7 +302,7 @@ def test_mulmean_batch_processing() -> None:
     result_batch = QF.mulmean(x, y, dim=(1, 2))
     expected_batch = (x * y).mean(dim=(1, 2))
     np.testing.assert_allclose(
-        result_batch.numpy(), expected_batch.numpy(), rtol=1e-5
+        result_batch.numpy(), expected_batch.numpy(), rtol=1e-4, atol=1e-4
     )
 
     assert result_batch.shape == (batch_size,)

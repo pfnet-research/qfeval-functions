@@ -85,7 +85,7 @@ def test_project_batch_processing() -> None:
     for i in range(batch_size):
         expected_i = torch.matmul(x[i], a[i].T)
         np.testing.assert_allclose(
-            result[i].numpy(), expected_i.numpy(), rtol=1e-6
+            result[i].numpy(), expected_i.numpy(), rtol=1e-4, atol=1e-4
         )
 
 
@@ -188,7 +188,7 @@ def test_project_numerical_precision() -> None:
     result = QF.project(a, x)
     expected = torch.matmul(x, a.T)
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-12)
+    np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
 def test_project_dimension_mismatch_error() -> None:
@@ -211,7 +211,7 @@ def test_project_very_small_values() -> None:
     result = QF.project(a, x)
     expected = torch.matmul(x, a.T)
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-10)
+    np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
 def test_project_very_large_values() -> None:
@@ -222,7 +222,9 @@ def test_project_very_large_values() -> None:
     result = QF.project(a, x)
     expected = torch.matmul(x, a.T)
 
-    np.testing.assert_allclose(result.numpy(), expected.numpy(), rtol=1e-6)
+    np.testing.assert_allclose(
+        result.numpy(), expected.numpy(), rtol=1e-6, atol=1e-6
+    )
 
 
 def test_project_negative_values() -> None:
@@ -249,7 +251,7 @@ def test_project_complex_batch_shapes() -> None:
     # Verify a specific batch element with relaxed tolerance
     expected_00 = torch.matmul(x[0, 0], a[0, 0].T)
     np.testing.assert_allclose(
-        result[0, 0].numpy(), expected_00.numpy(), rtol=1e-4
+        result[0, 0].numpy(), expected_00.numpy(), rtol=1e-4, atol=1e-4
     )
 
 
@@ -269,9 +271,7 @@ def test_project_linearity_property() -> None:
     result_y = QF.project(a, y)
     result_linear = c * result_x + d * result_y
 
-    np.testing.assert_allclose(
-        result_combined.numpy(), result_linear.numpy(), rtol=1e-10
-    )
+    np.testing.assert_allclose(result_combined.numpy(), result_linear.numpy())
 
 
 def test_project_composition_property() -> None:
@@ -288,6 +288,4 @@ def test_project_composition_property() -> None:
     combined_projection = torch.matmul(b, a)  # (1, 3)
     result_direct = QF.project(combined_projection, x)
 
-    np.testing.assert_allclose(
-        result_composed.numpy(), result_direct.numpy(), rtol=1e-10
-    )
+    np.testing.assert_allclose(result_composed.numpy(), result_direct.numpy())

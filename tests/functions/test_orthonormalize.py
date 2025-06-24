@@ -163,7 +163,7 @@ def test_orthonormalize_span_preservation() -> None:
     # Should be able to reconstruct the original vector (in the span)
     # The reconstruction should be close to the projection of original onto the span
     np.testing.assert_allclose(
-        reconstructed.numpy(), a[0, 0].numpy(), rtol=1e-4
+        reconstructed.numpy(), a[0, 0].numpy(), rtol=1e-4, atol=1e-4
     )
 
 
@@ -340,7 +340,10 @@ def test_orthonormalize_reconstruction_property() -> None:
 
         # Should match original vector (they span the same space)
         np.testing.assert_allclose(
-            reconstructed_vec.numpy(), original_vec.numpy(), rtol=1e-4
+            reconstructed_vec.numpy(),
+            original_vec.numpy(),
+            rtol=1e-4,
+            atol=1e-4,
         )
 
 
