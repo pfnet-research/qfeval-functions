@@ -28,6 +28,9 @@ dev = [
     "pytest-repeat>=0.9.4",
     "scikit-learn>=1.6.1",
     "scipy>=1.13.1",
+    "sphinx>=7.0.0",
+    "sphinx-rtd-theme>=2.0.0",
+    "sphinx-autodoc-typehints>=1.25.0",
 ]
 
 [tool.uv]

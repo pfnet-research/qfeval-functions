@@ -57,3 +57,11 @@ format-black:
 .PHONY: format-isort
 format-isort:
 	$(RUN) isort --quiet .
+
+.PHONY: docs
+docs:
+	$(RUN) sphinx-build -b html docs docs/_build/html
+
+.PHONY: docs-clean
+docs-clean:
+	rm -rf docs/_build
