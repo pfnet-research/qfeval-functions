@@ -31,6 +31,9 @@ autodoc_default_options = {
     "show-inheritance": True,
 }
 
+# Remove module path from function signatures
+add_module_names = False
+
 # Generate separate pages for each module
 autosummary_generate = True
 
