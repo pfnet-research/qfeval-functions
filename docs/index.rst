@@ -3,11 +3,10 @@ qfeval-functions Documentation
 
 PyTorch-based quantitative finance library for mathematical operations on financial data.
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+Contents
+========
 
-   api/modules
+* :doc:`Functions <api/qfeval_functions.functions>`
 
 Indices and tables
 ==================

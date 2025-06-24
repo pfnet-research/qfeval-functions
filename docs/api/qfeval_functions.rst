@@ -1,29 +1,21 @@
 qfeval\_functions package
 =========================
 
+.. automodule:: qfeval_functions
+   :members:
+   :show-inheritance:
+   :undoc-members:
+
+Subpackages
+-----------
+
+* :doc:`Functions <qfeval_functions.functions>`
+   qfeval_functions.random
+
 Submodules
 ----------
 
-qfeval\_functions.functions module
-----------------------------------
+.. toctree::
+   :maxdepth: 4
 
-.. automodule:: qfeval_functions.functions
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-qfeval\_functions.random module
--------------------------------
-
-.. automodule:: qfeval_functions.random
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: qfeval_functions
-   :members:
-   :undoc-members:
-   :show-inheritance:
+   qfeval_functions.version

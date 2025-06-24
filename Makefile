@@ -59,9 +59,14 @@ format-isort:
 	$(RUN) isort --quiet .
 
 .PHONY: docs
-docs:
+docs: docs-apidoc
 	$(RUN) sphinx-build -b html docs docs/_build/html
+
+.PHONY: docs-apidoc
+docs-apidoc:
+	$(RUN) sphinx-apidoc -f -e -M -o docs/api qfeval_functions
+	cd docs && $(RUN) python postprocess_apidoc.py
 
 .PHONY: docs-clean
 docs-clean:
-	rm -rf docs/_build
+	rm -rf docs/_build docs/api

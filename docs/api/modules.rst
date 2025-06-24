@@ -1,5 +1,5 @@
-API Reference
-=============
+qfeval_functions
+================
 
 .. toctree::
    :maxdepth: 4
