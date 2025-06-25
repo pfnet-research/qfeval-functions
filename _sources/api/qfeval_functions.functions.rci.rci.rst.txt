@@ -1,0 +1,6 @@
+qfeval\_functions.functions.rci.rci
+===================================
+
+.. currentmodule:: qfeval_functions.functions.rci
+
+.. autofunction:: rci

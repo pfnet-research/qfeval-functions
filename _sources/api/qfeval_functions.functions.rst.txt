@@ -1,0 +1,71 @@
+Functions
+=========
+
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autosummary::
+   :toctree: .
+   :nosignatures:
+
+   apply_for_axis
+   bfill
+   bincount
+   bollinger_band
+   correl
+   covar
+   cumcount
+   eigh
+   einsum
+   ema
+   ffill
+   fillna
+   gaussian_blur
+   group_shift
+   groupby
+   ma
+   mmax
+   mmin
+   mstd
+   msum
+   mulmean
+   mulsum
+   mvar
+   nancorrel
+   nancovar
+   nancumprod
+   nancumsum
+   nankurtosis
+   nanmax
+   nanmean
+   nanmin
+   nanmulmean
+   nanmulsum
+   nanones
+   nanpca
+   nanshift
+   nanskew
+   nanslope
+   nansum
+   nanvar
+   orthogonalize
+   orthonormalize
+   pca
+   project
+   rand
+   rand_like
+   randint
+   randn
+   randn_like
+   randperm
+   rci
+   rcummax
+   rcumsum
+   rms
+   rsi
+   shift
+   signif
+   skipna
+   slope
+   soft_topk_bottomk
+   stable_sort

@@ -1,0 +1,6 @@
+﻿qfeval\_functions.functions.pca
+===============================
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: pca
