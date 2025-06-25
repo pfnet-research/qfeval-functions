@@ -9,12 +9,11 @@ install:
 	uv sync --dev
 
 .PHONY: test
-test: doctest pytest
+test: doctest pytest doctest
 
 .PHONY: doctest
 doctest:
-	@echo "To be implemented"
-#	$(RUN) pytest --doctest-modules $(PROJECT_NAME)
+	$(RUN) python scripts/run_doctests.py
 
 .PHONY: pytest
 pytest:

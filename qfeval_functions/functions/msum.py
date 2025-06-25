@@ -46,7 +46,7 @@ def msum(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
         >>> import qfeval_functions.functions as QF
         >>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])
         >>> QF.msum(x, span=3)
-        tensor([nan, nan,  6., 9., 12.])
+        tensor([nan, nan,  6.,  9., 12.])
 
         >>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],
         ...                   [5.0, 6.0, 7.0, 8.0]])
