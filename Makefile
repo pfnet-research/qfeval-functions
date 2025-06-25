@@ -13,7 +13,7 @@ test: doctest pytest doctest
 
 .PHONY: doctest
 doctest:
-	$(RUN) pytest --doctest-modules qfeval_functions -v
+	$(RUN) pytest --doctest-modules $(PROJECT_NAME) -v
 
 .PHONY: pytest
 pytest:
