@@ -11,8 +11,8 @@ build:
     python: "3.13"
 
 # Build documentation in the "docs/" directory with Sphinx
-sphinx:
-   configuration: docs/conf.py
+# sphinx:
+#    configuration: docs/conf.py
 
 # Optionally, but recommended,
 # declare the Python requirements required to build your documentation
@@ -28,9 +28,6 @@ build:
   jobs:
     pre_install:
       - pip install uv
-      - uv pip install -e .
       - uv sync --dev
-    pre_build:
-      - echo "Generating API documentation with sphinx-apidoc..."
-      - sphinx-apidoc -f -e -M -o docs/api qfeval_functions
-      - cd docs && python postprocess_apidoc.py
+    build:
+      - make docs
