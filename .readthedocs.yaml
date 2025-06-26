@@ -28,6 +28,6 @@ build:
   jobs:
     pre_install:
       - pip install uv
-      - uv pip compile pyproject.toml > requirements.txt
+      - uv pip compile pyproject.toml -o requirements.txt --group dev
     pre_build:
       - make docs-apidoc
