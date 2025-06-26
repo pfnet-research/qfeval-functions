@@ -43,11 +43,7 @@ jobs:
           uv sync --dev
       - name: Test
         run: |
-          uv run black --check --diff --quiet .
-          uv run isort --check --quiet .
-          uv run pflake8 .
-          uv run mypy .
-          uv run pytest tests/
+          make test
       - name: cov report only for python 3.11 and linux
         if: ${{ matrix.python-version == '3.11' && matrix.platform == 'ubuntu-latest' }}
         run: |
