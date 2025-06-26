@@ -1,0 +1,61 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.rms.rst:2
+msgid "qfeval\\_functions.functions.rms"
+msgstr ""
+
+#: of qfeval_functions.functions.rms.rms:1
+msgid ""
+"Returns the root mean square of each row of the input tensor in the given"
+" dimension `dim`.  If `dim` is a list of dimensions, reduce over all of "
+"them."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rms.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.rms.rms:6
+msgid "The input tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.rms.rms:9
+msgid "The dimension or dimensions to reduce."
+msgstr ""
+
+#: of qfeval_functions.functions.rms.rms:12
+msgid "Whether the output tensor has `dim` retained or not."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rms.rst
+msgid "Returns"
+msgstr ""
+
+#: of qfeval_functions.functions.rms.rms:15
+msgid "The output tensor."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rms.rst
+msgid "Return type"
+msgstr ""
+

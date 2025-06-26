@@ -1,0 +1,553 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.rst:2
+msgid "Functions"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`apply_for_axis <qfeval_functions.functions.apply_for_axis>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Applies the given data `x` into the given function `f`, which expects a "
+"tensor of `(batch, n)` shape."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`bfill <qfeval_functions.functions.bfill>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Propagates last valid values backward."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`bincount <qfeval_functions.functions.bincount>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Computes the frequency of each value in a tensor along a specified "
+"dimension, with support for a minimum length of the output tensor."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`bollinger_band <qfeval_functions.functions.bollinger_band>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns the upper/middle/bottom values of the corresponding Bollinger "
+"band."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`correl <qfeval_functions.functions.correl>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns Pearson correlation coefficient between `x` and `y`."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`covar <qfeval_functions.functions.covar>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Calculates the covariance between the given tensors along the specified "
+"dimension."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`cumcount <qfeval_functions.functions.cumcount>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Numbers each item in each group from 0 to :math:`N-1`, where :math:`N` is"
+" the number of the items of the group."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`eigh <qfeval_functions.functions.eigh>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Computes eigenvalues and eigenvectors."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`einsum <qfeval_functions.functions.einsum>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Typed version of torch.einsum."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`ema <qfeval_functions.functions.ema>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the exponential weighted moving average of the given tensor."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`ffill <qfeval_functions.functions.ffill>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Propagates last valid values forward."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`fillna <qfeval_functions.functions.fillna>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Replaces NaN, positive infinity, and negative infinity values with "
+"specified numbers."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`gaussian_blur <qfeval_functions.functions.gaussian_blur>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Applies a Gaussian filter with the given `sigma` parameter to `x` along "
+"the specified axis `dim`."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`group_shift <qfeval_functions.functions.group_shift>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Shifts a tensor along a specified dimension, skipping a given mask."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`groupby <qfeval_functions.functions.groupby>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Groups items of `x` by `group_id`."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`ma <qfeval_functions.functions.ma>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the moving average of the given tensor."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`mmax <qfeval_functions.functions.mmax>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the moving max of the given tensor."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`mmin <qfeval_functions.functions.mmin>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the moving min of the given tensor."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`mstd <qfeval_functions.functions.mstd>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the moving standard deviation of the given tensor."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`msum <qfeval_functions.functions.msum>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Compute the moving (sliding window) sum of a tensor."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`mulmean <qfeval_functions.functions.mulmean>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Calculate `(x * y).mean(...)` in a memory-efficient way."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`mulsum <qfeval_functions.functions.mulsum>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Calculate `(x * y).sum(...)` in a memory-efficient way."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`mvar <qfeval_functions.functions.mvar>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the moving variance of the given tensor."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nancorrel <qfeval_functions.functions.nancorrel>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns Pearson correlation coefficient between `x` and `y`, ignoring "
+"NaNs."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nancovar <qfeval_functions.functions.nancovar>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Calculates the covariance between the given tensors."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nancumprod <qfeval_functions.functions.nancumprod>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nancumsum <qfeval_functions.functions.nancumsum>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nankurtosis <qfeval_functions.functions.nankurtosis>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the kurtosis of each row, ignoring Not a Numbers (NaNs)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nanmax <qfeval_functions.functions.nanmax>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns a namedtuple `(values, indices)` where values is the maximum "
+"value of each row of the `input` tensor in the given dimension `dim`, "
+"ignoring Not a Numbers (NaNs)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nanmean <qfeval_functions.functions.nanmean>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nanmin <qfeval_functions.functions.nanmin>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns a namedtuple `(values, indices)` where values is the minimum "
+"value of each row of the `input` tensor in the given dimension `dim`, "
+"ignoring Not a Numbers (NaNs)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nanmulmean <qfeval_functions.functions.nanmulmean>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Calculates `QF.nanmean(x * y, ...)` in a memory-efficient way."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nanmulsum <qfeval_functions.functions.nanmulsum>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Calculates `QF.nansum(x * y, ...)` in a memory-efficient way."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nanones <qfeval_functions.functions.nanones>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns a tensor having ones with the same shape of the given tensor, "
+"preserving Not a Numbers (NaNs)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nanpca <qfeval_functions.functions.nanpca>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Computes principal components on the given data."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nanshift <qfeval_functions.functions.nanshift>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Shifts array elements along specified dimensions, ignoring NaNs."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nanskew <qfeval_functions.functions.nanskew>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the skewness of each row, ignoring Not a Numbers (NaNs)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nanslope <qfeval_functions.functions.nanslope>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the slope of correlation bewteen `x` and `y`, ignoring NaNs."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nansum <qfeval_functions.functions.nansum>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the sum of all elements, ignoring Not a Numbers (NaNs)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`nanvar <qfeval_functions.functions.nanvar>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`orthogonalize <qfeval_functions.functions.orthogonalize>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Orthogonalizes x with respect to y along the specified dimension."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`orthonormalize <qfeval_functions.functions.orthonormalize>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Orthonormalizes the given vectors and returns the corresponding "
+"orthonormal vectors."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`pca <qfeval_functions.functions.pca>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Computes principal components on the given input `x`. The returned value "
+"represents principal components. Specifically, `result[*, i, :]` "
+"represents the :math:`(i+1)`-th largest principal component of the batch "
+"specified by `*`. Shape:     - x: :math:`(*, S, D)` where `*` means any "
+"number of additional       dimensions, `S` means the number of sections, "
+"and `D` means the       number of dimensions. In qfeval, dimensions and "
+"sections often represent symbols and timestamps respectively. :returns:."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`project <qfeval_functions.functions.project>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Projects the given tensor `x` using the given projection matrix `a`."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`rand <qfeval_functions.functions.rand>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns a tensor filled with random numbers from a uniform distribution "
+"on the interval [0, 1)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`rand_like <qfeval_functions.functions.rand_like>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns a tensor with the same size as input that is filled with random "
+"numbers from a uniform distribution on the interval [0, 1)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`randint <qfeval_functions.functions.randint>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns a tensor filled with random integers generated uniformly between "
+"low (inclusive) and high (exclusive)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`randn <qfeval_functions.functions.randn>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns a tensor filled with random numbers from a normal distribution "
+"with mean 0 and variance 1 (also called the standard normal "
+"distribution)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`randn_like <qfeval_functions.functions.randn_like>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns a tensor with the same size as input that is filled with random "
+"numbers from a normal distribution with mean 0 and variance 1."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`randperm <qfeval_functions.functions.randperm>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns a random permutation of integers from `0` to `n - 1`."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`rci <qfeval_functions.functions.rci>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`rcummax <qfeval_functions.functions.rcummax>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns the reversely cumulative max of elements of `input` in the "
+"dimension `dim`."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`rcumsum <qfeval_functions.functions.rcumsum>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns the reversely cumulative sum of elements of `input` in the "
+"dimension `dim`."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`rms <qfeval_functions.functions.rms>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Returns the root mean square of each row of the input tensor in the given"
+" dimension `dim`."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`rsi <qfeval_functions.functions.rsi>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Definition(use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp"
+" - Compatible with TA-lib Definition(use_sma=True): - "
+"https://info.monex.co.jp/technical-analysis/indicators/005.html"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`shift <qfeval_functions.functions.shift>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Shifts array elements along specified dimensions."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`signif <qfeval_functions.functions.signif>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ""
+"Rounds the numbers of the given tensor to the specified number of "
+"significant digits."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`skipna <qfeval_functions.functions.skipna>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Applies the given data to the given function after removing NaNs."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`slope <qfeval_functions.functions.slope>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Returns the slope of correlation bewteen `x` and `y`."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`soft_topk_bottomk <qfeval_functions.functions.soft_topk_bottomk>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Apply SoftTopKBottomK module along with given dimension."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid ":py:obj:`stable_sort <qfeval_functions.functions.stable_sort>`"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Sorts the given tensor preserving the order of equivalent elements."
+msgstr ""
+
