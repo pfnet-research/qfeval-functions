@@ -30,4 +30,5 @@ build:
       - pip install uv
       - uv sync --dev
     build:
-      - make docs
+      commands:
+        - make docs
