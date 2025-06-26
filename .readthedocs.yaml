@@ -30,4 +30,4 @@ build:
     - uv sync --dev
     - make docs
     - mv docs/_build/html $READTHEDOCS_OUTPUT/
-    - ls $READTHEDOCS_OUTPUT/html
+    - ls $READTHEDOCS_OUTPUT
