@@ -29,5 +29,5 @@ build:
     - pip install uv
     - uv sync --dev
     - make docs
-    - ls docs/_build/html
     - mv docs/_build/html $READTHEDOCS_OUTPUT/
+    - ls $READTHEDOCS_OUTPUT/html
