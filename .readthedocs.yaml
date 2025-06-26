@@ -29,5 +29,5 @@ build:
     pre_install:
       - pip install uv
       - uv venv $READTHEDOCS_VIRTUALENV_PATH
-      - VIRTUAL_ENV=$READTHEDOCS_VIRTUALENV_PATH uv sync --dev
+      - uv sync --dev
       - make docs-apidoc
