@@ -97,19 +97,21 @@
 <span class="sd">        - mask: a 1-D boolean tensor</span>
 
 <span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import torch</span>
+<span class="sd">        &gt;&gt;&gt; from math import nan</span>
 <span class="sd">        &gt;&gt;&gt; x = torch.tensor([</span>
-<span class="sd">            [1.0, 2.0, nan, 1.0],</span>
-<span class="sd">            [2.0, 4.0, nan, 2.0],</span>
-<span class="sd">            [3.0, nan, nan, 3.0],</span>
-<span class="sd">            [1.0, 1.0, 1.0, 1.0],</span>
-<span class="sd">        ])</span>
+<span class="sd">        ...     [1.0, 2.0, nan, 1.0],</span>
+<span class="sd">        ...     [2.0, 4.0, nan, 2.0],</span>
+<span class="sd">        ...     [3.0, nan, nan, 3.0],</span>
+<span class="sd">        ...     [1.0, 1.0, 1.0, 1.0],</span>
+<span class="sd">        ... ])</span>
 <span class="sd">        &gt;&gt;&gt; reduce_nan_patterns(x, -1, 0)</span>
-<span class="sd">        tensor([True, False, False, True])</span>
-<span class="sd">        # As x.dim() == 2, agg_f does not affect the results</span>
+<span class="sd">        tensor([ True, False, False,  True])</span>
+<span class="sd">        &gt;&gt;&gt; # As x.dim() == 2, agg_f does not affect the results</span>
 <span class="sd">        &gt;&gt;&gt; reduce_nan_patterns(x, -1, 0, agg_f=&quot;all&quot;)</span>
-<span class="sd">        tensor([True, False, False, True])</span>
+<span class="sd">        tensor([ True, False, False,  True])</span>
 <span class="sd">        &gt;&gt;&gt; reduce_nan_patterns(x, 0, 1)</span>
-<span class="sd">        tensor([False, False, False, True])</span>
+<span class="sd">        tensor([False, False, False,  True])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># transpose x so that the first dimension is dim and the second is refdim</span>
     <span class="c1"># NOTE: currently, dimensions added here will not be squeezed, since</span>

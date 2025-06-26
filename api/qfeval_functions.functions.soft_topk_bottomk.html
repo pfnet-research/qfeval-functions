@@ -85,16 +85,17 @@
 </dd>
 </dl>
 <p class="rubric">Examples</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">],</span> <span class="p">[</span><span class="mf">6.</span><span class="p">,</span> <span class="mf">7.</span><span class="p">,</span> <span class="mf">8.</span><span class="p">,</span> <span class="mf">9.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">soft_topk_bottomk</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="go">tensor([[-1.2967e-01, -6.4996e-02,  1.8626e-08,  6.4996e-02,  1.2967e-01],</span>
-<span class="go">        [-1.2967e-01, -6.4996e-02,  3.7253e-08,  6.4996e-02,  1.2967e-01]])</span>
+<span class="go">tensor([[-0.7624, -0.2123,  0.0000,  0.2123,  0.7624],</span>
+<span class="go">        [-0.7624, -0.2123,  0.0000,  0.2123,  0.7624]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">soft_topk_bottomk</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="go">tensor([[-0.3912, -0.3912, -0.3912, -0.3912, -0.3912],</span>
-<span class="go">        [ 0.3912,  0.3912,  0.3912,  0.3912,  0.3912]])</span>
+<span class="go">tensor([[-0.9999, -0.9999, -0.9999, -0.9999, -0.9999],</span>
+<span class="go">        [ 0.9999,  0.9999,  0.9999,  0.9999,  0.9999]])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">soft_topk_bottomk</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
-<span class="go">tensor([[-9.9999e-01, -1.1132e-05,  3.9829e-10,  5.9813e-03,  9.9402e-01],</span>
-<span class="go">        [-9.9998e-01, -1.1133e-05,  3.9801e-10,  5.9777e-03,  9.9402e-01]])</span>
+<span class="go">tensor([[-0.9965, -0.0035,  0.0000,  0.0035,  0.9965],</span>
+<span class="go">        [-0.9965, -0.0035,  0.0000,  0.0035,  0.9965]])</span>
 </pre></div>
 </div>
 </dd></dl>
