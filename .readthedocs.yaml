@@ -29,6 +29,5 @@ build:
     pre_install:
       - pip install uv
       - uv sync --dev
-    build:
-      commands:
-        - make docs
+  commands:
+    - make docs
