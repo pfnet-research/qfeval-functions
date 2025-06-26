@@ -28,6 +28,7 @@ build:
   jobs:
     pre_install:
       - pip install uv
+      - uv pip install -e .
       - uv sync --dev
     pre_build:
       - echo "Generating API documentation with sphinx-apidoc..."
