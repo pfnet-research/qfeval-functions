@@ -43,6 +43,7 @@ jobs:
           uv sync --dev
       - name: Test
         run: |
+          make lint
           make test
       - name: cov report only for python 3.11 and linux
         if: ${{ matrix.python-version == '3.11' && matrix.platform == 'ubuntu-latest' }}
