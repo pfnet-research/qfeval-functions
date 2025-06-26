@@ -22,6 +22,7 @@ sphinx:
 #    - requirements: docs/requirements.txt
 
 build:
+  os: ubuntu-24.04
   jobs:
     pre_build:
       - echo "Generating API documentation with sphinx-apidoc..."
