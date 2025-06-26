@@ -25,10 +25,10 @@ build:
   os: ubuntu-24.04
   tools:
     python: "3.13"
-  pre_install:
-    - pip install uv
-    - uv sync --dev
   jobs:
+    pre_install:
+      - pip install uv
+      - uv sync --dev
     pre_build:
       - echo "Generating API documentation with sphinx-apidoc..."
       - sphinx-apidoc -f -e -M -o docs/api qfeval_functions
