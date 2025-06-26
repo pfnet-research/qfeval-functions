@@ -59,12 +59,21 @@ format-isort:
 
 .PHONY: docs
 docs: docs-apidoc
-	$(RUN) sphinx-build -b html docs docs/_build/html
+	$(RUN) sphinx-build -b html docs docs/_build/html/en && \
+	$(RUN) sphinx-build -b html -D language='ja' docs docs/_build/html/ja && \
+	cp docs/_index.html docs/_build/html/index.html
 
 .PHONY: docs-apidoc
 docs-apidoc:
 	$(RUN) sphinx-apidoc -f -e -M -o docs/api qfeval_functions
 	cd docs && $(RUN) python postprocess_apidoc.py
+
+.PHONY: docs-generate-locale-ja
+docs-generate-locale-ja: docs
+	@cd docs && \
+	$(RUN) sphinx-build -M gettext ./ ./_build/ && \
+	$(RUN) sphinx-intl update -p ./_build/gettext -l ja && \
+	echo "please check and modify docs/source/locale/ja/LC_MESSAGES/index.po"
 
 .PHONY: docs-clean
 docs-clean:

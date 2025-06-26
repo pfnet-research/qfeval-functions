@@ -1,0 +1,46 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.soft_topk_bottomk.rst:2
+msgid "qfeval\\_functions.functions.soft\\_topk\\_bottomk"
+msgstr ""
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:1
+msgid "Apply SoftTopKBottomK module along with given dimension."
+msgstr ""
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:3
+msgid "See `qfeval.extension.SoftTopKBottomK` for futher information."
+msgstr ""
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk
+msgid "Return type"
+msgstr ""
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:5
+msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+msgstr ""
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:8
+msgid "Examples"
+msgstr ""
+

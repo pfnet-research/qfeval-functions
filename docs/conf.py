@@ -42,3 +42,7 @@ intersphinx_mapping = {
     "numpy": ("https://numpy.org/doc/stable/", None),
     "torch": ("https://pytorch.org/docs/stable/", None),
 }
+
+# -- setting for intl ------
+locale_dirs = ["locale/"]
+gettext_compact = False

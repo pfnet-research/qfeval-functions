@@ -1,0 +1,98 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.project.rst:2
+msgid "qfeval\\_functions.functions.project"
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:1
+msgid "Projects the given tensor `x` using the given projection matrix `a`."
+msgstr ""
+
+#: of qfeval_functions.functions.project.project
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:4
+msgid "A projection matrix."
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:7
+msgid "A tensor to be projected."
+msgstr ""
+
+#: of qfeval_functions.functions.project.project
+msgid "Return type"
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:9
+msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:11
+msgid "Returns"
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:12
+msgid "y (Tensor): The projected tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:14
+msgid "Shape:"
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:15
+msgid "a: :math:`(*, O, I)`, where :math:`*` represents any number of"
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:16
+msgid ""
+"dimensions (including None), :math:`O` is the number of output "
+"dimensions, and :math:`I` is the number of input dimensions."
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:18
+msgid "x: :math:`(*, S, I)`, where :math:`*` represents any number of"
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:19
+msgid ""
+"dimensions (including None), :math:`S` is the number of sections, and "
+":math:`I` is the number of input dimensions."
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:21
+msgid "return: :math:`(*, S, O)`, where :math:`*` represents any number of"
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:22
+msgid ""
+"dimensions (including None), :math:`S` is the number of sections, and "
+":math:`O` is the number of output dimensions."
+msgstr ""
+
+#: of qfeval_functions.functions.project.project:25
+msgid ""
+"In qfeval, I/O dimensions and sections often represent symbols and "
+"timestamps respectively."
+msgstr ""
+

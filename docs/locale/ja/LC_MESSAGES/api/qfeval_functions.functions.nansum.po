@@ -1,0 +1,44 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.nansum.rst:2
+msgid "qfeval\\_functions.functions.nansum"
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:1
+msgid "Returns the sum of all elements, ignoring Not a Numbers (NaNs)."
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:3
+msgid ""
+"NOTE: If no valid numbers exist, this returns NaN while torch.nansum "
+"returns 0."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nansum.rst
+msgid "Return type"
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:7
+msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+msgstr ""
+
