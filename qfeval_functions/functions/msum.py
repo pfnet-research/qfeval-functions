@@ -24,5 +24,34 @@ def _msum(x: torch.Tensor, span: int) -> torch.Tensor:
 
 
 def msum(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
-    r"""Returns the moving sum of the given tensor."""
+    r"""Compute the moving (sliding window) sum of a tensor.
+
+    This function calculates the sum of elements within a sliding window of
+    size :attr:`span` along the specified dimension. The output tensor has the
+    same shape as the input tensor. For positions where the sliding window
+    cannot fully cover preceding elements (i.e., the first `span - 1` elements
+    along the selected dimension), the result is `nan`.
+
+    Args:
+        x (Tensor): The input tensor.
+        span (int): The size of the sliding window.
+        dim (int, optional): The dimension along which to compute the moving sum.
+            Default is -1 (the last dimension).
+
+    Returns:
+        Tensor: A tensor of the same shape as the input, containing the moving sums.
+
+    Example:
+        >>> import torch
+        >>> import qfeval_functions.functions as QF
+        >>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])
+        >>> QF.msum(x, span=3)
+        tensor([nan, nan,  6.,  9., 12.])
+
+        >>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],
+        ...                   [5.0, 6.0, 7.0, 8.0]])
+        >>> QF.msum(x, span=2, dim=1)
+        tensor([[nan,  3.,  5.,  7.],
+                [nan, 11., 13., 15.]])
+    """
     return apply_for_axis(lambda x: _msum(x, span), x, dim)

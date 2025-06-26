@@ -29,19 +29,21 @@ def reduce_nan_patterns(
         - mask: a 1-D boolean tensor
 
     Examples:
+        >>> import torch
+        >>> from math import nan
         >>> x = torch.tensor([
-            [1.0, 2.0, nan, 1.0],
-            [2.0, 4.0, nan, 2.0],
-            [3.0, nan, nan, 3.0],
-            [1.0, 1.0, 1.0, 1.0],
-        ])
+        ...     [1.0, 2.0, nan, 1.0],
+        ...     [2.0, 4.0, nan, 2.0],
+        ...     [3.0, nan, nan, 3.0],
+        ...     [1.0, 1.0, 1.0, 1.0],
+        ... ])
         >>> reduce_nan_patterns(x, -1, 0)
-        tensor([True, False, False, True])
-        # As x.dim() == 2, agg_f does not affect the results
+        tensor([ True, False, False,  True])
+        >>> # As x.dim() == 2, agg_f does not affect the results
         >>> reduce_nan_patterns(x, -1, 0, agg_f="all")
-        tensor([True, False, False, True])
+        tensor([ True, False, False,  True])
         >>> reduce_nan_patterns(x, 0, 1)
-        tensor([False, False, False, True])
+        tensor([False, False, False,  True])
     """
     # transpose x so that the first dimension is dim and the second is refdim
     # NOTE: currently, dimensions added here will not be squeezed, since
