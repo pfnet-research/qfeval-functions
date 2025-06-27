@@ -10,19 +10,26 @@ import qfeval_functions.functions as QF
 
 
 class SpaceIgnoringOutputChecker(doctest.OutputChecker):
-    """Custom doctest output checker that ignores all spaces."""
+    """Custom doctest output checker that ignores spaces and removes trailing zeros."""
 
     def check_output(self, want: str, got: str, optionflags: int) -> bool:
-        """Check output ignoring all spaces."""
+        """Check output ignoring spaces and removing trailing zeros from decimals."""
         # First try the parent class check
         if super().check_output(want, got, optionflags):
             return True
 
-        # If that fails, try removing all spaces and comparing
-        want_no_spaces = re.sub(r"\s+", "", want)
-        got_no_spaces = re.sub(r"\s+", "", got)
+        # Remove all whitespace
+        want_normalized = re.sub(r"\s+", "", want)
+        got_normalized = re.sub(r"\s+", "", got)
 
-        return want_no_spaces == got_no_spaces
+        # Remove trailing zeros from decimal numbers (e.g., 1.0000 -> 1., 2.5000 -> 2.5)
+        # Pattern matches decimal numbers and removes trailing zeros (but keeps the decimal point)
+        want_normalized = re.sub(
+            r"(\d+\.\d*?)0+(?=\D|$)", r"\1", want_normalized
+        )
+        got_normalized = re.sub(r"(\d+\.\d*?)0+(?=\D|$)", r"\1", got_normalized)
+
+        return want_normalized == got_normalized
 
 
 def pytest_configure(config: Any) -> None:

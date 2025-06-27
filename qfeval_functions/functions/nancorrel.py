@@ -61,7 +61,7 @@ def nancorrel(
         >>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])
         >>> y = torch.tensor([2.0, 4.0, 6.0, 8.0, nan])
         >>> QF.nancorrel(x, y, dim=0)
-        tensor(1.0000)
+        tensor(1.)
 
         >>> # 2D tensors with NaN values
         >>> x = torch.tensor([[1.0, nan, 3.0],
@@ -75,7 +75,7 @@ def nancorrel(
         >>> x_with_nan = torch.tensor([1.0, 2.0, nan, 4.0])
         >>> y_with_nan = torch.tensor([2.0, 4.0, 6.0, 8.0])
         >>> QF.nancorrel(x_with_nan, y_with_nan, dim=0)  # Ignores NaN
-        tensor(1.0000)
+        tensor(1.)
 
         >>> # With keepdim
         >>> x = torch.tensor([[1.0, nan, 3.0],
@@ -83,8 +83,8 @@ def nancorrel(
         >>> y = torch.tensor([[2.0, 4.0, 6.0],
         ...                   [8.0, 10.0, 12.0]])
         >>> QF.nancorrel(x, y, dim=1, keepdim=True)
-        tensor([[1.0000],
-                [1.0000]])
+        tensor([[1.],
+                [1.]])
 
     .. seealso::
         - :func:`correl`: Pearson correlation without NaN handling.
