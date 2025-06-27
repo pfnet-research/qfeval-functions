@@ -26,8 +26,8 @@ qfeval-functions specifically provides a collection of functions within qfeval t
 pip install qfeval_functions
 ```
 
-## Usage
-TBD
+## Documentation
+https://qfeval-functions.readthedocs.io/
 
 # Pitfalls
 
@@ -43,6 +43,11 @@ For reproducibility, calling `qfeval_functions.random.seed` forces to use a repr
 default.
 
 # Contributing
+## Testing
+ - `make format`: format codes according to the lint rules
+ - `make lint`: lint checking
+ - `make test`: run pytest and other tests
+
 ## Generate documentation
  1. run `make docs-plamo-translate` to translate the documentation on your Mac or GitHub Actions (Auto Translate Documentation workflow).
  2. run `make docs` to build the documentation. (This is not required for pushing to GitHub. It is only required for local development.)
