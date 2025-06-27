@@ -23,21 +23,16 @@ def gaussian_blur(x: torch.Tensor, sigma: float, dim: int = -1) -> torch.Tensor:
     r"""Apply Gaussian blur to a tensor along a specified dimension.
 
     This function applies a one-dimensional Gaussian filter to smooth data
-    along　the specified dimension. The Gaussian blur operation computes a
-    weighted　average of neighboring values, where weights follow a Gaussian
-    (normal)　distribution centered at each point. This is commonly used for
-    noise　reduction, data smoothing, and signal processing.
+    along the specified dimension. The Gaussian blur operation computes a
+    weighted average of neighboring values, where weights follow a Gaussian
+    (normal) distribution centered at each point. This is commonly used for
+    noise reduction, data smoothing, and signal processing.
 
     Unlike typical implementations that use point-sampling (such as
     ``scipy.ndimage.gaussian_filter1d``), this function uses interval averages
     of the Gaussian function for improved accuracy, especially for small
     :attr:`sigma` values. This approach avoids undersampling issues and
-    provides　more accurate results.
-
-    The function handles NaN values gracefully by excluding them from the
-    weighted average calculation, making it suitable for incomplete data.
-    Values　outside the tensor boundaries have zero weight, avoiding edge
-    artifacts.
+    provides more accurate results.
 
     Args:
         x (Tensor):
@@ -58,25 +53,20 @@ def gaussian_blur(x: torch.Tensor, sigma: float, dim: int = -1) -> torch.Tensor:
 
         >>> # Simple 1D Gaussian blur
         >>> x = torch.tensor([0., 0., 0., 10., 0., 0., 0.])
-        >>> blurred = QF.gaussian_blur(x, sigma=1.0)
-        >>> blurred
+        >>> QF.gaussian_blur(x, sigma=1.0)
         tensor([0.0864, 0.6494, 2.4324, 3.8310, 2.4324, 0.6494, 0.0864])
 
-        >>> # 2D tensor with different sigma values
-        >>> x = torch.randn(3, 10)
-        >>> blurred_small = QF.gaussian_blur(x, sigma=0.5, dim=1)
-        >>> blurred_large = QF.gaussian_blur(x, sigma=2.0, dim=1)
-        >>> # Larger sigma produces more smoothing
-
-        >>> # Handling NaN values
-        >>> x = torch.tensor([1., 2., nan, 4., 5.])
-        >>> blurred = QF.gaussian_blur(x, sigma=1.0)
-        >>> # NaN values are excluded from weighted average
-
-        >>> # Blur along different dimensions
-        >>> x = torch.randn(4, 5, 6)
-        >>> blurred_dim0 = QF.gaussian_blur(x, sigma=1.5, dim=0)
-        >>> blurred_dim2 = QF.gaussian_blur(x, sigma=1.5, dim=2)
+        >>> # 2D tensor: blur along different dimensions
+        >>> x = torch.zeros(3, 5)
+        >>> x[1, 2] = 10.0
+        >>> QF.gaussian_blur(x, sigma=0.8, dim=0)  # blur along rows
+        tensor([[0.0000, 0.0000, 3.2135, 0.0000, 0.0000],
+                [0.0000, 0.0000, 4.9832, 0.0000, 0.0000],
+                [0.0000, 0.0000, 3.2135, 0.0000, 0.0000]])
+        >>> QF.gaussian_blur(x, sigma=0.8, dim=1)  # blur along columns
+        tensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.0000],
+                [0.4020, 2.4298, 4.6886, 2.4298, 0.4020],
+                [0.0000, 0.0000, 0.0000, 0.0000, 0.0000]])
 
     .. seealso::
         - https://en.wikipedia.org/wiki/Gaussian_blur

@@ -9,9 +9,6 @@ def ffill(x: torch.Tensor, dim: int = -1) -> torch.Tensor:
     most recent valid value that appears before it along the dimension. If no
     valid value exists before a NaN, it remains NaN.
 
-    The forward fill operation is commonly used in time series analysis to
-    handle missing data by carrying forward the last observed value.
-
     Args:
         x (Tensor):
             The input tensor containing values to be filled. May contain NaN
@@ -47,10 +44,6 @@ def ffill(x: torch.Tensor, dim: int = -1) -> torch.Tensor:
         tensor([[1., nan, 3.],
                 [1., 2., 3.],
                 [4., 2., 3.]])
-
-    .. note::
-        This implementation uses an efficient algorithm based on cumulative
-        maximum of boolean masks to track the last valid value indices.
     """
     if x.shape[dim] == 0:
         return x
