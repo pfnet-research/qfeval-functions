@@ -44,8 +44,10 @@ def translate_text(
     to_lang: str,
     input_text: str,
     context_text: Optional[str] = None,
-    vocabularies: List[Tuple[str, str]] = [],
+    vocabularies: Optional[List[Tuple[str, str]]] = None,
 ) -> str:
+    if vocabularies is None:
+        vocabularies = []
     messages = []
     if context_text:
         messages.append(
