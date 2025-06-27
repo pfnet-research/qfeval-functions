@@ -23,7 +23,7 @@ except ImportError:
 
 
 async def get_translation(
-    client: translate.MCPClient, messages: List[Dict[str, str]]
+    client: translate.MCPClient, messages: List[Dict[str, str]]  # type: ignore
 ) -> str:
     async for result in client.translate(messages):
         continue
@@ -38,7 +38,7 @@ def create_vocabulary_format(word_pairs: List[Tuple[str, str]]) -> str:
 
 
 def translate_text(
-    client: translate.MCPClient,
+    client: translate.MCPClient,  # type: ignore
     from_lang: str,
     to_lang: str,
     input_text: str,
@@ -230,7 +230,7 @@ def write_po_file(file_path: Path, entries: List[Tuple[str, str, str]]) -> None:
 
 
 def translate_po_file_with_lang(
-    client: translate.MCPClient,
+    client: translate.MCPClient,  # type: ignore
     file_path: Path,
     from_lang: str,
     to_lang: str,
@@ -319,7 +319,7 @@ def find_po_files(to_lang: str) -> List[Path]:
 
 
 def translate_all_po_files(
-    client: translate.MCPClient,
+    client: translate.MCPClient,  # type: ignore
     from_lang: str,
     to_lang: str,
     global_context: Optional[str] = None,
