@@ -73,7 +73,7 @@ def translate_text(
             "content": f"output lang={to_lang}\n",
         }
     )
-    print(messages)
+    logger.debug(f"Translation messages: {messages}")
     outputs = asyncio.run(get_translation(client, messages))
     if outputs.endswith("\n"):
         outputs = outputs[:-1]
@@ -135,7 +135,7 @@ def parse_po_file(file_path: Path) -> List[Tuple[str, str, str]]:
                 entries.append((current_msgid, current_msgstr, current_context))
 
     except Exception as e:
-        print(f"ファイル解析エラー {file_path}: {e}")
+        logger.error(f"ファイル解析エラー {file_path}: {e}")
 
     return entries
 
@@ -223,7 +223,7 @@ def write_po_file(file_path: Path, entries: List[Tuple[str, str, str]]) -> None:
             f.writelines(new_lines)
 
     except Exception as e:
-        print(f"ファイル書き込みエラー {file_path}: {e}")
+        logger.error(f"ファイル書き込みエラー {file_path}: {e}")
 
 
 def translate_po_file_with_lang(
@@ -235,11 +235,11 @@ def translate_po_file_with_lang(
     force: bool = False,
 ) -> None:
     """単一の.poファイルを翻訳"""
-    print(f"翻訳中: {file_path}")
+    logger.info(f"翻訳中: {file_path}")
 
     # 強制モードでない場合、ファイルが完全に翻訳済みかチェック
     if not force and is_file_fully_translated(file_path):
-        print(f"  スキップ: 既に翻訳済み {file_path}")
+        logger.info(f"  スキップ: 既に翻訳済み {file_path}")
         return
 
     # .poファイルを解析
@@ -253,12 +253,11 @@ def translate_po_file_with_lang(
     ]
 
     if not to_translate:
-        print(f"  翻訳対象なし: {file_path}")
+        logger.info(f"  翻訳対象なし: {file_path}")
         return
 
-    print(
-        f"  翻訳対象: {len(to_translate)}件 {'(強制モード)' if force else ''}"
-    )
+    force_msg = "(強制モード)" if force else ""
+    logger.info(f"  翻訳対象: {len(to_translate)}件 {force_msg}")
 
     # 同じファイル内の翻訳対象テキストをcontextとして収集
     file_context_texts = [
@@ -281,7 +280,7 @@ def translate_po_file_with_lang(
     # 翻訳実行
     translated_entries = []
     for i, (msgid, msgstr, context) in enumerate(to_translate, 1):
-        print(f"  {i}/{len(to_translate)}: {msgid[:50]}...")
+        logger.debug(f"  {i}/{len(to_translate)}: {msgid[:50]}...")
         translated = translate_text(
             client, from_lang, to_lang, msgid, context_text=combined_context
         )
@@ -301,7 +300,7 @@ def translate_po_file_with_lang(
 
     # ファイルに書き込み
     write_po_file(file_path, all_entries)
-    print(f"  完了: {file_path}")
+    logger.info(f"  完了: {file_path}")
 
 
 def find_po_files(to_lang: str) -> List[Path]:
@@ -327,21 +326,22 @@ def translate_all_po_files(
     po_files = find_po_files(to_lang)
 
     if not po_files:
-        print(f".poファイルが見つかりません: docs/locale/{to_lang}/LC_MESSAGES")
+        logger.warning(
+            f".poファイルが見つかりません: docs/locale/{to_lang}/LC_MESSAGES"
+        )
         return
 
-    print(
-        f"翻訳設定: {from_lang} → {to_lang} {'(強制モード)' if force else ''}"
-    )
-    print(f"見つかった.poファイル: {len(po_files)}件")
+    force_msg = "(強制モード)" if force else ""
+    logger.info(f"翻訳設定: {from_lang} → {to_lang} {force_msg}")
+    logger.info(f"見つかった.poファイル: {len(po_files)}件")
 
     for i, po_file in enumerate(po_files, 1):
-        print(f"\n[{i}/{len(po_files)}] {po_file}")
+        logger.info(f"\n[{i}/{len(po_files)}] {po_file}")
         translate_po_file_with_lang(
             client, po_file, from_lang, to_lang, global_context, force
         )
 
-    print("\n全ての翻訳が完了しました！")
+    logger.info("\n全ての翻訳が完了しました！")
 
 
 def main() -> None:
@@ -379,17 +379,10 @@ def main() -> None:
 
 qfeval-functionsは、qfevalの中でも、金融時系列データを効率的に扱うための関数群を提供します。"""
 
-    vocabularies = [
-        ("qfeval", "qfeval"),
-        ("qfeval-functions", "qfeval-functions"),
-        ("qfeval_functions", "qfeval_functions"),
-        ("Preferred Networks", "Preferred Networks"),
-    ]
-
-    print("設定:")
-    print(f"  モデル: {model_name}")
-    print(f"  翻訳: {from_lang} → {to_lang}")
-    print(f"  強制モード: {force}")
+    logger.info("設定:")
+    logger.info(f"  モデル: {model_name}")
+    logger.info(f"  翻訳: {from_lang} → {to_lang}")
+    logger.info(f"  強制モード: {force}")
 
     update_config(backend_type=backend_type, model_name=model_name)
     if "PLAMO_TRANSLATE_CLI_MODEL_NAME" not in os.environ:
@@ -406,7 +399,7 @@ qfeval-functionsは、qfevalの中でも、金融時系列データを効率的�
 
     client = translate.MCPClient(stream=False)
     # .poファイル翻訳を実行
-    print("=== .poファイル翻訳開始 ===")
+    logger.info("=== .poファイル翻訳開始 ===")
     translate_all_po_files(
         client, from_lang, to_lang, global_context_text, force
     )
