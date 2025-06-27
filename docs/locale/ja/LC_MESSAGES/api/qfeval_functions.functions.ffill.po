@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,14 +25,55 @@ msgid "qfeval\\_functions.functions.ffill"
 msgstr "qfeval\\_functions.functions.ffill"
 
 #: of qfeval_functions.functions.ffill.ffill:1
-msgid "Propagates last valid values forward."
-msgstr "最後に有効な値を前方に伝播します。"
+msgid "Forward fill missing values along the specified dimension."
+msgstr ""
 
-#: ../../api/qfeval_functions.functions.ffill.rst
+#: of qfeval_functions.functions.ffill.ffill:3
+msgid ""
+"This function propagates the last valid (non-NaN) values forward along "
+"the specified dimension. For each NaN value, it is replaced with the most"
+" recent valid value that appears before it along the dimension. If no "
+"valid value exists before a NaN, it remains NaN."
+msgstr ""
+
+#: of qfeval_functions.functions.ffill.ffill
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.ffill.ffill:9
+msgid ""
+"The input tensor containing values to be filled. May contain NaN values "
+"that will be replaced."
+msgstr ""
+
+#: of qfeval_functions.functions.ffill.ffill:13
+msgid ""
+"The dimension along which to perform forward fill. Default is -1 (the "
+"last dimension)."
+msgstr ""
+
+#: of qfeval_functions.functions.ffill.ffill
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.ffill.ffill:17
+msgid ""
+"A tensor of the same shape as the input, with NaN values replaced by the "
+"nearest preceding valid values where possible."
+msgstr ""
+
+#: of qfeval_functions.functions.ffill.ffill
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.ffill.ffill:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.ffill.ffill:22
+msgid "Example"
+msgstr ""
+
+#~ msgid "Propagates last valid values forward."
+#~ msgstr "最後に有効な値を前方に伝播します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

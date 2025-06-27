@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,14 +22,68 @@ msgid "qfeval\\_functions.functions.nanvar"
 msgstr "qfeval\\_functions.functions.nanvar"
 
 #: of qfeval_functions.functions.nanvar.nanvar:1
-msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
-msgstr "各行の平均値を返しますが、Not a Numbers (NaNs) は無視します。"
+msgid "Compute the variance of a tensor, ignoring NaN values."
+msgstr ""
 
-#: ../../api/qfeval_functions.functions.nanvar.rst
+#: of qfeval_functions.functions.nanvar.nanvar:3
+msgid ""
+"This function calculates the variance of tensor elements along specified "
+"dimensions while excluding NaN values. The variance can be computed using"
+" either the unbiased estimator (dividing by N-1) or the biased estimator "
+"(dividing by N), where N is the number of non-NaN elements."
+msgstr ""
+
+#: of qfeval_functions.functions.nanvar.nanvar
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.nanvar.nanvar:9
+msgid "The input tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.nanvar.nanvar:12
+msgid ""
+"The dimension(s) along which to compute the variance. If not specified "
+"(default is an empty tuple), the variance is computed over all elements. "
+"Can be a single dimension or multiple dimensions."
+msgstr ""
+
+#: of qfeval_functions.functions.nanvar.nanvar:17
+msgid ""
+"If ``True`` (default), uses Bessel's correction and divides by ``N-1`` "
+"where ``N`` is the number of non-NaN elements. If ``False``, divides by "
+"``N``."
+msgstr ""
+
+#: of qfeval_functions.functions.nanvar.nanvar:22
+msgid ""
+"If ``True``, the output tensor has the same number of dimensions as the "
+"input, with the reduced dimensions having size 1. If ``False`` (default),"
+" the reduced dimensions are removed."
+msgstr ""
+
+#: of qfeval_functions.functions.nanvar.nanvar
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanvar.nanvar:27
+msgid ""
+"The variance of non-NaN elements. The shape depends on the :attr:`dim` "
+"and :attr:`keepdim` parameters."
+msgstr ""
+
+#: of qfeval_functions.functions.nanvar.nanvar
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nanvar.nanvar:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nanvar.nanvar:32
+msgid "Example"
+msgstr ""
+
+#~ msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
+#~ msgstr "各行の平均値を返しますが、Not a Numbers (NaNs) は無視します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

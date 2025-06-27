@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,20 +25,67 @@ msgid "qfeval\\_functions.functions.bincount"
 msgstr "qfeval\\_functions.functions.bincount"
 
 #: of qfeval_functions.functions.bincount.bincount:1
+msgid "Count number of occurrences of each value in a tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.bincount.bincount:3
 msgid ""
-"Computes the frequency of each value in a tensor along a specified "
-"dimension, with support for a minimum length of the output tensor."
-msgstr "指定された次元に沿ってテンソル内の各値の出現頻度を計算します。出力テンソルの最小長を指定することも可能です。"
+"This function computes the frequency of each non-negative integer value "
+"in the input tensor along the specified dimension. The output tensor's "
+"size along the counted dimension is the maximum of :attr:`minlength` and "
+"the largest value in the input plus one. Each position in the output "
+"contains the count of that index value in the input."
+msgstr ""
+
+#: of qfeval_functions.functions.bincount.bincount
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.bincount.bincount:10
+msgid "The input tensor containing non-negative integer values."
+msgstr ""
+
+#: of qfeval_functions.functions.bincount.bincount:13
+msgid ""
+"Minimum length of the output tensor along the counted dimension. If the "
+"maximum value in :attr:`x` is less than :attr:`minlength` - 1, the output"
+" is padded with zeros. Default is 0."
+msgstr ""
+
+#: of qfeval_functions.functions.bincount.bincount:19
+msgid ""
+"The dimension along which to count values. Default is -1 (the last "
+"dimension)."
+msgstr ""
+
+#: of qfeval_functions.functions.bincount.bincount
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.bincount.bincount:23
+msgid ""
+"A tensor where the value at index `i` along the specified dimension "
+"contains the count of occurrences of value `i` in the corresponding slice"
+" of the input tensor."
+msgstr ""
 
 #: of qfeval_functions.functions.bincount.bincount
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.bincount.bincount:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-
-#: of qfeval_functions.functions.bincount.bincount:7
-msgid "Examples"
+#: of qfeval_functions.functions.bincount.bincount:29
+#, fuzzy
+msgid "Example"
 msgstr "使用例"
+
+#~ msgid ""
+#~ "Computes the frequency of each value "
+#~ "in a tensor along a specified "
+#~ "dimension, with support for a minimum"
+#~ " length of the output tensor."
+#~ msgstr "指定された次元に沿ってテンソル内の各値の出現頻度を計算します。出力テンソルの最小長を指定することも可能です。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

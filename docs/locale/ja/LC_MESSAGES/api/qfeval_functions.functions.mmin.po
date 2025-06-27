@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,14 +25,83 @@ msgid "qfeval\\_functions.functions.mmin"
 msgstr "qfeval\\_functions.functions.mmin"
 
 #: of qfeval_functions.functions.mmin.mmin:1
-msgid "Returns the moving min of the given tensor."
-msgstr "指定されたテンソルの移動最小値を返します。"
+msgid "Compute the moving (sliding window) minimum of a tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.mmin.mmin:3
+msgid ""
+"This function calculates the minimum value within a sliding window of "
+"size :attr:`span` along the specified dimension. The output tensor has "
+"the same shape as the input tensor. For positions where the sliding "
+"window cannot fully cover preceding elements (i.e., the first ``span - "
+"1`` elements along the selected dimension), the result is computed using "
+"available values by padding with the first element."
+msgstr ""
+
+#: of qfeval_functions.functions.mmin.mmin:10
+msgid "The moving minimum is computed as:"
+msgstr ""
+
+#: of qfeval_functions.functions.mmin.mmin:12
+msgid ""
+"\\text{MMIN}[i] = \\min_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n"
+"\n"
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.mmin.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.mmin.mmin:16
+msgid "The input tensor containing values."
+msgstr ""
+
+#: of qfeval_functions.functions.mmin.mmin:19
+msgid "The size of the sliding window. Must be positive."
+msgstr ""
+
+#: of qfeval_functions.functions.mmin.mmin:22
+msgid ""
+"The dimension along which to compute the moving minimum. Default is -1 "
+"(the last dimension)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.mmin.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.mmin.mmin:26
+msgid ""
+"A tensor of the same shape as the input, containing the moving minimum "
+"values."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.mmin.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.mmin.mmin:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.mmin.mmin:31
+msgid "Example"
+msgstr ""
+
+#: of qfeval_functions.functions.mmin.mmin:63
+msgid ""
+"This function is implemented as ``-mmax(-x, span, dim)``, leveraging the "
+"duality between minimum and maximum operations. This approach ensures "
+"consistent behavior and performance with the moving maximum function "
+"while avoiding code duplication."
+msgstr ""
+
+#: of qfeval_functions.functions.mmin.mmin:69
+msgid ""
+":func:`mmax`: Moving maximum function. :func:`msum`: Moving sum function."
+" :func:`ma`: Moving average function."
+msgstr ""
+
+#~ msgid "Returns the moving min of the given tensor."
+#~ msgstr "指定されたテンソルの移動最小値を返します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

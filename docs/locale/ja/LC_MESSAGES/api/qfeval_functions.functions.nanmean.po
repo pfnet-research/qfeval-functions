@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,14 +25,86 @@ msgid "qfeval\\_functions.functions.nanmean"
 msgstr "qfeval\\_functions.functions.nanmean"
 
 #: of qfeval_functions.functions.nanmean.nanmean:1
-msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
-msgstr "各行の平均値を返しますが、Not a Numbers (NaNs) は無視します。"
+msgid ""
+"Compute the arithmetic mean along specified dimensions, ignoring NaN "
+"values."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmean.nanmean:3
+msgid ""
+"This function calculates the mean (average) of tensor elements along the "
+"specified dimension(s), excluding NaN values from the computation. NaN "
+"values are treated as missing data and do not contribute to either the "
+"sum or the count used in the mean calculation."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmean.nanmean:8
+msgid "The NaN-aware mean is computed as:"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmean.nanmean:10
+msgid ""
+"\\text{nanmean}(X) = \\frac{\\sum_{i \\text{ valid}} "
+"X_i}{N_{\\text{valid}}}\n"
+"\n"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmean.nanmean:13
+msgid ""
+"where the sum is over valid (non-NaN) values and "
+":math:`N_{\\text{valid}}` is the number of valid values."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nanmean.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmean.nanmean:17
+msgid "The input tensor containing values."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmean.nanmean:20
+msgid ""
+"The dimension(s) along which to compute the mean. If not specified "
+"(default is empty tuple), the mean is computed over all dimensions."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmean.nanmean:24
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nanmean.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanmean.nanmean:28
+msgid ""
+"The mean values computed only over valid (non-NaN) values. The shape "
+"depends on the input dimensions, :attr:`dim`, and :attr:`keepdim` "
+"parameters."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.nanmean.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nanmean.nanmean:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nanmean.nanmean:34
+msgid "Example"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmean.nanmean:66
+msgid ""
+":func:`nansum`: NaN-aware sum function. :func:`nanstd`: NaN-aware "
+"standard deviation function. :func:`nanvar`: NaN-aware variance function."
+" ``torch.nanmean``: PyTorch's built-in NaN-aware mean function."
+msgstr ""
+
+#~ msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
+#~ msgstr "各行の平均値を返しますが、Not a Numbers (NaNs) は無視します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

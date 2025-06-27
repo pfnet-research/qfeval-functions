@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,11 +24,62 @@ msgstr ""
 msgid "qfeval\\_functions.functions.nancumprod"
 msgstr "qfeval\\_functions.functions.nancumprod"
 
+#: of qfeval_functions.functions.nancumprod.nancumprod:1
+msgid "Compute the cumulative product along a dimension, treating NaN as 1."
+msgstr ""
+
+#: of qfeval_functions.functions.nancumprod.nancumprod:3
+msgid ""
+"This function calculates the cumulative product of elements along the "
+"specified dimension, where NaN values are treated as 1 (multiplicative "
+"identity) for the purpose of computing the cumulative product. However, "
+"positions with NaN values in the original tensor remain NaN in the "
+"output."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nancumprod.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.nancumprod.nancumprod:9
+msgid "The input tensor containing values."
+msgstr ""
+
+#: of qfeval_functions.functions.nancumprod.nancumprod:12
+msgid "The dimension along which to compute the cumulative product."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nancumprod.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nancumprod.nancumprod:15
+msgid ""
+"A tensor of the same shape as the input, containing the cumulative "
+"product values. Original NaN positions remain NaN."
+msgstr ""
+
 #: ../../api/qfeval_functions.functions.nancumprod.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nancumprod.nancumprod:2
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nancumprod.nancumprod:20
+msgid "Example"
+msgstr ""
+
+#: of qfeval_functions.functions.nancumprod.nancumprod:48
+msgid ":func:`nancumsum`: NaN-aware cumulative sum."
+msgstr ""
+
+#: of qfeval_functions.functions.nancumprod.nancumprod:49
+msgid ":func:`torch.cumprod`: Standard cumulative product (NaN propagates)."
+msgstr ""
+
+#: of qfeval_functions.functions.nancumprod.nancumprod:50
+msgid ":func:`torch.nan_to_num`: Convert NaN values to specified numbers."
+msgstr ""
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

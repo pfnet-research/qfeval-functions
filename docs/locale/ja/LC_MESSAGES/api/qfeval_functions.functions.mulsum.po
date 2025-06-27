@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,14 +22,84 @@ msgid "qfeval\\_functions.functions.mulsum"
 msgstr "qfeval\\_functions.functions.mulsum"
 
 #: of qfeval_functions.functions.mulsum.mulsum:1
-msgid "Calculate `(x * y).sum(...)` in a memory-efficient way."
-msgstr "メモリ効率に優れた方法で `(x * y).sum(...)` を計算します。"
+msgid "Compute sum or mean of element-wise product in a memory-efficient way."
+msgstr ""
+
+#: of qfeval_functions.functions.mulsum.mulsum:3
+msgid ""
+"This function calculates the sum (or mean) of the element-wise product of"
+" two tensors ``(x * y).sum(dim)`` or ``(x * y).mean(dim)`` without "
+"creating the intermediate product tensor in memory. This is particularly "
+"crucial when working with large tensors or when broadcasting would result"
+" in a very large intermediate tensor that could exceed available memory."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.mulsum.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.mulsum.mulsum:10
+msgid "The first input tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.mulsum.mulsum:13
+msgid "The second input tensor. Must be broadcastable with :attr:`x`."
+msgstr ""
+
+#: of qfeval_functions.functions.mulsum.mulsum:16
+msgid ""
+"The dimension(s) along which to compute the sum or mean. If not specified"
+" (default is empty tuple), the operation is computed over all dimensions."
+msgstr ""
+
+#: of qfeval_functions.functions.mulsum.mulsum:21
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr ""
+
+#: of qfeval_functions.functions.mulsum.mulsum:25
+msgid ""
+"If True, computes the mean instead of sum. Default is False (computes "
+"sum)."
+msgstr ""
+
+#: of qfeval_functions.functions.mulsum.mulsum:29
+msgid ""
+"Delta degrees of freedom for mean calculations. The divisor used is ``N -"
+" _ddof``, where ``N`` is the number of elements. Default is 0. This is an"
+" internal parameter."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.mulsum.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.mulsum.mulsum:34
+msgid ""
+"The sum or mean of the element-wise product. The shape depends on the "
+"input dimensions, :attr:`dim`, and :attr:`keepdim` parameters."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.mulsum.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.mulsum.mulsum:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.mulsum.mulsum:39
+msgid "Example"
+msgstr ""
+
+#: of qfeval_functions.functions.mulsum.mulsum:75
+msgid ""
+":func:`mulmean`: Convenience function for computing means. "
+":func:`einsum`: The underlying Einstein summation function. "
+":func:`covar`: Uses this function for efficient covariance calculations."
+msgstr ""
+
+#~ msgid "Calculate `(x * y).sum(...)` in a memory-efficient way."
+#~ msgstr "メモリ効率に優れた方法で `(x * y).sum(...)` を計算します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

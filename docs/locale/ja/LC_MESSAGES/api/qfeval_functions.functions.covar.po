@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,32 +25,118 @@ msgid "qfeval\\_functions.functions.covar"
 msgstr "qfeval\\_functions.functions.covar"
 
 #: of qfeval_functions.functions.covar.covar:1
-msgid ""
-"Calculates the covariance between the given tensors along the specified "
-"dimension."
+#, fuzzy
+msgid "Compute covariance between two tensors along a specified dimension."
 msgstr "指定された次元に沿って、与えられたテンソル間の共分散を計算します。"
 
-#: of qfeval_functions.functions.covar.covar:4
+#: of qfeval_functions.functions.covar.covar:3
 msgid ""
-"When performing broadcast between the given tensors, the number of "
-"elements may increase and the space complexity may increase, but this "
-"function still performs the calculation with the original space "
-"complexity.  For instance, when operating on tensors with shapes (N, 1, "
-"D) and (1, M, D), the space complexity remains at O(ND + MD) instead of "
-"O(NMD)."
-msgstr "与えられたテンソル間でブロードキャスト処理を行う場合、要素数が増加し空間計算量が増大する可能性がありますが、本関数は元の空間計算量で計算を実行します。例えば、形状が (N, 1, D) と (1, M, D) のテンソルを操作する場合、空間計算量は O(NMD) ではなく O(ND + MD) のまま維持されます。"
+"This function calculates the covariance between tensors :attr:`x` and "
+":attr:`y` along the specified dimension. Covariance measures how much two"
+" variables change together. Unlike ``numpy.cov``, this function computes "
+"element-wise covariance for each batch index rather than producing a "
+"covariance matrix."
+msgstr ""
 
-#: of qfeval_functions.functions.covar.covar:10
+#: of qfeval_functions.functions.covar.covar:9
+msgid "The covariance is computed as:"
+msgstr ""
+
+#: of qfeval_functions.functions.covar.covar:11
 msgid ""
-"CAVEAT: Differently from np.cov, this calculates a covariance for each "
-"batch index instead of producing a covariance matrix."
-msgstr "注意：np.covとは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対する共分散を個別に計算します。"
+"\\text{Cov}(X, Y) = \\frac{1}{N - \\text{ddof}}\n"
+"\\sum_{i=1}^{N} (X_i - \\bar{X})(Y_i - \\bar{Y})\n"
+"\n"
+msgstr ""
 
-#: ../../api/qfeval_functions.functions.covar.rst
+#: of qfeval_functions.functions.covar.covar:15
+#, python-brace-format
+msgid ""
+"where :math:`\\bar{X}` and :math:`\\bar{Y}` are the means of :attr:`x` "
+"and :attr:`y` respectively along the specified dimension, and :math:`N` "
+"is the number of elements along that dimension."
+msgstr ""
+
+#: of qfeval_functions.functions.covar.covar:19
+msgid ""
+"The function is memory-efficient when broadcasting tensors. For example, "
+"when operating on tensors with shapes ``(N, 1, D)`` and ``(1, M, D)``, "
+"the space complexity remains ``O(ND + MD)`` instead of ``O(NMD)``."
+msgstr ""
+
+#: of qfeval_functions.functions.covar.covar
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.covar.covar:24
+msgid "The first input tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.covar.covar:27
+msgid "The second input tensor. Must be broadcastable with :attr:`x`."
+msgstr ""
+
+#: of qfeval_functions.functions.covar.covar:30
+msgid ""
+"The dimension along which to compute the covariance. Default is -1 (the "
+"last dimension)."
+msgstr ""
+
+#: of qfeval_functions.functions.covar.covar:34
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr ""
+
+#: of qfeval_functions.functions.covar.covar:38
+msgid ""
+"Delta degrees of freedom. The divisor used in the calculation is ``N - "
+"ddof``, where ``N`` represents the number of elements. Default is 1."
+msgstr ""
+
+#: of qfeval_functions.functions.covar.covar
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.covar.covar:43
+msgid ""
+"The covariance values. The shape depends on the input dimensions and the "
+":attr:`keepdim` parameter."
+msgstr ""
+
+#: of qfeval_functions.functions.covar.covar
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.covar.covar:14
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.tensor\\``"
+#: of qfeval_functions.functions.covar.covar:48
+msgid "Example"
+msgstr ""
+
+#~ msgid ""
+#~ "When performing broadcast between the "
+#~ "given tensors, the number of elements"
+#~ " may increase and the space "
+#~ "complexity may increase, but this "
+#~ "function still performs the calculation "
+#~ "with the original space complexity.  For"
+#~ " instance, when operating on tensors "
+#~ "with shapes (N, 1, D) and (1, "
+#~ "M, D), the space complexity remains "
+#~ "at O(ND + MD) instead of O(NMD)."
+#~ msgstr ""
+#~ "与えられたテンソル間でブロードキャスト処理を行う場合、要素数が増加し空間計算量が増大する可能性がありますが、本関数は元の空間計算量で計算を実行します。例えば、形状が"
+#~ " (N, 1, D) と (1, M, D) "
+#~ "のテンソルを操作する場合、空間計算量は O(NMD) ではなく O(ND + "
+#~ "MD) のまま維持されます。"
+
+#~ msgid ""
+#~ "CAVEAT: Differently from np.cov, this "
+#~ "calculates a covariance for each batch"
+#~ " index instead of producing a "
+#~ "covariance matrix."
+#~ msgstr "注意：np.covとは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対する共分散を個別に計算します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.tensor\\``"
 

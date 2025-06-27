@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,16 +25,103 @@ msgid "qfeval\\_functions.functions.nancorrel"
 msgstr "qfeval\\_functions.functions.nancorrel"
 
 #: of qfeval_functions.functions.nancorrel.nancorrel:1
+#, fuzzy
 msgid ""
-"Returns Pearson correlation coefficient between `x` and `y`, ignoring "
-"NaNs."
+"Compute Pearson correlation coefficient between two tensors, ignoring NaN"
+" values."
 msgstr "`x`と`y`の間のピアソン相関係数を返し、NaN値は無視します。"
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:4
+msgid ""
+"This function calculates the Pearson correlation coefficient between "
+"tensors :attr:`x` and :attr:`y` along the specified dimension(s), "
+"excluding any pairs where either value is NaN. The correlation "
+"coefficient measures the linear relationship between two variables and "
+"ranges from -1 (perfect negative correlation) to 1 (perfect positive "
+"correlation), with 0 indicating no linear correlation."
+msgstr ""
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:11
+msgid ""
+"Unlike :func:`correl`, this function handles missing data by ignoring NaN"
+" values in the computation. If either :attr:`x` or :attr:`y` has a NaN at"
+" a given position, that pair is excluded from the correlation "
+"calculation."
+msgstr ""
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:15
+msgid "The NaN-aware Pearson correlation is computed as:"
+msgstr ""
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:17
+msgid ""
+"r = \\frac{\\text{E}[(X - \\mu_X)(Y - \\mu_Y)]}{\n"
+"        \\sqrt{\\text{E}[(X - \\mu_X)^2]}\\sqrt{\\text{E}[(Y - "
+"\\mu_Y)^2]}}\n"
+"\n"
+msgstr ""
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:21
+msgid "where the expectations are computed only over valid (non-NaN) pairs."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nancorrel.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:24
+msgid "The first input tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:27
+msgid "The second input tensor. Must be the same shape as :attr:`x`."
+msgstr ""
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:30
+msgid ""
+"The dimension(s) along which to compute the correlation. If not specified"
+" (default is empty tuple), computes element-wise correlation and sums the"
+" result."
+msgstr ""
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:35
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nancorrel.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:39
+msgid ""
+"The Pearson correlation coefficient(s), computed only over valid (non-"
+"NaN) pairs. The shape depends on the input dimensions and the "
+":attr:`keepdim` parameter."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.nancorrel.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nancorrel.nancorrel:5
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nancorrel.nancorrel:45
+msgid "Example"
+msgstr ""
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:76
+msgid ":func:`correl`: Pearson correlation without NaN handling."
+msgstr ""
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:77
+msgid ":func:`nancovar`: NaN-aware covariance function."
+msgstr ""
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:78
+msgid ":func:`nanmean`: NaN-aware mean function."
+msgstr ""
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

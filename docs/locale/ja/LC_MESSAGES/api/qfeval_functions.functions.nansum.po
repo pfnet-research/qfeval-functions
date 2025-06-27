@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,20 +25,109 @@ msgid "qfeval\\_functions.functions.nansum"
 msgstr "qfeval\\_functions.functions.nansum"
 
 #: of qfeval_functions.functions.nansum.nansum:1
-msgid "Returns the sum of all elements, ignoring Not a Numbers (NaNs)."
-msgstr "Not a Number (NaN) 値を無視して全ての要素の合計を返します。"
-
-#: of qfeval_functions.functions.nansum.nansum:3
 msgid ""
-"NOTE: If no valid numbers exist, this returns NaN while torch.nansum "
-"returns 0."
-msgstr "注意：有効な数値が存在しない場合、この関数は NaN を返しますが、torch.nansum は 0 を返します。"
+"Compute the sum of tensor elements along specified dimensions, ignoring "
+"NaN values."
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:4
+msgid ""
+"This function calculates the sum of all valid (non-NaN) elements in a "
+"tensor along the specified dimension(s). Unlike PyTorch's "
+"``torch.nansum``, this function returns NaN when no valid elements are "
+"found along a dimension, rather than returning 0. This behavior is more "
+"mathematically consistent for statistical operations where the absence of"
+" data should be explicitly represented as NaN."
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:11
+msgid "The NaN-aware sum is computed as:"
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:13
+msgid ""
+"\\text{nansum}(X) = \\sum_{i \\text{ valid}} X_i\n"
+"\n"
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:16
+msgid "where the sum is over all valid (non-NaN) values."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nansum.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:19
+msgid "The input tensor containing values."
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:22
+msgid ""
+"The dimension(s) along which to compute the sum. If not specified "
+"(default is empty tuple), the sum is computed over all dimensions."
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:26
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nansum.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nansum.nansum:30
+msgid ""
+"The sum values computed only over valid (non-NaN) values. When no valid "
+"values exist along a dimension, the result is NaN (unlike "
+"``torch.nansum`` which returns 0). The shape depends on the input "
+"dimensions, :attr:`dim`, and :attr:`keepdim` parameters."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.nansum.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nansum.nansum:7
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nansum.nansum:37
+msgid "Example"
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:86
+msgid ""
+"This function provides more mathematically consistent behavior than "
+"``torch.nansum`` by returning NaN when no valid values are present, "
+"rather than 0. This is particularly important for statistical "
+"computations where the absence of data should be distinguished from a sum"
+" of zero."
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:93
+msgid ""
+"When all values along a dimension are NaN, this function returns NaN (not"
+" 0 like ``torch.nansum``). This behavior difference should be considered "
+"when replacing ``torch.nansum`` with this function."
+msgstr ""
+
+#: of qfeval_functions.functions.nansum.nansum:98
+msgid ""
+":func:`nanmean`: NaN-aware mean function. :func:`nanstd`: NaN-aware "
+"standard deviation function. :func:`nanvar`: NaN-aware variance function."
+" ``torch.nansum``: PyTorch's built-in NaN-aware sum (returns 0 for all-"
+"NaN)."
+msgstr ""
+
+#~ msgid "Returns the sum of all elements, ignoring Not a Numbers (NaNs)."
+#~ msgstr "Not a Number (NaN) 値を無視して全ての要素の合計を返します。"
+
+#~ msgid ""
+#~ "NOTE: If no valid numbers exist, "
+#~ "this returns NaN while torch.nansum "
+#~ "returns 0."
+#~ msgstr "注意：有効な数値が存在しない場合、この関数は NaN を返しますが、torch.nansum は 0 を返します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,14 +22,104 @@ msgid "qfeval\\_functions.functions.nanmulsum"
 msgstr "qfeval\\_functions.functions.nanmulsum"
 
 #: of qfeval_functions.functions.nanmulsum.nanmulsum:1
-msgid "Calculates `QF.nansum(x * y, ...)` in a memory-efficient way."
-msgstr "メモリ効率に優れた方法で `QF.nansum(x * y, ...)` を計算します。"
+msgid ""
+"Compute the sum of element-wise product, ignoring NaN values, in a "
+"memory-efficient way."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:4
+msgid ""
+"This function calculates the sum of the element-wise product of two "
+"tensors ``nansum(x * y, dim)`` without creating the intermediate product "
+"tensor in memory, while also excluding NaN values from the computation. "
+"If either :attr:`x` or :attr:`y` has a NaN at a given position, that pair"
+" is excluded from the sum calculation."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:10
+msgid ""
+"The function is mathematically equivalent to ``nansum(x * y, dim)`` but "
+"uses a more memory-efficient implementation that avoids materializing the"
+" full product tensor, making it suitable for large tensor operations and "
+"complex broadcasting patterns."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:15
+msgid "The NaN-aware sum is computed as:"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:17
+msgid ""
+"\\text{nanmulsum}(X, Y) = \\sum_{i \\text{ valid}} X_i \\cdot Y_i\n"
+"\n"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:20
+msgid "where the sum is over valid (non-NaN) pairs only."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nanmulsum.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:23
+msgid "The first input tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:26
+msgid "The second input tensor. Must be broadcastable with :attr:`x`."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:29
+msgid ""
+"The dimension(s) along which to compute the sum. If not specified "
+"(default is empty tuple), the sum is computed over all dimensions."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:33
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nanmulsum.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:37
+msgid ""
+"The sum of the element-wise product computed only over valid (non-NaN) "
+"pairs. If no valid pairs exist along a dimension, the result is NaN. The "
+"shape depends on the input dimensions, :attr:`dim`, and :attr:`keepdim` "
+"parameters."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.nanmulsum.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nanmulsum.nanmulsum:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:44
+msgid "Example"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:85
+msgid ""
+"If all pairs along a dimension contain at least one NaN value, the result"
+" for that dimension is NaN. This differs from standard summation where "
+"NaN values would propagate through the entire calculation."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulsum.nanmulsum:90
+msgid ""
+":func:`mulsum`: Memory-efficient product sum without NaN handling. "
+":func:`nansum`: NaN-aware sum function. :func:`nanmulmean`: NaN-aware "
+"memory-efficient product mean."
+msgstr ""
+
+#~ msgid "Calculates `QF.nansum(x * y, ...)` in a memory-efficient way."
+#~ msgstr "メモリ効率に優れた方法で `QF.nansum(x * y, ...)` を計算します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

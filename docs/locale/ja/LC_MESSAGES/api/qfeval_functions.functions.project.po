@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -41,58 +41,58 @@ msgid "A tensor to be projected."
 msgstr "投影対象のテンソル。"
 
 #: of qfeval_functions.functions.project.project
-msgid "Return type"
-msgstr "戻り値の型"
-
-#: of qfeval_functions.functions.project.project:9
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-
-#: of qfeval_functions.functions.project.project:11
 msgid "Returns"
 msgstr "Returns"
 
-#: of qfeval_functions.functions.project.project:12
-msgid "y (Tensor): The projected tensor."
+#: of qfeval_functions.functions.project.project:10
+#, fuzzy
+msgid "The projected tensor."
 msgstr "y (Tensor): 射影されたテンソル。"
 
-#: of qfeval_functions.functions.project.project:14
+#: of qfeval_functions.functions.project.project
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.project.project:13
 msgid "Shape:"
 msgstr "形状:"
 
-#: of qfeval_functions.functions.project.project:15
+#: of qfeval_functions.functions.project.project:14
 msgid "a: :math:`(*, O, I)`, where :math:`*` represents any number of"
 msgstr "a: :math:`(*, O, I)` 形式の行列。ここで :math:`*` は任意の数の次元を表します。"
 
-#: of qfeval_functions.functions.project.project:16
+#: of qfeval_functions.functions.project.project:15
 msgid ""
 "dimensions (including None), :math:`O` is the number of output "
 "dimensions, and :math:`I` is the number of input dimensions."
 msgstr "次元数（Noneを含む）、:math:`O`は出力次元数、:math:`I`は入力次元数を表す。"
 
-#: of qfeval_functions.functions.project.project:18
+#: of qfeval_functions.functions.project.project:17
 msgid "x: :math:`(*, S, I)`, where :math:`*` represents any number of"
 msgstr "x: :math:`(*, S, I)` 形式のテンソル。ここで :math:`*` は任意の数の次元を表します。"
 
-#: of qfeval_functions.functions.project.project:19
+#: of qfeval_functions.functions.project.project:18
 msgid ""
 "dimensions (including None), :math:`S` is the number of sections, and "
 ":math:`I` is the number of input dimensions."
 msgstr "次元数（Noneを含む）、:math:`S`はセクション数、:math:`I`は入力次元数を表す。"
 
-#: of qfeval_functions.functions.project.project:21
+#: of qfeval_functions.functions.project.project:20
 msgid "return: :math:`(*, S, O)`, where :math:`*` represents any number of"
 msgstr "return: :math:`(*, S, O)`, where :math:`*` represents any number of"
 
-#: of qfeval_functions.functions.project.project:22
+#: of qfeval_functions.functions.project.project:21
 msgid ""
 "dimensions (including None), :math:`S` is the number of sections, and "
 ":math:`O` is the number of output dimensions."
 msgstr "次元数（Noneを含む）、:math:`S`はセクション数、:math:`O`は出力次元数を表す。"
 
-#: of qfeval_functions.functions.project.project:25
+#: of qfeval_functions.functions.project.project:24
 msgid ""
 "In qfeval, I/O dimensions and sections often represent symbols and "
 "timestamps respectively."
 msgstr "qfevalにおいて、I/O次元とセクションはそれぞれシンボルとタイムスタンプを表すことが多い。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

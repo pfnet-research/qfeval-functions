@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,61 +25,159 @@ msgid "qfeval\\_functions.functions.nanpca"
 msgstr "qfeval\\_functions.functions.nanpca"
 
 #: of qfeval_functions.functions.nanpca.nanpca:1
-msgid "Computes principal components on the given data."
+#, fuzzy
+msgid "Compute Principal Component Analysis (PCA) on data, ignoring NaN values."
 msgstr "与えられたデータに対して主成分を計算します。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:3
 msgid ""
-"The returned value represents principal components.  Specifically, "
-"`result[*, i, :]` represents the :math:`(i+1)`-th largest principal "
-"component of the batch specified by `*`."
-msgstr "返される値は主成分を表します。具体的には、`result[*, i, :]`は`*`で指定されたバッチの :math:`(i+1)`番目に大きい主成分を表します。"
-
-#: of qfeval_functions.functions.nanpca.nanpca:7
-msgid "Shape:"
-msgstr "形状:"
+"This function performs PCA by computing the eigendecomposition of the "
+"covariance matrix calculated with NaN-aware operations. PCA finds the "
+"principal components (eigenvectors) that capture the maximum variance in "
+"the data, ordered by their explained variance (eigenvalues)."
+msgstr ""
 
 #: of qfeval_functions.functions.nanpca.nanpca:8
 msgid ""
-"data: :math:`(*, N, C)` where `*` means any number of additional "
-"dimensions, `N` means the number of samples, and `C` means the number of "
-"features."
-msgstr "data: :math:`(*, N, C)` 形式。ここで `*` は任意の追加次元数を、`N` はサンプル数を、`C` は特徴量数をそれぞれ表します。"
+"The function computes the covariance matrix using :func:`nancovar` to "
+"handle NaN values appropriately, then applies eigendecomposition via "
+":func:`eigh` to obtain the principal components. The components are "
+"returned in descending order of explained variance."
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:13
+msgid "The mathematical formulation follows standard PCA:"
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:15
+#, python-brace-format
+msgid ""
+"\\mathbf{C} = \\text{nancovar}(\\mathbf{X})\n"
+"\n"
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:18
+#, python-brace-format
+msgid ""
+"\\mathbf{C} \\mathbf{v}_i = \\lambda_i \\mathbf{v}_i\n"
+"\n"
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:21
+#, python-brace-format
+msgid ""
+"where :math:`\\mathbf{C}` is the covariance matrix, :math:`\\mathbf{v}_i`"
+" are the eigenvectors (principal components), and :math:`\\lambda_i` are "
+"the eigenvalues (explained variance)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nanpca.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:26
+#, fuzzy
+msgid ""
+"Input tensor of shape :math:`(*, N, C)` where :math:`*` means any number "
+"of additional batch dimensions, :math:`N` is the number of samples, and "
+":math:`C` is the number of features."
+msgstr ""
+"data: :math:`(*, N, C)` 形式。ここで `*` は任意の追加次元数を、`N` はサンプル数を、`C` "
+"は特徴量数をそれぞれ表します。"
 
 #: ../../api/qfeval_functions.functions.nanpca.rst
 msgid "Returns"
 msgstr "Returns"
 
-#: of qfeval_functions.functions.nanpca.nanpca:12
+#: of qfeval_functions.functions.nanpca.nanpca:31
 msgid ""
-"`w[i]` represents the eigenvalue of the   :math:`i`-th component. - v "
-"(torch.Tensor): `v[i, j]` represents the :math:`i`-th component's   "
-"weight for the `j`-th feature."
-msgstr "`w[i]`は第 :math:`i` 成分の固有値を表します。 - v (torch.Tensor): `v[i, j]`は第 :math:`i` 成分の第 :math:`j` 特徴量に対する重みを表します。"
+"A dataclass containing:      - ``components`` (Tensor): Principal "
+"components of shape :math:`(*, C, C)`.       ``components[..., i, :]`` "
+"represents the :math:`(i+1)`-th principal       component (ordered by "
+"decreasing explained variance).     - ``explained_variance`` (Tensor): "
+"Eigenvalues of shape :math:`(*, C)`       representing the variance "
+"explained by each component, in descending order."
+msgstr ""
 
-#: of qfeval_functions.functions.nanpca.nanpca:14
-msgid "`w[i]` represents the eigenvalue of the"
-msgstr "`w[i]` は"
+#: of qfeval_functions.functions.nanpca.nanpca:33
+msgid "A dataclass containing:"
+msgstr ""
 
-#: of qfeval_functions.functions.nanpca.nanpca:15
-msgid ":math:`i`-th component."
-msgstr ":math:`i`番目の成分。"
-
-#: of qfeval_functions.functions.nanpca.nanpca:16
+#: of qfeval_functions.functions.nanpca.nanpca:35
 msgid ""
-"v (torch.Tensor): `v[i, j]` represents the :math:`i`-th component's "
-"weight for the `j`-th feature."
-msgstr "v (torch.Tensor): `v[i, j]` は第 `i` 成分の第 `j` 特徴量に対する重みを表します。"
+"``components`` (Tensor): Principal components of shape :math:`(*, C, C)`."
+" ``components[..., i, :]`` represents the :math:`(i+1)`-th principal "
+"component (ordered by decreasing explained variance)."
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:38
+msgid ""
+"``explained_variance`` (Tensor): Eigenvalues of shape :math:`(*, C)` "
+"representing the variance explained by each component, in descending "
+"order."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.nanpca.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nanpca.nanpca:18
-msgid "- w (torch.Tensor)"
-msgstr "- w (torch.Tensor)"
+#: of qfeval_functions.functions.nanpca.nanpca:43
+msgid "Example"
+msgstr ""
 
-#: of qfeval_functions.functions.nanpca.nanpca:18
-msgid "w (torch.Tensor)"
-msgstr "w (torch.Tensor)"
+#: of qfeval_functions.functions.nanpca.nanpca:79
+msgid ""
+"If there are insufficient valid (non-NaN) observations to compute "
+"meaningful covariance estimates, the results may contain NaN values. "
+"Ensure adequate data coverage for reliable PCA results."
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:84
+msgid ""
+":func:`nancovar`: NaN-aware covariance computation. :func:`eigh`: "
+"Eigendecomposition for symmetric matrices. :func:`nanmean`: NaN-aware "
+"mean used in covariance calculation."
+msgstr ""
+
+#~ msgid ""
+#~ "The returned value represents principal "
+#~ "components.  Specifically, `result[*, i, :]`"
+#~ " represents the :math:`(i+1)`-th largest "
+#~ "principal component of the batch "
+#~ "specified by `*`."
+#~ msgstr ""
+#~ "返される値は主成分を表します。具体的には、`result[*, i, :]`は`*`で指定されたバッチの "
+#~ ":math:`(i+1)`番目に大きい主成分を表します。"
+
+#~ msgid "Shape:"
+#~ msgstr "形状:"
+
+#~ msgid ""
+#~ "`w[i]` represents the eigenvalue of the"
+#~ "   :math:`i`-th component. - v "
+#~ "(torch.Tensor): `v[i, j]` represents the "
+#~ ":math:`i`-th component's   weight for the "
+#~ "`j`-th feature."
+#~ msgstr ""
+#~ "`w[i]`は第 :math:`i` 成分の固有値を表します。 - v "
+#~ "(torch.Tensor): `v[i, j]`は第 :math:`i` 成分の第 "
+#~ ":math:`j` 特徴量に対する重みを表します。"
+
+#~ msgid "`w[i]` represents the eigenvalue of the"
+#~ msgstr "`w[i]` は"
+
+#~ msgid ":math:`i`-th component."
+#~ msgstr ":math:`i`番目の成分。"
+
+#~ msgid ""
+#~ "v (torch.Tensor): `v[i, j]` represents "
+#~ "the :math:`i`-th component's weight for "
+#~ "the `j`-th feature."
+#~ msgstr "v (torch.Tensor): `v[i, j]` は第 `i` 成分の第 `j` 特徴量に対する重みを表します。"
+
+#~ msgid "- w (torch.Tensor)"
+#~ msgstr "- w (torch.Tensor)"
+
+#~ msgid "w (torch.Tensor)"
+#~ msgstr "w (torch.Tensor)"
 

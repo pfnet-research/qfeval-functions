@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,71 +25,151 @@ msgid "qfeval\\_functions.functions.group\\_shift"
 msgstr "qfeval\\_functions.functions.group\\_shift"
 
 #: of qfeval_functions.functions.group_shift.group_shift:1
-msgid "Shifts a tensor along a specified dimension, skipping a given mask."
+#, fuzzy
+msgid "Shift tensor elements along a dimension, skipping masked positions."
 msgstr "指定された次元に沿ってテンソルをシフトし、指定されたマスクの位置はスキップします。"
 
 #: of qfeval_functions.functions.group_shift.group_shift:3
 msgid ""
-"This function applies shifts only for locations specified by the mask. "
-"For example, suppose the mask is `[True, False, True, False, True]`, then"
-" applying one shift to `[1, nan, 2, nan, 3]` will get `[nan, nan, 1, nan,"
-" 2]`."
-msgstr "この関数はマスクで指定された位置に対してのみシフトを適用します。例えば、マスクが `[True, False, True, False, True]` の場合、`[1, nan, 2, nan, 3]` に対して1回シフトを適用すると `[nan, nan, 1, nan, 2]` という結果が得られます。"
+"This function performs a selective shift operation where only elements at"
+" positions marked as ``True`` in the mask are shifted, while positions "
+"marked as ``False`` are skipped. This is particularly useful for time "
+"series data where certain time points should be excluded from the shift "
+"operation, such as weekends in financial data or missing observations."
+msgstr ""
 
-#: of qfeval_functions.functions.group_shift.group_shift:8
+#: of qfeval_functions.functions.group_shift.group_shift:9
 msgid ""
-"CAVEAT: Before applying shifts, the unmasked values (i.e., mask values "
-"are False) are filled with nans. So, applying the above masked-shift to "
-"`[1, 2, 3, 4, 5]` will get `[nan, nan, 1, nan, 3]`, where unmasked values"
-" (2, 4) are just discarded. Also, zero-shift (`shift == 0`) will not give"
-" the original input."
-msgstr "注意: シフトを適用する前に、マスクされていない値（つまりマスク値が False）は nan で埋められます。したがって、上記のマスク付きシフトを `[1, 2, 3, 4, 5]` に適用すると、`[nan, nan, 1, nan, 3]` という結果が得られます。ここで、マスクされていない値 (2, 4) は単に破棄されます。また、シフト値が 0 の場合 (`shift == 0`)、元の入力は復元されません。"
+"The function works by reordering elements based on the mask, applying the"
+" shift only to valid positions, and then restoring the original order. "
+"Elements at masked-out positions are replaced with NaN values."
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:14
+msgid ""
+"Unmasked values (where mask is ``False``) are replaced with NaN before "
+"shifting. This means that even a zero shift (``shift=0``) will not return"
+" the original input, as unmasked values will be NaN in the output."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.group_shift.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
-#: of qfeval_functions.functions.group_shift.group_shift:15
-msgid "The input tensor."
+#: of qfeval_functions.functions.group_shift.group_shift:20
+#, fuzzy
+msgid "The input tensor to be shifted."
 msgstr "入力テンソル。"
-
-#: of qfeval_functions.functions.group_shift.group_shift:16
-msgid "The number of places by which the elements of the tensor are shifted."
-msgstr "テンソルの要素がシフトされる位置の数。"
-
-#: of qfeval_functions.functions.group_shift.group_shift:18
-msgid "The dimension along which `x` will be shifted."
-msgstr "`x` がシフトされる次元。"
-
-#: of qfeval_functions.functions.group_shift.group_shift:19
-msgid ""
-"A 1D boolean tensor, where `False` values specify the indices to be "
-"skipped during shifts. The length must be equal to `x.shape[dim]`."
-msgstr "1次元のブールテンソルで、`False`の値はシフト時にスキップするインデックスを指定します。テンソルの長さは`x.shape[dim]`と等しくなければなりません。"
 
 #: of qfeval_functions.functions.group_shift.group_shift:23
 msgid ""
-"If set, the mask is automatically generated. See `reduce_nan_patterns` "
-"for details."
-msgstr "マスクが設定されている場合、マスクは自動的に生成されます。詳細は `reduce_nan_patterns` を参照してください。"
+"The number of positions to shift. Positive values shift forward (toward "
+"higher indices), negative values shift backward. Default is 1."
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:28
+#, fuzzy
+msgid "The dimension along which to perform the shift. Default is 0."
+msgstr "`x` がシフトされる次元。"
+
+#: of qfeval_functions.functions.group_shift.group_shift:32
+msgid ""
+"A 1D boolean tensor where ``True`` indicates positions to include in the "
+"shift, and ``False`` indicates positions to skip. Length must equal "
+"``x.shape[dim]``. If not provided, :attr:`refdim` must be specified."
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:38
+msgid ""
+"If specified, automatically generates a mask using "
+":func:`reduce_nan_patterns`. This identifies valid positions based on "
+"non-NaN patterns in the reference dimension. Default is -1."
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:43
+msgid ""
+"Aggregation function used when generating mask from :attr:`refdim`. Can "
+"be \"any\" or \"all\". Default is \"any\"."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.group_shift.rst
 msgid "Returns"
 msgstr "戻り値"
 
-#: of qfeval_functions.functions.group_shift.group_shift:27
-msgid "A shifted version of `x`."
-msgstr "`x` をシフトしたバージョン。"
+#: of qfeval_functions.functions.group_shift.group_shift:48
+msgid ""
+"A tensor of the same shape as the input, with elements shifted according "
+"to the mask. Unmasked positions contain NaN."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.group_shift.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.group_shift.group_shift:28
-msgid "- x_shifted"
-msgstr "- x_shifted"
+#: of qfeval_functions.functions.group_shift.group_shift:53
+msgid "Example"
+msgstr ""
 
-#: of qfeval_functions.functions.group_shift.group_shift:28
-msgid "x_shifted"
-msgstr "x_shifted"
+#: of qfeval_functions.functions.group_shift.group_shift:80
+msgid ""
+":func:`reduce_nan_patterns`: For understanding mask generation from "
+"reference dimensions."
+msgstr ""
+
+#~ msgid ""
+#~ "This function applies shifts only for"
+#~ " locations specified by the mask. For"
+#~ " example, suppose the mask is `[True,"
+#~ " False, True, False, True]`, then "
+#~ "applying one shift to `[1, nan, 2,"
+#~ " nan, 3]` will get `[nan, nan, "
+#~ "1, nan, 2]`."
+#~ msgstr ""
+#~ "この関数はマスクで指定された位置に対してのみシフトを適用します。例えば、マスクが `[True, False,"
+#~ " True, False, True]` の場合、`[1, nan, 2,"
+#~ " nan, 3]` に対して1回シフトを適用すると `[nan, nan, "
+#~ "1, nan, 2]` という結果が得られます。"
+
+#~ msgid ""
+#~ "CAVEAT: Before applying shifts, the "
+#~ "unmasked values (i.e., mask values are"
+#~ " False) are filled with nans. So, "
+#~ "applying the above masked-shift to "
+#~ "`[1, 2, 3, 4, 5]` will get "
+#~ "`[nan, nan, 1, nan, 3]`, where "
+#~ "unmasked values (2, 4) are just "
+#~ "discarded. Also, zero-shift (`shift =="
+#~ " 0`) will not give the original "
+#~ "input."
+#~ msgstr ""
+#~ "注意: シフトを適用する前に、マスクされていない値（つまりマスク値が False）は nan "
+#~ "で埋められます。したがって、上記のマスク付きシフトを `[1, 2, 3, 4, "
+#~ "5]` に適用すると、`[nan, nan, 1, nan, 3]` "
+#~ "という結果が得られます。ここで、マスクされていない値 (2, 4) は単に破棄されます。また、シフト値が"
+#~ " 0 の場合 (`shift == 0`)、元の入力は復元されません。"
+
+#~ msgid "The number of places by which the elements of the tensor are shifted."
+#~ msgstr "テンソルの要素がシフトされる位置の数。"
+
+#~ msgid ""
+#~ "A 1D boolean tensor, where `False` "
+#~ "values specify the indices to be "
+#~ "skipped during shifts. The length must"
+#~ " be equal to `x.shape[dim]`."
+#~ msgstr "1次元のブールテンソルで、`False`の値はシフト時にスキップするインデックスを指定します。テンソルの長さは`x.shape[dim]`と等しくなければなりません。"
+
+#~ msgid ""
+#~ "If set, the mask is automatically "
+#~ "generated. See `reduce_nan_patterns` for "
+#~ "details."
+#~ msgstr "マスクが設定されている場合、マスクは自動的に生成されます。詳細は `reduce_nan_patterns` を参照してください。"
+
+#~ msgid "A shifted version of `x`."
+#~ msgstr "`x` をシフトしたバージョン。"
+
+#~ msgid "- x_shifted"
+#~ msgstr "- x_shifted"
+
+#~ msgid "x_shifted"
+#~ msgstr "x_shifted"
 

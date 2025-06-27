@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,11 +24,71 @@ msgstr ""
 msgid "qfeval\\_functions.functions.nancumsum"
 msgstr "qfeval\\_functions.functions.nancumsum"
 
+#: of qfeval_functions.functions.nancumsum.nancumsum:1
+msgid "Compute the cumulative sum along a dimension, treating NaN as 0."
+msgstr ""
+
+#: of qfeval_functions.functions.nancumsum.nancumsum:3
+msgid ""
+"This function calculates the cumulative sum of elements along the "
+"specified dimension, where NaN values are treated as 0 (additive "
+"identity) for the purpose of computing the cumulative sum. However, "
+"positions with NaN values in the original tensor remain NaN in the "
+"output."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nancumsum.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.nancumsum.nancumsum:9
+msgid "The input tensor containing values."
+msgstr ""
+
+#: of qfeval_functions.functions.nancumsum.nancumsum:12
+msgid "The dimension along which to compute the cumulative sum."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nancumsum.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nancumsum.nancumsum:15
+msgid ""
+"A tensor of the same shape as the input, containing the cumulative sum "
+"values. Original NaN positions remain NaN."
+msgstr ""
+
 #: ../../api/qfeval_functions.functions.nancumsum.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nancumsum.nancumsum:2
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nancumsum.nancumsum:20
+msgid "Example"
+msgstr ""
+
+#: of qfeval_functions.functions.nancumsum.nancumsum:53
+msgid ""
+"This function treats NaN values as the additive identity (0) for "
+"computation purposes, allowing the cumulative sum to continue past NaN "
+"values. However, the original NaN positions are preserved in the output, "
+"maintaining data integrity while enabling meaningful cumulative "
+"operations on partially missing data."
+msgstr ""
+
+#: of qfeval_functions.functions.nancumsum.nancumsum:60
+msgid ":func:`nancumprod`: NaN-aware cumulative product."
+msgstr ""
+
+#: of qfeval_functions.functions.nancumsum.nancumsum:61
+msgid ":func:`torch.cumsum`: Standard cumulative sum (NaN propagates)."
+msgstr ""
+
+#: of qfeval_functions.functions.nancumsum.nancumsum:62
+msgid ":func:`torch.nan_to_num`: Convert NaN values to specified numbers."
+msgstr ""
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

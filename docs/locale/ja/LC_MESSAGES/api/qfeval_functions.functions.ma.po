@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,14 +25,80 @@ msgid "qfeval\\_functions.functions.ma"
 msgstr "qfeval\\_functions.functions.ma"
 
 #: of qfeval_functions.functions.ma.ma:1
-msgid "Returns the moving average of the given tensor."
+#, fuzzy
+msgid "Compute the moving (sliding window) average of a tensor."
 msgstr "指定されたテンソルの移動平均を返します。"
+
+#: of qfeval_functions.functions.ma.ma:3
+msgid ""
+"This function calculates the average of elements within a sliding window "
+"of size :attr:`span` along the specified dimension. The output tensor has"
+" the same shape as the input tensor. For positions where the sliding "
+"window cannot fully cover preceding elements (i.e., the first ``span - "
+"1`` elements along the selected dimension), the result is ``nan``."
+msgstr ""
+
+#: of qfeval_functions.functions.ma.ma:9
+msgid "The moving average is computed as:"
+msgstr ""
+
+#: of qfeval_functions.functions.ma.ma:11
+msgid ""
+"\\text{MA}[i] = \\frac{1}{\\text{span}} \\sum_{j=i-\\text{span}+1}^{i} "
+"x[j]\n"
+"\n"
+msgstr ""
+
+#: of qfeval_functions.functions.ma.ma:14
+msgid ""
+"This is a simple moving average (SMA) where all values in the window have"
+" equal weight."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.ma.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.ma.ma:18
+msgid "The input tensor containing values to be averaged."
+msgstr ""
+
+#: of qfeval_functions.functions.ma.ma:21
+msgid "The size of the sliding window. Must be positive."
+msgstr ""
+
+#: of qfeval_functions.functions.ma.ma:24
+msgid ""
+"The dimension along which to compute the moving average. Default is -1 "
+"(the last dimension)."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.ma.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.ma.ma:28
+msgid ""
+"A tensor of the same shape as the input, containing the moving averages. "
+"The first ``span - 1`` elements along the specified dimension are "
+"``nan``."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.ma.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.ma.ma:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.ma.ma:34
+msgid "Example"
+msgstr ""
+
+#: of qfeval_functions.functions.ma.ma:61
+msgid ""
+":func:`msum`: The underlying moving sum function. :func:`ema`: "
+"Exponential moving average for weighted averaging."
+msgstr ""
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

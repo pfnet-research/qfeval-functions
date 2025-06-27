@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,24 +25,133 @@ msgid "qfeval\\_functions.functions.nancovar"
 msgstr "qfeval\\_functions.functions.nancovar"
 
 #: of qfeval_functions.functions.nancovar.nancovar:1
-msgid "Calculates the covariance between the given tensors."
+#, fuzzy
+msgid "Compute covariance between two tensors, ignoring NaN values."
 msgstr "指定されたテンソル間の共分散を計算します。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:3
 msgid ""
-"CAVEAT: Differently from np.cov, this calculates a covariance for each "
-"batch index instead of producing a covariance matrix. CAVEAT: The "
-"calculation result would be low-precision (approximately half-precision) "
-"especially in case of many NaNs due to prioritizing memory efficiency.  "
-"In order to improve the precision is necessary to write CUDA code via "
-"PyTorch JIT (torch.utils.cpp_extension.load)."
-msgstr "注意: np.covとは異なり、本関数は共分散行列を生成するのではなく、各バッチインデックスに対する共分散を個別に計算します。注意: メモリ効率を優先するため、特にNaN値が多い場合には計算結果の精度が低下し（約半精度）、精度を向上させるためにはPyTorch JITを介してCUDAコードを記述する必要があります（torch.utils.cpp_extension.loadを使用）。"
+"This function calculates the covariance between tensors :attr:`x` and "
+":attr:`y` along the specified dimension, excluding any pairs where either"
+" value is NaN. Covariance measures how much two variables change "
+"together. Unlike ``numpy.cov``, this function computes element-wise "
+"covariance for each batch index rather than producing a covariance "
+"matrix."
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:9
+msgid ""
+"The function is memory-efficient when broadcasting tensors but may have "
+"reduced precision (approximately half-precision) when dealing with many "
+"NaN values due to the prioritization of memory efficiency over numerical "
+"precision."
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:14
+msgid "The NaN-aware covariance is computed as:"
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:16
+#, python-brace-format
+msgid ""
+"\\text{Cov}(X, Y) = \\text{E}[(X - \\mu_X)(Y - \\mu_Y)]\n"
+"\n"
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:19
+msgid ""
+"where the expectation is computed only over valid (non-NaN) pairs, and "
+":math:`\\mu_X`, :math:`\\mu_Y` are the means computed over valid values."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nancovar.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:23
+msgid "The first input tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:26
+msgid "The second input tensor. Must be broadcastable with :attr:`x`."
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:29
+msgid ""
+"The dimension along which to compute the covariance. Default is -1 (the "
+"last dimension)."
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:33
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:37
+msgid ""
+"Delta degrees of freedom. The divisor used in the calculation is ``N - "
+"ddof``, where ``N`` represents the number of valid (non-NaN) pairs. "
+"Default is 1."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nancovar.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nancovar.nancovar:42
+msgid ""
+"The covariance values computed only over valid (non-NaN) pairs. The shape"
+" depends on the input dimensions and the :attr:`keepdim` parameter."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.nancovar.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nancovar.nancovar:11
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nancovar.nancovar:48
+msgid "Example"
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:79
+msgid ""
+"The calculation may have reduced precision (approximately half-precision)"
+" when dealing with many NaN values due to memory efficiency "
+"optimizations. For higher precision with many NaNs, consider using CUDA "
+"kernels via PyTorch JIT compilation."
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:85
+msgid ":func:`covar`: Covariance without NaN handling."
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:86
+msgid ":func:`nancorrel`: NaN-aware correlation function."
+msgstr ""
+
+#: of qfeval_functions.functions.nancovar.nancovar:87
+msgid ":func:`nanmean`: NaN-aware mean function."
+msgstr ""
+
+#~ msgid ""
+#~ "CAVEAT: Differently from np.cov, this "
+#~ "calculates a covariance for each batch"
+#~ " index instead of producing a "
+#~ "covariance matrix. CAVEAT: The calculation "
+#~ "result would be low-precision "
+#~ "(approximately half-precision) especially in"
+#~ " case of many NaNs due to "
+#~ "prioritizing memory efficiency.  In order "
+#~ "to improve the precision is necessary"
+#~ " to write CUDA code via PyTorch "
+#~ "JIT (torch.utils.cpp_extension.load)."
+#~ msgstr ""
+#~ "注意: "
+#~ "np.covとは異なり、本関数は共分散行列を生成するのではなく、各バッチインデックスに対する共分散を個別に計算します。注意: "
+#~ "メモリ効率を優先するため、特にNaN値が多い場合には計算結果の精度が低下し（約半精度）、精度を向上させるためにはPyTorch "
+#~ "JITを介してCUDAコードを記述する必要があります（torch.utils.cpp_extension.loadを使用）。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

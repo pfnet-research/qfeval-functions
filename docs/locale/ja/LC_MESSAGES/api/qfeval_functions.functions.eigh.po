@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,21 +25,96 @@ msgid "qfeval\\_functions.functions.eigh"
 msgstr "qfeval\\_functions.functions.eigh"
 
 #: of qfeval_functions.functions.eigh.eigh:1
-msgid "Computes eigenvalues and eigenvectors."
+#, fuzzy
+msgid "Compute eigenvalues and eigenvectors of a symmetric/Hermitian matrix."
 msgstr "固有値と固有ベクトルを計算します。"
 
 #: of qfeval_functions.functions.eigh.eigh:3
-msgid "NOTE: This does not support differentiable computation."
+msgid ""
+"This function computes the eigenvalues and eigenvectors of a real "
+"symmetric or complex Hermitian matrix. The eigenvalues are returned in "
+"ascending order, and the corresponding eigenvectors are normalized. This "
+"implementation uses NumPy for CPU tensors and CuPy for CUDA tensors."
+msgstr ""
+
+#: of qfeval_functions.functions.eigh.eigh:9
+#, fuzzy
+msgid "This function does not support automatic differentiation (autograd)."
 msgstr "注意: この関数は微分可能な計算をサポートしていません。"
 
-#: ../../api/qfeval_functions.functions.eigh.rst
+#: of qfeval_functions.functions.eigh.eigh
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.eigh.eigh:12
+msgid ""
+"A symmetric (if real) or Hermitian (if complex) matrix of shape ``(..., "
+"N, N)``. Only the upper or lower triangular part is used, depending on "
+"the :attr:`uplo` parameter."
+msgstr ""
+
+#: of qfeval_functions.functions.eigh.eigh:17
+msgid ""
+"Indicates which triangular part of the matrix is used:  - 'L' or 'l': Use"
+" the lower triangular part (default) - 'U' or 'u': Use the upper "
+"triangular part"
+msgstr ""
+
+#: of qfeval_functions.functions.eigh.eigh:17
+msgid "Indicates which triangular part of the matrix is used:"
+msgstr ""
+
+#: of qfeval_functions.functions.eigh.eigh:19
+msgid "'L' or 'l': Use the lower triangular part (default)"
+msgstr ""
+
+#: of qfeval_functions.functions.eigh.eigh:20
+msgid "'U' or 'u': Use the upper triangular part"
+msgstr ""
+
+#: of qfeval_functions.functions.eigh.eigh
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.eigh.eigh:23
+msgid ""
+"A tuple containing:  - Eigenvalues: A tensor of shape ``(..., N)`` "
+"containing   eigenvalues in ascending order - Eigenvectors: A tensor of "
+"shape ``(..., N, N)`` where the columns   are the normalized eigenvectors"
+" corresponding to the eigenvalues"
+msgstr ""
+
+#: of qfeval_functions.functions.eigh.eigh:23
+msgid "A tuple containing:"
+msgstr ""
+
+#: of qfeval_functions.functions.eigh.eigh:25
+msgid ""
+"Eigenvalues: A tensor of shape ``(..., N)`` containing eigenvalues in "
+"ascending order"
+msgstr ""
+
+#: of qfeval_functions.functions.eigh.eigh:27
+msgid ""
+"Eigenvectors: A tensor of shape ``(..., N, N)`` where the columns are the"
+" normalized eigenvectors corresponding to the eigenvalues"
+msgstr ""
+
+#: of qfeval_functions.functions.eigh.eigh
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.eigh.eigh:6
-msgid ""
-":sphinx_autodoc_typehints_type:`\\:py\\:data\\:\\`\\~typing.Tuple\\`\\\\ "
-"\\\\\\[\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, "
-"\\:py\\:class\\:\\`\\~torch.Tensor\\`\\]`"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:data\\:\\`\\~typing.Tuple\\`\\\\ \\\\\\[\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, \\:py\\:class\\:\\`\\~torch.Tensor\\`\\]`"
+#: of qfeval_functions.functions.eigh.eigh:32
+msgid "Example"
+msgstr ""
+
+#~ msgid ""
+#~ ":sphinx_autodoc_typehints_type:`\\:py\\:data\\:\\`\\~typing.Tuple\\`\\\\"
+#~ " \\\\\\[\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, "
+#~ "\\:py\\:class\\:\\`\\~torch.Tensor\\`\\]`"
+#~ msgstr ""
+#~ ":sphinx_autodoc_typehints_type:`\\:py\\:data\\:\\`\\~typing.Tuple\\`\\\\"
+#~ " \\\\\\[\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, "
+#~ "\\:py\\:class\\:\\`\\~torch.Tensor\\`\\]`"
 

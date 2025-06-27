@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,20 +25,113 @@ msgid "qfeval\\_functions.functions.nanmulmean"
 msgstr "qfeval\\_functions.functions.nanmulmean"
 
 #: of qfeval_functions.functions.nanmulmean.nanmulmean:1
-msgid "Calculates `QF.nanmean(x * y, ...)` in a memory-efficient way."
-msgstr "メモリ効率に優れた方法で `QF.nanmean(x * y, ...)` を計算します。"
-
-#: of qfeval_functions.functions.nanmulmean.nanmulmean:3
 msgid ""
-"Parameters: - _ddof: Degree of freedom used for statistical metrics such "
-"as variance."
-msgstr "パラメータ: - _ddof: 分散などの統計指標で使用される自由度。"
+"Compute the mean of element-wise product, ignoring NaN values, in a "
+"memory-efficient way."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:4
+msgid ""
+"This function calculates the mean of the element-wise product of two "
+"tensors ``nanmean(x * y, dim)`` without creating the intermediate product"
+" tensor in memory, while also excluding NaN values from the computation. "
+"If either :attr:`x` or :attr:`y` has a NaN at a given position, that pair"
+" is excluded from the mean calculation."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:10
+msgid ""
+"The function is mathematically equivalent to ``nanmean(x * y, dim)`` but "
+"uses a more memory-efficient implementation that avoids materializing the"
+" full product tensor, making it suitable for large tensor operations and "
+"complex broadcasting patterns."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:15
+msgid "The NaN-aware mean is computed as:"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:17
+msgid ""
+"\\text{nanmulmean}(X, Y) = \\frac{\\sum_{i \\text{ valid}} X_i \\cdot "
+"Y_i}{\n"
+"    N_{\\text{valid}} - \\text{ddof}}\n"
+"\n"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:21
+msgid ""
+"where the sum is over valid (non-NaN) pairs and :math:`N_{\\text{valid}}`"
+" is the number of valid pairs."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nanmulmean.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:25
+msgid "The first input tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:28
+msgid "The second input tensor. Must be broadcastable with :attr:`x`."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:31
+msgid ""
+"The dimension(s) along which to compute the mean. If not specified "
+"(default is empty tuple), the mean is computed over all dimensions."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:36
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:40
+msgid ""
+"Delta degrees of freedom for internal calculations. The divisor used is "
+"``N_valid - _ddof``, where ``N_valid`` is the number of valid (non-NaN) "
+"pairs. Default is 0. This is an internal parameter."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nanmulmean.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:46
+msgid ""
+"The mean of the element-wise product computed only over valid (non-NaN) "
+"pairs. The shape depends on the input dimensions, :attr:`dim`, and "
+":attr:`keepdim` parameters."
+msgstr ""
 
 #: ../../api/qfeval_functions.functions.nanmulmean.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nanmulmean.nanmulmean:7
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:52
+msgid "Example"
+msgstr ""
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:81
+msgid ""
+":func:`mulmean`: Memory-efficient product mean without NaN handling. "
+":func:`nanmean`: NaN-aware mean function. :func:`mulsum`: Memory-"
+"efficient product sum function."
+msgstr ""
+
+#~ msgid "Calculates `QF.nanmean(x * y, ...)` in a memory-efficient way."
+#~ msgstr "メモリ効率に優れた方法で `QF.nanmean(x * y, ...)` を計算します。"
+
+#~ msgid ""
+#~ "Parameters: - _ddof: Degree of freedom"
+#~ " used for statistical metrics such as"
+#~ " variance."
+#~ msgstr "パラメータ: - _ddof: 分散などの統計指標で使用される自由度。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

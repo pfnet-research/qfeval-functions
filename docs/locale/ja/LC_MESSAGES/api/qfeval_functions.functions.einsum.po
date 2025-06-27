@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,20 +25,65 @@ msgid "qfeval\\_functions.functions.einsum"
 msgstr "qfeval\\_functions.functions.einsum"
 
 #: of qfeval_functions.functions.einsum.einsum:1
-msgid "Typed version of torch.einsum."
-msgstr "torch.einsumの型付けバージョン。"
-
-#: of qfeval_functions.functions.einsum.einsum:3
 msgid ""
-"As of PyTorch 1.8, torch.einsum is not typed, and it is inconvenient in "
-"static type analysis."
-msgstr "PyTorch 1.8以降、torch.einsumは型付けされておらず、静的型解析において不便です。"
+"Sums the product of tensor elements over specified indices using Einstein"
+" notation."
+msgstr ""
 
-#: ../../api/qfeval_functions.functions.einsum.rst
+#: of qfeval_functions.functions.einsum.einsum:4
+msgid ""
+"This function provides a typed wrapper around ``torch.einsum``, enabling "
+"better static type analysis. Einstein summation convention allows for "
+"expressing many tensor operations (including matrix multiplication, batch"
+" matrix multiplication, dot products, broadcasting, and more) in a "
+"compact notation."
+msgstr ""
+
+#: of qfeval_functions.functions.einsum.einsum
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.einsum.einsum:11
+msgid ""
+"A string describing the subscripts for summation. The string contains "
+"comma-separated subscript labels for each operand, followed by ``->`` and"
+" the subscript labels for the output."
+msgstr ""
+
+#: of qfeval_functions.functions.einsum.einsum:16
+msgid ""
+"The input tensors to operate on. The number of operands must match the "
+"number of comma-separated groups in the equation."
+msgstr ""
+
+#: of qfeval_functions.functions.einsum.einsum
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.einsum.einsum:20
+msgid ""
+"The result of the Einstein summation, with shape determined by the output"
+" subscript labels in the equation."
+msgstr ""
+
+#: of qfeval_functions.functions.einsum.einsum
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.einsum.einsum:7
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.einsum.einsum:25
+msgid "Example"
+msgstr ""
+
+#~ msgid "Typed version of torch.einsum."
+#~ msgstr "torch.einsumの型付けバージョン。"
+
+#~ msgid ""
+#~ "As of PyTorch 1.8, torch.einsum is "
+#~ "not typed, and it is inconvenient "
+#~ "in static type analysis."
+#~ msgstr "PyTorch 1.8以降、torch.einsumは型付けされておらず、静的型解析において不便です。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

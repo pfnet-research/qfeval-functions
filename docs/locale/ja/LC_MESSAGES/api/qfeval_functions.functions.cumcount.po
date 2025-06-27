@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,20 +25,61 @@ msgid "qfeval\\_functions.functions.cumcount"
 msgstr "qfeval\\_functions.functions.cumcount"
 
 #: of qfeval_functions.functions.cumcount.cumcount:1
+msgid "Number each occurrence of unique values along a dimension."
+msgstr ""
+
+#: of qfeval_functions.functions.cumcount.cumcount:3
 msgid ""
-"Numbers each item in each group from 0 to :math:`N-1`, where :math:`N` is"
-" the number of the items of the group."
-msgstr "各グループ内の各項目に0から:math:`N-1`までの番号を割り当てます。ここで、:math:`N`はグループ内の項目数を表します。"
+"This function assigns a cumulative count to each occurrence of unique "
+"values along the specified dimension. For each unique value, the first "
+"occurrence is numbered 0, the second occurrence is numbered 1, and so on."
+" This is similar to the behavior of ``pandas.GroupBy.cumcount()``."
+msgstr ""
 
-#: of qfeval_functions.functions.cumcount.cumcount:4
-msgid "This behavior refers to pandas GroupBy.cumcount."
-msgstr "この動作は pandas GroupBy.cumcount の動作を指します。"
+#: of qfeval_functions.functions.cumcount.cumcount
+msgid "Parameters"
+msgstr ""
 
-#: ../../api/qfeval_functions.functions.cumcount.rst
+#: of qfeval_functions.functions.cumcount.cumcount:9
+msgid "The input tensor containing values to be counted."
+msgstr ""
+
+#: of qfeval_functions.functions.cumcount.cumcount:12
+msgid ""
+"The dimension along which to perform cumulative counting. Default is -1 "
+"(the last dimension)."
+msgstr ""
+
+#: of qfeval_functions.functions.cumcount.cumcount
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.cumcount.cumcount:16
+msgid ""
+"A tensor of the same shape as the input, where each element contains the "
+"cumulative count (0-indexed) of that value's occurrence along the "
+"specified dimension."
+msgstr ""
+
+#: of qfeval_functions.functions.cumcount.cumcount
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.cumcount.cumcount:7
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.cumcount.cumcount:22
+msgid "Example"
+msgstr ""
+
+#~ msgid ""
+#~ "Numbers each item in each group "
+#~ "from 0 to :math:`N-1`, where :math:`N`"
+#~ " is the number of the items of"
+#~ " the group."
+#~ msgstr "各グループ内の各項目に0から:math:`N-1`までの番号を割り当てます。ここで、:math:`N`はグループ内の項目数を表します。"
+
+#~ msgid "This behavior refers to pandas GroupBy.cumcount."
+#~ msgstr "この動作は pandas GroupBy.cumcount の動作を指します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 
