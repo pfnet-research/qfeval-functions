@@ -79,21 +79,16 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.orthonormalize">
 <span class="sig-name descname"><span class="pre">orthonormalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/orthonormalize.html#orthonormalize"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.orthonormalize" title="Link to this definition"></a></dt>
-<dd><p>Orthonormalizes the given vectors and returns the corresponding
-orthonormal vectors.  Ignoring numerical errorrs, this function returns
-the same results as the Gram-Schmidt process.</p>
-<p>If the given vectors is orthonormal, this function must return the
-identical vectors (CAVEAT: It may have a little numerical errors).</p>
+<dd><p>与えられたベクトルを正規直交化し、対応する正規直交ベクトルを返します。数値誤差を無視した場合、この関数はグラム・シュミット過程と同じ結果を返します。</p>
+<p>与えられたベクトルが直交正規化されている場合、この関数は同一のベクトルを返さなければなりません（注意：数値誤差が若干生じる可能性があります）。</p>
 <dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
 </dd>
 </dl>
 <dl class="simple">
-<dt>Shape:</dt><dd><ul class="simple">
-<li><p>a: <span class="math notranslate nohighlight">\((*, N, M)\)</span> where <cite>*</cite> means any number of additional
-dimensions, <cite>N</cite> means the number of vectors, and <cite>M</cite> means the
-number of dimensions.</p></li>
+<dt>形状:</dt><dd><ul class="simple">
+<li><p>a: <span class="math notranslate nohighlight">\((*, N, M)\)</span> ここで <cite>*</cite> は任意の追加次元数を、<cite>N</cite> はベクトルの数を、<cite>M</cite> は次元数をそれぞれ示します。</p></li>
 </ul>
 </dd>
 </dl>

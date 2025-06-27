@@ -78,18 +78,12 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.covar">
 <span class="sig-name descname"><span class="pre">covar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/covar.html#covar"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.covar" title="Link to this definition"></a></dt>
-<dd><p>Calculates the covariance between the given tensors along the specified
-dimension.</p>
-<p>When performing broadcast between the given tensors, the number of elements
-may increase and the space complexity may increase, but this function still
-performs the calculation with the original space complexity.  For instance,
-when operating on tensors with shapes (N, 1, D) and (1, M, D), the space
-complexity remains at O(ND + MD) instead of O(NMD).</p>
-<p>CAVEAT: Differently from np.cov, this calculates a covariance for each
-batch index instead of producing a covariance matrix.</p>
+<dd><p>指定された次元に沿って、与えられたテンソル間の共分散を計算します。</p>
+<p>与えられたテンソル間でブロードキャスト処理を行う場合、要素数が増加し空間計算量が増大する可能性がありますが、本関数は元の空間計算量で計算を実行します。例えば、形状が (N, 1, D) と (1, M, D) のテンソルを操作する場合、空間計算量は O(NMD) ではなく O(ND + MD) のまま維持されます。</p>
+<p>注意：np.covとは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対する共分散を個別に計算します。</p>
 <dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensor</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>

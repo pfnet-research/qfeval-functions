@@ -78,22 +78,9 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.gaussian_blur">
 <span class="sig-name descname"><span class="pre">gaussian_blur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/gaussian_blur.html#gaussian_blur"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.gaussian_blur" title="Link to this definition"></a></dt>
-<dd><p>Applies a Gaussian filter with the given <cite>sigma</cite> parameter to <cite>x</cite> along
-the specified axis <cite>dim</cite>.</p>
-<p>Specifically, this assigns the weighted mean of valid values with a
-Gaussian filter to each element.  This makes values outside the range have
-no weight, so it works well even for biased values, while zero padding
-brings the surrounding values closer to zero.  Additionally, as it makes
-NaN values have no weight, it also works well for biased values that
-include NaNs.</p>
-<p>NOTE: This function uses interval averages of a Gaussian function instead
-of point-sampling for its discretized window function.  Typical
-implementations of Gaussian filters use point-sampling (e.g.,
-<cite>scipy.ndimage.gaussian_filter1d</cite>).  However, they have an undersampling
-issue for small $sigma$ (c.f., <a class="reference external" href="https://bartwronski.com/2021/10/31/">https://bartwronski.com/2021/10/31/</a>,
-Implementation section in <a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_blur">https://en.wikipedia.org/wiki/Gaussian_blur</a>).
-This calculates the interval averages using the integral of a Gaussian
-function.</p>
+<dd><p>指定された軸 <cite>dim</cite> に沿って、<cite>x</cite> に指定された <cite>sigma</cite> パラメータを持つガウシアンフィルタを適用します。</p>
+<p>具体的には、有効な値の加重平均にガウシアンフィルタを適用し、各要素に割り当てます。これにより、範囲外の値は重みを持たなくなるため、バイアスのかかった値に対しても適切に処理できます。また、ゼロパディングによって周辺の値がゼロに近づくように調整されます。さらに、NaN値には重みが与えられないため、NaNを含むバイアスのかかった値に対しても適切に処理できます。</p>
+<p>注意: この関数では、ガウシアン関数の点サンプリングではなく、区間平均を計算します。ガウシアンフィルタの標準的な実装では点サンプリングが用いられます（例: <cite>scipy.ndimage.gaussian_filter1d</cite>）。ただし、ガウシアンフィルタの区間平均計算では、ガウシアン関数の積分値を用いて区間平均を算出します（参考: <a class="reference external" href="https://bartwronski.com/2021/10/31/">https://bartwronski.com/2021/10/31/</a> および <a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_blur">https://en.wikipedia.org/wiki/Gaussian_blur</a> の実装セクション）。</p>
 <dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>

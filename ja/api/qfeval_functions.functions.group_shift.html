@@ -78,33 +78,21 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.group_shift">
 <span class="sig-name descname"><span class="pre">group_shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'any'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/group_shift.html#group_shift"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.group_shift" title="Link to this definition"></a></dt>
-<dd><p>Shifts a tensor along a specified dimension, skipping a given mask.</p>
-<p>This function applies shifts only for locations specified by the mask.
-For example, suppose the mask is <cite>[True, False, True, False, True]</cite>,
-then applying one shift to <cite>[1, nan, 2, nan, 3]</cite> will get
-<cite>[nan, nan, 1, nan, 2]</cite>.</p>
-<p>CAVEAT:
-Before applying shifts, the unmasked values (i.e., mask values are False)
-are filled with nans. So, applying the above masked-shift to
-<cite>[1, 2, 3, 4, 5]</cite> will get <cite>[nan, nan, 1, nan, 3]</cite>, where unmasked values
-(2, 4) are just discarded. Also, zero-shift (<cite>shift == 0</cite>) will not give
-the original input.</p>
+<dd><p>指定された次元に沿ってテンソルをシフトし、指定されたマスクの位置はスキップします。</p>
+<p>この関数はマスクで指定された位置に対してのみシフトを適用します。例えば、マスクが <cite>[True, False, True, False, True]</cite> の場合、<cite>[1, nan, 2, nan, 3]</cite> に対して1回シフトを適用すると <cite>[nan, nan, 1, nan, 2]</cite> という結果が得られます。</p>
+<p>注意: シフトを適用する前に、マスクされていない値（つまりマスク値が False）は nan で埋められます。したがって、上記のマスク付きシフトを <cite>[1, 2, 3, 4, 5]</cite> に適用すると、<cite>[nan, nan, 1, nan, 3]</cite> という結果が得られます。ここで、マスクされていない値 (2, 4) は単に破棄されます。また、シフト値が 0 の場合 (<cite>shift == 0</cite>)、元の入力は復元されません。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>-</em>) -- The input tensor.</p></li>
-<li><p><strong>shift</strong> (<em>-</em>) -- The number of places by which the elements of the tensor
-are shifted.</p></li>
-<li><p><strong>dim</strong> (<em>-</em>) -- The dimension along which <cite>x</cite> will be shifted.</p></li>
-<li><p><strong>mask</strong> (<em>-</em>) -- A 1D boolean tensor, where <cite>False</cite> values specify
-the indices to be skipped during shifts. The length must be
-equal to <cite>x.shape[dim]</cite>.</p></li>
-<li><p><strong>refdim</strong> (<em>-</em>) -- If set, the mask is automatically generated.
-See <cite>reduce_nan_patterns</cite> for details.</p></li>
+<li><p><strong>x</strong> (<em>-</em>) -- 入力テンソル。</p></li>
+<li><p><strong>shift</strong> (<em>-</em>) -- テンソルの要素がシフトされる位置の数。</p></li>
+<li><p><strong>dim</strong> (<em>-</em>) -- <cite>x</cite> がシフトされる次元。</p></li>
+<li><p><strong>mask</strong> (<em>-</em>) -- 1次元のブールテンソルで、<a href="#id1"><span class="problematic" id="id2">`</span></a>False`の値はシフト時にスキップするインデックスを指定します。テンソルの長さは`x.shape[dim]`と等しくなければなりません。</p></li>
+<li><p><strong>refdim</strong> (<em>-</em>) -- マスクが設定されている場合、マスクは自動的に生成されます。詳細は <cite>reduce_nan_patterns</cite> を参照してください。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値<span class="colon">:</span></dt>
-<dd class="field-even"><p>A shifted version of <cite>x</cite>.</p>
+<dd class="field-even"><p><cite>x</cite> をシフトしたバージョン。</p>
 </dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><ul class="simple">

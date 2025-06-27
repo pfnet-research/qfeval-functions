@@ -78,19 +78,17 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.rms">
 <span class="sig-name descname"><span class="pre">rms</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/rms.html#rms"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.rms" title="Link to this definition"></a></dt>
-<dd><p>Returns the root mean square of each row of the input tensor in the
-given dimension <cite>dim</cite>.  If <cite>dim</cite> is a list of dimensions, reduce over all
-of them.</p>
+<dd><p>指定された次元 <cite>dim</cite> において、入力テンソルの各行の二乗平均平方根を返します。<cite>dim</cite> が次元のリストである場合、すべての次元にわたって集約します。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Tensor</em>) -- The input tensor.</p></li>
-<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em>) -- The dimension or dimensions to reduce.</p></li>
-<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) -- Whether the output tensor has <cite>dim</cite> retained or not.</p></li>
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 入力テンソル。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em>) -- 削減する次元または次元のリスト。</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a>) -- 出力テンソルが次元 <cite>dim</cite> を保持するかどうかを指定します。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値<span class="colon">:</span></dt>
-<dd class="field-even"><p>The output tensor.</p>
+<dd class="field-even"><p>出力テンソル。</p>
 </dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p>y (Tensor)</p>

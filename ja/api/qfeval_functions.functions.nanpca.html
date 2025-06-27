@@ -79,29 +79,17 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nanpca">
 <span class="sig-name descname"><span class="pre">nanpca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nanpca.html#nanpca"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nanpca" title="Link to this definition"></a></dt>
-<dd><p>Computes principal components on the given data.</p>
-<p>The returned value represents principal components.  Specifically,
-<cite>result[*, i, :]</cite> represents the <span class="math notranslate nohighlight">\((i+1)\)</span>-th largest principal
-component of the batch specified by <cite>*</cite>.</p>
+<dd><p>与えられたデータに対して主成分を計算します。</p>
+<p>返される値は主成分を表します。具体的には、<a href="#id1"><span class="problematic" id="id2">`</span></a>result[<a href="#id3"><span class="problematic" id="id4">*</span></a>, i, :]`は`*`で指定されたバッチの :math:<a href="#id5"><span class="problematic" id="id6">`</span></a>(i+1)`番目に大きい主成分を表します。</p>
 <dl class="simple">
-<dt>Shape:</dt><dd><ul class="simple">
-<li><p>data: <span class="math notranslate nohighlight">\((*, N, C)\)</span> where <cite>*</cite> means any number of additional
-dimensions, <cite>N</cite> means the number of samples, and <cite>C</cite> means the
-number of features.</p></li>
+<dt>形状:</dt><dd><ul class="simple">
+<li><p>data: <span class="math notranslate nohighlight">\((*, N, C)\)</span> 形式。ここで <cite>*</cite> は任意の追加次元数を、<cite>N</cite> はサンプル数を、<cite>C</cite> は特徴量数をそれぞれ表します。</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="field-list simple">
 <dt class="field-odd">戻り値<span class="colon">:</span></dt>
-<dd class="field-odd"><p><dl class="simple">
-<dt><cite>w[i]</cite> represents the eigenvalue of the</dt><dd><p><span class="math notranslate nohighlight">\(i\)</span>-th component.</p>
-</dd>
-</dl>
-<ul class="simple">
-<li><p>v (torch.Tensor): <cite>v[i, j]</cite> represents the <span class="math notranslate nohighlight">\(i\)</span>-th component's
-weight for the <cite>j</cite>-th feature.</p></li>
-</ul>
-</p>
+<dd class="field-odd"><p><cite>w[i]`は第 :math:`i</cite> 成分の固有値を表します。 - v (torch.Tensor): <cite>v[i, j]`は第 :math:`i</cite> 成分の第 <span class="math notranslate nohighlight">\(j\)</span> 特徴量に対する重みを表します。</p>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-even"><p><ul class="simple">

@@ -78,9 +78,8 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nansum">
 <span class="sig-name descname"><span class="pre">nansum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nansum.html#nansum"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nansum" title="Link to this definition"></a></dt>
-<dd><p>Returns the sum of all elements, ignoring Not a Numbers (NaNs).</p>
-<p>NOTE: If no valid numbers exist, this returns NaN while torch.nansum
-returns 0.</p>
+<dd><p>Not a Number (NaN) 値を無視して全ての要素の合計を返します。</p>
+<p>注意：有効な数値が存在しない場合、この関数は NaN を返しますが、torch.nansum は 0 を返します。</p>
 <dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>

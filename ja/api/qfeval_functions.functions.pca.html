@@ -79,29 +79,21 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.pca">
 <span class="sig-name descname"><span class="pre">pca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/pca.html#pca"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.pca" title="Link to this definition"></a></dt>
-<dd><p>Computes principal components on the given input <cite>x</cite>.
-The returned value represents principal components.  Specifically,
-<cite>result[*, i, :]</cite> represents the <span class="math notranslate nohighlight">\((i+1)\)</span>-th largest principal
-component of the batch specified by <cite>*</cite>.
-Shape:</p>
+<dd><p>与えられた入力 <cite>x</cite> に対して主成分を計算します。返される値は主成分を表します。具体的には、<cite>result[*, i, :]</cite> は <cite>*</cite> で指定されたバッチの <span class="math notranslate nohighlight">\((i+1)\)</span> 番目に大きい主成分を表します。形状:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>x: <span class="math notranslate nohighlight">\((*, S, D)\)</span> where <cite>*</cite> means any number of additional
-dimensions, <cite>S</cite> means the number of sections, and <cite>D</cite> means the
-number of dimensions.</p></li>
+<li><p>x: <span class="math notranslate nohighlight">\((*, S, D)\)</span> ここで、<cite>*</cite> は任意の追加次元数を、<cite>S</cite> はセクション数を、<cite>D</cite> は次元数をそれぞれ表します。</p></li>
 </ul>
 </div></blockquote>
-<p>In qfeval, dimensions and sections often represent symbols and timestamps
-respectively.
-:returns:</p>
+<p>qfevalでは、次元とセクションはそれぞれシンボルとタイムスタンプを表すことがよくあります。 :returns:</p>
 <blockquote>
 <div><dl class="simple">
-<dt><cite>components[i]</cite> represents the eigenvalue of the</dt><dd><p><span class="math notranslate nohighlight">\(i\)</span>-th component.</p>
+<dt><cite>components[i]</cite> は、</dt><dd><p>:math:<a href="#id1"><span class="problematic" id="id2">`</span></a>i`番目の成分の固有値を表します。</p>
 </dd>
 </dl>
 <ul class="simple">
 <li><dl class="simple">
-<dt>explained_variance (Tensor): <cite>explained_variance[i, j]</cite> represents</dt><dd><p>the <span class="math notranslate nohighlight">\(i\)</span>-th component's weight for the <cite>j</cite>-th feature.</p>
+<dt>explained_variance (Tensor): <cite>explained_variance[i, j]</cite> represents</dt><dd><p><a href="#id1"><span class="problematic" id="id2">`</span></a>j`番目の特徴量に対する`i`番目の成分の重みを表す。</p>
 </dd>
 </dl>
 </li>
@@ -110,7 +102,7 @@ respectively.
 <dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><ul class="simple">
-<li><p>components (Tensor)</p></li>
+<li><p>components (テンソル)</p></li>
 </ul>
 </p>
 </dd>

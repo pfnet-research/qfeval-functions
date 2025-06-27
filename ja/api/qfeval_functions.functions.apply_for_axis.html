@@ -78,12 +78,8 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.apply_for_axis">
 <span class="sig-name descname"><span class="pre">apply_for_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/apply_for_axis.html#apply_for_axis"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.apply_for_axis" title="Link to this definition"></a></dt>
-<dd><p>Applies the given data <cite>x</cite> into the given function <cite>f</cite>, which expects a
-tensor of <cite>(batch, n)</cite> shape.</p>
-<p>This flattens the unspecified dimensions of <cite>x</cite> and unflattens the result
-of the given function <cite>f</cite>.  This is useful to implement a function
-manipulating a tensor along an axis without thinking of the number of
-dimensions.</p>
+<dd><p>与えられたデータ <cite>x</cite> を、<cite>(batch, n)</cite> 形状のテンソルを期待する関数 <cite>f</cite> に適用します。</p>
+<p>この関数は、<cite>x</cite> の未指定の次元をフラット化し、与えられた関数 <cite>f</cite> の結果をアンフラット化します。これは、テンソルの特定の軸に沿って操作を行う関数を実装する際に便利です。テンソルの次元数を考慮する必要がありません。</p>
 <dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>

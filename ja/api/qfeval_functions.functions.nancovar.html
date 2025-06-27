@@ -78,13 +78,8 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nancovar">
 <span class="sig-name descname"><span class="pre">nancovar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nancovar.html#nancovar"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nancovar" title="Link to this definition"></a></dt>
-<dd><p>Calculates the covariance between the given tensors.</p>
-<p>CAVEAT: Differently from np.cov, this calculates a covariance for each
-batch index instead of producing a covariance matrix.
-CAVEAT: The calculation result would be low-precision (approximately
-half-precision) especially in case of many NaNs due to prioritizing memory
-efficiency.  In order to improve the precision is necessary to write CUDA
-code via PyTorch JIT (torch.utils.cpp_extension.load).</p>
+<dd><p>指定されたテンソル間の共分散を計算します。</p>
+<p>注意: np.covとは異なり、本関数は共分散行列を生成するのではなく、各バッチインデックスに対する共分散を個別に計算します。注意: メモリ効率を優先するため、特にNaN値が多い場合には計算結果の精度が低下し（約半精度）、精度を向上させるためにはPyTorch JITを介してCUDAコードを記述する必要があります（torch.utils.cpp_extension.loadを使用）。</p>
 <dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>

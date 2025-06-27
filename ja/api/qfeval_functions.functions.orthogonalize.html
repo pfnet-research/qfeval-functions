@@ -78,19 +78,17 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.orthogonalize">
 <span class="sig-name descname"><span class="pre">orthogonalize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/orthogonalize.html#orthogonalize"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.orthogonalize" title="Link to this definition"></a></dt>
-<dd><p>Orthogonalizes x with respect to y along the specified dimension.</p>
+<dd><p>指定された次元に沿って、xをyに対して直交化します。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><em>torch.Tensor</em></a>) -- The tensor to be orthogonalized.</p></li>
-<li><p><strong>y</strong> (<a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><em>torch.Tensor</em></a>) -- The tensor with respect to which x will be
-orthogonalized.</p></li>
-<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) -- The dimension along which the orthogonalization will be
-performed.  Default is -1.</p></li>
+<li><p><strong>x</strong> (<a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><em>torch.Tensor</em></a>) -- 直交化するテンソル。</p></li>
+<li><p><strong>y</strong> (<a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><em>torch.Tensor</em></a>) -- xを直交化する際に基準となるテンソル。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) -- 直交化を実行する次元。デフォルト値は -1 です。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値<span class="colon">:</span></dt>
-<dd class="field-even"><p>The orthogonalized tensor.</p>
+<dd class="field-even"><p>直交化されたテンソル。</p>
 </dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p>x (<a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)">torch.Tensor</a>)</p>

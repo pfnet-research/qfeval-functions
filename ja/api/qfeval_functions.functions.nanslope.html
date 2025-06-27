@@ -78,9 +78,8 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nanslope">
 <span class="sig-name descname"><span class="pre">nanslope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nanslope.html#nanslope"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nanslope" title="Link to this definition"></a></dt>
-<dd><p>Returns the slope of correlation bewteen <cite>x</cite> and <cite>y</cite>, ignoring NaNs.</p>
-<p>NOTE: This is based on calculation of slope beta at:
-<a class="reference external" href="https://en.wikipedia.org/wiki/Simple_linear_regression">https://en.wikipedia.org/wiki/Simple_linear_regression</a></p>
+<dd><p><a href="#id1"><span class="problematic" id="id2">`</span></a>x`と`y`の相関係数の傾きを返し、NaN値は無視します。</p>
+<p>注意: この実装は単純線形回帰の傾きβの計算に基づいています: <a class="reference external" href="https://en.wikipedia.org/wiki/Simple_linear_regression">https://en.wikipedia.org/wiki/Simple_linear_regression</a></p>
 <dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>

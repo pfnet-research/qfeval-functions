@@ -78,11 +78,8 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.groupby">
 <span class="sig-name descname"><span class="pre">groupby</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/groupby.html#groupby"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.groupby" title="Link to this definition"></a></dt>
-<dd><p>Groups items of <cite>x</cite> by <cite>group_id</cite>.</p>
-<p>This adds a new dimension just after the dimension specified by <cite>dim</cite>.
-The additional dimension represents items of the group.  Since a tensor
-requires every dimension to be a fixed size, this fills <cite>empty_value</cite> if
-the numbers of the items of groups are varying.</p>
+<dd><p><cite>group_id</cite> に基づいて <cite>x</cite> の項目をグループ化します。</p>
+<p>この操作は、<cite>dim</cite> で指定された次元の直後に新しい次元を追加します。この追加次元はグループ内のアイテム数を表します。テンソルではすべての次元が固定サイズである必要があるため、グループ内のアイテム数が異なる場合には <cite>empty_value</cite> でこの次元を埋めます。</p>
 <dl class="field-list simple">
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>

@@ -79,12 +79,12 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.project">
 <span class="sig-name descname"><span class="pre">project</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/project.html#project"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.project" title="Link to this definition"></a></dt>
-<dd><p>Projects the given tensor <cite>x</cite> using the given projection matrix <cite>a</cite>.</p>
+<dd><p>指定された投影行列 <cite>a</cite> を使用して、与えられたテンソル <cite>x</cite> を投影します。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<em>Tensor</em>) -- A projection matrix.</p></li>
-<li><p><strong>x</strong> (<em>Tensor</em>) -- A tensor to be projected.</p></li>
+<li><p><strong>a</strong> (<em>Tensor</em>) -- 射影行列。</p></li>
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 投影対象のテンソル。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値の型<span class="colon">:</span></dt>
@@ -92,32 +92,28 @@
 </dd>
 </dl>
 <dl class="simple">
-<dt>Returns</dt><dd><p>y (Tensor): The projected tensor.</p>
+<dt>Returns</dt><dd><p>y (Tensor): 射影されたテンソル。</p>
 </dd>
-<dt>Shape:</dt><dd><ul class="simple">
+<dt>形状:</dt><dd><ul class="simple">
 <li><dl class="simple">
-<dt>a: <span class="math notranslate nohighlight">\((*, O, I)\)</span>, where <span class="math notranslate nohighlight">\(*\)</span> represents any number of</dt><dd><p>dimensions (including None), <span class="math notranslate nohighlight">\(O\)</span> is the number of output
-dimensions, and <span class="math notranslate nohighlight">\(I\)</span> is the number of input dimensions.</p>
-</dd>
-</dl>
-</li>
-<li><dl class="simple">
-<dt>x: <span class="math notranslate nohighlight">\((*, S, I)\)</span>, where <span class="math notranslate nohighlight">\(*\)</span> represents any number of</dt><dd><p>dimensions (including None), <span class="math notranslate nohighlight">\(S\)</span> is the number of sections,
-and <span class="math notranslate nohighlight">\(I\)</span> is the number of input dimensions.</p>
+<dt>a: <span class="math notranslate nohighlight">\((*, O, I)\)</span> 形式の行列。ここで <span class="math notranslate nohighlight">\(*\)</span> は任意の数の次元を表します。</dt><dd><p>次元数（Noneを含む）、:math:<a href="#id1"><span class="problematic" id="id2">`</span></a>O`は出力次元数、:math:<a href="#id3"><span class="problematic" id="id4">`</span></a>I`は入力次元数を表す。</p>
 </dd>
 </dl>
 </li>
 <li><dl class="simple">
-<dt>return: <span class="math notranslate nohighlight">\((*, S, O)\)</span>, where <span class="math notranslate nohighlight">\(*\)</span> represents any number of</dt><dd><p>dimensions (including None), <span class="math notranslate nohighlight">\(S\)</span> is the number of sections,
-and <span class="math notranslate nohighlight">\(O\)</span> is the number of output dimensions.</p>
+<dt>x: <span class="math notranslate nohighlight">\((*, S, I)\)</span> 形式のテンソル。ここで <span class="math notranslate nohighlight">\(*\)</span> は任意の数の次元を表します。</dt><dd><p>次元数（Noneを含む）、:math:<a href="#id1"><span class="problematic" id="id2">`</span></a>S`はセクション数、:math:<a href="#id3"><span class="problematic" id="id4">`</span></a>I`は入力次元数を表す。</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>return: <span class="math notranslate nohighlight">\((*, S, O)\)</span>, where <span class="math notranslate nohighlight">\(*\)</span> represents any number of</dt><dd><p>次元数（Noneを含む）、:math:<a href="#id1"><span class="problematic" id="id2">`</span></a>S`はセクション数、:math:<a href="#id3"><span class="problematic" id="id4">`</span></a>O`は出力次元数を表す。</p>
 </dd>
 </dl>
 </li>
 </ul>
 </dd>
 </dl>
-<p>In qfeval, I/O dimensions and sections often represent symbols and
-timestamps respectively.</p>
+<p>qfevalにおいて、I/O次元とセクションはそれぞれシンボルとタイムスタンプを表すことが多い。</p>
 </dd></dl>
 
 </section>

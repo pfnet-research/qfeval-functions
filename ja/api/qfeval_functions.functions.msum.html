@@ -78,23 +78,18 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.msum">
 <span class="sig-name descname"><span class="pre">msum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/msum.html#msum"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.msum" title="Link to this definition"></a></dt>
-<dd><p>Compute the moving (sliding window) sum of a tensor.</p>
-<p>This function calculates the sum of elements within a sliding window of
-size <code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code> along the specified dimension. The output tensor has the
-same shape as the input tensor. For positions where the sliding window
-cannot fully cover preceding elements (i.e., the first <cite>span - 1</cite> elements
-along the selected dimension), the result is <cite>nan</cite>.</p>
+<dd><p>テンソルの移動（スライディングウィンドウ）合計を計算します。</p>
+<p>この関数は、指定された次元に沿ってサイズ <code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code> のスライディングウィンドウ内の要素の合計を計算します。出力テンソルは入力テンソルと同じ形状を持ちます。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の <cite>span - 1</cite> 要素の場合）、結果は <cite>nan</cite> となります。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Tensor</em>) -- The input tensor.</p></li>
-<li><p><strong>span</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) -- The size of the sliding window.</p></li>
-<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- The dimension along which to compute the moving sum.
-Default is -1 (the last dimension).</p></li>
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 入力テンソル。</p></li>
+<li><p><strong>span</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) -- スライディングウィンドウのサイズ。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 移動合計を計算する次元。デフォルトは -1 で、最後の次元を指定します。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値<span class="colon">:</span></dt>
-<dd class="field-even"><p>A tensor of the same shape as the input, containing the moving sums.</p>
+<dd class="field-even"><p>入力と同じ形状のテンソルで、移動合計値を格納しています。</p>
 </dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tensor</p>
