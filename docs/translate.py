@@ -13,17 +13,18 @@ from typing import Tuple
 logger = logging.getLogger(__name__)
 
 try:
-    from plamo_translate.clients import translate
+    from plamo_translate.clients.translate import MCPClient
     from plamo_translate.main import check_server_running
     from plamo_translate.main import start_mcp_server
     from plamo_translate.main import wait_for_server_ready
     from plamo_translate.servers.utils import update_config
 except ImportError:
     logger.warning("plamo-translate is not installed")
+    MCPClient = None
 
 
 async def get_translation(
-    client: translate.MCPClient, messages: List[Dict[str, str]]  # type: ignore
+    client: MCPClient, messages: List[Dict[str, str]]  # type: ignore
 ) -> str:
     async for result in client.translate(messages):
         continue
@@ -38,7 +39,7 @@ def create_vocabulary_format(word_pairs: List[Tuple[str, str]]) -> str:
 
 
 def translate_text(
-    client: translate.MCPClient,  # type: ignore
+    client: MCPClient,  # type: ignore
     from_lang: str,
     to_lang: str,
     input_text: str,
@@ -230,7 +231,7 @@ def write_po_file(file_path: Path, entries: List[Tuple[str, str, str]]) -> None:
 
 
 def translate_po_file_with_lang(
-    client: translate.MCPClient,  # type: ignore
+    client: MCPClient,  # type: ignore
     file_path: Path,
     from_lang: str,
     to_lang: str,
@@ -319,7 +320,7 @@ def find_po_files(to_lang: str) -> List[Path]:
 
 
 def translate_all_po_files(
-    client: translate.MCPClient,  # type: ignore
+    client: MCPClient,  # type: ignore
     from_lang: str,
     to_lang: str,
     global_context: Optional[str] = None,
@@ -508,7 +509,7 @@ qfeval-functionsは、qfevalの中でも、金融時系列データを効率的�
         server.start()
         wait_for_server_ready()
 
-    client = translate.MCPClient(stream=False)
+    client = MCPClient(stream=False)
     # .poファイル翻訳を実行
     logger.info("=== .poファイル翻訳開始 ===")
     translate_all_po_files(
