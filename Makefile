@@ -96,3 +96,4 @@ docs-plamo-translate: docs-generate-locale-ja
 		uv pip install git+https://github.com/google/sentencepiece.git@2734490#subdirectory=python; \
 	fi
 	uv pip install plamo-translate
+	$(RUN) python docs/translate.py
