@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.rcummax
-===================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: rcummax

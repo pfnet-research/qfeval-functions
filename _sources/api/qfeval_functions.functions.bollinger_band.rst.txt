@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.bollinger\_band
-===========================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: bollinger_band

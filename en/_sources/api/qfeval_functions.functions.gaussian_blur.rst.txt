@@ -1,0 +1,6 @@
+﻿qfeval\_functions.functions.gaussian\_blur
+==========================================
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: gaussian_blur

@@ -1,0 +1,6 @@
+﻿qfeval\_functions.functions.skipna
+==================================
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: skipna

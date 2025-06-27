@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.randperm
-====================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: randperm

@@ -1,0 +1,6 @@
+﻿qfeval\_functions.functions.msum
+================================
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: msum

@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.nanskew
-===================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: nanskew

@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.signif
-==================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: signif

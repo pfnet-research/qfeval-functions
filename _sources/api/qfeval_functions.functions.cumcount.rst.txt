@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.cumcount
-====================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: cumcount

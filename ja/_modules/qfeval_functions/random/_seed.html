@@ -1,0 +1,189 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qfeval_functions.random._seed &mdash; qfeval-functions  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=c033477b"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/translations.js?v=4755f45a"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            qfeval-functions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">qfeval-functions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">モジュールコード</a></li>
+      <li class="breadcrumb-item active">qfeval_functions.random._seed</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>qfeval_functions.random._seed のソースコード</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">types</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing_extensions</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Seed</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="n">qfeval_rng</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span><span class="p">(</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">MT19937</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">64</span><span class="p">))</span>
+    <span class="p">)</span>
+    <span class="n">fast</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seed</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="n">fast</span><span class="p">:</span> <span class="nb">bool</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">push</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">fast</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;Seed&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">exc_type</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">typing</span><span class="o">.</span><span class="n">Type</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">]],</span>
+        <span class="n">exc_value</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="ne">BaseException</span><span class="p">],</span>
+        <span class="n">traceback</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">types</span><span class="o">.</span><span class="n">TracebackType</span><span class="p">],</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing_extensions</span><span class="o">.</span><span class="n">Literal</span><span class="p">[</span><span class="kc">False</span><span class="p">]:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span>
+        <span class="bp">self</span><span class="p">,</span>
+        <span class="n">seed</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span>
+        <span class="n">fast</span><span class="p">:</span> <span class="nb">bool</span><span class="p">,</span>
+    <span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s2">&quot;qfeval&quot;</span><span class="p">:</span> <span class="n">Seed</span><span class="o">.</span><span class="n">qfeval_rng</span><span class="o">.</span><span class="n">bit_generator</span><span class="o">.</span><span class="n">state</span><span class="p">,</span>
+            <span class="s2">&quot;fast&quot;</span><span class="p">:</span> <span class="n">Seed</span><span class="o">.</span><span class="n">fast</span><span class="p">,</span>
+            <span class="s2">&quot;random&quot;</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">getstate</span><span class="p">(),</span>
+            <span class="s2">&quot;torch&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">get_rng_state</span><span class="p">(),</span>
+            <span class="s2">&quot;torch_cuda&quot;</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">get_rng_state_all</span><span class="p">(),</span>
+            <span class="s2">&quot;numpy&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">get_state</span><span class="p">(),</span>
+        <span class="p">}</span>
+        <span class="n">Seed</span><span class="o">.</span><span class="n">qfeval_rng</span><span class="o">.</span><span class="n">bit_generator</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">MT19937</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span><span class="o">.</span><span class="n">state</span>
+        <span class="n">Seed</span><span class="o">.</span><span class="n">fast</span> <span class="o">=</span> <span class="n">fast</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+        <span class="c1"># PyTorch accepts only a 64-bit integer.  For better randomness, this</span>
+        <span class="c1"># generates a seed via random package, which should be initialized by</span>
+        <span class="c1"># system urandom.</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randrange</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">64</span><span class="p">)</span> <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">seed</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">manual_seed</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="c1"># NumPy accepts only a 32-bit integer or a list of 32-bit integers.</span>
+        <span class="c1"># For better randomness, this generates a seed via PyTorch, which</span>
+        <span class="c1"># should be initialized by a 64-bit integer.</span>
+        <span class="n">numpy_seed</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">16</span><span class="p">,</span> <span class="p">(</span><span class="mi">16</span><span class="p">,))</span> <span class="k">if</span> <span class="n">seed</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">seed</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="n">numpy_seed</span><span class="p">)</span>  <span class="c1"># type: ignore</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">Seed</span><span class="o">.</span><span class="n">qfeval_rng</span><span class="o">.</span><span class="n">bit_generator</span><span class="o">.</span><span class="n">state</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;qfeval&quot;</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+        <span class="n">Seed</span><span class="o">.</span><span class="n">fast</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;fast&quot;</span><span class="p">]</span>  <span class="c1"># type: ignore</span>
+        <span class="n">random</span><span class="o">.</span><span class="n">setstate</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;random&quot;</span><span class="p">]</span>  <span class="c1"># type:ignore[arg-type]</span>
+        <span class="p">)</span>  <span class="c1"># type:ignore[return-value,arg-type]</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_rng_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;torch&quot;</span><span class="p">])</span>  <span class="c1"># type: ignore</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_rng_state_all</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;torch_cuda&quot;</span><span class="p">])</span>  <span class="c1"># type: ignore</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">set_state</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">state</span><span class="p">[</span><span class="s2">&quot;numpy&quot;</span><span class="p">])</span>  <span class="c1"># type: ignore</span>
+
+
+<div class="viewcode-block" id="seed">
+<a class="viewcode-back" href="../../../api/qfeval_functions.random.html#qfeval_functions.random.seed">[ドキュメント]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">seed</span><span class="p">(</span><span class="n">seed</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span><span class="p">,</span> <span class="n">fast</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Seed</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Sets the seed for generating random numbers.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">Seed</span><span class="p">(</span><span class="n">seed</span><span class="p">,</span> <span class="n">fast</span><span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="rng">
+<a class="viewcode-back" href="../../../api/qfeval_functions.random.html#qfeval_functions.random.rng">[ドキュメント]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rng</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">Generator</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">Seed</span><span class="o">.</span><span class="n">qfeval_rng</span></div>
+
+
+
+<div class="viewcode-block" id="is_fast">
+<a class="viewcode-back" href="../../../api/qfeval_functions.random.html#qfeval_functions.random.is_fast">[ドキュメント]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">is_fast</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">Seed</span><span class="o">.</span><span class="n">fast</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, qfeval-functions contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

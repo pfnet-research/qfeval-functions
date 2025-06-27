@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.stable\_sort
-========================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: stable_sort

@@ -1,0 +1,245 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qfeval_functions.functions.group_shift &mdash; qfeval-functions  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=c033477b"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/translations.js?v=4755f45a"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="検索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            qfeval-functions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">qfeval-functions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">モジュールコード</a></li>
+      <li class="breadcrumb-item active">qfeval_functions.functions.group_shift</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>qfeval_functions.functions.group_shift のソースコード</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.shift</span><span class="w"> </span><span class="kn">import</span> <span class="n">shift</span> <span class="k">as</span> <span class="n">_shift</span>
+
+<span class="n">AggregateFunction</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">]</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">reduce_nan_patterns</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">refdim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">agg_f</span><span class="p">:</span> <span class="n">AggregateFunction</span> <span class="o">=</span> <span class="s2">&quot;any&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Creates a mask for group shift.</span>
+
+<span class="sd">    A mask is a one-dimensional boolean tensor that represents the pattern</span>
+<span class="sd">    of observed values in a reference dimension (`refdim`).</span>
+<span class="sd">    i.e., `True` values correspond to the locations of non-nan values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        - x: The input tensor. This should have at least 2 dimensions.</span>
+<span class="sd">        - dim: The dimension along which `x` will be shifted.</span>
+<span class="sd">        - refdim: The reference dimension to extract a pattern of (non-)nans.</span>
+<span class="sd">        - agg_f: The function for aggregating all other dimensions.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        - mask: a 1-D boolean tensor</span>
+
+<span class="sd">    Examples:</span>
+<span class="sd">        &gt;&gt;&gt; import torch</span>
+<span class="sd">        &gt;&gt;&gt; from math import nan</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([</span>
+<span class="sd">        ...     [1.0, 2.0, nan, 1.0],</span>
+<span class="sd">        ...     [2.0, 4.0, nan, 2.0],</span>
+<span class="sd">        ...     [3.0, nan, nan, 3.0],</span>
+<span class="sd">        ...     [1.0, 1.0, 1.0, 1.0],</span>
+<span class="sd">        ... ])</span>
+<span class="sd">        &gt;&gt;&gt; reduce_nan_patterns(x, -1, 0)</span>
+<span class="sd">        tensor([ True, False, False,  True])</span>
+<span class="sd">        &gt;&gt;&gt; # As x.dim() == 2, agg_f does not affect the results</span>
+<span class="sd">        &gt;&gt;&gt; reduce_nan_patterns(x, -1, 0, agg_f=&quot;all&quot;)</span>
+<span class="sd">        tensor([ True, False, False,  True])</span>
+<span class="sd">        &gt;&gt;&gt; reduce_nan_patterns(x, 0, 1)</span>
+<span class="sd">        tensor([False, False, False,  True])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># transpose x so that the first dimension is dim and the second is refdim</span>
+    <span class="c1"># NOTE: currently, dimensions added here will not be squeezed, since</span>
+    <span class="c1"># they do not affect &quot;any&quot; and &quot;all&quot; aggregations</span>
+    <span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="n">refdim</span> <span class="o">=</span> <span class="n">refdim</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="o">+</span> <span class="mi">2</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">refdim</span><span class="p">)</span>
+
+    <span class="c1"># aggregate values in all dimensions but dim and refdim</span>
+    <span class="n">reduced</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">())</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">agg_f</span> <span class="o">==</span> <span class="s2">&quot;any&quot;</span><span class="p">:</span>
+        <span class="n">reduced</span> <span class="o">=</span> <span class="n">reduced</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">agg_f</span> <span class="o">==</span> <span class="s2">&quot;all&quot;</span><span class="p">:</span>
+        <span class="n">reduced</span> <span class="o">=</span> <span class="n">reduced</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s2">&quot;Unknown aggregate function.&quot;</span><span class="p">)</span>
+
+    <span class="c1"># return True if all (aggregated) values in redim are True</span>
+    <span class="k">return</span> <span class="n">reduced</span><span class="o">.</span><span class="n">all</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="group_shift">
+<a class="viewcode-back" href="../../../api/qfeval_functions.functions.group_shift.html#qfeval_functions.functions.group_shift">[ドキュメント]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">group_shift</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">shift</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+    <span class="n">mask</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">refdim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">agg_f</span><span class="p">:</span> <span class="n">AggregateFunction</span> <span class="o">=</span> <span class="s2">&quot;any&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Shifts a tensor along a specified dimension, skipping a given mask.</span>
+
+<span class="sd">    This function applies shifts only for locations specified by the mask.</span>
+<span class="sd">    For example, suppose the mask is `[True, False, True, False, True]`,</span>
+<span class="sd">    then applying one shift to `[1, nan, 2, nan, 3]` will get</span>
+<span class="sd">    `[nan, nan, 1, nan, 2]`.</span>
+
+<span class="sd">    CAVEAT:</span>
+<span class="sd">    Before applying shifts, the unmasked values (i.e., mask values are False)</span>
+<span class="sd">    are filled with nans. So, applying the above masked-shift to</span>
+<span class="sd">    `[1, 2, 3, 4, 5]` will get `[nan, nan, 1, nan, 3]`, where unmasked values</span>
+<span class="sd">    (2, 4) are just discarded. Also, zero-shift (`shift == 0`) will not give</span>
+<span class="sd">    the original input.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        - x: The input tensor.</span>
+<span class="sd">        - shift: The number of places by which the elements of the tensor</span>
+<span class="sd">            are shifted.</span>
+<span class="sd">        - dim: The dimension along which `x` will be shifted.</span>
+<span class="sd">        - mask (optional): A 1D boolean tensor, where `False` values specify</span>
+<span class="sd">            the indices to be skipped during shifts. The length must be</span>
+<span class="sd">            equal to `x.shape[dim]`.</span>
+<span class="sd">        - refdim (optional): If set, the mask is automatically generated.</span>
+<span class="sd">            See `reduce_nan_patterns` for details.</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        - x_shifted: A shifted version of `x`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span>
+
+    <span class="c1"># 1. Create a priority index from the mask</span>
+    <span class="n">priority</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mask</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">squeeze</span><span class="p">()</span>
+        <span class="k">assert</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="n">n</span><span class="p">,)</span>
+    <span class="k">elif</span> <span class="n">refdim</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">mask</span> <span class="o">=</span> <span class="n">reduce_nan_patterns</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="p">,</span> <span class="n">refdim</span><span class="p">,</span> <span class="n">agg_f</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Either mask or refdim must be set.&quot;</span><span class="p">)</span>
+
+    <span class="n">priority</span> <span class="o">=</span> <span class="n">priority</span> <span class="o">+</span> <span class="p">(</span><span class="o">~</span><span class="n">mask</span><span class="p">)</span><span class="o">.</span><span class="n">int</span><span class="p">()</span> <span class="o">*</span> <span class="n">n</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">priority</span><span class="p">)</span>
+    <span class="n">reversed_index</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">index</span><span class="p">)</span>
+
+    <span class="c1"># 2. Move the target dimension to the top to make data manipulation easier.</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
+
+    <span class="c1"># 3. Gather valid values, apply shift, and scatter them.</span>
+    <span class="c1"># fill unmasked indices with nans</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">mask</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">x</span><span class="p">,</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="c1"># sort y so that masked values come first</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="c1"># apply shift</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">mask</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
+        <span class="n">_shift</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">shift</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">y</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">reversed_index</span><span class="p">,</span> <span class="p">:]</span>
+
+    <span class="c1"># 4. Restore the shape and the order of dimensions.</span>
+    <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, qfeval-functions contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

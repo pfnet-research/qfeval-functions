@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.nanshift
-====================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: nanshift

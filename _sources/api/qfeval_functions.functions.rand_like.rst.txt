@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.rand\_like
-======================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: rand_like

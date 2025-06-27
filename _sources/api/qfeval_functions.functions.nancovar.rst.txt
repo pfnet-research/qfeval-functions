@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.nancovar
-====================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: nancovar

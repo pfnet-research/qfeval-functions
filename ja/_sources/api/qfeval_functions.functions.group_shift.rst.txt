@@ -1,0 +1,6 @@
+﻿qfeval\_functions.functions.group\_shift
+========================================
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: group_shift

@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.nanmean
-===================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: nanmean

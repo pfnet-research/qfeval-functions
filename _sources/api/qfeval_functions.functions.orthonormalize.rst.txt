@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.orthonormalize
-==========================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: orthonormalize

@@ -1,0 +1,6 @@
+﻿qfeval\_functions.functions.rms
+===============================
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: rms

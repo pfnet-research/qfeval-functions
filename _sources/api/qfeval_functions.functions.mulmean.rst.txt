@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.mulmean
-===================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: mulmean

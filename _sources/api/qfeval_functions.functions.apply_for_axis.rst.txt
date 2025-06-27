@@ -1,6 +1,0 @@
-﻿qfeval\_functions.functions.apply\_for\_axis
-============================================
-
-.. currentmodule:: qfeval_functions.functions
-
-.. autofunction:: apply_for_axis

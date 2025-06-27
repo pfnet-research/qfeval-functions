@@ -1,0 +1,6 @@
+﻿qfeval\_functions.functions.mvar
+================================
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: mvar
