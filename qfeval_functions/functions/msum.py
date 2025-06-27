@@ -33,17 +33,19 @@ def msum(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
     along the selected dimension), the result is `nan`.
 
     Args:
-        x (Tensor): The input tensor.
-        span (int): The size of the sliding window.
-        dim (int, optional): The dimension along which to compute the moving sum.
+        x (Tensor):
+            The input tensor.
+        span (int):
+            The size of the sliding window.
+        dim (int, optional):
+            The dimension along which to compute the moving sum.
             Default is -1 (the last dimension).
 
     Returns:
-        Tensor: A tensor of the same shape as the input, containing the moving sums.
+        Tensor:
+            A tensor of the same shape as the input, containing the moving sums.
 
     Example:
-        >>> import torch
-        >>> import qfeval_functions.functions as QF
         >>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])
         >>> QF.msum(x, span=3)
         tensor([nan, nan,  6.,  9., 12.])

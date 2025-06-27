@@ -13,11 +13,15 @@ def rms(
     of them.
 
     Args:
-        x (Tensor): The input tensor.
-        dim (int or tuple of ints): The dimension or dimensions to reduce.
-        keepdim (bool): Whether the output tensor has `dim` retained or not.
+        x (Tensor):
+            The input tensor.
+        dim (int or tuple of ints):
+            The dimension or dimensions to reduce.
+        keepdim (bool):
+            Whether the output tensor has `dim` retained or not.
 
     Returns:
-        y (Tensor): The output tensor.
+        y (Tensor):
+            The output tensor.
     """
     return x.square().mean(dim=dim, keepdim=keepdim).sqrt()
