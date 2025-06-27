@@ -10,13 +10,16 @@ from typing import List
 from typing import Optional
 from typing import Tuple
 
-from plamo_translate.clients import translate
-from plamo_translate.main import check_server_running
-from plamo_translate.main import start_mcp_server
-from plamo_translate.main import wait_for_server_ready
-from plamo_translate.servers.utils import update_config
-
 logger = logging.getLogger(__name__)
+
+try:
+    from plamo_translate.clients import translate
+    from plamo_translate.main import check_server_running
+    from plamo_translate.main import start_mcp_server
+    from plamo_translate.main import wait_for_server_ready
+    from plamo_translate.servers.utils import update_config
+except ImportError:
+    logger.warning("plamo-translate is not installed")
 
 
 async def get_translation(
@@ -344,21 +347,27 @@ def translate_all_po_files(
     logger.info("\n全ての翻訳が完了しました！")
 
 
-def check_translation_needed(to_lang: str, force: bool = False) -> bool:
+def check_translation_needed(
+    to_lang: str, force: bool = False, dry_run: bool = False
+) -> bool:
     """翻訳が必要かどうかを事前チェック"""
     po_files = find_po_files(to_lang)
 
     if not po_files:
         logger.warning(
-            f".poファイルが見つかりません: docs/locale/{to_lang}/LC_MESSAGES"
+            f".poファイルが見つかりません: "
+            f"docs/locale/{to_lang}/LC_MESSAGES"
         )
         return False
 
     translation_needed = False
     total_translatable = 0
+    file_details = []
 
     for po_file in po_files:
         if not force and is_file_fully_translated(po_file):
+            if dry_run:
+                file_details.append((po_file, 0, "完全に翻訳済み"))
             continue
 
         entries = parse_po_file(po_file)
@@ -371,11 +380,44 @@ def check_translation_needed(to_lang: str, force: bool = False) -> bool:
         if translatable_entries:
             translation_needed = True
             total_translatable += len(translatable_entries)
+            if dry_run:
+                file_details.append(
+                    (po_file, len(translatable_entries), "翻訳対象あり")
+                )
+        elif dry_run:
+            file_details.append((po_file, 0, "翻訳対象なし"))
+
+    if dry_run:
+        logger.info("=== Dry Run モード: 翻訳対象の詳細 ===")
+        logger.info(f"見つかった.poファイル: {len(po_files)}件")
+        logger.info("")
+
+        for po_file, count, status in file_details:
+            # 相対パスに変換（エラー回避のため try-except を使用）
+            try:
+                relative_path = po_file.relative_to(Path.cwd())
+            except ValueError:
+                relative_path = po_file
+
+            if count > 0:
+                logger.info(f"📝 {relative_path}: {count}件 ({status})")
+            else:
+                logger.info(f"✅ {relative_path}: {status}")
+
+        logger.info("")
+        if translation_needed:
+            force_msg = " (強制モード)" if force else ""
+            logger.info(f"🔄 合計翻訳対象: {total_translatable}件{force_msg}")
+        else:
+            logger.info("✅ 翻訳対象のエントリが見つかりませんでした")
+
+        return translation_needed
 
     if translation_needed:
         force_msg = " (強制モード)" if force else ""
         logger.info(
-            f"翻訳対象: {total_translatable}件のエントリが見つかりました{force_msg}"
+            f"翻訳対象: {total_translatable}件のエントリが"
+            f"見つかりました{force_msg}"
         )
     else:
         logger.info("翻訳対象のエントリが見つかりませんでした")
@@ -404,6 +446,11 @@ def main() -> None:
         default="mlx-community/plamo-2-translate",
         help="Model name (default: mlx-community/plamo-2-translate)",
     )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="Check translation targets without actually translating",
+    )
 
     args = parser.parse_args()
 
@@ -412,20 +459,36 @@ def main() -> None:
     from_lang = args.from_lang
     to_lang = args.to_lang
     force = args.force
+    dry_run = args.dry_run
 
     global_context_text = """qfevalは、Preferred Networks 金融チームが開発している、金融時系列処理のためのPythonフレームワークです。
 データ形式の仕様定義、金融時系列データを効率的に扱うためのクラス/関数群、および金融時系列モデルの評価フレームワークが含まれます。
 
 qfeval-functionsは、qfevalの中でも、金融時系列データを効率的に扱うための関数群を提供します。"""
 
-    logger.info("設定:")
-    logger.info(f"  モデル: {model_name}")
+    if dry_run:
+        logger.info("=== Dry Run モード ===")
+    else:
+        logger.info("設定:")
+        logger.info(f"  モデル: {model_name}")
+
     logger.info(f"  翻訳: {from_lang} → {to_lang}")
     logger.info(f"  強制モード: {force}")
 
     # 翻訳対象があるかを事前チェック
     logger.info("翻訳対象をチェック中...")
-    if not check_translation_needed(to_lang, force):
+    has_targets = check_translation_needed(to_lang, force, dry_run)
+
+    if dry_run:
+        logger.info("=== Dry Run 完了 ===")
+        if has_targets:
+            logger.info("終了コード: 0 (翻訳対象あり)")
+            exit(0)
+        else:
+            logger.info("終了コード: 1 (翻訳対象なし)")
+            exit(1)
+
+    if not has_targets:
         logger.info("翻訳対象がないため、処理を終了します")
         return
 

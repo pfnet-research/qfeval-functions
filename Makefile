@@ -97,3 +97,11 @@ docs-plamo-translate: docs-generate-locale-ja
 	fi
 	uv pip install plamo-translate
 	$(RUN) python docs/translate.py
+
+.PHONY: docs-plamo-translate-dry-run
+docs-plamo-translate-dry-run: docs-generate-locale-ja
+	$(RUN) python docs/translate.py --dry-run
+
+.PHONY: docs-plamo-translate-dry-run-ja
+docs-plamo-translate-dry-run-ja: docs-generate-locale-ja
+	$(RUN) python docs/translate.py --dry-run

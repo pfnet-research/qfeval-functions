@@ -41,3 +41,10 @@ It cannot be reproducible on CPUs, and it may not be reproducible with other
 PyTorch/CUDA versions.
 For reproducibility, calling `qfeval_functions.random.seed` forces to use a reproducible way by
 default.
+
+# Contributing
+## Generate documentation
+ 1. run `make docs-plamo-translate` to translate the documentation on your Mac or GitHub Actions.
+ 2. run `make docs` to build the documentation.
+
+You can also run `make docs-plamo-translate-dry-run` to check if the documentation is translated correctly.
