@@ -344,6 +344,45 @@ def translate_all_po_files(
     logger.info("\n全ての翻訳が完了しました！")
 
 
+def check_translation_needed(to_lang: str, force: bool = False) -> bool:
+    """翻訳が必要かどうかを事前チェック"""
+    po_files = find_po_files(to_lang)
+
+    if not po_files:
+        logger.warning(
+            f".poファイルが見つかりません: docs/locale/{to_lang}/LC_MESSAGES"
+        )
+        return False
+
+    translation_needed = False
+    total_translatable = 0
+
+    for po_file in po_files:
+        if not force and is_file_fully_translated(po_file):
+            continue
+
+        entries = parse_po_file(po_file)
+        translatable_entries = [
+            (msgid, msgstr, context)
+            for msgid, msgstr, context in entries
+            if should_translate(msgid, msgstr, force)
+        ]
+
+        if translatable_entries:
+            translation_needed = True
+            total_translatable += len(translatable_entries)
+
+    if translation_needed:
+        force_msg = " (強制モード)" if force else ""
+        logger.info(
+            f"翻訳対象: {total_translatable}件のエントリが見つかりました{force_msg}"
+        )
+    else:
+        logger.info("翻訳対象のエントリが見つかりませんでした")
+
+    return translation_needed
+
+
 def main() -> None:
     """メイン関数"""
     parser = argparse.ArgumentParser(
@@ -383,6 +422,15 @@ qfeval-functionsは、qfevalの中でも、金融時系列データを効率的�
     logger.info(f"  モデル: {model_name}")
     logger.info(f"  翻訳: {from_lang} → {to_lang}")
     logger.info(f"  強制モード: {force}")
+
+    # 翻訳対象があるかを事前チェック
+    logger.info("翻訳対象をチェック中...")
+    if not check_translation_needed(to_lang, force):
+        logger.info("翻訳対象がないため、処理を終了します")
+        return
+
+    # 翻訳対象があるのでMLXサーバーを起動
+    logger.info("翻訳対象が見つかりました。MLXサーバーを起動します...")
 
     update_config(backend_type=backend_type, model_name=model_name)
     if "PLAMO_TRANSLATE_CLI_MODEL_NAME" not in os.environ:

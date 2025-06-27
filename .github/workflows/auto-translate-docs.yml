@@ -12,6 +12,11 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # For pull_request events, checkout the head branch
+          ref: ${{ github.event.pull_request.head.ref || github.ref }}
+          # Fetch full history to enable proper git operations
+          fetch-depth: 0
       - name: Check if running on Apple Silicon
         run: |
           if [ "$(uname -m)" != "arm64" ]; then
