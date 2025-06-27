@@ -77,6 +77,8 @@ def gaussian_blur(x: torch.Tensor, sigma: float, dim: int = -1) -> torch.Tensor:
         # Apply convolution with x and a Gaussian filter.
         w = _gaussian_filter(x.shape[-1] * 2 + 1, sigma).to(x.device)
         a = F.conv1d(x.to(w)[:, None], w[None, None], padding="same")
+        # TODO(imos): Divding by count is not necessary and confusing. Fix this
+        # in another PR.
         count = F.conv1d(
             (~x.isnan()).to(w)[:, None], w[None, None], padding="same"
         )
