@@ -37,60 +37,60 @@ msgid ""
 "regression line that best fits the relationship between :attr:`x` and "
 ":attr:`y`, excluding NaN values from the computation. The slope "
 "represents the rate of change in :attr:`y` per unit change in :attr:`x`."
-msgstr ""
+msgstr "この関数は、:attr:`x` と :attr:`y` の関係を最もよく説明する線形回帰直線の傾き (ベータ係数) を計算します。計算時には NaN 値は除外されます。傾きは、:attr:`x` の単位変化に対する :attr:`y` の変化率を表します。"
 
 #: of qfeval_functions.functions.nanslope.nanslope:9
 msgid ""
 "The function implements the standard ordinary least squares (OLS) formula"
 " for the slope coefficient in simple linear regression:"
-msgstr ""
+msgstr "この関数は、単純線形回帰における傾き係数を求めるための標準的な最小二乗法（OLS）の計算式を実装しています："
 
 #: of qfeval_functions.functions.nanslope.nanslope:12
 msgid ""
 "\\beta = \\frac{\\text{Cov}(X, Y)}{\\text{Var}(X)} =\n"
 "\\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum (x_i - \\bar{x})^2}\n"
 "\n"
-msgstr ""
+msgstr "\\beta = \\frac{\\text{共分散}(X, Y)}{\\text{分散}(X)} =\n\\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum (x_i - \\bar{x})^2}\n\n"
 
 #: of qfeval_functions.functions.nanslope.nanslope:16
 #, python-brace-format
 msgid ""
 "where :math:`\\bar{x}` and :math:`\\bar{y}` are the means of :attr:`x` "
 "and :attr:`y` respectively, computed only over valid (non-NaN) pairs."
-msgstr ""
+msgstr "ここで :math:`\\bar{x}` と :math:`\\bar{y}` はそれぞれ :attr:`x` と :attr:`y` の平均値であり、有効なデータペア (NaN を含まない) のみを用いて計算されます。"
 
 #: of qfeval_functions.functions.nanslope.nanslope:19
 msgid ""
 "If either :attr:`x` or :attr:`y` has a NaN at a given position, that pair"
 " is excluded from all calculations including mean computation and slope "
 "estimation."
-msgstr ""
+msgstr "いずれかの :attr:`x` または :attr:`y` に特定の位置で NaN 値が存在する場合、そのペアは平均計算および傾き推定を含むすべての計算から除外されます。"
 
 #: ../../api/qfeval_functions.functions.nanslope.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.nanslope.nanslope:23
 msgid "The independent variable tensor (predictor)."
-msgstr ""
+msgstr "独立変数テンソル（予測子）。"
 
 #: of qfeval_functions.functions.nanslope.nanslope:26
 msgid ""
 "The dependent variable tensor (response). Must be broadcastable with "
 ":attr:`x`."
-msgstr ""
+msgstr "従属変数テンソル（応答変数）。 :attr:`x`とブロードキャスト可能である必要があります。"
 
 #: of qfeval_functions.functions.nanslope.nanslope:30
 msgid ""
 "The dimension(s) along which to compute the slope. If not specified "
 "(default is empty tuple), the slope is computed over all dimensions."
-msgstr ""
+msgstr "傾きを計算する次元を指定します。指定しない場合（デフォルトは空のタプル）、全ての次元にわたって傾きが計算されます。"
 
 #: of qfeval_functions.functions.nanslope.nanslope:35
 msgid ""
 "Whether the output tensor has :attr:`dim` retained or not. Default is "
 "False."
-msgstr ""
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
 
 #: ../../api/qfeval_functions.functions.nanslope.rst
 #, fuzzy
@@ -103,7 +103,7 @@ msgid ""
 " are insufficient valid pairs or if the variance of :attr:`x` is zero, "
 "the result may contain NaN values. The shape depends on the input "
 "dimensions, :attr:`dim`, and :attr:`keepdim` parameters."
-msgstr ""
+msgstr "有効なペア（NaNでない値）のみを用いて計算された傾き係数です。有効なペアが不足する場合や、:attr:`x`の分散がゼロの場合、結果にNaN値が含まれる可能性があります。形状は入力次元、:attr:`dim`、および:attr:`keepdim`パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.nanslope.rst
 msgid "Return type"
@@ -111,7 +111,7 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nanslope.nanslope:46
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.nanslope.nanslope:89
 msgid ""
@@ -119,7 +119,7 @@ msgid ""
 "observations. With fewer valid pairs, the result will be NaN. "
 "Additionally, if all valid :attr:`x` values are identical (zero "
 "variance), the slope is mathematically undefined."
-msgstr ""
+msgstr "傾きの計算には少なくとも2組の有効な（NaNでない）観測値ペアが必要です。有効なペアが2組未満の場合、結果はNaNになります。さらに、すべての有効な:attr:`x`値が同一である場合（分散が0の場合）、数学的に傾きは定義されません。"
 
 #: of qfeval_functions.functions.nanslope.nanslope:95
 msgid ""
@@ -127,7 +127,7 @@ msgid ""
 ":func:`nancovar`: NaN-aware covariance computation. :func:`nanmean`: NaN-"
 "aware mean computation. :func:`nanmulmean`: NaN-aware element-wise "
 "product mean."
-msgstr ""
+msgstr ":func:`nancorrel`: NaNを考慮した相関係数の計算。 :func:`nancovar`: NaNを考慮した共分散の計算。 :func:`nanmean`: NaNを考慮した平均の計算。 :func:`nanmulmean`: NaNを考慮した要素ごとの積の平均。"
 
 #~ msgid ""
 #~ "NOTE: This is based on calculation "

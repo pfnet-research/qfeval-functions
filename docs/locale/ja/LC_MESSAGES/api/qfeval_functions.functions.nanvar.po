@@ -23,7 +23,7 @@ msgstr "qfeval\\_functions.functions.nanvar"
 
 #: of qfeval_functions.functions.nanvar.nanvar:1
 msgid "Compute the variance of a tensor, ignoring NaN values."
-msgstr ""
+msgstr "NaN値を無視してテンソルの分散を計算します。"
 
 #: of qfeval_functions.functions.nanvar.nanvar:3
 msgid ""
@@ -31,36 +31,36 @@ msgid ""
 "dimensions while excluding NaN values. The variance can be computed using"
 " either the unbiased estimator (dividing by N-1) or the biased estimator "
 "(dividing by N), where N is the number of non-NaN elements."
-msgstr ""
+msgstr "この関数は、指定された次元に沿ってテンソル要素の分散を計算します。計算時には NaN 値は除外されます。分散は、不偏推定量（要素数 N-1 で除算）または偏推定量（要素数 N で除算）のいずれかを用いて計算できます。ここで N は NaN 値を除いた要素数です。"
 
 #: of qfeval_functions.functions.nanvar.nanvar
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.nanvar.nanvar:9
 msgid "The input tensor."
-msgstr ""
+msgstr "入力テンソル。"
 
 #: of qfeval_functions.functions.nanvar.nanvar:12
 msgid ""
 "The dimension(s) along which to compute the variance. If not specified "
 "(default is an empty tuple), the variance is computed over all elements. "
 "Can be a single dimension or multiple dimensions."
-msgstr ""
+msgstr "分散を計算する次元を指定します。指定しない場合（デフォルトは空のタプル）は、すべての要素に対して分散を計算します。単一の次元または複数の次元を指定できます。"
 
 #: of qfeval_functions.functions.nanvar.nanvar:17
 msgid ""
 "If ``True`` (default), uses Bessel's correction and divides by ``N-1`` "
 "where ``N`` is the number of non-NaN elements. If ``False``, divides by "
 "``N``."
-msgstr ""
+msgstr "デフォルト値の``True``の場合、ベッセル補正を適用し、非NaN要素の数を``N``として``N-1``で除算します。``False``の場合、``N``で除算します。"
 
 #: of qfeval_functions.functions.nanvar.nanvar:22
 msgid ""
 "If ``True``, the output tensor has the same number of dimensions as the "
 "input, with the reduced dimensions having size 1. If ``False`` (default),"
 " the reduced dimensions are removed."
-msgstr ""
+msgstr "``True`` の場合、出力テンソルは入力テンソルと同じ数の次元を持ち、削減された次元のサイズは 1 になります。``False`` の場合（デフォルト）、削減された次元は削除されます。"
 
 #: of qfeval_functions.functions.nanvar.nanvar
 #, fuzzy
@@ -71,7 +71,7 @@ msgstr "戻り値の型"
 msgid ""
 "The variance of non-NaN elements. The shape depends on the :attr:`dim` "
 "and :attr:`keepdim` parameters."
-msgstr ""
+msgstr "非NaN要素の分散。形状は :attr:`dim` と :attr:`keepdim` パラメータに依存します。"
 
 #: of qfeval_functions.functions.nanvar.nanvar
 msgid "Return type"
@@ -79,7 +79,7 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nanvar.nanvar:32
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #~ msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
 #~ msgstr "各行の平均値を返しますが、Not a Numbers (NaNs) は無視します。"

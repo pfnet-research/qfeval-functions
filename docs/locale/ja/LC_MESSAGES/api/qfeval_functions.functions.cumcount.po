@@ -26,7 +26,7 @@ msgstr "qfeval\\_functions.functions.cumcount"
 
 #: of qfeval_functions.functions.cumcount.cumcount:1
 msgid "Number each occurrence of unique values along a dimension."
-msgstr ""
+msgstr "指定された次元に沿って、各ユニーク値の出現回数をそれぞれ番号付けします。"
 
 #: of qfeval_functions.functions.cumcount.cumcount:3
 msgid ""
@@ -34,21 +34,21 @@ msgid ""
 "values along the specified dimension. For each unique value, the first "
 "occurrence is numbered 0, the second occurrence is numbered 1, and so on."
 " This is similar to the behavior of ``pandas.GroupBy.cumcount()``."
-msgstr ""
+msgstr "この関数は、指定された次元に沿って各ユニーク値の出現回数に累積カウントを割り当てます。各ユニーク値について、最初の出現は0、2番目の出現は1、というようにカウントされます。この動作は ``pandas.GroupBy.cumcount()`` の動作と類似しています。"
 
 #: of qfeval_functions.functions.cumcount.cumcount
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.cumcount.cumcount:9
 msgid "The input tensor containing values to be counted."
-msgstr ""
+msgstr "カウント対象の値を含む入力テンソル。"
 
 #: of qfeval_functions.functions.cumcount.cumcount:12
 msgid ""
 "The dimension along which to perform cumulative counting. Default is -1 "
 "(the last dimension)."
-msgstr ""
+msgstr "累積カウントを実行する次元。デフォルトは-1（最後の次元）です。"
 
 #: of qfeval_functions.functions.cumcount.cumcount
 #, fuzzy
@@ -60,7 +60,7 @@ msgid ""
 "A tensor of the same shape as the input, where each element contains the "
 "cumulative count (0-indexed) of that value's occurrence along the "
 "specified dimension."
-msgstr ""
+msgstr "入力テンソルと同じ形状のテンソルで、各要素には指定された次元に沿ったその値の出現回数の累積カウント（0から始まるインデックス）が格納されます。"
 
 #: of qfeval_functions.functions.cumcount.cumcount
 msgid "Return type"
@@ -68,7 +68,7 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.cumcount.cumcount:22
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #~ msgid ""
 #~ "Numbers each item in each group "

@@ -36,18 +36,18 @@ msgid ""
 " variables change together. Unlike ``numpy.cov``, this function computes "
 "element-wise covariance for each batch index rather than producing a "
 "covariance matrix."
-msgstr ""
+msgstr "この関数は、指定された次元に沿ってテンソル :attr:`x` と :attr:`y` の間の共分散を計算します。共分散は、2つの変数がどの程度一緒に変化するかを測る指標です。``numpy.cov`` とは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対して要素ごとの共分散を計算します。"
 
 #: of qfeval_functions.functions.covar.covar:9
 msgid "The covariance is computed as:"
-msgstr ""
+msgstr "共分散は以下のように計算されます："
 
 #: of qfeval_functions.functions.covar.covar:11
 msgid ""
 "\\text{Cov}(X, Y) = \\frac{1}{N - \\text{ddof}}\n"
 "\\sum_{i=1}^{N} (X_i - \\bar{X})(Y_i - \\bar{Y})\n"
 "\n"
-msgstr ""
+msgstr "\\text{Cov}(X, Y) = \\frac{1}{N - \\text{ddof}}\n\\sum_{i=1}^{N} (X_i - \\bar{X})(Y_i - \\bar{Y})\n\n"
 
 #: of qfeval_functions.functions.covar.covar:15
 #, python-brace-format
@@ -55,44 +55,44 @@ msgid ""
 "where :math:`\\bar{X}` and :math:`\\bar{Y}` are the means of :attr:`x` "
 "and :attr:`y` respectively along the specified dimension, and :math:`N` "
 "is the number of elements along that dimension."
-msgstr ""
+msgstr "ここで :math:`\\bar{X}` と :math:`\\bar{Y}` は、それぞれ指定された次元に沿って :attr:`x` と :attr:`y` の平均値を表し、:math:`N` はその次元に沿った要素数です。"
 
 #: of qfeval_functions.functions.covar.covar:19
 msgid ""
 "The function is memory-efficient when broadcasting tensors. For example, "
 "when operating on tensors with shapes ``(N, 1, D)`` and ``(1, M, D)``, "
 "the space complexity remains ``O(ND + MD)`` instead of ``O(NMD)``."
-msgstr ""
+msgstr "この関数はテンソルのブロードキャスト処理においてメモリ効率に優れています。例えば、形状が ``(N, 1, D)`` と ``(1, M, D)`` の形状を持つテンソルを処理する場合、空間計算量は ``O(NMD)`` ではなく ``O(ND + MD)`` となります。"
 
 #: of qfeval_functions.functions.covar.covar
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.covar.covar:24
 msgid "The first input tensor."
-msgstr ""
+msgstr "最初の入力テンソル。"
 
 #: of qfeval_functions.functions.covar.covar:27
 msgid "The second input tensor. Must be broadcastable with :attr:`x`."
-msgstr ""
+msgstr "第2の入力テンソル。 :attr:`x`とブロードキャスト可能である必要があります。"
 
 #: of qfeval_functions.functions.covar.covar:30
 msgid ""
 "The dimension along which to compute the covariance. Default is -1 (the "
 "last dimension)."
-msgstr ""
+msgstr "共分散を計算する次元。デフォルトは -1 で、最後の次元を意味します。"
 
 #: of qfeval_functions.functions.covar.covar:34
 msgid ""
 "Whether the output tensor has :attr:`dim` retained or not. Default is "
 "False."
-msgstr ""
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
 
 #: of qfeval_functions.functions.covar.covar:38
 msgid ""
 "Delta degrees of freedom. The divisor used in the calculation is ``N - "
 "ddof``, where ``N`` represents the number of elements. Default is 1."
-msgstr ""
+msgstr "自由度の差分。計算に使用される除数は ``N - ddof`` で、ここで ``N`` は要素数を表します。デフォルト値は 1 です。"
 
 #: of qfeval_functions.functions.covar.covar
 #, fuzzy
@@ -103,7 +103,7 @@ msgstr "戻り値の型"
 msgid ""
 "The covariance values. The shape depends on the input dimensions and the "
 ":attr:`keepdim` parameter."
-msgstr ""
+msgstr "共分散値。形状は入力次元と :attr:`keepdim` パラメータに依存します。"
 
 #: of qfeval_functions.functions.covar.covar
 msgid "Return type"
@@ -111,7 +111,7 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.covar.covar:48
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #~ msgid ""
 #~ "When performing broadcast between the "

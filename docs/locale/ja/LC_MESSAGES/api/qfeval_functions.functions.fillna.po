@@ -37,31 +37,31 @@ msgid ""
 "preserved. This behavior differs from ``torch.nan_to_num``, which "
 "replaces infinities with the largest/smallest representable finite values"
 " by default."
-msgstr ""
+msgstr "この関数は、テンソル内の NaN (Not a Number) 値、正の無限大値、負の無限大値をユーザーが指定した値で置換します。デフォルトでは、NaN 値は 0 に置換され、無限大値は保持されます。この動作は、デフォルトで無限大値を表現可能な最大/最小の有限値に置換する「torch.nan_to_num」関数とは異なります。"
 
 #: of qfeval_functions.functions.fillna.fillna
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.fillna.fillna:10
 msgid "The input tensor containing values to be replaced."
-msgstr ""
+msgstr "置換対象の値を含む入力テンソル。"
 
 #: of qfeval_functions.functions.fillna.fillna:13
 msgid "The value to replace NaN with. Default is 0.0."
-msgstr ""
+msgstr "NaN を置き換える値。デフォルトは 0.0 です。"
 
 #: of qfeval_functions.functions.fillna.fillna:17
 msgid ""
 "The value to replace positive infinity with. Default is ``math.inf`` "
 "(preserves positive infinity)."
-msgstr ""
+msgstr "正の無限大を置き換える値。デフォルトは``math.inf``（正の無限大を保持します）。"
 
 #: of qfeval_functions.functions.fillna.fillna:21
 msgid ""
 "The value to replace negative infinity with. Default is ``-math.inf`` "
 "(preserves negative infinity)."
-msgstr ""
+msgstr "負の無限大を置き換える値。デフォルトは ``-math.inf`` で、負の無限大をそのまま保持します。"
 
 #: of qfeval_functions.functions.fillna.fillna
 #, fuzzy
@@ -72,7 +72,7 @@ msgstr "戻り値の型"
 msgid ""
 "A new tensor with the same shape and dtype as the input, where NaN and "
 "infinity values are replaced according to the specified parameters."
-msgstr ""
+msgstr "入力と同じ形状とデータ型を持つ新しいテンソルで、NaN値と無限大値は指定されたパラメータに従って置換されます。"
 
 #: of qfeval_functions.functions.fillna.fillna
 msgid "Return type"
@@ -80,7 +80,7 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.fillna.fillna:31
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #~ msgid ""
 #~ "NOTE: Differently from torch.nan_to_num, this"

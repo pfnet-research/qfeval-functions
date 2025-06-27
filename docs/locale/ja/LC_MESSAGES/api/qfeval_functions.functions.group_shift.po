@@ -36,21 +36,21 @@ msgid ""
 "marked as ``False`` are skipped. This is particularly useful for time "
 "series data where certain time points should be excluded from the shift "
 "operation, such as weekends in financial data or missing observations."
-msgstr ""
+msgstr "この関数は選択的なシフト処理を実行します。マスクで ``True`` とマークされた位置の要素のみがシフトされ、``False`` とマークされた位置の要素はスキップされます。これは、金融データの週末や欠損観測値など、特定の時間ポイントをシフト処理から除外する必要がある時系列データに特に有用です。"
 
 #: of qfeval_functions.functions.group_shift.group_shift:9
 msgid ""
 "The function works by reordering elements based on the mask, applying the"
 " shift only to valid positions, and then restoring the original order. "
 "Elements at masked-out positions are replaced with NaN values."
-msgstr ""
+msgstr "この関数は、マスクに基づいて要素の順序を並べ替え、有効な位置に対してのみシフトを適用し、その後元の順序を復元します。マスクで無効化された位置の要素は NaN 値に置き換えられます。"
 
 #: of qfeval_functions.functions.group_shift.group_shift:14
 msgid ""
 "Unmasked values (where mask is ``False``) are replaced with NaN before "
 "shifting. This means that even a zero shift (``shift=0``) will not return"
 " the original input, as unmasked values will be NaN in the output."
-msgstr ""
+msgstr "マスクされていない値（マスクが ``False`` の場合）はシフト前に NaN に置き換えられます。つまり、シフト値が 0 の場合（``shift=0``）でも、出力ではマスクされていない値が NaN となるため、入力値は復元されません。"
 
 #: ../../api/qfeval_functions.functions.group_shift.rst
 msgid "Parameters"
@@ -65,7 +65,7 @@ msgstr "入力テンソル。"
 msgid ""
 "The number of positions to shift. Positive values shift forward (toward "
 "higher indices), negative values shift backward. Default is 1."
-msgstr ""
+msgstr "シフトする位置の数。正の値は前方へシフト（高いインデックス方向へ）、負の値は後方へシフトします。デフォルト値は1です。"
 
 #: of qfeval_functions.functions.group_shift.group_shift:28
 #, fuzzy
@@ -77,20 +77,20 @@ msgid ""
 "A 1D boolean tensor where ``True`` indicates positions to include in the "
 "shift, and ``False`` indicates positions to skip. Length must equal "
 "``x.shape[dim]``. If not provided, :attr:`refdim` must be specified."
-msgstr ""
+msgstr "1次元のブールテンソルで、``True``はシフト処理に含めるべき位置を示し、``False``はスキップすべき位置を示します。長さは``x.shape[dim]``と一致している必要があります。指定されていない場合、:attr:`refdim`を指定する必要があります。"
 
 #: of qfeval_functions.functions.group_shift.group_shift:38
 msgid ""
 "If specified, automatically generates a mask using "
 ":func:`reduce_nan_patterns`. This identifies valid positions based on "
 "non-NaN patterns in the reference dimension. Default is -1."
-msgstr ""
+msgstr "指定されている場合、:func:`reduce_nan_patterns` を使用して自動的にマスクを生成します。このマスクは、参照次元における非 NaN パターンに基づいて有効な位置を識別します。デフォルト値は -1 です。"
 
 #: of qfeval_functions.functions.group_shift.group_shift:43
 msgid ""
 "Aggregation function used when generating mask from :attr:`refdim`. Can "
 "be \"any\" or \"all\". Default is \"any\"."
-msgstr ""
+msgstr ":attr:`refdim` からマスクを生成する際に使用する集計関数。\"any\" または \"all\" のいずれかを指定可能。デフォルトは \"any\" です。"
 
 #: ../../api/qfeval_functions.functions.group_shift.rst
 msgid "Returns"
@@ -100,7 +100,7 @@ msgstr "戻り値"
 msgid ""
 "A tensor of the same shape as the input, with elements shifted according "
 "to the mask. Unmasked positions contain NaN."
-msgstr ""
+msgstr "入力と同じ形状のテンソルで、マスクに従って要素がシフトされています。マスクされていない位置にはNaNが格納されます。"
 
 #: ../../api/qfeval_functions.functions.group_shift.rst
 msgid "Return type"
@@ -108,13 +108,13 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.group_shift.group_shift:53
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.group_shift.group_shift:80
 msgid ""
 ":func:`reduce_nan_patterns`: For understanding mask generation from "
 "reference dimensions."
-msgstr ""
+msgstr ":func:`reduce_nan_patterns`: 参照次元からマスクを生成する仕組みを理解するための関数です。"
 
 #~ msgid ""
 #~ "This function applies shifts only for"

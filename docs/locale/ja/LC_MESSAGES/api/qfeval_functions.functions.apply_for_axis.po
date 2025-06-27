@@ -28,7 +28,7 @@ msgstr "qfeval\\_functions.functions.apply\\_for\\_axis"
 msgid ""
 "Apply a function expecting 2D input to a tensor along a specified "
 "dimension."
-msgstr ""
+msgstr "指定された次元に沿って、2次元入力を想定した関数をテンソルに適用します。"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:4
 msgid ""
@@ -38,28 +38,28 @@ msgid ""
 " the function, and then restoring the original shape. This is "
 "particularly useful for implementing dimension-aware operations without "
 "explicitly handling different tensor shapes."
-msgstr ""
+msgstr "このユーティリティ関数は、形状が ``(batch, n)`` の2次元テンソルを想定した関数を、任意の次元のテンソルに適用することを可能にします。具体的には、指定された次元以外のすべての次元を平坦化し、関数を適用した後、元の形状に復元します。この処理は、異なるテンソル形状を明示的に処理することなく、次元を意識した操作を実装する際に特に有用です。"
 
 #: ../../api/qfeval_functions.functions.apply_for_axis.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:12
 msgid ""
 "A function that expects a 2D tensor of shape ``(batch, n)`` as input and "
 "returns a tensor where the batch dimension is preserved. The function "
 "must be dimension-preserving along the batch dimension."
-msgstr ""
+msgstr "入力として形状が``(batch, n)``の2次元テンソルを想定し、バッチ次元が保持されたテンソルを返す関数です。関数はバッチ次元に沿って次元を保持する必要があります。"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:17
 msgid "The input tensor of arbitrary dimensions to process."
-msgstr ""
+msgstr "処理対象の任意次元テンソル。"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:20
 msgid ""
 "The dimension along which to apply the function. Default is -1 (the last "
 "dimension)."
-msgstr ""
+msgstr "関数を適用する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.apply_for_axis.rst
 #, fuzzy
@@ -70,7 +70,7 @@ msgstr "戻り値の型"
 msgid ""
 "The result of applying function :attr:`f` along the specified dimension, "
 "with the same shape as the input tensor."
-msgstr ""
+msgstr "指定された次元に沿って関数 :attr:`f` を適用した結果で、入力テンソルと同じ形状を持ちます。"
 
 #: ../../api/qfeval_functions.functions.apply_for_axis.rst
 msgid "Return type"
@@ -78,14 +78,14 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:29
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:53
 msgid ""
 "The function :attr:`f` must preserve the batch dimension size. Functions "
 "that change the batch dimension size will cause shape mismatch errors "
 "during the reshape operation."
-msgstr ""
+msgstr "関数 :attr:`f` はバッチ次元のサイズを保持しなければなりません。バッチ次元のサイズを変更する関数は、形状不一致エラーを引き起こし、形状変更処理中にエラーが発生します。"
 
 #~ msgid ""
 #~ "Applies the given data `x` into "

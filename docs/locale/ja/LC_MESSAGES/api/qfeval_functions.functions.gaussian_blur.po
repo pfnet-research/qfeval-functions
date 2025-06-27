@@ -26,7 +26,7 @@ msgstr "qfeval\\_functions.functions.gaussian\\_blur"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:1
 msgid "Apply Gaussian blur to a tensor along a specified dimension."
-msgstr ""
+msgstr "指定された次元に沿ってテンソルにガウシアンぼかしを適用します。"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:3
 msgid ""
@@ -35,7 +35,7 @@ msgid ""
 "weighted average of neighboring values, where weights follow a Gaussian "
 "(normal) distribution centered at each point. This is commonly used for "
 "noise reduction, data smoothing, and signal processing."
-msgstr ""
+msgstr "この関数は、指定された次元に沿って1次元ガウシアンフィルタを適用し、データを平滑化します。ガウシアンぼかし処理では、各点を中心としたガウシアン（正規）分布に従って重み付けされた近傍値の加重平均を計算します。これは主にノイズ低減、データ平滑化、および信号処理用途で使用されます。"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:9
 msgid ""
@@ -44,27 +44,27 @@ msgid ""
 "averages of the Gaussian function for improved accuracy, especially for "
 "small :attr:`sigma` values. This approach avoids undersampling issues and"
 " provides more accurate results."
-msgstr ""
+msgstr "一般的な実装手法（例えば``scipy.ndimage.gaussian_filter1d``のような点サンプリング手法）とは異なり、この関数はガウス関数の区間平均を用いて精度を向上させています。特に :attr:`sigma` 値が小さい場合に、この手法はサンプリング不足の問題を回避し、より正確な結果を提供します。"
 
 #: ../../api/qfeval_functions.functions.gaussian_blur.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:16
 msgid "The input tensor to be blurred."
-msgstr ""
+msgstr "ぼかし処理を施す入力テンソル。"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:19
 msgid ""
 "The standard deviation of the Gaussian kernel. Larger values produce more"
 " smoothing. Must be positive."
-msgstr ""
+msgstr "ガウスカーネルの標準偏差。値が大きいほど平滑化効果が強くなります。正の値である必要があります。"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:23
 msgid ""
 "The dimension along which to apply the Gaussian blur. Default is -1 (the "
 "last dimension)."
-msgstr ""
+msgstr "ガウシアンブラーを適用する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.gaussian_blur.rst
 #, fuzzy
@@ -75,7 +75,7 @@ msgstr "戻り値の型"
 msgid ""
 "A tensor of the same shape as the input, containing the Gaussian-blurred "
 "values."
-msgstr ""
+msgstr "入力と同じ形状のテンソルで、ガウシアンぼかし処理が適用された値を含んでいます。"
 
 #: ../../api/qfeval_functions.functions.gaussian_blur.rst
 msgid "Return type"
@@ -83,17 +83,17 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:32
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:51
 msgid "https://en.wikipedia.org/wiki/Gaussian_blur"
-msgstr ""
+msgstr "https://en.wikipedia.org/wiki/Gaussian_blur"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:52
 msgid ""
 "https://bartwronski.com/2021/10/31/gaussian-blur-corrected-improved-and-"
 "optimized/"
-msgstr ""
+msgstr "https://bartwronski.com/2021/10/31/gaussian-blur-corrected-improved-and-optimized/"
 
 #~ msgid ""
 #~ "Applies a Gaussian filter with the "

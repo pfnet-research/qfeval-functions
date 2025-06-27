@@ -37,7 +37,7 @@ msgid ""
 "together. Unlike ``numpy.cov``, this function computes element-wise "
 "covariance for each batch index rather than producing a covariance "
 "matrix."
-msgstr ""
+msgstr "この関数は、指定された次元に沿ってテンソル :attr:`x` と :attr:`y` の共分散を計算します。計算対象から除外されるのは、いずれかの値が NaN であるペアです。共分散は、2つの変数がどの程度連動して変化するかを測る指標です。``numpy.cov`` とは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対して要素ごとの共分散を計算します。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:9
 msgid ""
@@ -45,55 +45,55 @@ msgid ""
 "reduced precision (approximately half-precision) when dealing with many "
 "NaN values due to the prioritization of memory efficiency over numerical "
 "precision."
-msgstr ""
+msgstr "この関数はテンソルのブロードキャスト処理においてメモリ効率に優れていますが、数値精度よりもメモリ効率を優先するため、多くのNaN値が存在する場合には精度が約半精度まで低下する可能性があります。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:14
 msgid "The NaN-aware covariance is computed as:"
-msgstr ""
+msgstr "NaNを考慮した共分散は以下のように計算されます："
 
 #: of qfeval_functions.functions.nancovar.nancovar:16
 #, python-brace-format
 msgid ""
 "\\text{Cov}(X, Y) = \\text{E}[(X - \\mu_X)(Y - \\mu_Y)]\n"
 "\n"
-msgstr ""
+msgstr "\\text{Cov}(X, Y) = \\text{E}[(X - \\mu_X)(Y - \\mu_Y)]\n\n"
 
 #: of qfeval_functions.functions.nancovar.nancovar:19
 msgid ""
 "where the expectation is computed only over valid (non-NaN) pairs, and "
 ":math:`\\mu_X`, :math:`\\mu_Y` are the means computed over valid values."
-msgstr ""
+msgstr "ここで、期待値は有効な値のペア（NaNでない値）に対してのみ計算され、:math:`\\mu_X` および :math:`\\mu_Y` は有効な値に対して計算された平均値です。"
 
 #: ../../api/qfeval_functions.functions.nancovar.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.nancovar.nancovar:23
 msgid "The first input tensor."
-msgstr ""
+msgstr "最初の入力テンソル。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:26
 msgid "The second input tensor. Must be broadcastable with :attr:`x`."
-msgstr ""
+msgstr "第2の入力テンソル。 :attr:`x`とブロードキャスト可能である必要があります。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:29
 msgid ""
 "The dimension along which to compute the covariance. Default is -1 (the "
 "last dimension)."
-msgstr ""
+msgstr "共分散を計算する次元。デフォルトは -1 で、最後の次元を意味します。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:33
 msgid ""
 "Whether the output tensor has :attr:`dim` retained or not. Default is "
 "False."
-msgstr ""
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:37
 msgid ""
 "Delta degrees of freedom. The divisor used in the calculation is ``N - "
 "ddof``, where ``N`` represents the number of valid (non-NaN) pairs. "
 "Default is 1."
-msgstr ""
+msgstr "自由度のデルタ値。計算に使用される除数は ``N - ddof`` で、ここで ``N`` は有効な（NaNでない）ペアの数を表します。デフォルト値は 1 です。"
 
 #: ../../api/qfeval_functions.functions.nancovar.rst
 #, fuzzy
@@ -104,7 +104,7 @@ msgstr "戻り値の型"
 msgid ""
 "The covariance values computed only over valid (non-NaN) pairs. The shape"
 " depends on the input dimensions and the :attr:`keepdim` parameter."
-msgstr ""
+msgstr "有効な（NaNでない）ペアのみに対して計算された共分散値。形状は入力次元と :attr:`keepdim` パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.nancovar.rst
 msgid "Return type"
@@ -112,7 +112,7 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nancovar.nancovar:48
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.nancovar.nancovar:79
 msgid ""
@@ -120,19 +120,19 @@ msgid ""
 " when dealing with many NaN values due to memory efficiency "
 "optimizations. For higher precision with many NaNs, consider using CUDA "
 "kernels via PyTorch JIT compilation."
-msgstr ""
+msgstr "メモリ効率最適化のため、多くのNaN値を扱う場合、計算精度が若干低下する可能性があります（約半精度）。NaN値が多い場合により高い精度が必要な場合は、PyTorchのJITコンパイル機能を使用してCUDAカーネルを直接実行することを検討してください。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:85
 msgid ":func:`covar`: Covariance without NaN handling."
-msgstr ""
+msgstr ":func:`covar`: NaN処理を行わない共分散計算。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:86
 msgid ":func:`nancorrel`: NaN-aware correlation function."
-msgstr ""
+msgstr ":func:`nancorrel`: NaNを考慮した相関関数。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:87
 msgid ":func:`nanmean`: NaN-aware mean function."
-msgstr ""
+msgstr ":func:`nanmean`: NaNを考慮した平均関数。"
 
 #~ msgid ""
 #~ "CAVEAT: Differently from np.cov, this "

@@ -26,7 +26,7 @@ msgstr "qfeval\\_functions.functions.nancumprod"
 
 #: of qfeval_functions.functions.nancumprod.nancumprod:1
 msgid "Compute the cumulative product along a dimension, treating NaN as 1."
-msgstr ""
+msgstr "指定された次元に沿って累積積を計算し、NaN を 1 として扱います。"
 
 #: of qfeval_functions.functions.nancumprod.nancumprod:3
 msgid ""
@@ -35,19 +35,19 @@ msgid ""
 "identity) for the purpose of computing the cumulative product. However, "
 "positions with NaN values in the original tensor remain NaN in the "
 "output."
-msgstr ""
+msgstr "この関数は、指定された次元に沿って要素の累積積を計算します。ここで、NaN値は乗算の単位元である1として扱われます（累積積の計算目的のため）。ただし、元のテンソルでNaN値を持つ位置は、出力でもNaN値のままとなります。"
 
 #: ../../api/qfeval_functions.functions.nancumprod.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.nancumprod.nancumprod:9
 msgid "The input tensor containing values."
-msgstr ""
+msgstr "値を含む入力テンソル。"
 
 #: of qfeval_functions.functions.nancumprod.nancumprod:12
 msgid "The dimension along which to compute the cumulative product."
-msgstr ""
+msgstr "累積積を計算する次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.nancumprod.rst
 #, fuzzy
@@ -58,7 +58,7 @@ msgstr "戻り値の型"
 msgid ""
 "A tensor of the same shape as the input, containing the cumulative "
 "product values. Original NaN positions remain NaN."
-msgstr ""
+msgstr "入力テンソルと同じ形状のテンソルで、累積積算値を格納します。元のNaN位置はそのままNaNとして保持されます。"
 
 #: ../../api/qfeval_functions.functions.nancumprod.rst
 msgid "Return type"
@@ -66,19 +66,19 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nancumprod.nancumprod:20
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.nancumprod.nancumprod:48
 msgid ":func:`nancumsum`: NaN-aware cumulative sum."
-msgstr ""
+msgstr ":func:`nancumsum`: NaNを考慮した累積和。"
 
 #: of qfeval_functions.functions.nancumprod.nancumprod:49
 msgid ":func:`torch.cumprod`: Standard cumulative product (NaN propagates)."
-msgstr ""
+msgstr ":func:`torch.cumprod`: 標準の累積積算演算（NaNは伝播します）。"
 
 #: of qfeval_functions.functions.nancumprod.nancumprod:50
 msgid ":func:`torch.nan_to_num`: Convert NaN values to specified numbers."
-msgstr ""
+msgstr ":func:`torch.nan_to_num`: NaN値を指定した数値に変換します。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"

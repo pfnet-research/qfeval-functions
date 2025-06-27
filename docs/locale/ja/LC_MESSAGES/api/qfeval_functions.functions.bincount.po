@@ -26,7 +26,7 @@ msgstr "qfeval\\_functions.functions.bincount"
 
 #: of qfeval_functions.functions.bincount.bincount:1
 msgid "Count number of occurrences of each value in a tensor."
-msgstr ""
+msgstr "テンソル内の各値の出現回数をカウントします。"
 
 #: of qfeval_functions.functions.bincount.bincount:3
 msgid ""
@@ -35,28 +35,28 @@ msgid ""
 "size along the counted dimension is the maximum of :attr:`minlength` and "
 "the largest value in the input plus one. Each position in the output "
 "contains the count of that index value in the input."
-msgstr ""
+msgstr "この関数は、指定された次元に沿って入力テンソル内の各非負整数値の出現頻度を計算します。出力テンソルの指定された次元方向のサイズは、:attr:`minlength` と入力テンソル内の最大値に 1 を加えた値の最大値となります。出力テンソルの各位置には、そのインデックス値の入力テンソル内での出現回数が格納されます。"
 
 #: of qfeval_functions.functions.bincount.bincount
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.bincount.bincount:10
 msgid "The input tensor containing non-negative integer values."
-msgstr ""
+msgstr "非負整数値を含む入力テンソル。"
 
 #: of qfeval_functions.functions.bincount.bincount:13
 msgid ""
 "Minimum length of the output tensor along the counted dimension. If the "
 "maximum value in :attr:`x` is less than :attr:`minlength` - 1, the output"
 " is padded with zeros. Default is 0."
-msgstr ""
+msgstr "カウント対象次元に沿った出力テンソルの最小長。 :attr:`x` 内の最大値が :attr:`minlength` - 1 未満の場合、出力はゼロでパディングされます。デフォルト値は 0 です。"
 
 #: of qfeval_functions.functions.bincount.bincount:19
 msgid ""
 "The dimension along which to count values. Default is -1 (the last "
 "dimension)."
-msgstr ""
+msgstr "カウントする次元。デフォルトは -1 で、最後の次元を意味します。"
 
 #: of qfeval_functions.functions.bincount.bincount
 #, fuzzy
@@ -68,7 +68,7 @@ msgid ""
 "A tensor where the value at index `i` along the specified dimension "
 "contains the count of occurrences of value `i` in the corresponding slice"
 " of the input tensor."
-msgstr ""
+msgstr "指定された次元に沿ってインデックス `i` の値が、入力テンソルの対応するスライス内で値 `i` が出現する回数を表しているテンソル。"
 
 #: of qfeval_functions.functions.bincount.bincount
 msgid "Return type"

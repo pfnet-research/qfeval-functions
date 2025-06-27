@@ -28,7 +28,7 @@ msgstr "qfeval\\_functions.functions.nanones"
 msgid ""
 "Create a tensor filled with ones, preserving NaN positions from the input"
 " tensor."
-msgstr ""
+msgstr "入力テンソルのNaN値の位置を保持したまま、1で埋められたテンソルを作成します。"
 
 #: of qfeval_functions.functions.nanones.nanones:3
 msgid ""
@@ -38,11 +38,11 @@ msgid ""
 "tensor. This is useful for creating mask-like tensors that maintain the "
 "NaN structure of the original data while providing ones for valid "
 "positions."
-msgstr ""
+msgstr "この関数は、入力テンソルと同じ形状、データ型、デバイスを持つ新しいテンソルを作成し、値を1で埋めます。ただし、入力テンソルにNaN値が存在する位置は、出力テンソルでもNaN値として保持されます。これは、元のデータのNaN構造を維持しつつ、有効な位置には1を設定したマスク状のテンソルを作成する際に有用です。"
 
 #: of qfeval_functions.functions.nanones.nanones:9
 msgid "The function performs the following operation:"
-msgstr ""
+msgstr "この関数は以下の操作を実行します："
 
 #: of qfeval_functions.functions.nanones.nanones:11
 #, python-brace-format
@@ -52,18 +52,18 @@ msgid ""
 "1 & \\text{otherwise}\n"
 "\\end{cases}\n"
 "\n"
-msgstr ""
+msgstr "\\text{nanones}(X)_i = \\begin{cases}\n\\text{NaN} & \\text{if } X_i = \\text{NaN} \\\\\n1 & \\text{otherwise}\n\\end{cases}\n\n"
 
 #: ../../api/qfeval_functions.functions.nanones.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.nanones.nanones:18
 msgid ""
 "The input tensor whose shape, dtype, and device will be used for the "
 "output tensor. NaN positions in this tensor will be preserved in the "
 "output."
-msgstr ""
+msgstr "出力テンソルの形状、データ型、デバイスを決定する入力テンソル。このテンソル内のNaN位置は出力テンソルにそのまま保持されます。"
 
 #: ../../api/qfeval_functions.functions.nanones.rst
 #, fuzzy
@@ -75,7 +75,7 @@ msgid ""
 "A tensor with the same shape, dtype, and device as :attr:`like`, filled "
 "with ones except for positions where :attr:`like` contains NaN values, "
 "which remain NaN."
-msgstr ""
+msgstr ":attr:`like`と同じ形状、データ型、デバイスを持ち、:attr:`like`がNaN値を含む位置はそのままNaN値を保持し、それ以外の位置は1で埋められたテンソル。"
 
 #: ../../api/qfeval_functions.functions.nanones.rst
 msgid "Return type"
@@ -83,14 +83,14 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nanones.nanones:29
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.nanones.nanones:59
 msgid ""
 ":func:`nanzeros`: Create zeros tensor preserving NaN positions. "
 "``torch.ones_like``: Create ones tensor with same properties. "
 "``torch.where``: Conditional tensor selection."
-msgstr ""
+msgstr ":func:`nanzeros`: NaN値の位置を保持したままゼロ値のテンソルを作成します。``torch.ones_like``: 同じプロパティを持つワン値のテンソルを作成します。``torch.where``: 条件付きテンソルの選択を行います。"
 
 #~ msgid ""
 #~ "Returns a tensor having ones with "

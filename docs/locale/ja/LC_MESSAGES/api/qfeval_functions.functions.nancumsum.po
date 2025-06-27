@@ -26,7 +26,7 @@ msgstr "qfeval\\_functions.functions.nancumsum"
 
 #: of qfeval_functions.functions.nancumsum.nancumsum:1
 msgid "Compute the cumulative sum along a dimension, treating NaN as 0."
-msgstr ""
+msgstr "指定された次元に沿って累積和を計算し、NaN を 0 として扱います。"
 
 #: of qfeval_functions.functions.nancumsum.nancumsum:3
 msgid ""
@@ -35,19 +35,19 @@ msgid ""
 "identity) for the purpose of computing the cumulative sum. However, "
 "positions with NaN values in the original tensor remain NaN in the "
 "output."
-msgstr ""
+msgstr "この関数は、指定された次元に沿って要素の累積和を計算します。NaN値は加算の単位元である0として扱われるため、累積和の計算目的ではこの方法で処理されます。ただし、元のテンソルでNaN値を持つ位置は、出力テンソルでもNaN値として保持されます。"
 
 #: ../../api/qfeval_functions.functions.nancumsum.rst
 msgid "Parameters"
-msgstr ""
+msgstr "Parameters"
 
 #: of qfeval_functions.functions.nancumsum.nancumsum:9
 msgid "The input tensor containing values."
-msgstr ""
+msgstr "値を含む入力テンソル。"
 
 #: of qfeval_functions.functions.nancumsum.nancumsum:12
 msgid "The dimension along which to compute the cumulative sum."
-msgstr ""
+msgstr "累積和を計算する次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.nancumsum.rst
 #, fuzzy
@@ -58,7 +58,7 @@ msgstr "戻り値の型"
 msgid ""
 "A tensor of the same shape as the input, containing the cumulative sum "
 "values. Original NaN positions remain NaN."
-msgstr ""
+msgstr "入力テンソルと同じ形状のテンソルで、累積和の値が格納されています。元のNaN位置はそのままNaNとして保持されます。"
 
 #: ../../api/qfeval_functions.functions.nancumsum.rst
 msgid "Return type"
@@ -66,7 +66,7 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nancumsum.nancumsum:20
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.nancumsum.nancumsum:53
 msgid ""
@@ -75,19 +75,19 @@ msgid ""
 "values. However, the original NaN positions are preserved in the output, "
 "maintaining data integrity while enabling meaningful cumulative "
 "operations on partially missing data."
-msgstr ""
+msgstr "この関数では、NaN値を計算目的上の加算単位元（0）として扱います。これにより、累積和計算がNaN値を超えて継続することが可能になります。ただし、元のNaN位置は出力結果においても保持され、データの整合性を維持しつつ、部分的に欠損したデータに対しても意味のある累積演算を実行することができます。"
 
 #: of qfeval_functions.functions.nancumsum.nancumsum:60
 msgid ":func:`nancumprod`: NaN-aware cumulative product."
-msgstr ""
+msgstr ":func:`nancumprod`: NaNを考慮した累積積算値。"
 
 #: of qfeval_functions.functions.nancumsum.nancumsum:61
 msgid ":func:`torch.cumsum`: Standard cumulative sum (NaN propagates)."
-msgstr ""
+msgstr ":func:`torch.cumsum`: 標準的な累積和演算（NaNは伝播します）。"
 
 #: of qfeval_functions.functions.nancumsum.nancumsum:62
 msgid ":func:`torch.nan_to_num`: Convert NaN values to specified numbers."
-msgstr ""
+msgstr ":func:`torch.nan_to_num`: NaN値を指定した数値に変換します。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"

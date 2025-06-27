@@ -26,7 +26,7 @@ msgstr "qfeval\\_functions.functions.mmin"
 
 #: of qfeval_functions.functions.mmin.mmin:1
 msgid "Compute the moving (sliding window) minimum of a tensor."
-msgstr ""
+msgstr "テンソルの移動最小値（スライディングウィンドウ最小値）を計算します。"
 
 #: of qfeval_functions.functions.mmin.mmin:3
 msgid ""
@@ -36,35 +36,35 @@ msgid ""
 "window cannot fully cover preceding elements (i.e., the first ``span - "
 "1`` elements along the selected dimension), the result is computed using "
 "available values by padding with the first element."
-msgstr ""
+msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の最小値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の ``span - 1`` 要素の場合）、結果は最初の要素でパディングすることで利用可能な値を用いて計算されます。"
 
 #: of qfeval_functions.functions.mmin.mmin:10
 msgid "The moving minimum is computed as:"
-msgstr ""
+msgstr "移動最小値は以下のように計算されます："
 
 #: of qfeval_functions.functions.mmin.mmin:12
 msgid ""
 "\\text{MMIN}[i] = \\min_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n"
 "\n"
-msgstr ""
+msgstr "\\text{MMIN}[i] = \\min_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n\n"
 
 #: ../../api/qfeval_functions.functions.mmin.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.mmin.mmin:16
 msgid "The input tensor containing values."
-msgstr ""
+msgstr "値を含む入力テンソル。"
 
 #: of qfeval_functions.functions.mmin.mmin:19
 msgid "The size of the sliding window. Must be positive."
-msgstr ""
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
 
 #: of qfeval_functions.functions.mmin.mmin:22
 msgid ""
 "The dimension along which to compute the moving minimum. Default is -1 "
 "(the last dimension)."
-msgstr ""
+msgstr "移動最小値を計算する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.mmin.rst
 #, fuzzy
@@ -75,7 +75,7 @@ msgstr "戻り値の型"
 msgid ""
 "A tensor of the same shape as the input, containing the moving minimum "
 "values."
-msgstr ""
+msgstr "入力テンソルと同じ形状で、移動最小値の値を含むテンソル。"
 
 #: ../../api/qfeval_functions.functions.mmin.rst
 msgid "Return type"
@@ -83,7 +83,7 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.mmin.mmin:31
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.mmin.mmin:63
 msgid ""
@@ -91,13 +91,13 @@ msgid ""
 "duality between minimum and maximum operations. This approach ensures "
 "consistent behavior and performance with the moving maximum function "
 "while avoiding code duplication."
-msgstr ""
+msgstr "この関数は``-mmax(-x, span, dim)``として実装されており、最小値演算と最大値演算の双対性を活用しています。このアプローチにより、移動最大値関数と一貫した動作と性能を確保しつつ、コードの重複を避けることができます。"
 
 #: of qfeval_functions.functions.mmin.mmin:69
 msgid ""
 ":func:`mmax`: Moving maximum function. :func:`msum`: Moving sum function."
 " :func:`ma`: Moving average function."
-msgstr ""
+msgstr ":func:`mmax`: 移動最大値関数。 :func:`msum`: 移動合計関数。 :func:`ma`: 移動平均関数。"
 
 #~ msgid "Returns the moving min of the given tensor."
 #~ msgstr "指定されたテンソルの移動最小値を返します。"

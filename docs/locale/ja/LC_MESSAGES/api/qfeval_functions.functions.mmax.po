@@ -26,7 +26,7 @@ msgstr "qfeval\\_functions.functions.mmax"
 
 #: of qfeval_functions.functions.mmax.mmax:1
 msgid "Compute the moving (sliding window) maximum of a tensor."
-msgstr ""
+msgstr "テンソルの移動（スライディングウィンドウ）最大値を計算します。"
 
 #: of qfeval_functions.functions.mmax.mmax:3
 msgid ""
@@ -36,35 +36,35 @@ msgid ""
 "window cannot fully cover preceding elements (i.e., the first ``span - "
 "1`` elements along the selected dimension), the result is computed using "
 "available values by padding with the first element."
-msgstr ""
+msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の最大値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の ``span - 1`` 要素の場合）、結果は最初の要素でパディングすることで利用可能な値を用いて計算されます。"
 
 #: of qfeval_functions.functions.mmax.mmax:10
 msgid "The moving maximum is computed as:"
-msgstr ""
+msgstr "移動最大値は以下のように計算されます："
 
 #: of qfeval_functions.functions.mmax.mmax:12
 msgid ""
 "\\text{MMAX}[i] = \\max_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n"
 "\n"
-msgstr ""
+msgstr "\\text{MMAX}[i] = \\max_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n\n"
 
 #: ../../api/qfeval_functions.functions.mmax.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.mmax.mmax:16
 msgid "The input tensor containing values."
-msgstr ""
+msgstr "値を含む入力テンソル。"
 
 #: of qfeval_functions.functions.mmax.mmax:19
 msgid "The size of the sliding window. Must be positive."
-msgstr ""
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
 
 #: of qfeval_functions.functions.mmax.mmax:22
 msgid ""
 "The dimension along which to compute the moving maximum. Default is -1 "
 "(the last dimension)."
-msgstr ""
+msgstr "移動最大値を計算する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.mmax.rst
 #, fuzzy
@@ -75,7 +75,7 @@ msgstr "戻り値の型"
 msgid ""
 "A tensor of the same shape as the input, containing the moving maximum "
 "values."
-msgstr ""
+msgstr "入力と同じ形状のテンソルで、移動最大値の値を格納します。"
 
 #: ../../api/qfeval_functions.functions.mmax.rst
 msgid "Return type"
@@ -83,11 +83,11 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.mmax.mmax:31
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.mmax.mmax:63
 msgid ":func:`mmin`: Moving minimum function. :func:`msum`: Moving sum function."
-msgstr ""
+msgstr ":func:`mmin`: 移動最小値関数。 :func:`msum`: 移動合計関数。"
 
 #~ msgid "Returns the moving max of the given tensor."
 #~ msgstr "指定されたテンソルの移動最大値を返します。"

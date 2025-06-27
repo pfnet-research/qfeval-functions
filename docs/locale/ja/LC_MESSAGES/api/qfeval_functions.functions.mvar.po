@@ -33,11 +33,11 @@ msgid ""
 "has the same shape as the input tensor. For positions where the sliding "
 "window cannot fully cover preceding elements (i.e., the first ``span - "
 "1`` elements along the selected dimension), the result is ``nan``."
-msgstr ""
+msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の分散を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
 
 #: of qfeval_functions.functions.mvar.mvar:9
 msgid "The moving variance is computed using the formula:"
-msgstr ""
+msgstr "移動分散は以下の数式を用いて計算されます："
 
 #: of qfeval_functions.functions.mvar.mvar:11
 msgid ""
@@ -45,37 +45,37 @@ msgid ""
 "\\sum_{j=i-\\text{span}+1}^{i} x[j]^2 -\n"
 "\\frac{(\\sum_{j=i-\\text{span}+1}^{i} x[j])^2}{\\text{span}} \\right)\n"
 "\n"
-msgstr ""
+msgstr "\\text{MVAR}[i] = \\frac{1}{\\text{span} - \\text{ddof}} \\left(\n\\sum_{j=i-\\text{span}+1}^{i} x[j]^2 -\n\\frac{(\\sum_{j=i-\\text{span}+1}^{i} x[j])^2}{\\text{span}} \\right)\n\n"
 
 #: of qfeval_functions.functions.mvar.mvar:16
 msgid ""
 "This uses the computational formula for variance that is numerically "
 "stable and efficient for sliding window calculations."
-msgstr ""
+msgstr "この実装では、数値的に安定かつ効率的なスライディングウィンドウ計算向けに設計された分散計算の数式を使用しています。"
 
 #: ../../api/qfeval_functions.functions.mvar.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.mvar.mvar:20
 msgid "The input tensor containing values."
-msgstr ""
+msgstr "値を含む入力テンソル。"
 
 #: of qfeval_functions.functions.mvar.mvar:23
 msgid "The size of the sliding window. Must be positive."
-msgstr ""
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
 
 #: of qfeval_functions.functions.mvar.mvar:26
 msgid ""
 "The dimension along which to compute the moving variance. Default is -1 "
 "(the last dimension)."
-msgstr ""
+msgstr "移動分散を計算する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: of qfeval_functions.functions.mvar.mvar:30
 msgid ""
 "Delta degrees of freedom. The divisor used in the calculation is ``span -"
 " ddof``. Use 0 for population variance. Default is 1 (sample variance)."
-msgstr ""
+msgstr "自由度の差。計算で使用される除数は ``span - ddof`` です。母分散の場合は 0 を指定します。デフォルト値は 1 です（標本分散）。"
 
 #: ../../api/qfeval_functions.functions.mvar.rst
 #, fuzzy
@@ -87,7 +87,7 @@ msgid ""
 "A tensor of the same shape as the input, containing the moving variance "
 "values. The first ``span - 1`` elements along the specified dimension are"
 " ``nan``."
-msgstr ""
+msgstr "入力と同じ形状のテンソルで、移動分散値を格納しています。指定された次元に沿って最初の``span - 1``要素は``nan``です。"
 
 #: ../../api/qfeval_functions.functions.mvar.rst
 msgid "Return type"
@@ -95,14 +95,14 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.mvar.mvar:41
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.mvar.mvar:75
 msgid ""
 ":func:`mstd`: Moving standard deviation function (square root of this). "
 ":func:`msum`: Moving sum function used in the implementation. :func:`ma`:"
 " Moving average function."
-msgstr ""
+msgstr ":func:`mstd`: 移動標準偏差関数（この関数の平方根） :func:`msum`: 実装で使用される移動合計関数 :func:`ma`: 移動平均関数"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"

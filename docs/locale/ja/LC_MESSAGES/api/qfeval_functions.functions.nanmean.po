@@ -28,7 +28,7 @@ msgstr "qfeval\\_functions.functions.nanmean"
 msgid ""
 "Compute the arithmetic mean along specified dimensions, ignoring NaN "
 "values."
-msgstr ""
+msgstr "指定された次元に沿って算術平均を計算し、NaN値を無視します。"
 
 #: of qfeval_functions.functions.nanmean.nanmean:3
 msgid ""
@@ -36,44 +36,44 @@ msgid ""
 "specified dimension(s), excluding NaN values from the computation. NaN "
 "values are treated as missing data and do not contribute to either the "
 "sum or the count used in the mean calculation."
-msgstr ""
+msgstr "この関数は、指定された次元に沿ってテンソル要素の平均値を計算します。計算時には NaN 値は無視されます。NaN 値は欠損データとして扱われ、平均値の計算に使用される合計値やカウント値には寄与しません。"
 
 #: of qfeval_functions.functions.nanmean.nanmean:8
 msgid "The NaN-aware mean is computed as:"
-msgstr ""
+msgstr "NaNを考慮した平均値は以下のように計算されます："
 
 #: of qfeval_functions.functions.nanmean.nanmean:10
 msgid ""
 "\\text{nanmean}(X) = \\frac{\\sum_{i \\text{ valid}} "
 "X_i}{N_{\\text{valid}}}\n"
 "\n"
-msgstr ""
+msgstr "\\text{nanmean}(X) = \\frac{\\sum_{i \\text{ valid}} X_i}{N_{\\text{valid}}}\n\n"
 
 #: of qfeval_functions.functions.nanmean.nanmean:13
 msgid ""
 "where the sum is over valid (non-NaN) values and "
 ":math:`N_{\\text{valid}}` is the number of valid values."
-msgstr ""
+msgstr "ここで、和は有効な値（NaNでない値）に対して計算され、:math:`N_{\\text{valid}}`は有効な値の個数を表します。"
 
 #: ../../api/qfeval_functions.functions.nanmean.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.nanmean.nanmean:17
 msgid "The input tensor containing values."
-msgstr ""
+msgstr "値を含む入力テンソル。"
 
 #: of qfeval_functions.functions.nanmean.nanmean:20
 msgid ""
 "The dimension(s) along which to compute the mean. If not specified "
 "(default is empty tuple), the mean is computed over all dimensions."
-msgstr ""
+msgstr "平均を計算する次元を指定します。指定しない場合（デフォルトは空のタプル）は、すべての次元にわたって平均が計算されます。"
 
 #: of qfeval_functions.functions.nanmean.nanmean:24
 msgid ""
 "Whether the output tensor has :attr:`dim` retained or not. Default is "
 "False."
-msgstr ""
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
 
 #: ../../api/qfeval_functions.functions.nanmean.rst
 #, fuzzy
@@ -85,7 +85,7 @@ msgid ""
 "The mean values computed only over valid (non-NaN) values. The shape "
 "depends on the input dimensions, :attr:`dim`, and :attr:`keepdim` "
 "parameters."
-msgstr ""
+msgstr "有効な値（NaNでない値）のみに基づいて計算された平均値。形状は入力次元、:attr:`dim`パラメータ、および :attr:`keepdim`パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.nanmean.rst
 msgid "Return type"
@@ -93,14 +93,14 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nanmean.nanmean:34
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.nanmean.nanmean:66
 msgid ""
 ":func:`nansum`: NaN-aware sum function. :func:`nanstd`: NaN-aware "
 "standard deviation function. :func:`nanvar`: NaN-aware variance function."
 " ``torch.nanmean``: PyTorch's built-in NaN-aware mean function."
-msgstr ""
+msgstr ":func:`nansum`: NaNを考慮した和関数。 :func:`nanstd`: NaNを考慮した標準偏差関数。 :func:`nanvar`: NaNを考慮した分散関数。 ``torch.nanmean``: PyTorchに組み込まれたNaNを考慮した平均関数。"
 
 #~ msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
 #~ msgstr "各行の平均値を返しますが、Not a Numbers (NaNs) は無視します。"

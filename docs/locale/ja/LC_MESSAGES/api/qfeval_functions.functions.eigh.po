@@ -35,7 +35,7 @@ msgid ""
 "symmetric or complex Hermitian matrix. The eigenvalues are returned in "
 "ascending order, and the corresponding eigenvectors are normalized. This "
 "implementation uses NumPy for CPU tensors and CuPy for CUDA tensors."
-msgstr ""
+msgstr "この関数は、実対称行列または複素エルミート行列の固有値と固有ベクトルを計算します。固有値は昇順に返され、対応する固有ベクトルは正規化されます。この実装では、CPUテンソルにはNumPyを、CUDAテンソルにはCuPyを使用しています。"
 
 #: of qfeval_functions.functions.eigh.eigh:9
 #, fuzzy
@@ -44,33 +44,33 @@ msgstr "注意: この関数は微分可能な計算をサポートしていま�
 
 #: of qfeval_functions.functions.eigh.eigh
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.eigh.eigh:12
 msgid ""
 "A symmetric (if real) or Hermitian (if complex) matrix of shape ``(..., "
 "N, N)``. Only the upper or lower triangular part is used, depending on "
 "the :attr:`uplo` parameter."
-msgstr ""
+msgstr "形状が ``(..., N, N)`` の対称行列（実数の場合）またはエルミート行列（複素数の場合）。 :attr:`uplo` パラメータに応じて、上三角部分または下三角部分が使用されます。"
 
 #: of qfeval_functions.functions.eigh.eigh:17
 msgid ""
 "Indicates which triangular part of the matrix is used:  - 'L' or 'l': Use"
 " the lower triangular part (default) - 'U' or 'u': Use the upper "
 "triangular part"
-msgstr ""
+msgstr "使用する行列の三角部分を示します：  - 'L' または 'l': 下三角部分を使用する（デフォルト） - 'U' または 'u': 上三角部分を使用する"
 
 #: of qfeval_functions.functions.eigh.eigh:17
 msgid "Indicates which triangular part of the matrix is used:"
-msgstr ""
+msgstr "使用する行列の三角部分を示します："
 
 #: of qfeval_functions.functions.eigh.eigh:19
 msgid "'L' or 'l': Use the lower triangular part (default)"
-msgstr ""
+msgstr "'L' または 'l': 下三角部分を使用する（デフォルト）"
 
 #: of qfeval_functions.functions.eigh.eigh:20
 msgid "'U' or 'u': Use the upper triangular part"
-msgstr ""
+msgstr "'U' または 'u': 上三角部分を使用する"
 
 #: of qfeval_functions.functions.eigh.eigh
 #, fuzzy
@@ -83,23 +83,23 @@ msgid ""
 "containing   eigenvalues in ascending order - Eigenvectors: A tensor of "
 "shape ``(..., N, N)`` where the columns   are the normalized eigenvectors"
 " corresponding to the eigenvalues"
-msgstr ""
+msgstr "以下の要素を含むタプル:  - 固有値: 昇順に並んだ固有値を含む形状 ``(..., N)`` のテンソル  - 固有ベクトル: 形状 ``(..., N, N)`` のテンソルで、列は対応する固有値の正規化された固有ベクトル"
 
 #: of qfeval_functions.functions.eigh.eigh:23
 msgid "A tuple containing:"
-msgstr ""
+msgstr "以下の要素を含むタプル:"
 
 #: of qfeval_functions.functions.eigh.eigh:25
 msgid ""
 "Eigenvalues: A tensor of shape ``(..., N)`` containing eigenvalues in "
 "ascending order"
-msgstr ""
+msgstr "固有値: 昇順に並んだ固有値を含む形状 ``(..., N)`` のテンソル"
 
 #: of qfeval_functions.functions.eigh.eigh:27
 msgid ""
 "Eigenvectors: A tensor of shape ``(..., N, N)`` where the columns are the"
 " normalized eigenvectors corresponding to the eigenvalues"
-msgstr ""
+msgstr "固有ベクトル: 形状が ``(..., N, N)`` のテンソルで、列は対応する固有値の正規化固有ベクトルです"
 
 #: of qfeval_functions.functions.eigh.eigh
 msgid "Return type"
@@ -107,7 +107,7 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.eigh.eigh:32
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #~ msgid ""
 #~ ":sphinx_autodoc_typehints_type:`\\:py\\:data\\:\\`\\~typing.Tuple\\`\\\\"

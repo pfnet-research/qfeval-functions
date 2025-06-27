@@ -28,7 +28,7 @@ msgstr "qfeval\\_functions.functions.einsum"
 msgid ""
 "Sums the product of tensor elements over specified indices using Einstein"
 " notation."
-msgstr ""
+msgstr "アインシュタイン記法を用いて、指定されたインデックス範囲にわたるテンソル要素の積を合計します。"
 
 #: of qfeval_functions.functions.einsum.einsum:4
 msgid ""
@@ -37,24 +37,24 @@ msgid ""
 "expressing many tensor operations (including matrix multiplication, batch"
 " matrix multiplication, dot products, broadcasting, and more) in a "
 "compact notation."
-msgstr ""
+msgstr "この関数は ``torch.einsum`` を型付けされたラッパーとして提供し、より優れた静的型解析を可能にします。アインシュタイン和記法を用いることで、行列積、バッチ行列積、点積、ブロードキャスト演算など、多くのテンソル演算を簡潔な記法で表現できます。"
 
 #: of qfeval_functions.functions.einsum.einsum
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.einsum.einsum:11
 msgid ""
 "A string describing the subscripts for summation. The string contains "
 "comma-separated subscript labels for each operand, followed by ``->`` and"
 " the subscript labels for the output."
-msgstr ""
+msgstr "和算の添字を記述する文字列です。文字列には、各演算子の添字ラベルがカンマ区切りで並び、その後に``->``と出力の添字ラベルが続きます。"
 
 #: of qfeval_functions.functions.einsum.einsum:16
 msgid ""
 "The input tensors to operate on. The number of operands must match the "
 "number of comma-separated groups in the equation."
-msgstr ""
+msgstr "演算対象の入力テンソル。演算子の数は方程式中のカンマ区切りグループの数と一致している必要があります。"
 
 #: of qfeval_functions.functions.einsum.einsum
 #, fuzzy
@@ -65,7 +65,7 @@ msgstr "戻り値の型"
 msgid ""
 "The result of the Einstein summation, with shape determined by the output"
 " subscript labels in the equation."
-msgstr ""
+msgstr "アインシュタイン和の計算結果。式中の出力添字ラベルによって形状が決定されます。"
 
 #: of qfeval_functions.functions.einsum.einsum
 msgid "Return type"
@@ -73,7 +73,7 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.einsum.einsum:25
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #~ msgid "Typed version of torch.einsum."
 #~ msgstr "torch.einsumの型付けバージョン。"

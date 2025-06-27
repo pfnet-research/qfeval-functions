@@ -26,7 +26,7 @@ msgstr "qfeval\\_functions.functions.bfill"
 
 #: of qfeval_functions.functions.bfill.bfill:1
 msgid "Backward fill missing values along the specified dimension."
-msgstr ""
+msgstr "指定された次元に沿って欠損値を後方補完します。"
 
 #: of qfeval_functions.functions.bfill.bfill:3
 msgid ""
@@ -34,21 +34,21 @@ msgid ""
 "the specified dimension. For each NaN value, it is replaced with the "
 "nearest valid value that appears after it along the dimension. If no "
 "valid value exists after a NaN, it remains NaN."
-msgstr ""
+msgstr "この関数は、指定された次元に沿って最後の有効な値（NaNでない値）を後方に伝播させます。各NaN値については、その次元に沿って後に現れる最も近い有効な値で置き換えられます。もしNaN値の後に有効な値がない場合、そのNaN値は変更されません。"
 
 #: of qfeval_functions.functions.bfill.bfill
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.bfill.bfill:9
 msgid "The input tensor containing values to be filled."
-msgstr ""
+msgstr "値を補完するための入力テンソル。"
 
 #: of qfeval_functions.functions.bfill.bfill:12
 msgid ""
 "The dimension along which to perform backward fill. Default is -1 (the "
 "last dimension)."
-msgstr ""
+msgstr "後方補完を実行する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: of qfeval_functions.functions.bfill.bfill
 #, fuzzy
@@ -59,7 +59,7 @@ msgstr "戻り値の型"
 msgid ""
 "A tensor of the same shape as the input, with NaN values replaced by the "
 "nearest subsequent valid values where possible."
-msgstr ""
+msgstr "入力テンソルと同じ形状を持ち、可能な場合はNaN値をその直後の有効な値で置き換えたテンソル。"
 
 #: of qfeval_functions.functions.bfill.bfill
 msgid "Return type"
@@ -67,7 +67,7 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.bfill.bfill:21
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #~ msgid "Propagates last valid values backward."
 #~ msgstr "最後に有効な値を後方に伝播します。"

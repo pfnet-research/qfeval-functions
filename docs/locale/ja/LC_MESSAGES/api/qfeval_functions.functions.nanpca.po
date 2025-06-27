@@ -35,7 +35,7 @@ msgid ""
 "covariance matrix calculated with NaN-aware operations. PCA finds the "
 "principal components (eigenvectors) that capture the maximum variance in "
 "the data, ordered by their explained variance (eigenvalues)."
-msgstr ""
+msgstr "この関数は、NaNを考慮した演算で計算された共分散行列の固有値分解を行うことで主成分分析（PCA）を実行します。PCAは、データの分散を最もよく説明する主成分（固有ベクトル）を見つけ出し、それらを説明分散量（固有値）の降順に並べ替えます。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:8
 msgid ""
@@ -43,25 +43,25 @@ msgid ""
 "handle NaN values appropriately, then applies eigendecomposition via "
 ":func:`eigh` to obtain the principal components. The components are "
 "returned in descending order of explained variance."
-msgstr ""
+msgstr "この関数は :func:`nancovar` を使用して NaN 値を適切に処理した共分散行列を計算し、その後 :func:`eigh` による固有値分解を適用して主成分を取得します。主成分は説明分散の降順で返されます。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:13
 msgid "The mathematical formulation follows standard PCA:"
-msgstr ""
+msgstr "数学的定式化は標準的なPCAに従います："
 
 #: of qfeval_functions.functions.nanpca.nanpca:15
 #, python-brace-format
 msgid ""
 "\\mathbf{C} = \\text{nancovar}(\\mathbf{X})\n"
 "\n"
-msgstr ""
+msgstr "\\mathbf{C} = \\text{nancovar}(\\mathbf{X})\n\n"
 
 #: of qfeval_functions.functions.nanpca.nanpca:18
 #, python-brace-format
 msgid ""
 "\\mathbf{C} \\mathbf{v}_i = \\lambda_i \\mathbf{v}_i\n"
 "\n"
-msgstr ""
+msgstr "\\mathbf{C} \\mathbf{v}_i = \\lambda_i \\mathbf{v}_i\n\n"
 
 #: of qfeval_functions.functions.nanpca.nanpca:21
 #, python-brace-format
@@ -69,11 +69,11 @@ msgid ""
 "where :math:`\\mathbf{C}` is the covariance matrix, :math:`\\mathbf{v}_i`"
 " are the eigenvectors (principal components), and :math:`\\lambda_i` are "
 "the eigenvalues (explained variance)."
-msgstr ""
+msgstr "ここで :math:`\\mathbf{C}` は共分散行列、:math:`\\mathbf{v}_i` は固有ベクトル（主成分）であり、:math:`\\lambda_i` は固有値（説明分散）です。"
 
 #: ../../api/qfeval_functions.functions.nanpca.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.nanpca.nanpca:26
 #, fuzzy
@@ -81,7 +81,7 @@ msgid ""
 "Input tensor of shape :math:`(*, N, C)` where :math:`*` means any number "
 "of additional batch dimensions, :math:`N` is the number of samples, and "
 ":math:`C` is the number of features."
-msgstr ""
+msgstr "data: :math:`(*, N, C)` 形式。ここで `*` は任意の追加次元数を、`N` はサンプル数を、`C` は特徴量数をそれぞれ表します。"
 "data: :math:`(*, N, C)` 形式。ここで `*` は任意の追加次元数を、`N` はサンプル数を、`C` "
 "は特徴量数をそれぞれ表します。"
 
@@ -97,25 +97,25 @@ msgid ""
 "decreasing explained variance).     - ``explained_variance`` (Tensor): "
 "Eigenvalues of shape :math:`(*, C)`       representing the variance "
 "explained by each component, in descending order."
-msgstr ""
+msgstr "以下の属性を含むデータクラス:      - ``components`` (Tensor): 形状 :math:`(*, C, C)` の主成分。       ``components[..., i, :]`` は、説明分散の降順で並べられた :math:`(i+1)` 番目の主成分を表す。     - ``explained_variance`` (Tensor): 形状 :math:`(*, C)` の固有値。       各主成分によって説明される分散を、降順で表す。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:33
 msgid "A dataclass containing:"
-msgstr ""
+msgstr "以下の属性を含むデータクラス:"
 
 #: of qfeval_functions.functions.nanpca.nanpca:35
 msgid ""
 "``components`` (Tensor): Principal components of shape :math:`(*, C, C)`."
 " ``components[..., i, :]`` represents the :math:`(i+1)`-th principal "
 "component (ordered by decreasing explained variance)."
-msgstr ""
+msgstr "``components`` (テンソル): 形状 :math:`(*, C, C)` の主成分。``components[..., i, :]`` は :math:`(i+1)` 番目の主成分を表します（説明される分散の降順で並べ替えられています）。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:38
 msgid ""
 "``explained_variance`` (Tensor): Eigenvalues of shape :math:`(*, C)` "
 "representing the variance explained by each component, in descending "
 "order."
-msgstr ""
+msgstr "``explained_variance`` (テンソル): 形状 :math:`(*, C)` の固有値で、各主成分が説明する分散を降順に表しています。"
 
 #: ../../api/qfeval_functions.functions.nanpca.rst
 msgid "Return type"
@@ -123,21 +123,21 @@ msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nanpca.nanpca:43
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 
 #: of qfeval_functions.functions.nanpca.nanpca:79
 msgid ""
 "If there are insufficient valid (non-NaN) observations to compute "
 "meaningful covariance estimates, the results may contain NaN values. "
 "Ensure adequate data coverage for reliable PCA results."
-msgstr ""
+msgstr "有意な共分散推定値を計算するのに十分な有効な観測値（NaNでない値）がない場合、結果にはNaN値が含まれる可能性があります。PCAの信頼性の高い結果を得るためには、十分なデータカバレッジを確保してください。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:84
 msgid ""
 ":func:`nancovar`: NaN-aware covariance computation. :func:`eigh`: "
 "Eigendecomposition for symmetric matrices. :func:`nanmean`: NaN-aware "
 "mean used in covariance calculation."
-msgstr ""
+msgstr ":func:`nancovar`: NaNを考慮した共分散計算。 :func:`eigh`: 対称行列の固有値分解。 :func:`nanmean`: 共分散計算で使用されるNaNを考慮した平均。"
 
 #~ msgid ""
 #~ "The returned value represents principal "
