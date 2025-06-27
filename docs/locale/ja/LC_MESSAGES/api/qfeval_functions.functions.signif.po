@@ -22,19 +22,19 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.signif.rst:2
 msgid "qfeval\\_functions.functions.signif"
-msgstr ""
+msgstr "qfeval\\_functions.functions.signif"
 
 #: of qfeval_functions.functions.signif.signif:1
 msgid ""
 "Rounds the numbers of the given tensor to the specified number of "
 "significant digits."
-msgstr ""
+msgstr "指定されたテンソルの数値を、指定された有効桁数に丸めます。"
 
 #: ../../api/qfeval_functions.functions.signif.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.signif.signif:5
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

@@ -19,17 +19,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.nanvar.rst:2
 msgid "qfeval\\_functions.functions.nanvar"
-msgstr ""
+msgstr "qfeval\\_functions.functions.nanvar"
 
 #: of qfeval_functions.functions.nanvar.nanvar:1
 msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
-msgstr ""
+msgstr "各行の平均値を返しますが、Not a Numbers (NaNs) は無視します。"
 
 #: ../../api/qfeval_functions.functions.nanvar.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nanvar.nanvar:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

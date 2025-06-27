@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.pca.rst:2
 msgid "qfeval\\_functions.functions.pca"
-msgstr ""
+msgstr "qfeval\\_functions.functions.pca"
 
 #: of qfeval_functions.functions.pca.pca:1
 msgid ""
@@ -30,46 +30,46 @@ msgid ""
 "represents principal components.  Specifically, `result[*, i, :]` "
 "represents the :math:`(i+1)`-th largest principal component of the batch "
 "specified by `*`. Shape:"
-msgstr ""
+msgstr "与えられた入力 `x` に対して主成分を計算します。返される値は主成分を表します。具体的には、`result[*, i, :]` は `*` で指定されたバッチの :math:`(i+1)` 番目に大きい主成分を表します。形状:"
 
 #: of qfeval_functions.functions.pca.pca:6
 msgid ""
 "x: :math:`(*, S, D)` where `*` means any number of additional dimensions,"
 " `S` means the number of sections, and `D` means the number of "
 "dimensions."
-msgstr ""
+msgstr "x: :math:`(*, S, D)` ここで、`*` は任意の追加次元数を、`S` はセクション数を、`D` は次元数をそれぞれ表します。"
 
 #: of qfeval_functions.functions.pca.pca:9
 msgid ""
 "In qfeval, dimensions and sections often represent symbols and timestamps"
 " respectively. :returns:"
-msgstr ""
+msgstr "qfevalでは、次元とセクションはそれぞれシンボルとタイムスタンプを表すことがよくあります。 :returns:"
 
 #: of qfeval_functions.functions.pca.pca:13
 msgid "`components[i]` represents the eigenvalue of the"
-msgstr ""
+msgstr "`components[i]` は、"
 
 #: of qfeval_functions.functions.pca.pca:14
 msgid ":math:`i`-th component."
-msgstr ""
+msgstr ":math:`i`番目の成分の固有値を表します。"
 
 #: of qfeval_functions.functions.pca.pca:15
 msgid "explained_variance (Tensor): `explained_variance[i, j]` represents"
-msgstr ""
+msgstr "explained_variance (Tensor): `explained_variance[i, j]` represents"
 
 #: of qfeval_functions.functions.pca.pca:16
 msgid "the :math:`i`-th component's weight for the `j`-th feature."
-msgstr ""
+msgstr "`j`番目の特徴量に対する`i`番目の成分の重みを表す。"
 
 #: ../../api/qfeval_functions.functions.pca.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.pca.pca:17
 msgid "- components (Tensor)"
-msgstr ""
+msgstr "- components (Tensor)"
 
 #: of qfeval_functions.functions.pca.pca:17
 msgid "components (Tensor)"
-msgstr ""
+msgstr "components (テンソル)"
 

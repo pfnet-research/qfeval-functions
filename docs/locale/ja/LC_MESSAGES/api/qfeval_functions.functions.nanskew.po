@@ -22,17 +22,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.nanskew.rst:2
 msgid "qfeval\\_functions.functions.nanskew"
-msgstr ""
+msgstr "qfeval\\_functions.functions.nanskew"
 
 #: of qfeval_functions.functions.nanskew.nanskew:1
 msgid "Returns the skewness of each row, ignoring Not a Numbers (NaNs)."
-msgstr ""
+msgstr "各行の歪度を返し、非数値値（NaN）は無視します。"
 
 #: ../../api/qfeval_functions.functions.nanskew.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nanskew.nanskew:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

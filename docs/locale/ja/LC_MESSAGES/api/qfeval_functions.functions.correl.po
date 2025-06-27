@@ -22,17 +22,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.correl.rst:2
 msgid "qfeval\\_functions.functions.correl"
-msgstr ""
+msgstr "qfeval\\_functions.functions.correl"
 
 #: of qfeval_functions.functions.correl.correl:1
 msgid "Returns Pearson correlation coefficient between `x` and `y`."
-msgstr ""
+msgstr "`x`と`y`の間のピアソン相関係数を返します。"
 
 #: ../../api/qfeval_functions.functions.correl.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.correl.correl:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

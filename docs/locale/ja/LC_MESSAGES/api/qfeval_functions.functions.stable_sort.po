@@ -19,17 +19,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.stable_sort.rst:2
 msgid "qfeval\\_functions.functions.stable\\_sort"
-msgstr ""
+msgstr "qfeval\\_functions.functions.stable\\_sort"
 
 #: of qfeval_functions.functions.stable_sort.stable_sort:1
 msgid "Sorts the given tensor preserving the order of equivalent elements."
-msgstr ""
+msgstr "与えられたテンソルを、等価な要素の順序を保持したままソートします。"
 
 #: ../../api/qfeval_functions.functions.stable_sort.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.stable_sort.stable_sort:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"
 

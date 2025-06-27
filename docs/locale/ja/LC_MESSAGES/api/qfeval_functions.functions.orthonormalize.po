@@ -22,36 +22,36 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.orthonormalize.rst:2
 msgid "qfeval\\_functions.functions.orthonormalize"
-msgstr ""
+msgstr "qfeval\\_functions.functions.orthonormalize"
 
 #: of qfeval_functions.functions.orthonormalize.orthonormalize:1
 msgid ""
 "Orthonormalizes the given vectors and returns the corresponding "
 "orthonormal vectors.  Ignoring numerical errorrs, this function returns "
 "the same results as the Gram-Schmidt process."
-msgstr ""
+msgstr "与えられたベクトルを正規直交化し、対応する正規直交ベクトルを返します。数値誤差を無視した場合、この関数はグラム・シュミット過程と同じ結果を返します。"
 
 #: of qfeval_functions.functions.orthonormalize.orthonormalize:5
 msgid ""
 "If the given vectors is orthonormal, this function must return the "
 "identical vectors (CAVEAT: It may have a little numerical errors)."
-msgstr ""
+msgstr "与えられたベクトルが直交正規化されている場合、この関数は同一のベクトルを返さなければなりません（注意：数値誤差が若干生じる可能性があります）。"
 
 #: ../../api/qfeval_functions.functions.orthonormalize.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.orthonormalize.orthonormalize:8
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 
 #: of qfeval_functions.functions.orthonormalize.orthonormalize:10
 msgid "Shape:"
-msgstr ""
+msgstr "形状:"
 
 #: of qfeval_functions.functions.orthonormalize.orthonormalize:11
 msgid ""
 "a: :math:`(*, N, M)` where `*` means any number of additional dimensions,"
 " `N` means the number of vectors, and `M` means the number of dimensions."
-msgstr ""
+msgstr "a: :math:`(*, N, M)` ここで `*` は任意の追加次元数を、`N` はベクトルの数を、`M` は次元数をそれぞれ示します。"
 

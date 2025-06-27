@@ -22,20 +22,20 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.randn_like.rst:2
 msgid "qfeval\\_functions.functions.randn\\_like"
-msgstr ""
+msgstr "qfeval\\_functions.functions.randn\\_like"
 
 #: of qfeval_functions.functions.randn_like.randn_like:1
 msgid ""
 "Returns a tensor with the same size as input that is filled with random "
 "numbers from a normal distribution with mean 0 and variance 1. If the "
 "seed is fixed, it must be reproducible in any device."
-msgstr ""
+msgstr "入力と同じサイズのテンソルを返し、その要素には平均 0、分散 1 の正規分布に従う乱数が格納されます。シード値が固定されている場合、この処理はどのデバイスでも再現可能である必要があります。"
 
 #: ../../api/qfeval_functions.functions.randn_like.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.randn_like.randn_like:6
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

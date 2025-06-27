@@ -22,17 +22,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.ffill.rst:2
 msgid "qfeval\\_functions.functions.ffill"
-msgstr ""
+msgstr "qfeval\\_functions.functions.ffill"
 
 #: of qfeval_functions.functions.ffill.ffill:1
 msgid "Propagates last valid values forward."
-msgstr ""
+msgstr "最後に有効な値を前方に伝播します。"
 
 #: ../../api/qfeval_functions.functions.ffill.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.ffill.ffill:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

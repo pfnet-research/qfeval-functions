@@ -22,40 +22,40 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.rms.rst:2
 msgid "qfeval\\_functions.functions.rms"
-msgstr ""
+msgstr "qfeval\\_functions.functions.rms"
 
 #: of qfeval_functions.functions.rms.rms:1
 msgid ""
 "Returns the root mean square of each row of the input tensor in the given"
 " dimension `dim`.  If `dim` is a list of dimensions, reduce over all of "
 "them."
-msgstr ""
+msgstr "指定された次元 `dim` において、入力テンソルの各行の二乗平均平方根を返します。`dim` が次元のリストである場合、すべての次元にわたって集約します。"
 
 #: ../../api/qfeval_functions.functions.rms.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.rms.rms:6
 msgid "The input tensor."
-msgstr ""
+msgstr "入力テンソル。"
 
 #: of qfeval_functions.functions.rms.rms:9
 msgid "The dimension or dimensions to reduce."
-msgstr ""
+msgstr "削減する次元または次元のリスト。"
 
 #: of qfeval_functions.functions.rms.rms:12
 msgid "Whether the output tensor has `dim` retained or not."
-msgstr ""
+msgstr "出力テンソルが次元 `dim` を保持するかどうかを指定します。"
 
 #: ../../api/qfeval_functions.functions.rms.rst
 msgid "Returns"
-msgstr ""
+msgstr "Returns"
 
 #: of qfeval_functions.functions.rms.rms:15
 msgid "The output tensor."
-msgstr ""
+msgstr "出力テンソル。"
 
 #: ../../api/qfeval_functions.functions.rms.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 

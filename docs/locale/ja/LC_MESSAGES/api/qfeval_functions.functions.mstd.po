@@ -22,17 +22,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.mstd.rst:2
 msgid "qfeval\\_functions.functions.mstd"
-msgstr ""
+msgstr "qfeval\\_functions.functions.mstd"
 
 #: of qfeval_functions.functions.mstd.mstd:1
 msgid "Returns the moving standard deviation of the given tensor."
-msgstr ""
+msgstr "指定されたテンソルの移動標準偏差を返します。"
 
 #: ../../api/qfeval_functions.functions.mstd.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.mstd.mstd:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

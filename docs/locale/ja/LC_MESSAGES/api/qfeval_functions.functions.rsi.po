@@ -22,20 +22,20 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.rsi.rst:2
 msgid "qfeval\\_functions.functions.rsi"
-msgstr ""
+msgstr "qfeval\\_functions.functions.rsi"
 
 #: of qfeval_functions.functions.rsi.rsi:1
 msgid ""
 "Definition(use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp"
 " - Compatible with TA-lib Definition(use_sma=True): - "
 "https://info.monex.co.jp/technical-analysis/indicators/005.html"
-msgstr ""
+msgstr "Definition(use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp - Compatible with TA-lib Definition(use_sma=True): - https://info.monex.co.jp/technical-analysis/indicators/005.html"
 
 #: ../../api/qfeval_functions.functions.rsi.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.rsi.rsi:8
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

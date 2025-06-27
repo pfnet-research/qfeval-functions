@@ -22,19 +22,19 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.randint.rst:2
 msgid "qfeval\\_functions.functions.randint"
-msgstr ""
+msgstr "qfeval\\_functions.functions.randint"
 
 #: of qfeval_functions.functions.randint.randint:1
 msgid ""
 "Returns a tensor filled with random integers generated uniformly between "
 "low (inclusive) and high (exclusive)."
-msgstr ""
+msgstr "低値（含む）から高値（除く）の範囲で一様分布するランダム整数で埋められたテンソルを返します。"
 
 #: ../../api/qfeval_functions.functions.randint.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.randint.randint:5
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

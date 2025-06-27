@@ -22,19 +22,19 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.nanones.rst:2
 msgid "qfeval\\_functions.functions.nanones"
-msgstr ""
+msgstr "qfeval\\_functions.functions.nanones"
 
 #: of qfeval_functions.functions.nanones.nanones:1
 msgid ""
 "Returns a tensor having ones with the same shape of the given tensor, "
 "preserving Not a Numbers (NaNs)."
-msgstr ""
+msgstr "与えられたテンソルと同じ形状のテンソルを返し、その中に非数 (NaN) を保持したまますべての要素を1に設定します。"
 
 #: ../../api/qfeval_functions.functions.nanones.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nanones.nanones:5
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

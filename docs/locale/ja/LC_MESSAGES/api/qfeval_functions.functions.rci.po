@@ -22,26 +22,26 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.rci.rst:2
 msgid "qfeval\\_functions.functions.rci"
-msgstr ""
+msgstr "qfeval\\_functions.functions.rci"
 
 #: ../../api/qfeval_functions.functions.rci.rst:16
 msgid "Functions"
-msgstr ""
+msgstr "関数"
 
 #: of qfeval_functions.functions.rci.rci:1:<autosummary>:1
 msgid ":py:obj:`rci <qfeval_functions.functions.rci.rci>`"
-msgstr ""
+msgstr ":py:obj:`rci <qfeval_functions.functions.rci.rci>`"
 
 #: of qfeval_functions.functions.rci.rci:1
 #: qfeval_functions.functions.rci.rci:1:<autosummary>:1
 msgid "https://kabu.com/investment/guide/technical/14.html"
-msgstr ""
+msgstr "https://kabu.com/investment/guide/technical/14.html"
 
 #: ../../api/qfeval_functions.functions.rci.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.rci.rci:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

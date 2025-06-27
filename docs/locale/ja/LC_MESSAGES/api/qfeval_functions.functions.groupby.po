@@ -22,11 +22,11 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.groupby.rst:2
 msgid "qfeval\\_functions.functions.groupby"
-msgstr ""
+msgstr "qfeval\\_functions.functions.groupby"
 
 #: of qfeval_functions.functions.groupby.groupby:1
 msgid "Groups items of `x` by `group_id`."
-msgstr ""
+msgstr "`group_id` に基づいて `x` の項目をグループ化します。"
 
 #: of qfeval_functions.functions.groupby.groupby:3
 msgid ""
@@ -34,13 +34,13 @@ msgid ""
 "The additional dimension represents items of the group.  Since a tensor "
 "requires every dimension to be a fixed size, this fills `empty_value` if "
 "the numbers of the items of groups are varying."
-msgstr ""
+msgstr "この操作は、`dim` で指定された次元の直後に新しい次元を追加します。この追加次元はグループ内のアイテム数を表します。テンソルではすべての次元が固定サイズである必要があるため、グループ内のアイテム数が異なる場合には `empty_value` でこの次元を埋めます。"
 
 #: ../../api/qfeval_functions.functions.groupby.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.groupby.groupby:9
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

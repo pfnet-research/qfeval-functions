@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.randn.rst:2
 msgid "qfeval\\_functions.functions.randn"
-msgstr ""
+msgstr "qfeval\\_functions.functions.randn"
 
 #: of qfeval_functions.functions.randn.randn:1
 msgid ""
@@ -30,13 +30,13 @@ msgid ""
 "with mean 0 and variance 1 (also called the standard normal "
 "distribution). If the seed is fixed, it must be reproducible in any "
 "device."
-msgstr ""
+msgstr "平均0、分散1の正規分布に従う乱数で満たされたテンソルを返します（標準正規分布とも呼ばれます）。シード値が固定されている場合、どのデバイスでも再現可能な結果が得られる必要があります。"
 
 #: ../../api/qfeval_functions.functions.randn.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.randn.randn:6
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

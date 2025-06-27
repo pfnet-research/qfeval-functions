@@ -22,24 +22,24 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.eigh.rst:2
 msgid "qfeval\\_functions.functions.eigh"
-msgstr ""
+msgstr "qfeval\\_functions.functions.eigh"
 
 #: of qfeval_functions.functions.eigh.eigh:1
 msgid "Computes eigenvalues and eigenvectors."
-msgstr ""
+msgstr "固有値と固有ベクトルを計算します。"
 
 #: of qfeval_functions.functions.eigh.eigh:3
 msgid "NOTE: This does not support differentiable computation."
-msgstr ""
+msgstr "注意: この関数は微分可能な計算をサポートしていません。"
 
 #: ../../api/qfeval_functions.functions.eigh.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.eigh.eigh:6
 msgid ""
 ":sphinx_autodoc_typehints_type:`\\:py\\:data\\:\\`\\~typing.Tuple\\`\\\\ "
 "\\\\\\[\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, "
 "\\:py\\:class\\:\\`\\~torch.Tensor\\`\\]`"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:data\\:\\`\\~typing.Tuple\\`\\\\ \\\\\\[\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, \\:py\\:class\\:\\`\\~torch.Tensor\\`\\]`"
 

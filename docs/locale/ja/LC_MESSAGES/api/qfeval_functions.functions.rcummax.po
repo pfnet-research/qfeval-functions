@@ -22,19 +22,19 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.rcummax.rst:2
 msgid "qfeval\\_functions.functions.rcummax"
-msgstr ""
+msgstr "qfeval\\_functions.functions.rcummax"
 
 #: of qfeval_functions.functions.rcummax.rcummax:1
 msgid ""
 "Returns the reversely cumulative max of elements of `input` in the "
 "dimension `dim`."
-msgstr ""
+msgstr "次元 `dim` における `input` の要素の逆累積最大値を返します。"
 
 #: ../../api/qfeval_functions.functions.rcummax.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.rcummax.rcummax:5
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.rcummax.Result\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.rcummax.Result\\``"
 

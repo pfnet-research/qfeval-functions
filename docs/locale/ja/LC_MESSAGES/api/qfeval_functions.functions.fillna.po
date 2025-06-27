@@ -22,25 +22,25 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.fillna.rst:2
 msgid "qfeval\\_functions.functions.fillna"
-msgstr ""
+msgstr "qfeval\\_functions.functions.fillna"
 
 #: of qfeval_functions.functions.fillna.fillna:1
 msgid ""
 "Replaces NaN, positive infinity, and negative infinity values with "
 "specified numbers."
-msgstr ""
+msgstr "NaN、正の無限大、負の無限大の値を指定した数値に置換します。"
 
 #: of qfeval_functions.functions.fillna.fillna:4
 msgid ""
 "NOTE: Differently from torch.nan_to_num, this preserves infinity values "
 "as is."
-msgstr ""
+msgstr "注意: torch.nan_to_numとは異なり、無限大の値はそのまま保持されます。"
 
 #: ../../api/qfeval_functions.functions.fillna.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.fillna.fillna:8
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

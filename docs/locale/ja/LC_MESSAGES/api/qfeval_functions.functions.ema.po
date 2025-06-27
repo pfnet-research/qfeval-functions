@@ -22,17 +22,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.ema.rst:2
 msgid "qfeval\\_functions.functions.ema"
-msgstr ""
+msgstr "qfeval\\_functions.functions.ema"
 
 #: of qfeval_functions.functions.ema.ema:1
 msgid "Returns the exponential weighted moving average of the given tensor."
-msgstr ""
+msgstr "指定されたテンソルの指数加重移動平均を返します。"
 
 #: ../../api/qfeval_functions.functions.ema.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.ema.ema:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

@@ -19,17 +19,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.mulsum.rst:2
 msgid "qfeval\\_functions.functions.mulsum"
-msgstr ""
+msgstr "qfeval\\_functions.functions.mulsum"
 
 #: of qfeval_functions.functions.mulsum.mulsum:1
 msgid "Calculate `(x * y).sum(...)` in a memory-efficient way."
-msgstr ""
+msgstr "メモリ効率に優れた方法で `(x * y).sum(...)` を計算します。"
 
 #: ../../api/qfeval_functions.functions.mulsum.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.mulsum.mulsum:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

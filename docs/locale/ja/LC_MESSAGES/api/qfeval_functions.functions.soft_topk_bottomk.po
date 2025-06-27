@@ -22,25 +22,25 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.soft_topk_bottomk.rst:2
 msgid "qfeval\\_functions.functions.soft\\_topk\\_bottomk"
-msgstr ""
+msgstr "qfeval\\_functions.functions.soft\\_topk\\_bottomk"
 
 #: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:1
 msgid "Apply SoftTopKBottomK module along with given dimension."
-msgstr ""
+msgstr "指定された次元と共に SoftTopKBottomK モジュールを適用します。"
 
 #: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:3
 msgid "See `qfeval.extension.SoftTopKBottomK` for futher information."
-msgstr ""
+msgstr "詳細情報については `qfeval.extension.SoftTopKBottomK` を参照してください。"
 
 #: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:5
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 
 #: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:8
 msgid "Examples"
-msgstr ""
+msgstr "使用例"
 

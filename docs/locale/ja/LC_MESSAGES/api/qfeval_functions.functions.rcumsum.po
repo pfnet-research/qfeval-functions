@@ -22,19 +22,19 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.rcumsum.rst:2
 msgid "qfeval\\_functions.functions.rcumsum"
-msgstr ""
+msgstr "qfeval\\_functions.functions.rcumsum"
 
 #: of qfeval_functions.functions.rcumsum.rcumsum:1
 msgid ""
 "Returns the reversely cumulative sum of elements of `input` in the "
 "dimension `dim`."
-msgstr ""
+msgstr "次元 `dim` に沿って `input` の要素の逆累積和を返します。"
 
 #: ../../api/qfeval_functions.functions.rcumsum.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.rcumsum.rcumsum:5
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 
