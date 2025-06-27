@@ -1,0 +1,85 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.nanpca.rst:2
+msgid "qfeval\\_functions.functions.nanpca"
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:1
+msgid "Computes principal components on the given data."
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:3
+msgid ""
+"The returned value represents principal components.  Specifically, "
+"`result[*, i, :]` represents the :math:`(i+1)`-th largest principal "
+"component of the batch specified by `*`."
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:7
+msgid "Shape:"
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:8
+msgid ""
+"data: :math:`(*, N, C)` where `*` means any number of additional "
+"dimensions, `N` means the number of samples, and `C` means the number of "
+"features."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nanpca.rst
+msgid "Returns"
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:12
+msgid ""
+"`w[i]` represents the eigenvalue of the   :math:`i`-th component. - v "
+"(torch.Tensor): `v[i, j]` represents the :math:`i`-th component's   "
+"weight for the `j`-th feature."
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:14
+msgid "`w[i]` represents the eigenvalue of the"
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:15
+msgid ":math:`i`-th component."
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:16
+msgid ""
+"v (torch.Tensor): `v[i, j]` represents the :math:`i`-th component's "
+"weight for the `j`-th feature."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.nanpca.rst
+msgid "Return type"
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:18
+msgid "- w (torch.Tensor)"
+msgstr ""
+
+#: of qfeval_functions.functions.nanpca.nanpca:18
+msgid "w (torch.Tensor)"
+msgstr ""
+

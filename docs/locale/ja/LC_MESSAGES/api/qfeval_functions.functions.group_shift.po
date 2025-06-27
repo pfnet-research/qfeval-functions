@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.group_shift.rst:2
+msgid "qfeval\\_functions.functions.group\\_shift"
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:1
+msgid "Shifts a tensor along a specified dimension, skipping a given mask."
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:3
+msgid ""
+"This function applies shifts only for locations specified by the mask. "
+"For example, suppose the mask is `[True, False, True, False, True]`, then"
+" applying one shift to `[1, nan, 2, nan, 3]` will get `[nan, nan, 1, nan,"
+" 2]`."
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:8
+msgid ""
+"CAVEAT: Before applying shifts, the unmasked values (i.e., mask values "
+"are False) are filled with nans. So, applying the above masked-shift to "
+"`[1, 2, 3, 4, 5]` will get `[nan, nan, 1, nan, 3]`, where unmasked values"
+" (2, 4) are just discarded. Also, zero-shift (`shift == 0`) will not give"
+" the original input."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.group_shift.rst
+msgid "Parameters"
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:15
+msgid "The input tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:16
+msgid "The number of places by which the elements of the tensor are shifted."
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:18
+msgid "The dimension along which `x` will be shifted."
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:19
+msgid ""
+"A 1D boolean tensor, where `False` values specify the indices to be "
+"skipped during shifts. The length must be equal to `x.shape[dim]`."
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:23
+msgid ""
+"If set, the mask is automatically generated. See `reduce_nan_patterns` "
+"for details."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.group_shift.rst
+msgid "Returns"
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:27
+msgid "A shifted version of `x`."
+msgstr ""
+
+#: ../../api/qfeval_functions.functions.group_shift.rst
+msgid "Return type"
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:28
+msgid "- x_shifted"
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.group_shift:28
+msgid "x_shifted"
+msgstr ""
+
