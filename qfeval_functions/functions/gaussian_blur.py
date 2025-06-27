@@ -59,13 +59,13 @@ def gaussian_blur(x: torch.Tensor, sigma: float, dim: int = -1) -> torch.Tensor:
         >>> # 2D tensor: blur along different dimensions
         >>> x = torch.zeros(3, 5)
         >>> x[1, 2] = 10.0
-        >>> QF.gaussian_blur(x, sigma=0.8, dim=0)  # blur along rows
-        tensor([[0.0000, 0.0000, 3.2135, 0.0000, 0.0000],
-                [0.0000, 0.0000, 4.9832, 0.0000, 0.0000],
-                [0.0000, 0.0000, 3.2135, 0.0000, 0.0000]])
-        >>> QF.gaussian_blur(x, sigma=0.8, dim=1)  # blur along columns
+        >>> QF.gaussian_blur(x, sigma=0.2, dim=0)  # blur along rows
+        tensor([[0.0000, 0.0000, 0.0625, 0.0000, 0.0000],
+                [0.0000, 0.0000, 9.8758, 0.0000, 0.0000],
+                [0.0000, 0.0000, 0.0625, 0.0000, 0.0000]])
+        >>> QF.gaussian_blur(x, sigma=0.2, dim=1)  # blur along columns
         tensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.0000],
-                [0.4020, 2.4298, 4.6886, 2.4298, 0.4020],
+                [0.0000, 0.0621, 9.8758, 0.0621, 0.0000],
                 [0.0000, 0.0000, 0.0000, 0.0000, 0.0000]])
 
     .. seealso::
