@@ -22,17 +22,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.randperm.rst:2
 msgid "qfeval\\_functions.functions.randperm"
-msgstr ""
+msgstr "qfeval\\_functions.functions.randperm"
 
 #: of qfeval_functions.functions.randperm.randperm:1
 msgid "Returns a random permutation of integers from `0` to `n - 1`."
-msgstr ""
+msgstr "`0`から`n - 1`までの整数からなるランダムな順列を返します。"
 
 #: ../../api/qfeval_functions.functions.randperm.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.randperm.randperm:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

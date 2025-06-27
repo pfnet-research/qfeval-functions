@@ -22,35 +22,35 @@ msgstr ""
 
 #: ../../index.rst:2
 msgid "qfeval-functions Documentation"
-msgstr ""
+msgstr "qfeval-functions ドキュメント"
 
 #: ../../index.rst:4
 msgid ""
 "PyTorch-based quantitative finance library for mathematical operations on"
 " financial data."
-msgstr ""
+msgstr "PyTorchベースの定量金融ライブラリで、金融データに対する数学的演算を実行するためのものです。"
 
 #: ../../index.rst:7
 msgid "Contents"
-msgstr ""
+msgstr "目次"
 
 #: ../../index.rst:9
 msgid ":doc:`Functions <api/qfeval_functions.functions>`"
-msgstr ""
+msgstr ":doc:`Functions <api/qfeval_functions.functions>`"
 
 #: ../../index.rst:12
 msgid "Indices and tables"
-msgstr ""
+msgstr "索引とテーブル"
 
 #: ../../index.rst:14
 msgid ":ref:`genindex`"
-msgstr ""
+msgstr ":ref:`genindex`"
 
 #: ../../index.rst:15
 msgid ":ref:`modindex`"
-msgstr ""
+msgstr ":ref:`modindex`"
 
 #: ../../index.rst:16
 msgid ":ref:`search`"
-msgstr ""
+msgstr ":ref:`search`"
 

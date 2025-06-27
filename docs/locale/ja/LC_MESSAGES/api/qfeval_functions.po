@@ -22,21 +22,21 @@ msgstr ""
 
 #: ../../api/qfeval_functions.rst:2
 msgid "qfeval\\_functions package"
-msgstr ""
+msgstr "qfeval\\_functionsパッケージ"
 
 #: ../../api/qfeval_functions.rst:10
 msgid "Subpackages"
-msgstr ""
+msgstr "サブパッケージ"
 
 #: ../../api/qfeval_functions.rst:12
 msgid ":doc:`Functions <qfeval_functions.functions>`"
-msgstr ""
+msgstr ":doc:`Functions <qfeval_functions.functions>`"
 
 #: ../../api/qfeval_functions.rst:13
 msgid "qfeval_functions.random"
-msgstr ""
+msgstr "qfeval_functions.random"
 
 #: ../../api/qfeval_functions.rst:16
 msgid "Submodules"
-msgstr ""
+msgstr "サブモジュール"
 

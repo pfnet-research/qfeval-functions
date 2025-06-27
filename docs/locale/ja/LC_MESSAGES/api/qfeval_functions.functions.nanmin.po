@@ -22,20 +22,20 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.nanmin.rst:2
 msgid "qfeval\\_functions.functions.nanmin"
-msgstr ""
+msgstr "qfeval\\_functions.functions.nanmin"
 
 #: of qfeval_functions.functions.nanmin.nanmin:1
 msgid ""
 "Returns a namedtuple `(values, indices)` where values is the minimum "
 "value of each row of the `input` tensor in the given dimension `dim`, "
 "ignoring Not a Numbers (NaNs)."
-msgstr ""
+msgstr "指定された次元 `dim` において、入力テンソルの各行の最小値を含むタプル `(values, indices)` を返します。この際、Not a Numbers (NaN) は無視されます。"
 
 #: ../../api/qfeval_functions.functions.nanmin.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nanmin.nanmin:6
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.nanmin.NanminResult\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.nanmin.NanminResult\\``"
 

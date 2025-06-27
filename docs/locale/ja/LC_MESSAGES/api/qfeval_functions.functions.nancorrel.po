@@ -22,19 +22,19 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.nancorrel.rst:2
 msgid "qfeval\\_functions.functions.nancorrel"
-msgstr ""
+msgstr "qfeval\\_functions.functions.nancorrel"
 
 #: of qfeval_functions.functions.nancorrel.nancorrel:1
 msgid ""
 "Returns Pearson correlation coefficient between `x` and `y`, ignoring "
 "NaNs."
-msgstr ""
+msgstr "`x`と`y`の間のピアソン相関係数を返し、NaN値は無視します。"
 
 #: ../../api/qfeval_functions.functions.nancorrel.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nancorrel.nancorrel:5
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

@@ -22,20 +22,20 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.skipna.rst:2
 msgid "qfeval\\_functions.functions.skipna"
-msgstr ""
+msgstr "qfeval\\_functions.functions.skipna"
 
 #: of qfeval_functions.functions.skipna.skipna:1
 msgid ""
 "Applies the given data to the given function after removing NaNs.  The "
 "function will take a tensor having non-NaN values and NaN values in the "
 "order.  The order of non-NaN values must be preserved."
-msgstr ""
+msgstr "NaN値を除去した後、与えられたデータを指定された関数に適用します。関数は、非NaN値とNaN値が指定された順序で含まれるテンソルを受け取ります。非NaN値の順序は保持されなければなりません。"
 
 #: ../../api/qfeval_functions.functions.skipna.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.skipna.skipna:6
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

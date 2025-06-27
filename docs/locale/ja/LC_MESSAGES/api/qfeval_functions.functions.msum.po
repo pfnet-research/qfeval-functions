@@ -22,11 +22,11 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.msum.rst:2
 msgid "qfeval\\_functions.functions.msum"
-msgstr ""
+msgstr "qfeval\\_functions.functions.msum"
 
 #: of qfeval_functions.functions.msum.msum:1
 msgid "Compute the moving (sliding window) sum of a tensor."
-msgstr ""
+msgstr "テンソルの移動（スライディングウィンドウ）合計を計算します。"
 
 #: of qfeval_functions.functions.msum.msum:3
 msgid ""
@@ -35,39 +35,39 @@ msgid ""
 "the same shape as the input tensor. For positions where the sliding "
 "window cannot fully cover preceding elements (i.e., the first `span - 1` "
 "elements along the selected dimension), the result is `nan`."
-msgstr ""
+msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の合計を計算します。出力テンソルは入力テンソルと同じ形状を持ちます。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の `span - 1` 要素の場合）、結果は `nan` となります。"
 
 #: of qfeval_functions.functions.msum.msum
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.msum.msum:10
 msgid "The input tensor."
-msgstr ""
+msgstr "入力テンソル。"
 
 #: of qfeval_functions.functions.msum.msum:13
 msgid "The size of the sliding window."
-msgstr ""
+msgstr "スライディングウィンドウのサイズ。"
 
 #: of qfeval_functions.functions.msum.msum:16
 msgid ""
 "The dimension along which to compute the moving sum. Default is -1 (the "
 "last dimension)."
-msgstr ""
+msgstr "移動合計を計算する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: of qfeval_functions.functions.msum.msum
 msgid "Returns"
-msgstr ""
+msgstr "Returns"
 
 #: of qfeval_functions.functions.msum.msum:20
 msgid "A tensor of the same shape as the input, containing the moving sums."
-msgstr ""
+msgstr "入力と同じ形状のテンソルで、移動合計値を格納しています。"
 
 #: of qfeval_functions.functions.msum.msum
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.msum.msum:24
 msgid "Example"
-msgstr ""
+msgstr "使用例"
 

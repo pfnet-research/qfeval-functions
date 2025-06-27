@@ -22,13 +22,13 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.gaussian_blur.rst:2
 msgid "qfeval\\_functions.functions.gaussian\\_blur"
-msgstr ""
+msgstr "qfeval\\_functions.functions.gaussian\\_blur"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:1
 msgid ""
 "Applies a Gaussian filter with the given `sigma` parameter to `x` along "
 "the specified axis `dim`."
-msgstr ""
+msgstr "指定された軸 `dim` に沿って、`x` に指定された `sigma` パラメータを持つガウシアンフィルタを適用します。"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:4
 msgid ""
@@ -38,7 +38,7 @@ msgid ""
 "padding brings the surrounding values closer to zero.  Additionally, as "
 "it makes NaN values have no weight, it also works well for biased values "
 "that include NaNs."
-msgstr ""
+msgstr "具体的には、有効な値の加重平均にガウシアンフィルタを適用し、各要素に割り当てます。これにより、範囲外の値は重みを持たなくなるため、バイアスのかかった値に対しても適切に処理できます。また、ゼロパディングによって周辺の値がゼロに近づくように調整されます。さらに、NaN値には重みが与えられないため、NaNを含むバイアスのかかった値に対しても適切に処理できます。"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:11
 msgid ""
@@ -50,13 +50,13 @@ msgid ""
 "Implementation section in https://en.wikipedia.org/wiki/Gaussian_blur). "
 "This calculates the interval averages using the integral of a Gaussian "
 "function."
-msgstr ""
+msgstr "注意: この関数では、ガウシアン関数の点サンプリングではなく、区間平均を計算します。ガウシアンフィルタの標準的な実装では点サンプリングが用いられます（例: `scipy.ndimage.gaussian_filter1d`）。ただし、ガウシアンフィルタの区間平均計算では、ガウシアン関数の積分値を用いて区間平均を算出します（参考: https://bartwronski.com/2021/10/31/ および https://en.wikipedia.org/wiki/Gaussian_blur の実装セクション）。"
 
 #: ../../api/qfeval_functions.functions.gaussian_blur.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:21
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

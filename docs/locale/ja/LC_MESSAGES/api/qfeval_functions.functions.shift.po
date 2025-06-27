@@ -22,17 +22,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.shift.rst:2
 msgid "qfeval\\_functions.functions.shift"
-msgstr ""
+msgstr "qfeval\\_functions.functions.shift"
 
 #: of qfeval_functions.functions.shift.shift:1
 msgid "Shifts array elements along specified dimensions."
-msgstr ""
+msgstr "指定された次元に沿って配列要素をシフトします。"
 
 #: ../../api/qfeval_functions.functions.shift.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.shift.shift:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

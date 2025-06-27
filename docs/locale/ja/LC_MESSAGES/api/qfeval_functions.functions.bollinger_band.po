@@ -22,23 +22,23 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.bollinger_band.rst:2
 msgid "qfeval\\_functions.functions.bollinger\\_band"
-msgstr ""
+msgstr "qfeval\\_functions.functions.bollinger\\_band"
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:1
 msgid ""
 "Returns the upper/middle/bottom values of the corresponding Bollinger "
 "band."
-msgstr ""
+msgstr "対応するボリンジャーバンドの上限値/中央値/下限値を返します。"
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:3
 msgid ""
 "Definition: https://www.investopedia.com/terms/b/bollingerbands.asp Like "
 "Data.bollinger_band"
-msgstr ""
+msgstr "定義: https://www.investopedia.com/terms/b/bollingerbands.asp データ.bollinger_band と同様"
 
 #: ../../api/qfeval_functions.functions.bollinger_band.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:7
 msgid ""
@@ -46,5 +46,5 @@ msgid ""
 "\\\\\\[\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, "
 "\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, "
 "\\:py\\:class\\:\\`\\~torch.Tensor\\`\\]`"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:data\\:\\`\\~typing.Tuple\\`\\\\ \\\\\\[\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, \\:py\\:class\\:\\`\\~torch.Tensor\\`\\, \\:py\\:class\\:\\`\\~torch.Tensor\\`\\]`"
 

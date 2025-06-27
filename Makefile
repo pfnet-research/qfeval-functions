@@ -78,3 +78,30 @@ docs-generate-locale-ja: docs
 .PHONY: docs-clean
 docs-clean:
 	rm -rf docs/_build docs/api
+
+.PHONY: docs-plamo-translate
+docs-plamo-translate: docs-generate-locale-ja
+	if [ "$(shell uname -s)" != "Darwin" ]; then \
+		echo "This command is only supported on Mac OS"; \
+		exit 1; \
+	fi
+	if [ "$(shell uname -m)" != "arm64" ]; then \
+		echo "This command is only supported on Apple Silicon"; \
+		exit 1; \
+	fi
+	if [ "$(shell python --version | cut -d' ' -f2 | cut -d'.' -f1)" -ge 3 ] && [ "$(shell python --version | cut -d' ' -f2 | cut -d'.' -f2)" -ge 13 ]; then \
+		if ! command -v cmake &> /dev/null; then \
+			brew install cmake; \
+		fi; \
+		uv pip install git+https://github.com/google/sentencepiece.git@2734490#subdirectory=python; \
+	fi
+	uv pip install plamo-translate
+	$(RUN) python docs/translate.py
+
+.PHONY: docs-plamo-translate-dry-run
+docs-plamo-translate-dry-run: docs-generate-locale-ja
+	$(RUN) python docs/translate.py --dry-run
+
+.PHONY: docs-plamo-translate-dry-run-ja
+docs-plamo-translate-dry-run-ja: docs-generate-locale-ja
+	$(RUN) python docs/translate.py --dry-run

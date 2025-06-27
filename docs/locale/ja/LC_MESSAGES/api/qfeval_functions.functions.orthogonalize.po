@@ -22,39 +22,39 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.orthogonalize.rst:2
 msgid "qfeval\\_functions.functions.orthogonalize"
-msgstr ""
+msgstr "qfeval\\_functions.functions.orthogonalize"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:1
 msgid "Orthogonalizes x with respect to y along the specified dimension."
-msgstr ""
+msgstr "指定された次元に沿って、xをyに対して直交化します。"
 
 #: ../../api/qfeval_functions.functions.orthogonalize.rst
 msgid "Parameters"
-msgstr ""
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:4
 msgid "The tensor to be orthogonalized."
-msgstr ""
+msgstr "直交化するテンソル。"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:7
 msgid "The tensor with respect to which x will be orthogonalized."
-msgstr ""
+msgstr "xを直交化する際に基準となるテンソル。"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:11
 msgid ""
 "The dimension along which the orthogonalization will be performed.  "
 "Default is -1."
-msgstr ""
+msgstr "直交化を実行する次元。デフォルト値は -1 です。"
 
 #: ../../api/qfeval_functions.functions.orthogonalize.rst
 msgid "Returns"
-msgstr ""
+msgstr "Returns"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:15
 msgid "The orthogonalized tensor."
-msgstr ""
+msgstr "直交化されたテンソル。"
 
 #: ../../api/qfeval_functions.functions.orthogonalize.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 

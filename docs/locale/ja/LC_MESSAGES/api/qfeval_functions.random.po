@@ -22,25 +22,25 @@ msgstr ""
 
 #: ../../api/qfeval_functions.random.rst:2
 msgid "qfeval\\_functions.random package"
-msgstr ""
+msgstr "qfeval\\_functions.randomパッケージ"
 
 #: ../../api/qfeval_functions.random.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.random._seed.is_fast:2
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`bool\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`bool\\``"
 
 #: of qfeval_functions.random._seed.rng:2
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~numpy.random.\\_generator.Generator\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~numpy.random.\\_generator.Generator\\``"
 
 #: of qfeval_functions.random._seed.seed:1
 msgid "Sets the seed for generating random numbers."
-msgstr ""
+msgstr "乱数生成のためのシード値を設定する。"
 
 #: of qfeval_functions.random._seed.seed:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.random.\\_seed.Seed\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.random.\\_seed.Seed\\``"
 

@@ -19,17 +19,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.nanmulsum.rst:2
 msgid "qfeval\\_functions.functions.nanmulsum"
-msgstr ""
+msgstr "qfeval\\_functions.functions.nanmulsum"
 
 #: of qfeval_functions.functions.nanmulsum.nanmulsum:1
 msgid "Calculates `QF.nansum(x * y, ...)` in a memory-efficient way."
-msgstr ""
+msgstr "メモリ効率に優れた方法で `QF.nansum(x * y, ...)` を計算します。"
 
 #: ../../api/qfeval_functions.functions.nanmulsum.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nanmulsum.nanmulsum:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

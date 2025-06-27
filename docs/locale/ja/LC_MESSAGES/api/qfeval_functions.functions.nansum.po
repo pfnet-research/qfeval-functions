@@ -22,23 +22,23 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.nansum.rst:2
 msgid "qfeval\\_functions.functions.nansum"
-msgstr ""
+msgstr "qfeval\\_functions.functions.nansum"
 
 #: of qfeval_functions.functions.nansum.nansum:1
 msgid "Returns the sum of all elements, ignoring Not a Numbers (NaNs)."
-msgstr ""
+msgstr "Not a Number (NaN) 値を無視して全ての要素の合計を返します。"
 
 #: of qfeval_functions.functions.nansum.nansum:3
 msgid ""
 "NOTE: If no valid numbers exist, this returns NaN while torch.nansum "
 "returns 0."
-msgstr ""
+msgstr "注意：有効な数値が存在しない場合、この関数は NaN を返しますが、torch.nansum は 0 を返します。"
 
 #: ../../api/qfeval_functions.functions.nansum.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nansum.nansum:7
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

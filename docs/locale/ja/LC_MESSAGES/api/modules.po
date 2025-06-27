@@ -22,5 +22,5 @@ msgstr ""
 
 #: ../../api/modules.rst:2
 msgid "qfeval_functions"
-msgstr ""
+msgstr "qfeval_functions"
 

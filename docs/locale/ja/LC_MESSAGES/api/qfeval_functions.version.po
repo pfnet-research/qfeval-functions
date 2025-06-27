@@ -22,5 +22,5 @@ msgstr ""
 
 #: ../../api/qfeval_functions.version.rst:2
 msgid "qfeval\\_functions.version module"
-msgstr ""
+msgstr "qfeval\\_functions.version モジュール"
 

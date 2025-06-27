@@ -22,64 +22,64 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.nanpca.rst:2
 msgid "qfeval\\_functions.functions.nanpca"
-msgstr ""
+msgstr "qfeval\\_functions.functions.nanpca"
 
 #: of qfeval_functions.functions.nanpca.nanpca:1
 msgid "Computes principal components on the given data."
-msgstr ""
+msgstr "与えられたデータに対して主成分を計算します。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:3
 msgid ""
 "The returned value represents principal components.  Specifically, "
 "`result[*, i, :]` represents the :math:`(i+1)`-th largest principal "
 "component of the batch specified by `*`."
-msgstr ""
+msgstr "返される値は主成分を表します。具体的には、`result[*, i, :]`は`*`で指定されたバッチの :math:`(i+1)`番目に大きい主成分を表します。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:7
 msgid "Shape:"
-msgstr ""
+msgstr "形状:"
 
 #: of qfeval_functions.functions.nanpca.nanpca:8
 msgid ""
 "data: :math:`(*, N, C)` where `*` means any number of additional "
 "dimensions, `N` means the number of samples, and `C` means the number of "
 "features."
-msgstr ""
+msgstr "data: :math:`(*, N, C)` 形式。ここで `*` は任意の追加次元数を、`N` はサンプル数を、`C` は特徴量数をそれぞれ表します。"
 
 #: ../../api/qfeval_functions.functions.nanpca.rst
 msgid "Returns"
-msgstr ""
+msgstr "Returns"
 
 #: of qfeval_functions.functions.nanpca.nanpca:12
 msgid ""
 "`w[i]` represents the eigenvalue of the   :math:`i`-th component. - v "
 "(torch.Tensor): `v[i, j]` represents the :math:`i`-th component's   "
 "weight for the `j`-th feature."
-msgstr ""
+msgstr "`w[i]`は第 :math:`i` 成分の固有値を表します。 - v (torch.Tensor): `v[i, j]`は第 :math:`i` 成分の第 :math:`j` 特徴量に対する重みを表します。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:14
 msgid "`w[i]` represents the eigenvalue of the"
-msgstr ""
+msgstr "`w[i]` は"
 
 #: of qfeval_functions.functions.nanpca.nanpca:15
 msgid ":math:`i`-th component."
-msgstr ""
+msgstr ":math:`i`番目の成分。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:16
 msgid ""
 "v (torch.Tensor): `v[i, j]` represents the :math:`i`-th component's "
 "weight for the `j`-th feature."
-msgstr ""
+msgstr "v (torch.Tensor): `v[i, j]` は第 `i` 成分の第 `j` 特徴量に対する重みを表します。"
 
 #: ../../api/qfeval_functions.functions.nanpca.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nanpca.nanpca:18
 msgid "- w (torch.Tensor)"
-msgstr ""
+msgstr "- w (torch.Tensor)"
 
 #: of qfeval_functions.functions.nanpca.nanpca:18
 msgid "w (torch.Tensor)"
-msgstr ""
+msgstr "w (torch.Tensor)"
 

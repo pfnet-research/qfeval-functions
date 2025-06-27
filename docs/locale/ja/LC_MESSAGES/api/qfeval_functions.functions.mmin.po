@@ -22,17 +22,17 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.mmin.rst:2
 msgid "qfeval\\_functions.functions.mmin"
-msgstr ""
+msgstr "qfeval\\_functions.functions.mmin"
 
 #: of qfeval_functions.functions.mmin.mmin:1
 msgid "Returns the moving min of the given tensor."
-msgstr ""
+msgstr "指定されたテンソルの移動最小値を返します。"
 
 #: ../../api/qfeval_functions.functions.mmin.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.mmin.mmin:4
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

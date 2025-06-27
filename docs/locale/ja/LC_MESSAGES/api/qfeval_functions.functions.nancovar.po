@@ -22,11 +22,11 @@ msgstr ""
 
 #: ../../api/qfeval_functions.functions.nancovar.rst:2
 msgid "qfeval\\_functions.functions.nancovar"
-msgstr ""
+msgstr "qfeval\\_functions.functions.nancovar"
 
 #: of qfeval_functions.functions.nancovar.nancovar:1
 msgid "Calculates the covariance between the given tensors."
-msgstr ""
+msgstr "指定されたテンソル間の共分散を計算します。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:3
 msgid ""
@@ -36,13 +36,13 @@ msgid ""
 "especially in case of many NaNs due to prioritizing memory efficiency.  "
 "In order to improve the precision is necessary to write CUDA code via "
 "PyTorch JIT (torch.utils.cpp_extension.load)."
-msgstr ""
+msgstr "注意: np.covとは異なり、本関数は共分散行列を生成するのではなく、各バッチインデックスに対する共分散を個別に計算します。注意: メモリ効率を優先するため、特にNaN値が多い場合には計算結果の精度が低下し（約半精度）、精度を向上させるためにはPyTorch JITを介してCUDAコードを記述する必要があります（torch.utils.cpp_extension.loadを使用）。"
 
 #: ../../api/qfeval_functions.functions.nancovar.rst
 msgid "Return type"
-msgstr ""
+msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.nancovar.nancovar:11
 msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ""
+msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 
