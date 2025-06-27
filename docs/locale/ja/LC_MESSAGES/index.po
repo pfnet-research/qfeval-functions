@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../../index.rst:2
 msgid "qfeval-functions Documentation"
-msgstr "qffeval-functions ドキュメント"
+msgstr "qfeval-functions ドキュメント"
 
 #: ../../index.rst:4
 msgid ""
