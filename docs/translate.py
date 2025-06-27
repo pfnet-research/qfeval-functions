@@ -483,11 +483,11 @@ qfeval-functionsは、qfevalの中でも、金融時系列データを効率的�
     if dry_run:
         logger.info("=== Dry Run 完了 ===")
         if has_targets:
-            logger.info("終了コード: 0 (翻訳対象あり)")
-            exit(0)
-        else:
-            logger.info("終了コード: 1 (翻訳対象なし)")
+            logger.info("終了コード: 1 (翻訳対象あり)")
             exit(1)
+        else:
+            logger.info("終了コード: 0 (翻訳対象なし)")
+            exit(0)
 
     if not has_targets:
         logger.info("翻訳対象がないため、処理を終了します")
