@@ -1,3 +1,4 @@
+import argparse
 import asyncio
 import logging
 import multiprocessing
@@ -72,6 +73,7 @@ def translate_text(
             "content": f"output lang={to_lang}\n",
         }
     )
+    print(messages)
     outputs = asyncio.run(get_translation(client, messages))
     if outputs.endswith("\n"):
         outputs = outputs[:-1]
@@ -138,14 +140,14 @@ def parse_po_file(file_path: Path) -> List[Tuple[str, str, str]]:
     return entries
 
 
-def should_translate(msgid: str, msgstr: str) -> bool:
+def should_translate(msgid: str, msgstr: str, force: bool = False) -> bool:
     """翻訳が必要かどうかを判定"""
     # 空のmsgidはスキップ
     if not msgid.strip():
         return False
 
-    # 既に翻訳済みの場合はスキップ
-    if msgstr.strip():
+    # 強制モードでない場合、既に翻訳済みの場合はスキップ
+    if not force and msgstr.strip():
         return False
 
     # 特定のパターンはスキップ
@@ -160,6 +162,20 @@ def should_translate(msgid: str, msgstr: str) -> bool:
             return False
 
     return True
+
+
+def is_file_fully_translated(file_path: Path) -> bool:
+    """ファイルが完全に翻訳済みかどうかを判定"""
+    entries = parse_po_file(file_path)
+
+    # 翻訳対象エントリを取得
+    translatable_entries = [
+        (msgid, msgstr, context)
+        for msgid, msgstr, context in entries
+        if should_translate(msgid, msgstr, force=False)
+    ]
+
+    return len(translatable_entries) == 0
 
 
 def write_po_file(file_path: Path, entries: List[Tuple[str, str, str]]) -> None:
@@ -210,9 +226,21 @@ def write_po_file(file_path: Path, entries: List[Tuple[str, str, str]]) -> None:
         print(f"ファイル書き込みエラー {file_path}: {e}")
 
 
-def translate_po_file(client: translate.MCPClient, file_path: Path) -> None:
+def translate_po_file_with_lang(
+    client: translate.MCPClient,
+    file_path: Path,
+    from_lang: str,
+    to_lang: str,
+    global_context: Optional[str] = None,
+    force: bool = False,
+) -> None:
     """単一の.poファイルを翻訳"""
     print(f"翻訳中: {file_path}")
+
+    # 強制モードでない場合、ファイルが完全に翻訳済みかチェック
+    if not force and is_file_fully_translated(file_path):
+        print(f"  スキップ: 既に翻訳済み {file_path}")
+        return
 
     # .poファイルを解析
     entries = parse_po_file(file_path)
@@ -221,20 +249,42 @@ def translate_po_file(client: translate.MCPClient, file_path: Path) -> None:
     to_translate = [
         (msgid, msgstr, context)
         for msgid, msgstr, context in entries
-        if should_translate(msgid, msgstr)
+        if should_translate(msgid, msgstr, force)
     ]
 
     if not to_translate:
         print(f"  翻訳対象なし: {file_path}")
         return
 
-    print(f"  翻訳対象: {len(to_translate)}件")
+    print(
+        f"  翻訳対象: {len(to_translate)}件 {'(強制モード)' if force else ''}"
+    )
+
+    # 同じファイル内の翻訳対象テキストをcontextとして収集
+    file_context_texts = [
+        msgid for msgid, _, _ in to_translate if msgid.strip()
+    ]
+
+    # グローバルcontextとファイル内contextを結合
+    context_parts = []
+    if global_context:
+        context_parts.append(global_context)
+
+    if file_context_texts:
+        file_context = "翻訳対象テキスト:\n" + "\n".join(
+            f"- {text}" for text in file_context_texts[:10]
+        )  # 最初の10件まで
+        context_parts.append(file_context)
+
+    combined_context = "\n\n".join(context_parts) if context_parts else None
 
     # 翻訳実行
     translated_entries = []
     for i, (msgid, msgstr, context) in enumerate(to_translate, 1):
         print(f"  {i}/{len(to_translate)}: {msgid[:50]}...")
-        translated = translate_text(client, "en", "ja", msgid)
+        translated = translate_text(
+            client, from_lang, to_lang, msgid, context_text=combined_context
+        )
         translated_entries.append((msgid, translated, context))
 
     # 翻訳結果をマージ
@@ -254,9 +304,10 @@ def translate_po_file(client: translate.MCPClient, file_path: Path) -> None:
     print(f"  完了: {file_path}")
 
 
-def find_po_files(base_path: str = "docs/locale/ja/LC_MESSAGES") -> List[Path]:
-    """指定されたパス以下の.poファイルを検索"""
+def find_po_files(to_lang: str) -> List[Path]:
+    """指定された言語の.poファイルを検索"""
     po_files: List[Path] = []
+    base_path = f"docs/locale/{to_lang}/LC_MESSAGES"
     base = Path(base_path)
 
     if base.exists():
@@ -265,30 +316,65 @@ def find_po_files(base_path: str = "docs/locale/ja/LC_MESSAGES") -> List[Path]:
     return sorted(po_files)
 
 
-def translate_all_po_files(client: translate.MCPClient) -> None:
+def translate_all_po_files(
+    client: translate.MCPClient,
+    from_lang: str,
+    to_lang: str,
+    global_context: Optional[str] = None,
+    force: bool = False,
+) -> None:
     """全ての.poファイルを翻訳"""
-    po_files = find_po_files()
+    po_files = find_po_files(to_lang)
 
     if not po_files:
-        print(".poファイルが見つかりません")
+        print(f".poファイルが見つかりません: docs/locale/{to_lang}/LC_MESSAGES")
         return
 
+    print(
+        f"翻訳設定: {from_lang} → {to_lang} {'(強制モード)' if force else ''}"
+    )
     print(f"見つかった.poファイル: {len(po_files)}件")
 
     for i, po_file in enumerate(po_files, 1):
         print(f"\n[{i}/{len(po_files)}] {po_file}")
-        translate_po_file(client, po_file)
+        translate_po_file_with_lang(
+            client, po_file, from_lang, to_lang, global_context, force
+        )
 
     print("\n全ての翻訳が完了しました！")
 
 
-if __name__ == "__main__":
-    model_name = "mlx-community/plamo-2-translate"
+def main() -> None:
+    """メイン関数"""
+    parser = argparse.ArgumentParser(
+        description="PO files translator using plamo-translate"
+    )
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Force translation even if already translated",
+    )
+    parser.add_argument(
+        "--from-lang", default="en", help="Source language (default: en)"
+    )
+    parser.add_argument(
+        "--to-lang", default="ja", help="Target language (default: ja)"
+    )
+    parser.add_argument(
+        "--model-name",
+        default="mlx-community/plamo-2-translate",
+        help="Model name (default: mlx-community/plamo-2-translate)",
+    )
+
+    args = parser.parse_args()
+
+    model_name = args.model_name
     backend_type = "mlx"
-    from_lang = "en"
-    to_lang = "ja"
-    strema = False
-    context_text = """qfevalは、Preferred Networks 金融チームが開発している、金融時系列処理のためのPythonフレームワークです。
+    from_lang = args.from_lang
+    to_lang = args.to_lang
+    force = args.force
+
+    global_context_text = """qfevalは、Preferred Networks 金融チームが開発している、金融時系列処理のためのPythonフレームワークです。
 データ形式の仕様定義、金融時系列データを効率的に扱うためのクラス/関数群、および金融時系列モデルの評価フレームワークが含まれます。
 
 qfeval-functionsは、qfevalの中でも、金融時系列データを効率的に扱うための関数群を提供します。"""
@@ -299,6 +385,11 @@ qfeval-functionsは、qfevalの中でも、金融時系列データを効率的�
         ("qfeval_functions", "qfeval_functions"),
         ("Preferred Networks", "Preferred Networks"),
     ]
+
+    print("設定:")
+    print(f"  モデル: {model_name}")
+    print(f"  翻訳: {from_lang} → {to_lang}")
+    print(f"  強制モード: {force}")
 
     update_config(backend_type=backend_type, model_name=model_name)
     if "PLAMO_TRANSLATE_CLI_MODEL_NAME" not in os.environ:
@@ -314,16 +405,12 @@ qfeval-functionsは、qfevalの中でも、金融時系列データを効率的�
         wait_for_server_ready()
 
     client = translate.MCPClient(stream=False)
-
-    # 基本的な翻訳テスト
-    input_text = "Hello, world! This is a test."
-    outputs = translate_text(
-        client, from_lang, to_lang, input_text, context_text, vocabularies
-    )
-    print("基本翻訳テスト:")
-    print(outputs)
-    print()
-
     # .poファイル翻訳を実行
     print("=== .poファイル翻訳開始 ===")
-    translate_all_po_files(client)
+    translate_all_po_files(
+        client, from_lang, to_lang, global_context_text, force
+    )
+
+
+if __name__ == "__main__":
+    main()
