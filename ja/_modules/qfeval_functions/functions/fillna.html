@@ -80,11 +80,55 @@
     <span class="n">posinf</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
     <span class="n">neginf</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Replaces NaN, positive infinity, and negative infinity values with</span>
-<span class="sd">    specified numbers.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Replace NaN and infinity values with specified numbers.</span>
 
-<span class="sd">    NOTE: Differently from torch.nan_to_num, this preserves infinity values as</span>
-<span class="sd">    is.</span>
+<span class="sd">    This function replaces NaN (Not a Number), positive infinity, and negative</span>
+<span class="sd">    infinity values in a tensor with user-specified values. By default, NaN</span>
+<span class="sd">    values are replaced with 0, while infinity values are preserved. This</span>
+<span class="sd">    behavior differs from ``torch.nan_to_num``, which replaces infinities with</span>
+<span class="sd">    the largest/smallest representable finite values by default.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values to be replaced.</span>
+<span class="sd">        nan (float, optional):</span>
+<span class="sd">            The value to replace NaN with.</span>
+<span class="sd">            Default is 0.0.</span>
+<span class="sd">        posinf (float, optional):</span>
+<span class="sd">            The value to replace positive infinity with.</span>
+<span class="sd">            Default is ``math.inf`` (preserves positive infinity).</span>
+<span class="sd">        neginf (float, optional):</span>
+<span class="sd">            The value to replace negative infinity with.</span>
+<span class="sd">            Default is ``-math.inf`` (preserves negative infinity).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A new tensor with the same shape and dtype as the input, where NaN</span>
+<span class="sd">            and infinity values are replaced according to the specified</span>
+<span class="sd">            parameters.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Replace NaN values with 0 (default behavior)</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, nan, 3.0, nan])</span>
+<span class="sd">        &gt;&gt;&gt; QF.fillna(x)</span>
+<span class="sd">        tensor([1., 0., 3., 0.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Replace NaN with -1</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[nan, 2.0], [3.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.fillna(x, nan=-1.0)</span>
+<span class="sd">        tensor([[-1.,  2.],</span>
+<span class="sd">                [ 3., -1.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Handle infinity values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, inf, -inf, nan])</span>
+<span class="sd">        &gt;&gt;&gt; QF.fillna(x, nan=0.0, posinf=999.0, neginf=-999.0)</span>
+<span class="sd">        tensor([   1.,  999., -999.,    0.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Preserve infinity by default</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([inf, -inf, nan])</span>
+<span class="sd">        &gt;&gt;&gt; QF.fillna(x)</span>
+<span class="sd">        tensor([inf, -inf, 0.])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">nan</span><span class="o">=</span><span class="n">nan</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="n">posinf</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=</span><span class="n">neginf</span><span class="p">)</span></div>
 

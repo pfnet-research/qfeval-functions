@@ -82,9 +82,53 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">eigh</span><span class="p">(</span>
     <span class="n">tensor</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">uplo</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;L&quot;</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes eigenvalues and eigenvectors.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute eigenvalues and eigenvectors of a symmetric/Hermitian matrix.</span>
 
-<span class="sd">    NOTE: This does not support differentiable computation.</span>
+<span class="sd">    This function computes the eigenvalues and eigenvectors of a real symmetric</span>
+<span class="sd">    or complex Hermitian matrix. The eigenvalues are returned in ascending</span>
+<span class="sd">    order, and the corresponding eigenvectors are normalized. This</span>
+<span class="sd">    implementation uses NumPy for CPU tensors and CuPy for CUDA tensors.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This function does not support automatic differentiation (autograd).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        tensor (Tensor):</span>
+<span class="sd">            A symmetric (if real) or Hermitian (if complex) matrix of shape</span>
+<span class="sd">            ``(..., N, N)``. Only the upper or lower triangular part is used,</span>
+<span class="sd">            depending on the :attr:`uplo` parameter.</span>
+<span class="sd">        uplo (str, optional):</span>
+<span class="sd">            Indicates which triangular part of the matrix is used:</span>
+
+<span class="sd">            - &#39;L&#39; or &#39;l&#39;: Use the lower triangular part (default)</span>
+<span class="sd">            - &#39;U&#39; or &#39;u&#39;: Use the upper triangular part</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Tensor, Tensor]:</span>
+<span class="sd">            A tuple containing:</span>
+
+<span class="sd">            - Eigenvalues: A tensor of shape ``(..., N)`` containing</span>
+<span class="sd">              eigenvalues in ascending order</span>
+<span class="sd">            - Eigenvectors: A tensor of shape ``(..., N, N)`` where the columns</span>
+<span class="sd">              are the normalized eigenvectors corresponding to the eigenvalues</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # Create a symmetric matrix</span>
+<span class="sd">        &gt;&gt;&gt; A = torch.tensor([[4.0, -2.0],</span>
+<span class="sd">        ...                   [-2.0, 3.0]])</span>
+<span class="sd">        &gt;&gt;&gt; eigenvalues, eigenvectors = QF.eigh(A)</span>
+<span class="sd">        &gt;&gt;&gt; eigenvalues</span>
+<span class="sd">        tensor([1.4384, 5.5616])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Verify: A @ v = λ @ v</span>
+<span class="sd">        &gt;&gt;&gt; torch.allclose(A @ eigenvectors, eigenvectors @ torch.diag(eigenvalues))</span>
+<span class="sd">        True</span>
+
+<span class="sd">        &gt;&gt;&gt; # Using upper triangular part</span>
+<span class="sd">        &gt;&gt;&gt; B = torch.tensor([[1.0, 2.0, 3.0],</span>
+<span class="sd">        ...                   [0.0, 4.0, 5.0],</span>
+<span class="sd">        ...                   [0.0, 0.0, 6.0]])</span>
+<span class="sd">        &gt;&gt;&gt; eigenvalues, eigenvectors = QF.eigh(B, uplo=&#39;U&#39;)</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">calculate</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>

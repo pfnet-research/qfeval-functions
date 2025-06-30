@@ -16,6 +16,7 @@
       <script src="../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -77,14 +78,115 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nansum">
 <span class="sig-name descname"><span class="pre">nansum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nansum.html#nansum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nansum" title="Link to this definition"></a></dt>
-<dd><p>Returns the sum of all elements, ignoring Not a Numbers (NaNs).</p>
-<p>NOTE: If no valid numbers exist, this returns NaN while torch.nansum
-returns 0.</p>
+<dd><p>Compute the sum of tensor elements along specified dimensions, ignoring
+NaN values.</p>
+<p>This function calculates the sum of all valid (non-NaN) elements in a tensor
+along the specified dimension(s). Unlike PyTorch’s <code class="docutils literal notranslate"><span class="pre">torch.nansum</span></code>, this
+function returns NaN when no valid elements are found along a dimension,
+rather than returning 0. This behavior is more mathematically consistent
+for statistical operations where the absence of data should be explicitly
+represented as NaN.</p>
+<p>The NaN-aware sum is computed as:</p>
+<div class="math notranslate nohighlight">
+\[\text{nansum}(X) = \sum_{i \text{ valid}} X_i\]</div>
+<p>where the sum is over all valid (non-NaN) values.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor containing values.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) – The dimension(s) along which to compute the sum. If not specified
+(default is empty tuple), the sum is computed over all dimensions.</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the output tensor has <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>
+retained or not. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The sum values computed only over valid (non-NaN) values.
+When no valid values exist along a dimension, the result is NaN
+(unlike <code class="docutils literal notranslate"><span class="pre">torch.nansum</span></code> which returns 0). The shape depends on
+the input dimensions, <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>, and <code class="xref py py-attr docutils literal notranslate"><span class="pre">keepdim</span></code> parameters.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple sum with NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">tensor(12.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Compare with torch.nansum (returns 0 for all-NaN)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">all_nan</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">nan</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="n">nan</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">all_nan</span><span class="p">)</span>
+<span class="go">tensor(nan)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">all_nan</span><span class="p">)</span>
+<span class="go">tensor(0.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensor with sum along columns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([5., 5., 3.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Sum along rows</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([4., 9.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># All dimensions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">tensor(7.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With keepdim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">tensor([[4.],</span>
+<span class="go">        [9.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># All NaN slice returns NaN</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="n">nan</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([3., nan])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Multiple dimensions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]],</span>
+<span class="gp">... </span>                  <span class="p">[[</span><span class="n">nan</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">7.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="go">tensor([ 8., 13.])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function provides more mathematically consistent behavior than
+<code class="docutils literal notranslate"><span class="pre">torch.nansum</span></code> by returning NaN when no valid values are present,
+rather than 0. This is particularly important for statistical
+computations where the absence of data should be distinguished
+from a sum of zero.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When all values along a dimension are NaN, this function returns NaN
+(not 0 like <code class="docutils literal notranslate"><span class="pre">torch.nansum</span></code>). This behavior difference should be
+considered when replacing <code class="docutils literal notranslate"><span class="pre">torch.nansum</span></code> with this function.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="qfeval_functions.functions.nanmean.html#qfeval_functions.functions.nanmean" title="qfeval_functions.functions.nanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanmean()</span></code></a>: NaN-aware mean function.
+<code class="xref py py-func docutils literal notranslate"><span class="pre">nanstd()</span></code>: NaN-aware standard deviation function.
+<a class="reference internal" href="qfeval_functions.functions.nanvar.html#qfeval_functions.functions.nanvar" title="qfeval_functions.functions.nanvar"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanvar()</span></code></a>: NaN-aware variance function.
+<code class="docutils literal notranslate"><span class="pre">torch.nansum</span></code>: PyTorch’s built-in NaN-aware sum (returns 0 for all-NaN).</p>
+</div>
 </dd></dl>
 
 </section>

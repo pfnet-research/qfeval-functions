@@ -74,7 +74,37 @@
 <div class="viewcode-block" id="bfill">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.bfill.html#qfeval_functions.functions.bfill">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">bfill</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Propagates last valid values backward.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Backward fill missing values along the specified dimension.</span>
+
+<span class="sd">    This function propagates the last valid (non-NaN) values backward along</span>
+<span class="sd">    the specified dimension. For each NaN value, it is replaced with the</span>
+<span class="sd">    nearest valid value that appears after it along the dimension. If no valid</span>
+<span class="sd">    value exists after a NaN, it remains NaN.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values to be filled.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to perform backward fill.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, with NaN values replaced</span>
+<span class="sd">            by the nearest subsequent valid values where possible.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, nan, nan, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.bfill(x)</span>
+<span class="sd">        tensor([1., 4., 4., 4., 5.])</span>
+
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[nan, 2.0, nan, 4.0],</span>
+<span class="sd">        ...                   [5.0, nan, nan, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.bfill(x, dim=1)</span>
+<span class="sd">        tensor([[2., 2., 4., 4.],</span>
+<span class="sd">                [5., nan, nan, nan]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">ffill</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">[</span><span class="n">dim</span><span class="p">]),</span> <span class="n">dim</span><span class="p">),</span> <span class="p">[</span><span class="n">dim</span><span class="p">])</span></div>
 
 </pre></div>

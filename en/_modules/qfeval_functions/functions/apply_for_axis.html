@@ -79,13 +79,60 @@
     <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Applies the given data `x` into the given function `f`, which expects a</span>
-<span class="sd">    tensor of `(batch, n)` shape.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Apply a function expecting 2D input to a tensor along a specified</span>
+<span class="sd">    dimension.</span>
 
-<span class="sd">    This flattens the unspecified dimensions of `x` and unflattens the result</span>
-<span class="sd">    of the given function `f`.  This is useful to implement a function</span>
-<span class="sd">    manipulating a tensor along an axis without thinking of the number of</span>
-<span class="sd">    dimensions.</span>
+<span class="sd">    This utility function allows applying functions that expect 2D tensors of</span>
+<span class="sd">    shape ``(batch, n)`` to tensors of arbitrary dimensions. It handles the</span>
+<span class="sd">    reshaping by flattening all dimensions except the specified one, applying</span>
+<span class="sd">    the function, and then restoring the original shape. This is particularly</span>
+<span class="sd">    useful for implementing dimension-aware operations without explicitly</span>
+<span class="sd">    handling different tensor shapes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        f (Callable[[Tensor], Tensor]):</span>
+<span class="sd">            A function that expects a 2D tensor of shape ``(batch, n)`` as</span>
+<span class="sd">            input and returns a tensor where the batch dimension is preserved.</span>
+<span class="sd">            The function must be dimension-preserving along the batch dimension.</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor of arbitrary dimensions to process.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to apply the function.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The result of applying function :attr:`f` along the specified</span>
+<span class="sd">            dimension, with the same shape as the input tensor.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Apply to a 3D tensor along dimension 1</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[[1., 2.], [3., 4.], [5., 6.]],</span>
+<span class="sd">        ...                   [[7., 8.], [9., 10.], [11., 12.]]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.apply_for_axis(lambda x: x.cumsum(dim=1), x, dim=1)</span>
+<span class="sd">        tensor([[[ 1.,  2.],</span>
+<span class="sd">                 [ 4.,  6.],</span>
+<span class="sd">                 [ 9., 12.]],</span>
+<span class="sd">        &lt;BLANKLINE&gt;</span>
+<span class="sd">                [[ 7.,  8.],</span>
+<span class="sd">                 [16., 18.],</span>
+<span class="sd">                 [27., 30.]]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple 2D example: apply function along columns (dim=0)</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1., 2., 3.],</span>
+<span class="sd">        ...                   [4., 5., 6.]])</span>
+<span class="sd">        &gt;&gt;&gt; def normalize_columns(x):</span>
+<span class="sd">        ...     # Normalize each column to sum to 1</span>
+<span class="sd">        ...     return x / x.sum(dim=0, keepdim=True)</span>
+<span class="sd">        &gt;&gt;&gt; QF.apply_for_axis(normalize_columns, x, dim=0)</span>
+<span class="sd">        tensor([[0.1667, 0.3333, 0.5000],</span>
+<span class="sd">                [0.2667, 0.3333, 0.4000]])</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        The function :attr:`f` must preserve the batch dimension size. Functions</span>
+<span class="sd">        that change the batch dimension size will cause shape mismatch errors</span>
+<span class="sd">        during the reshape operation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># 1. Move the target dimension to the top to make data manipulation easier.</span>

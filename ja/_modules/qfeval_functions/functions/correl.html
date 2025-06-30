@@ -82,7 +82,50 @@
     <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns Pearson correlation coefficient between `x` and `y`.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute Pearson correlation coefficient between two tensors.</span>
+
+<span class="sd">    This function calculates the Pearson correlation coefficient between</span>
+<span class="sd">    tensors :attr:`x` and :attr:`y` along the specified dimension(s). The</span>
+<span class="sd">    correlation coefficient measures the linear relationship between two</span>
+<span class="sd">    variables and ranges from -1 (perfect negative correlation) to 1</span>
+<span class="sd">    (perfect positive correlation), with 0 indicating no linear correlation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The first input tensor.</span>
+<span class="sd">        y (Tensor):</span>
+<span class="sd">            The second input tensor. Must be the same shape as :attr:`x`.</span>
+<span class="sd">        dim (int or tuple of ints, optional):</span>
+<span class="sd">            The dimension(s) along which to compute the correlation. If not</span>
+<span class="sd">            specified (default is empty tuple), computes element-wise</span>
+<span class="sd">            correlation and sums the result.</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensor has :attr:`dim` retained or not.</span>
+<span class="sd">            Default is False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The Pearson correlation coefficient(s). The shape depends on the</span>
+<span class="sd">            input dimensions and the :attr:`keepdim` parameter.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([2.0, 4.0, 6.0, 8.0, 10.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.correl(x, y, dim=0)</span>
+<span class="sd">        tensor(1.)</span>
+
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, 6.0]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[2.0, 4.0, 5.0],</span>
+<span class="sd">        ...                   [8.0, 10.0, 12.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.correl(x, y, dim=1)</span>
+<span class="sd">        tensor([0.9820, 1.0000])</span>
+
+<span class="sd">        &gt;&gt;&gt; QF.correl(x, y, dim=1, keepdim=True)</span>
+<span class="sd">        tensor([[0.9820],</span>
+<span class="sd">                [1.0000]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ax</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">ay</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">axy</span> <span class="o">=</span> <span class="n">mulmean</span><span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">ay</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

@@ -78,12 +78,75 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nanshift">
 <span class="sig-name descname"><span class="pre">nanshift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nanshift.html#nanshift"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nanshift" title="Link to this definition"></a></dt>
-<dd><p>指定された次元に沿って配列要素をシフトし、NaNは無視します。</p>
+<dd><p>Shift tensor elements along a dimension while preserving NaN positions.</p>
+<p>この関数は、指定された次元に沿ってテンソルの有効な要素（NaNでない値）をシフトしつつ、NaN値を元の位置に保持します。標準的なシフト操作とは異なり、NaN値はシフト処理に参加しない「移動不可」の要素として扱われ、有効なデータのみがそれらの周囲にシフトされます。</p>
+<p>これは、時系列データにおいて欠損値（NaNとして表現される）が元の時系列位置を保持したまま、有効な観測値が分析目的でシフトされる必要がある場合に特に有用です。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- シフト対象の入力テンソル。</p></li>
+<li><p><strong>shift</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- シフトする位置の数。正の値はインデックスの高い方向へ、負の値はインデックスの低い方向へシフトします。デフォルト値は1です。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- シフトを実行する次元。デフォルトは-1（最後の次元）です。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>入力と同じ形状のテンソルで、指定された次元に沿って有効な要素がシフトされ、NaNの位置は変更されずにそのまま保持されます。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple 1D shift with NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanshift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([nan, nan, 1., 3., nan])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Negative shift</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanshift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">shift</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([3., nan, 4., nan, nan])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensor shift along rows</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="n">nan</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanshift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([[nan, nan, nan],</span>
+<span class="go">        [1., nan, nan],</span>
+<span class="go">        [nan, 5., 3.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensor shift along columns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanshift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([[nan, nan, 1.],</span>
+<span class="go">        [nan, 4., nan]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Large shift (wraps around valid elements)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanshift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">tensor([nan, nan, nan, 1., nan])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># All NaN tensor (no change)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">nan</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="n">nan</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanshift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([nan, nan, nan])</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>シフト操作は有効な要素を循環させます。例えば、有効な要素が3つあり``shift=1``の場合、最後の有効な要素が最初の要素となり、他の要素は1つシフトします。</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<p><a class="reference internal" href="qfeval_functions.functions.shift.html#qfeval_functions.functions.shift" title="qfeval_functions.functions.shift"><code class="xref py py-func docutils literal notranslate"><span class="pre">shift()</span></code></a>: NaN処理を行わない標準的なシフト関数。 <a class="reference internal" href="qfeval_functions.functions.group_shift.html#qfeval_functions.functions.group_shift" title="qfeval_functions.functions.group_shift"><code class="xref py py-func docutils literal notranslate"><span class="pre">group_shift()</span></code></a>: グループ内でのシフト操作。 <code class="docutils literal notranslate"><span class="pre">torch.roll</span></code>: PyTorch標準のテンソルロール関数。</p>
+</div>
 </dd></dl>
 
 </section>

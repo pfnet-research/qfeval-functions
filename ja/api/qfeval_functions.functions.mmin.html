@@ -17,6 +17,7 @@
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/translations.js?v=4755f45a"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" /> 
@@ -78,12 +79,69 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.mmin">
 <span class="sig-name descname"><span class="pre">mmin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/mmin.html#mmin"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.mmin" title="Link to this definition"></a></dt>
-<dd><p>指定されたテンソルの移動最小値を返します。</p>
+<dd><p>テンソルの移動最小値（スライディングウィンドウ最小値）を計算します。</p>
+<p>この関数は、指定された次元に沿ってサイズ <code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code> のスライディングウィンドウ内の最小値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">-</span> <span class="pre">1</span></code> 要素の場合）、結果は最初の要素でパディングすることで利用可能な値を用いて計算されます。</p>
+<p>移動最小値は以下のように計算されます：</p>
+<div class="math notranslate nohighlight">
+\[\text{MMIN}[i] = \min_{j=\max(0, i-\text{span}+1)}^{i} x[j]\]</div>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 値を含む入力テンソル。</p></li>
+<li><p><strong>span</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) -- スライディングウィンドウのサイズ。正の値である必要があります。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 移動最小値を計算する次元。デフォルトは -1 で、最後の次元を指定します。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>入力テンソルと同じ形状で、移動最小値の値を含むテンソル。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple moving minimum with window size 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mmin</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">tensor([5., 1., 1., 1., 2.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensor with moving minimum along columns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mmin</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([[4., 1., 1., 2.],</span>
+<span class="go">        [2., 2., 1., 1.],</span>
+<span class="go">        [7., 2., 2., 3.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Moving minimum along the first dimension</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mmin</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([[4., 5.],</span>
+<span class="go">        [1., 3.],</span>
+<span class="go">        [1., 2.],</span>
+<span class="go">        [1., 2.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Handling negative values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">4.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mmin</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">tensor([-1., -5., -5., -4., -4.])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>この関数は``-mmax(-x, span, dim)``として実装されており、最小値演算と最大値演算の双対性を活用しています。このアプローチにより、移動最大値関数と一貫した動作と性能を確保しつつ、コードの重複を避けることができます。</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<p><a class="reference internal" href="qfeval_functions.functions.mmax.html#qfeval_functions.functions.mmax" title="qfeval_functions.functions.mmax"><code class="xref py py-func docutils literal notranslate"><span class="pre">mmax()</span></code></a>: 移動最大値関数。 <a class="reference internal" href="qfeval_functions.functions.msum.html#qfeval_functions.functions.msum" title="qfeval_functions.functions.msum"><code class="xref py py-func docutils literal notranslate"><span class="pre">msum()</span></code></a>: 移動合計関数。 <a class="reference internal" href="qfeval_functions.functions.ma.html#qfeval_functions.functions.ma" title="qfeval_functions.functions.ma"><code class="xref py py-func docutils literal notranslate"><span class="pre">ma()</span></code></a>: 移動平均関数。</p>
+</div>
 </dd></dl>
 
 </section>

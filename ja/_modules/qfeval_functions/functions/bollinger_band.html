@@ -83,10 +83,50 @@
     <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">,</span>
     <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the upper/middle/bottom values of the corresponding Bollinger band.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute Bollinger Bands for a tensor.</span>
 
-<span class="sd">    Definition: https://www.investopedia.com/terms/b/bollingerbands.asp</span>
-<span class="sd">    Like Data.bollinger_band</span>
+<span class="sd">    Bollinger Bands are a technical analysis tool consisting of a middle band</span>
+<span class="sd">    (moving average) and two outer bands (upper and lower). The outer bands</span>
+<span class="sd">    are placed at a distance of :attr:`sigma` standard deviations from the</span>
+<span class="sd">    middle band. This indicator is commonly used in financial analysis to</span>
+<span class="sd">    identify potential support and resistance levels.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing time series data.</span>
+<span class="sd">        window (int, optional):</span>
+<span class="sd">            The size of the moving window for calculating the moving average</span>
+<span class="sd">            and standard deviation.</span>
+<span class="sd">            Default is 20.</span>
+<span class="sd">        sigma (float, optional):</span>
+<span class="sd">            The number of standard deviations for the upper and lower bands.</span>
+<span class="sd">            Default is 2.0.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to compute the Bollinger Bands.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Tensor, Tensor, Tensor]:</span>
+<span class="sd">            A tuple containing three tensors of the same shape as the input:</span>
+
+<span class="sd">            - Upper band: middle band + (sigma * standard deviation)</span>
+<span class="sd">            - Middle band: moving average</span>
+<span class="sd">            - Lower band: middle band - (sigma * standard deviation)</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[100., 102., 101., 103., 105.],</span>
+<span class="sd">        ...                   [50., 48., 49., 51., 52.]])</span>
+<span class="sd">        &gt;&gt;&gt; upper, middle, lower = QF.bollinger_band(x, window=3, sigma=1.0, dim=1)</span>
+<span class="sd">        &gt;&gt;&gt; upper</span>
+<span class="sd">        tensor([[     nan,      nan, 101.8165, 102.8165, 104.6330],</span>
+<span class="sd">                [     nan,      nan,  49.8165,  50.5805,  51.9139]])</span>
+<span class="sd">        &gt;&gt;&gt; middle</span>
+<span class="sd">        tensor([[     nan,      nan, 101.0000, 102.0000, 103.0000],</span>
+<span class="sd">                [     nan,      nan,  49.0000,  49.3333,  50.6667]])</span>
+<span class="sd">        &gt;&gt;&gt; lower</span>
+<span class="sd">        tensor([[     nan,      nan, 100.1835, 101.1835, 101.3670],</span>
+<span class="sd">                [     nan,      nan,  48.1835,  48.0861,  49.4195]])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">middle</span> <span class="o">=</span> <span class="n">ma</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">)</span>
     <span class="n">width</span> <span class="o">=</span> <span class="n">mstd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">window</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="n">sigma</span>

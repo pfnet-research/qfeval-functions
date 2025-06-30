@@ -17,6 +17,7 @@
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/translations.js?v=4755f45a"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" /> 
@@ -78,12 +79,77 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nanskew">
 <span class="sig-name descname"><span class="pre">nanskew</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unbiased</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nanskew.html#nanskew"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nanskew" title="Link to this definition"></a></dt>
-<dd><p>各行の歪度を返し、非数値値（NaN）は無視します。</p>
+<dd><p>指定された次元に沿って歪度を計算し、NaN値を無視します。</p>
+<p>この関数は、指定された次元に沿ってテンソルの歪度（第三標準化モーメント）を計算します。計算時には NaN 値は除外されます。歪度は、確率分布が平均値を中心にどの程度非対称であるかを測定する指標であり、データが分布の片側に偏っているかどうかを示します。</p>
+<p>歪度は以下のように計算されます：</p>
+<div class="math notranslate nohighlight">
+\[\text{skew} = \frac{\text{E}[(X - \mu)^3]]}{\sigma^3}\]</div>
+<p>ここで <span class="math notranslate nohighlight">\(\mu\)</span> は平均値、<span class="math notranslate nohighlight">\(\sigma\)</span> は標準偏差を表し、これらは有効な値（NaNではない）に対してのみ計算されます。正の歪度は分布の右側に長い裾があることを示し、負の歪度は左側に長い裾があることを示します。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 値を含む入力テンソル。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) -- 歪度を計算する次元を指定します。指定しない場合（デフォルトは空のタプル）は、すべての次元にわたって計算します。</p></li>
+<li><p><strong>unbiased</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) -- デフォルトでTrueの場合、バイアス補正を施した無偏推定量を使用します。Falseの場合、バイアス推定量を使用します。</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) -- 出力テンソルが <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> を保持するかどうか。デフォルトは False。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>有効な値（NaNでない値）のみに基づいて計算された歪度値。形状は入力次元と <code class="xref py py-attr docutils literal notranslate"><span class="pre">keepdim</span></code> パラメータに依存します。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple skewness with some NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanskew</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor(1.1846)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensor with skewness along columns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanskew</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([-0.9352, -1.2933, -1.4579])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Skewed distribution</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanskew</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor(2.1713)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With keepdim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanskew</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">tensor([[nan],</span>
+<span class="go">        [nan]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Biased estimation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanskew</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">unbiased</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">tensor(0.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Negative skewness (left tail)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanskew</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor(-2.0287)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>歪度の計算は外れ値の影響を受けやすい特性があります。極端な単一の値であっても、特にサンプルサイズが小さい場合、歪度の測定値に大きな影響を与える可能性があります。</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<p><a class="reference internal" href="qfeval_functions.functions.nankurtosis.html#qfeval_functions.functions.nankurtosis" title="qfeval_functions.functions.nankurtosis"><code class="xref py py-func docutils literal notranslate"><span class="pre">nankurtosis()</span></code></a>: NaNを考慮した尖度関数。 <a class="reference internal" href="qfeval_functions.functions.nanvar.html#qfeval_functions.functions.nanvar" title="qfeval_functions.functions.nanvar"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanvar()</span></code></a>: NaNを考慮した分散関数。 <code class="xref py py-func docutils literal notranslate"><span class="pre">nanstd()</span></code>: NaNを考慮した標準偏差関数。 <a class="reference internal" href="qfeval_functions.functions.nanmean.html#qfeval_functions.functions.nanmean" title="qfeval_functions.functions.nanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanmean()</span></code></a>: NaNを考慮した平均関数。</p>
+</div>
 </dd></dl>
 
 </section>

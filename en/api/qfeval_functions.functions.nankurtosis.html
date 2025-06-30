@@ -16,6 +16,7 @@
       <script src="../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -77,12 +78,84 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nankurtosis">
 <span class="sig-name descname"><span class="pre">nankurtosis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unbiased</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">fisher</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nankurtosis.html#nankurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nankurtosis" title="Link to this definition"></a></dt>
-<dd><p>Returns the kurtosis of each row, ignoring Not a Numbers (NaNs).</p>
+<dd><p>Compute the kurtosis along specified dimensions, ignoring NaN values.</p>
+<p>This function calculates the kurtosis (fourth standardized moment) of a
+tensor along the specified dimension(s), excluding NaN values from the
+computation. Kurtosis measures the “tailedness” of a probability distribution,
+indicating how much of the data is concentrated in the tails versus the center.</p>
+<p>The kurtosis is computed as:</p>
+<div class="math notranslate nohighlight">
+\[\kappa = \frac{\text{E}[(X - \mu)^4]}{\sigma^4}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\mu\)</span> is the mean and <span class="math notranslate nohighlight">\(\sigma\)</span> is the standard deviation,
+computed only over valid (non-NaN) values. When <code class="xref py py-attr docutils literal notranslate"><span class="pre">fisher</span></code> is True
+(default), Fisher’s definition is used where normal distribution has
+kurtosis 0. When False, Pearson’s definition is used where normal
+distribution has kurtosis 3.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor containing values.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) – The dimension(s) along which to compute the kurtosis. If not
+specified (default is empty tuple), computes over all dimensions.</p></li>
+<li><p><strong>unbiased</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If True (default), uses unbiased estimation
+with bias correction. If False, uses biased estimation.</p></li>
+<li><p><strong>fisher</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If True (default), uses Fisher’s definition (normal distribution
+has kurtosis 0). If False, uses Pearson’s definition (normal
+distribution has kurtosis 3).</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the output tensor has <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> retained or not.
+Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The kurtosis values computed only over valid (non-NaN) values.
+The shape depends on the input dimensions and the <code class="xref py py-attr docutils literal notranslate"><span class="pre">keepdim</span></code>
+parameter.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple kurtosis with some NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nankurtosis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor(-1.9632)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensor with kurtosis along columns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nankurtosis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([-inf, inf, nan])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Pearson&#39;s definition (fisher=False)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nankurtosis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">fisher</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">tensor(6.8000)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With keepdim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nankurtosis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">tensor([[nan],</span>
+<span class="go">        [nan]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Biased estimation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nankurtosis</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">unbiased</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">tensor(-1.2686)</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="qfeval_functions.functions.nanskew.html#qfeval_functions.functions.nanskew" title="qfeval_functions.functions.nanskew"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanskew()</span></code></a>: NaN-aware skewness function.
+<a class="reference internal" href="qfeval_functions.functions.nanvar.html#qfeval_functions.functions.nanvar" title="qfeval_functions.functions.nanvar"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanvar()</span></code></a>: NaN-aware variance function.
+<code class="xref py py-func docutils literal notranslate"><span class="pre">nanstd()</span></code>: NaN-aware standard deviation function.</p>
+</div>
 </dd></dl>
 
 </section>

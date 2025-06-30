@@ -76,124 +76,124 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.apply_for_axis.html#qfeval_functions.functions.apply_for_axis" title="qfeval_functions.functions.apply_for_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_for_axis</span></code></a></p></td>
-<td><p>与えられたデータ <cite>x</cite> を、形状 <cite>(batch, n)</cite> のテンソルを期待する関数 <cite>f</cite> に適用します。</p></td>
+<td><p>指定された次元に沿ってテンソルに2次元入力を期待する関数を適用します。</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.bfill.html#qfeval_functions.functions.bfill" title="qfeval_functions.functions.bfill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bfill</span></code></a></p></td>
-<td><p>最後に有効な値を後方に伝播します。</p></td>
+<td><p>指定された次元に沿って欠損値を後方補完します。</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.bincount.html#qfeval_functions.functions.bincount" title="qfeval_functions.functions.bincount"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bincount</span></code></a></p></td>
-<td><p>指定された次元に沿ってテンソル内の各値の頻度を計算します。出力テンソルの最小長をサポートします。</p></td>
+<td><p>テンソル内の各値の出現回数をカウントします。</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.bollinger_band.html#qfeval_functions.functions.bollinger_band" title="qfeval_functions.functions.bollinger_band"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bollinger_band</span></code></a></p></td>
-<td><p>対応するボリンジャーバンドの上限/中央/下限値を返します。</p></td>
+<td><p>テンソルのボリンジャーバンドを計算します。</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.correl.html#qfeval_functions.functions.correl" title="qfeval_functions.functions.correl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">correl</span></code></a></p></td>
-<td><p><a href="#id1"><span class="problematic" id="id2">`</span></a>x`と`y`の間のピアソン相関係数を返します。</p></td>
+<td><p>Compute Pearson correlation coefficient between two tensors.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.covar.html#qfeval_functions.functions.covar" title="qfeval_functions.functions.covar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">covar</span></code></a></p></td>
-<td><p>指定された次元に沿って、与えられたテンソル間の共分散を計算します。</p></td>
+<td><p>Compute covariance between two tensors along a specified dimension.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.cumcount.html#qfeval_functions.functions.cumcount" title="qfeval_functions.functions.cumcount"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cumcount</span></code></a></p></td>
-<td><p>各グループ内の各項目に0から :math:<a href="#id1"><span class="problematic" id="id2">`</span></a>N-1`までの番号を割り当てます。ここで、:math:<a href="#id3"><span class="problematic" id="id4">`</span></a>N`はグループ内の項目数です。</p></td>
+<td><p>指定した次元に沿って、各一意値の出現回数をカウントします。</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.eigh.html#qfeval_functions.functions.eigh" title="qfeval_functions.functions.eigh"><code class="xref py py-obj docutils literal notranslate"><span class="pre">eigh</span></code></a></p></td>
-<td><p>固有値と固有ベクトルを計算します。</p></td>
+<td><p>Compute eigenvalues and eigenvectors of a symmetric/Hermitian matrix.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.einsum.html#qfeval_functions.functions.einsum" title="qfeval_functions.functions.einsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">einsum</span></code></a></p></td>
-<td><p>torch.einsumの型付きバージョン。</p></td>
+<td><p>アインシュタイン記法を用いて、指定されたインデックスにわたるテンソル要素の積を計算します。</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.ema.html#qfeval_functions.functions.ema" title="qfeval_functions.functions.ema"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ema</span></code></a></p></td>
-<td><p>指定されたテンソルの指数加重移動平均を返します。</p></td>
+<td><p>指定された次元に沿って指数移動平均を計算します。</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.ffill.html#qfeval_functions.functions.ffill" title="qfeval_functions.functions.ffill"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ffill</span></code></a></p></td>
-<td><p>有効値を前方に伝播します。</p></td>
+<td><p>Forward fill missing values along the specified dimension.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.fillna.html#qfeval_functions.functions.fillna" title="qfeval_functions.functions.fillna"><code class="xref py py-obj docutils literal notranslate"><span class="pre">fillna</span></code></a></p></td>
-<td><p>NaN、正の無限大、負の無限大の値を指定された数値で置き換えます。</p></td>
+<td><p>Replace NaN and infinity values with specified numbers.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.gaussian_blur.html#qfeval_functions.functions.gaussian_blur" title="qfeval_functions.functions.gaussian_blur"><code class="xref py py-obj docutils literal notranslate"><span class="pre">gaussian_blur</span></code></a></p></td>
-<td><p>指定された軸 <cite>dim</cite> に沿って、<cite>x</cite> に指定された <cite>sigma</cite> パラメータを持つガウシアンフィルタを適用します。</p></td>
+<td><p>Apply Gaussian blur to a tensor along a specified dimension.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.group_shift.html#qfeval_functions.functions.group_shift" title="qfeval_functions.functions.group_shift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">group_shift</span></code></a></p></td>
-<td><p>指定されたマスクをスキップしながら、テンソルを指定された次元に沿ってシフトします。</p></td>
+<td><p>Shift tensor elements along a dimension, skipping masked positions.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.groupby.html#qfeval_functions.functions.groupby" title="qfeval_functions.functions.groupby"><code class="xref py py-obj docutils literal notranslate"><span class="pre">groupby</span></code></a></p></td>
-<td><p><cite>group_id</cite> で <cite>x</cite> の項目をグループ化します。</p></td>
+<td><p>指定された次元に沿ってテンソル要素をグループ識別子でグループ化する。</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.ma.html#qfeval_functions.functions.ma" title="qfeval_functions.functions.ma"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ma</span></code></a></p></td>
-<td><p>指定されたテンソルの移動平均を返します。</p></td>
+<td><p>Compute the moving (sliding window) average of a tensor.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.mmax.html#qfeval_functions.functions.mmax" title="qfeval_functions.functions.mmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mmax</span></code></a></p></td>
-<td><p>指定されたテンソルの移動最大値を返します。</p></td>
+<td><p>Compute the moving (sliding window) maximum of a tensor.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.mmin.html#qfeval_functions.functions.mmin" title="qfeval_functions.functions.mmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mmin</span></code></a></p></td>
-<td><p>指定されたテンソルの移動最小値を返します。</p></td>
+<td><p>Compute the moving (sliding window) minimum of a tensor.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.mstd.html#qfeval_functions.functions.mstd" title="qfeval_functions.functions.mstd"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mstd</span></code></a></p></td>
-<td><p>指定されたテンソルの移動標準偏差を返します。</p></td>
+<td><p>Compute the moving (sliding window) standard deviation of a tensor.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.msum.html#qfeval_functions.functions.msum" title="qfeval_functions.functions.msum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">msum</span></code></a></p></td>
 <td><p>テンソルの移動和（スライディングウィンドウ和）を計算します。</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.mulmean.html#qfeval_functions.functions.mulmean" title="qfeval_functions.functions.mulmean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mulmean</span></code></a></p></td>
-<td><p>メモリ効率に優れた方法で <cite>(x * y).mean(...)</cite> を計算します。</p></td>
+<td><p>Compute the mean of element-wise product in a memory-efficient way.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.mulsum.html#qfeval_functions.functions.mulsum" title="qfeval_functions.functions.mulsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mulsum</span></code></a></p></td>
-<td><p>メモリ効率に優れた方法で <cite>(x * y).sum(...)</cite> を効率的に計算します。</p></td>
+<td><p>Compute sum or mean of element-wise product in a memory-efficient way.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.mvar.html#qfeval_functions.functions.mvar" title="qfeval_functions.functions.mvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">mvar</span></code></a></p></td>
-<td><p>指定されたテンソルの移動分散を返します。</p></td>
+<td><p>Compute the moving (sliding window) variance of a tensor.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.nancorrel.html#qfeval_functions.functions.nancorrel" title="qfeval_functions.functions.nancorrel"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nancorrel</span></code></a></p></td>
-<td><p><a href="#id1"><span class="problematic" id="id2">`</span></a>x`と`y`の間のピアソン相関係数を返し、NaNは無視します。</p></td>
+<td><p>Compute Pearson correlation coefficient between two tensors, ignoring NaN values.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.nancovar.html#qfeval_functions.functions.nancovar" title="qfeval_functions.functions.nancovar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nancovar</span></code></a></p></td>
-<td><p>与えられたテンソル間の共分散を計算します。</p></td>
+<td><p>Compute covariance between two tensors, ignoring NaN values.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.nancumprod.html#qfeval_functions.functions.nancumprod" title="qfeval_functions.functions.nancumprod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nancumprod</span></code></a></p></td>
-<td><p></p></td>
+<td><p>次元に沿って累積積を計算し、NaNを1として扱います。</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.nancumsum.html#qfeval_functions.functions.nancumsum" title="qfeval_functions.functions.nancumsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nancumsum</span></code></a></p></td>
-<td><p></p></td>
+<td><p>次元に沿って累積和を計算し、NaNを0として扱います。</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.nankurtosis.html#qfeval_functions.functions.nankurtosis" title="qfeval_functions.functions.nankurtosis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nankurtosis</span></code></a></p></td>
-<td><p>各行の尖度を返し、非数値値（NaN）は無視します。</p></td>
+<td><p>Compute the kurtosis along specified dimensions, ignoring NaN values.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.nanmax.html#qfeval_functions.functions.nanmax" title="qfeval_functions.functions.nanmax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmax</span></code></a></p></td>
-<td><p>指定された次元 <cite>dim</cite> において、入力テンソルの各行の最大値を含むタプル <cite>(values, indices)</cite> を返します。Not a Numbers (NaNs) は無視されます。</p></td>
+<td><p>指定した次元に沿って最大値と対応するインデックスを返し、NaN値は無視します。</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.nanmean.html#qfeval_functions.functions.nanmean" title="qfeval_functions.functions.nanmean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmean</span></code></a></p></td>
-<td><p>各行の平均値を返し、Not a Numbers (NaNs) は無視します。</p></td>
+<td><p>Compute the arithmetic mean along specified dimensions, ignoring NaN values.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.nanmin.html#qfeval_functions.functions.nanmin" title="qfeval_functions.functions.nanmin"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmin</span></code></a></p></td>
-<td><p>指定された次元 <cite>dim</cite> において、入力テンソルの各行の最小値を含む名前付きタプル <cite>(values, indices)</cite> を返します。Not a Numbers (NaNs) は無視されます。</p></td>
+<td><p>指定した次元に沿って最小値と対応するインデックスを返し、NaN値は無視します。</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.nanmulmean.html#qfeval_functions.functions.nanmulmean" title="qfeval_functions.functions.nanmulmean"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmulmean</span></code></a></p></td>
-<td><p>メモリ効率に優れた方法で <cite>QF.nanmean(x * y, ...)</cite> を計算します。</p></td>
+<td><p>メモリ効率に優れた方法で、NaN値を無視した要素ごとの積の平均値を計算します。</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.nanmulsum.html#qfeval_functions.functions.nanmulsum" title="qfeval_functions.functions.nanmulsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanmulsum</span></code></a></p></td>
-<td><p>メモリ効率に優れた方法で <cite>QF.nansum(x * y, ...)</cite> を計算します。</p></td>
+<td><p>メモリ効率に優れた方法で、NaN値を無視した要素ごとの積の総和を効率的に計算します。</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.nanones.html#qfeval_functions.functions.nanones" title="qfeval_functions.functions.nanones"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanones</span></code></a></p></td>
-<td><p>与えられたテンソルと同じ形状でones値を持つテンソルを返し、Not a Numbers (NaNs) を保持します。</p></td>
+<td><p>入力テンソルのNaN位置を保持したまま、1で埋められたテンソルを作成します。</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.nanpca.html#qfeval_functions.functions.nanpca" title="qfeval_functions.functions.nanpca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanpca</span></code></a></p></td>
-<td><p>与えられたデータに対して主成分分析を実行します。</p></td>
+<td><p>Compute Principal Component Analysis (PCA) on data, ignoring NaN values.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.nanshift.html#qfeval_functions.functions.nanshift" title="qfeval_functions.functions.nanshift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanshift</span></code></a></p></td>
-<td><p>指定された次元に沿って配列要素をシフトし、NaNは無視します。</p></td>
+<td><p>Shift tensor elements along a dimension while preserving NaN positions.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.nanskew.html#qfeval_functions.functions.nanskew" title="qfeval_functions.functions.nanskew"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanskew</span></code></a></p></td>
-<td><p>各行の歪度を返し、非数値値（NaN）は無視します。</p></td>
+<td><p>Compute the skewness along specified dimensions, ignoring NaN values.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.nanslope.html#qfeval_functions.functions.nanslope" title="qfeval_functions.functions.nanslope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanslope</span></code></a></p></td>
-<td><p><a href="#id1"><span class="problematic" id="id2">`</span></a>x`と`y`の相関係数の傾きを返し、NaN値は無視します。</p></td>
+<td><p>Compute the slope of simple linear regression between two tensors, ignoring NaN values.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.nansum.html#qfeval_functions.functions.nansum" title="qfeval_functions.functions.nansum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nansum</span></code></a></p></td>
-<td><p>Not a Numbers (NaNs) を無視して、すべての要素の合計を返します。</p></td>
+<td><p>Compute the sum of tensor elements along specified dimensions, ignoring NaN values.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.nanvar.html#qfeval_functions.functions.nanvar" title="qfeval_functions.functions.nanvar"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nanvar</span></code></a></p></td>
-<td><p>各行の平均値を返し、Not a Numbers (NaNs) は無視します。</p></td>
+<td><p>NaN値を無視してテンソルの分散を計算します。</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.orthogonalize.html#qfeval_functions.functions.orthogonalize" title="qfeval_functions.functions.orthogonalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">orthogonalize</span></code></a></p></td>
 <td><p>指定された次元に沿って、xをyに対して直交化します。</p></td>
@@ -202,7 +202,7 @@
 <td><p>与えられたベクトルを正規直交化し、対応する正規直交ベクトルを返します。</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.pca.html#qfeval_functions.functions.pca" title="qfeval_functions.functions.pca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pca</span></code></a></p></td>
-<td><p>入力データ <cite>x</cite> に対して主成分分析を実行します。返される値は主成分を表します。具体的には、<cite>result[*, i, :]</cite> は <cite>*</cite> で指定されたバッチの <span class="math notranslate nohighlight">\((i+1)\)</span> 番目に大きい主成分を表します。形状:     - x: <span class="math notranslate nohighlight">\((*, S, D)\)</span> ここで <cite>*</cite> は任意の追加次元数、<cite>S</cite> はセクション数、<cite>D</cite> は次元数を表します。qfeval では、次元数とセクション数はそれぞれシンボルとタイムスタンプを表すことが多いです。:returns:</p></td>
+<td><p>入力データ <cite>x</cite> に対して主成分分析を実行します。返される値は主成分を表します。具体的には、<cite>result[*, i, :]</cite> は <cite>*</cite> で指定されたバッチの <span class="math notranslate nohighlight">\((i+1)\)</span> 番目に大きい主成分を表します。形状:     - x: <span class="math notranslate nohighlight">\((*, S, D)\)</span> ここで <cite>*</cite> は任意の追加次元数、<cite>S</cite> はセクション数、<cite>D</cite> は次元数を表します。qfeval では、次元数とセクション数はそれぞれシンボルとタイムスタンプを表すことが多いです。:returns:入力データ <cite>x</cite> に対して主成分分析を実行します。返される値は主成分を表します。具体的には、<cite>result[*, i, :]</cite> は <cite>*</cite> で指定されたバッチの <span class="math notranslate nohighlight">\((i+1)\)</span> 番目に大きい主成分を表します。形状:     - x: <span class="math notranslate nohighlight">\((*, S, D)\)</span> ここで <cite>*</cite> は任意の追加次元数、<cite>S</cite> はセクション数、<cite>D</cite> は次元数を表します。qfeval では、次元数とセクション数はそれぞれシンボルとタイムスタンプを表すことが多いです。:returns:</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.project.html#qfeval_functions.functions.project" title="qfeval_functions.functions.project"><code class="xref py py-obj docutils literal notranslate"><span class="pre">project</span></code></a></p></td>
 <td><p>与えられたテンソル <cite>x</cite> を、指定された射影行列 <cite>a</cite> を用いて投影します。</p></td>
@@ -238,7 +238,7 @@
 <td><p>指定された次元 <cite>dim</cite> において、入力テンソルの各行の二乗平均平方根を返します。</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.rsi.html#qfeval_functions.functions.rsi" title="qfeval_functions.functions.rsi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rsi</span></code></a></p></td>
-<td><p>定義 (use_sma=False): - <a class="reference external" href="https://www.investopedia.com/terms/r/rsi.asp">https://www.investopedia.com/terms/r/rsi.asp</a> - TA-lib定義と互換性あり (use_sma=True): - <a class="reference external" href="https://info.monex.co.jp/technical-analysis/indicators/005.html">https://info.monex.co.jp/technical-analysis/indicators/005.html</a></p></td>
+<td><p>定義 (use_sma=False): - <a class="reference external" href="https://www.investopedia.com/terms/r/rsi.asp">https://www.investopedia.com/terms/r/rsi.asp</a> - TA-lib定義と互換性あり (use_sma=True): - <a class="reference external" href="https://info.monex.co.jp/technical-analysis/indicators/005">https://info.monex.co.jp/technical-analysis/indicators/005</a>.html定義 (use_sma=False): - <a class="reference external" href="https://www.investopedia.com/terms/r/rsi.asp">https://www.investopedia.com/terms/r/rsi.asp</a> - TA-lib定義と互換性あり (use_sma=True): - <a class="reference external" href="https://info.monex.co.jp/technical-analysis/indicators/005.html">https://info.monex.co.jp/technical-analysis/indicators/005.html</a></p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.shift.html#qfeval_functions.functions.shift" title="qfeval_functions.functions.shift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shift</span></code></a></p></td>
 <td><p>指定された次元に沿って配列要素をシフトします。</p></td>

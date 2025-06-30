@@ -17,6 +17,7 @@
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/translations.js?v=4755f45a"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" /> 
@@ -78,13 +79,87 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nanslope">
 <span class="sig-name descname"><span class="pre">nanslope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nanslope.html#nanslope"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nanslope" title="Link to this definition"></a></dt>
-<dd><p><a href="#id1"><span class="problematic" id="id2">`</span></a>x`と`y`の相関係数の傾きを返し、NaN値は無視します。</p>
-<p>注意: この実装は単純線形回帰の傾きβの計算に基づいています: <a class="reference external" href="https://en.wikipedia.org/wiki/Simple_linear_regression">https://en.wikipedia.org/wiki/Simple_linear_regression</a></p>
+<dd><p>Compute the slope of simple linear regression between two tensors,
+ignoring NaN values.</p>
+<p>この関数は、<code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> と <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> の関係を最もよく説明する線形回帰直線の傾き (ベータ係数) を計算します。計算時には NaN 値は除外されます。傾きは、<code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> の単位変化に対する <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> の変化率を表します。</p>
+<p>この関数は、単純線形回帰における傾き係数を求めるための標準的な最小二乗法（OLS）の計算式を実装しています：</p>
+<div class="math notranslate nohighlight">
+\[\beta = \frac{\text{共分散}(X, Y)}{\text{分散}(X)} =
+\frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}\]</div>
+<p>ここで <span class="math notranslate nohighlight">\(\bar{x}\)</span> と <span class="math notranslate nohighlight">\(\bar{y}\)</span> はそれぞれ <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> と <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> の平均値であり、有効なデータペア (NaN を含まない) のみを用いて計算されます。</p>
+<p>いずれかの <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> または <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> に特定の位置で NaN 値が存在する場合、そのペアは平均計算および傾き推定を含むすべての計算から除外されます。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 独立変数テンソル（予測子）。</p></li>
+<li><p><strong>y</strong> (<em>Tensor</em>) -- 従属変数テンソル（応答変数）。 :attr:<a href="#id1"><span class="problematic" id="id2">`</span></a>x`とブロードキャスト可能である必要があります。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) -- 傾きを計算する次元を指定します。指定しない場合（デフォルトは空のタプル）、全ての次元にわたって傾きが計算されます。</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) -- 出力テンソルが <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> を保持するかどうか。デフォルトは False。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>有効なペア（NaNでない値）のみを用いて計算された傾き係数です。有効なペアが不足する場合や、<code class="xref py py-attr docutils literal notranslate"><span class="pre">x`の分散がゼロの場合、結果にNaN値が含まれる可能性があります。形状は入力次元、:attr:`dim</span></code>、および:attr:<a href="#id1"><span class="problematic" id="id2">`</span></a>keepdim`パラメータに依存します。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple linear relationship with some NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">tensor(2.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensors with slopes along rows</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([2., nan])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Perfect linear relationship</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">])</span>  <span class="c1"># y = 2x + 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">tensor(2.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With keepdim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">tensor([[   nan],</span>
+<span class="go">        [0.5000]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Broadcasting example</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">tensor(0.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Zero variance in x (undefined slope)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">tensor(nan)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>傾きの計算には少なくとも2組の有効な（NaNでない）観測値ペアが必要です。有効なペアが2組未満の場合、結果はNaNになります。さらに、すべての有効な:attr:<a href="#id1"><span class="problematic" id="id2">`</span></a>x`値が同一である場合（分散が0の場合）、数学的に傾きは定義されません。</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<p><a class="reference internal" href="qfeval_functions.functions.nancorrel.html#qfeval_functions.functions.nancorrel" title="qfeval_functions.functions.nancorrel"><code class="xref py py-func docutils literal notranslate"><span class="pre">nancorrel()</span></code></a>: NaNを考慮した相関係数の計算。 <a class="reference internal" href="qfeval_functions.functions.nancovar.html#qfeval_functions.functions.nancovar" title="qfeval_functions.functions.nancovar"><code class="xref py py-func docutils literal notranslate"><span class="pre">nancovar()</span></code></a>: NaNを考慮した共分散の計算。 <a class="reference internal" href="qfeval_functions.functions.nanmean.html#qfeval_functions.functions.nanmean" title="qfeval_functions.functions.nanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanmean()</span></code></a>: NaNを考慮した平均の計算。 <a class="reference internal" href="qfeval_functions.functions.nanmulmean.html#qfeval_functions.functions.nanmulmean" title="qfeval_functions.functions.nanmulmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanmulmean()</span></code></a>: NaNを考慮した要素ごとの積の平均。</p>
+</div>
 </dd></dl>
 
 </section>

@@ -77,12 +77,53 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.ffill">
 <span class="sig-name descname"><span class="pre">ffill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/ffill.html#ffill"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.ffill" title="Link to this definition"></a></dt>
-<dd><p>Propagates last valid values forward.</p>
+<dd><p>Forward fill missing values along the specified dimension.</p>
+<p>This function propagates the last valid (non-NaN) values forward along
+the specified dimension. For each NaN value, it is replaced with the
+most recent valid value that appears before it along the dimension. If no
+valid value exists before a NaN, it remains NaN.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor containing values to be filled. May contain NaN
+values that will be replaced.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – The dimension along which to perform forward fill.
+Default is -1 (the last dimension).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tensor of the same shape as the input, with NaN values replaced
+by the nearest preceding valid values where possible.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple 1D forward fill</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">ffill</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">tensor([1., 1., 1., 4., 5.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D example with dim=1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="n">nan</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">ffill</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([[nan, 2., 2., 4.],</span>
+<span class="go">        [5., 5., 5., 8.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Forward fill along columns (dim=0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="n">nan</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">ffill</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([[1., nan, 3.],</span>
+<span class="go">        [1., 2., 3.],</span>
+<span class="go">        [4., 2., 3.]])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

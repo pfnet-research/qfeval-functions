@@ -17,6 +17,7 @@
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/translations.js?v=4755f45a"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" /> 
@@ -78,12 +79,49 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.ema">
 <span class="sig-name descname"><span class="pre">ema</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/ema.html#ema"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.ema" title="Link to this definition"></a></dt>
-<dd><p>指定されたテンソルの指数加重移動平均を返します。</p>
+<dd><p>指定された次元に沿って指数移動平均を計算します。</p>
+<p>この関数は、指定された次元に沿ってテンソルの指数移動平均 (EMA) を計算します。EMA は加重移動平均の一種で、最近の値ほど高い重みが与えられます。各値の重みは、時間を遡るにつれて指数関数的に減少します。</p>
+<p>指定された次元に沿って各位置 <span class="math notranslate nohighlight">\(i\)</span> における指数移動平均 (EMA) は以下のように計算されます:</p>
+<div class="math notranslate nohighlight">
+\[\text{EMA}[i] = \frac{\sum_{j=0}^{i} x[j] \cdot (1-\alpha)^{i-j}}
+                     {\sum_{j=0}^{i} (1-\alpha)^{i-j}}\]</div>
+<p>ここで <span class="math notranslate nohighlight">\(\alpha\)</span> は平滑化係数です（0 &lt; <span class="math notranslate nohighlight">\(\alpha\)</span> &lt; 1）。 <span class="math notranslate nohighlight">\(\alpha\)</span> の値が小さいほど、最近の観測値により多くの重みが与えられます。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 平均化する値を含む入力テンソル。</p></li>
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) -- 平滑化係数。範囲は (0, 1) でなければなりません。値が小さいほど、より平滑化され（減衰が緩やかになります）。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 指数移動平均を計算する次元。デフォルトは -1 で、最後の次元を意味します。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>入力と同じ形状のテンソルで、指数移動平均の計算結果を格納します。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple 1D example</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ema_result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">ema</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ema_result</span>
+<span class="go">tensor([1.0000, 1.6667, 2.4286, 3.2667, 4.1613])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D example with dim=1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ema_result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">ema</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">ema_result</span>
+<span class="go">tensor([[1.0000, 1.5882, 2.2329, 2.9305],</span>
+<span class="go">        [4.0000, 3.4118, 2.7671, 2.0695]])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>実装では幾何級数の特性に基づく効率的な <span class="math notranslate nohighlight">\(O(\log n)\)</span> アルゴリズムを採用しており、長いシーケンスにも適しています。</p>
+</div>
 </dd></dl>
 
 </section>

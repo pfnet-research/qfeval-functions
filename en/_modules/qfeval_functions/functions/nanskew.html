@@ -81,7 +81,91 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the skewness of each row, ignoring Not a Numbers (NaNs).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the skewness along specified dimensions, ignoring NaN values.</span>
+
+<span class="sd">    This function calculates the skewness (third standardized moment) of a</span>
+<span class="sd">    tensor along the specified dimension(s), excluding NaN values from the</span>
+<span class="sd">    computation. Skewness measures the asymmetry of a probability distribution</span>
+<span class="sd">    around its mean, indicating whether the data is concentrated more on one</span>
+<span class="sd">    side of the distribution.</span>
+
+<span class="sd">    The skewness is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{skew} = \frac{\text{E}[(X - \mu)^3]}{\sigma^3}</span>
+
+<span class="sd">    where :math:`\mu` is the mean and :math:`\sigma` is the standard deviation,</span>
+<span class="sd">    computed only over valid (non-NaN) values. Positive skewness indicates a</span>
+<span class="sd">    longer tail on the right side of the distribution, while negative skewness</span>
+<span class="sd">    indicates a longer tail on the left side.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.</span>
+<span class="sd">        dim (int or tuple of ints, optional):</span>
+<span class="sd">            The dimension(s) along which to</span>
+<span class="sd">            compute the skewness. If not specified (default is empty tuple),</span>
+<span class="sd">            computes over all dimensions.</span>
+<span class="sd">        unbiased (bool, optional):</span>
+<span class="sd">            If True (default), uses unbiased estimation</span>
+<span class="sd">            with bias correction. If False, uses biased estimation.</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensor has :attr:`dim`</span>
+<span class="sd">            retained or not. Default is False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The skewness values computed only over valid (non-NaN) values.</span>
+<span class="sd">            The shape depends on the input dimensions and the :attr:`keepdim`</span>
+<span class="sd">            parameter.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple skewness with some NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0, 10.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanskew(x, dim=0)</span>
+<span class="sd">        tensor(1.1846)</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with skewness along columns</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0, 4.0],</span>
+<span class="sd">        ...                   [2.0, 5.0, nan, 6.0],</span>
+<span class="sd">        ...                   [3.0, 7.0, 8.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanskew(x, dim=1)</span>
+<span class="sd">        tensor([-0.9352, -1.2933, -1.4579])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Skewed distribution</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 1.0, 1.0, nan, 2.0, 10.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanskew(x, dim=0)</span>
+<span class="sd">        tensor(2.1713)</span>
+
+<span class="sd">        &gt;&gt;&gt; # With keepdim</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, nan],</span>
+<span class="sd">        ...                   [4.0, nan, 6.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanskew(x, dim=1, keepdim=True)</span>
+<span class="sd">        tensor([[nan],</span>
+<span class="sd">                [nan]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Biased estimation</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0, 6.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanskew(x, dim=0, unbiased=False)</span>
+<span class="sd">        tensor(0.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Negative skewness (left tail)</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 8.0, 9.0, nan, 9.0, 10.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanskew(x, dim=0)</span>
+<span class="sd">        tensor(-2.0287)</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        Skewness calculations can be sensitive to outliers. A single extreme</span>
+<span class="sd">        value can significantly affect the skewness measure, especially with</span>
+<span class="sd">        small sample sizes.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`nankurtosis`: NaN-aware kurtosis function.</span>
+<span class="sd">        :func:`nanvar`: NaN-aware variance function.</span>
+<span class="sd">        :func:`nanstd`: NaN-aware standard deviation function.</span>
+<span class="sd">        :func:`nanmean`: NaN-aware mean function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">n</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">())</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">ddof</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">unbiased</span> <span class="k">else</span> <span class="mi">0</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">n</span> <span class="o">&lt;=</span> <span class="n">ddof</span> <span class="o">*</span> <span class="mi">2</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>

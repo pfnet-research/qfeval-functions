@@ -77,16 +77,75 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.groupby">
 <span class="sig-name descname"><span class="pre">groupby</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">group_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">empty_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">nan</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/groupby.html#groupby"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.groupby" title="Link to this definition"></a></dt>
-<dd><p>Groups items of <cite>x</cite> by <cite>group_id</cite>.</p>
-<p>This adds a new dimension just after the dimension specified by <cite>dim</cite>.
-The additional dimension represents items of the group.  Since a tensor
-requires every dimension to be a fixed size, this fills <cite>empty_value</cite> if
-the numbers of the items of groups are varying.</p>
+<dd><p>Group tensor elements by group identifiers along a dimension.</p>
+<p>This function reorganizes elements of a tensor into groups based on
+provided group identifiers. It creates a new dimension that contains all
+elements belonging to each group. This is similar to SQL’s GROUP BY or
+pandas’ groupby operation, but adapted for tensor operations.</p>
+<p>The function adds a new dimension immediately after the specified
+dimension. This new dimension represents the items within each group.
+Since tensors require fixed-size dimensions, groups with fewer elements are
+padded with <code class="xref py py-attr docutils literal notranslate"><span class="pre">empty_value</span></code>.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor to be grouped.</p></li>
+<li><p><strong>group_id</strong> (<em>Tensor</em>) – A 1D tensor of integer group identifiers with the same
+length as <code class="docutils literal notranslate"><span class="pre">x.shape[dim]</span></code>. Each element specifies which group the
+corresponding element in <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> belongs to. Group IDs should be
+non-negative integers.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – The dimension along which to group elements.
+Default is -1 (the last dimension).</p></li>
+<li><p><strong>empty_value</strong> (<em>scalar</em><em>, </em><em>optional</em>) – The value used to pad groups that have fewer elements than the
+maximum group size.
+Default is <code class="docutils literal notranslate"><span class="pre">nan</span></code>.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tensor with one additional dimension compared to the input.
+The shape is the same as <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> except at dimension <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>,
+which is replaced by two dimensions:
+<code class="docutils literal notranslate"><span class="pre">(num_groups,</span> <span class="pre">max_group_size)</span></code>. Elements are rearranged according
+to their group membership.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Group a 1D tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">20.</span><span class="p">,</span> <span class="mf">30.</span><span class="p">,</span> <span class="mf">40.</span><span class="p">,</span> <span class="mf">50.</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_id</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grouped</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">group_id</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grouped</span>
+<span class="go">tensor([[10., 30., 50.],</span>
+<span class="go">        [20., 40., nan]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Group along a specific dimension of 2D tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">6.</span><span class="p">,</span> <span class="mf">7.</span><span class="p">,</span> <span class="mf">8.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_id</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grouped</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grouped</span>
+<span class="go">tensor([[[1., 3.],</span>
+<span class="go">         [2., nan],</span>
+<span class="go">         [4., nan]],</span>
+
+<span class="go">        [[5., 7.],</span>
+<span class="go">         [6., nan],</span>
+<span class="go">         [8., nan]]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using custom empty value</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">group_id</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grouped</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">group_id</span><span class="p">,</span> <span class="n">empty_value</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grouped</span>
+<span class="go">tensor([[ 1,  2, -1],</span>
+<span class="go">        [ 3,  4,  5]], dtype=torch.int32)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

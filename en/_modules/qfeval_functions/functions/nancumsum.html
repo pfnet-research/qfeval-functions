@@ -74,6 +74,69 @@
 <div class="viewcode-block" id="nancumsum">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.nancumsum.html#qfeval_functions.functions.nancumsum">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">nancumsum</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the cumulative sum along a dimension, treating NaN as 0.</span>
+
+<span class="sd">    This function calculates the cumulative sum of elements along the</span>
+<span class="sd">    specified dimension, where NaN values are treated as 0 (additive</span>
+<span class="sd">    identity) for the purpose of computing the cumulative sum. However,</span>
+<span class="sd">    positions with NaN values in the original tensor remain NaN in the output.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.</span>
+<span class="sd">        dim (int):</span>
+<span class="sd">            The dimension along which to compute the cumulative sum.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, containing the</span>
+<span class="sd">            cumulative sum values. Original NaN positions remain NaN.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple cumulative sum with NaN</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, nan, 3.0, 4.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancumsum(x, dim=0)</span>
+<span class="sd">        tensor([1., nan, 4., 8.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor along columns</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, nan, 4.0],</span>
+<span class="sd">        ...                   [2.0, nan, 3.0, 5.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancumsum(x, dim=1)</span>
+<span class="sd">        tensor([[ 1.,  3., nan,  7.],</span>
+<span class="sd">                [ 2., nan,  5., 10.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Cumulative sum along rows</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0],</span>
+<span class="sd">        ...                   [nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancumsum(x, dim=0)</span>
+<span class="sd">        tensor([[ 1.,  2.],</span>
+<span class="sd">                [nan,  5.],</span>
+<span class="sd">                [ 5., 10.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Multiple NaNs</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, nan, nan, 2.0, 3.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancumsum(x, dim=0)</span>
+<span class="sd">        tensor([1., nan, nan, 3., 6.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # All NaNs</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([nan, nan, nan])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancumsum(x, dim=0)</span>
+<span class="sd">        tensor([nan, nan, nan])</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This function treats NaN values as the additive identity (0)</span>
+<span class="sd">        for computation purposes, allowing the cumulative sum to continue</span>
+<span class="sd">        past NaN values. However, the original NaN positions are preserved</span>
+<span class="sd">        in the output, maintaining data integrity while enabling meaningful</span>
+<span class="sd">        cumulative operations on partially missing data.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        - :func:`nancumprod`: NaN-aware cumulative product.</span>
+<span class="sd">        - :func:`torch.cumsum`: Standard cumulative sum (NaN propagates).</span>
+<span class="sd">        - :func:`torch.nan_to_num`: Convert NaN values to specified numbers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
         <span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">(),</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>

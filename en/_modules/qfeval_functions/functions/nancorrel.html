@@ -84,8 +84,82 @@
     <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns Pearson correlation coefficient between `x` and `y`, ignoring</span>
-<span class="sd">    NaNs.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute Pearson correlation coefficient between two tensors, ignoring</span>
+<span class="sd">    NaN values.</span>
+
+<span class="sd">    This function calculates the Pearson correlation coefficient between</span>
+<span class="sd">    tensors :attr:`x` and :attr:`y` along the specified dimension(s), excluding</span>
+<span class="sd">    any pairs where either value is NaN. The correlation coefficient measures</span>
+<span class="sd">    the linear relationship between two variables and ranges from -1 (perfect</span>
+<span class="sd">    negative correlation) to 1 (perfect positive correlation), with 0 indicating</span>
+<span class="sd">    no linear correlation.</span>
+
+<span class="sd">    Unlike :func:`correl`, this function handles missing data by ignoring</span>
+<span class="sd">    NaN values in the computation. If either :attr:`x` or :attr:`y` has a NaN</span>
+<span class="sd">    at a given position, that pair is excluded from the correlation calculation.</span>
+
+<span class="sd">    The NaN-aware Pearson correlation is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        r = \frac{\text{E}[(X - \mu_X)(Y - \mu_Y)]}{</span>
+<span class="sd">                \sqrt{\text{E}[(X - \mu_X)^2]}\sqrt{\text{E}[(Y - \mu_Y)^2]}}</span>
+
+<span class="sd">    where the expectations are computed only over valid (non-NaN) pairs.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The first input tensor.</span>
+<span class="sd">        y (Tensor):</span>
+<span class="sd">            The second input tensor. Must be the same shape as :attr:`x`.</span>
+<span class="sd">        dim (int or tuple of ints, optional):</span>
+<span class="sd">            The dimension(s) along which to compute the correlation. If not</span>
+<span class="sd">            specified (default is empty tuple), computes element-wise</span>
+<span class="sd">            correlation and sums the result.</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensor has :attr:`dim` retained or not.</span>
+<span class="sd">            Default is False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The Pearson correlation coefficient(s), computed only over</span>
+<span class="sd">            valid (non-NaN) pairs. The shape depends on the input dimensions</span>
+<span class="sd">            and the :attr:`keepdim` parameter.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Perfect positive correlation with some NaNs</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([2.0, 4.0, 6.0, 8.0, nan])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancorrel(x, y, dim=0)</span>
+<span class="sd">        tensor(1.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensors with NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[2.0, 4.0, 5.0],</span>
+<span class="sd">        ...                   [nan, 10.0, 12.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancorrel(x, y, dim=1)</span>
+<span class="sd">        tensor([1., nan])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Comparison with regular correl (which would give NaN)</span>
+<span class="sd">        &gt;&gt;&gt; x_with_nan = torch.tensor([1.0, 2.0, nan, 4.0])</span>
+<span class="sd">        &gt;&gt;&gt; y_with_nan = torch.tensor([2.0, 4.0, 6.0, 8.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancorrel(x_with_nan, y_with_nan, dim=0)  # Ignores NaN</span>
+<span class="sd">        tensor(1.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # With keepdim</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, 6.0]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[2.0, 4.0, 6.0],</span>
+<span class="sd">        ...                   [8.0, 10.0, 12.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancorrel(x, y, dim=1, keepdim=True)</span>
+<span class="sd">        tensor([[1.],</span>
+<span class="sd">                [1.]])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        - :func:`correl`: Pearson correlation without NaN handling.</span>
+<span class="sd">        - :func:`nancovar`: NaN-aware covariance function.</span>
+<span class="sd">        - :func:`nanmean`: NaN-aware mean function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">isnan</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">()</span> <span class="o">|</span> <span class="n">y</span><span class="o">.</span><span class="n">isnan</span><span class="p">()</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">isnan</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span>

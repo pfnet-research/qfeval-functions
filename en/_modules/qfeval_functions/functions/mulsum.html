@@ -86,7 +86,80 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">_ddof</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculate `(x * y).sum(...)` in a memory-efficient way.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute sum or mean of element-wise product in a memory-efficient way.</span>
+
+<span class="sd">    This function calculates the sum (or mean) of the element-wise product of</span>
+<span class="sd">    two tensors ``(x * y).sum(dim)`` or ``(x * y).mean(dim)`` without creating</span>
+<span class="sd">    the intermediate product tensor in memory. This is particularly crucial when</span>
+<span class="sd">    working with large tensors or when broadcasting would result in a very large</span>
+<span class="sd">    intermediate tensor that could exceed available memory.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The first input tensor.</span>
+<span class="sd">        y (Tensor):</span>
+<span class="sd">            The second input tensor. Must be broadcastable with :attr:`x`.</span>
+<span class="sd">        dim (int or tuple of ints, optional):</span>
+<span class="sd">            The dimension(s) along which to</span>
+<span class="sd">            compute the sum or mean. If not specified (default is empty tuple),</span>
+<span class="sd">            the operation is computed over all dimensions.</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensor has :attr:`dim`</span>
+<span class="sd">            retained or not. Default is False.</span>
+<span class="sd">        mean (bool, optional):</span>
+<span class="sd">            If True, computes the mean instead of sum.</span>
+<span class="sd">            Default is False (computes sum).</span>
+<span class="sd">        _ddof (int, optional):</span>
+<span class="sd">            Delta degrees of freedom for mean calculations.</span>
+<span class="sd">            The divisor used is ``N - _ddof``, where ``N`` is the number of</span>
+<span class="sd">            elements. Default is 0. This is an internal parameter.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The sum or mean of the element-wise product. The shape depends</span>
+<span class="sd">            on the input dimensions, :attr:`dim`, and :attr:`keepdim` parameters.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple element-wise product sum</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 3.0])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([2.0, 3.0, 4.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mulsum(x, y)</span>
+<span class="sd">        tensor(20.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Equivalent to (x * y).sum()</span>
+<span class="sd">        &gt;&gt;&gt; torch.allclose(QF.mulsum(x, y), (x * y).sum())</span>
+<span class="sd">        True</span>
+
+<span class="sd">        &gt;&gt;&gt; # Mean instead of sum</span>
+<span class="sd">        &gt;&gt;&gt; QF.mulsum(x, y, mean=True)</span>
+<span class="sd">        tensor(6.6667)</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensors with specific dimension</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[2.0, 1.0], [1.0, 2.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mulsum(x, y, dim=1)</span>
+<span class="sd">        tensor([ 4., 11.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Memory-efficient broadcasting</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.randn(1000, 1)</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.randn(1, 1000)</span>
+<span class="sd">        &gt;&gt;&gt; # Efficiently computes without creating 1000x1000 intermediate tensor</span>
+<span class="sd">        &gt;&gt;&gt; result = QF.mulsum(x, y)</span>
+
+<span class="sd">        &gt;&gt;&gt; # With keepdim</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[[1.0, 2.0]], [[3.0, 4.0]]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[[2.0, 1.0]], [[1.0, 2.0]]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mulsum(x, y, dim=(1, 2), keepdim=True)</span>
+<span class="sd">        tensor([[[ 4.]],</span>
+<span class="sd">        &lt;BLANKLINE&gt;</span>
+<span class="sd">                [[11.]]])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`mulmean`: Convenience function for computing means.</span>
+<span class="sd">        :func:`einsum`: The underlying Einstein summation function.</span>
+<span class="sd">        :func:`covar`: Uses this function for efficient covariance calculations.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="c1"># 1. Align the number of dimensions (c.f., NumPy broadcasting).</span>
     <span class="n">length</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>

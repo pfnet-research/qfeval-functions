@@ -78,13 +78,47 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.eigh">
 <span class="sig-name descname"><span class="pre">eigh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uplo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'L'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/eigh.html#eigh"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.eigh" title="Link to this definition"></a></dt>
-<dd><p>固有値と固有ベクトルを計算します。</p>
-<p>注意: この関数は微分可能な計算をサポートしていません。</p>
+<dd><p>Compute eigenvalues and eigenvectors of a symmetric/Hermitian matrix.</p>
+<p>この関数は、実対称行列または複素エルミート行列の固有値と固有ベクトルを計算します。固有値は昇順に返され、対応する固有ベクトルは正規化されます。この実装では、CPUテンソルにはNumPyを、CUDAテンソルにはCuPyを使用しています。</p>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>This function does not support automatic differentiation (autograd).</p>
+</div>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor</strong> (<em>Tensor</em>) -- 形状が <code class="docutils literal notranslate"><span class="pre">(...,</span> <span class="pre">N,</span> <span class="pre">N)</span></code> の対称行列（実数の場合）またはエルミート行列（複素数の場合）。 <code class="xref py py-attr docutils literal notranslate"><span class="pre">uplo</span></code> パラメータに応じて、上三角部分または下三角部分が使用されます。</p></li>
+<li><p><strong>uplo</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) -- 使用する行列の三角部分を示します：  - 'L' または 'l': 下三角部分を使用する（デフォルト） - 'U' または 'u': 上三角部分を使用する</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>以下の要素を含むタプル:  - 固有値: 昇順に並んだ固有値を含む形状 <code class="docutils literal notranslate"><span class="pre">(...,</span> <span class="pre">N)</span></code> のテンソル  - 固有ベクトル: 形状 <code class="docutils literal notranslate"><span class="pre">(...,</span> <span class="pre">N,</span> <span class="pre">N)</span></code> のテンソルで、列は対応する固有値の正規化された固有ベクトル</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>, <a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>]</span></p>
+<dd class="field-odd"><p>Tuple[Tensor, Tensor]</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a symmetric matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">4.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvalues</span>
+<span class="go">tensor([1.4384, 5.5616])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Verify: A @ v = λ @ v</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">eigenvectors</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">@</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using upper triangular part</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">uplo</span><span class="o">=</span><span class="s1">&#39;U&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

@@ -79,10 +79,106 @@
     <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the sum of all elements, ignoring Not a Numbers (NaNs).</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the sum of tensor elements along specified dimensions, ignoring</span>
+<span class="sd">    NaN values.</span>
 
-<span class="sd">    NOTE: If no valid numbers exist, this returns NaN while torch.nansum</span>
-<span class="sd">    returns 0.</span>
+<span class="sd">    This function calculates the sum of all valid (non-NaN) elements in a tensor</span>
+<span class="sd">    along the specified dimension(s). Unlike PyTorch&#39;s ``torch.nansum``, this</span>
+<span class="sd">    function returns NaN when no valid elements are found along a dimension,</span>
+<span class="sd">    rather than returning 0. This behavior is more mathematically consistent</span>
+<span class="sd">    for statistical operations where the absence of data should be explicitly</span>
+<span class="sd">    represented as NaN.</span>
+
+<span class="sd">    The NaN-aware sum is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{nansum}(X) = \sum_{i \text{ valid}} X_i</span>
+
+<span class="sd">    where the sum is over all valid (non-NaN) values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.</span>
+<span class="sd">        dim (int or tuple of ints, optional):</span>
+<span class="sd">            The dimension(s) along which to compute the sum. If not specified</span>
+<span class="sd">            (default is empty tuple), the sum is computed over all dimensions.</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensor has :attr:`dim`</span>
+<span class="sd">            retained or not. Default is False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The sum values computed only over valid (non-NaN) values.</span>
+<span class="sd">            When no valid values exist along a dimension, the result is NaN</span>
+<span class="sd">            (unlike ``torch.nansum`` which returns 0). The shape depends on</span>
+<span class="sd">            the input dimensions, :attr:`dim`, and :attr:`keepdim` parameters.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple sum with NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nansum(x)</span>
+<span class="sd">        tensor(12.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Compare with torch.nansum (returns 0 for all-NaN)</span>
+<span class="sd">        &gt;&gt;&gt; all_nan = torch.tensor([nan, nan, nan])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nansum(all_nan)</span>
+<span class="sd">        tensor(nan)</span>
+<span class="sd">        &gt;&gt;&gt; torch.nansum(all_nan)</span>
+<span class="sd">        tensor(0.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with sum along columns</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nansum(x, dim=0)</span>
+<span class="sd">        tensor([5., 5., 3.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Sum along rows</span>
+<span class="sd">        &gt;&gt;&gt; QF.nansum(x, dim=1)</span>
+<span class="sd">        tensor([4., 9.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # All dimensions</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0],</span>
+<span class="sd">        ...                   [nan, 4.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nansum(x)</span>
+<span class="sd">        tensor(7.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # With keepdim</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nansum(x, dim=1, keepdim=True)</span>
+<span class="sd">        tensor([[4.],</span>
+<span class="sd">                [9.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # All NaN slice returns NaN</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0],</span>
+<span class="sd">        ...                   [nan, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nansum(x, dim=1)</span>
+<span class="sd">        tensor([3., nan])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Multiple dimensions</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[[1.0, nan], [3.0, 4.0]],</span>
+<span class="sd">        ...                   [[nan, 6.0], [7.0, nan]]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nansum(x, dim=(1, 2))</span>
+<span class="sd">        tensor([ 8., 13.])</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        This function provides more mathematically consistent behavior than</span>
+<span class="sd">        ``torch.nansum`` by returning NaN when no valid values are present,</span>
+<span class="sd">        rather than 0. This is particularly important for statistical</span>
+<span class="sd">        computations where the absence of data should be distinguished</span>
+<span class="sd">        from a sum of zero.</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        When all values along a dimension are NaN, this function returns NaN</span>
+<span class="sd">        (not 0 like ``torch.nansum``). This behavior difference should be</span>
+<span class="sd">        considered when replacing ``torch.nansum`` with this function.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`nanmean`: NaN-aware mean function.</span>
+<span class="sd">        :func:`nanstd`: NaN-aware standard deviation function.</span>
+<span class="sd">        :func:`nanvar`: NaN-aware variance function.</span>
+<span class="sd">        ``torch.nansum``: PyTorch&#39;s built-in NaN-aware sum (returns 0 for all-NaN).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">is_valid</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="n">keepdim</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="n">keepdim</span><span class="p">)</span>

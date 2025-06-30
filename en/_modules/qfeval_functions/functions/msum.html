@@ -103,17 +103,19 @@
 <span class="sd">    along the selected dimension), the result is `nan`.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        x (Tensor): The input tensor.</span>
-<span class="sd">        span (int): The size of the sliding window.</span>
-<span class="sd">        dim (int, optional): The dimension along which to compute the moving sum.</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor.</span>
+<span class="sd">        span (int):</span>
+<span class="sd">            The size of the sliding window.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to compute the moving sum.</span>
 <span class="sd">            Default is -1 (the last dimension).</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        Tensor: A tensor of the same shape as the input, containing the moving sums.</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, containing the moving sums.</span>
 
 <span class="sd">    Example:</span>
-<span class="sd">        &gt;&gt;&gt; import torch</span>
-<span class="sd">        &gt;&gt;&gt; import qfeval_functions.functions as QF</span>
 <span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])</span>
 <span class="sd">        &gt;&gt;&gt; QF.msum(x, span=3)</span>
 <span class="sd">        tensor([nan, nan,  6.,  9., 12.])</span>

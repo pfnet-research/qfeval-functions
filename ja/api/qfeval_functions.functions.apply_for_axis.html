@@ -78,13 +78,52 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.apply_for_axis">
 <span class="sig-name descname"><span class="pre">apply_for_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/apply_for_axis.html#apply_for_axis"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.apply_for_axis" title="Link to this definition"></a></dt>
-<dd><p>与えられたデータ <cite>x</cite> を、<cite>(batch, n)</cite> 形状のテンソルを期待する関数 <cite>f</cite> に適用します。</p>
-<p>この関数は、<cite>x</cite> の未指定の次元をフラット化し、与えられた関数 <cite>f</cite> の結果をアンフラット化します。これは、テンソルの特定の軸に沿って操作を行う関数を実装する際に便利です。テンソルの次元数を考慮する必要がありません。</p>
+<dd><p>指定された次元に沿って、2次元入力を想定した関数をテンソルに適用します。</p>
+<p>このユーティリティ関数は、形状が <code class="docutils literal notranslate"><span class="pre">(batch,</span> <span class="pre">n)</span></code> の2次元テンソルを想定した関数を、任意の次元のテンソルに適用することを可能にします。具体的には、指定された次元以外のすべての次元を平坦化し、関数を適用した後、元の形状に復元します。この処理は、異なるテンソル形状を明示的に処理することなく、次元を意識した操作を実装する際に特に有用です。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<em>Callable</em><em>[</em><em>[</em><em>Tensor</em><em>]</em><em>, </em><em>Tensor</em><em>]</em>) -- 入力として形状が``(batch, n)``の2次元テンソルを想定し、バッチ次元が保持されたテンソルを返す関数です。関数はバッチ次元に沿って次元を保持する必要があります。</p></li>
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 処理対象の任意次元テンソル。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 関数を適用する次元。デフォルトは -1 で、最後の次元を指定します。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>指定された次元に沿って関数 <code class="xref py py-attr docutils literal notranslate"><span class="pre">f</span></code> を適用した結果で、入力テンソルと同じ形状を持ちます。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Apply to a 3D tensor along dimension 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.</span><span class="p">,</span> <span class="mf">4.</span><span class="p">],</span> <span class="p">[</span><span class="mf">5.</span><span class="p">,</span> <span class="mf">6.</span><span class="p">]],</span>
+<span class="gp">... </span>                  <span class="p">[[</span><span class="mf">7.</span><span class="p">,</span> <span class="mf">8.</span><span class="p">],</span> <span class="p">[</span><span class="mf">9.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">],</span> <span class="p">[</span><span class="mf">11.</span><span class="p">,</span> <span class="mf">12.</span><span class="p">]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">apply_for_axis</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([[[ 1.,  2.],</span>
+<span class="go">         [ 4.,  6.],</span>
+<span class="go">         [ 9., 12.]],</span>
+
+<span class="go">        [[ 7.,  8.],</span>
+<span class="go">         [16., 18.],</span>
+<span class="go">         [27., 30.]]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple 2D example: apply function along columns (dim=0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">2.</span><span class="p">,</span> <span class="mf">3.</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.</span><span class="p">,</span> <span class="mf">5.</span><span class="p">,</span> <span class="mf">6.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">def</span><span class="w"> </span><span class="nf">normalize_columns</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="c1"># Normalize each column to sum to 1</span>
+<span class="gp">... </span>    <span class="k">return</span> <span class="n">x</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">apply_for_axis</span><span class="p">(</span><span class="n">normalize_columns</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([[0.1667, 0.3333, 0.5000],</span>
+<span class="go">        [0.2667, 0.3333, 0.4000]])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>関数 <code class="xref py py-attr docutils literal notranslate"><span class="pre">f</span></code> はバッチ次元のサイズを保持しなければなりません。バッチ次元のサイズを変更する関数は、形状不一致エラーを引き起こし、形状変更処理中にエラーが発生します。</p>
+</div>
 </dd></dl>
 
 </section>

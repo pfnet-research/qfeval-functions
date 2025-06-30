@@ -17,6 +17,7 @@
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/translations.js?v=4755f45a"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" /> 
@@ -78,14 +79,49 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.covar">
 <span class="sig-name descname"><span class="pre">covar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/covar.html#covar"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.covar" title="Link to this definition"></a></dt>
-<dd><p>指定された次元に沿って、与えられたテンソル間の共分散を計算します。</p>
-<p>与えられたテンソル間でブロードキャスト処理を行う場合、要素数が増加し空間計算量が増大する可能性がありますが、本関数は元の空間計算量で計算を実行します。例えば、形状が (N, 1, D) と (1, M, D) のテンソルを操作する場合、空間計算量は O(NMD) ではなく O(ND + MD) のまま維持されます。</p>
-<p>注意：np.covとは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対する共分散を個別に計算します。</p>
+<dd><p>Compute covariance between two tensors along a specified dimension.</p>
+<p>この関数は、指定された次元に沿ってテンソル <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> と <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> の間の共分散を計算します。共分散は、2つの変数がどの程度一緒に変化するかを測る指標です。<code class="docutils literal notranslate"><span class="pre">numpy.cov</span></code> とは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対して要素ごとの共分散を計算します。</p>
+<p>共分散は以下のように計算されます：</p>
+<div class="math notranslate nohighlight">
+\[\text{Cov}(X, Y) = \frac{1}{N - \text{ddof}}
+\sum_{i=1}^{N} (X_i - \bar{X})(Y_i - \bar{Y})\]</div>
+<p>ここで <span class="math notranslate nohighlight">\(\bar{X}\)</span> と <span class="math notranslate nohighlight">\(\bar{Y}\)</span> は、それぞれ指定された次元に沿って <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> と <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> の平均値を表し、<span class="math notranslate nohighlight">\(N\)</span> はその次元に沿った要素数です。</p>
+<p>この関数はテンソルのブロードキャスト処理においてメモリ効率に優れています。例えば、形状が <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">1,</span> <span class="pre">D)</span></code> と <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">M,</span> <span class="pre">D)</span></code> の形状を持つテンソルを処理する場合、空間計算量は <code class="docutils literal notranslate"><span class="pre">O(NMD)</span></code> ではなく <code class="docutils literal notranslate"><span class="pre">O(ND</span> <span class="pre">+</span> <span class="pre">MD)</span></code> となります。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 最初の入力テンソル。</p></li>
+<li><p><strong>y</strong> (<em>Tensor</em>) -- 第2の入力テンソル。 :attr:<a href="#id1"><span class="problematic" id="id2">`</span></a>x`とブロードキャスト可能である必要があります。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 共分散を計算する次元。デフォルトは -1 で、最後の次元を意味します。</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) -- 出力テンソルが <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> を保持するかどうか。デフォルトは False。</p></li>
+<li><p><strong>ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 自由度の差分。計算に使用される除数は <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code> で、ここで <code class="docutils literal notranslate"><span class="pre">N</span></code> は要素数を表します。デフォルト値は 1 です。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>共分散値。形状は入力次元と <code class="xref py py-attr docutils literal notranslate"><span class="pre">keepdim</span></code> パラメータに依存します。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">tensor</span></code></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor(5.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([1.5000, 2.0000])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([[1.0000],</span>
+<span class="go">        [1.3333]])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

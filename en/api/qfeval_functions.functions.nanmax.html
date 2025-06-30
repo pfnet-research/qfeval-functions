@@ -77,14 +77,86 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nanmax">
 <span class="sig-name descname"><span class="pre">nanmax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nanmax.html#nanmax"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nanmax" title="Link to this definition"></a></dt>
-<dd><p>Returns a namedtuple <cite>(values, indices)</cite> where values is the maximum
-value of each row of the <cite>input</cite> tensor in the given dimension <cite>dim</cite>,
-ignoring Not a Numbers (NaNs).</p>
+<dd><p>Return the maximum values and indices along a dimension, ignoring NaN values.</p>
+<p>This function computes the maximum value along the specified dimension,
+excluding NaN values from consideration. It returns both the maximum values
+and their corresponding indices in the original tensor. This is similar to
+<code class="docutils literal notranslate"><span class="pre">torch.max</span></code> but with NaN-aware behavior.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor containing values.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) – The dimension along which to find the maximum values.</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the output tensors have <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>
+retained or not. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A named tuple containing:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">values</span></code> (Tensor): The maximum values along the specified dimension,
+with NaN values ignored. If a slice contains only NaN values,
+the result is NaN.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">indices</span></code> (Tensor): The indices of the maximum values in the
+original tensor.</p></li>
+</ul>
+</div></blockquote>
+</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">NanmaxResult</span></code></span></p>
+<dd class="field-odd"><p>NanmaxResult</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple maximum with NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">values</span>
+<span class="go">tensor([3., 5.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">indices</span>
+<span class="go">tensor([2, 1])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># All NaN slice</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="n">nan</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">values</span>
+<span class="go">tensor([2., nan])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">indices</span>
+<span class="go">tensor([1, 0])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With negative infinity</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="n">inf</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="n">nan</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="o">-</span><span class="n">inf</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">values</span>
+<span class="go">tensor([3., 2.])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">indices</span>
+<span class="go">tensor([2, 1])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With keepdim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="n">nan</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">nanmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">values</span>
+<span class="go">tensor([[2.],</span>
+<span class="go">        [4.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">indices</span>
+<span class="go">tensor([[1],</span>
+<span class="go">        [2]])</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="qfeval_functions.functions.nanmin.html#qfeval_functions.functions.nanmin" title="qfeval_functions.functions.nanmin"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanmin()</span></code></a>: NaN-aware minimum function.
+<code class="xref py py-func docutils literal notranslate"><span class="pre">nanargmax()</span></code>: NaN-aware argument maximum function.
+<code class="docutils literal notranslate"><span class="pre">torch.max</span></code>: Standard maximum function (NaN propagates).</p>
+</div>
 </dd></dl>
 
 </section>

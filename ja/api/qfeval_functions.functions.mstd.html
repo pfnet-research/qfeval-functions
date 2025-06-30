@@ -17,6 +17,7 @@
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/translations.js?v=4755f45a"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" /> 
@@ -78,12 +79,65 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.mstd">
 <span class="sig-name descname"><span class="pre">mstd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/mstd.html#mstd"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.mstd" title="Link to this definition"></a></dt>
-<dd><p>指定されたテンソルの移動標準偏差を返します。</p>
+<dd><p>Compute the moving (sliding window) standard deviation of a tensor.</p>
+<p>この関数は、指定された次元に沿ってサイズ <code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code> のスライディングウィンドウ内の要素の標準偏差を計算します。出力テンソルは入力テンソルと同じ形状を持ちます。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">-</span> <span class="pre">1</span></code> 要素の場合）、結果は <code class="docutils literal notranslate"><span class="pre">nan</span></code> となります。</p>
+<p>The moving standard deviation is computed as:</p>
+<div class="math notranslate nohighlight">
+\[\text{MSTD}[i] = \sqrt{\frac{1}{N - \text{ddof}}
+                 \sum_{j=i-\text{span}+1}^{i} (x[j] - \mu[i])^2}\]</div>
+<p>ここで <span class="math notranslate nohighlight">\(\mu[i]\)</span> は位置 <span class="math notranslate nohighlight">\(i\)</span> における移動平均を表し、<span class="math notranslate nohighlight">\(N\)</span> はウィンドウ内の要素数を示します。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 値を含む入力テンソル。</p></li>
+<li><p><strong>span</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) -- スライディングウィンドウのサイズ。正の値である必要があります。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 移動標準偏差を計算する次元。デフォルトは -1 で、最後の次元を指定します。</p></li>
+<li><p><strong>ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 自由度のデルタ値。計算で使用される除数は <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code> であり、ここで <code class="docutils literal notranslate"><span class="pre">N</span></code> はウィンドウ内の要素数を表します。デフォルト値は 1 です（標本標準偏差）。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>入力と同じ形状のテンソルで、移動標準偏差の値を含んでいます。指定された次元に沿って最初の``span - 1``要素は``nan``です。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple moving standard deviation with window size 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mstd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">tensor([nan, nan, 1., 1., 1.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensor with moving standard deviation along columns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mstd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([[   nan, 0.7071, 0.7071, 1.4142],</span>
+<span class="go">        [   nan, 0.7071, 0.7071, 1.4142],</span>
+<span class="go">        [   nan, 0.7071, 0.7071, 1.4142]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Population standard deviation (ddof=0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mstd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([nan, 1., 1., 1.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Sample standard deviation (ddof=1, default)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mstd</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([   nan, 1.4142, 1.4142, 1.4142])</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="qfeval_functions.functions.mvar.html#qfeval_functions.functions.mvar" title="qfeval_functions.functions.mvar"><code class="xref py py-func docutils literal notranslate"><span class="pre">mvar()</span></code></a>: 移動分散関数。</p></li>
+<li><p><a class="reference internal" href="qfeval_functions.functions.ma.html#qfeval_functions.functions.ma" title="qfeval_functions.functions.ma"><code class="xref py py-func docutils literal notranslate"><span class="pre">ma()</span></code></a>: 移動平均関数。</p></li>
+<li><p><a class="reference internal" href="qfeval_functions.functions.msum.html#qfeval_functions.functions.msum" title="qfeval_functions.functions.msum"><code class="xref py py-func docutils literal notranslate"><span class="pre">msum()</span></code></a>: 移動合計関数。</p></li>
+</ul>
+</div>
 </dd></dl>
 
 </section>

@@ -74,7 +74,68 @@
 <div class="viewcode-block" id="ma">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.ma.html#qfeval_functions.functions.ma">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ma</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the moving average of the given tensor.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the moving (sliding window) average of a tensor.</span>
+
+<span class="sd">    This function calculates the average of elements within a sliding window of</span>
+<span class="sd">    size :attr:`span` along the specified dimension. The output tensor has the</span>
+<span class="sd">    same shape as the input tensor. For positions where the sliding window</span>
+<span class="sd">    cannot fully cover preceding elements (i.e., the first ``span - 1``</span>
+<span class="sd">    elements along the selected dimension), the result is ``nan``.</span>
+
+<span class="sd">    The moving average is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{MA}[i] = \frac{1}{\text{span}} \sum_{j=i-\text{span}+1}^{i} x[j]</span>
+
+<span class="sd">    This is a simple moving average (SMA) where all values in the window have</span>
+<span class="sd">    equal weight.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values to be averaged.</span>
+<span class="sd">        span (int):</span>
+<span class="sd">            The size of the sliding window. Must be positive.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to compute the moving average.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, containing the moving</span>
+<span class="sd">            averages. The first ``span - 1`` elements along the specified</span>
+<span class="sd">            dimension are ``nan``.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple moving average with window size 3</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.ma(x, span=3)</span>
+<span class="sd">        tensor([nan, nan, 2., 3., 4.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with moving average along columns</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, 3.0, 4.0],</span>
+<span class="sd">        ...                   [5.0, 6.0, 7.0, 8.0],</span>
+<span class="sd">        ...                   [9.0, 10.0, 11.0, 12.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.ma(x, span=2, dim=1)</span>
+<span class="sd">        tensor([[    nan,  1.5000,  2.5000,  3.5000],</span>
+<span class="sd">                [    nan,  5.5000,  6.5000,  7.5000],</span>
+<span class="sd">                [    nan,  9.5000, 10.5000, 11.5000]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Moving average along the first dimension</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0],</span>
+<span class="sd">        ...                   [3.0, 4.0],</span>
+<span class="sd">        ...                   [5.0, 6.0],</span>
+<span class="sd">        ...                   [7.0, 8.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.ma(x, span=3, dim=0)</span>
+<span class="sd">        tensor([[nan, nan],</span>
+<span class="sd">                [nan, nan],</span>
+<span class="sd">                [3., 4.],</span>
+<span class="sd">                [5., 6.]])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`msum`: The underlying moving sum function.</span>
+<span class="sd">        :func:`ema`: Exponential moving average for weighted averaging.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">msum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span> <span class="o">/</span> <span class="n">span</span></div>
 
 </pre></div>

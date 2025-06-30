@@ -77,13 +77,64 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.eigh">
 <span class="sig-name descname"><span class="pre">eigh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">tensor</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">uplo</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'L'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/eigh.html#eigh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.eigh" title="Link to this definition"></a></dt>
-<dd><p>Computes eigenvalues and eigenvectors.</p>
-<p>NOTE: This does not support differentiable computation.</p>
+<dd><p>Compute eigenvalues and eigenvectors of a symmetric/Hermitian matrix.</p>
+<p>This function computes the eigenvalues and eigenvectors of a real symmetric
+or complex Hermitian matrix. The eigenvalues are returned in ascending
+order, and the corresponding eigenvectors are normalized. This
+implementation uses NumPy for CPU tensors and CuPy for CUDA tensors.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This function does not support automatic differentiation (autograd).</p>
+</div>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tensor</strong> (<em>Tensor</em>) – A symmetric (if real) or Hermitian (if complex) matrix of shape
+<code class="docutils literal notranslate"><span class="pre">(...,</span> <span class="pre">N,</span> <span class="pre">N)</span></code>. Only the upper or lower triangular part is used,
+depending on the <code class="xref py py-attr docutils literal notranslate"><span class="pre">uplo</span></code> parameter.</p></li>
+<li><p><strong>uplo</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – <p>Indicates which triangular part of the matrix is used:</p>
+<ul>
+<li><p>’L’ or ‘l’: Use the lower triangular part (default)</p></li>
+<li><p>’U’ or ‘u’: Use the upper triangular part</p></li>
+</ul>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>A tuple containing:</p>
+<ul class="simple">
+<li><p>Eigenvalues: A tensor of shape <code class="docutils literal notranslate"><span class="pre">(...,</span> <span class="pre">N)</span></code> containing
+eigenvalues in ascending order</p></li>
+<li><p>Eigenvectors: A tensor of shape <code class="docutils literal notranslate"><span class="pre">(...,</span> <span class="pre">N,</span> <span class="pre">N)</span></code> where the columns
+are the normalized eigenvectors corresponding to the eigenvalues</p></li>
+</ul>
+</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>, <a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>]</span></p>
+<dd class="field-odd"><p>Tuple[Tensor, Tensor]</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Create a symmetric matrix</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">4.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvalues</span>
+<span class="go">tensor([1.4384, 5.5616])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Verify: A @ v = λ @ v</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">A</span> <span class="o">@</span> <span class="n">eigenvectors</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">@</span> <span class="n">torch</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">eigenvalues</span><span class="p">))</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Using upper triangular part</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">eigenvalues</span><span class="p">,</span> <span class="n">eigenvectors</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">eigh</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">uplo</span><span class="o">=</span><span class="s1">&#39;U&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

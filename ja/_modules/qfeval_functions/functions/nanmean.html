@@ -79,7 +79,74 @@
     <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the mean value of each row, ignoring Not a Numbers (NaNs).&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the arithmetic mean along specified dimensions, ignoring NaN values.</span>
+
+<span class="sd">    This function calculates the mean (average) of tensor elements along the</span>
+<span class="sd">    specified dimension(s), excluding NaN values from the computation. NaN</span>
+<span class="sd">    values are treated as missing data and do not contribute to either the</span>
+<span class="sd">    sum or the count used in the mean calculation.</span>
+
+<span class="sd">    The NaN-aware mean is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{nanmean}(X) = \frac{\sum_{i \text{ valid}} X_i}{N_{\text{valid}}}</span>
+
+<span class="sd">    where the sum is over valid (non-NaN) values and :math:`N_{\text{valid}}`</span>
+<span class="sd">    is the number of valid values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.</span>
+<span class="sd">        dim (int or tuple of ints, optional):</span>
+<span class="sd">            The dimension(s) along which to compute the mean. If not specified</span>
+<span class="sd">            (default is empty tuple), the mean is computed over all dimensions.</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensor has :attr:`dim` retained or not.</span>
+<span class="sd">            Default is False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The mean values computed only over valid (non-NaN) values.</span>
+<span class="sd">            The shape depends on the input dimensions, :attr:`dim`, and</span>
+<span class="sd">            :attr:`keepdim` parameters.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; # Simple mean with NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmean(x)</span>
+<span class="sd">        tensor(3.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmean(x, dim=1)</span>
+<span class="sd">        tensor([2.0000, 4.5000])</span>
+
+<span class="sd">        &gt;&gt;&gt; # All dimensions</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0],</span>
+<span class="sd">        ...                   [nan, 4.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmean(x)</span>
+<span class="sd">        tensor(2.3333)</span>
+
+<span class="sd">        &gt;&gt;&gt; # With keepdim</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmean(x, dim=1, keepdim=True)</span>
+<span class="sd">        tensor([[2.0000],</span>
+<span class="sd">                [4.5000]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # All NaN slice</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0],</span>
+<span class="sd">        ...                   [nan, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmean(x, dim=1)</span>
+<span class="sd">        tensor([1.5000,    nan])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`nansum`: NaN-aware sum function.</span>
+<span class="sd">        :func:`nanstd`: NaN-aware standard deviation function.</span>
+<span class="sd">        :func:`nanvar`: NaN-aware variance function.</span>
+<span class="sd">        ``torch.nanmean``: PyTorch&#39;s built-in NaN-aware mean function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">count</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">())</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="n">keepdim</span><span class="p">)</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">nansum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="n">keepdim</span><span class="p">)</span> <span class="o">/</span> <span class="n">count</span></div>
 

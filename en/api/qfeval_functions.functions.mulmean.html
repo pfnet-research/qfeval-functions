@@ -77,12 +77,79 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.mulmean">
 <span class="sig-name descname"><span class="pre">mulmean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/mulmean.html#mulmean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.mulmean" title="Link to this definition"></a></dt>
-<dd><p>Calculate <cite>(x * y).mean(…)</cite> in a memory-efficient way.</p>
+<dd><p>Compute the mean of element-wise product in a memory-efficient way.</p>
+<p>This function calculates the mean of the element-wise product of two
+tensors <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">*</span> <span class="pre">y).mean(dim)</span></code> without creating the intermediate product
+tensor in memory. This is particularly useful when working with large
+tensors where memory efficiency is critical, or when broadcasting between
+tensors would result in a very large intermediate tensor.</p>
+<p>The function is mathematically equivalent to <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">*</span> <span class="pre">y).mean(dim)</span></code> but
+uses a more memory-efficient implementation that avoids materializing
+the full product tensor.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) – The first input tensor.</p></li>
+<li><p><strong>y</strong> (<em>Tensor</em>) – The second input tensor. Must be broadcastable with <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) – The dimension(s) along which to compute the mean. If not specified
+(default is empty tuple), the mean is computed over all dimensions.</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the output tensor has <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>
+retained or not. Default is False.</p></li>
+<li><p><strong>_ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Delta degrees of freedom for internal calculations.
+The divisor used is <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">_ddof</span></code>, where <code class="docutils literal notranslate"><span class="pre">N</span></code> is the number of
+elements. Default is 0. This is an internal parameter.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The mean of the element-wise product. The shape depends on the
+input dimensions, <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>, and <code class="xref py py-attr docutils literal notranslate"><span class="pre">keepdim</span></code> parameters.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple element-wise product mean</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mulmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">tensor(10.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Equivalent to (x * y).mean()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">QF</span><span class="o">.</span><span class="n">mulmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensors with specific dimension</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mulmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([2.0000, 5.5000])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Broadcasting example</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Memory-efficient: doesn&#39;t create 1000x1000 intermediate tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">mulmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With keepdim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]],</span> <span class="p">[[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]],</span> <span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mulmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">tensor([[[2.0000]],</span>
+
+<span class="go">        [[5.5000]]])</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="qfeval_functions.functions.mulsum.html#qfeval_functions.functions.mulsum" title="qfeval_functions.functions.mulsum"><code class="xref py py-func docutils literal notranslate"><span class="pre">mulsum()</span></code></a>: The underlying function for memory-efficient
+multiplication and summation.
+<a class="reference internal" href="qfeval_functions.functions.covar.html#qfeval_functions.functions.covar" title="qfeval_functions.functions.covar"><code class="xref py py-func docutils literal notranslate"><span class="pre">covar()</span></code></a>: Uses this function for covariance calculations.</p>
+</div>
 </dd></dl>
 
 </section>

@@ -72,10 +72,56 @@
 <div class="viewcode-block" id="einsum">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.einsum.html#qfeval_functions.functions.einsum">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">einsum</span><span class="p">(</span><span class="n">equation</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="n">operands</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Typed version of torch.einsum.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Sums the product of tensor elements over specified indices using</span>
+<span class="sd">    Einstein notation.</span>
 
-<span class="sd">    As of PyTorch 1.8, torch.einsum is not typed, and it is inconvenient in</span>
-<span class="sd">    static type analysis.</span>
+<span class="sd">    This function provides a typed wrapper around ``torch.einsum``, enabling</span>
+<span class="sd">    better static type analysis. Einstein summation convention allows for</span>
+<span class="sd">    expressing many tensor operations (including matrix multiplication, batch</span>
+<span class="sd">    matrix multiplication, dot products, broadcasting, and more) in a compact</span>
+<span class="sd">    notation.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        equation (str):</span>
+<span class="sd">            A string describing the subscripts for summation. The string</span>
+<span class="sd">            contains comma-separated subscript labels for each operand,</span>
+<span class="sd">            followed by ``-&gt;`` and the subscript labels for the output.</span>
+<span class="sd">        *operands (Tensor):</span>
+<span class="sd">            The input tensors to operate on. The number of operands must match</span>
+<span class="sd">            the number of comma-separated groups in the equation.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The result of the Einstein summation, with shape determined by the</span>
+<span class="sd">            output subscript labels in the equation.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Matrix multiplication: &quot;ij,jk-&gt;ik&quot;</span>
+<span class="sd">        &gt;&gt;&gt; A = torch.randn(3, 4)</span>
+<span class="sd">        &gt;&gt;&gt; B = torch.randn(4, 5)</span>
+<span class="sd">        &gt;&gt;&gt; C = QF.einsum(&quot;ij,jk-&gt;ik&quot;, A, B)</span>
+<span class="sd">        &gt;&gt;&gt; C.shape</span>
+<span class="sd">        torch.Size([3, 5])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Batch matrix multiplication: &quot;bij,bjk-&gt;bik&quot;</span>
+<span class="sd">        &gt;&gt;&gt; A = torch.randn(10, 3, 4)</span>
+<span class="sd">        &gt;&gt;&gt; B = torch.randn(10, 4, 5)</span>
+<span class="sd">        &gt;&gt;&gt; C = QF.einsum(&quot;bij,bjk-&gt;bik&quot;, A, B)</span>
+<span class="sd">        &gt;&gt;&gt; C.shape</span>
+<span class="sd">        torch.Size([10, 3, 5])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Trace of a matrix: &quot;ii-&gt;&quot;</span>
+<span class="sd">        &gt;&gt;&gt; A = torch.tensor([[1.0, 2.0], [3.0, 4.0]])</span>
+<span class="sd">        &gt;&gt;&gt; trace = QF.einsum(&quot;ii-&gt;&quot;, A)</span>
+<span class="sd">        &gt;&gt;&gt; trace</span>
+<span class="sd">        tensor(5.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Transpose: &quot;ij-&gt;ji&quot;</span>
+<span class="sd">        &gt;&gt;&gt; A = torch.randn(3, 4)</span>
+<span class="sd">        &gt;&gt;&gt; A_T = QF.einsum(&quot;ij-&gt;ji&quot;, A)</span>
+<span class="sd">        &gt;&gt;&gt; torch.allclose(A_T, A.T)</span>
+<span class="sd">        True</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="n">equation</span><span class="p">,</span> <span class="o">*</span><span class="n">operands</span><span class="p">)</span>  <span class="c1"># type: ignore</span></div>
 

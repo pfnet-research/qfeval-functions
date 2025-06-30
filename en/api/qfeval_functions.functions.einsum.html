@@ -77,14 +77,62 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.einsum">
 <span class="sig-name descname"><span class="pre">einsum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">equation</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">operands</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/einsum.html#einsum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.einsum" title="Link to this definition"></a></dt>
-<dd><p>Typed version of torch.einsum.</p>
-<p>As of PyTorch 1.8, torch.einsum is not typed, and it is inconvenient in
-static type analysis.</p>
+<dd><p>Sums the product of tensor elements over specified indices using
+Einstein notation.</p>
+<p>This function provides a typed wrapper around <code class="docutils literal notranslate"><span class="pre">torch.einsum</span></code>, enabling
+better static type analysis. Einstein summation convention allows for
+expressing many tensor operations (including matrix multiplication, batch
+matrix multiplication, dot products, broadcasting, and more) in a compact
+notation.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>equation</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a>) – A string describing the subscripts for summation. The string
+contains comma-separated subscript labels for each operand,
+followed by <code class="docutils literal notranslate"><span class="pre">-&gt;</span></code> and the subscript labels for the output.</p></li>
+<li><p><strong>*operands</strong> (<em>Tensor</em>) – The input tensors to operate on. The number of operands must match
+the number of comma-separated groups in the equation.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The result of the Einstein summation, with shape determined by the
+output subscript labels in the equation.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Matrix multiplication: &quot;ij,jk-&gt;ik&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ij,jk-&gt;ik&quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([3, 5])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Batch matrix multiplication: &quot;bij,bjk-&gt;bik&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">B</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;bij,bjk-&gt;bik&quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">C</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([10, 3, 5])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Trace of a matrix: &quot;ii-&gt;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ii-&gt;&quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trace</span>
+<span class="go">tensor(5.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Transpose: &quot;ij-&gt;ji&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">A_T</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">einsum</span><span class="p">(</span><span class="s2">&quot;ij-&gt;ji&quot;</span><span class="p">,</span> <span class="n">A</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">A_T</span><span class="p">,</span> <span class="n">A</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

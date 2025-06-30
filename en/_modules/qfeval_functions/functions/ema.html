@@ -101,7 +101,59 @@
 <div class="viewcode-block" id="ema">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.ema.html#qfeval_functions.functions.ema">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ema</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">alpha</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the exponential weighted moving average of the given tensor.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute exponential moving average along a specified dimension.</span>
+
+<span class="sd">    This function calculates the exponential moving average (EMA) of a tensor</span>
+<span class="sd">    along the specified dimension. EMA is a type of weighted moving average</span>
+<span class="sd">    where more recent values have higher weights. The weight of each value</span>
+<span class="sd">    decreases exponentially as you go back in time.</span>
+
+<span class="sd">    For each position :math:`i` along the specified dimension, the EMA is</span>
+<span class="sd">    computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{EMA}[i] = \frac{\sum_{j=0}^{i} x[j] \cdot (1-\alpha)^{i-j}}</span>
+<span class="sd">                             {\sum_{j=0}^{i} (1-\alpha)^{i-j}}</span>
+
+<span class="sd">    where :math:`\alpha` is the smoothing factor (0 &lt; :math:`\alpha` &lt; 1).</span>
+<span class="sd">    Smaller values of :math:`\alpha` give more weight to recent observations.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values to be averaged.</span>
+<span class="sd">        alpha (float):</span>
+<span class="sd">            The smoothing factor, must be in the range (0, 1). Smaller values</span>
+<span class="sd">            result in more smoothing (slower decay).</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to compute the exponential moving</span>
+<span class="sd">            average.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, containing the exponential</span>
+<span class="sd">            moving average values.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple 1D example</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; ema_result = QF.ema(x, alpha=0.5)</span>
+<span class="sd">        &gt;&gt;&gt; ema_result</span>
+<span class="sd">        tensor([1.0000, 1.6667, 2.4286, 3.2667, 4.1613])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D example with dim=1</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, 3.0, 4.0],</span>
+<span class="sd">        ...                   [4.0, 3.0, 2.0, 1.0]])</span>
+<span class="sd">        &gt;&gt;&gt; ema_result = QF.ema(x, alpha=0.3, dim=1)</span>
+<span class="sd">        &gt;&gt;&gt; ema_result</span>
+<span class="sd">        tensor([[1.0000, 1.5882, 2.2329, 2.9305],</span>
+<span class="sd">                [4.0000, 3.4118, 2.7671, 2.0695]])</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        The implementation uses an efficient :math:`O(\log n)` algorithm based on</span>
+<span class="sd">        geometric progression properties, making it suitable for long sequences.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">ew_weight</span> <span class="o">=</span> <span class="n">_exponential_weighted_sum</span><span class="p">(</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">alpha</span><span class="o">=</span><span class="n">alpha</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span>
     <span class="p">)</span>

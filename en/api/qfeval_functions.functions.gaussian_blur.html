@@ -77,27 +77,62 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.gaussian_blur">
 <span class="sig-name descname"><span class="pre">gaussian_blur</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/gaussian_blur.html#gaussian_blur"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.gaussian_blur" title="Link to this definition"></a></dt>
-<dd><p>Applies a Gaussian filter with the given <cite>sigma</cite> parameter to <cite>x</cite> along
-the specified axis <cite>dim</cite>.</p>
-<p>Specifically, this assigns the weighted mean of valid values with a
-Gaussian filter to each element.  This makes values outside the range have
-no weight, so it works well even for biased values, while zero padding
-brings the surrounding values closer to zero.  Additionally, as it makes
-NaN values have no weight, it also works well for biased values that
-include NaNs.</p>
-<p>NOTE: This function uses interval averages of a Gaussian function instead
-of point-sampling for its discretized window function.  Typical
-implementations of Gaussian filters use point-sampling (e.g.,
-<cite>scipy.ndimage.gaussian_filter1d</cite>).  However, they have an undersampling
-issue for small $sigma$ (c.f., <a class="reference external" href="https://bartwronski.com/2021/10/31/">https://bartwronski.com/2021/10/31/</a>,
-Implementation section in <a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_blur">https://en.wikipedia.org/wiki/Gaussian_blur</a>).
-This calculates the interval averages using the integral of a Gaussian
-function.</p>
+<dd><p>Apply Gaussian blur to a tensor along a specified dimension.</p>
+<p>This function applies a one-dimensional Gaussian filter to smooth data
+along the specified dimension. The Gaussian blur operation computes a
+weighted average of neighboring values, where weights follow a Gaussian
+(normal) distribution centered at each point. This is commonly used for
+noise reduction, data smoothing, and signal processing.</p>
+<p>Unlike typical implementations that use point-sampling (such as
+<code class="docutils literal notranslate"><span class="pre">scipy.ndimage.gaussian_filter1d</span></code>), this function uses interval averages
+of the Gaussian function for improved accuracy, especially for small
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">sigma</span></code> values. This approach avoids undersampling issues and
+provides more accurate results.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor to be blurred.</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a>) – The standard deviation of the Gaussian kernel. Larger values
+produce more smoothing. Must be positive.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – The dimension along which to apply the Gaussian blur.
+Default is -1 (the last dimension).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tensor of the same shape as the input, containing the
+Gaussian-blurred values.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple 1D Gaussian blur</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">gaussian_blur</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="go">tensor([0.0864, 0.6494, 2.4324, 3.8310, 2.4324, 0.6494, 0.0864])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensor: blur along different dimensions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">10.0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">gaussian_blur</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># blur along rows</span>
+<span class="go">tensor([[0.0000, 0.0000, 0.0625, 0.0000, 0.0000],</span>
+<span class="go">        [0.0000, 0.0000, 9.8758, 0.0000, 0.0000],</span>
+<span class="go">        [0.0000, 0.0000, 0.0625, 0.0000, 0.0000]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">gaussian_blur</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># blur along columns</span>
+<span class="go">tensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.0000],</span>
+<span class="go">        [0.0000, 0.0621, 9.8758, 0.0621, 0.0000],</span>
+<span class="go">        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000]])</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://en.wikipedia.org/wiki/Gaussian_blur">https://en.wikipedia.org/wiki/Gaussian_blur</a></p></li>
+<li><p><a class="reference external" href="https://bartwronski.com/2021/10/31/gaussian-blur-corrected-improved-and-optimized/">https://bartwronski.com/2021/10/31/gaussian-blur-corrected-improved-and-optimized/</a></p></li>
+</ul>
+</div>
 </dd></dl>
 
 </section>

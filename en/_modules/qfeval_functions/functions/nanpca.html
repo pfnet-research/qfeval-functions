@@ -83,22 +83,90 @@
 <div class="viewcode-block" id="nanpca">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.nanpca.html#qfeval_functions.functions.nanpca">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">nanpca</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NanpcaResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Computes principal components on the given data.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute Principal Component Analysis (PCA) on data, ignoring NaN values.</span>
 
-<span class="sd">    The returned value represents principal components.  Specifically,</span>
-<span class="sd">    `result[*, i, :]` represents the :math:`(i+1)`-th largest principal</span>
-<span class="sd">    component of the batch specified by `*`.</span>
+<span class="sd">    This function performs PCA by computing the eigendecomposition of the</span>
+<span class="sd">    covariance matrix calculated with NaN-aware operations. PCA finds the</span>
+<span class="sd">    principal components (eigenvectors) that capture the maximum variance in</span>
+<span class="sd">    the data, ordered by their explained variance (eigenvalues).</span>
 
-<span class="sd">    Shape:</span>
-<span class="sd">        - data: :math:`(*, N, C)` where `*` means any number of additional</span>
-<span class="sd">          dimensions, `N` means the number of samples, and `C` means the</span>
-<span class="sd">          number of features.</span>
+<span class="sd">    The function computes the covariance matrix using :func:`nancovar` to</span>
+<span class="sd">    handle NaN values appropriately, then applies eigendecomposition via</span>
+<span class="sd">    :func:`eigh` to obtain the principal components. The components are</span>
+<span class="sd">    returned in descending order of explained variance.</span>
 
-<span class="sd">    Return:</span>
-<span class="sd">        - w (torch.Tensor): `w[i]` represents the eigenvalue of the</span>
-<span class="sd">          :math:`i`-th component.</span>
-<span class="sd">        - v (torch.Tensor): `v[i, j]` represents the :math:`i`-th component&#39;s</span>
-<span class="sd">          weight for the `j`-th feature.</span>
+<span class="sd">    The mathematical formulation follows standard PCA:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \mathbf{C} = \text{nancovar}(\mathbf{X})</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \mathbf{C} \mathbf{v}_i = \lambda_i \mathbf{v}_i</span>
+
+<span class="sd">    where :math:`\mathbf{C}` is the covariance matrix, :math:`\mathbf{v}_i`</span>
+<span class="sd">    are the eigenvectors (principal components), and :math:`\lambda_i` are</span>
+<span class="sd">    the eigenvalues (explained variance).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (Tensor):</span>
+<span class="sd">            Input tensor of shape :math:`(*, N, C)` where :math:`*`</span>
+<span class="sd">            means any number of additional batch dimensions, :math:`N` is the</span>
+<span class="sd">            number of samples, and :math:`C` is the number of features.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        NanpcaResult: A dataclass containing:</span>
+
+<span class="sd">            - ``components`` (Tensor): Principal components of shape :math:`(*, C, C)`.</span>
+<span class="sd">              ``components[..., i, :]`` represents the :math:`(i+1)`-th principal</span>
+<span class="sd">              component (ordered by decreasing explained variance).</span>
+<span class="sd">            - ``explained_variance`` (Tensor): Eigenvalues of shape :math:`(*, C)`</span>
+<span class="sd">              representing the variance explained by each component, in descending order.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple 2D PCA with NaN values</span>
+<span class="sd">        &gt;&gt;&gt; data = torch.tensor([[[1.0, 2.0],</span>
+<span class="sd">        ...                       [nan, 4.0],</span>
+<span class="sd">        ...                       [3.0, 6.0],</span>
+<span class="sd">        ...                       [4.0, nan]]])</span>
+<span class="sd">        &gt;&gt;&gt; result = QF.nanpca(data)</span>
+<span class="sd">        &gt;&gt;&gt; result.components.shape</span>
+<span class="sd">        torch.Size([1, 2, 2])</span>
+<span class="sd">        &gt;&gt;&gt; result.explained_variance.shape</span>
+<span class="sd">        torch.Size([1, 2])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Batch processing multiple datasets</span>
+<span class="sd">        &gt;&gt;&gt; data = torch.randn(2, 10, 3)  # 2 batches, 10 samples, 3 features</span>
+<span class="sd">        &gt;&gt;&gt; # Introduce some NaN values</span>
+<span class="sd">        &gt;&gt;&gt; data[0, 2, 1] = nan</span>
+<span class="sd">        &gt;&gt;&gt; data[1, 5, :] = nan</span>
+<span class="sd">        &gt;&gt;&gt; result = QF.nanpca(data)</span>
+<span class="sd">        &gt;&gt;&gt; result.components.shape</span>
+<span class="sd">        torch.Size([2, 3, 3])</span>
+<span class="sd">        &gt;&gt;&gt; result.explained_variance.shape</span>
+<span class="sd">        torch.Size([2, 3])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Access first principal component</span>
+<span class="sd">        &gt;&gt;&gt; first_pc = result.components[0, 0, :]  # First batch, first component</span>
+<span class="sd">        &gt;&gt;&gt; first_variance = result.explained_variance[0, 0]  # Corresponding variance</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple case without convergence issues</span>
+<span class="sd">        &gt;&gt;&gt; data = torch.tensor([[[1.0, 2.0],</span>
+<span class="sd">        ...                       [3.0, 4.0],</span>
+<span class="sd">        ...                       [5.0, nan]]])</span>
+<span class="sd">        &gt;&gt;&gt; result = QF.nanpca(data)</span>
+<span class="sd">        &gt;&gt;&gt; result.components.shape</span>
+<span class="sd">        torch.Size([1, 2, 2])</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        If there are insufficient valid (non-NaN) observations to compute</span>
+<span class="sd">        meaningful covariance estimates, the results may contain NaN values.</span>
+<span class="sd">        Ensure adequate data coverage for reliable PCA results.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`nancovar`: NaN-aware covariance computation.</span>
+<span class="sd">        :func:`eigh`: Eigendecomposition for symmetric matrices.</span>
+<span class="sd">        :func:`nanmean`: NaN-aware mean used in covariance calculation.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">batch_shape</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
     <span class="n">data</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="kc">None</span><span class="p">]</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">end_dim</span><span class="o">=-</span><span class="mi">3</span><span class="p">)</span>

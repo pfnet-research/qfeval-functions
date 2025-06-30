@@ -73,7 +73,49 @@
 <div class="viewcode-block" id="ffill">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.ffill.html#qfeval_functions.functions.ffill">[ドキュメント]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ffill</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Propagates last valid values forward.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Forward fill missing values along the specified dimension.</span>
+
+<span class="sd">    This function propagates the last valid (non-NaN) values forward along</span>
+<span class="sd">    the specified dimension. For each NaN value, it is replaced with the</span>
+<span class="sd">    most recent valid value that appears before it along the dimension. If no</span>
+<span class="sd">    valid value exists before a NaN, it remains NaN.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values to be filled. May contain NaN</span>
+<span class="sd">            values that will be replaced.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to perform forward fill.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, with NaN values replaced</span>
+<span class="sd">            by the nearest preceding valid values where possible.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple 1D forward fill</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, nan, nan, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.ffill(x)</span>
+<span class="sd">        tensor([1., 1., 1., 4., 5.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D example with dim=1</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[nan, 2.0, nan, 4.0],</span>
+<span class="sd">        ...                   [5.0, nan, nan, 8.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.ffill(x, dim=1)</span>
+<span class="sd">        tensor([[nan, 2., 2., 4.],</span>
+<span class="sd">                [5., 5., 5., 8.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Forward fill along columns (dim=0)</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [nan, 2.0, nan],</span>
+<span class="sd">        ...                   [4.0, nan, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.ffill(x, dim=0)</span>
+<span class="sd">        tensor([[1., nan, 3.],</span>
+<span class="sd">                [1., 2., 3.],</span>
+<span class="sd">                [4., 2., 3.]])</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">x</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>

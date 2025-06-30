@@ -77,41 +77,85 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.group_shift">
 <span class="sig-name descname"><span class="pre">group_shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'any'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/group_shift.html#group_shift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.group_shift" title="Link to this definition"></a></dt>
-<dd><p>Shifts a tensor along a specified dimension, skipping a given mask.</p>
-<p>This function applies shifts only for locations specified by the mask.
-For example, suppose the mask is <cite>[True, False, True, False, True]</cite>,
-then applying one shift to <cite>[1, nan, 2, nan, 3]</cite> will get
-<cite>[nan, nan, 1, nan, 2]</cite>.</p>
-<p>CAVEAT:
-Before applying shifts, the unmasked values (i.e., mask values are False)
-are filled with nans. So, applying the above masked-shift to
-<cite>[1, 2, 3, 4, 5]</cite> will get <cite>[nan, nan, 1, nan, 3]</cite>, where unmasked values
-(2, 4) are just discarded. Also, zero-shift (<cite>shift == 0</cite>) will not give
-the original input.</p>
+<dd><p>Shift tensor elements along a dimension, skipping masked positions.</p>
+<p>This function performs a selective shift operation where only elements at
+positions marked as <code class="docutils literal notranslate"><span class="pre">True</span></code> in the mask are shifted, while positions
+marked as <code class="docutils literal notranslate"><span class="pre">False</span></code> are skipped. This is particularly useful for time
+series data where certain time points should be excluded from the shift
+operation, such as weekends in financial data or missing observations.</p>
+<p>The function works by reordering elements based on the mask, applying the
+shift only to valid positions, and then restoring the original order.
+Elements at masked-out positions are replaced with NaN values.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Unmasked values (where mask is <code class="docutils literal notranslate"><span class="pre">False</span></code>) are replaced with NaN before
+shifting. This means that even a zero shift (<code class="docutils literal notranslate"><span class="pre">shift=0</span></code>) will not
+return the original input, as unmasked values will be NaN in the
+output.</p>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>-</em>) – The input tensor.</p></li>
-<li><p><strong>shift</strong> (<em>-</em>) – The number of places by which the elements of the tensor
-are shifted.</p></li>
-<li><p><strong>dim</strong> (<em>-</em>) – The dimension along which <cite>x</cite> will be shifted.</p></li>
-<li><p><strong>mask</strong> (<em>-</em>) – A 1D boolean tensor, where <cite>False</cite> values specify
-the indices to be skipped during shifts. The length must be
-equal to <cite>x.shape[dim]</cite>.</p></li>
-<li><p><strong>refdim</strong> (<em>-</em>) – If set, the mask is automatically generated.
-See <cite>reduce_nan_patterns</cite> for details.</p></li>
+<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor to be shifted.</p></li>
+<li><p><strong>shift</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – The number of positions to shift. Positive values shift forward
+(toward higher indices), negative values shift backward.
+Default is 1.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – The dimension along which to perform the shift.
+Default is 0.</p></li>
+<li><p><strong>mask</strong> (<em>Tensor</em><em>, </em><em>optional</em>) – A 1D boolean tensor where <code class="docutils literal notranslate"><span class="pre">True</span></code> indicates positions to include
+in the shift, and <code class="docutils literal notranslate"><span class="pre">False</span></code> indicates positions to skip. Length
+must equal <code class="docutils literal notranslate"><span class="pre">x.shape[dim]</span></code>. If not provided, <code class="xref py py-attr docutils literal notranslate"><span class="pre">refdim</span></code> must
+be specified.</p></li>
+<li><p><strong>refdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – If specified, automatically generates a mask using
+<code class="xref py py-func docutils literal notranslate"><span class="pre">reduce_nan_patterns()</span></code>. This identifies valid positions based
+on non-NaN patterns in the reference dimension. Default is -1.</p></li>
+<li><p><strong>agg_f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) – Aggregation function used when generating mask from <code class="xref py py-attr docutils literal notranslate"><span class="pre">refdim</span></code>.
+Can be “any” or “all”.
+Default is “any”.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>A shifted version of <cite>x</cite>.</p>
+<dd class="field-even"><p>A tensor of the same shape as the input, with elements shifted
+according to the mask. Unmasked positions contain NaN.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><ul class="simple">
-<li><p>x_shifted</p></li>
-</ul>
-</p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Basic masked shift</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shifted</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">group_shift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shifted</span>
+<span class="go">tensor([nan, nan, 1., nan, 3.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Shift with existing NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shifted</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">group_shift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">mask</span><span class="o">=</span><span class="n">mask</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shifted</span>
+<span class="go">tensor([nan, nan, 1., nan, 2.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensor with automatic mask generation</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">9.0</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">12.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Use refdim=0 to generate mask from first row&#39;s NaN pattern</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shifted</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">group_shift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">refdim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">shifted</span>
+<span class="go">tensor([[nan,  1., nan,  2.],</span>
+<span class="go">        [nan,  5., nan,  6.],</span>
+<span class="go">        [nan,  9., nan, 10.]])</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><code class="xref py py-func docutils literal notranslate"><span class="pre">reduce_nan_patterns()</span></code>: For understanding mask generation from
+reference dimensions.</p>
+</div>
 </dd></dl>
 
 </section>

@@ -97,8 +97,6 @@
 <span class="sd">        - mask: a 1-D boolean tensor</span>
 
 <span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; import torch</span>
-<span class="sd">        &gt;&gt;&gt; from math import nan</span>
 <span class="sd">        &gt;&gt;&gt; x = torch.tensor([</span>
 <span class="sd">        ...     [1.0, 2.0, nan, 1.0],</span>
 <span class="sd">        ...     [2.0, 4.0, nan, 2.0],</span>
@@ -143,32 +141,83 @@
     <span class="n">refdim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
     <span class="n">agg_f</span><span class="p">:</span> <span class="n">AggregateFunction</span> <span class="o">=</span> <span class="s2">&quot;any&quot;</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Shifts a tensor along a specified dimension, skipping a given mask.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Shift tensor elements along a dimension, skipping masked positions.</span>
 
-<span class="sd">    This function applies shifts only for locations specified by the mask.</span>
-<span class="sd">    For example, suppose the mask is `[True, False, True, False, True]`,</span>
-<span class="sd">    then applying one shift to `[1, nan, 2, nan, 3]` will get</span>
-<span class="sd">    `[nan, nan, 1, nan, 2]`.</span>
+<span class="sd">    This function performs a selective shift operation where only elements at</span>
+<span class="sd">    positions marked as ``True`` in the mask are shifted, while positions</span>
+<span class="sd">    marked as ``False`` are skipped. This is particularly useful for time</span>
+<span class="sd">    series data where certain time points should be excluded from the shift</span>
+<span class="sd">    operation, such as weekends in financial data or missing observations.</span>
 
-<span class="sd">    CAVEAT:</span>
-<span class="sd">    Before applying shifts, the unmasked values (i.e., mask values are False)</span>
-<span class="sd">    are filled with nans. So, applying the above masked-shift to</span>
-<span class="sd">    `[1, 2, 3, 4, 5]` will get `[nan, nan, 1, nan, 3]`, where unmasked values</span>
-<span class="sd">    (2, 4) are just discarded. Also, zero-shift (`shift == 0`) will not give</span>
-<span class="sd">    the original input.</span>
+<span class="sd">    The function works by reordering elements based on the mask, applying the</span>
+<span class="sd">    shift only to valid positions, and then restoring the original order.</span>
+<span class="sd">    Elements at masked-out positions are replaced with NaN values.</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        Unmasked values (where mask is ``False``) are replaced with NaN before</span>
+<span class="sd">        shifting. This means that even a zero shift (``shift=0``) will not</span>
+<span class="sd">        return the original input, as unmasked values will be NaN in the</span>
+<span class="sd">        output.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        - x: The input tensor.</span>
-<span class="sd">        - shift: The number of places by which the elements of the tensor</span>
-<span class="sd">            are shifted.</span>
-<span class="sd">        - dim: The dimension along which `x` will be shifted.</span>
-<span class="sd">        - mask (optional): A 1D boolean tensor, where `False` values specify</span>
-<span class="sd">            the indices to be skipped during shifts. The length must be</span>
-<span class="sd">            equal to `x.shape[dim]`.</span>
-<span class="sd">        - refdim (optional): If set, the mask is automatically generated.</span>
-<span class="sd">            See `reduce_nan_patterns` for details.</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor to be shifted.</span>
+<span class="sd">        shift (int, optional):</span>
+<span class="sd">            The number of positions to shift. Positive values shift forward</span>
+<span class="sd">            (toward higher indices), negative values shift backward.</span>
+<span class="sd">            Default is 1.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to perform the shift.</span>
+<span class="sd">            Default is 0.</span>
+<span class="sd">        mask (Tensor, optional):</span>
+<span class="sd">            A 1D boolean tensor where ``True`` indicates positions to include</span>
+<span class="sd">            in the shift, and ``False`` indicates positions to skip. Length</span>
+<span class="sd">            must equal ``x.shape[dim]``. If not provided, :attr:`refdim` must</span>
+<span class="sd">            be specified.</span>
+<span class="sd">        refdim (int, optional):</span>
+<span class="sd">            If specified, automatically generates a mask using</span>
+<span class="sd">            :func:`reduce_nan_patterns`. This identifies valid positions based</span>
+<span class="sd">            on non-NaN patterns in the reference dimension. Default is -1.</span>
+<span class="sd">        agg_f (str, optional):</span>
+<span class="sd">            Aggregation function used when generating mask from :attr:`refdim`.</span>
+<span class="sd">            Can be &quot;any&quot; or &quot;all&quot;.</span>
+<span class="sd">            Default is &quot;any&quot;.</span>
+
 <span class="sd">    Returns:</span>
-<span class="sd">        - x_shifted: A shifted version of `x`.</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, with elements shifted</span>
+<span class="sd">            according to the mask. Unmasked positions contain NaN.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Basic masked shift</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; mask = torch.tensor([True, False, True, False, True])</span>
+<span class="sd">        &gt;&gt;&gt; shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)</span>
+<span class="sd">        &gt;&gt;&gt; shifted</span>
+<span class="sd">        tensor([nan, nan, 1., nan, 3.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Shift with existing NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, nan, 2.0, nan, 3.0])</span>
+<span class="sd">        &gt;&gt;&gt; mask = torch.tensor([True, False, True, False, True])</span>
+<span class="sd">        &gt;&gt;&gt; shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)</span>
+<span class="sd">        &gt;&gt;&gt; shifted</span>
+<span class="sd">        tensor([nan, nan, 1., nan, 2.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with automatic mask generation</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, nan, 4.0],</span>
+<span class="sd">        ...                   [5.0, 6.0, nan, 8.0],</span>
+<span class="sd">        ...                   [9.0, 10., nan, 12.]])</span>
+<span class="sd">        &gt;&gt;&gt; # Use refdim=0 to generate mask from first row&#39;s NaN pattern</span>
+<span class="sd">        &gt;&gt;&gt; shifted = QF.group_shift(x, shift=1, dim=1, refdim=0)</span>
+<span class="sd">        &gt;&gt;&gt; shifted</span>
+<span class="sd">        tensor([[nan,  1., nan,  2.],</span>
+<span class="sd">                [nan,  5., nan,  6.],</span>
+<span class="sd">                [nan,  9., nan, 10.]])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`reduce_nan_patterns`: For understanding mask generation from</span>
+<span class="sd">        reference dimensions.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">n</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span>
 

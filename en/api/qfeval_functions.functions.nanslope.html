@@ -16,6 +16,7 @@
       <script src="../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -77,14 +78,106 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nanslope">
 <span class="sig-name descname"><span class="pre">nanslope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nanslope.html#nanslope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nanslope" title="Link to this definition"></a></dt>
-<dd><p>Returns the slope of correlation bewteen <cite>x</cite> and <cite>y</cite>, ignoring NaNs.</p>
-<p>NOTE: This is based on calculation of slope beta at:
-<a class="reference external" href="https://en.wikipedia.org/wiki/Simple_linear_regression">https://en.wikipedia.org/wiki/Simple_linear_regression</a></p>
+<dd><p>Compute the slope of simple linear regression between two tensors,
+ignoring NaN values.</p>
+<p>This function calculates the slope (beta coefficient) of the linear regression
+line that best fits the relationship between <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> and <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code>, excluding
+NaN values from the computation. The slope represents the rate of change in
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> per unit change in <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code>.</p>
+<p>The function implements the standard ordinary least squares (OLS) formula for
+the slope coefficient in simple linear regression:</p>
+<div class="math notranslate nohighlight">
+\[\beta = \frac{\text{Cov}(X, Y)}{\text{Var}(X)} =
+\frac{\sum (x_i - \bar{x})(y_i - \bar{y})}{\sum (x_i - \bar{x})^2}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{x}\)</span> and <span class="math notranslate nohighlight">\(\bar{y}\)</span> are the means of <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> and
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> respectively, computed only over valid (non-NaN) pairs.</p>
+<p>If either <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> or <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> has a NaN at a given position, that pair is
+excluded from all calculations including mean computation and slope estimation.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) – The independent variable tensor (predictor).</p></li>
+<li><p><strong>y</strong> (<em>Tensor</em>) – The dependent variable tensor (response). Must be broadcastable
+with <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) – The dimension(s) along which to
+compute the slope. If not specified (default is empty tuple), the
+slope is computed over all dimensions.</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the output tensor has <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>
+retained or not. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The slope coefficients computed only over valid (non-NaN) pairs.
+If there are insufficient valid pairs or if the variance of <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code>
+is zero, the result may contain NaN values. The shape depends on the
+input dimensions, <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>, and <code class="xref py py-attr docutils literal notranslate"><span class="pre">keepdim</span></code> parameters.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple linear relationship with some NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">tensor(2.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensors with slopes along rows</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([2., nan])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Perfect linear relationship</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">])</span>  <span class="c1"># y = 2x + 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">tensor(2.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With keepdim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">tensor([[   nan],</span>
+<span class="go">        [0.5000]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Broadcasting example</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">tensor(0.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Zero variance in x (undefined slope)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanslope</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">tensor(nan)</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The slope calculation requires at least 2 valid (non-NaN) pairs of
+observations. With fewer valid pairs, the result will be NaN. Additionally,
+if all valid <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> values are identical (zero variance), the slope
+is mathematically undefined.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="qfeval_functions.functions.nancorrel.html#qfeval_functions.functions.nancorrel" title="qfeval_functions.functions.nancorrel"><code class="xref py py-func docutils literal notranslate"><span class="pre">nancorrel()</span></code></a>: NaN-aware correlation coefficient computation.
+<a class="reference internal" href="qfeval_functions.functions.nancovar.html#qfeval_functions.functions.nancovar" title="qfeval_functions.functions.nancovar"><code class="xref py py-func docutils literal notranslate"><span class="pre">nancovar()</span></code></a>: NaN-aware covariance computation.
+<a class="reference internal" href="qfeval_functions.functions.nanmean.html#qfeval_functions.functions.nanmean" title="qfeval_functions.functions.nanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanmean()</span></code></a>: NaN-aware mean computation.
+<a class="reference internal" href="qfeval_functions.functions.nanmulmean.html#qfeval_functions.functions.nanmulmean" title="qfeval_functions.functions.nanmulmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanmulmean()</span></code></a>: NaN-aware element-wise product mean.</p>
+</div>
 </dd></dl>
 
 </section>

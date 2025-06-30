@@ -83,7 +83,97 @@
     <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
     <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculates `QF.nansum(x * y, ...)` in a memory-efficient way.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the sum of element-wise product, ignoring NaN values, in a</span>
+<span class="sd">    memory-efficient way.</span>
+
+<span class="sd">    This function calculates the sum of the element-wise product of two tensors</span>
+<span class="sd">    ``nansum(x * y, dim)`` without creating the intermediate product tensor in</span>
+<span class="sd">    memory, while also excluding NaN values from the computation. If either</span>
+<span class="sd">    :attr:`x` or :attr:`y` has a NaN at a given position, that pair is excluded</span>
+<span class="sd">    from the sum calculation.</span>
+
+<span class="sd">    The function is mathematically equivalent to ``nansum(x * y, dim)`` but</span>
+<span class="sd">    uses a more memory-efficient implementation that avoids materializing</span>
+<span class="sd">    the full product tensor, making it suitable for large tensor operations</span>
+<span class="sd">    and complex broadcasting patterns.</span>
+
+<span class="sd">    The NaN-aware sum is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{nanmulsum}(X, Y) = \sum_{i \text{ valid}} X_i \cdot Y_i</span>
+
+<span class="sd">    where the sum is over valid (non-NaN) pairs only.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The first input tensor.</span>
+<span class="sd">        y (Tensor):</span>
+<span class="sd">            The second input tensor. Must be broadcastable with :attr:`x`.</span>
+<span class="sd">        dim (int or tuple of ints, optional):</span>
+<span class="sd">            The dimension(s) along which to compute the sum. If not specified</span>
+<span class="sd">            (default is empty tuple), the sum is computed over all dimensions.</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensor has :attr:`dim`</span>
+<span class="sd">            retained or not. Default is False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The sum of the element-wise product computed only over valid</span>
+<span class="sd">            (non-NaN) pairs. If no valid pairs exist along a dimension, the</span>
+<span class="sd">            result is NaN. The shape depends on the input dimensions,</span>
+<span class="sd">            :attr:`dim`, and :attr:`keepdim` parameters.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple element-wise product sum with NaN</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, nan, 4.0])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([2.0, nan, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmulsum(x, y)</span>
+<span class="sd">        tensor(22.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensors with NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[2.0, 4.0, nan],</span>
+<span class="sd">        ...                   [nan, 10.0, 12.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmulsum(x, y, dim=1)</span>
+<span class="sd">        tensor([ 2., 50.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Broadcasting with NaN handling</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0], [nan], [3.0]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([2.0, 4.0, nan])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmulsum(x, y)</span>
+<span class="sd">        tensor(24.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # With keepdim</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan], [3.0, 4.0]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[2.0, 4.0], [nan, 5.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmulsum(x, y, dim=1, keepdim=True)</span>
+<span class="sd">        tensor([[ 2.],</span>
+<span class="sd">                [20.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # All NaN pairs</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([nan, nan])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([1.0, 2.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmulsum(x, y)</span>
+<span class="sd">        tensor(nan)</span>
+
+<span class="sd">        &gt;&gt;&gt; # Mixed valid and invalid pairs</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, nan, 3.0, 4.0])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([2.0, 5.0, nan, 6.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmulsum(x, y)</span>
+<span class="sd">        tensor(26.)</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        If all pairs along a dimension contain at least one NaN value, the</span>
+<span class="sd">        result for that dimension is NaN. This differs from standard summation</span>
+<span class="sd">        where NaN values would propagate through the entire calculation.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`mulsum`: Memory-efficient product sum without NaN handling.</span>
+<span class="sd">        :func:`nansum`: NaN-aware sum function.</span>
+<span class="sd">        :func:`nanmulmean`: NaN-aware memory-efficient product mean.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">mulsum</span><span class="p">(</span><span class="n">fillna</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">fillna</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="n">keepdim</span><span class="p">)</span>
     <span class="n">x_mask</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">())</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
     <span class="n">y_mask</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">y</span><span class="o">.</span><span class="n">isnan</span><span class="p">())</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>

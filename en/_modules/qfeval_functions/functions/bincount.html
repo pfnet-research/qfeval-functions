@@ -76,19 +76,46 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">bincount</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">minlength</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Computes the frequency of each value in a tensor along a specified</span>
-<span class="sd">    dimension, with support for a minimum length of the output tensor.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Count number of occurrences of each value in a tensor.</span>
 
-<span class="sd">    Examples:</span>
-<span class="sd">        &gt;&gt;&gt; import torch</span>
+<span class="sd">    This function computes the frequency of each non-negative integer value</span>
+<span class="sd">    in the input tensor along the specified dimension. The output tensor&#39;s</span>
+<span class="sd">    size along the counted dimension is the maximum of :attr:`minlength` and</span>
+<span class="sd">    the largest value in the input plus one. Each position in the output</span>
+<span class="sd">    contains the count of that index value in the input.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing non-negative integer values.</span>
+<span class="sd">        minlength (int, optional):</span>
+<span class="sd">            Minimum length of the output tensor along the counted dimension. If</span>
+<span class="sd">            the maximum value in :attr:`x` is less than :attr:`minlength` - 1,</span>
+<span class="sd">            the output is padded with zeros.</span>
+<span class="sd">            Default is 0.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to count values.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor where the value at index `i` along the specified dimension</span>
+<span class="sd">            contains the count of occurrences of value `i` in the corresponding</span>
+<span class="sd">            slice of the input tensor.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1, 2, 2, 3, 3, 1])</span>
+<span class="sd">        &gt;&gt;&gt; QF.bincount(x)</span>
+<span class="sd">        tensor([0, 2, 2, 2])</span>
+
 <span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1, 2, 2], [3, 3, 1]])</span>
-<span class="sd">        &gt;&gt;&gt; bincount(x)</span>
+<span class="sd">        &gt;&gt;&gt; QF.bincount(x, dim=1)</span>
 <span class="sd">        tensor([[0, 1, 2, 0],</span>
 <span class="sd">                [0, 1, 0, 2]])</span>
 
-<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1, 2, 2, 3, 3, 1])</span>
-<span class="sd">        &gt;&gt;&gt; bincount(x)</span>
-<span class="sd">        tensor([0, 2, 2, 2])</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1, 2])</span>
+<span class="sd">        &gt;&gt;&gt; QF.bincount(x, minlength=5)</span>
+<span class="sd">        tensor([0, 1, 1, 0, 0])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_bincount</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>

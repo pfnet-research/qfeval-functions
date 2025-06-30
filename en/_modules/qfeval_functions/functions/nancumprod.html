@@ -74,6 +74,57 @@
 <div class="viewcode-block" id="nancumprod">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.nancumprod.html#qfeval_functions.functions.nancumprod">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">nancumprod</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the cumulative product along a dimension, treating NaN as 1.</span>
+
+<span class="sd">    This function calculates the cumulative product of elements along the</span>
+<span class="sd">    specified dimension, where NaN values are treated as 1 (multiplicative</span>
+<span class="sd">    identity) for the purpose of computing the cumulative product. However,</span>
+<span class="sd">    positions with NaN values in the original tensor remain NaN in the output.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.</span>
+<span class="sd">        dim (int):</span>
+<span class="sd">            The dimension along which to compute the cumulative product.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, containing the</span>
+<span class="sd">            cumulative product values. Original NaN positions remain NaN.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple cumulative product with NaN</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([2.0, nan, 3.0, 4.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancumprod(x, dim=0)</span>
+<span class="sd">        tensor([ 2., nan,  6., 24.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor along columns</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, nan, 4.0],</span>
+<span class="sd">        ...                   [2.0, nan, 3.0, 5.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancumprod(x, dim=1)</span>
+<span class="sd">        tensor([[ 1.,  2., nan,  8.],</span>
+<span class="sd">                [ 2., nan,  6., 30.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Cumulative product along rows</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[2.0, 3.0],</span>
+<span class="sd">        ...                   [nan, 4.0],</span>
+<span class="sd">        ...                   [5.0, 2.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancumprod(x, dim=0)</span>
+<span class="sd">        tensor([[ 2.,  3.],</span>
+<span class="sd">                [nan, 12.],</span>
+<span class="sd">                [10., 24.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Multiple NaNs</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, nan, nan, 2.0, 3.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancumprod(x, dim=0)</span>
+<span class="sd">        tensor([1., nan, nan, 2., 6.])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        - :func:`nancumsum`: NaN-aware cumulative sum.</span>
+<span class="sd">        - :func:`torch.cumprod`: Standard cumulative product (NaN propagates).</span>
+<span class="sd">        - :func:`torch.nan_to_num`: Convert NaN values to specified numbers.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
         <span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">(),</span>
         <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>

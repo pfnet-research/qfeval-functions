@@ -78,12 +78,48 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nanvar">
 <span class="sig-name descname"><span class="pre">nanvar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unbiased</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nanvar.html#nanvar"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nanvar" title="Link to this definition"></a></dt>
-<dd><p>各行の平均値を返しますが、Not a Numbers (NaNs) は無視します。</p>
+<dd><p>NaN値を無視してテンソルの分散を計算します。</p>
+<p>この関数は、指定された次元に沿ってテンソル要素の分散を計算します。計算時には NaN 値は除外されます。分散は、不偏推定量（要素数 N-1 で除算）または偏推定量（要素数 N で除算）のいずれかを用いて計算できます。ここで N は NaN 値を除いた要素数です。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 入力テンソル。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) -- 分散を計算する次元を指定します。指定しない場合（デフォルトは空のタプル）は、すべての要素に対して分散を計算します。単一の次元または複数の次元を指定できます。</p></li>
+<li><p><strong>unbiased</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) -- デフォルト値の``True``の場合、ベッセル補正を適用し、非NaN要素の数を``N``として``N-1``で除算します。<a href="#id1"><span class="problematic" id="id2">``</span></a>False``の場合、<a href="#id3"><span class="problematic" id="id4">``</span></a>N``で除算します。</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) -- <code class="docutils literal notranslate"><span class="pre">True</span></code> の場合、出力テンソルは入力テンソルと同じ数の次元を持ち、削減された次元のサイズは 1 になります。<code class="docutils literal notranslate"><span class="pre">False</span></code> の場合（デフォルト）、削減された次元は削除されます。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>非NaN要素の分散。形状は <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> と <code class="xref py py-attr docutils literal notranslate"><span class="pre">keepdim</span></code> パラメータに依存します。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanvar</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">tensor(3.3333)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With biased estimator</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanvar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">unbiased</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="go">tensor(2.5000)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensor with dimension specification</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanvar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([0.5000, 2.0000])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Keep dimensions</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nanvar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">tensor([[0.5000],</span>
+<span class="go">        [2.0000]])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

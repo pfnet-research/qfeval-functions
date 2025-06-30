@@ -84,10 +84,86 @@
     <span class="o">*</span><span class="p">,</span>
     <span class="n">_ddof</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculates `QF.nanmean(x * y, ...)` in a memory-efficient way.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the mean of element-wise product, ignoring NaN values, in a</span>
+<span class="sd">    memory-efficient way.</span>
 
-<span class="sd">    Parameters:</span>
-<span class="sd">    - _ddof: Degree of freedom used for statistical metrics such as variance.</span>
+<span class="sd">    This function calculates the mean of the element-wise product of two tensors</span>
+<span class="sd">    ``nanmean(x * y, dim)`` without creating the intermediate product tensor in</span>
+<span class="sd">    memory, while also excluding NaN values from the computation. If either</span>
+<span class="sd">    :attr:`x` or :attr:`y` has a NaN at a given position, that pair is excluded</span>
+<span class="sd">    from the mean calculation.</span>
+
+<span class="sd">    The function is mathematically equivalent to ``nanmean(x * y, dim)`` but</span>
+<span class="sd">    uses a more memory-efficient implementation that avoids materializing</span>
+<span class="sd">    the full product tensor, making it suitable for large tensor operations</span>
+<span class="sd">    and complex broadcasting patterns.</span>
+
+<span class="sd">    The NaN-aware mean is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{nanmulmean}(X, Y) = \frac{\sum_{i \text{ valid}} X_i \cdot Y_i}{</span>
+<span class="sd">            N_{\text{valid}} - \text{ddof}}</span>
+
+<span class="sd">    where the sum is over valid (non-NaN) pairs and :math:`N_{\text{valid}}`</span>
+<span class="sd">    is the number of valid pairs.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The first input tensor.</span>
+<span class="sd">        y (Tensor):</span>
+<span class="sd">            The second input tensor. Must be broadcastable with :attr:`x`.</span>
+<span class="sd">        dim (int or tuple of ints, optional):</span>
+<span class="sd">            The dimension(s) along which to</span>
+<span class="sd">            compute the mean. If not specified (default is empty tuple), the</span>
+<span class="sd">            mean is computed over all dimensions.</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensor has :attr:`dim`</span>
+<span class="sd">            retained or not. Default is False.</span>
+<span class="sd">        _ddof (int, optional):</span>
+<span class="sd">            Delta degrees of freedom for internal calculations.</span>
+<span class="sd">            The divisor used is ``N_valid - _ddof``, where ``N_valid`` is the</span>
+<span class="sd">            number of valid (non-NaN) pairs. Default is 0. This is an internal</span>
+<span class="sd">            parameter.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The mean of the element-wise product computed only over valid</span>
+<span class="sd">            (non-NaN) pairs. The shape depends on the input dimensions,</span>
+<span class="sd">            :attr:`dim`, and :attr:`keepdim` parameters.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple element-wise product mean with NaN</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, nan, 4.0])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([2.0, nan, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmulmean(x, y)</span>
+<span class="sd">        tensor(11.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensors with NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[2.0, 4.0, nan],</span>
+<span class="sd">        ...                   [nan, 10.0, 12.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmulmean(x, y, dim=1)</span>
+<span class="sd">        tensor([ 2., 50.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Broadcasting with NaN handling</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0], [nan], [3.0]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([2.0, 4.0, nan])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmulmean(x, y)</span>
+<span class="sd">        tensor(6.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # With keepdim</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan], [3.0, 4.0]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[2.0, 4.0], [nan, 5.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanmulmean(x, y, dim=1, keepdim=True)</span>
+<span class="sd">        tensor([[ 2.],</span>
+<span class="sd">                [20.]])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`mulmean`: Memory-efficient product mean without NaN handling.</span>
+<span class="sd">        :func:`nanmean`: NaN-aware mean function.</span>
+<span class="sd">        :func:`mulsum`: Memory-efficient product sum function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">mulsum</span><span class="p">(</span><span class="n">fillna</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">fillna</span><span class="p">(</span><span class="n">y</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="n">keepdim</span><span class="p">)</span>
     <span class="n">x_mask</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">())</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>

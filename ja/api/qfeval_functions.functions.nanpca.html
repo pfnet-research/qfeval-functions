@@ -79,25 +79,75 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nanpca">
 <span class="sig-name descname"><span class="pre">nanpca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nanpca.html#nanpca"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nanpca" title="Link to this definition"></a></dt>
-<dd><p>与えられたデータに対して主成分を計算します。</p>
-<p>返される値は主成分を表します。具体的には、<a href="#id1"><span class="problematic" id="id2">`</span></a>result[<a href="#id3"><span class="problematic" id="id4">*</span></a>, i, :]`は`*`で指定されたバッチの :math:<a href="#id5"><span class="problematic" id="id6">`</span></a>(i+1)`番目に大きい主成分を表します。</p>
-<dl class="simple">
-<dt>形状:</dt><dd><ul class="simple">
-<li><p>data: <span class="math notranslate nohighlight">\((*, N, C)\)</span> 形式。ここで <cite>*</cite> は任意の追加次元数を、<cite>N</cite> はサンプル数を、<cite>C</cite> は特徴量数をそれぞれ表します。</p></li>
-</ul>
-</dd>
-</dl>
+<dd><p>Compute Principal Component Analysis (PCA) on data, ignoring NaN values.</p>
+<p>この関数は、NaNを考慮した演算で計算された共分散行列の固有値分解を行うことで主成分分析（PCA）を実行します。PCAは、データの分散を最もよく説明する主成分（固有ベクトル）を見つけ出し、それらを説明分散量（固有値）の降順に並べ替えます。</p>
+<p>この関数は <a class="reference internal" href="qfeval_functions.functions.nancovar.html#qfeval_functions.functions.nancovar" title="qfeval_functions.functions.nancovar"><code class="xref py py-func docutils literal notranslate"><span class="pre">nancovar()</span></code></a> を使用して NaN 値を適切に処理した共分散行列を計算し、その後 <a class="reference internal" href="qfeval_functions.functions.eigh.html#qfeval_functions.functions.eigh" title="qfeval_functions.functions.eigh"><code class="xref py py-func docutils literal notranslate"><span class="pre">eigh()</span></code></a> による固有値分解を適用して主成分を取得します。主成分は説明分散の降順で返されます。</p>
+<p>数学的定式化は標準的なPCAに従います：</p>
+<div class="math notranslate nohighlight">
+\[\mathbf{C} = \text{nancovar}(\mathbf{X})\]</div>
+<div class="math notranslate nohighlight">
+\[\mathbf{C} \mathbf{v}_i = \lambda_i \mathbf{v}_i\]</div>
+<p>ここで <span class="math notranslate nohighlight">\(\mathbf{C}\)</span> は共分散行列、<span class="math notranslate nohighlight">\(\mathbf{v}_i\)</span> は固有ベクトル（主成分）であり、<span class="math notranslate nohighlight">\(\lambda_i\)</span> は固有値（説明分散）です。</p>
 <dl class="field-list simple">
-<dt class="field-odd">戻り値<span class="colon">:</span></dt>
-<dd class="field-odd"><p><cite>w[i]`は第 :math:`i</cite> 成分の固有値を表します。 - v (torch.Tensor): <cite>v[i, j]`は第 :math:`i</cite> 成分の第 <span class="math notranslate nohighlight">\(j\)</span> 特徴量に対する重みを表します。</p>
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>Tensor</em>) -- Input tensor of shape <span class="math notranslate nohighlight">\((*, N, C)\)</span> where <span class="math notranslate nohighlight">\(*\)</span>
+means any number of additional batch dimensions, <span class="math notranslate nohighlight">\(N\)</span> is the
+number of samples, and <span class="math notranslate nohighlight">\(C\)</span> is the number of features.</p>
 </dd>
-<dt class="field-even">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-even"><p><ul class="simple">
-<li><p>w (torch.Tensor)</p></li>
-</ul>
-</p>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>以下の属性を含むデータクラス:      - <code class="docutils literal notranslate"><span class="pre">components</span></code> (Tensor): 形状 <span class="math notranslate nohighlight">\((*, C, C)\)</span> の主成分。       <code class="docutils literal notranslate"><span class="pre">components[...,</span> <span class="pre">i,</span> <span class="pre">:]</span></code> は、説明分散の降順で並べられた <span class="math notranslate nohighlight">\((i+1)\)</span> 番目の主成分を表す。     - <code class="docutils literal notranslate"><span class="pre">explained_variance</span></code> (Tensor): 形状 <span class="math notranslate nohighlight">\((*, C)\)</span> の固有値。       各主成分によって説明される分散を、降順で表す。</p>
+</dd>
+<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>NanpcaResult</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple 2D PCA with NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                      <span class="p">[</span><span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+<span class="gp">... </span>                      <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+<span class="gp">... </span>                      <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">nanpca</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([1, 2, 2])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">explained_variance</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([1, 2])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Batch processing multiple datasets</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># 2 batches, 10 samples, 3 features</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Introduce some NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nan</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">nan</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">nanpca</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, 3, 3])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">explained_variance</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([2, 3])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Access first principal component</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_pc</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">components</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span>  <span class="c1"># First batch, first component</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">first_variance</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">explained_variance</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># Corresponding variance</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple case without convergence issues</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                      <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+<span class="gp">... </span>                      <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">nanpca</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">components</span><span class="o">.</span><span class="n">shape</span>
+<span class="go">torch.Size([1, 2, 2])</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>有意な共分散推定値を計算するのに十分な有効な観測値（NaNでない値）がない場合、結果にはNaN値が含まれる可能性があります。PCAの信頼性の高い結果を得るためには、十分なデータカバレッジを確保してください。</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<p><a class="reference internal" href="qfeval_functions.functions.nancovar.html#qfeval_functions.functions.nancovar" title="qfeval_functions.functions.nancovar"><code class="xref py py-func docutils literal notranslate"><span class="pre">nancovar()</span></code></a>: NaNを考慮した共分散計算。 <a class="reference internal" href="qfeval_functions.functions.eigh.html#qfeval_functions.functions.eigh" title="qfeval_functions.functions.eigh"><code class="xref py py-func docutils literal notranslate"><span class="pre">eigh()</span></code></a>: 対称行列の固有値分解。 <a class="reference internal" href="qfeval_functions.functions.nanmean.html#qfeval_functions.functions.nanmean" title="qfeval_functions.functions.nanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanmean()</span></code></a>: 共分散計算で使用されるNaNを考慮した平均。</p>
+</div>
 </dd></dl>
 
 </section>

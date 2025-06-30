@@ -83,12 +83,16 @@
 <span class="sd">    of them.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        x (Tensor): The input tensor.</span>
-<span class="sd">        dim (int or tuple of ints): The dimension or dimensions to reduce.</span>
-<span class="sd">        keepdim (bool): Whether the output tensor has `dim` retained or not.</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor.</span>
+<span class="sd">        dim (int or tuple of ints):</span>
+<span class="sd">            The dimension or dimensions to reduce.</span>
+<span class="sd">        keepdim (bool):</span>
+<span class="sd">            Whether the output tensor has `dim` retained or not.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        y (Tensor): The output tensor.</span>
+<span class="sd">        y (Tensor):</span>
+<span class="sd">            The output tensor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">square</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="n">keepdim</span><span class="p">)</span><span class="o">.</span><span class="n">sqrt</span><span class="p">()</span></div>
 

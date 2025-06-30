@@ -17,6 +17,7 @@
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/translations.js?v=4755f45a"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" /> 
@@ -78,12 +79,60 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.ma">
 <span class="sig-name descname"><span class="pre">ma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">span</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/ma.html#ma"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.ma" title="Link to this definition"></a></dt>
-<dd><p>指定されたテンソルの移動平均を返します。</p>
+<dd><p>Compute the moving (sliding window) average of a tensor.</p>
+<p>この関数は、指定された次元に沿ってサイズ <code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code> のスライディングウィンドウ内の要素の平均値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが直前の要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">-</span> <span class="pre">1</span></code> 要素の場合）、結果は <code class="docutils literal notranslate"><span class="pre">nan</span></code> となります。</p>
+<p>移動平均は以下のように計算されます：</p>
+<div class="math notranslate nohighlight">
+\[\text{MA}[i] = \frac{1}{\text{span}} \sum_{j=i-\text{span}+1}^{i} x[j]\]</div>
+<p>これは単純移動平均（SMA）であり、ウィンドウ内のすべての値に等しい重みが与えられます。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 平均化する値を含む入力テンソル。</p></li>
+<li><p><strong>span</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a>) -- スライディングウィンドウのサイズ。正の値である必要があります。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 移動平均を計算する次元。デフォルトは -1 で、最後の次元を意味します。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>入力と同じ形状のテンソルで、移動平均を含んでいます。指定された次元に沿って最初の <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">-</span> <span class="pre">1</span></code> 要素は <code class="docutils literal notranslate"><span class="pre">nan</span></code> です。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple moving average with window size 3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">ma</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">tensor([nan, nan, 2., 3., 4.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensor with moving average along columns</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">7.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">9.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">11.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">ma</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([[    nan,  1.5000,  2.5000,  3.5000],</span>
+<span class="go">        [    nan,  5.5000,  6.5000,  7.5000],</span>
+<span class="go">        [    nan,  9.5000, 10.5000, 11.5000]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Moving average along the first dimension</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">ma</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([[nan, nan],</span>
+<span class="go">        [nan, nan],</span>
+<span class="go">        [3., 4.],</span>
+<span class="go">        [5., 6.]])</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<p><a class="reference internal" href="qfeval_functions.functions.msum.html#qfeval_functions.functions.msum" title="qfeval_functions.functions.msum"><code class="xref py py-func docutils literal notranslate"><span class="pre">msum()</span></code></a>: 移動合計を計算する基礎関数。 <a class="reference internal" href="qfeval_functions.functions.ema.html#qfeval_functions.functions.ema" title="qfeval_functions.functions.ema"><code class="xref py py-func docutils literal notranslate"><span class="pre">ema()</span></code></a>: 加重平均を計算するための指数移動平均。</p>
+</div>
 </dd></dl>
 
 </section>

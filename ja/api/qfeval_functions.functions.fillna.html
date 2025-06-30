@@ -78,13 +78,50 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.fillna">
 <span class="sig-name descname"><span class="pre">fillna</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">posinf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">inf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">neginf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-inf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/fillna.html#fillna"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.fillna" title="Link to this definition"></a></dt>
-<dd><p>NaN、正の無限大、負の無限大の値を指定した数値に置換します。</p>
-<p>注意: torch.nan_to_numとは異なり、無限大の値はそのまま保持されます。</p>
+<dd><p>Replace NaN and infinity values with specified numbers.</p>
+<p>この関数は、テンソル内の NaN (Not a Number) 値、正の無限大値、負の無限大値をユーザーが指定した値で置換します。デフォルトでは、NaN 値は 0 に置換され、無限大値は保持されます。この動作は、デフォルトで無限大値を表現可能な最大/最小の有限値に置換する「torch.nan_to_num」関数とは異なります。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 置換対象の値を含む入力テンソル。</p></li>
+<li><p><strong>nan</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) -- NaN を置き換える値。デフォルトは 0.0 です。</p></li>
+<li><p><strong>posinf</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) -- 正の無限大を置き換える値。デフォルトは``math.inf``（正の無限大を保持します）。</p></li>
+<li><p><strong>neginf</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) -- 負の無限大を置き換える値。デフォルトは <code class="docutils literal notranslate"><span class="pre">-math.inf</span></code> で、負の無限大をそのまま保持します。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>入力と同じ形状とデータ型を持つ新しいテンソルで、NaN値と無限大値は指定されたパラメータに従って置換されます。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Replace NaN values with 0 (default behavior)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">tensor([1., 0., 3., 0.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Replace NaN with -1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="n">nan</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nan</span><span class="o">=-</span><span class="mf">1.0</span><span class="p">)</span>
+<span class="go">tensor([[-1.,  2.],</span>
+<span class="go">        [ 3., -1.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Handle infinity values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">inf</span><span class="p">,</span> <span class="n">nan</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nan</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">posinf</span><span class="o">=</span><span class="mf">999.0</span><span class="p">,</span> <span class="n">neginf</span><span class="o">=-</span><span class="mf">999.0</span><span class="p">)</span>
+<span class="go">tensor([   1.,  999., -999.,    0.])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Preserve infinity by default</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">inf</span><span class="p">,</span> <span class="n">nan</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">tensor([inf, -inf, 0.])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

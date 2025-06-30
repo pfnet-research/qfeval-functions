@@ -78,12 +78,66 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.mulmean">
 <span class="sig-name descname"><span class="pre">mulmean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">()</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">_ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/mulmean.html#mulmean"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.mulmean" title="Link to this definition"></a></dt>
-<dd><p>メモリ効率に優れた方法で <cite>(x * y).mean(...)</cite> を計算します。</p>
+<dd><p>Compute the mean of element-wise product in a memory-efficient way.</p>
+<p>この関数は、中間的な積テンソルをメモリ上に作成することなく、2つのテンソルの要素ごとの積 <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">*</span> <span class="pre">y)</span></code> の平均値 <code class="docutils literal notranslate"><span class="pre">.mean(dim)</span></code> を計算します。これは、メモリ効率が極めて重要な大規模テンソルを扱う場合や、テンソル間のブロードキャスト操作によって非常に大きな中間テンソルが生成される場合に特に有用です。</p>
+<p>この関数は数学的には <code class="docutils literal notranslate"><span class="pre">(x</span> <span class="pre">*</span> <span class="pre">y).mean(dim)</span></code> と等価ですが、完全な積テンソルをメモリ上に展開しないよりメモリ効率の高い実装を採用しています。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 最初の入力テンソル。</p></li>
+<li><p><strong>y</strong> (<em>Tensor</em>) -- 第2の入力テンソル。:attr:<a href="#id1"><span class="problematic" id="id2">`</span></a>x`とブロードキャスト可能である必要があります。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) -- 平均を計算する次元を指定します。指定しない場合（デフォルトは空のタプル）は、すべての次元にわたって平均が計算されます。</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) -- 出力テンソルが <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> を保持するかどうか。デフォルトは False。</p></li>
+<li><p><strong>_ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 内部計算で使用する自由度のデルタ値。使用する除数は <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">_ddof</span></code> で、ここで <code class="docutils literal notranslate"><span class="pre">N</span></code> は要素数を表します。デフォルト値は 0 です。これは内部パラメータです。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>要素ごとの積の平均値。形状は入力次元、<code class="xref py py-attr docutils literal notranslate"><span class="pre">dim`パラメータ、および</span> <span class="pre">:attr:`keepdim</span></code> パラメータに依存します。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple element-wise product mean</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mulmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="go">tensor(10.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Equivalent to (x * y).mean()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">torch</span><span class="o">.</span><span class="n">allclose</span><span class="p">(</span><span class="n">QF</span><span class="o">.</span><span class="n">mulmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">())</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensors with specific dimension</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mulmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([2.0000, 5.5000])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Broadcasting example</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Memory-efficient: doesn&#39;t create 1000x1000 intermediate tensor</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">mulmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With keepdim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]],</span> <span class="p">[[</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]],</span> <span class="p">[[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">mulmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">tensor([[[2.0000]],</span>
+
+<span class="go">        [[5.5000]]])</span>
+</pre></div>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<p><a class="reference internal" href="qfeval_functions.functions.mulsum.html#qfeval_functions.functions.mulsum" title="qfeval_functions.functions.mulsum"><code class="xref py py-func docutils literal notranslate"><span class="pre">mulsum()</span></code></a>: メモリ効率に優れた乗算と加算の基礎関数。 <a class="reference internal" href="qfeval_functions.functions.covar.html#qfeval_functions.functions.covar" title="qfeval_functions.functions.covar"><code class="xref py py-func docutils literal notranslate"><span class="pre">covar()</span></code></a>: 共分散計算においてこの関数を使用します。</p>
+</div>
 </dd></dl>
 
 </section>

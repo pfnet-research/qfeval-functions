@@ -83,14 +83,90 @@
     <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">ddof</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the covariance between the given tensors.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute covariance between two tensors, ignoring NaN values.</span>
 
-<span class="sd">    CAVEAT: Differently from np.cov, this calculates a covariance for each</span>
-<span class="sd">    batch index instead of producing a covariance matrix.</span>
-<span class="sd">    CAVEAT: The calculation result would be low-precision (approximately</span>
-<span class="sd">    half-precision) especially in case of many NaNs due to prioritizing memory</span>
-<span class="sd">    efficiency.  In order to improve the precision is necessary to write CUDA</span>
-<span class="sd">    code via PyTorch JIT (torch.utils.cpp_extension.load).</span>
+<span class="sd">    This function calculates the covariance between tensors :attr:`x` and</span>
+<span class="sd">    :attr:`y` along the specified dimension, excluding any pairs where either</span>
+<span class="sd">    value is NaN. Covariance measures how much two variables change together.</span>
+<span class="sd">    Unlike ``numpy.cov``, this function computes element-wise covariance for</span>
+<span class="sd">    each batch index rather than producing a covariance matrix.</span>
+
+<span class="sd">    The function is memory-efficient when broadcasting tensors but may have</span>
+<span class="sd">    reduced precision (approximately half-precision) when dealing with many</span>
+<span class="sd">    NaN values due to the prioritization of memory efficiency over numerical</span>
+<span class="sd">    precision.</span>
+
+<span class="sd">    The NaN-aware covariance is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{Cov}(X, Y) = \text{E}[(X - \mu_X)(Y - \mu_Y)]</span>
+
+<span class="sd">    where the expectation is computed only over valid (non-NaN) pairs, and</span>
+<span class="sd">    :math:`\mu_X`, :math:`\mu_Y` are the means computed over valid values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The first input tensor.</span>
+<span class="sd">        y (Tensor):</span>
+<span class="sd">            The second input tensor. Must be broadcastable with :attr:`x`.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to compute the covariance.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensor has :attr:`dim`</span>
+<span class="sd">            retained or not. Default is False.</span>
+<span class="sd">        ddof (int, optional):</span>
+<span class="sd">            Delta degrees of freedom. The divisor used in</span>
+<span class="sd">            the calculation is ``N - ddof``, where ``N`` represents the number</span>
+<span class="sd">            of valid (non-NaN) pairs. Default is 1.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The covariance values computed only over valid (non-NaN) pairs.</span>
+<span class="sd">            The shape depends on the input dimensions and the :attr:`keepdim`</span>
+<span class="sd">            parameter.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple covariance with NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([2.0, 4.0, 6.0, nan, 10.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancovar(x, y, dim=0)</span>
+<span class="sd">        tensor(8.6250)</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensors with NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0, 4.0],</span>
+<span class="sd">        ...                   [5.0, 6.0, nan, 8.0]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[2.0, 4.0, 6.0, nan],</span>
+<span class="sd">        ...                   [10.0, nan, 14.0, 16.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancovar(x, y, dim=1)</span>
+<span class="sd">        tensor([4.0000, 9.1111])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Population covariance (ddof=0)</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, nan, 3.0, 4.0])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([2.0, 4.0, nan, 8.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancovar(x, y, dim=0, ddof=0)</span>
+<span class="sd">        tensor(4.5000)</span>
+
+<span class="sd">        &gt;&gt;&gt; # With keepdim</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, nan],</span>
+<span class="sd">        ...                   [4.0, nan, 6.0]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[2.0, nan, 6.0],</span>
+<span class="sd">        ...                   [8.0, 10.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nancovar(x, y, dim=1, keepdim=True)</span>
+<span class="sd">        tensor([[nan],</span>
+<span class="sd">                [nan]])</span>
+
+<span class="sd">    .. warning::</span>
+<span class="sd">        The calculation may have reduced precision (approximately half-precision)</span>
+<span class="sd">        when dealing with many NaN values due to memory efficiency optimizations.</span>
+<span class="sd">        For higher precision with many NaNs, consider using CUDA kernels via</span>
+<span class="sd">        PyTorch JIT compilation.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        - :func:`covar`: Covariance without NaN handling.</span>
+<span class="sd">        - :func:`nancorrel`: NaN-aware correlation function.</span>
+<span class="sd">        - :func:`nanmean`: NaN-aware mean function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Improve the precision by subtracting their averages first.</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">nanmean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

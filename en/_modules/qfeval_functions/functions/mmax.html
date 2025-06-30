@@ -74,7 +74,70 @@
 <div class="viewcode-block" id="mmax">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.mmax.html#qfeval_functions.functions.mmax">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">mmax</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the moving max of the given tensor.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the moving (sliding window) maximum of a tensor.</span>
+
+<span class="sd">    This function calculates the maximum value within a sliding window of</span>
+<span class="sd">    size :attr:`span` along the specified dimension. The output tensor has the</span>
+<span class="sd">    same shape as the input tensor. For positions where the sliding window</span>
+<span class="sd">    cannot fully cover preceding elements (i.e., the first ``span - 1`` elements</span>
+<span class="sd">    along the selected dimension), the result is computed using available values</span>
+<span class="sd">    by padding with the first element.</span>
+
+<span class="sd">    The moving maximum is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{MMAX}[i] = \max_{j=\max(0, i-\text{span}+1)}^{i} x[j]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.</span>
+<span class="sd">        span (int):</span>
+<span class="sd">            The size of the sliding window. Must be positive.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to compute the moving maximum.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, containing the moving</span>
+<span class="sd">            maximum values.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple moving maximum with window size 3</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 5.0, 3.0, 8.0, 2.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mmax(x, span=3)</span>
+<span class="sd">        tensor([1., 5., 5., 8., 8.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with moving maximum along columns</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 4.0, 2.0, 6.0],</span>
+<span class="sd">        ...                   [3.0, 1.0, 5.0, 2.0],</span>
+<span class="sd">        ...                   [2.0, 7.0, 3.0, 4.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mmax(x, span=2, dim=1)</span>
+<span class="sd">        tensor([[1., 4., 4., 6.],</span>
+<span class="sd">                [3., 3., 5., 5.],</span>
+<span class="sd">                [2., 7., 7., 4.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Moving maximum along the first dimension</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0],</span>
+<span class="sd">        ...                   [4.0, 1.0],</span>
+<span class="sd">        ...                   [2.0, 5.0],</span>
+<span class="sd">        ...                   [3.0, 2.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mmax(x, span=3, dim=0)</span>
+<span class="sd">        tensor([[1., 2.],</span>
+<span class="sd">                [4., 2.],</span>
+<span class="sd">                [4., 5.],</span>
+<span class="sd">                [4., 5.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Handling negative values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([-2.0, -1.0, -5.0, -3.0, -1.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mmax(x, span=2)</span>
+<span class="sd">        tensor([-2., -1., -1., -3., -1.])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`mmin`: Moving minimum function.</span>
+<span class="sd">        :func:`msum`: Moving sum function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># 1. Move the target dimension to the top to make data manipulation easier.</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span>
     <span class="n">shape</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>

@@ -17,6 +17,7 @@
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/translations.js?v=4755f45a"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="検索" href="../search.html" /> 
@@ -78,13 +79,76 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.nancovar">
 <span class="sig-name descname"><span class="pre">nancovar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/nancovar.html#nancovar"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.nancovar" title="Link to this definition"></a></dt>
-<dd><p>指定されたテンソル間の共分散を計算します。</p>
-<p>注意: np.covとは異なり、本関数は共分散行列を生成するのではなく、各バッチインデックスに対する共分散を個別に計算します。注意: メモリ効率を優先するため、特にNaN値が多い場合には計算結果の精度が低下し（約半精度）、精度を向上させるためにはPyTorch JITを介してCUDAコードを記述する必要があります（torch.utils.cpp_extension.loadを使用）。</p>
+<dd><p>Compute covariance between two tensors, ignoring NaN values.</p>
+<p>この関数は、指定された次元に沿ってテンソル <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> と <code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> の共分散を計算します。計算対象から除外されるのは、いずれかの値が NaN であるペアです。共分散は、2つの変数がどの程度連動して変化するかを測る指標です。<code class="docutils literal notranslate"><span class="pre">numpy.cov</span></code> とは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対して要素ごとの共分散を計算します。</p>
+<p>この関数はテンソルのブロードキャスト処理においてメモリ効率に優れていますが、数値精度よりもメモリ効率を優先するため、多くのNaN値が存在する場合には精度が約半精度まで低下する可能性があります。</p>
+<p>NaNを考慮した共分散は以下のように計算されます：</p>
+<div class="math notranslate nohighlight">
+\[\text{Cov}(X, Y) = \text{E}[(X - \mu_X)(Y - \mu_Y)]\]</div>
+<p>ここで、期待値は有効な値のペア（NaNでない値）に対してのみ計算され、<span class="math notranslate nohighlight">\(\mu_X\)</span> および <span class="math notranslate nohighlight">\(\mu_Y\)</span> は有効な値に対して計算された平均値です。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 最初の入力テンソル。</p></li>
+<li><p><strong>y</strong> (<em>Tensor</em>) -- 第2の入力テンソル。 :attr:<a href="#id1"><span class="problematic" id="id2">`</span></a>x`とブロードキャスト可能である必要があります。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 共分散を計算する次元。デフォルトは -1 で、最後の次元を意味します。</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) -- 出力テンソルが <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> を保持するかどうか。デフォルトは False。</p></li>
+<li><p><strong>ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 自由度のデルタ値。計算に使用される除数は <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code> で、ここで <code class="docutils literal notranslate"><span class="pre">N</span></code> は有効な（NaNでない）ペアの数を表します。デフォルト値は 1 です。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>有効な（NaNでない）ペアのみに対して計算された共分散値。形状は入力次元と <code class="xref py py-attr docutils literal notranslate"><span class="pre">keepdim</span></code> パラメータに依存します。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Simple covariance with NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nancovar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor(8.6250)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 2D tensors with NaN values</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">10.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">14.0</span><span class="p">,</span> <span class="mf">16.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nancovar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([4.0000, 9.1111])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Population covariance (ddof=0)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nancovar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor(4.5000)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># With keepdim</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">nan</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">nancovar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">tensor([[nan],</span>
+<span class="go">        [nan]])</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>メモリ効率最適化のため、多くのNaN値を扱う場合、計算精度が若干低下する可能性があります（約半精度）。NaN値が多い場合により高い精度が必要な場合は、PyTorchのJITコンパイル機能を使用してCUDAカーネルを直接実行することを検討してください。</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="qfeval_functions.functions.covar.html#qfeval_functions.functions.covar" title="qfeval_functions.functions.covar"><code class="xref py py-func docutils literal notranslate"><span class="pre">covar()</span></code></a>: NaN処理を行わない共分散計算。</p></li>
+<li><p><a class="reference internal" href="qfeval_functions.functions.nancorrel.html#qfeval_functions.functions.nancorrel" title="qfeval_functions.functions.nancorrel"><code class="xref py py-func docutils literal notranslate"><span class="pre">nancorrel()</span></code></a>: NaNを考慮した相関関数。</p></li>
+<li><p><a class="reference internal" href="qfeval_functions.functions.nanmean.html#qfeval_functions.functions.nanmean" title="qfeval_functions.functions.nanmean"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanmean()</span></code></a>: NaNを考慮した平均関数。</p></li>
+</ul>
+</div>
 </dd></dl>
 
 </section>

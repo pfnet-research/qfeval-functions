@@ -76,7 +76,72 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">mstd</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">ddof</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the moving standard deviation of the given tensor.&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the moving (sliding window) standard deviation of a tensor.</span>
+
+<span class="sd">    This function calculates the standard deviation of elements within a sliding</span>
+<span class="sd">    window of size :attr:`span` along the specified dimension. The output tensor</span>
+<span class="sd">    has the same shape as the input tensor. For positions where the sliding window</span>
+<span class="sd">    cannot fully cover preceding elements (i.e., the first ``span - 1`` elements</span>
+<span class="sd">    along the selected dimension), the result is ``nan``.</span>
+
+<span class="sd">    The moving standard deviation is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{MSTD}[i] = \sqrt{\frac{1}{N - \text{ddof}}</span>
+<span class="sd">                         \sum_{j=i-\text{span}+1}^{i} (x[j] - \mu[i])^2}</span>
+
+<span class="sd">    where :math:`\mu[i]` is the moving average at position :math:`i` and</span>
+<span class="sd">    :math:`N` is the number of elements in the window.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.</span>
+<span class="sd">        span (int):</span>
+<span class="sd">            The size of the sliding window. Must be positive.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to compute the moving</span>
+<span class="sd">            standard deviation. Default is -1 (the last dimension).</span>
+<span class="sd">        ddof (int, optional):</span>
+<span class="sd">            Delta degrees of freedom. The divisor used in</span>
+<span class="sd">            the calculation is ``N - ddof``, where ``N`` represents the number</span>
+<span class="sd">            of elements in the window. Default is 1 (sample standard deviation).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, containing the moving</span>
+<span class="sd">            standard deviation values. The first ``span - 1`` elements along</span>
+<span class="sd">            the specified dimension are ``nan``.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple moving standard deviation with window size 3</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mstd(x, span=3)</span>
+<span class="sd">        tensor([nan, nan, 1., 1., 1.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with moving standard deviation along columns</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, 1.0, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, 4.0, 6.0],</span>
+<span class="sd">        ...                   [2.0, 3.0, 2.0, 4.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mstd(x, span=2, dim=1)</span>
+<span class="sd">        tensor([[   nan, 0.7071, 0.7071, 1.4142],</span>
+<span class="sd">                [   nan, 0.7071, 0.7071, 1.4142],</span>
+<span class="sd">                [   nan, 0.7071, 0.7071, 1.4142]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Population standard deviation (ddof=0)</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 3.0, 5.0, 7.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mstd(x, span=2, ddof=0)</span>
+<span class="sd">        tensor([nan, 1., 1., 1.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Sample standard deviation (ddof=1, default)</span>
+<span class="sd">        &gt;&gt;&gt; QF.mstd(x, span=2, ddof=1)</span>
+<span class="sd">        tensor([   nan, 1.4142, 1.4142, 1.4142])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        - :func:`mvar`: Moving variance function.</span>
+<span class="sd">        - :func:`ma`: Moving average function.</span>
+<span class="sd">        - :func:`msum`: Moving sum function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">result</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">mvar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="n">span</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="n">ddof</span><span class="p">)</span> <span class="o">**</span> <span class="mf">0.5</span>
     <span class="k">return</span> <span class="n">result</span></div>
 

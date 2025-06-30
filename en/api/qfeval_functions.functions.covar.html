@@ -16,6 +16,7 @@
       <script src="../_static/documentation_options.js?v=5929fcd5"></script>
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
@@ -77,20 +78,62 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.covar">
 <span class="sig-name descname"><span class="pre">covar</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keepdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ddof</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/covar.html#covar"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.covar" title="Link to this definition"></a></dt>
-<dd><p>Calculates the covariance between the given tensors along the specified
-dimension.</p>
-<p>When performing broadcast between the given tensors, the number of elements
-may increase and the space complexity may increase, but this function still
-performs the calculation with the original space complexity.  For instance,
-when operating on tensors with shapes (N, 1, D) and (1, M, D), the space
-complexity remains at O(ND + MD) instead of O(NMD).</p>
-<p>CAVEAT: Differently from np.cov, this calculates a covariance for each
-batch index instead of producing a covariance matrix.</p>
+<dd><p>Compute covariance between two tensors along a specified dimension.</p>
+<p>This function calculates the covariance between tensors <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> and
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> along the specified dimension. Covariance measures how much
+two variables change together. Unlike <code class="docutils literal notranslate"><span class="pre">numpy.cov</span></code>, this function
+computes element-wise covariance for each batch index rather than
+producing a covariance matrix.</p>
+<p>The covariance is computed as:</p>
+<div class="math notranslate nohighlight">
+\[\text{Cov}(X, Y) = \frac{1}{N - \text{ddof}}
+\sum_{i=1}^{N} (X_i - \bar{X})(Y_i - \bar{Y})\]</div>
+<p>where <span class="math notranslate nohighlight">\(\bar{X}\)</span> and <span class="math notranslate nohighlight">\(\bar{Y}\)</span> are the means of <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code> and
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">y</span></code> respectively along the specified dimension, and <span class="math notranslate nohighlight">\(N\)</span> is the
+number of elements along that dimension.</p>
+<p>The function is memory-efficient when broadcasting tensors. For example,
+when operating on tensors with shapes <code class="docutils literal notranslate"><span class="pre">(N,</span> <span class="pre">1,</span> <span class="pre">D)</span></code> and <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">M,</span> <span class="pre">D)</span></code>,
+the space complexity remains <code class="docutils literal notranslate"><span class="pre">O(ND</span> <span class="pre">+</span> <span class="pre">MD)</span></code> instead of <code class="docutils literal notranslate"><span class="pre">O(NMD)</span></code>.</p>
 <dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) – The first input tensor.</p></li>
+<li><p><strong>y</strong> (<em>Tensor</em>) – The second input tensor. Must be broadcastable with <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – The dimension along which to compute the covariance.
+Default is -1 (the last dimension).</p></li>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the output tensor has <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code> retained or not.
+Default is False.</p></li>
+<li><p><strong>ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Delta degrees of freedom. The divisor used in the calculation is
+<code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code>, where <code class="docutils literal notranslate"><span class="pre">N</span></code> represents the number of elements.
+Default is 1.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The covariance values. The shape depends on the input dimensions
+and the <code class="xref py py-attr docutils literal notranslate"><span class="pre">keepdim</span></code> parameter.</p>
+</dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor(5.)</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">8.0</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">tensor([1.5000, 2.0000])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">covar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ddof</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([[1.0000],</span>
+<span class="go">        [1.3333]])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

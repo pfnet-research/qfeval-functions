@@ -91,30 +91,65 @@
 <div class="viewcode-block" id="gaussian_blur">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.gaussian_blur.html#qfeval_functions.functions.gaussian_blur">[ドキュメント]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">gaussian_blur</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">sigma</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Applies a Gaussian filter with the given `sigma` parameter to `x` along</span>
-<span class="sd">    the specified axis `dim`.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Apply Gaussian blur to a tensor along a specified dimension.</span>
 
-<span class="sd">    Specifically, this assigns the weighted mean of valid values with a</span>
-<span class="sd">    Gaussian filter to each element.  This makes values outside the range have</span>
-<span class="sd">    no weight, so it works well even for biased values, while zero padding</span>
-<span class="sd">    brings the surrounding values closer to zero.  Additionally, as it makes</span>
-<span class="sd">    NaN values have no weight, it also works well for biased values that</span>
-<span class="sd">    include NaNs.</span>
+<span class="sd">    This function applies a one-dimensional Gaussian filter to smooth data</span>
+<span class="sd">    along the specified dimension. The Gaussian blur operation computes a</span>
+<span class="sd">    weighted average of neighboring values, where weights follow a Gaussian</span>
+<span class="sd">    (normal) distribution centered at each point. This is commonly used for</span>
+<span class="sd">    noise reduction, data smoothing, and signal processing.</span>
 
-<span class="sd">    NOTE: This function uses interval averages of a Gaussian function instead</span>
-<span class="sd">    of point-sampling for its discretized window function.  Typical</span>
-<span class="sd">    implementations of Gaussian filters use point-sampling (e.g.,</span>
-<span class="sd">    `scipy.ndimage.gaussian_filter1d`).  However, they have an undersampling</span>
-<span class="sd">    issue for small $\sigma$ (c.f., https://bartwronski.com/2021/10/31/,</span>
-<span class="sd">    Implementation section in https://en.wikipedia.org/wiki/Gaussian_blur).</span>
-<span class="sd">    This calculates the interval averages using the integral of a Gaussian</span>
-<span class="sd">    function.</span>
+<span class="sd">    Unlike typical implementations that use point-sampling (such as</span>
+<span class="sd">    ``scipy.ndimage.gaussian_filter1d``), this function uses interval averages</span>
+<span class="sd">    of the Gaussian function for improved accuracy, especially for small</span>
+<span class="sd">    :attr:`sigma` values. This approach avoids undersampling issues and</span>
+<span class="sd">    provides more accurate results.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor to be blurred.</span>
+<span class="sd">        sigma (float):</span>
+<span class="sd">            The standard deviation of the Gaussian kernel. Larger values</span>
+<span class="sd">            produce more smoothing. Must be positive.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to apply the Gaussian blur.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, containing the</span>
+<span class="sd">            Gaussian-blurred values.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple 1D Gaussian blur</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([0., 0., 0., 10., 0., 0., 0.])</span>
+<span class="sd">        &gt;&gt;&gt; QF.gaussian_blur(x, sigma=1.0)</span>
+<span class="sd">        tensor([0.0864, 0.6494, 2.4324, 3.8310, 2.4324, 0.6494, 0.0864])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor: blur along different dimensions</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.zeros(3, 5)</span>
+<span class="sd">        &gt;&gt;&gt; x[1, 2] = 10.0</span>
+<span class="sd">        &gt;&gt;&gt; QF.gaussian_blur(x, sigma=0.2, dim=0)  # blur along rows</span>
+<span class="sd">        tensor([[0.0000, 0.0000, 0.0625, 0.0000, 0.0000],</span>
+<span class="sd">                [0.0000, 0.0000, 9.8758, 0.0000, 0.0000],</span>
+<span class="sd">                [0.0000, 0.0000, 0.0625, 0.0000, 0.0000]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.gaussian_blur(x, sigma=0.2, dim=1)  # blur along columns</span>
+<span class="sd">        tensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.0000],</span>
+<span class="sd">                [0.0000, 0.0621, 9.8758, 0.0621, 0.0000],</span>
+<span class="sd">                [0.0000, 0.0000, 0.0000, 0.0000, 0.0000]])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        - https://en.wikipedia.org/wiki/Gaussian_blur</span>
+<span class="sd">        - https://bartwronski.com/2021/10/31/gaussian-blur-corrected-improved-and-optimized/</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_blur</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
         <span class="c1"># Apply convolution with x and a Gaussian filter.</span>
         <span class="n">w</span> <span class="o">=</span> <span class="n">_gaussian_filter</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
         <span class="n">a</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">conv1d</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">w</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+        <span class="c1"># TODO(imos): Divding by count is not necessary and confusing. Fix this</span>
+        <span class="c1"># in another PR.</span>
         <span class="n">count</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">conv1d</span><span class="p">(</span>
             <span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">())</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">w</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span>
         <span class="p">)</span>

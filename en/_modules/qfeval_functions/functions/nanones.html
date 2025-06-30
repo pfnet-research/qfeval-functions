@@ -74,8 +74,68 @@
 <div class="viewcode-block" id="nanones">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.nanones.html#qfeval_functions.functions.nanones">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">nanones</span><span class="p">(</span><span class="n">like</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns a tensor having ones with the same shape of the given tensor,</span>
-<span class="sd">    preserving Not a Numbers (NaNs).</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Create a tensor filled with ones, preserving NaN positions from the input tensor.</span>
+
+<span class="sd">    This function creates a new tensor with the same shape, dtype, and device as</span>
+<span class="sd">    the input tensor, filled with ones. However, positions where the input tensor</span>
+<span class="sd">    contains NaN values are preserved as NaN in the output tensor. This is useful</span>
+<span class="sd">    for creating mask-like tensors that maintain the NaN structure of the original</span>
+<span class="sd">    data while providing ones for valid positions.</span>
+
+<span class="sd">    The function performs the following operation:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{nanones}(X)_i = \begin{cases}</span>
+<span class="sd">        \text{NaN} &amp; \text{if } X_i = \text{NaN} \\</span>
+<span class="sd">        1 &amp; \text{otherwise}</span>
+<span class="sd">        \end{cases}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        like (Tensor):</span>
+<span class="sd">            The input tensor whose shape, dtype, and device will be</span>
+<span class="sd">            used for the output tensor. NaN positions in this tensor will be</span>
+<span class="sd">            preserved in the output.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor with the same shape, dtype, and device as :attr:`like`,</span>
+<span class="sd">            filled with ones except for positions where :attr:`like` contains</span>
+<span class="sd">            NaN values, which remain NaN.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple 1D tensor with NaN</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, nan, 3.0, 4.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanones(x)</span>
+<span class="sd">        tensor([1., nan, 1., 1.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with mixed NaN positions</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [nan, 5.0, 6.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanones(x)</span>
+<span class="sd">        tensor([[1., nan, 1.],</span>
+<span class="sd">                [nan, 1., 1.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # All NaN tensor</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([nan, nan, nan])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanones(x)</span>
+<span class="sd">        tensor([nan, nan, nan])</span>
+
+<span class="sd">        &gt;&gt;&gt; # No NaN tensor</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 3.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanones(x)</span>
+<span class="sd">        tensor([1., 1., 1.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Different dtypes preserved</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, nan, 3.0], dtype=torch.float32)</span>
+<span class="sd">        &gt;&gt;&gt; result = QF.nanones(x)</span>
+<span class="sd">        &gt;&gt;&gt; result.dtype</span>
+<span class="sd">        torch.float32</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`nanzeros`: Create zeros tensor preserving NaN positions.</span>
+<span class="sd">        ``torch.ones_like``: Create ones tensor with same properties.</span>
+<span class="sd">        ``torch.where``: Conditional tensor selection.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
         <span class="n">like</span><span class="o">.</span><span class="n">isnan</span><span class="p">(),</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">like</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">like</span><span class="p">)</span>

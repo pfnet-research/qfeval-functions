@@ -78,14 +78,18 @@
 <span class="sd">    Orthogonalizes x with respect to y along the specified dimension.</span>
 
 <span class="sd">    Args:</span>
-<span class="sd">        x (torch.Tensor): The tensor to be orthogonalized.</span>
-<span class="sd">        y (torch.Tensor): The tensor with respect to which x will be</span>
+<span class="sd">        x (torch.Tensor):</span>
+<span class="sd">            The tensor to be orthogonalized.</span>
+<span class="sd">        y (torch.Tensor):</span>
+<span class="sd">            The tensor with respect to which x will be</span>
 <span class="sd">            orthogonalized.</span>
-<span class="sd">        dim (int): The dimension along which the orthogonalization will be</span>
+<span class="sd">        dim (int):</span>
+<span class="sd">            The dimension along which the orthogonalization will be</span>
 <span class="sd">            performed.  Default is -1.</span>
 
 <span class="sd">    Returns:</span>
-<span class="sd">        x (torch.Tensor): The orthogonalized tensor.</span>
+<span class="sd">        x (torch.Tensor):</span>
+<span class="sd">            The orthogonalized tensor.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Calculate the dot product of x and y along the specified dimension.</span>
     <span class="n">dot_product</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">y</span><span class="p">)</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

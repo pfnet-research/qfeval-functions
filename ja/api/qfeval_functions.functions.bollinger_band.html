@@ -78,13 +78,39 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.bollinger_band">
 <span class="sig-name descname"><span class="pre">bollinger_band</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">window</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">20</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">sigma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">2.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/bollinger_band.html#bollinger_band"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.bollinger_band" title="Link to this definition"></a></dt>
-<dd><p>対応するボリンジャーバンドの上限値/中央値/下限値を返します。</p>
-<p>定義: <a class="reference external" href="https://www.investopedia.com/terms/b/bollingerbands.asp">https://www.investopedia.com/terms/b/bollingerbands.asp</a> データ.bollinger_band と同様</p>
+<dd><p>テンソルに対するボリンジャーバンドを計算します。</p>
+<p>ボリンジャーバンドは、テクニカル分析ツールの一種で、中心バンド（移動平均線）と上下2本のバンドで構成されます。上下バンドは、中心バンドから <code class="xref py py-attr docutils literal notranslate"><span class="pre">sigma</span></code> 標準偏差の距離に配置されます。この指標は金融分析において一般的に使用され、潜在的なサポートレベルやレジスタンスレベルを識別するために用いられます。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 時系列データを含む入力テンソル。</p></li>
+<li><p><strong>window</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 移動平均と標準偏差を算出するための移動ウィンドウのサイズ。デフォルト値は20です。</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.13)"><em>float</em></a><em>, </em><em>optional</em>) -- 上バンドと下バンドの標準偏差の数。デフォルト値は2.0です。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- ボリンジャーバンドを計算する次元。デフォルトは-1（最後の次元）です。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>入力と同じ形状の3つのテンソルを含むタプル:  - 上バンド: 中央バンド + (シグマ * 標準偏差) - 中央バンド: 移動平均 - 下バンド: 中央バンド - (シグマ * 標準偏差)</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.python.org/3/library/typing.html#typing.Tuple" title="(in Python v3.13)"><code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code></a>[<a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>, <a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>, <a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.7)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a>]</span></p>
+<dd class="field-odd"><p>Tuple[Tensor, Tensor, Tensor]</p>
 </dd>
 </dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">100.</span><span class="p">,</span> <span class="mf">102.</span><span class="p">,</span> <span class="mf">101.</span><span class="p">,</span> <span class="mf">103.</span><span class="p">,</span> <span class="mf">105.</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">50.</span><span class="p">,</span> <span class="mf">48.</span><span class="p">,</span> <span class="mf">49.</span><span class="p">,</span> <span class="mf">51.</span><span class="p">,</span> <span class="mf">52.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">upper</span><span class="p">,</span> <span class="n">middle</span><span class="p">,</span> <span class="n">lower</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">bollinger_band</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">window</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">upper</span>
+<span class="go">tensor([[     nan,      nan, 101.8165, 102.8165, 104.6330],</span>
+<span class="go">        [     nan,      nan,  49.8165,  50.5805,  51.9139]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">middle</span>
+<span class="go">tensor([[     nan,      nan, 101.0000, 102.0000, 103.0000],</span>
+<span class="go">        [     nan,      nan,  49.0000,  49.3333,  50.6667]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">lower</span>
+<span class="go">tensor([[     nan,      nan, 100.1835, 101.1835, 101.3670],</span>
+<span class="go">        [     nan,      nan,  48.1835,  48.0861,  49.4195]])</span>
+</pre></div>
+</div>
 </dd></dl>
 
 </section>

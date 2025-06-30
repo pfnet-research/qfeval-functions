@@ -81,17 +81,64 @@
     <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="n">ddof</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculates the covariance between the given tensors along the specified</span>
-<span class="sd">    dimension.</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute covariance between two tensors along a specified dimension.</span>
 
-<span class="sd">    When performing broadcast between the given tensors, the number of elements</span>
-<span class="sd">    may increase and the space complexity may increase, but this function still</span>
-<span class="sd">    performs the calculation with the original space complexity.  For instance,</span>
-<span class="sd">    when operating on tensors with shapes (N, 1, D) and (1, M, D), the space</span>
-<span class="sd">    complexity remains at O(ND + MD) instead of O(NMD).</span>
+<span class="sd">    This function calculates the covariance between tensors :attr:`x` and</span>
+<span class="sd">    :attr:`y` along the specified dimension. Covariance measures how much</span>
+<span class="sd">    two variables change together. Unlike ``numpy.cov``, this function</span>
+<span class="sd">    computes element-wise covariance for each batch index rather than</span>
+<span class="sd">    producing a covariance matrix.</span>
 
-<span class="sd">    CAVEAT: Differently from np.cov, this calculates a covariance for each</span>
-<span class="sd">    batch index instead of producing a covariance matrix.</span>
+<span class="sd">    The covariance is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{Cov}(X, Y) = \frac{1}{N - \text{ddof}}</span>
+<span class="sd">        \sum_{i=1}^{N} (X_i - \bar{X})(Y_i - \bar{Y})</span>
+
+<span class="sd">    where :math:`\bar{X}` and :math:`\bar{Y}` are the means of :attr:`x` and</span>
+<span class="sd">    :attr:`y` respectively along the specified dimension, and :math:`N` is the</span>
+<span class="sd">    number of elements along that dimension.</span>
+
+<span class="sd">    The function is memory-efficient when broadcasting tensors. For example,</span>
+<span class="sd">    when operating on tensors with shapes ``(N, 1, D)`` and ``(1, M, D)``,</span>
+<span class="sd">    the space complexity remains ``O(ND + MD)`` instead of ``O(NMD)``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The first input tensor.</span>
+<span class="sd">        y (Tensor):</span>
+<span class="sd">            The second input tensor. Must be broadcastable with :attr:`x`.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to compute the covariance.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensor has :attr:`dim` retained or not.</span>
+<span class="sd">            Default is False.</span>
+<span class="sd">        ddof (int, optional):</span>
+<span class="sd">            Delta degrees of freedom. The divisor used in the calculation is</span>
+<span class="sd">            ``N - ddof``, where ``N`` represents the number of elements.</span>
+<span class="sd">            Default is 1.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The covariance values. The shape depends on the input dimensions</span>
+<span class="sd">            and the :attr:`keepdim` parameter.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([2.0, 4.0, 6.0, 8.0, 10.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.covar(x, y, dim=0)</span>
+<span class="sd">        tensor(5.)</span>
+
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, 6.0]])</span>
+<span class="sd">        &gt;&gt;&gt; y = torch.tensor([[2.0, 4.0, 5.0],</span>
+<span class="sd">        ...                   [8.0, 10.0, 12.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.covar(x, y, dim=1)</span>
+<span class="sd">        tensor([1.5000, 2.0000])</span>
+<span class="sd">        &gt;&gt;&gt; QF.covar(x, y, dim=1, keepdim=True, ddof=0)</span>
+<span class="sd">        tensor([[1.0000],</span>
+<span class="sd">                [1.3333]])</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">y</span> <span class="o">-</span> <span class="n">y</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>

@@ -81,9 +81,81 @@
 <div class="viewcode-block" id="nanmin">
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.nanmin.html#qfeval_functions.functions.nanmin">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">nanmin</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">NanminResult</span><span class="p">:</span>
-<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns a namedtuple `(values, indices)` where values is the minimum</span>
-<span class="sd">    value of each row of the `input` tensor in the given dimension `dim`,</span>
-<span class="sd">    ignoring Not a Numbers (NaNs).</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Return the minimum values and indices along a dimension, ignoring NaN values.</span>
+
+<span class="sd">    This function computes the minimum value along the specified dimension,</span>
+<span class="sd">    excluding NaN values from consideration. It returns both the minimum values</span>
+<span class="sd">    and their corresponding indices in the original tensor. This is similar to</span>
+<span class="sd">    ``torch.min`` but with NaN-aware behavior.</span>
+
+<span class="sd">    The function handles edge cases including:</span>
+
+<span class="sd">    - Pure NaN slices (returns NaN for values)</span>
+<span class="sd">    - Mixed NaN and positive infinity values</span>
+<span class="sd">    - All positive infinity values (returns positive infinity)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.</span>
+<span class="sd">        dim (int):</span>
+<span class="sd">            The dimension along which to find the minimum values.</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensors have :attr:`dim`</span>
+<span class="sd">            retained or not. Default is False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        NanminResult: A named tuple containing:</span>
+
+<span class="sd">            - ``values`` (Tensor): The minimum values along the specified dimension,</span>
+<span class="sd">              with NaN values ignored. If a slice contains only NaN values,</span>
+<span class="sd">              the result is NaN.</span>
+<span class="sd">            - ``indices`` (Tensor): The indices of the minimum values in the</span>
+<span class="sd">              original tensor.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple minimum with NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; result = QF.nanmin(x, dim=1)</span>
+<span class="sd">        &gt;&gt;&gt; result.values</span>
+<span class="sd">        tensor([1., 4.])</span>
+<span class="sd">        &gt;&gt;&gt; result.indices</span>
+<span class="sd">        tensor([0, 0])</span>
+
+<span class="sd">        &gt;&gt;&gt; # All NaN slice</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0],</span>
+<span class="sd">        ...                   [nan, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; result = QF.nanmin(x, dim=1)</span>
+<span class="sd">        &gt;&gt;&gt; result.values</span>
+<span class="sd">        tensor([1., nan])</span>
+<span class="sd">        &gt;&gt;&gt; result.indices</span>
+<span class="sd">        tensor([0, 0])</span>
+
+<span class="sd">        &gt;&gt;&gt; # With positive infinity</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, inf, 3.0],</span>
+<span class="sd">        ...                   [nan, 2.0, inf]])</span>
+<span class="sd">        &gt;&gt;&gt; result = QF.nanmin(x, dim=1)</span>
+<span class="sd">        &gt;&gt;&gt; result.values</span>
+<span class="sd">        tensor([1., 2.])</span>
+<span class="sd">        &gt;&gt;&gt; result.indices</span>
+<span class="sd">        tensor([0, 1])</span>
+
+<span class="sd">        &gt;&gt;&gt; # With keepdim</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[nan, 2.0, 1.0],</span>
+<span class="sd">        ...                   [3.0, nan, 4.0]])</span>
+<span class="sd">        &gt;&gt;&gt; result = QF.nanmin(x, dim=1, keepdim=True)</span>
+<span class="sd">        &gt;&gt;&gt; result.values</span>
+<span class="sd">        tensor([[1.],</span>
+<span class="sd">                [3.]])</span>
+<span class="sd">        &gt;&gt;&gt; result.indices</span>
+<span class="sd">        tensor([[2],</span>
+<span class="sd">                [0]])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        - :func:`nanmax`: NaN-aware maximum function.</span>
+<span class="sd">        - :func:`nanargmin`: NaN-aware argument minimum function.</span>
+<span class="sd">        - :func:`torch.min`: Standard minimum function (NaN propagates).</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">v</span><span class="p">,</span> <span class="n">idx</span> <span class="o">=</span> <span class="n">nanmax</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="n">keepdim</span><span class="p">)</span>
