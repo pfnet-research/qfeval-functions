@@ -6,19 +6,46 @@ from .apply_for_axis import apply_for_axis
 def bincount(
     x: torch.Tensor, minlength: int = 0, dim: int = -1
 ) -> torch.Tensor:
-    r"""Computes the frequency of each value in a tensor along a specified
-    dimension, with support for a minimum length of the output tensor.
+    r"""Count number of occurrences of each value in a tensor.
 
-    Examples:
-        >>> import torch
+    This function computes the frequency of each non-negative integer value
+    in the input tensor along the specified dimension. The output tensor's
+    size along the counted dimension is the maximum of :attr:`minlength` and
+    the largest value in the input plus one. Each position in the output
+    contains the count of that index value in the input.
+
+    Args:
+        x (Tensor):
+            The input tensor containing non-negative integer values.
+        minlength (int, optional):
+            Minimum length of the output tensor along the counted dimension. If
+            the maximum value in :attr:`x` is less than :attr:`minlength` - 1,
+            the output is padded with zeros.
+            Default is 0.
+        dim (int, optional):
+            The dimension along which to count values.
+            Default is -1 (the last dimension).
+
+    Returns:
+        Tensor:
+            A tensor where the value at index `i` along the specified dimension
+            contains the count of occurrences of value `i` in the corresponding
+            slice of the input tensor.
+
+    Example:
+
+        >>> x = torch.tensor([1, 2, 2, 3, 3, 1])
+        >>> QF.bincount(x)
+        tensor([0, 2, 2, 2])
+
         >>> x = torch.tensor([[1, 2, 2], [3, 3, 1]])
-        >>> bincount(x)
+        >>> QF.bincount(x, dim=1)
         tensor([[0, 1, 2, 0],
                 [0, 1, 0, 2]])
 
-        >>> x = torch.tensor([1, 2, 2, 3, 3, 1])
-        >>> bincount(x)
-        tensor([0, 2, 2, 2])
+        >>> x = torch.tensor([1, 2])
+        >>> QF.bincount(x, minlength=5)
+        tensor([0, 1, 1, 0, 0])
     """
 
     def _bincount(x: torch.Tensor) -> torch.Tensor:

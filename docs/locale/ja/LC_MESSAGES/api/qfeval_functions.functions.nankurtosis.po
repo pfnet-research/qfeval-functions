@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,14 +25,98 @@ msgid "qfeval\\_functions.functions.nankurtosis"
 msgstr "qfeval\\_functions.functions.nankurtosis"
 
 #: of qfeval_functions.functions.nankurtosis.nankurtosis:1
-msgid "Returns the kurtosis of each row, ignoring Not a Numbers (NaNs)."
-msgstr "各行の尖度を返し、非数値値（NaN）は無視します。"
+msgid "Compute the kurtosis along specified dimensions, ignoring NaN values."
+msgstr "指定された次元に沿ってカーントシスを計算し、NaN値を無視します。"
+
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:3
+msgid ""
+"This function calculates the kurtosis (fourth standardized moment) of a "
+"tensor along the specified dimension(s), excluding NaN values from the "
+"computation. Kurtosis measures the \"tailedness\" of a probability "
+"distribution, indicating how much of the data is concentrated in the "
+"tails versus the center."
+msgstr "この関数は、指定された次元に沿ってテンソルのクルトシス（第4標準化モーメント）を計算します。計算時には NaN 値は除外されます。クルトシスは確率分布の「裾の重さ」を測る指標であり、データが分布の中心部分に比べてどの程度裾部分に偏っているかを示します。"
+
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:8
+msgid "The kurtosis is computed as:"
+msgstr "クルトシスは以下のように計算されます："
+
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:10
+msgid ""
+"\\kappa = \\frac{\\text{E}[(X - \\mu)^4]}{\\sigma^4}\n"
+"\n"
+msgstr "\\kappa = \\frac{\\text{E}[(X - \\mu)^4]}{\\sigma^4}\n\n"
+
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:13
+msgid ""
+"where :math:`\\mu` is the mean and :math:`\\sigma` is the standard "
+"deviation, computed only over valid (non-NaN) values. When :attr:`fisher`"
+" is True (default), Fisher's definition is used where normal distribution"
+" has kurtosis 0. When False, Pearson's definition is used where normal "
+"distribution has kurtosis 3."
+msgstr "ここで :math:`\\mu` は平均値、:math:`\\sigma` は標準偏差を表し、これらは有効な値（NaNではない）に対してのみ計算されます。:attr:`fisher` が True の場合（デフォルト）、Fisher の定義が使用され、正規分布のクルトシスは 0 となります。False の場合は、Pearson の定義が使用され、正規分布のクルトシスは 3 となります。"
+
+#: ../../api/qfeval_functions.functions.nankurtosis.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:20
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:23
+msgid ""
+"The dimension(s) along which to compute the kurtosis. If not specified "
+"(default is empty tuple), computes over all dimensions."
+msgstr "クルトシスを計算する次元を指定します。指定しない場合（デフォルトは空のタプル）は、すべての次元にわたって計算します。"
+
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:27
+msgid ""
+"If True (default), uses unbiased estimation with bias correction. If "
+"False, uses biased estimation."
+msgstr "Trueの場合（デフォルト）、バイアス補正を施した無偏推定量を使用します。Falseの場合、バイアス推定量を使用します。"
+
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:31
+msgid ""
+"If True (default), uses Fisher's definition (normal distribution has "
+"kurtosis 0). If False, uses Pearson's definition (normal distribution has"
+" kurtosis 3)."
+msgstr "Trueの場合（デフォルト）、フィッシャーの定義を使用します（正規分布のカーントシス値は0）。Falseの場合、ピアソンの定義を使用します（正規分布のカーントシス値は3）。"
+
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:36
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
+
+#: ../../api/qfeval_functions.functions.nankurtosis.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:40
+msgid ""
+"The kurtosis values computed only over valid (non-NaN) values. The shape "
+"depends on the input dimensions and the :attr:`keepdim` parameter."
+msgstr "有効な値（NaNでない値）のみに基づいて計算された尖度値。形状は入力次元と :attr:`keepdim` パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.nankurtosis.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nankurtosis.nankurtosis:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:46
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.nankurtosis.nankurtosis:77
+msgid ""
+":func:`nanskew`: NaN-aware skewness function. :func:`nanvar`: NaN-aware "
+"variance function. :func:`nanstd`: NaN-aware standard deviation function."
+msgstr ":func:`nanskew`: NaNを考慮した歪度関数。 :func:`nanvar`: NaNを考慮した分散関数。 :func:`nanstd`: NaNを考慮した標準偏差関数。"
+
+#~ msgid "Returns the kurtosis of each row, ignoring Not a Numbers (NaNs)."
+#~ msgstr "各行の尖度を返し、非数値値（NaN）は無視します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

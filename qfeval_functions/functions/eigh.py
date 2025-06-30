@@ -12,9 +12,53 @@ except ModuleNotFoundError:
 def eigh(
     tensor: torch.Tensor, uplo: str = "L"
 ) -> typing.Tuple[torch.Tensor, torch.Tensor]:
-    """Computes eigenvalues and eigenvectors.
+    r"""Compute eigenvalues and eigenvectors of a symmetric/Hermitian matrix.
 
-    NOTE: This does not support differentiable computation.
+    This function computes the eigenvalues and eigenvectors of a real symmetric
+    or complex Hermitian matrix. The eigenvalues are returned in ascending
+    order, and the corresponding eigenvectors are normalized. This
+    implementation uses NumPy for CPU tensors and CuPy for CUDA tensors.
+
+    .. note::
+        This function does not support automatic differentiation (autograd).
+
+    Args:
+        tensor (Tensor):
+            A symmetric (if real) or Hermitian (if complex) matrix of shape
+            ``(..., N, N)``. Only the upper or lower triangular part is used,
+            depending on the :attr:`uplo` parameter.
+        uplo (str, optional):
+            Indicates which triangular part of the matrix is used:
+
+            - 'L' or 'l': Use the lower triangular part (default)
+            - 'U' or 'u': Use the upper triangular part
+
+    Returns:
+        Tuple[Tensor, Tensor]:
+            A tuple containing:
+
+            - Eigenvalues: A tensor of shape ``(..., N)`` containing
+              eigenvalues in ascending order
+            - Eigenvectors: A tensor of shape ``(..., N, N)`` where the columns
+              are the normalized eigenvectors corresponding to the eigenvalues
+
+    Example:
+        >>> # Create a symmetric matrix
+        >>> A = torch.tensor([[4.0, -2.0],
+        ...                   [-2.0, 3.0]])
+        >>> eigenvalues, eigenvectors = QF.eigh(A)
+        >>> eigenvalues
+        tensor([1.4384, 5.5616])
+
+        >>> # Verify: A @ v = λ @ v
+        >>> torch.allclose(A @ eigenvectors, eigenvectors @ torch.diag(eigenvalues))
+        True
+
+        >>> # Using upper triangular part
+        >>> B = torch.tensor([[1.0, 2.0, 3.0],
+        ...                   [0.0, 4.0, 5.0],
+        ...                   [0.0, 0.0, 6.0]])
+        >>> eigenvalues, eigenvectors = QF.eigh(B, uplo='U')
     """
 
     def calculate() -> typing.Tuple[torch.Tensor, torch.Tensor]:

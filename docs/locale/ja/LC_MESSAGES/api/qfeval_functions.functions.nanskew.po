@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,14 +25,98 @@ msgid "qfeval\\_functions.functions.nanskew"
 msgstr "qfeval\\_functions.functions.nanskew"
 
 #: of qfeval_functions.functions.nanskew.nanskew:1
-msgid "Returns the skewness of each row, ignoring Not a Numbers (NaNs)."
-msgstr "各行の歪度を返し、非数値値（NaN）は無視します。"
+msgid "Compute the skewness along specified dimensions, ignoring NaN values."
+msgstr "指定された次元に沿って歪度を計算し、NaN値を無視します。"
+
+#: of qfeval_functions.functions.nanskew.nanskew:3
+msgid ""
+"This function calculates the skewness (third standardized moment) of a "
+"tensor along the specified dimension(s), excluding NaN values from the "
+"computation. Skewness measures the asymmetry of a probability "
+"distribution around its mean, indicating whether the data is concentrated"
+" more on one side of the distribution."
+msgstr "この関数は、指定された次元に沿ってテンソルの歪度（第三標準化モーメント）を計算します。計算時には NaN 値は除外されます。歪度は、確率分布が平均値を中心にどの程度非対称であるかを測定する指標であり、データが分布の片側に偏っているかどうかを示します。"
+
+#: of qfeval_functions.functions.nanskew.nanskew:9
+msgid "The skewness is computed as:"
+msgstr "歪度は以下のように計算されます："
+
+#: of qfeval_functions.functions.nanskew.nanskew:11
+msgid ""
+"\\text{skew} = \\frac{\\text{E}[(X - \\mu)^3]}{\\sigma^3}\n"
+"\n"
+msgstr "\\text{skew} = \\frac{\\text{E}[(X - \\mu)^3]]}{\\sigma^3}\n\n"
+
+#: of qfeval_functions.functions.nanskew.nanskew:14
+msgid ""
+"where :math:`\\mu` is the mean and :math:`\\sigma` is the standard "
+"deviation, computed only over valid (non-NaN) values. Positive skewness "
+"indicates a longer tail on the right side of the distribution, while "
+"negative skewness indicates a longer tail on the left side."
+msgstr "ここで :math:`\\mu` は平均値、:math:`\\sigma` は標準偏差を表し、これらは有効な値（NaNではない）に対してのみ計算されます。正の歪度は分布の右側に長い裾があることを示し、負の歪度は左側に長い裾があることを示します。"
+
+#: ../../api/qfeval_functions.functions.nanskew.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.nanskew.nanskew:20
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.nanskew.nanskew:23
+msgid ""
+"The dimension(s) along which to compute the skewness. If not specified "
+"(default is empty tuple), computes over all dimensions."
+msgstr "歪度を計算する次元を指定します。指定しない場合（デフォルトは空のタプル）は、すべての次元にわたって計算します。"
+
+#: of qfeval_functions.functions.nanskew.nanskew:28
+msgid ""
+"If True (default), uses unbiased estimation with bias correction. If "
+"False, uses biased estimation."
+msgstr "デフォルトでTrueの場合、バイアス補正を施した無偏推定量を使用します。Falseの場合、バイアス推定量を使用します。"
+
+#: of qfeval_functions.functions.nanskew.nanskew:32
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
+
+#: ../../api/qfeval_functions.functions.nanskew.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanskew.nanskew:36
+msgid ""
+"The skewness values computed only over valid (non-NaN) values. The shape "
+"depends on the input dimensions and the :attr:`keepdim` parameter."
+msgstr "有効な値（NaNでない値）のみに基づいて計算された歪度値。形状は入力次元と :attr:`keepdim` パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.nanskew.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nanskew.nanskew:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nanskew.nanskew:42
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.nanskew.nanskew:78
+msgid ""
+"Skewness calculations can be sensitive to outliers. A single extreme "
+"value can significantly affect the skewness measure, especially with "
+"small sample sizes."
+msgstr "歪度の計算は外れ値の影響を受けやすい特性があります。極端な単一の値であっても、特にサンプルサイズが小さい場合、歪度の測定値に大きな影響を与える可能性があります。"
+
+#: of qfeval_functions.functions.nanskew.nanskew:83
+msgid ""
+":func:`nankurtosis`: NaN-aware kurtosis function. :func:`nanvar`: NaN-"
+"aware variance function. :func:`nanstd`: NaN-aware standard deviation "
+"function. :func:`nanmean`: NaN-aware mean function."
+msgstr ":func:`nankurtosis`: NaNを考慮した尖度関数。 :func:`nanvar`: NaNを考慮した分散関数。 :func:`nanstd`: NaNを考慮した標準偏差関数。 :func:`nanmean`: NaNを考慮した平均関数。"
+
+#~ msgid "Returns the skewness of each row, ignoring Not a Numbers (NaNs)."
+#~ msgstr "各行の歪度を返し、非数値値（NaN）は無視します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

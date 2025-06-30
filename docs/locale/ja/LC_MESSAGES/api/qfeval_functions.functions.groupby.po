@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,22 +25,81 @@ msgid "qfeval\\_functions.functions.groupby"
 msgstr "qfeval\\_functions.functions.groupby"
 
 #: of qfeval_functions.functions.groupby.groupby:1
-msgid "Groups items of `x` by `group_id`."
-msgstr "`group_id` に基づいて `x` の項目をグループ化します。"
+msgid "Group tensor elements by group identifiers along a dimension."
+msgstr "指定された次元に沿ってテンソル要素をグループ識別子でグループ化します。"
 
 #: of qfeval_functions.functions.groupby.groupby:3
 msgid ""
-"This adds a new dimension just after the dimension specified by `dim`. "
-"The additional dimension represents items of the group.  Since a tensor "
-"requires every dimension to be a fixed size, this fills `empty_value` if "
-"the numbers of the items of groups are varying."
-msgstr "この操作は、`dim` で指定された次元の直後に新しい次元を追加します。この追加次元はグループ内のアイテム数を表します。テンソルではすべての次元が固定サイズである必要があるため、グループ内のアイテム数が異なる場合には `empty_value` でこの次元を埋めます。"
+"This function reorganizes elements of a tensor into groups based on "
+"provided group identifiers. It creates a new dimension that contains all "
+"elements belonging to each group. This is similar to SQL's GROUP BY or "
+"pandas' groupby operation, but adapted for tensor operations."
+msgstr "この関数は、与えられたグループ識別子に基づいてテンソルの要素をグループに再編成します。各グループに属するすべての要素を含む新しい次元を作成します。これはSQLのGROUP BY句やpandasのgroupby操作に似ていますが、テンソル演算用に最適化されています。"
 
-#: ../../api/qfeval_functions.functions.groupby.rst
+#: of qfeval_functions.functions.groupby.groupby:8
+#, fuzzy
+msgid ""
+"The function adds a new dimension immediately after the specified "
+"dimension. This new dimension represents the items within each group. "
+"Since tensors require fixed-size dimensions, groups with fewer elements "
+"are padded with :attr:`empty_value`."
+msgstr "この操作は、`dim` で指定された次元の直後に新しい次元を追加します。この追加次元はグループ内のアイテム数を表します。テンソルではすべての次元が固定サイズである必要があるため、グループ内のアイテム数が異なる場合には `empty_value` でこの次元を埋めます。"
+"この操作は、`dim` "
+"で指定された次元の直後に新しい次元を追加します。この追加次元はグループ内のアイテム数を表します。テンソルではすべての次元が固定サイズである必要があるため、グループ内のアイテム数が異なる場合には"
+" `empty_value` でこの次元を埋めます。"
+
+#: of qfeval_functions.functions.groupby.groupby
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.groupby.groupby:14
+msgid "The input tensor to be grouped."
+msgstr "グループ化する入力テンソル。"
+
+#: of qfeval_functions.functions.groupby.groupby:17
+msgid ""
+"A 1D tensor of integer group identifiers with the same length as "
+"``x.shape[dim]``. Each element specifies which group the corresponding "
+"element in :attr:`x` belongs to. Group IDs should be non-negative "
+"integers."
+msgstr "``x.shape[dim]``と同じ長さの整数グループ識別子の1次元テンソル。各要素は、:attr:`x`の対応する要素が属するグループを指定します。グループIDは非負整数である必要があります。"
+
+#: of qfeval_functions.functions.groupby.groupby:23
+msgid ""
+"The dimension along which to group elements. Default is -1 (the last "
+"dimension)."
+msgstr "要素をグループ化する次元。デフォルトは-1（最後の次元）です。"
+
+#: of qfeval_functions.functions.groupby.groupby:27
+msgid ""
+"The value used to pad groups that have fewer elements than the maximum "
+"group size. Default is ``nan``."
+msgstr "グループサイズの最大値よりも要素数が少ないグループをパディングするために使用される値。デフォルトは ``nan`` です。"
+
+#: of qfeval_functions.functions.groupby.groupby
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.groupby.groupby:32
+msgid ""
+"A tensor with one additional dimension compared to the input. The shape "
+"is the same as :attr:`x` except at dimension :attr:`dim`, which is "
+"replaced by two dimensions: ``(num_groups, max_group_size)``. Elements "
+"are rearranged according to their group membership."
+msgstr "入力テンソルに1次元追加されたテンソルです。形状は:attr:`x`と同じですが、次元:attr:`dim`は2つの次元に置き換えられます: ``(num_groups, max_group_size)``。要素はグループ所属に基づいて再配置されます。"
+
+#: of qfeval_functions.functions.groupby.groupby
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.groupby.groupby:9
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.groupby.groupby:40
+msgid "Example"
+msgstr "使用例"
+
+#~ msgid "Groups items of `x` by `group_id`."
+#~ msgstr "`group_id` に基づいて `x` の項目をグループ化します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

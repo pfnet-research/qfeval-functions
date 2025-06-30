@@ -21,7 +21,6 @@ def soft_topk_bottomk(
     See `qfeval.extension.SoftTopKBottomK` for futher information.
 
     Examples:
-        >>> import torch
         >>> x = torch.tensor([[1., 2., 3., 4., 5.], [6., 7., 8., 9., 10.]])
         >>> soft_topk_bottomk(x, k=1, dim=1)
         tensor([[-0.7624, -0.2123,  0.0000,  0.2123,  0.7624],
@@ -62,14 +61,13 @@ def soft_topk(
     See `qfeval.extension.SoftTopk` for futher information.
 
     Examples:
-        >>> import torch
         >>> x = torch.tensor([[1., 2., 3., 4., 5.], [6., 7., 8., 9., 10.]])
         >>> soft_topk(x, k=1, dim=0)
-        tensor([[6.0936e-05, 6.0936e-05, 6.0936e-05, 6.0936e-05, 6.0936e-05],
-                [9.9994e-01, 9.9994e-01, 9.9994e-01, 9.9994e-01, 9.9994e-01]])
+        tensor([[0.0001, 0.0001, 0.0001, 0.0001, 0.0001],
+                [0.9999, 0.9999, 0.9999, 0.9999, 0.9999]])
         >>> soft_topk(x, k=2, dim=1)
-        tensor([[4.4215e-06, 6.1245e-04, 7.8289e-02, 9.2171e-01, 9.9939e-01],
-                [4.4215e-06, 6.1245e-04, 7.8289e-02, 9.2171e-01, 9.9939e-01]])
+        tensor([[0.0000, 0.0006, 0.0783, 0.9217, 0.9994],
+                [0.0000, 0.0006, 0.0783, 0.9217, 0.9994]])
         >>> soft_topk(x, k=1, dim=1, epsilon=1e-3)
         tensor([[0.0000, 0.0000, 0.0000, 0.5000, 0.5000],
                 [0.0000, 0.0000, 0.0000, 0.5000, 0.5000]])

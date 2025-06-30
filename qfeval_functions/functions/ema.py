@@ -31,7 +31,59 @@ def _exponential_weighted_sum(
 
 
 def ema(x: torch.Tensor, alpha: float, dim: int = -1) -> torch.Tensor:
-    r"""Returns the exponential weighted moving average of the given tensor."""
+    r"""Compute exponential moving average along a specified dimension.
+
+    This function calculates the exponential moving average (EMA) of a tensor
+    along the specified dimension. EMA is a type of weighted moving average
+    where more recent values have higher weights. The weight of each value
+    decreases exponentially as you go back in time.
+
+    For each position :math:`i` along the specified dimension, the EMA is
+    computed as:
+
+    .. math::
+        \text{EMA}[i] = \frac{\sum_{j=0}^{i} x[j] \cdot (1-\alpha)^{i-j}}
+                             {\sum_{j=0}^{i} (1-\alpha)^{i-j}}
+
+    where :math:`\alpha` is the smoothing factor (0 < :math:`\alpha` < 1).
+    Smaller values of :math:`\alpha` give more weight to recent observations.
+
+    Args:
+        x (Tensor):
+            The input tensor containing values to be averaged.
+        alpha (float):
+            The smoothing factor, must be in the range (0, 1). Smaller values
+            result in more smoothing (slower decay).
+        dim (int, optional):
+            The dimension along which to compute the exponential moving
+            average.
+            Default is -1 (the last dimension).
+
+    Returns:
+        Tensor:
+            A tensor of the same shape as the input, containing the exponential
+            moving average values.
+
+    Example:
+
+        >>> # Simple 1D example
+        >>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])
+        >>> ema_result = QF.ema(x, alpha=0.5)
+        >>> ema_result
+        tensor([1.0000, 1.6667, 2.4286, 3.2667, 4.1613])
+
+        >>> # 2D example with dim=1
+        >>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],
+        ...                   [4.0, 3.0, 2.0, 1.0]])
+        >>> ema_result = QF.ema(x, alpha=0.3, dim=1)
+        >>> ema_result
+        tensor([[1.0000, 1.5882, 2.2329, 2.9305],
+                [4.0000, 3.4118, 2.7671, 2.0695]])
+
+    .. note::
+        The implementation uses an efficient :math:`O(\log n)` algorithm based on
+        geometric progression properties, making it suitable for long sequences.
+    """
     ew_weight = _exponential_weighted_sum(
         torch.ones_like(x), alpha=alpha, dim=dim
     )

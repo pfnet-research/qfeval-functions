@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,14 +25,95 @@ msgid "qfeval\\_functions.functions.mstd"
 msgstr "qfeval\\_functions.functions.mstd"
 
 #: of qfeval_functions.functions.mstd.mstd:1
-msgid "Returns the moving standard deviation of the given tensor."
+#, fuzzy
+msgid "Compute the moving (sliding window) standard deviation of a tensor."
 msgstr "指定されたテンソルの移動標準偏差を返します。"
+
+#: of qfeval_functions.functions.mstd.mstd:3
+msgid ""
+"This function calculates the standard deviation of elements within a "
+"sliding window of size :attr:`span` along the specified dimension. The "
+"output tensor has the same shape as the input tensor. For positions where"
+" the sliding window cannot fully cover preceding elements (i.e., the "
+"first ``span - 1`` elements along the selected dimension), the result is "
+"``nan``."
+msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の標準偏差を計算します。出力テンソルは入力テンソルと同じ形状を持ちます。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
+
+#: of qfeval_functions.functions.mstd.mstd:9
+#, fuzzy
+msgid "The moving standard deviation is computed as:"
+msgstr "指定されたテンソルの移動標準偏差を返します。"
+
+#: of qfeval_functions.functions.mstd.mstd:11
+msgid ""
+"\\text{MSTD}[i] = \\sqrt{\\frac{1}{N - \\text{ddof}}\n"
+"                 \\sum_{j=i-\\text{span}+1}^{i} (x[j] - \\mu[i])^2}\n"
+"\n"
+msgstr "\\text{MSTD}[i] = \\sqrt{\\frac{1}{N - \\text{ddof}}\n                 \\sum_{j=i-\\text{span}+1}^{i} (x[j] - \\mu[i])^2}\n\n"
+
+#: of qfeval_functions.functions.mstd.mstd:15
+msgid ""
+"where :math:`\\mu[i]` is the moving average at position :math:`i` and "
+":math:`N` is the number of elements in the window."
+msgstr "ここで :math:`\\mu[i]` は位置 :math:`i` における移動平均を表し、:math:`N` はウィンドウ内の要素数を示します。"
+
+#: ../../api/qfeval_functions.functions.mstd.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mstd.mstd:19
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.mstd.mstd:22
+msgid "The size of the sliding window. Must be positive."
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
+
+#: of qfeval_functions.functions.mstd.mstd:25
+msgid ""
+"The dimension along which to compute the moving standard deviation. "
+"Default is -1 (the last dimension)."
+msgstr "移動標準偏差を計算する次元。デフォルトは -1 で、最後の次元を指定します。"
+
+#: of qfeval_functions.functions.mstd.mstd:29
+msgid ""
+"Delta degrees of freedom. The divisor used in the calculation is ``N - "
+"ddof``, where ``N`` represents the number of elements in the window. "
+"Default is 1 (sample standard deviation)."
+msgstr "自由度のデルタ値。計算で使用される除数は ``N - ddof`` であり、ここで ``N`` はウィンドウ内の要素数を表します。デフォルト値は 1 です（標本標準偏差）。"
+
+#: ../../api/qfeval_functions.functions.mstd.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.mstd.mstd:34
+msgid ""
+"A tensor of the same shape as the input, containing the moving standard "
+"deviation values. The first ``span - 1`` elements along the specified "
+"dimension are ``nan``."
+msgstr "入力と同じ形状のテンソルで、移動標準偏差の値を含んでいます。指定された次元に沿って最初の``span - 1``要素は``nan``です。"
 
 #: ../../api/qfeval_functions.functions.mstd.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.mstd.mstd:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.mstd.mstd:40
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mstd.mstd:65
+msgid ":func:`mvar`: Moving variance function."
+msgstr ":func:`mvar`: 移動分散関数。"
+
+#: of qfeval_functions.functions.mstd.mstd:66
+msgid ":func:`ma`: Moving average function."
+msgstr ":func:`ma`: 移動平均関数。"
+
+#: of qfeval_functions.functions.mstd.mstd:67
+msgid ":func:`msum`: Moving sum function."
+msgstr ":func:`msum`: 移動合計関数。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

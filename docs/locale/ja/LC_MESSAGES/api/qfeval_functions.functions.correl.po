@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,14 +25,63 @@ msgid "qfeval\\_functions.functions.correl"
 msgstr "qfeval\\_functions.functions.correl"
 
 #: of qfeval_functions.functions.correl.correl:1
-msgid "Returns Pearson correlation coefficient between `x` and `y`."
+#, fuzzy
+msgid "Compute Pearson correlation coefficient between two tensors."
 msgstr "`x`と`y`の間のピアソン相関係数を返します。"
 
-#: ../../api/qfeval_functions.functions.correl.rst
+#: of qfeval_functions.functions.correl.correl:3
+msgid ""
+"This function calculates the Pearson correlation coefficient between "
+"tensors :attr:`x` and :attr:`y` along the specified dimension(s). The "
+"correlation coefficient measures the linear relationship between two "
+"variables and ranges from -1 (perfect negative correlation) to 1 (perfect"
+" positive correlation), with 0 indicating no linear correlation."
+msgstr "この関数は、指定された次元に沿ってテンソル :attr:`x` と :attr:`y` の間のピアソン相関係数を計算します。相関係数は2つの変数間の線形関係の強さを測定する指標で、-1（完全な負の相関）から1（完全な正の相関）の範囲で表され、0の場合は線形相関がないことを示します。"
+
+#: of qfeval_functions.functions.correl.correl
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.correl.correl:10
+msgid "The first input tensor."
+msgstr "最初の入力テンソル。"
+
+#: of qfeval_functions.functions.correl.correl:13
+msgid "The second input tensor. Must be the same shape as :attr:`x`."
+msgstr "第2の入力テンソル。 :attr:`x`と同じ形状である必要があります。"
+
+#: of qfeval_functions.functions.correl.correl:16
+msgid ""
+"The dimension(s) along which to compute the correlation. If not specified"
+" (default is empty tuple), computes element-wise correlation and sums the"
+" result."
+msgstr "相関係数を計算する次元を指定します。指定しない場合（デフォルトは空のタプル）は、要素ごとの相関係数を計算し、その結果を合計します。"
+
+#: of qfeval_functions.functions.correl.correl:21
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
+
+#: of qfeval_functions.functions.correl.correl
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.correl.correl:25
+msgid ""
+"The Pearson correlation coefficient(s). The shape depends on the input "
+"dimensions and the :attr:`keepdim` parameter."
+msgstr "ピアソン相関係数。形状は入力次元と :attr:`keepdim` パラメータに依存します。"
+
+#: of qfeval_functions.functions.correl.correl
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.correl.correl:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.correl.correl:30
+msgid "Example"
+msgstr "使用例"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

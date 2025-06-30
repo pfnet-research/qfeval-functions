@@ -89,3 +89,7 @@ exclude = [
     "dist",
     ".venv"
     ]
+
+[tool.pytest.ini_options]
+doctest_optionflags = "ELLIPSIS NORMALIZE_WHITESPACE"
+addopts = "--doctest-modules"

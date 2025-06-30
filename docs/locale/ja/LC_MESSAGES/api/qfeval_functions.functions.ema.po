@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,14 +25,86 @@ msgid "qfeval\\_functions.functions.ema"
 msgstr "qfeval\\_functions.functions.ema"
 
 #: of qfeval_functions.functions.ema.ema:1
-msgid "Returns the exponential weighted moving average of the given tensor."
-msgstr "指定されたテンソルの指数加重移動平均を返します。"
+msgid "Compute exponential moving average along a specified dimension."
+msgstr "指定された次元に沿って指数移動平均を計算します。"
+
+#: of qfeval_functions.functions.ema.ema:3
+msgid ""
+"This function calculates the exponential moving average (EMA) of a tensor"
+" along the specified dimension. EMA is a type of weighted moving average "
+"where more recent values have higher weights. The weight of each value "
+"decreases exponentially as you go back in time."
+msgstr "この関数は、指定された次元に沿ってテンソルの指数移動平均 (EMA) を計算します。EMA は加重移動平均の一種で、最近の値ほど高い重みが与えられます。各値の重みは、時間を遡るにつれて指数関数的に減少します。"
+
+#: of qfeval_functions.functions.ema.ema:8
+msgid ""
+"For each position :math:`i` along the specified dimension, the EMA is "
+"computed as:"
+msgstr "指定された次元に沿って各位置 :math:`i` における指数移動平均 (EMA) は以下のように計算されます:"
+
+#: of qfeval_functions.functions.ema.ema:11
+msgid ""
+"\\text{EMA}[i] = \\frac{\\sum_{j=0}^{i} x[j] \\cdot (1-\\alpha)^{i-j}}\n"
+"                     {\\sum_{j=0}^{i} (1-\\alpha)^{i-j}}\n"
+"\n"
+msgstr "\\text{EMA}[i] = \\frac{\\sum_{j=0}^{i} x[j] \\cdot (1-\\alpha)^{i-j}}\n                     {\\sum_{j=0}^{i} (1-\\alpha)^{i-j}}\n\n"
+
+#: of qfeval_functions.functions.ema.ema:15
+msgid ""
+"where :math:`\\alpha` is the smoothing factor (0 < :math:`\\alpha` < 1). "
+"Smaller values of :math:`\\alpha` give more weight to recent "
+"observations."
+msgstr "ここで :math:`\\alpha` は平滑化係数です（0 < :math:`\\alpha` < 1）。 :math:`\\alpha` の値が小さいほど、最近の観測値により多くの重みが与えられます。"
+
+#: ../../api/qfeval_functions.functions.ema.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.ema.ema:19
+msgid "The input tensor containing values to be averaged."
+msgstr "平均化する値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.ema.ema:22
+msgid ""
+"The smoothing factor, must be in the range (0, 1). Smaller values result "
+"in more smoothing (slower decay)."
+msgstr "平滑化係数。範囲は (0, 1) でなければなりません。値が小さいほど、より平滑化され（減衰が緩やかになります）。"
+
+#: of qfeval_functions.functions.ema.ema:26
+msgid ""
+"The dimension along which to compute the exponential moving average. "
+"Default is -1 (the last dimension)."
+msgstr "指数移動平均を計算する次元。デフォルトは -1 で、最後の次元を意味します。"
+
+#: ../../api/qfeval_functions.functions.ema.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.ema.ema:31
+msgid ""
+"A tensor of the same shape as the input, containing the exponential "
+"moving average values."
+msgstr "入力と同じ形状のテンソルで、指数移動平均の計算結果を格納します。"
 
 #: ../../api/qfeval_functions.functions.ema.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.ema.ema:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.ema.ema:36
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.ema.ema:52
+msgid ""
+"The implementation uses an efficient :math:`O(\\log n)` algorithm based "
+"on geometric progression properties, making it suitable for long "
+"sequences."
+msgstr "実装では幾何級数の特性に基づく効率的な :math:`O(\\log n)` アルゴリズムを採用しており、長いシーケンスにも適しています。"
+
+#~ msgid "Returns the exponential weighted moving average of the given tensor."
+#~ msgstr "指定されたテンソルの指数加重移動平均を返します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

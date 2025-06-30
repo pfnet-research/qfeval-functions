@@ -29,8 +29,6 @@ def reduce_nan_patterns(
         - mask: a 1-D boolean tensor
 
     Examples:
-        >>> import torch
-        >>> from math import nan
         >>> x = torch.tensor([
         ...     [1.0, 2.0, nan, 1.0],
         ...     [2.0, 4.0, nan, 2.0],
@@ -73,32 +71,83 @@ def group_shift(
     refdim: typing.Optional[int] = -1,
     agg_f: AggregateFunction = "any",
 ) -> torch.Tensor:
-    r"""Shifts a tensor along a specified dimension, skipping a given mask.
+    r"""Shift tensor elements along a dimension, skipping masked positions.
 
-    This function applies shifts only for locations specified by the mask.
-    For example, suppose the mask is `[True, False, True, False, True]`,
-    then applying one shift to `[1, nan, 2, nan, 3]` will get
-    `[nan, nan, 1, nan, 2]`.
+    This function performs a selective shift operation where only elements at
+    positions marked as ``True`` in the mask are shifted, while positions
+    marked as ``False`` are skipped. This is particularly useful for time
+    series data where certain time points should be excluded from the shift
+    operation, such as weekends in financial data or missing observations.
 
-    CAVEAT:
-    Before applying shifts, the unmasked values (i.e., mask values are False)
-    are filled with nans. So, applying the above masked-shift to
-    `[1, 2, 3, 4, 5]` will get `[nan, nan, 1, nan, 3]`, where unmasked values
-    (2, 4) are just discarded. Also, zero-shift (`shift == 0`) will not give
-    the original input.
+    The function works by reordering elements based on the mask, applying the
+    shift only to valid positions, and then restoring the original order.
+    Elements at masked-out positions are replaced with NaN values.
+
+    .. warning::
+        Unmasked values (where mask is ``False``) are replaced with NaN before
+        shifting. This means that even a zero shift (``shift=0``) will not
+        return the original input, as unmasked values will be NaN in the
+        output.
 
     Args:
-        - x: The input tensor.
-        - shift: The number of places by which the elements of the tensor
-            are shifted.
-        - dim: The dimension along which `x` will be shifted.
-        - mask (optional): A 1D boolean tensor, where `False` values specify
-            the indices to be skipped during shifts. The length must be
-            equal to `x.shape[dim]`.
-        - refdim (optional): If set, the mask is automatically generated.
-            See `reduce_nan_patterns` for details.
+        x (Tensor):
+            The input tensor to be shifted.
+        shift (int, optional):
+            The number of positions to shift. Positive values shift forward
+            (toward higher indices), negative values shift backward.
+            Default is 1.
+        dim (int, optional):
+            The dimension along which to perform the shift.
+            Default is 0.
+        mask (Tensor, optional):
+            A 1D boolean tensor where ``True`` indicates positions to include
+            in the shift, and ``False`` indicates positions to skip. Length
+            must equal ``x.shape[dim]``. If not provided, :attr:`refdim` must
+            be specified.
+        refdim (int, optional):
+            If specified, automatically generates a mask using
+            :func:`reduce_nan_patterns`. This identifies valid positions based
+            on non-NaN patterns in the reference dimension. Default is -1.
+        agg_f (str, optional):
+            Aggregation function used when generating mask from :attr:`refdim`.
+            Can be "any" or "all".
+            Default is "any".
+
     Returns:
-        - x_shifted: A shifted version of `x`.
+        Tensor:
+            A tensor of the same shape as the input, with elements shifted
+            according to the mask. Unmasked positions contain NaN.
+
+    Example:
+
+        >>> # Basic masked shift
+        >>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])
+        >>> mask = torch.tensor([True, False, True, False, True])
+        >>> shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)
+        >>> shifted
+        tensor([nan, nan, 1., nan, 3.])
+
+        >>> # Shift with existing NaN values
+        >>> x = torch.tensor([1.0, nan, 2.0, nan, 3.0])
+        >>> mask = torch.tensor([True, False, True, False, True])
+        >>> shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)
+        >>> shifted
+        tensor([nan, nan, 1., nan, 2.])
+
+        >>> # 2D tensor with automatic mask generation
+        >>> x = torch.tensor([[1.0, 2.0, nan, 4.0],
+        ...                   [5.0, 6.0, nan, 8.0],
+        ...                   [9.0, 10., nan, 12.]])
+        >>> # Use refdim=0 to generate mask from first row's NaN pattern
+        >>> shifted = QF.group_shift(x, shift=1, dim=1, refdim=0)
+        >>> shifted
+        tensor([[nan,  1., nan,  2.],
+                [nan,  5., nan,  6.],
+                [nan,  9., nan, 10.]])
+
+    .. seealso::
+        :func:`reduce_nan_patterns`: For understanding mask generation from
+        reference dimensions.
     """
     n = x.shape[dim]
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -26,16 +26,92 @@ msgstr "qfeval\\_functions.functions.nanmax"
 
 #: of qfeval_functions.functions.nanmax.nanmax:1
 msgid ""
-"Returns a namedtuple `(values, indices)` where values is the maximum "
-"value of each row of the `input` tensor in the given dimension `dim`, "
-"ignoring Not a Numbers (NaNs)."
-msgstr "指定された次元 `dim` において、入力テンソルの各行の最大値を含むタプル `(values, indices)` を返します。この際、Not a Number (NaN) 値は無視されます。"
+"Return the maximum values and indices along a dimension, ignoring NaN "
+"values."
+msgstr "指定された次元に沿って最大値と対応するインデックスを返し、NaN値は無視します。"
+
+#: of qfeval_functions.functions.nanmax.nanmax:3
+msgid ""
+"This function computes the maximum value along the specified dimension, "
+"excluding NaN values from consideration. It returns both the maximum "
+"values and their corresponding indices in the original tensor. This is "
+"similar to ``torch.max`` but with NaN-aware behavior."
+msgstr "この関数は、指定された次元に沿って最大値を計算し、NaN値を計算対象から除外します。元のテンソルにおける最大値とその対応するインデックスの両方を返します。これは``torch.max``と似ていますが、NaN値を考慮した動作をします。"
+
+#: ../../api/qfeval_functions.functions.nanmax.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.nanmax.nanmax:9
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.nanmax.nanmax:12
+msgid "The dimension along which to find the maximum values."
+msgstr "最大値を求める次元を指定します。"
+
+#: of qfeval_functions.functions.nanmax.nanmax:15
+msgid ""
+"Whether the output tensors have :attr:`dim` retained or not. Default is "
+"False."
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
+
+#: ../../api/qfeval_functions.functions.nanmax.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanmax.nanmax:19
+msgid ""
+"A named tuple containing:      - ``values`` (Tensor): The maximum values "
+"along the specified dimension,       with NaN values ignored. If a slice "
+"contains only NaN values,       the result is NaN.     - ``indices`` "
+"(Tensor): The indices of the maximum values in the       original tensor."
+msgstr "以下の要素を含む名前付きタプル:      - ``values`` (Tensor): 指定された次元に沿って計算された最大値、       NaN値は無視されます。スライス内の値がすべてNaNの場合、       結果はNaNとなります。     - ``indices`` (Tensor): 元のテンソル内の最大値のインデックス。"
+
+#: of qfeval_functions.functions.nanmax.nanmax:21
+msgid "A named tuple containing:"
+msgstr "以下の要素を含む名前付きタプル:"
+
+#: of qfeval_functions.functions.nanmax.nanmax:23
+msgid ""
+"``values`` (Tensor): The maximum values along the specified dimension, "
+"with NaN values ignored. If a slice contains only NaN values, the result "
+"is NaN."
+msgstr "``values`` (Tensor): 指定された次元に沿って計算された最大値。NaN値は無視されます。スライス内にNaN値のみが含まれる場合、結果はNaNとなります。"
+
+#: of qfeval_functions.functions.nanmax.nanmax:26
+msgid ""
+"``indices`` (Tensor): The indices of the maximum values in the original "
+"tensor."
+msgstr "``indices`` (Tensor): 元のテンソルにおける最大値のインデックス。"
 
 #: ../../api/qfeval_functions.functions.nanmax.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nanmax.nanmax:6
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.nanmax.NanmaxResult\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.nanmax.NanmaxResult\\``"
+#: of qfeval_functions.functions.nanmax.nanmax:31
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.nanmax.nanmax:71
+msgid ""
+":func:`nanmin`: NaN-aware minimum function. :func:`nanargmax`: NaN-aware "
+"argument maximum function. ``torch.max``: Standard maximum function (NaN "
+"propagates)."
+msgstr ":func:`nanmin`: NaNを考慮した最小値関数。 :func:`nanargmax`: NaNを考慮した最大値引数関数。 ``torch.max``: 標準の最大値関数（NaNは伝播する）。"
+
+#~ msgid ""
+#~ "Returns a namedtuple `(values, indices)` "
+#~ "where values is the maximum value "
+#~ "of each row of the `input` tensor"
+#~ " in the given dimension `dim`, "
+#~ "ignoring Not a Numbers (NaNs)."
+#~ msgstr ""
+#~ "指定された次元 `dim` において、入力テンソルの各行の最大値を含むタプル `(values, "
+#~ "indices)` を返します。この際、Not a Number (NaN) "
+#~ "値は無視されます。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.nanmax.NanmaxResult\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.nanmax.NanmaxResult\\``"
 

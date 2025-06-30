@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,38 +25,118 @@ msgid "qfeval\\_functions.functions.gaussian\\_blur"
 msgstr "qfeval\\_functions.functions.gaussian\\_blur"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:1
-msgid ""
-"Applies a Gaussian filter with the given `sigma` parameter to `x` along "
-"the specified axis `dim`."
-msgstr "指定された軸 `dim` に沿って、`x` に指定された `sigma` パラメータを持つガウシアンフィルタを適用します。"
+msgid "Apply Gaussian blur to a tensor along a specified dimension."
+msgstr "指定された次元に沿ってテンソルにガウシアンぼかしを適用します。"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:4
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:3
 msgid ""
-"Specifically, this assigns the weighted mean of valid values with a "
-"Gaussian filter to each element.  This makes values outside the range "
-"have no weight, so it works well even for biased values, while zero "
-"padding brings the surrounding values closer to zero.  Additionally, as "
-"it makes NaN values have no weight, it also works well for biased values "
-"that include NaNs."
-msgstr "具体的には、有効な値の加重平均にガウシアンフィルタを適用し、各要素に割り当てます。これにより、範囲外の値は重みを持たなくなるため、バイアスのかかった値に対しても適切に処理できます。また、ゼロパディングによって周辺の値がゼロに近づくように調整されます。さらに、NaN値には重みが与えられないため、NaNを含むバイアスのかかった値に対しても適切に処理できます。"
+"This function applies a one-dimensional Gaussian filter to smooth data "
+"along the specified dimension. The Gaussian blur operation computes a "
+"weighted average of neighboring values, where weights follow a Gaussian "
+"(normal) distribution centered at each point. This is commonly used for "
+"noise reduction, data smoothing, and signal processing."
+msgstr "この関数は、指定された次元に沿って1次元ガウシアンフィルタを適用し、データを平滑化します。ガウシアンぼかし処理では、各点を中心としたガウシアン（正規）分布に従って重み付けされた近傍値の加重平均を計算します。これは主にノイズ低減、データ平滑化、および信号処理用途で使用されます。"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:11
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:9
 msgid ""
-"NOTE: This function uses interval averages of a Gaussian function instead"
-" of point-sampling for its discretized window function.  Typical "
-"implementations of Gaussian filters use point-sampling (e.g., "
-"`scipy.ndimage.gaussian_filter1d`).  However, they have an undersampling "
-"issue for small $\\sigma$ (c.f., https://bartwronski.com/2021/10/31/, "
-"Implementation section in https://en.wikipedia.org/wiki/Gaussian_blur). "
-"This calculates the interval averages using the integral of a Gaussian "
-"function."
-msgstr "注意: この関数では、ガウシアン関数の点サンプリングではなく、区間平均を計算します。ガウシアンフィルタの標準的な実装では点サンプリングが用いられます（例: `scipy.ndimage.gaussian_filter1d`）。ただし、ガウシアンフィルタの区間平均計算では、ガウシアン関数の積分値を用いて区間平均を算出します（参考: https://bartwronski.com/2021/10/31/ および https://en.wikipedia.org/wiki/Gaussian_blur の実装セクション）。"
+"Unlike typical implementations that use point-sampling (such as "
+"``scipy.ndimage.gaussian_filter1d``), this function uses interval "
+"averages of the Gaussian function for improved accuracy, especially for "
+"small :attr:`sigma` values. This approach avoids undersampling issues and"
+" provides more accurate results."
+msgstr "一般的な実装手法（例えば``scipy.ndimage.gaussian_filter1d``のような点サンプリング手法）とは異なり、この関数はガウス関数の区間平均を用いて精度を向上させています。特に :attr:`sigma` 値が小さい場合に、この手法はサンプリング不足の問題を回避し、より正確な結果を提供します。"
+
+#: ../../api/qfeval_functions.functions.gaussian_blur.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:16
+msgid "The input tensor to be blurred."
+msgstr "ぼかし処理を施す入力テンソル。"
+
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:19
+msgid ""
+"The standard deviation of the Gaussian kernel. Larger values produce more"
+" smoothing. Must be positive."
+msgstr "ガウスカーネルの標準偏差。値が大きいほど平滑化効果が強くなります。正の値である必要があります。"
+
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:23
+msgid ""
+"The dimension along which to apply the Gaussian blur. Default is -1 (the "
+"last dimension)."
+msgstr "ガウシアンブラーを適用する次元。デフォルトは -1 で、最後の次元を指定します。"
+
+#: ../../api/qfeval_functions.functions.gaussian_blur.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:27
+msgid ""
+"A tensor of the same shape as the input, containing the Gaussian-blurred "
+"values."
+msgstr "入力と同じ形状のテンソルで、ガウシアンぼかし処理が適用された値を含んでいます。"
 
 #: ../../api/qfeval_functions.functions.gaussian_blur.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:21
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:32
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:51
+msgid "https://en.wikipedia.org/wiki/Gaussian_blur"
+msgstr "https://en.wikipedia.org/wiki/Gaussian_blur"
+
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:52
+msgid ""
+"https://bartwronski.com/2021/10/31/gaussian-blur-corrected-improved-and-"
+"optimized/"
+msgstr "https://bartwronski.com/2021/10/31/gaussian-blur-corrected-improved-and-optimized/"
+
+#~ msgid ""
+#~ "Applies a Gaussian filter with the "
+#~ "given `sigma` parameter to `x` along "
+#~ "the specified axis `dim`."
+#~ msgstr "指定された軸 `dim` に沿って、`x` に指定された `sigma` パラメータを持つガウシアンフィルタを適用します。"
+
+#~ msgid ""
+#~ "Specifically, this assigns the weighted "
+#~ "mean of valid values with a "
+#~ "Gaussian filter to each element.  This"
+#~ " makes values outside the range have"
+#~ " no weight, so it works well "
+#~ "even for biased values, while zero "
+#~ "padding brings the surrounding values "
+#~ "closer to zero.  Additionally, as it "
+#~ "makes NaN values have no weight, "
+#~ "it also works well for biased "
+#~ "values that include NaNs."
+#~ msgstr "具体的には、有効な値の加重平均にガウシアンフィルタを適用し、各要素に割り当てます。これにより、範囲外の値は重みを持たなくなるため、バイアスのかかった値に対しても適切に処理できます。また、ゼロパディングによって周辺の値がゼロに近づくように調整されます。さらに、NaN値には重みが与えられないため、NaNを含むバイアスのかかった値に対しても適切に処理できます。"
+
+#~ msgid ""
+#~ "NOTE: This function uses interval "
+#~ "averages of a Gaussian function instead"
+#~ " of point-sampling for its "
+#~ "discretized window function.  Typical "
+#~ "implementations of Gaussian filters use "
+#~ "point-sampling (e.g., "
+#~ "`scipy.ndimage.gaussian_filter1d`).  However, they "
+#~ "have an undersampling issue for small"
+#~ " $\\sigma$ (c.f., https://bartwronski.com/2021/10/31/,"
+#~ " Implementation section in "
+#~ "https://en.wikipedia.org/wiki/Gaussian_blur). This "
+#~ "calculates the interval averages using "
+#~ "the integral of a Gaussian function."
+#~ msgstr ""
+#~ "注意: "
+#~ "この関数では、ガウシアン関数の点サンプリングではなく、区間平均を計算します。ガウシアンフィルタの標準的な実装では点サンプリングが用いられます（例:"
+#~ " "
+#~ "`scipy.ndimage.gaussian_filter1d`）。ただし、ガウシアンフィルタの区間平均計算では、ガウシアン関数の積分値を用いて区間平均を算出します（参考:"
+#~ " https://bartwronski.com/2021/10/31/ および "
+#~ "https://en.wikipedia.org/wiki/Gaussian_blur の実装セクション）。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

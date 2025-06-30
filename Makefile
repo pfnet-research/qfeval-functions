@@ -1,5 +1,6 @@
 PROJECT_NAME := qfeval_functions
 RUN := uv run
+SHELL := /bin/bash
 
 .PHONY: check
 check: test lint
@@ -89,7 +90,7 @@ docs-plamo-translate: docs-generate-locale-ja
 		echo "This command is only supported on Apple Silicon"; \
 		exit 1; \
 	fi
-	if [ "$(shell python --version | cut -d' ' -f2 | cut -d'.' -f1)" -ge 3 ] && [ "$(shell python --version | cut -d' ' -f2 | cut -d'.' -f2)" -ge 13 ]; then \
+	if [ "$(shell $(RUN) python --version | cut -d' ' -f2 | cut -d'.' -f1)" -ge 3 ] && [ "$(shell $(RUN) python --version | cut -d' ' -f2 | cut -d'.' -f2)" -ge 13 ]; then \
 		if ! command -v cmake &> /dev/null; then \
 			brew install cmake; \
 		fi; \

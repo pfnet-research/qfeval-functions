@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -30,44 +30,41 @@ msgstr ":py:obj:`apply_for_axis <qfeval_functions.functions.apply_for_axis>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ""
-"Applies the given data `x` into the given function `f`, which expects a "
-"tensor of `(batch, n)` shape."
-msgstr "与えられたデータ `x` を、形状 `(batch, n)` のテンソルを期待する関数 `f` に適用します。"
+"Apply a function expecting 2D input to a tensor along a specified "
+"dimension."
+msgstr "指定された次元に沿ってテンソルに2次元入力を期待する関数を適用します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`bfill <qfeval_functions.functions.bfill>`"
 msgstr ":py:obj:`bfill <qfeval_functions.functions.bfill>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Propagates last valid values backward."
-msgstr "最後に有効な値を後方に伝播します。"
+msgid "Backward fill missing values along the specified dimension."
+msgstr "指定された次元に沿って欠損値を後方補完します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`bincount <qfeval_functions.functions.bincount>`"
 msgstr ":py:obj:`bincount <qfeval_functions.functions.bincount>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Computes the frequency of each value in a tensor along a specified "
-"dimension, with support for a minimum length of the output tensor."
-msgstr "指定された次元に沿ってテンソル内の各値の頻度を計算します。出力テンソルの最小長をサポートします。"
+msgid "Count number of occurrences of each value in a tensor."
+msgstr "テンソル内の各値の出現回数をカウントします。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`bollinger_band <qfeval_functions.functions.bollinger_band>`"
 msgstr ":py:obj:`bollinger_band <qfeval_functions.functions.bollinger_band>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Returns the upper/middle/bottom values of the corresponding Bollinger "
-"band."
-msgstr "対応するボリンジャーバンドの上限/中央/下限値を返します。"
+msgid "Compute Bollinger Bands for a tensor."
+msgstr "テンソルのボリンジャーバンドを計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`correl <qfeval_functions.functions.correl>`"
 msgstr ":py:obj:`correl <qfeval_functions.functions.correl>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns Pearson correlation coefficient between `x` and `y`."
+#, fuzzy
+msgid "Compute Pearson correlation coefficient between two tensors."
 msgstr "`x`と`y`の間のピアソン相関係数を返します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -75,9 +72,8 @@ msgid ":py:obj:`covar <qfeval_functions.functions.covar>`"
 msgstr ":py:obj:`covar <qfeval_functions.functions.covar>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Calculates the covariance between the given tensors along the specified "
-"dimension."
+#, fuzzy
+msgid "Compute covariance between two tensors along a specified dimension."
 msgstr "指定された次元に沿って、与えられたテンソル間の共分散を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -85,17 +81,16 @@ msgid ":py:obj:`cumcount <qfeval_functions.functions.cumcount>`"
 msgstr ":py:obj:`cumcount <qfeval_functions.functions.cumcount>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Numbers each item in each group from 0 to :math:`N-1`, where :math:`N` is"
-" the number of the items of the group."
-msgstr "各グループ内の各項目に0から :math:`N-1`までの番号を割り当てます。ここで、:math:`N`はグループ内の項目数です。"
+msgid "Number each occurrence of unique values along a dimension."
+msgstr "指定した次元に沿って、各一意値の出現回数をカウントします。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`eigh <qfeval_functions.functions.eigh>`"
 msgstr ":py:obj:`eigh <qfeval_functions.functions.eigh>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Computes eigenvalues and eigenvectors."
+#, fuzzy
+msgid "Compute eigenvalues and eigenvectors of a symmetric/Hermitian matrix."
 msgstr "固有値と固有ベクトルを計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -103,33 +98,35 @@ msgid ":py:obj:`einsum <qfeval_functions.functions.einsum>`"
 msgstr ":py:obj:`einsum <qfeval_functions.functions.einsum>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Typed version of torch.einsum."
-msgstr "torch.einsumの型付きバージョン。"
+msgid ""
+"Sums the product of tensor elements over specified indices using Einstein"
+" notation."
+msgstr "アインシュタイン記法を用いて、指定されたインデックスにわたるテンソル要素の積を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`ema <qfeval_functions.functions.ema>`"
 msgstr ":py:obj:`ema <qfeval_functions.functions.ema>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the exponential weighted moving average of the given tensor."
-msgstr "指定されたテンソルの指数加重移動平均を返します。"
+msgid "Compute exponential moving average along a specified dimension."
+msgstr "指定された次元に沿って指数移動平均を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`ffill <qfeval_functions.functions.ffill>`"
 msgstr ":py:obj:`ffill <qfeval_functions.functions.ffill>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Propagates last valid values forward."
-msgstr "有効値を前方に伝播します。"
+#, fuzzy
+msgid "Forward fill missing values along the specified dimension."
+msgstr "指定された次元に沿って、xをyに対して直交化します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`fillna <qfeval_functions.functions.fillna>`"
 msgstr ":py:obj:`fillna <qfeval_functions.functions.fillna>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Replaces NaN, positive infinity, and negative infinity values with "
-"specified numbers."
+#, fuzzy
+msgid "Replace NaN and infinity values with specified numbers."
 msgstr "NaN、正の無限大、負の無限大の値を指定された数値で置き換えます。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -137,17 +134,17 @@ msgid ":py:obj:`gaussian_blur <qfeval_functions.functions.gaussian_blur>`"
 msgstr ":py:obj:`gaussian_blur <qfeval_functions.functions.gaussian_blur>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Applies a Gaussian filter with the given `sigma` parameter to `x` along "
-"the specified axis `dim`."
-msgstr "指定された軸 `dim` に沿って、`x` に指定された `sigma` パラメータを持つガウシアンフィルタを適用します。"
+#, fuzzy
+msgid "Apply Gaussian blur to a tensor along a specified dimension."
+msgstr "指定された次元に沿って、与えられたテンソル間の共分散を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`group_shift <qfeval_functions.functions.group_shift>`"
 msgstr ":py:obj:`group_shift <qfeval_functions.functions.group_shift>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Shifts a tensor along a specified dimension, skipping a given mask."
+#, fuzzy
+msgid "Shift tensor elements along a dimension, skipping masked positions."
 msgstr "指定されたマスクをスキップしながら、テンソルを指定された次元に沿ってシフトします。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -155,40 +152,44 @@ msgid ":py:obj:`groupby <qfeval_functions.functions.groupby>`"
 msgstr ":py:obj:`groupby <qfeval_functions.functions.groupby>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Groups items of `x` by `group_id`."
-msgstr "`group_id` で `x` の項目をグループ化します。"
+msgid "Group tensor elements by group identifiers along a dimension."
+msgstr "指定された次元に沿ってテンソル要素をグループ識別子でグループ化する。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`ma <qfeval_functions.functions.ma>`"
 msgstr ":py:obj:`ma <qfeval_functions.functions.ma>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the moving average of the given tensor."
-msgstr "指定されたテンソルの移動平均を返します。"
+#, fuzzy
+msgid "Compute the moving (sliding window) average of a tensor."
+msgstr "テンソルの移動和（スライディングウィンドウ和）を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`mmax <qfeval_functions.functions.mmax>`"
 msgstr ":py:obj:`mmax <qfeval_functions.functions.mmax>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the moving max of the given tensor."
-msgstr "指定されたテンソルの移動最大値を返します。"
+#, fuzzy
+msgid "Compute the moving (sliding window) maximum of a tensor."
+msgstr "テンソルの移動和（スライディングウィンドウ和）を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`mmin <qfeval_functions.functions.mmin>`"
 msgstr ":py:obj:`mmin <qfeval_functions.functions.mmin>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the moving min of the given tensor."
-msgstr "指定されたテンソルの移動最小値を返します。"
+#, fuzzy
+msgid "Compute the moving (sliding window) minimum of a tensor."
+msgstr "テンソルの移動和（スライディングウィンドウ和）を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`mstd <qfeval_functions.functions.mstd>`"
 msgstr ":py:obj:`mstd <qfeval_functions.functions.mstd>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the moving standard deviation of the given tensor."
-msgstr "指定されたテンソルの移動標準偏差を返します。"
+#, fuzzy
+msgid "Compute the moving (sliding window) standard deviation of a tensor."
+msgstr "テンソルの移動和（スライディングウィンドウ和）を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`msum <qfeval_functions.functions.msum>`"
@@ -203,33 +204,37 @@ msgid ":py:obj:`mulmean <qfeval_functions.functions.mulmean>`"
 msgstr ":py:obj:`mulmean <qfeval_functions.functions.mulmean>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Calculate `(x * y).mean(...)` in a memory-efficient way."
-msgstr "メモリ効率に優れた方法で `(x * y).mean(...)` を計算します。"
+#, fuzzy
+msgid "Compute the mean of element-wise product in a memory-efficient way."
+msgstr "メモリ効率に優れた方法で `QF.nanmean(x * y, ...)` を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`mulsum <qfeval_functions.functions.mulsum>`"
 msgstr ":py:obj:`mulsum <qfeval_functions.functions.mulsum>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Calculate `(x * y).sum(...)` in a memory-efficient way."
-msgstr "メモリ効率に優れた方法で `(x * y).sum(...)` を効率的に計算します。"
+#, fuzzy
+msgid "Compute sum or mean of element-wise product in a memory-efficient way."
+msgstr "メモリ効率に優れた方法で `QF.nanmean(x * y, ...)` を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`mvar <qfeval_functions.functions.mvar>`"
 msgstr ":py:obj:`mvar <qfeval_functions.functions.mvar>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the moving variance of the given tensor."
-msgstr "指定されたテンソルの移動分散を返します。"
+#, fuzzy
+msgid "Compute the moving (sliding window) variance of a tensor."
+msgstr "テンソルの移動和（スライディングウィンドウ和）を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nancorrel <qfeval_functions.functions.nancorrel>`"
 msgstr ":py:obj:`nancorrel <qfeval_functions.functions.nancorrel>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+#, fuzzy
 msgid ""
-"Returns Pearson correlation coefficient between `x` and `y`, ignoring "
-"NaNs."
+"Compute Pearson correlation coefficient between two tensors, ignoring NaN"
+" values."
 msgstr "`x`と`y`の間のピアソン相関係数を返し、NaNは無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -237,7 +242,8 @@ msgid ":py:obj:`nancovar <qfeval_functions.functions.nancovar>`"
 msgstr ":py:obj:`nancovar <qfeval_functions.functions.nancovar>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Calculates the covariance between the given tensors."
+#, fuzzy
+msgid "Compute covariance between two tensors, ignoring NaN values."
 msgstr "与えられたテンソル間の共分散を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -245,16 +251,25 @@ msgid ":py:obj:`nancumprod <qfeval_functions.functions.nancumprod>`"
 msgstr ":py:obj:`nancumprod <qfeval_functions.functions.nancumprod>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Compute the cumulative product along a dimension, treating NaN as 1."
+msgstr "次元に沿って累積積を計算し、NaNを1として扱います。"
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nancumsum <qfeval_functions.functions.nancumsum>`"
 msgstr ":py:obj:`nancumsum <qfeval_functions.functions.nancumsum>`"
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Compute the cumulative sum along a dimension, treating NaN as 0."
+msgstr "次元に沿って累積和を計算し、NaNを0として扱います。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nankurtosis <qfeval_functions.functions.nankurtosis>`"
 msgstr ":py:obj:`nankurtosis <qfeval_functions.functions.nankurtosis>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the kurtosis of each row, ignoring Not a Numbers (NaNs)."
-msgstr "各行の尖度を返し、非数値値（NaN）は無視します。"
+#, fuzzy
+msgid "Compute the kurtosis along specified dimensions, ignoring NaN values."
+msgstr "指定された次元に沿って配列要素をシフトし、NaNは無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanmax <qfeval_functions.functions.nanmax>`"
@@ -262,18 +277,20 @@ msgstr ":py:obj:`nanmax <qfeval_functions.functions.nanmax>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ""
-"Returns a namedtuple `(values, indices)` where values is the maximum "
-"value of each row of the `input` tensor in the given dimension `dim`, "
-"ignoring Not a Numbers (NaNs)."
-msgstr "指定された次元 `dim` において、入力テンソルの各行の最大値を含むタプル `(values, indices)` を返します。Not a Numbers (NaNs) は無視されます。"
+"Return the maximum values and indices along a dimension, ignoring NaN "
+"values."
+msgstr "指定した次元に沿って最大値と対応するインデックスを返し、NaN値は無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanmean <qfeval_functions.functions.nanmean>`"
 msgstr ":py:obj:`nanmean <qfeval_functions.functions.nanmean>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
-msgstr "各行の平均値を返し、Not a Numbers (NaNs) は無視します。"
+#, fuzzy
+msgid ""
+"Compute the arithmetic mean along specified dimensions, ignoring NaN "
+"values."
+msgstr "指定された次元に沿って配列要素をシフトし、NaNは無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanmin <qfeval_functions.functions.nanmin>`"
@@ -281,26 +298,29 @@ msgstr ":py:obj:`nanmin <qfeval_functions.functions.nanmin>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ""
-"Returns a namedtuple `(values, indices)` where values is the minimum "
-"value of each row of the `input` tensor in the given dimension `dim`, "
-"ignoring Not a Numbers (NaNs)."
-msgstr "指定された次元 `dim` において、入力テンソルの各行の最小値を含む名前付きタプル `(values, indices)` を返します。Not a Numbers (NaNs) は無視されます。"
+"Return the minimum values and indices along a dimension, ignoring NaN "
+"values."
+msgstr "指定した次元に沿って最小値と対応するインデックスを返し、NaN値は無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanmulmean <qfeval_functions.functions.nanmulmean>`"
 msgstr ":py:obj:`nanmulmean <qfeval_functions.functions.nanmulmean>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Calculates `QF.nanmean(x * y, ...)` in a memory-efficient way."
-msgstr "メモリ効率に優れた方法で `QF.nanmean(x * y, ...)` を計算します。"
+msgid ""
+"Compute the mean of element-wise product, ignoring NaN values, in a "
+"memory-efficient way."
+msgstr "メモリ効率に優れた方法で、NaN値を無視した要素ごとの積の平均値を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanmulsum <qfeval_functions.functions.nanmulsum>`"
 msgstr ":py:obj:`nanmulsum <qfeval_functions.functions.nanmulsum>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Calculates `QF.nansum(x * y, ...)` in a memory-efficient way."
-msgstr "メモリ効率に優れた方法で `QF.nansum(x * y, ...)` を計算します。"
+msgid ""
+"Compute the sum of element-wise product, ignoring NaN values, in a "
+"memory-efficient way."
+msgstr "メモリ効率に優れた方法で、NaN値を無視した要素ごとの積の総和を効率的に計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanones <qfeval_functions.functions.nanones>`"
@@ -308,16 +328,17 @@ msgstr ":py:obj:`nanones <qfeval_functions.functions.nanones>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ""
-"Returns a tensor having ones with the same shape of the given tensor, "
-"preserving Not a Numbers (NaNs)."
-msgstr "与えられたテンソルと同じ形状でones値を持つテンソルを返し、Not a Numbers (NaNs) を保持します。"
+"Create a tensor filled with ones, preserving NaN positions from the input"
+" tensor."
+msgstr "入力テンソルのNaN位置を保持したまま、1で埋められたテンソルを作成します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanpca <qfeval_functions.functions.nanpca>`"
 msgstr ":py:obj:`nanpca <qfeval_functions.functions.nanpca>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Computes principal components on the given data."
+#, fuzzy
+msgid "Compute Principal Component Analysis (PCA) on data, ignoring NaN values."
 msgstr "与えられたデータに対して主成分分析を実行します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -325,7 +346,8 @@ msgid ":py:obj:`nanshift <qfeval_functions.functions.nanshift>`"
 msgstr ":py:obj:`nanshift <qfeval_functions.functions.nanshift>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Shifts array elements along specified dimensions, ignoring NaNs."
+#, fuzzy
+msgid "Shift tensor elements along a dimension while preserving NaN positions."
 msgstr "指定された次元に沿って配列要素をシフトし、NaNは無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -333,15 +355,19 @@ msgid ":py:obj:`nanskew <qfeval_functions.functions.nanskew>`"
 msgstr ":py:obj:`nanskew <qfeval_functions.functions.nanskew>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the skewness of each row, ignoring Not a Numbers (NaNs)."
-msgstr "各行の歪度を返し、非数値値（NaN）は無視します。"
+#, fuzzy
+msgid "Compute the skewness along specified dimensions, ignoring NaN values."
+msgstr "指定された次元に沿って配列要素をシフトし、NaNは無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanslope <qfeval_functions.functions.nanslope>`"
 msgstr ":py:obj:`nanslope <qfeval_functions.functions.nanslope>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the slope of correlation bewteen `x` and `y`, ignoring NaNs."
+#, fuzzy
+msgid ""
+"Compute the slope of simple linear regression between two tensors, "
+"ignoring NaN values."
 msgstr "`x`と`y`の相関係数の傾きを返し、NaN値は無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -349,12 +375,19 @@ msgid ":py:obj:`nansum <qfeval_functions.functions.nansum>`"
 msgstr ":py:obj:`nansum <qfeval_functions.functions.nansum>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the sum of all elements, ignoring Not a Numbers (NaNs)."
-msgstr "Not a Numbers (NaNs) を無視して、すべての要素の合計を返します。"
+#, fuzzy
+msgid ""
+"Compute the sum of tensor elements along specified dimensions, ignoring "
+"NaN values."
+msgstr "指定された次元に沿って配列要素をシフトし、NaNは無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanvar <qfeval_functions.functions.nanvar>`"
 msgstr ":py:obj:`nanvar <qfeval_functions.functions.nanvar>`"
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Compute the variance of a tensor, ignoring NaN values."
+msgstr "NaN値を無視してテンソルの分散を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`orthogonalize <qfeval_functions.functions.orthogonalize>`"
@@ -388,6 +421,10 @@ msgid ""
 "and `D` means the       number of dimensions. In qfeval, dimensions and "
 "sections often represent symbols and timestamps respectively. :returns:."
 msgstr "入力データ `x` に対して主成分分析を実行します。返される値は主成分を表します。具体的には、`result[*, i, :]` は `*` で指定されたバッチの :math:`(i+1)` 番目に大きい主成分を表します。形状:     - x: :math:`(*, S, D)` ここで `*` は任意の追加次元数、`S` はセクション数、`D` は次元数を表します。qfeval では、次元数とセクション数はそれぞれシンボルとタイムスタンプを表すことが多いです。:returns:"
+"入力データ `x` に対して主成分分析を実行します。返される値は主成分を表します。具体的には、`result[*, i, :]` は `*` "
+"で指定されたバッチの :math:`(i+1)` 番目に大きい主成分を表します。形状:     - x: :math:`(*, S, D)` "
+"ここで `*` は任意の追加次元数、`S` はセクション数、`D` は次元数を表します。qfeval "
+"では、次元数とセクション数はそれぞれシンボルとタイムスタンプを表すことが多いです。:returns:"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`project <qfeval_functions.functions.project>`"
@@ -500,6 +537,9 @@ msgid ""
 " - Compatible with TA-lib Definition(use_sma=True): - "
 "https://info.monex.co.jp/technical-analysis/indicators/005.html"
 msgstr "定義 (use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp - TA-lib定義と互換性あり (use_sma=True): - https://info.monex.co.jp/technical-analysis/indicators/005.html"
+"定義 (use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp - TA-"
+"lib定義と互換性あり (use_sma=True): - https://info.monex.co.jp/technical-"
+"analysis/indicators/005.html"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`shift <qfeval_functions.functions.shift>`"
@@ -550,4 +590,114 @@ msgstr ":py:obj:`stable_sort <qfeval_functions.functions.stable_sort>`"
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid "Sorts the given tensor preserving the order of equivalent elements."
 msgstr "等価な要素の順序を保持しながら与えられたテンソルをソートします。"
+
+#~ msgid ""
+#~ "Applies the given data `x` into "
+#~ "the given function `f`, which expects"
+#~ " a tensor of `(batch, n)` shape."
+#~ msgstr "与えられたデータ `x` を、形状 `(batch, n)` のテンソルを期待する関数 `f` に適用します。"
+
+#~ msgid "Propagates last valid values backward."
+#~ msgstr "最後に有効な値を後方に伝播します。"
+
+#~ msgid ""
+#~ "Computes the frequency of each value "
+#~ "in a tensor along a specified "
+#~ "dimension, with support for a minimum"
+#~ " length of the output tensor."
+#~ msgstr "指定された次元に沿ってテンソル内の各値の頻度を計算します。出力テンソルの最小長をサポートします。"
+
+#~ msgid ""
+#~ "Returns the upper/middle/bottom values of "
+#~ "the corresponding Bollinger band."
+#~ msgstr "対応するボリンジャーバンドの上限/中央/下限値を返します。"
+
+#~ msgid ""
+#~ "Numbers each item in each group "
+#~ "from 0 to :math:`N-1`, where :math:`N`"
+#~ " is the number of the items of"
+#~ " the group."
+#~ msgstr "各グループ内の各項目に0から :math:`N-1`までの番号を割り当てます。ここで、:math:`N`はグループ内の項目数です。"
+
+#~ msgid "Typed version of torch.einsum."
+#~ msgstr "torch.einsumの型付きバージョン。"
+
+#~ msgid "Returns the exponential weighted moving average of the given tensor."
+#~ msgstr "指定されたテンソルの指数加重移動平均を返します。"
+
+#~ msgid "Propagates last valid values forward."
+#~ msgstr "有効値を前方に伝播します。"
+
+#~ msgid ""
+#~ "Applies a Gaussian filter with the "
+#~ "given `sigma` parameter to `x` along "
+#~ "the specified axis `dim`."
+#~ msgstr "指定された軸 `dim` に沿って、`x` に指定された `sigma` パラメータを持つガウシアンフィルタを適用します。"
+
+#~ msgid "Groups items of `x` by `group_id`."
+#~ msgstr "`group_id` で `x` の項目をグループ化します。"
+
+#~ msgid "Returns the moving average of the given tensor."
+#~ msgstr "指定されたテンソルの移動平均を返します。"
+
+#~ msgid "Returns the moving max of the given tensor."
+#~ msgstr "指定されたテンソルの移動最大値を返します。"
+
+#~ msgid "Returns the moving min of the given tensor."
+#~ msgstr "指定されたテンソルの移動最小値を返します。"
+
+#~ msgid "Returns the moving standard deviation of the given tensor."
+#~ msgstr "指定されたテンソルの移動標準偏差を返します。"
+
+#~ msgid "Calculate `(x * y).mean(...)` in a memory-efficient way."
+#~ msgstr "メモリ効率に優れた方法で `(x * y).mean(...)` を計算します。"
+
+#~ msgid "Calculate `(x * y).sum(...)` in a memory-efficient way."
+#~ msgstr "メモリ効率に優れた方法で `(x * y).sum(...)` を効率的に計算します。"
+
+#~ msgid "Returns the moving variance of the given tensor."
+#~ msgstr "指定されたテンソルの移動分散を返します。"
+
+#~ msgid "Returns the kurtosis of each row, ignoring Not a Numbers (NaNs)."
+#~ msgstr "各行の尖度を返し、非数値値（NaN）は無視します。"
+
+#~ msgid ""
+#~ "Returns a namedtuple `(values, indices)` "
+#~ "where values is the maximum value "
+#~ "of each row of the `input` tensor"
+#~ " in the given dimension `dim`, "
+#~ "ignoring Not a Numbers (NaNs)."
+#~ msgstr ""
+#~ "指定された次元 `dim` において、入力テンソルの各行の最大値を含むタプル `(values, "
+#~ "indices)` を返します。Not a Numbers (NaNs) "
+#~ "は無視されます。"
+
+#~ msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
+#~ msgstr "各行の平均値を返し、Not a Numbers (NaNs) は無視します。"
+
+#~ msgid ""
+#~ "Returns a namedtuple `(values, indices)` "
+#~ "where values is the minimum value "
+#~ "of each row of the `input` tensor"
+#~ " in the given dimension `dim`, "
+#~ "ignoring Not a Numbers (NaNs)."
+#~ msgstr ""
+#~ "指定された次元 `dim` において、入力テンソルの各行の最小値を含む名前付きタプル `(values,"
+#~ " indices)` を返します。Not a Numbers (NaNs) "
+#~ "は無視されます。"
+
+#~ msgid "Calculates `QF.nansum(x * y, ...)` in a memory-efficient way."
+#~ msgstr "メモリ効率に優れた方法で `QF.nansum(x * y, ...)` を計算します。"
+
+#~ msgid ""
+#~ "Returns a tensor having ones with "
+#~ "the same shape of the given "
+#~ "tensor, preserving Not a Numbers (NaNs)."
+#~ msgstr "与えられたテンソルと同じ形状でones値を持つテンソルを返し、Not a Numbers (NaNs) を保持します。"
+
+#~ msgid "Returns the skewness of each row, ignoring Not a Numbers (NaNs)."
+#~ msgstr "各行の歪度を返し、非数値値（NaN）は無視します。"
+
+#~ msgid "Returns the sum of all elements, ignoring Not a Numbers (NaNs)."
+#~ msgstr "Not a Numbers (NaNs) を無視して、すべての要素の合計を返します。"
 

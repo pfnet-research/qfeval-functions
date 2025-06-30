@@ -5,11 +5,14 @@ def project(a: torch.Tensor, x: torch.Tensor) -> torch.Tensor:
     """Projects the given tensor `x` using the given projection matrix `a`.
 
     Args:
-        a (Tensor): A projection matrix.
-        x (Tensor): A tensor to be projected.
+        a (Tensor):
+            A projection matrix.
+        x (Tensor):
+            A tensor to be projected.
 
-    Returns
-        y (Tensor): The projected tensor.
+    Returns:
+        y (Tensor):
+            The projected tensor.
 
     Shape:
         - a: :math:`(*, O, I)`, where :math:`*` represents any number of

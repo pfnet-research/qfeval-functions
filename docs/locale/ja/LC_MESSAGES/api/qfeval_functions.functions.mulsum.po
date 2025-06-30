@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,14 +22,84 @@ msgid "qfeval\\_functions.functions.mulsum"
 msgstr "qfeval\\_functions.functions.mulsum"
 
 #: of qfeval_functions.functions.mulsum.mulsum:1
-msgid "Calculate `(x * y).sum(...)` in a memory-efficient way."
-msgstr "メモリ効率に優れた方法で `(x * y).sum(...)` を計算します。"
+msgid "Compute sum or mean of element-wise product in a memory-efficient way."
+msgstr "メモリ効率に優れた方法で、要素ごとの積の和または平均を計算します。"
+
+#: of qfeval_functions.functions.mulsum.mulsum:3
+msgid ""
+"This function calculates the sum (or mean) of the element-wise product of"
+" two tensors ``(x * y).sum(dim)`` or ``(x * y).mean(dim)`` without "
+"creating the intermediate product tensor in memory. This is particularly "
+"crucial when working with large tensors or when broadcasting would result"
+" in a very large intermediate tensor that could exceed available memory."
+msgstr "この関数は、中間的な積テンソルをメモリ上に作成することなく、2つのテンソルの要素ごとの積の和（または平均） ``(x * y).sum(dim)`` または ``(x * y).mean(dim)`` を計算します。これは、特に大規模なテンソルを扱う場合や、ブロードキャスト操作によって中間テンソルが非常に大きくなり、利用可能なメモリを超える可能性がある場合に特に重要です。"
+
+#: ../../api/qfeval_functions.functions.mulsum.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mulsum.mulsum:10
+msgid "The first input tensor."
+msgstr "最初の入力テンソル。"
+
+#: of qfeval_functions.functions.mulsum.mulsum:13
+msgid "The second input tensor. Must be broadcastable with :attr:`x`."
+msgstr "第2の入力テンソル。 :attr:`x`とブロードキャスト可能である必要があります。"
+
+#: of qfeval_functions.functions.mulsum.mulsum:16
+msgid ""
+"The dimension(s) along which to compute the sum or mean. If not specified"
+" (default is empty tuple), the operation is computed over all dimensions."
+msgstr "和または平均を計算する次元を指定します。指定しない場合（デフォルトは空のタプル）、全ての次元にわたって計算が行われます。"
+
+#: of qfeval_functions.functions.mulsum.mulsum:21
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
+
+#: of qfeval_functions.functions.mulsum.mulsum:25
+msgid ""
+"If True, computes the mean instead of sum. Default is False (computes "
+"sum)."
+msgstr "Trueの場合、和ではなく平均を計算します。デフォルトはFalse（和を計算）です。"
+
+#: of qfeval_functions.functions.mulsum.mulsum:29
+msgid ""
+"Delta degrees of freedom for mean calculations. The divisor used is ``N -"
+" _ddof``, where ``N`` is the number of elements. Default is 0. This is an"
+" internal parameter."
+msgstr "平均計算における自由度の増分。使用する除数は ``N - _ddof`` で、ここで ``N`` は要素数を表します。デフォルト値は 0 です。これは内部パラメータです。"
+
+#: ../../api/qfeval_functions.functions.mulsum.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.mulsum.mulsum:34
+msgid ""
+"The sum or mean of the element-wise product. The shape depends on the "
+"input dimensions, :attr:`dim`, and :attr:`keepdim` parameters."
+msgstr "要素ごとの積の和または平均。形状は入力次元、:attr:`dim`、および :attr:`keepdim` パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.mulsum.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.mulsum.mulsum:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.mulsum.mulsum:39
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mulsum.mulsum:75
+msgid ""
+":func:`mulmean`: Convenience function for computing means. "
+":func:`einsum`: The underlying Einstein summation function. "
+":func:`covar`: Uses this function for efficient covariance calculations."
+msgstr ":func:`mulmean`: 平均値計算のための便利な関数。 :func:`einsum`: 基礎となるアインシュタイン総和関数。 :func:`covar`: 効率的な共分散計算のためにこの関数を使用します。"
+
+#~ msgid "Calculate `(x * y).sum(...)` in a memory-efficient way."
+#~ msgstr "メモリ効率に優れた方法で `(x * y).sum(...)` を計算します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

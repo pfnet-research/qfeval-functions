@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -26,15 +26,78 @@ msgstr "qfeval\\_functions.functions.nanones"
 
 #: of qfeval_functions.functions.nanones.nanones:1
 msgid ""
-"Returns a tensor having ones with the same shape of the given tensor, "
-"preserving Not a Numbers (NaNs)."
-msgstr "与えられたテンソルと同じ形状のテンソルを返し、その中に非数 (NaN) を保持したまますべての要素を1に設定します。"
+"Create a tensor filled with ones, preserving NaN positions from the input"
+" tensor."
+msgstr "入力テンソルのNaN値の位置を保持したまま、1で埋められたテンソルを作成します。"
+
+#: of qfeval_functions.functions.nanones.nanones:3
+msgid ""
+"This function creates a new tensor with the same shape, dtype, and device"
+" as the input tensor, filled with ones. However, positions where the "
+"input tensor contains NaN values are preserved as NaN in the output "
+"tensor. This is useful for creating mask-like tensors that maintain the "
+"NaN structure of the original data while providing ones for valid "
+"positions."
+msgstr "この関数は、入力テンソルと同じ形状、データ型、デバイスを持つ新しいテンソルを作成し、値を1で埋めます。ただし、入力テンソルにNaN値が存在する位置は、出力テンソルでもNaN値として保持されます。これは、元のデータのNaN構造を維持しつつ、有効な位置には1を設定したマスク状のテンソルを作成する際に有用です。"
+
+#: of qfeval_functions.functions.nanones.nanones:9
+msgid "The function performs the following operation:"
+msgstr "この関数は以下の操作を実行します："
+
+#: of qfeval_functions.functions.nanones.nanones:11
+#, python-brace-format
+msgid ""
+"\\text{nanones}(X)_i = \\begin{cases}\n"
+"\\text{NaN} & \\text{if } X_i = \\text{NaN} \\\\\n"
+"1 & \\text{otherwise}\n"
+"\\end{cases}\n"
+"\n"
+msgstr "\\text{nanones}(X)_i = \\begin{cases}\n\\text{NaN} & \\text{if } X_i = \\text{NaN} \\\\\n1 & \\text{otherwise}\n\\end{cases}\n\n"
+
+#: ../../api/qfeval_functions.functions.nanones.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.nanones.nanones:18
+msgid ""
+"The input tensor whose shape, dtype, and device will be used for the "
+"output tensor. NaN positions in this tensor will be preserved in the "
+"output."
+msgstr "出力テンソルの形状、データ型、デバイスを決定する入力テンソル。このテンソル内のNaN位置は出力テンソルにそのまま保持されます。"
+
+#: ../../api/qfeval_functions.functions.nanones.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanones.nanones:23
+msgid ""
+"A tensor with the same shape, dtype, and device as :attr:`like`, filled "
+"with ones except for positions where :attr:`like` contains NaN values, "
+"which remain NaN."
+msgstr ":attr:`like`と同じ形状、データ型、デバイスを持ち、:attr:`like`がNaN値を含む位置はそのままNaN値を保持し、それ以外の位置は1で埋められたテンソル。"
 
 #: ../../api/qfeval_functions.functions.nanones.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nanones.nanones:5
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.nanones.nanones:29
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.nanones.nanones:59
+msgid ""
+":func:`nanzeros`: Create zeros tensor preserving NaN positions. "
+"``torch.ones_like``: Create ones tensor with same properties. "
+"``torch.where``: Conditional tensor selection."
+msgstr ":func:`nanzeros`: NaN値の位置を保持したままゼロ値のテンソルを作成します。``torch.ones_like``: 同じプロパティを持つワン値のテンソルを作成します。``torch.where``: 条件付きテンソルの選択を行います。"
+
+#~ msgid ""
+#~ "Returns a tensor having ones with "
+#~ "the same shape of the given "
+#~ "tensor, preserving Not a Numbers (NaNs)."
+#~ msgstr "与えられたテンソルと同じ形状のテンソルを返し、その中に非数 (NaN) を保持したまますべての要素を1に設定します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

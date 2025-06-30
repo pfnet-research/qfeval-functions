@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-06-28 00:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -26,16 +26,115 @@ msgstr "qfeval\\_functions.functions.nanmin"
 
 #: of qfeval_functions.functions.nanmin.nanmin:1
 msgid ""
-"Returns a namedtuple `(values, indices)` where values is the minimum "
-"value of each row of the `input` tensor in the given dimension `dim`, "
-"ignoring Not a Numbers (NaNs)."
-msgstr "指定された次元 `dim` において、入力テンソルの各行の最小値を含むタプル `(values, indices)` を返します。この際、Not a Numbers (NaN) は無視されます。"
+"Return the minimum values and indices along a dimension, ignoring NaN "
+"values."
+msgstr "NaN値を無視して、指定された次元に沿って最小値とそのインデックスを返します。"
+
+#: of qfeval_functions.functions.nanmin.nanmin:3
+msgid ""
+"This function computes the minimum value along the specified dimension, "
+"excluding NaN values from consideration. It returns both the minimum "
+"values and their corresponding indices in the original tensor. This is "
+"similar to ``torch.min`` but with NaN-aware behavior."
+msgstr "この関数は、指定された次元に沿って最小値を計算し、NaN値を計算対象から除外します。元のテンソルにおける最小値とその対応するインデックスの両方を返します。これは``torch.min``と似ていますが、NaN値を考慮した動作をします。"
+
+#: of qfeval_functions.functions.nanmin.nanmin:8
+msgid "The function handles edge cases including:"
+msgstr "この関数は以下のエッジケースを適切に処理します："
+
+#: of qfeval_functions.functions.nanmin.nanmin:10
+msgid "Pure NaN slices (returns NaN for values)"
+msgstr "純粋な NaN スライス（値は NaN として返されます）"
+
+#: of qfeval_functions.functions.nanmin.nanmin:11
+msgid "Mixed NaN and positive infinity values"
+msgstr "NaN値と正の無限大値が混在している場合"
+
+#: of qfeval_functions.functions.nanmin.nanmin:12
+msgid "All positive infinity values (returns positive infinity)"
+msgstr "すべての正の無限大値（正の無限大を返す）"
+
+#: ../../api/qfeval_functions.functions.nanmin.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.nanmin.nanmin:15
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.nanmin.nanmin:18
+msgid "The dimension along which to find the minimum values."
+msgstr "最小値を求める次元を指定します。"
+
+#: of qfeval_functions.functions.nanmin.nanmin:21
+msgid ""
+"Whether the output tensors have :attr:`dim` retained or not. Default is "
+"False."
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
+
+#: ../../api/qfeval_functions.functions.nanmin.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanmin.nanmin:25
+msgid ""
+"A named tuple containing:      - ``values`` (Tensor): The minimum values "
+"along the specified dimension,       with NaN values ignored. If a slice "
+"contains only NaN values,       the result is NaN.     - ``indices`` "
+"(Tensor): The indices of the minimum values in the       original tensor."
+msgstr "以下の要素を含む名前付きタプル:
+- ``values`` (Tensor): 指定された次元に沿って算出された最小値。NaN値は無視されます。スライス内にNaN値のみが含まれる場合、結果はNaNとなります。
+- ``indices`` (Tensor): 元のテンソル内で最小値の位置を示すインデックス。"
+
+#: of qfeval_functions.functions.nanmin.nanmin:27
+msgid "A named tuple containing:"
+msgstr "以下の要素を含む名前付きタプル:"
+
+#: of qfeval_functions.functions.nanmin.nanmin:29
+msgid ""
+"``values`` (Tensor): The minimum values along the specified dimension, "
+"with NaN values ignored. If a slice contains only NaN values, the result "
+"is NaN."
+msgstr "``values`` (Tensor): 指定された次元に沿って計算された最小値。NaN値は無視されます。スライスがNaN値のみで構成されている場合、結果はNaNとなります。"
+
+#: of qfeval_functions.functions.nanmin.nanmin:32
+msgid ""
+"``indices`` (Tensor): The indices of the minimum values in the original "
+"tensor."
+msgstr "``indices`` (Tensor): 元のテンソルにおける最小値のインデックス。"
 
 #: ../../api/qfeval_functions.functions.nanmin.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.nanmin.nanmin:6
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.nanmin.NanminResult\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.nanmin.NanminResult\\``"
+#: of qfeval_functions.functions.nanmin.nanmin:37
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.nanmin.nanmin:77
+msgid ":func:`nanmax`: NaN-aware maximum function."
+msgstr ":func:`nanmax`: NaNを考慮した最大値関数。"
+
+#: of qfeval_functions.functions.nanmin.nanmin:78
+msgid ":func:`nanargmin`: NaN-aware argument minimum function."
+msgstr ":func:`nanargmin`: NaNを考慮した引数の最小値を求める関数。"
+
+#: of qfeval_functions.functions.nanmin.nanmin:79
+msgid ":func:`torch.min`: Standard minimum function (NaN propagates)."
+msgstr ":func:`torch.min`: 標準の最小値関数（NaNは伝播します）。"
+
+#~ msgid ""
+#~ "Returns a namedtuple `(values, indices)` "
+#~ "where values is the minimum value "
+#~ "of each row of the `input` tensor"
+#~ " in the given dimension `dim`, "
+#~ "ignoring Not a Numbers (NaNs)."
+#~ msgstr ""
+#~ "指定された次元 `dim` において、入力テンソルの各行の最小値を含むタプル `(values, "
+#~ "indices)` を返します。この際、Not a Numbers (NaN) "
+#~ "は無視されます。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.nanmin.NanminResult\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.nanmin.NanminResult\\``"
 
