@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -25,7 +24,6 @@ msgid "qfeval\\_functions.functions.correl"
 msgstr "qfeval\\_functions.functions.correl"
 
 #: of qfeval_functions.functions.correl.correl:1
-#, fuzzy
 msgid "Compute Pearson correlation coefficient between two tensors."
 msgstr "`x`と`y`の間のピアソン相関係数を返します。"
 
@@ -64,7 +62,6 @@ msgid ""
 msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
 
 #: of qfeval_functions.functions.correl.correl
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

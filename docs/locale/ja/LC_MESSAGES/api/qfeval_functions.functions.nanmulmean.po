@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -97,7 +96,6 @@ msgid ""
 msgstr "内部計算で使用する自由度のデルタ値。除数は``N_valid - _ddof``で表され、``N_valid``は有効な（NaNでない）ペアの数です。デフォルト値は0です。これは内部パラメータです。"
 
 #: ../../api/qfeval_functions.functions.nanmulmean.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

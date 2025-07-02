@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -45,7 +44,6 @@ msgid "Returns"
 msgstr "Returns"
 
 #: of qfeval_functions.functions.project.project:10
-#, fuzzy
 msgid "The projected tensor."
 msgstr "y (Tensor): 射影されたテンソル。"
 

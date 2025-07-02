@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -53,7 +52,6 @@ msgid ""
 msgstr "順方向フィルを実行する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: of qfeval_functions.functions.ffill.ffill
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

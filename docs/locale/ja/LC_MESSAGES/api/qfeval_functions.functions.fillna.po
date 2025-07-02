@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -25,7 +24,6 @@ msgid "qfeval\\_functions.functions.fillna"
 msgstr "qfeval\\_functions.functions.fillna"
 
 #: of qfeval_functions.functions.fillna.fillna:1
-#, fuzzy
 msgid "Replace NaN and infinity values with specified numbers."
 msgstr "NaN、正の無限大、負の無限大の値を指定した数値に置換します。"
 
@@ -64,7 +62,6 @@ msgid ""
 msgstr "負の無限大を置き換える値。デフォルトは ``-math.inf`` で、負の無限大をそのまま保持します。"
 
 #: of qfeval_functions.functions.fillna.fillna
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

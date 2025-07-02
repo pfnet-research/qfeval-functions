@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -25,7 +24,6 @@ msgid "qfeval\\_functions.functions.nancovar"
 msgstr "qfeval\\_functions.functions.nancovar"
 
 #: of qfeval_functions.functions.nancovar.nancovar:1
-#, fuzzy
 msgid "Compute covariance between two tensors, ignoring NaN values."
 msgstr "指定されたテンソル間の共分散を計算します。"
 
@@ -96,7 +94,6 @@ msgid ""
 msgstr "自由度のデルタ値。計算に使用される除数は ``N - ddof`` で、ここで ``N`` は有効な（NaNでない）ペアの数を表します。デフォルト値は 1 です。"
 
 #: ../../api/qfeval_functions.functions.nancovar.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

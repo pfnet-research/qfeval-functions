@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -25,7 +24,6 @@ msgid "qfeval\\_functions.functions.mulmean"
 msgstr "qfeval\\_functions.functions.mulmean"
 
 #: of qfeval_functions.functions.mulmean.mulmean:1
-#, fuzzy
 msgid "Compute the mean of element-wise product in a memory-efficient way."
 msgstr "メモリ効率に優れた方法で `(x * y).mean(...)` を計算します。"
 
@@ -77,7 +75,6 @@ msgid ""
 msgstr "内部計算で使用する自由度のデルタ値。使用する除数は ``N - _ddof`` で、ここで ``N`` は要素数を表します。デフォルト値は 0 です。これは内部パラメータです。"
 
 #: ../../api/qfeval_functions.functions.mulmean.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

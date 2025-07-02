@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
@@ -72,7 +71,6 @@ msgid ""
 msgstr "平均計算における自由度の増分。使用する除数は ``N - _ddof`` で、ここで ``N`` は要素数を表します。デフォルト値は 0 です。これは内部パラメータです。"
 
 #: ../../api/qfeval_functions.functions.mulsum.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

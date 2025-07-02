@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -66,7 +65,6 @@ msgid ""
 msgstr "出力テンソルの形状、データ型、デバイスを決定する入力テンソル。このテンソル内のNaN位置は出力テンソルにそのまま保持されます。"
 
 #: ../../api/qfeval_functions.functions.nanones.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

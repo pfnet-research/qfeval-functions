@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -25,7 +24,6 @@ msgid "qfeval\\_functions.functions.nanslope"
 msgstr "qfeval\\_functions.functions.nanslope"
 
 #: of qfeval_functions.functions.nanslope.nanslope:1
-#, fuzzy
 msgid ""
 "Compute the slope of simple linear regression between two tensors, "
 "ignoring NaN values."
@@ -93,7 +91,6 @@ msgid ""
 msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
 
 #: ../../api/qfeval_functions.functions.nanslope.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

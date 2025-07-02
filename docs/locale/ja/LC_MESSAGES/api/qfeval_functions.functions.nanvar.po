@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
@@ -63,7 +62,6 @@ msgid ""
 msgstr "``True`` の場合、出力テンソルは入力テンソルと同じ数の次元を持ち、削減された次元のサイズは 1 になります。``False`` の場合（デフォルト）、削減された次元は削除されます。"
 
 #: of qfeval_functions.functions.nanvar.nanvar
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -25,7 +24,6 @@ msgid "qfeval\\_functions.functions.mstd"
 msgstr "qfeval\\_functions.functions.mstd"
 
 #: of qfeval_functions.functions.mstd.mstd:1
-#, fuzzy
 msgid "Compute the moving (sliding window) standard deviation of a tensor."
 msgstr "指定されたテンソルの移動標準偏差を返します。"
 
@@ -40,7 +38,6 @@ msgid ""
 msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の標準偏差を計算します。出力テンソルは入力テンソルと同じ形状を持ちます。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
 
 #: of qfeval_functions.functions.mstd.mstd:9
-#, fuzzy
 msgid "The moving standard deviation is computed as:"
 msgstr "指定されたテンソルの移動標準偏差を返します。"
 
@@ -83,7 +80,6 @@ msgid ""
 msgstr "自由度のデルタ値。計算で使用される除数は ``N - ddof`` であり、ここで ``N`` はウィンドウ内の要素数を表します。デフォルト値は 1 です（標本標準偏差）。"
 
 #: ../../api/qfeval_functions.functions.mstd.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

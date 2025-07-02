@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -63,7 +62,6 @@ msgid ":py:obj:`correl <qfeval_functions.functions.correl>`"
 msgstr ":py:obj:`correl <qfeval_functions.functions.correl>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute Pearson correlation coefficient between two tensors."
 msgstr "`x`と`y`の間のピアソン相関係数を返します。"
 
@@ -72,7 +70,6 @@ msgid ":py:obj:`covar <qfeval_functions.functions.covar>`"
 msgstr ":py:obj:`covar <qfeval_functions.functions.covar>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute covariance between two tensors along a specified dimension."
 msgstr "指定された次元に沿って、与えられたテンソル間の共分散を計算します。"
 
@@ -89,7 +86,6 @@ msgid ":py:obj:`eigh <qfeval_functions.functions.eigh>`"
 msgstr ":py:obj:`eigh <qfeval_functions.functions.eigh>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute eigenvalues and eigenvectors of a symmetric/Hermitian matrix."
 msgstr "固有値と固有ベクトルを計算します。"
 
@@ -116,7 +112,6 @@ msgid ":py:obj:`ffill <qfeval_functions.functions.ffill>`"
 msgstr ":py:obj:`ffill <qfeval_functions.functions.ffill>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Forward fill missing values along the specified dimension."
 msgstr "指定された次元に沿って、xをyに対して直交化します。"
 
@@ -125,7 +120,6 @@ msgid ":py:obj:`fillna <qfeval_functions.functions.fillna>`"
 msgstr ":py:obj:`fillna <qfeval_functions.functions.fillna>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Replace NaN and infinity values with specified numbers."
 msgstr "NaN、正の無限大、負の無限大の値を指定された数値で置き換えます。"
 
@@ -134,7 +128,6 @@ msgid ":py:obj:`gaussian_blur <qfeval_functions.functions.gaussian_blur>`"
 msgstr ":py:obj:`gaussian_blur <qfeval_functions.functions.gaussian_blur>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Apply Gaussian blur to a tensor along a specified dimension."
 msgstr "指定された次元に沿って、与えられたテンソル間の共分散を計算します。"
 
@@ -143,7 +136,6 @@ msgid ":py:obj:`group_shift <qfeval_functions.functions.group_shift>`"
 msgstr ":py:obj:`group_shift <qfeval_functions.functions.group_shift>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Shift tensor elements along a dimension, skipping masked positions."
 msgstr "指定されたマスクをスキップしながら、テンソルを指定された次元に沿ってシフトします。"
 
@@ -160,36 +152,32 @@ msgid ":py:obj:`ma <qfeval_functions.functions.ma>`"
 msgstr ":py:obj:`ma <qfeval_functions.functions.ma>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute the moving (sliding window) average of a tensor."
-msgstr "テンソルの移動和（スライディングウィンドウ和）を計算します。"
+msgstr "テンソルの移動平均（スライディングウィンドウ平均）を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`mmax <qfeval_functions.functions.mmax>`"
 msgstr ":py:obj:`mmax <qfeval_functions.functions.mmax>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute the moving (sliding window) maximum of a tensor."
-msgstr "テンソルの移動和（スライディングウィンドウ和）を計算します。"
+msgstr "テンソルの移動最大値（スライディングウィンドウ最大値）を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`mmin <qfeval_functions.functions.mmin>`"
 msgstr ":py:obj:`mmin <qfeval_functions.functions.mmin>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute the moving (sliding window) minimum of a tensor."
-msgstr "テンソルの移動和（スライディングウィンドウ和）を計算します。"
+msgstr "テンソルの移動最小値（スライディングウィンドウ最小値）を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`mstd <qfeval_functions.functions.mstd>`"
 msgstr ":py:obj:`mstd <qfeval_functions.functions.mstd>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute the moving (sliding window) standard deviation of a tensor."
-msgstr "テンソルの移動和（スライディングウィンドウ和）を計算します。"
+msgstr "テンソルの移動標準偏差（スライディングウィンドウ標準偏差）を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`msum <qfeval_functions.functions.msum>`"
@@ -204,34 +192,30 @@ msgid ":py:obj:`mulmean <qfeval_functions.functions.mulmean>`"
 msgstr ":py:obj:`mulmean <qfeval_functions.functions.mulmean>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute the mean of element-wise product in a memory-efficient way."
-msgstr "メモリ効率に優れた方法で `QF.nanmean(x * y, ...)` を計算します。"
+msgstr "メモリ効率に優れた方法で要素ごとの積の平均を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`mulsum <qfeval_functions.functions.mulsum>`"
 msgstr ":py:obj:`mulsum <qfeval_functions.functions.mulsum>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute sum or mean of element-wise product in a memory-efficient way."
-msgstr "メモリ効率に優れた方法で `QF.nanmean(x * y, ...)` を計算します。"
+msgstr "メモリ効率に優れた方法で要素ごとの積の和または平均を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`mvar <qfeval_functions.functions.mvar>`"
 msgstr ":py:obj:`mvar <qfeval_functions.functions.mvar>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute the moving (sliding window) variance of a tensor."
-msgstr "テンソルの移動和（スライディングウィンドウ和）を計算します。"
+msgstr "テンソルの移動分散（スライディングウィンドウ分散）を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nancorrel <qfeval_functions.functions.nancorrel>`"
 msgstr ":py:obj:`nancorrel <qfeval_functions.functions.nancorrel>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid ""
 "Compute Pearson correlation coefficient between two tensors, ignoring NaN"
 " values."
@@ -242,7 +226,6 @@ msgid ":py:obj:`nancovar <qfeval_functions.functions.nancovar>`"
 msgstr ":py:obj:`nancovar <qfeval_functions.functions.nancovar>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute covariance between two tensors, ignoring NaN values."
 msgstr "与えられたテンソル間の共分散を計算します。"
 
@@ -267,9 +250,8 @@ msgid ":py:obj:`nankurtosis <qfeval_functions.functions.nankurtosis>`"
 msgstr ":py:obj:`nankurtosis <qfeval_functions.functions.nankurtosis>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute the kurtosis along specified dimensions, ignoring NaN values."
-msgstr "指定された次元に沿って配列要素をシフトし、NaNは無視します。"
+msgstr "指定された次元に沿って尖度を計算し、NaN値は無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanmax <qfeval_functions.functions.nanmax>`"
@@ -286,11 +268,10 @@ msgid ":py:obj:`nanmean <qfeval_functions.functions.nanmean>`"
 msgstr ":py:obj:`nanmean <qfeval_functions.functions.nanmean>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid ""
 "Compute the arithmetic mean along specified dimensions, ignoring NaN "
 "values."
-msgstr "指定された次元に沿って配列要素をシフトし、NaNは無視します。"
+msgstr "指定された次元に沿って算術平均を計算し、NaN値は無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanmin <qfeval_functions.functions.nanmin>`"
@@ -337,7 +318,6 @@ msgid ":py:obj:`nanpca <qfeval_functions.functions.nanpca>`"
 msgstr ":py:obj:`nanpca <qfeval_functions.functions.nanpca>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute Principal Component Analysis (PCA) on data, ignoring NaN values."
 msgstr "与えられたデータに対して主成分分析を実行します。"
 
@@ -346,7 +326,6 @@ msgid ":py:obj:`nanshift <qfeval_functions.functions.nanshift>`"
 msgstr ":py:obj:`nanshift <qfeval_functions.functions.nanshift>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Shift tensor elements along a dimension while preserving NaN positions."
 msgstr "指定された次元に沿って配列要素をシフトし、NaNは無視します。"
 
@@ -355,16 +334,14 @@ msgid ":py:obj:`nanskew <qfeval_functions.functions.nanskew>`"
 msgstr ":py:obj:`nanskew <qfeval_functions.functions.nanskew>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute the skewness along specified dimensions, ignoring NaN values."
-msgstr "指定された次元に沿って配列要素をシフトし、NaNは無視します。"
+msgstr "指定された次元に沿って歪度を計算し、NaN値は無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanslope <qfeval_functions.functions.nanslope>`"
 msgstr ":py:obj:`nanslope <qfeval_functions.functions.nanslope>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid ""
 "Compute the slope of simple linear regression between two tensors, "
 "ignoring NaN values."
@@ -375,11 +352,10 @@ msgid ":py:obj:`nansum <qfeval_functions.functions.nansum>`"
 msgstr ":py:obj:`nansum <qfeval_functions.functions.nansum>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid ""
 "Compute the sum of tensor elements along specified dimensions, ignoring "
 "NaN values."
-msgstr "指定された次元に沿って配列要素をシフトし、NaNは無視します。"
+msgstr "指定された次元に沿ってテンソル要素の和を計算し、NaN値は無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`nanvar <qfeval_functions.functions.nanvar>`"

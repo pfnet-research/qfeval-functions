@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -67,7 +66,6 @@ msgid ""
 msgstr "ガウシアンブラーを適用する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.gaussian_blur.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

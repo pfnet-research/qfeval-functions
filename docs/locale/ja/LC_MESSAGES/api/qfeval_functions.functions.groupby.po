@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -37,7 +36,6 @@ msgid ""
 msgstr "この関数は、与えられたグループ識別子に基づいてテンソルの要素をグループに再編成します。各グループに属するすべての要素を含む新しい次元を作成します。これはSQLのGROUP BY句やpandasのgroupby操作に似ていますが、テンソル演算用に最適化されています。"
 
 #: of qfeval_functions.functions.groupby.groupby:8
-#, fuzzy
 msgid ""
 "The function adds a new dimension immediately after the specified "
 "dimension. This new dimension represents the items within each group. "
@@ -77,7 +75,6 @@ msgid ""
 msgstr "グループサイズの最大値よりも要素数が少ないグループをパディングするために使用される値。デフォルトは ``nan`` です。"
 
 #: of qfeval_functions.functions.groupby.groupby
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

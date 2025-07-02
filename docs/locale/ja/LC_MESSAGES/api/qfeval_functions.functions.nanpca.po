@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -25,7 +24,6 @@ msgid "qfeval\\_functions.functions.nanpca"
 msgstr "qfeval\\_functions.functions.nanpca"
 
 #: of qfeval_functions.functions.nanpca.nanpca:1
-#, fuzzy
 msgid "Compute Principal Component Analysis (PCA) on data, ignoring NaN values."
 msgstr "与えられたデータに対して主成分を計算します。"
 
@@ -76,7 +74,6 @@ msgid "Parameters"
 msgstr "パラメータ"
 
 #: of qfeval_functions.functions.nanpca.nanpca:26
-#, fuzzy
 msgid ""
 "Input tensor of shape :math:`(*, N, C)` where :math:`*` means any number "
 "of additional batch dimensions, :math:`N` is the number of samples, and "

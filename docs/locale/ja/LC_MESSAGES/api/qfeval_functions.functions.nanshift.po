@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -25,7 +24,6 @@ msgid "qfeval\\_functions.functions.nanshift"
 msgstr "qfeval\\_functions.functions.nanshift"
 
 #: of qfeval_functions.functions.nanshift.nanshift:1
-#, fuzzy
 msgid "Shift tensor elements along a dimension while preserving NaN positions."
 msgstr "指定された次元に沿って配列要素をシフトし、NaNは無視します。"
 
@@ -66,7 +64,6 @@ msgid ""
 msgstr "シフトを実行する次元。デフォルトは-1（最後の次元）です。"
 
 #: ../../api/qfeval_functions.functions.nanshift.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

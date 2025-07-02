@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -25,7 +24,6 @@ msgid "qfeval\\_functions.functions.eigh"
 msgstr "qfeval\\_functions.functions.eigh"
 
 #: of qfeval_functions.functions.eigh.eigh:1
-#, fuzzy
 msgid "Compute eigenvalues and eigenvectors of a symmetric/Hermitian matrix."
 msgstr "固有値と固有ベクトルを計算します。"
 
@@ -38,7 +36,6 @@ msgid ""
 msgstr "この関数は、実対称行列または複素エルミート行列の固有値と固有ベクトルを計算します。固有値は昇順に返され、対応する固有ベクトルは正規化されます。この実装では、CPUテンソルにはNumPyを、CUDAテンソルにはCuPyを使用しています。"
 
 #: of qfeval_functions.functions.eigh.eigh:9
-#, fuzzy
 msgid "This function does not support automatic differentiation (autograd)."
 msgstr "注意: この関数は微分可能な計算をサポートしていません。"
 
@@ -73,7 +70,6 @@ msgid "'U' or 'u': Use the upper triangular part"
 msgstr "'U' または 'u': 上三角部分を使用する"
 
 #: of qfeval_functions.functions.eigh.eigh
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

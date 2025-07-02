@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
@@ -22,7 +21,6 @@ msgid "qfeval\\_functions.functions.mvar"
 msgstr "qfeval\\_functions.functions.mvar"
 
 #: of qfeval_functions.functions.mvar.mvar:1
-#, fuzzy
 msgid "Compute the moving (sliding window) variance of a tensor."
 msgstr "指定されたテンソルの移動分散を返します。"
 
@@ -78,7 +76,6 @@ msgid ""
 msgstr "自由度の差。計算で使用される除数は ``span - ddof`` です。母分散の場合は 0 を指定します。デフォルト値は 1 です（標本分散）。"
 
 #: ../../api/qfeval_functions.functions.mvar.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

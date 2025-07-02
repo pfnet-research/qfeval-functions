@@ -4,7 +4,6 @@
 # package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
@@ -25,7 +24,6 @@ msgid "qfeval\\_functions.functions.group\\_shift"
 msgstr "qfeval\\_functions.functions.group\\_shift"
 
 #: of qfeval_functions.functions.group_shift.group_shift:1
-#, fuzzy
 msgid "Shift tensor elements along a dimension, skipping masked positions."
 msgstr "指定された次元に沿ってテンソルをシフトし、指定されたマスクの位置はスキップします。"
 
@@ -57,7 +55,6 @@ msgid "Parameters"
 msgstr "パラメータ"
 
 #: of qfeval_functions.functions.group_shift.group_shift:20
-#, fuzzy
 msgid "The input tensor to be shifted."
 msgstr "入力テンソル。"
 
@@ -68,7 +65,6 @@ msgid ""
 msgstr "シフトする位置の数。正の値は前方へシフト（高いインデックス方向へ）、負の値は後方へシフトします。デフォルト値は1です。"
 
 #: of qfeval_functions.functions.group_shift.group_shift:28
-#, fuzzy
 msgid "The dimension along which to perform the shift. Default is 0."
 msgstr "`x` がシフトされる次元。"
 
