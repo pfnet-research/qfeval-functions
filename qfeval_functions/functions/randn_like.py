@@ -83,25 +83,6 @@ def randn_like(
         - :func:`rand_like`: Generate uniform random tensor with same shape as input.
         - :func:`torch.randn_like`: PyTorch's native normal random tensor generation.
 
-    .. note::
-        This function is particularly useful in quantitative finance for:
-
-        - Adding Gaussian noise to existing financial time series data
-        - Creating random shocks matching the structure of return matrices
-        - Initializing random parameters with the same shape as model weights
-        - Generating correlated random variables via transformation
-        - Monte Carlo simulations where noise must match data dimensions
-        - Stress testing with random perturbations to portfolio weights
-
-    .. note::
-        The function internally calls :func:`randn` with the appropriate
-        parameters extracted from the input tensor, ensuring consistent
-        behavior and reproducibility guarantees.
-
-    .. note::
-        For financial modeling, this function is often used to generate
-        random innovations that preserve the dimensional structure of
-        existing datasets while following standard normal assumptions.
     """
     return randn(
         *input.shape, dtype=dtype or input.dtype, device=device or input.device

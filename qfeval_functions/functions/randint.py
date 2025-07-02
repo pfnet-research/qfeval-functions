@@ -84,19 +84,6 @@ def randint(
         - :func:`randperm`: Generate random permutation of integers.
         - :func:`torch.randint`: PyTorch's native random integer generation.
 
-    .. note::
-        This function is particularly useful in quantitative finance for:
-
-        - Generating discrete random scenarios (e.g., market regime indicators)
-        - Creating random indices for bootstrap sampling
-        - Simulating discrete events (e.g., default events, rating changes)
-        - Random feature selection in machine learning models
-        - Monte Carlo simulations with discrete state spaces
-
-    .. note::
-        When using this function for financial simulations, ensure that
-        the range [low, high) covers all possible discrete states or
-        categories relevant to your model.
     """
     if is_fast():
         return torch.randint(

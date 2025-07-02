@@ -145,23 +145,6 @@ def rsi(
         - :func:`ema`: Exponential moving average used in RSI calculation.
         - :func:`msum`: Moving sum used in SMA-based RSI calculation.
 
-    .. note::
-        The RSI is widely used in technical analysis for:
-
-        - Identifying overbought/oversold conditions (RSI > 70 or RSI < 30)
-        - Detecting divergences between price and momentum
-        - Generating buy/sell signals at extreme RSI levels
-        - Confirming trend reversals and continuations
-        - Multi-timeframe momentum analysis
-
-    .. note::
-        In quantitative finance applications, RSI can be used for:
-
-        - Momentum factor construction in multi-factor models
-        - Mean reversion strategy development
-        - Risk management through momentum regime detection
-        - Portfolio optimization based on momentum characteristics
-        - Systematic trading signal generation
 
     .. warning::
         RSI is a lagging indicator and can remain in overbought/oversold

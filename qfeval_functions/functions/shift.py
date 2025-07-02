@@ -100,28 +100,8 @@ def shift(
         - :func:`nanshift`: Shift operation that handles NaN values specially.
 
     .. note::
-        This function is essential in time series analysis for:
-
-        - Creating lagged variables for regression analysis
-        - Implementing sliding window operations
-        - Generating features for machine learning models
-        - Time series forecasting and backtesting
-        - Computing returns and price differences
-
-    .. note::
-        In quantitative finance applications, shift is commonly used for:
-
-        - Creating lagged price and return series
-        - Computing technical indicators with lookback periods
-        - Implementing trading strategies with signal delays
-        - Risk factor modeling with temporal dependencies
-        - Portfolio rebalancing with implementation delays
-
-    .. note::
-        The shift operation preserves the tensor shape and data type, only
-        changing the positions of elements and adding NaN padding where
-        necessary. Large shift values are automatically clamped to the
-        tensor dimensions to prevent out-of-bounds access.
+        The shift operation preserves tensor shape and data type. Large shift
+        values are automatically clamped to prevent out-of-bounds access.
     """
 
     # 1. Force dims/shifts to be tuples.

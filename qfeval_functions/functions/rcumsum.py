@@ -66,26 +66,7 @@ def rcumsum(x: torch.Tensor, dim: int) -> torch.Tensor:
         - :func:`rcummax`: Reverse cumulative maximum.
 
     .. note::
-        This function is essential in financial analysis for:
-
-        - Computing remaining cash flows from any point forward
-        - Calculating future value accumulations in investment scenarios
-        - Reverse discounting for present value calculations
-        - Tail sum computations for risk assessment
-        - Portfolio rebalancing with forward-looking constraints
-
-    .. note::
-        The reverse cumulative sum is particularly useful for:
-
-        - Calculating total remaining exposure or commitments
-        - Computing final settlement amounts in derivative contracts
-        - Analyzing cumulative returns from exit points
-        - Budget allocation with remaining period constraints
-        - Stress testing with forward-looking scenarios
-
-    .. note::
-        For time series data, this function provides the sum of all future
-        values from each time point, which is valuable for forecasting
-        and planning applications.
+        Computes the sum of all future values from each time point, useful
+        for forecasting and financial planning applications.
     """
     return torch.flip(torch.cumsum(torch.flip(x, [dim]), dim), [dim])

@@ -73,31 +73,6 @@ def signif(x: torch.Tensor, decimals: int = 6) -> torch.Tensor:
         - :func:`torch.ceil`: Round up to nearest integer.
         - :func:`torch.floor`: Round down to nearest integer.
 
-    .. note::
-        This function is particularly useful in quantitative finance for:
-
-        - Standardizing numerical precision across different assets
-        - Reporting financial results with appropriate precision
-        - Data preprocessing for machine learning models
-        - Risk management calculations requiring consistent precision
-        - Regulatory reporting with specified precision requirements
-
-    .. note::
-        In scientific computing and financial applications, significant digit
-        rounding is often preferred over decimal place rounding because:
-
-        - It maintains relative precision across different scales
-        - It's more appropriate for percentage-based calculations
-        - It provides consistent precision for values spanning multiple orders of magnitude
-        - It aligns with significant figure conventions in scientific notation
-
-    .. note::
-        The function handles special cases gracefully:
-
-        - Zero values remain unchanged
-        - Infinite values are preserved
-        - NaN values are preserved
-        - Very large or very small finite values are rounded appropriately
 
     .. warning::
         Be aware that floating-point precision limitations may affect the

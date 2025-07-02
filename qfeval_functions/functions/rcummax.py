@@ -74,23 +74,6 @@ def rcummax(x: torch.Tensor, dim: int) -> Result:
         - :func:`rcumsum`: Reverse cumulative sum.
 
     .. note::
-        This function is useful in financial analysis for:
-
-        - Computing trailing maximum values for stop-loss calculations
-        - Maximum drawdown analysis from any point forward
-        - Peak detection and resistance level identification
-        - Portfolio value ceiling tracking for performance analysis
-        - Risk management scenarios requiring future maximum exposure
-
-    .. note::
-        The reverse cumulative maximum is particularly valuable for:
-
-        - Calculating the maximum value that will be seen in the future
-        - Implementing lookback straddles and barrier options
-        - Analyzing maximum adverse excursion in trading strategies
-        - Computing rolling maximum values in reverse time order
-
-    .. note::
         The indices returned correspond to the original positions in the
         input tensor, not the positions in the flipped tensor used internally.
     """

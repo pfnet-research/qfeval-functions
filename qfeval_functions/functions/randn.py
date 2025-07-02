@@ -83,18 +83,7 @@ def randn(
         - :func:`torch.randn`: PyTorch's native normal random tensor generation.
 
     .. note::
-        This function is fundamental in quantitative finance for:
-
-        - Modeling asset return innovations in stochastic processes
-        - Generating random shocks for Monte Carlo simulations
-        - Creating noise terms for GARCH and other volatility models
-        - Brownian motion and geometric Brownian motion simulations
-        - Risk factor modeling in factor-based portfolio models
-        - Bootstrap sampling with Gaussian assumptions
-
-    .. note::
-        The standard normal distribution is the foundation for many financial
-        models. To generate samples from N(μ, σ²), use: ``μ + σ * QF.randn(...)``.
+        To generate samples from N(μ, σ²), use: ``μ + σ * QF.randn(...)``.
 
     .. warning::
         In financial applications, ensure that the normality assumption is

@@ -84,22 +84,6 @@ def rci(x: torch.Tensor, period: int = 9, dim: int = -1) -> torch.Tensor:
     .. seealso::
         - :func:`torch.argsort`: Used internally for ranking prices.
 
-    .. note::
-        The RCI is commonly used in technical analysis for:
-
-        - Identifying overbought/oversold conditions (RCI > 80 or RCI < -80)
-        - Detecting momentum divergences between price and RCI
-        - Generating buy/sell signals at extreme RCI levels
-        - Confirming trend strength and potential reversals
-        - Multi-timeframe analysis with different period settings
-
-    .. note::
-        In quantitative finance applications, RCI can be used for:
-
-        - Momentum factor construction in factor models
-        - Signal generation in systematic trading strategies
-        - Risk management through momentum regime detection
-        - Portfolio optimization based on momentum characteristics
 
     .. warning::
         RCI is a lagging indicator and may generate false signals in

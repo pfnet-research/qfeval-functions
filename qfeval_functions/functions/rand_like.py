@@ -78,18 +78,6 @@ def rand_like(
         - :func:`rand`: Generate random tensor with specified shape.
         - :func:`torch.rand_like`: PyTorch's native random tensor generation.
 
-    .. note::
-        This function is particularly useful in quantitative finance for:
-
-        - Generating random shocks matching the structure of return data
-        - Creating noise tensors for Monte Carlo simulations
-        - Initializing random weights with the same shape as model parameters
-        - Bootstrap sampling where random tensors must match data dimensions
-
-    .. note::
-        The function internally calls :func:`rand` with the appropriate
-        parameters extracted from the input tensor, ensuring consistent
-        behavior and reproducibility guarantees.
     """
     return rand(
         *input.shape, dtype=dtype or input.dtype, device=device or input.device

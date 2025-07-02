@@ -79,28 +79,8 @@ def rms(
         - :func:`torch.mean`: Arithmetic mean.
 
     .. note::
-        The RMS is particularly important in quantitative finance for:
-
-        - Volatility measurement as a scale-invariant risk metric
-        - Portfolio risk assessment through return magnitude analysis
-        - Signal processing in high-frequency trading systems
-        - Error measurement in model validation and backtesting
-        - Normalizing financial time series for comparison
-        - Computing effective exposure in multi-asset portfolios
-
-    .. note::
-        In financial applications, RMS is often used to measure:
-
-        - Effective volatility of returns (especially for zero-mean returns)
-        - Magnitude of portfolio weights regardless of direction
-        - Scale of price movements for risk scaling
-        - Error magnitude in forecasting models
-        - Effective size of positions in risk management
-
-    .. note::
         For zero-mean data, RMS equals the standard deviation. For non-zero
-        mean data, RMS will be larger than the standard deviation since
-        RMS² = mean² + variance.
+        mean data, RMS² = mean² + variance.
 
     .. warning::
         Unlike standard deviation, RMS is not translation-invariant. Adding

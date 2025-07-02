@@ -62,30 +62,8 @@ def skipna(
         - :func:`nanshift`: Shift operation with NaN handling.
 
     .. note::
-        This function is particularly useful for:
-
-        - Applying custom functions that don't have built-in NaN handling
-        - Statistical computations on incomplete datasets
-        - Time series analysis with missing observations
-        - Data preprocessing pipelines that need to handle missing values
-        - Custom aggregation functions for financial data
-
-    .. note::
-        In quantitative finance applications, skipna enables:
-
-        - Computing statistics on price series with missing data
-        - Applying custom risk metrics to incomplete return series
-        - Portfolio optimization with assets having different histories
-        - Technical indicator calculation with data gaps
-        - Backtesting strategies on datasets with missing observations
-
-    .. note::
-        The function preserves the structure and semantics of the operation:
-
-        - The order of non-NaN values is maintained
-        - NaN positions are restored in the output
-        - Multi-tensor operations are synchronized by NaN positions
-        - The original tensor shape and dtype are preserved
+        The function preserves tensor structure: NaN positions are restored in
+        the output and the original shape/dtype are maintained.
 
     .. warning::
         All input tensors must have NaN values at the same positions. If

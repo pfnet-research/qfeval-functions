@@ -100,30 +100,9 @@ def slope(
         - :func:`mulmean`: Multiplicative mean used in slope calculation.
 
     .. note::
-        The slope function is fundamental in quantitative finance for:
-        
-        - Computing beta coefficients in factor models (CAPM, Fama-French)
-        - Measuring sensitivity of asset returns to market movements
-        - Risk attribution and factor exposure analysis
-        - Hedge ratio calculation for pairs trading
-        - Linear regression analysis in econometric models
-        - Performance attribution analysis
-
-    .. note::
-        In financial applications, slope is commonly used for:
-        
-        - Beta calculation: sensitivity of stock returns to market returns
-        - Currency hedging: exchange rate sensitivity analysis
-        - Interest rate risk: duration and convexity calculations
-        - Commodity exposure: price sensitivity to underlying factors
-        - Credit risk modeling: default probability factor analysis
-        - Volatility modeling: factor loadings in volatility surfaces
-
-    .. note::
-        The slope calculation assumes a linear relationship between variables.
-        For non-linear relationships, consider using polynomial regression or
-        other non-linear modeling techniques. The slope is sensitive to outliers
-        and may benefit from robust regression methods in practice.
+        The slope calculation assumes a linear relationship between variables
+        and can be sensitive to outliers. For non-linear relationships, consider
+        polynomial regression or robust regression methods.
 
     .. warning::
         Division by zero occurs when :attr:`x` has zero variance (all values

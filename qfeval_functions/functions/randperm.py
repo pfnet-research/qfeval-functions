@@ -87,20 +87,8 @@ def randperm(
         - :func:`torch.randperm`: PyTorch's native random permutation generation.
 
     .. note::
-        This function is essential in quantitative finance for:
-
-        - Bootstrap sampling and resampling techniques
-        - Random portfolio rebalancing and asset selection
-        - Cross-validation fold creation for time series models
-        - Random shuffling of historical data for backtesting
-        - Monte Carlo simulations requiring random orderings
-        - Feature selection and random matrix permutations
-        - Creating random train/test splits for financial datasets
-
-    .. note::
-        The permutation property guarantees that each integer from 0 to n-1
-        appears exactly once, making this function perfect for sampling
-        without replacement scenarios common in financial analysis.
+        Each integer from 0 to n-1 appears exactly once, making this function
+        suitable for sampling without replacement scenarios.
 
     .. warning::
         When using this function for time series data, be mindful that

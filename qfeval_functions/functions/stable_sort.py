@@ -132,35 +132,8 @@ def stable_sort(x: torch.Tensor, dim: int = -1) -> StableSortResult:
         - :func:`soft_topk`: Differentiable top-k selection.
 
     .. note::
-        Stable sorting is particularly important in quantitative finance for:
-        
-        - Consistent ranking of assets with equal performance metrics
-        - Maintaining portfolio construction order for equal-weight strategies
-        - Preserving temporal order in time series with identical values
-        - Ensuring reproducible results in backtesting and simulations
-        - Risk management with consistent exposure ordering
-        - Regulatory reporting requiring deterministic ordering
-
-    .. note::
-        Applications in financial data analysis include:
-        
-        - Ranking assets by returns while preserving temporal order for ties
-        - Portfolio optimization with consistent asset selection
-        - Risk factor analysis with stable factor loadings
-        - Performance attribution with consistent sector ordering
-        - ESG scoring with stable ranking for equal scores
-        - Credit rating analysis with consistent ordering within ratings
-
-    .. note::
-        The stable sorting algorithm has O(n log n) time complexity and uses
-        a two-phase approach: first sorting with an unstable algorithm, then
-        re-ordering within groups of equal elements to maintain stability.
-
-    .. note::
-        For NaN handling, the algorithm treats NaN values as the largest
-        possible values and places them at the end of the sorted sequence.
-        The relative order of NaN values is preserved, maintaining stability
-        even in the presence of missing data.
+        The algorithm treats NaN values as the largest possible values and
+        places them at the end, preserving their relative order.
 
     .. warning::
         Large tensors with many duplicate values may require significant

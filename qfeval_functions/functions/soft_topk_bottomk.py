@@ -103,28 +103,6 @@ def soft_topk_bottomk(
         - :func:`stable_sort`: Stable sorting with NaN handling.
 
     .. note::
-        This function is particularly useful in machine learning applications for:
-        
-        - Differentiable ranking and selection in neural networks
-        - Attention mechanisms with sparse selection patterns
-        - Portfolio optimization with differentiable asset selection
-        - Feature selection in deep learning models
-        - Reinforcement learning with continuous action spaces
-        - Pruning and sparsity-inducing regularization
-
-    .. note::
-        In quantitative finance applications, soft top-k selection enables:
-        
-        - Differentiable portfolio construction with ranking constraints
-        - Smooth asset selection for factor investing strategies
-        - Continuous rebalancing with transaction cost considerations
-        - Risk budgeting with differentiable concentration limits
-        - ESG screening with soft inclusion/exclusion criteria
-        - Dynamic hedging with gradient-based optimization
-
-    .. note::
-        The algorithm implements the SoftTopK operator from optimal transport
-        theory, providing theoretical guarantees on the approximation quality.
         The entropic regularization parameter :attr:`epsilon` controls the
         trade-off between approximation accuracy and numerical stability.
 
@@ -236,28 +214,6 @@ def soft_topk(
         - :func:`torch.topk`: Hard top-k selection (non-differentiable).
         - :func:`stable_sort`: Stable sorting with NaN handling.
 
-    .. note::
-        This function is equivalent to calling ``soft_topk_bottomk(x, k, dim, 
-        epsilon=epsilon, max_iter=max_iter, topk_only=True)`` but provides
-        a more intuitive interface for binary top-k selection.
-
-    .. note::
-        Common applications in machine learning include:
-        
-        - Feature selection with differentiable sparsity
-        - Attention mechanisms with hard attention approximation
-        - Neural architecture search with differentiable selection
-        - Reinforcement learning with discrete action approximation
-        - Pruning networks with gradient-based optimization
-
-    .. note::
-        In quantitative finance, soft top-k selection is useful for:
-        
-        - Differentiable stock picking strategies
-        - Dynamic factor selection in multi-factor models
-        - ESG integration with soft screening criteria
-        - Risk budgeting with smooth concentration constraints
-        - Momentum investing with continuous selection
 
     References:
         - Optimal Transport: https://optimaltransport.github.io/
