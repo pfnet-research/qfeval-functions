@@ -86,9 +86,9 @@ def mulsum(
                 [[11.]]])
 
     .. seealso::
-        :func:`mulmean`: Convenience function for computing means.
-        :func:`einsum`: The underlying Einstein summation function.
-        :func:`covar`: Uses this function for efficient covariance calculations.
+        - :func:`mulmean`: Convenience function for computing means.
+        - :func:`einsum`: The underlying Einstein summation function.
+        - :func:`covar`: Uses this function for efficient covariance calculations.
     """
 
     # 1. Align the number of dimensions (c.f., NumPy broadcasting).

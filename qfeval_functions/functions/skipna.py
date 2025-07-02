@@ -56,10 +56,10 @@ def skipna(
         >>> # Example usage requires careful consideration of the function
         >>> # and dimension parameters
 
-    See Also:
-        :func:`torch.nansum`: Sum with NaN handling.
-        :func:`torch.nanmean`: Mean with NaN handling.
-        :func:`nanshift`: Shift operation with NaN handling.
+    .. seealso::
+        - :func:`torch.nansum`: Sum with NaN handling.
+        - :func:`torch.nanmean`: Mean with NaN handling.
+        - :func:`nanshift`: Shift operation with NaN handling.
 
     .. note::
         This function is particularly useful for:

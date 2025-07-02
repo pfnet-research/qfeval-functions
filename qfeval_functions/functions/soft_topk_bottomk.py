@@ -97,10 +97,10 @@ def soft_topk_bottomk(
         >>> selection_weights  # Soft weights for top/bottom performers
         tensor([ 0.2661, -0.2857,  0.7336, -0.7488,  0.9478, -0.9130])
 
-    See Also:
-        :func:`soft_topk`: Binary top-k selection only.
-        :func:`torch.topk`: Hard top-k selection (non-differentiable).
-        :func:`stable_sort`: Stable sorting with NaN handling.
+    .. seealso::
+        - :func:`soft_topk`: Binary top-k selection only.
+        - :func:`torch.topk`: Hard top-k selection (non-differentiable).
+        - :func:`stable_sort`: Stable sorting with NaN handling.
 
     .. note::
         This function is particularly useful in machine learning applications for:
@@ -231,10 +231,10 @@ def soft_topk(
         >>> top_features.shape
         torch.Size([10, 20])
 
-    See Also:
-        :func:`soft_topk_bottomk`: Ternary top-k, middle, and bottom-k selection.
-        :func:`torch.topk`: Hard top-k selection (non-differentiable).
-        :func:`stable_sort`: Stable sorting with NaN handling.
+    .. seealso::
+        - :func:`soft_topk_bottomk`: Ternary top-k, middle, and bottom-k selection.
+        - :func:`torch.topk`: Hard top-k selection (non-differentiable).
+        - :func:`stable_sort`: Stable sorting with NaN handling.
 
     .. note::
         This function is equivalent to calling ``soft_topk_bottomk(x, k, dim, 

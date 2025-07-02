@@ -69,9 +69,9 @@ def rcummax(x: torch.Tensor, dim: int) -> Result:
         >>> reverse = QF.rcummax(x, dim=1)
         >>> # They should be different for most cases
 
-    See Also:
-        :func:`torch.cummax`: Cumulative maximum from beginning to each position.
-        :func:`rcumsum`: Reverse cumulative sum.
+    .. seealso::
+        - :func:`torch.cummax`: Cumulative maximum from beginning to each position.
+        - :func:`rcumsum`: Reverse cumulative sum.
 
     .. note::
         This function is useful in financial analysis for:

@@ -95,9 +95,9 @@ def shift(
         >>> shifted.shape
         torch.Size([2, 3, 4])
 
-    See Also:
-        :func:`torch.roll`: Circular shift without NaN padding.
-        :func:`nanshift`: Shift operation that handles NaN values specially.
+    .. seealso::
+        - :func:`torch.roll`: Circular shift without NaN padding.
+        - :func:`nanshift`: Shift operation that handles NaN values specially.
 
     .. note::
         This function is essential in time series analysis for:

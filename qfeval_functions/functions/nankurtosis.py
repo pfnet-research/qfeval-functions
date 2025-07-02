@@ -85,9 +85,9 @@ def nankurtosis(
         tensor(-1.2686)
 
     .. seealso::
-        :func:`nanskew`: NaN-aware skewness function.
-        :func:`nanvar`: NaN-aware variance function.
-        :func:`nanstd`: NaN-aware standard deviation function.
+        - :func:`nanskew`: NaN-aware skewness function.
+        - :func:`nanvar`: NaN-aware variance function.
+        - :func:`nanstd`: NaN-aware standard deviation function.
     """
     n = (~x.isnan()).to(x).sum(dim=dim, keepdim=True)
     ddof = 1 if unbiased else 0

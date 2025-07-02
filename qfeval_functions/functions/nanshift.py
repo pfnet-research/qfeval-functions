@@ -81,9 +81,9 @@ def nanshift(
         becomes the first, and all others shift by one position.
 
     .. seealso::
-        :func:`shift`: Standard shift function without NaN handling.
-        :func:`group_shift`: Shift operation within groups.
-        ``torch.roll``: PyTorch's standard tensor rolling function.
+        - :func:`shift`: Standard shift function without NaN handling.
+        - :func:`group_shift`: Shift operation within groups.
+        - ``torch.roll``: PyTorch's standard tensor rolling function.
     """
 
     # 1. Move the target dimension to the top to make data manipulation easier.

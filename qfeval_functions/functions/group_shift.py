@@ -146,8 +146,8 @@ def group_shift(
                 [nan,  9., nan, 10.]])
 
     .. seealso::
-        :func:`reduce_nan_patterns`: For understanding mask generation from
-        reference dimensions.
+        - :func:`reduce_nan_patterns`: For understanding mask generation from
+          reference dimensions.
     """
     n = x.shape[dim]
 

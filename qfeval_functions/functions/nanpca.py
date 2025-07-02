@@ -94,9 +94,9 @@ def nanpca(data: torch.Tensor) -> NanpcaResult:
         Ensure adequate data coverage for reliable PCA results.
 
     .. seealso::
-        :func:`nancovar`: NaN-aware covariance computation.
-        :func:`eigh`: Eigendecomposition for symmetric matrices.
-        :func:`nanmean`: NaN-aware mean used in covariance calculation.
+        - :func:`nancovar`: NaN-aware covariance computation.
+        - :func:`eigh`: Eigendecomposition for symmetric matrices.
+        - :func:`nanmean`: NaN-aware mean used in covariance calculation.
     """
     batch_shape = data.shape[:-2]
     data = data[None].flatten(end_dim=-3)

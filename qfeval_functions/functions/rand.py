@@ -66,9 +66,9 @@ def rand(
         >>> w.shape
         torch.Size([2, 3, 4])
 
-    See Also:
-        :func:`rand_like`: Generate random tensor with same shape as input.
-        :func:`torch.rand`: PyTorch's native random tensor generation.
+    .. seealso::
+        - :func:`rand_like`: Generate random tensor with same shape as input.
+        - :func:`torch.rand`: PyTorch's native random tensor generation.
 
     .. note::
         This function provides deterministic behavior across devices when

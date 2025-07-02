@@ -71,8 +71,8 @@ def mmin(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
         function while avoiding code duplication.
 
     .. seealso::
-        :func:`mmax`: Moving maximum function.
-        :func:`msum`: Moving sum function.
-        :func:`ma`: Moving average function.
+        - :func:`mmax`: Moving maximum function.
+        - :func:`msum`: Moving sum function.
+        - :func:`ma`: Moving average function.
     """
     return -mmax(-x, span, dim)

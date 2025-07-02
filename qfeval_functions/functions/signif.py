@@ -68,10 +68,10 @@ def signif(x: torch.Tensor, decimals: int = 6) -> torch.Tensor:
         >>> signif(prices, decimals=4)
         tensor([123.5000,  12.3500,   1.2350,   0.1235])
 
-    See Also:
-        :func:`torch.round`: Round to nearest integer.
-        :func:`torch.ceil`: Round up to nearest integer.
-        :func:`torch.floor`: Round down to nearest integer.
+    .. seealso::
+        - :func:`torch.round`: Round to nearest integer.
+        - :func:`torch.ceil`: Round up to nearest integer.
+        - :func:`torch.floor`: Round down to nearest integer.
 
     .. note::
         This function is particularly useful in quantitative finance for:

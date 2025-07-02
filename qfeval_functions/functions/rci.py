@@ -81,8 +81,8 @@ def rci(x: torch.Tensor, period: int = 9, dim: int = -1) -> torch.Tensor:
         >>> rci_short.shape == rci_long.shape
         True
 
-    See Also:
-        :func:`torch.argsort`: Used internally for ranking prices.
+    .. seealso::
+        - :func:`torch.argsort`: Used internally for ranking prices.
 
     .. note::
         The RCI is commonly used in technical analysis for:

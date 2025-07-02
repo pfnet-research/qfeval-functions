@@ -81,10 +81,10 @@ def randperm(
         >>> empty_perm.shape
         torch.Size([0])
 
-    See Also:
-        :func:`randint`: Generate random integers from a range.
-        :func:`rand`: Generate random floats from uniform distribution.
-        :func:`torch.randperm`: PyTorch's native random permutation generation.
+    .. seealso::
+        - :func:`randint`: Generate random integers from a range.
+        - :func:`rand`: Generate random floats from uniform distribution.
+        - :func:`torch.randperm`: PyTorch's native random permutation generation.
 
     .. note::
         This function is essential in quantitative finance for:

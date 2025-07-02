@@ -59,8 +59,8 @@ def pca(x: torch.Tensor) -> PcaResult:
         >>> transformed = torch.matmul(data - data.mean(dim=-2, keepdim=True),
         ...                           result.components.transpose(-1, -2))
 
-    See Also:
-        :func:`pca_cov`: Compute PCA from a precomputed covariance matrix.
+    .. seealso::
+        - :func:`pca_cov`: Compute PCA from a precomputed covariance matrix.
 
     .. note::
         In financial applications, dimensions often represent different assets
@@ -117,9 +117,9 @@ def pca_cov(cov: torch.Tensor) -> PcaResult:
         >>> result.explained_variance[0, 0] >= result.explained_variance[0, 1]
         tensor(True)
 
-    See Also:
-        :func:`pca`: Compute PCA directly from input data.
-        :func:`covar`: Compute covariance matrix from data.
+    .. seealso::
+        - :func:`pca`: Compute PCA directly from input data.
+        - :func:`covar`: Compute covariance matrix from data.
 
     .. note::
         This function is particularly useful in financial applications where

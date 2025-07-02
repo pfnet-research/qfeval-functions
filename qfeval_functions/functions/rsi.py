@@ -141,9 +141,9 @@ def rsi(
         >>> rsi_ema = rsi(prices, span=5, use_sma=False, dim=1)
         >>> # Results will be different due to smoothing method
 
-    See Also:
-        :func:`ema`: Exponential moving average used in RSI calculation.
-        :func:`msum`: Moving sum used in SMA-based RSI calculation.
+    .. seealso::
+        - :func:`ema`: Exponential moving average used in RSI calculation.
+        - :func:`msum`: Moving sum used in SMA-based RSI calculation.
 
     .. note::
         The RSI is widely used in technical analysis for:

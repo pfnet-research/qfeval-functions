@@ -73,10 +73,10 @@ def rms(
         >>> # For zero-mean data: RMS ≈ std
         >>> # For general data: RMS² = mean² + std²
 
-    See Also:
-        :func:`torch.norm`: L2 norm (RMS times sqrt(n)).
-        :func:`torch.std`: Standard deviation.
-        :func:`torch.mean`: Arithmetic mean.
+    .. seealso::
+        - :func:`torch.norm`: L2 norm (RMS times sqrt(n)).
+        - :func:`torch.std`: Standard deviation.
+        - :func:`torch.mean`: Arithmetic mean.
 
     .. note::
         The RMS is particularly important in quantitative finance for:

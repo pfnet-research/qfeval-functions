@@ -94,10 +94,10 @@ def slope(
         >>> factor_loadings
         tensor([1.0000, 1.5000])
 
-    See Also:
-        :func:`correl`: Pearson correlation coefficient.
-        :func:`covar`: Covariance between tensors.
-        :func:`mulmean`: Multiplicative mean used in slope calculation.
+    .. seealso::
+        - :func:`correl`: Pearson correlation coefficient.
+        - :func:`covar`: Covariance between tensors.
+        - :func:`mulmean`: Multiplicative mean used in slope calculation.
 
     .. note::
         The slope function is fundamental in quantitative finance for:

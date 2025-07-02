@@ -78,9 +78,9 @@ def mvar(
                 [2., 2.]])
 
     .. seealso::
-        :func:`mstd`: Moving standard deviation function (square root of this).
-        :func:`msum`: Moving sum function used in the implementation.
-        :func:`ma`: Moving average function.
+        - :func:`mstd`: Moving standard deviation function (square root of this).
+        - :func:`msum`: Moving sum function used in the implementation.
+        - :func:`ma`: Moving average function.
     """
     numerator = msum(x**2, span, dim) - msum(x, span, dim) ** 2 / span
     result: torch.Tensor = numerator / (span - ddof)

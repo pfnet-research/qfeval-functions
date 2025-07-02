@@ -77,10 +77,10 @@ def randn(
         >>> random_walk.shape
         torch.Size([1000])
 
-    See Also:
-        :func:`randn_like`: Generate normal random tensor with same shape as input.
-        :func:`rand`: Generate random tensor from uniform distribution.
-        :func:`torch.randn`: PyTorch's native normal random tensor generation.
+    .. seealso::
+        - :func:`randn_like`: Generate normal random tensor with same shape as input.
+        - :func:`rand`: Generate random tensor from uniform distribution.
+        - :func:`torch.randn`: PyTorch's native normal random tensor generation.
 
     .. note::
         This function is fundamental in quantitative finance for:

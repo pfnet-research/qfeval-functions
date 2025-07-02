@@ -91,9 +91,9 @@ def nanskew(
         small sample sizes.
 
     .. seealso::
-        :func:`nankurtosis`: NaN-aware kurtosis function.
-        :func:`nanvar`: NaN-aware variance function.
-        :func:`nanstd`: NaN-aware standard deviation function.
+        - :func:`nankurtosis`: NaN-aware kurtosis function.
+        - :func:`nanvar`: NaN-aware variance function.
+        - :func:`nanstd`: NaN-aware standard deviation function.
         :func:`nanmean`: NaN-aware mean function.
     """
     n = (~x.isnan()).to(x).sum(dim=dim, keepdim=True)

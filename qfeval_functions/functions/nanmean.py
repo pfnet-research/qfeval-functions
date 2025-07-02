@@ -71,9 +71,9 @@ def nanmean(
         tensor([1.5000,    nan])
 
     .. seealso::
-        :func:`nansum`: NaN-aware sum function.
-        :func:`nanstd`: NaN-aware standard deviation function.
-        :func:`nanvar`: NaN-aware variance function.
+        - :func:`nansum`: NaN-aware sum function.
+        - :func:`nanstd`: NaN-aware standard deviation function.
+        - :func:`nanvar`: NaN-aware variance function.
         ``torch.nanmean``: PyTorch's built-in NaN-aware mean function.
     """
     count = (~x.isnan()).to(x).sum(dim=dim, keepdim=keepdim)

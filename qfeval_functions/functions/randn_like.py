@@ -78,10 +78,10 @@ def randn_like(
         >>> abs(large_sample.std() - 1.0) < 0.1  # Should be close to 1
         tensor(True)
 
-    See Also:
-        :func:`randn`: Generate normal random tensor with specified shape.
-        :func:`rand_like`: Generate uniform random tensor with same shape as input.
-        :func:`torch.randn_like`: PyTorch's native normal random tensor generation.
+    .. seealso::
+        - :func:`randn`: Generate normal random tensor with specified shape.
+        - :func:`rand_like`: Generate uniform random tensor with same shape as input.
+        - :func:`torch.randn_like`: PyTorch's native normal random tensor generation.
 
     .. note::
         This function is particularly useful in quantitative finance for:

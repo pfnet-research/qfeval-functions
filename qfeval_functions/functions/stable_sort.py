@@ -126,10 +126,10 @@ def stable_sort(x: torch.Tensor, dim: int = -1) -> StableSortResult:
         tensor([[100., 100., 150., 200.],
                 [ 80.,  80., 120., 160.]])
 
-    See Also:
-        :func:`torch.sort`: Standard sorting (not guaranteed to be stable).
-        :func:`torch.argsort`: Return indices that would sort a tensor.
-        :func:`soft_topk`: Differentiable top-k selection.
+    .. seealso::
+        - :func:`torch.sort`: Standard sorting (not guaranteed to be stable).
+        - :func:`torch.argsort`: Return indices that would sort a tensor.
+        - :func:`soft_topk`: Differentiable top-k selection.
 
     .. note::
         Stable sorting is particularly important in quantitative finance for:

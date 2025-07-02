@@ -79,10 +79,10 @@ def randint(
         >>> torch.all((binary == 0) | (binary == 1))
         tensor(True)
 
-    See Also:
-        :func:`rand`: Generate random floats from uniform distribution.
-        :func:`randperm`: Generate random permutation of integers.
-        :func:`torch.randint`: PyTorch's native random integer generation.
+    .. seealso::
+        - :func:`rand`: Generate random floats from uniform distribution.
+        - :func:`randperm`: Generate random permutation of integers.
+        - :func:`torch.randint`: PyTorch's native random integer generation.
 
     .. note::
         This function is particularly useful in quantitative finance for:

@@ -63,7 +63,7 @@ def ma(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
                 [5., 6.]])
 
     .. seealso::
-        :func:`msum`: The underlying moving sum function.
-        :func:`ema`: Exponential moving average for weighted averaging.
+        - :func:`msum`: The underlying moving sum function.
+        - :func:`ema`: Exponential moving average for weighted averaging.
     """
     return msum(x, span, dim) / span

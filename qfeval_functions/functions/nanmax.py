@@ -76,9 +76,9 @@ def nanmax(x: torch.Tensor, dim: int, keepdim: bool = False) -> NanmaxResult:
                 [2]])
 
     .. seealso::
-        :func:`nanmin`: NaN-aware minimum function.
-        :func:`nanargmax`: NaN-aware argument maximum function.
-        ``torch.max``: Standard maximum function (NaN propagates).
+        - :func:`nanmin`: NaN-aware minimum function.
+        - :func:`nanargmax`: NaN-aware argument maximum function.
+        - ``torch.max``: Standard maximum function (NaN propagates).
     """
 
     # 1. Replace NaN -> -inf and name it `a`.

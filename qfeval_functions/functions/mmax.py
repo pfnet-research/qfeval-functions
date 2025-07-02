@@ -65,8 +65,8 @@ def mmax(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
         tensor([-2., -1., -1., -3., -1.])
 
     .. seealso::
-        :func:`mmin`: Moving minimum function.
-        :func:`msum`: Moving sum function.
+        - :func:`mmin`: Moving minimum function.
+        - :func:`msum`: Moving sum function.
     """
     # 1. Move the target dimension to the top to make data manipulation easier.
     x = x.transpose(0, dim)

@@ -74,9 +74,9 @@ def rand_like(
         >>> (result >= 0).all() and (result < 1).all()
         tensor(True)
 
-    See Also:
-        :func:`rand`: Generate random tensor with specified shape.
-        :func:`torch.rand_like`: PyTorch's native random tensor generation.
+    .. seealso::
+        - :func:`rand`: Generate random tensor with specified shape.
+        - :func:`torch.rand_like`: PyTorch's native random tensor generation.
 
     .. note::
         This function is particularly useful in quantitative finance for:

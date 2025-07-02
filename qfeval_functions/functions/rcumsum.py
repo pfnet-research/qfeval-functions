@@ -61,9 +61,9 @@ def rcumsum(x: torch.Tensor, dim: int) -> torch.Tensor:
         >>> (forward + backward - x_1d).unique()
         tensor([10])
 
-    See Also:
-        :func:`torch.cumsum`: Cumulative sum from beginning to each position.
-        :func:`rcummax`: Reverse cumulative maximum.
+    .. seealso::
+        - :func:`torch.cumsum`: Cumulative sum from beginning to each position.
+        - :func:`rcummax`: Reverse cumulative maximum.
 
     .. note::
         This function is essential in financial analysis for:
