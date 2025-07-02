@@ -16,21 +16,131 @@ def soft_topk_bottomk(
     max_iter: int = 200,
     topk_only: bool = False,
 ) -> torch.Tensor:
-    r"""Apply SoftTopKBottomK module along with given dimension.
+    r"""Compute differentiable soft top-k and bottom-k selection along a dimension.
 
-    See `qfeval.extension.SoftTopKBottomK` for futher information.
+    This function implements a differentiable approximation to the top-k and
+    bottom-k selection operators using optimal transport theory and the Sinkhorn
+    algorithm. Unlike hard selection, this soft version provides smooth gradients
+    and allows for end-to-end training in neural networks while maintaining
+    interpretability similar to traditional ranking operations.
 
-    Examples:
+    The algorithm uses entropic regularization to solve the optimal transport
+    problem between the input distribution and target distributions representing
+    top-k, middle, and bottom-k elements. The result is a continuous relaxation
+    of discrete ranking operations.
+
+    Args:
+        x (Tensor):
+            Input tensor of any shape. The soft selection is applied along
+            the specified dimension.
+        k (int):
+            Number of elements to select for top-k and bottom-k. Must satisfy
+            ``2*k <= x.size(dim)`` when ``topk_only=False``, or 
+            ``k <= x.size(dim)`` when ``topk_only=True``.
+        dim (int, optional):
+            Dimension along which to perform the soft selection. Default is -1
+            (last dimension).
+        epsilon (float, optional):
+            Entropic regularization parameter controlling the smoothness of the
+            approximation. Smaller values produce sharper selections but may
+            cause numerical instability. Default is 0.1.
+        max_iter (int, optional):
+            Maximum number of Sinkhorn iterations for solving the optimal
+            transport problem. Default is 200.
+        topk_only (bool, optional):
+            If True, only performs top-k selection (binary classification).
+            If False, performs top-k, middle, and bottom-k selection 
+            (ternary classification). Default is False.
+
+    Returns:
+        Tensor:
+            Soft selection weights with the same shape as input. When
+            ``topk_only=False``, values near +1 indicate top-k elements,
+            values near 0 indicate middle elements, and values near -1
+            indicate bottom-k elements. When ``topk_only=True``, values
+            near 1 indicate top-k elements and values near 0 indicate
+            the remaining elements.
+
+    Example:
+        >>> # Basic 2D example with ternary selection
         >>> x = torch.tensor([[1., 2., 3., 4., 5.], [6., 7., 8., 9., 10.]])
-        >>> soft_topk_bottomk(x, k=1, dim=1)
+        >>> weights = soft_topk_bottomk(x, k=1, dim=1)
+        >>> weights
         tensor([[-0.7624, -0.2123,  0.0000,  0.2123,  0.7624],
                 [-0.7624, -0.2123,  0.0000,  0.2123,  0.7624]])
+
+        >>> # Selection along different dimension
         >>> soft_topk_bottomk(x, k=1, dim=0)
         tensor([[-0.9999, -0.9999, -0.9999, -0.9999, -0.9999],
                 [ 0.9999,  0.9999,  0.9999,  0.9999,  0.9999]])
+
+        >>> # Sharper selection with smaller epsilon
         >>> soft_topk_bottomk(x, k=1, dim=1, epsilon=1e-3)
         tensor([[-0.9965, -0.0035,  0.0000,  0.0035,  0.9965],
                 [-0.9965, -0.0035,  0.0000,  0.0035,  0.9965]])
+
+        >>> # Binary top-k only selection
+        >>> x = torch.tensor([1., 5., 2., 8., 3.])
+        >>> weights = soft_topk_bottomk(x, k=2, topk_only=True)
+        >>> weights  # Higher values for top-2 elements
+        tensor([    0.0010,     0.9019,     0.0097,     0.9999,     0.0875])
+
+        >>> # Multi-dimensional tensor
+        >>> x = torch.randn(2, 3, 4)
+        >>> weights = soft_topk_bottomk(x, k=1, dim=-1)
+        >>> weights.shape
+        torch.Size([2, 3, 4])
+
+        >>> # Financial portfolio selection
+        >>> returns = torch.tensor([0.12, 0.08, 0.15, 0.05, 0.18, 0.03])
+        >>> selection_weights = soft_topk_bottomk(returns, k=2)
+        >>> selection_weights  # Soft weights for top/bottom performers
+        tensor([ 0.2661, -0.2857,  0.7336, -0.7488,  0.9478, -0.9130])
+
+    See Also:
+        :func:`soft_topk`: Binary top-k selection only.
+        :func:`torch.topk`: Hard top-k selection (non-differentiable).
+        :func:`stable_sort`: Stable sorting with NaN handling.
+
+    .. note::
+        This function is particularly useful in machine learning applications for:
+        
+        - Differentiable ranking and selection in neural networks
+        - Attention mechanisms with sparse selection patterns
+        - Portfolio optimization with differentiable asset selection
+        - Feature selection in deep learning models
+        - Reinforcement learning with continuous action spaces
+        - Pruning and sparsity-inducing regularization
+
+    .. note::
+        In quantitative finance applications, soft top-k selection enables:
+        
+        - Differentiable portfolio construction with ranking constraints
+        - Smooth asset selection for factor investing strategies
+        - Continuous rebalancing with transaction cost considerations
+        - Risk budgeting with differentiable concentration limits
+        - ESG screening with soft inclusion/exclusion criteria
+        - Dynamic hedging with gradient-based optimization
+
+    .. note::
+        The algorithm implements the SoftTopK operator from optimal transport
+        theory, providing theoretical guarantees on the approximation quality.
+        The entropic regularization parameter :attr:`epsilon` controls the
+        trade-off between approximation accuracy and numerical stability.
+
+    .. warning::
+        Very small values of :attr:`epsilon` (< 1e-3) may cause numerical
+        instability and NaN values. Use stabilized Sinkhorn iterations for
+        high-precision requirements.
+
+    .. warning::
+        The function assumes finite input values. NaN or infinite values
+        will raise a ValueError during computation.
+
+    References:
+        - Optimal Transport: https://optimaltransport.github.io/
+        - Sinkhorn Algorithm: https://arxiv.org/abs/1306.0895
+        - Differentiable Ranking: https://arxiv.org/abs/1802.08665
     """
     # 1. Move the target dimension to the last.
     x = x.transpose(-1, dim)
@@ -56,21 +166,102 @@ def soft_topk(
     epsilon: float = 0.1,
     max_iter: int = 200,
 ) -> torch.Tensor:
-    r"""Apply soft top-k operator along with given dimension.
+    r"""Compute differentiable soft top-k selection along a dimension.
 
-    See `qfeval.extension.SoftTopk` for futher information.
+    This function implements a differentiable approximation to the top-k
+    selection operator, returning binary selection weights where values
+    close to 1 indicate top-k elements and values close to 0 indicate
+    the remaining elements. This is a specialized version of 
+    :func:`soft_topk_bottomk` with ``topk_only=True``.
 
-    Examples:
+    The function uses optimal transport theory and the Sinkhorn algorithm
+    to provide smooth gradients suitable for end-to-end training while
+    maintaining interpretability similar to hard top-k selection.
+
+    Args:
+        x (Tensor):
+            Input tensor of any shape. The soft top-k selection is applied
+            along the specified dimension.
+        k (int):
+            Number of top elements to select. Must satisfy ``k <= x.size(dim)``.
+        dim (int, optional):
+            Dimension along which to perform the soft top-k selection.
+            Default is -1 (last dimension).
+        epsilon (float, optional):
+            Entropic regularization parameter controlling the smoothness of the
+            approximation. Smaller values produce sharper selections but may
+            cause numerical instability. Default is 0.1.
+        max_iter (int, optional):
+            Maximum number of Sinkhorn iterations for solving the optimal
+            transport problem. Default is 200.
+
+    Returns:
+        Tensor:
+            Soft selection weights with the same shape as input. Values near 1
+            indicate top-k elements, and values near 0 indicate the remaining
+            elements.
+
+    Example:
+        >>> # Basic 2D example
         >>> x = torch.tensor([[1., 2., 3., 4., 5.], [6., 7., 8., 9., 10.]])
-        >>> soft_topk(x, k=1, dim=0)
+        >>> weights = soft_topk(x, k=1, dim=0)
+        >>> weights
         tensor([[0.0001, 0.0001, 0.0001, 0.0001, 0.0001],
                 [0.9999, 0.9999, 0.9999, 0.9999, 0.9999]])
+
+        >>> # Top-2 selection along rows
         >>> soft_topk(x, k=2, dim=1)
         tensor([[0.0000, 0.0006, 0.0783, 0.9217, 0.9994],
                 [0.0000, 0.0006, 0.0783, 0.9217, 0.9994]])
+
+        >>> # Sharp selection with small epsilon
         >>> soft_topk(x, k=1, dim=1, epsilon=1e-3)
         tensor([[0.0000, 0.0000, 0.0000, 0.5000, 0.5000],
                 [0.0000, 0.0000, 0.0000, 0.5000, 0.5000]])
+
+        >>> # Portfolio top performers selection
+        >>> returns = torch.tensor([0.12, 0.08, 0.15, 0.05, 0.18])
+        >>> top_performers = soft_topk(returns, k=2)
+        >>> top_performers  # Highest weights for best returns
+        tensor([    0.0965,     0.0003,     0.9044,     0.0000,     0.9988])
+
+        >>> # Multi-batch processing
+        >>> batch_scores = torch.randn(10, 20)
+        >>> top_features = soft_topk(batch_scores, k=5, dim=1)
+        >>> top_features.shape
+        torch.Size([10, 20])
+
+    See Also:
+        :func:`soft_topk_bottomk`: Ternary top-k, middle, and bottom-k selection.
+        :func:`torch.topk`: Hard top-k selection (non-differentiable).
+        :func:`stable_sort`: Stable sorting with NaN handling.
+
+    .. note::
+        This function is equivalent to calling ``soft_topk_bottomk(x, k, dim, 
+        epsilon=epsilon, max_iter=max_iter, topk_only=True)`` but provides
+        a more intuitive interface for binary top-k selection.
+
+    .. note::
+        Common applications in machine learning include:
+        
+        - Feature selection with differentiable sparsity
+        - Attention mechanisms with hard attention approximation
+        - Neural architecture search with differentiable selection
+        - Reinforcement learning with discrete action approximation
+        - Pruning networks with gradient-based optimization
+
+    .. note::
+        In quantitative finance, soft top-k selection is useful for:
+        
+        - Differentiable stock picking strategies
+        - Dynamic factor selection in multi-factor models
+        - ESG integration with soft screening criteria
+        - Risk budgeting with smooth concentration constraints
+        - Momentum investing with continuous selection
+
+    References:
+        - Optimal Transport: https://optimaltransport.github.io/
+        - Differentiable Top-k: https://arxiv.org/abs/1802.08665
     """
     return soft_topk_bottomk(
         x, k, dim, epsilon=epsilon, max_iter=max_iter, topk_only=True
