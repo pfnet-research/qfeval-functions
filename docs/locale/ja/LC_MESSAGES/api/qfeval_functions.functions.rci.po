@@ -33,8 +33,8 @@ msgstr ":py:obj:`rci <qfeval_functions.functions.rci.rci>`"
 
 #: of qfeval_functions.functions.rci.rci:1
 #: qfeval_functions.functions.rci.rci:1:<autosummary>:1
-msgid "https://kabu.com/investment/guide/technical/14.html"
-msgstr "https://kabu.com/investment/guide/technical/14.html"
+msgid "Compute Rank Correlation Index (RCI) technical indicator."
+msgstr "Rank Correlation Index (RCI)テクニカル指標を計算します。"
 
 #: ../../api/qfeval_functions.functions.rci.rst
 msgid "Return type"

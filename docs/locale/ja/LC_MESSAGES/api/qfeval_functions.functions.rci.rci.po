@@ -24,8 +24,8 @@ msgid "qfeval\\_functions.functions.rci.rci"
 msgstr "qfeval\\_functions.functions.rci.rci"
 
 #: of qfeval_functions.functions.rci.rci:1
-msgid "https://kabu.com/investment/guide/technical/14.html"
-msgstr "https://kabu.com/investment/guide/technical/14.html"
+msgid "Compute Rank Correlation Index (RCI) technical indicator."
+msgstr "Rank Correlation Index (RCI)テクニカル指標を計算します。"
 
 #: ../../api/qfeval_functions.functions.rci.rci.rst
 msgid "Return type"

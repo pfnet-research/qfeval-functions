@@ -474,6 +474,10 @@ msgid ":py:obj:`rci <qfeval_functions.functions.rci>`"
 msgstr ":py:obj:`rci <qfeval_functions.functions.rci>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+msgid "Compute Rank Correlation Index (RCI) technical indicator."
+msgstr "Rank Correlation Index (RCI)テクニカル指標を計算します。"
+
+#: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`rcummax <qfeval_functions.functions.rcummax>`"
 msgstr ":py:obj:`rcummax <qfeval_functions.functions.rcummax>`"
 
