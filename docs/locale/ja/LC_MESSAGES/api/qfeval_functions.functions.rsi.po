@@ -88,7 +88,6 @@ msgid ""
 msgstr "RSIを計算する次元。デフォルトは-1（最後の次元）。"
 
 #: ../../api/qfeval_functions.functions.rsi.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 
@@ -133,7 +132,6 @@ msgid ""
 msgstr "デフォルト手法 (use_sma=False): https://www.investopedia.com/terms/r/rsi.asp"
 
 #: of qfeval_functions.functions.rsi.rsi:86
-#, fuzzy
 msgid ""
 "SMA method (use_sma=True): https://info.monex.co.jp/technical-"
 "analysis/indicators/005.html"

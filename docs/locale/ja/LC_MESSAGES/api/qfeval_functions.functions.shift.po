@@ -24,7 +24,6 @@ msgid "qfeval\\_functions.functions.shift"
 msgstr "qfeval\\_functions.functions.shift"
 
 #: of qfeval_functions.functions.shift.shift:1
-#, fuzzy
 msgid "Shift tensor elements along specified dimensions with NaN padding."
 msgstr "指定された次元に沿って配列要素をシフトします。"
 
@@ -67,7 +66,6 @@ msgid ""
 msgstr "シフトを実行する次元を指定します。 :attr:`shifts` がタプルの場合、 :attr:`dims` の長さは :attr:`shifts` の長さと一致している必要があります。"
 
 #: ../../api/qfeval_functions.functions.shift.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

@@ -54,7 +54,6 @@ msgid ""
 msgstr "入力データの形状は ``(..., S, D)`` で、``S`` はサンプル数、``D`` は特徴量/次元数を表します。バッチ次元 ``...`` は保持されます。"
 
 #: ../../api/qfeval_functions.functions.pca.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

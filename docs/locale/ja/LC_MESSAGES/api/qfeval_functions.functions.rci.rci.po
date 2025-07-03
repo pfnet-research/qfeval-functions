@@ -77,7 +77,6 @@ msgid ""
 msgstr "RCIを計算する次元。デフォルトは-1（最後の次元）です。"
 
 #: ../../api/qfeval_functions.functions.rci.rci.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

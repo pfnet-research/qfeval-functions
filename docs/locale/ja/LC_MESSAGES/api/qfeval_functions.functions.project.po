@@ -24,7 +24,6 @@ msgid "qfeval\\_functions.functions.project"
 msgstr "qfeval\\_functions.functions.project"
 
 #: of qfeval_functions.functions.project.project:1
-#, fuzzy
 msgid "Project tensor using a projection matrix."
 msgstr "指定された投影行列 `a` を使用して、与えられたテンソル `x` を投影します。"
 

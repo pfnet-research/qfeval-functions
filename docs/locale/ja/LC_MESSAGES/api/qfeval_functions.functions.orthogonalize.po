@@ -24,7 +24,6 @@ msgid "qfeval\\_functions.functions.orthogonalize"
 msgstr "qfeval\\_functions.functions.orthogonalize"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:1
-#, fuzzy
 msgid "Orthogonalize tensor x with respect to tensor y."
 msgstr "指定された次元に沿って、xをyに対して直交化します。"
 
@@ -37,7 +36,6 @@ msgid ""
 msgstr "この関数はグラム・シュミット直交化処理を実行し、指定された次元に沿って :attr:`x` の :attr:`y` と平行な成分を除去します。結果として得られるテンソルは、:attr:`x` の直交成分を保持しつつ、:attr:`y` に対して直交するテンソルとなります。"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:8
-#, fuzzy
 msgid "The orthogonalization is computed as:"
 msgstr "直交化されたテンソル。"
 
@@ -64,14 +62,12 @@ msgid "The tensor to be orthogonalized."
 msgstr "直交化するテンソル。"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:20
-#, fuzzy
 msgid ""
 "The reference tensor with respect to which :attr:`x` will be "
 "orthogonalized. Must have the same shape as :attr:`x`."
 msgstr "xを直交化する際に基準となるテンソル。"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:24
-#, fuzzy
 msgid ""
 "The dimension along which the orthogonalization is performed. Default is "
 "-1 (the last dimension)."
@@ -82,7 +78,6 @@ msgid "Returns"
 msgstr "Returns"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:28
-#, fuzzy
 msgid "The orthogonalized tensor with the same shape as :attr:`x`."
 msgstr "直交化されたテンソル。"
 

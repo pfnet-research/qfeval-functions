@@ -24,7 +24,6 @@ msgid "qfeval\\_functions.functions.signif"
 msgstr "qfeval\\_functions.functions.signif"
 
 #: of qfeval_functions.functions.signif.signif:1
-#, fuzzy
 msgid "Round tensor values to a specified number of significant digits."
 msgstr "指定されたテンソルの数値を、指定された有効桁数に丸めます。"
 
@@ -68,7 +67,6 @@ msgid ""
 msgstr "保持する有効桁数。正の値である必要があります。デフォルトは6で、Rの``signif()``関数の仕様に準拠しています。"
 
 #: ../../api/qfeval_functions.functions.signif.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

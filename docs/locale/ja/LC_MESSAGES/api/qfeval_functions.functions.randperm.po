@@ -24,7 +24,6 @@ msgid "qfeval\\_functions.functions.randperm"
 msgstr "qfeval\\_functions.functions.randperm"
 
 #: of qfeval_functions.functions.randperm.randperm:1
-#, fuzzy
 msgid "Generate a random permutation of integers from 0 to n-1."
 msgstr "`0`から`n - 1`までの整数からなるランダムな順列を返します。"
 
@@ -73,12 +72,10 @@ msgid ""
 msgstr "返されるテンソルの希望するデバイス。指定しない場合、デフォルトデバイスが使用されます。"
 
 #: ../../api/qfeval_functions.functions.randperm.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.randperm.randperm:29
-#, fuzzy
 msgid ""
 "A 1D tensor of length ``n`` containing a random permutation of integers "
 "from 0 to n-1."

@@ -97,12 +97,10 @@ msgid "Example"
 msgstr "使用例"
 
 #: of qfeval_functions.functions.ma.ma:61
-#, fuzzy
 msgid ":func:`msum`: The underlying moving sum function."
 msgstr ":func:`msum`: 移動合計を計算する基礎関数。 :func:`ema`: 加重平均を計算するための指数移動平均。"
 
 #: of qfeval_functions.functions.ma.ma:62
-#, fuzzy
 msgid ":func:`ema`: Exponential moving average for weighted averaging."
 msgstr ":func:`msum`: 移動合計を計算する基礎関数。 :func:`ema`: 加重平均を計算するための指数移動平均。"
 

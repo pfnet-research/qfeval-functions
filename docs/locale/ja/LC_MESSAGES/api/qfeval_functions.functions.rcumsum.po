@@ -55,12 +55,10 @@ msgid "The dimension along which to compute the reverse cumulative sum."
 msgstr "逆累積和を計算する次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.rcumsum.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.rcumsum.rcumsum:19
-#, fuzzy
 msgid "The reverse cumulative sum with the same shape as the input tensor."
 msgstr "次元 `dim` に沿って `input` の要素の逆累積和を返します。"
 

@@ -56,7 +56,6 @@ msgid "The dimension along which to compute the reverse cumulative maximum."
 msgstr "累積最大値を逆順に計算する次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.rcummax.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

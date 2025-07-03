@@ -21,7 +21,6 @@ msgid "qfeval\\_functions.functions.stable\\_sort"
 msgstr "qfeval\\_functions.functions.stable\\_sort"
 
 #: of qfeval_functions.functions.stable_sort.stable_sort:1
-#, fuzzy
 msgid "Perform stable sorting that preserves the order of equivalent elements."
 msgstr "与えられたテンソルを、等価な要素の順序を保持したままソートします。"
 
@@ -63,7 +62,6 @@ msgid "Dimension along which to sort. Default is -1 (last dimension)."
 msgstr "ソートを行う次元。デフォルトは-1（最後の次元）です。"
 
 #: ../../api/qfeval_functions.functions.stable_sort.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

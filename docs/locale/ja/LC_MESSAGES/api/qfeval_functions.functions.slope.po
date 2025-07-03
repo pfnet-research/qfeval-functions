@@ -79,7 +79,6 @@ msgid ""
 msgstr "出力テンソルが指定された次元を保持するかどうか。デフォルトは False。"
 
 #: ../../api/qfeval_functions.functions.slope.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 
@@ -130,7 +129,6 @@ msgid "References"
 msgstr "参考文献"
 
 #: of qfeval_functions.functions.slope.slope:105
-#, fuzzy
 msgid ""
 "Simple linear regression: "
 "https://en.wikipedia.org/wiki/Simple_linear_regression"

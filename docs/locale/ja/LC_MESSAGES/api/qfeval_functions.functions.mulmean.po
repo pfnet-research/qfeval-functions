@@ -100,7 +100,6 @@ msgid "Example"
 msgstr "使用例"
 
 #: of qfeval_functions.functions.mulmean.mulmean:70
-#, fuzzy
 msgid ""
 ":func:`mulsum`: The underlying function for memory-efficient "
 "multiplication and summation."

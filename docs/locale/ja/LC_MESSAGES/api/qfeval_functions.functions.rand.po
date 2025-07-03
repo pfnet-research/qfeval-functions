@@ -65,7 +65,6 @@ msgid ""
 msgstr "返されるテンソルの希望するデバイス。指定しない場合、デフォルトデバイスが使用されます。"
 
 #: ../../api/qfeval_functions.functions.rand.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 

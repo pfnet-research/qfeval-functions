@@ -28,7 +28,6 @@ msgid "Generate a tensor with random numbers matching the shape of input tensor.
 msgstr "入力テンソルの形状に一致するランダムな数値からなるテンソルを生成します。"
 
 #: of qfeval_functions.functions.rand_like.rand_like:3
-#, fuzzy
 msgid ""
 "This function creates a tensor with the same shape as the input tensor, "
 "filled with random numbers sampled from a uniform distribution on the "
@@ -68,12 +67,10 @@ msgid ""
 msgstr "返されるテンソルの希望するデバイス。指定しない場合、入力テンソルと同じデバイスがデフォルトとなります。"
 
 #: ../../api/qfeval_functions.functions.rand_like.rst
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.rand_like.rand_like:25
-#, fuzzy
 msgid ""
 "A tensor with the same shape as :attr:`input`, filled with random numbers"
 " from a uniform distribution on [0, 1)."

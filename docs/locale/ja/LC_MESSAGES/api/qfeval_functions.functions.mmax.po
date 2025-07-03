@@ -89,12 +89,10 @@ msgid "Example"
 msgstr "使用例"
 
 #: of qfeval_functions.functions.mmax.mmax:63
-#, fuzzy
 msgid ":func:`mmin`: Moving minimum function."
 msgstr ":func:`mmin`: 移動最小値関数。 :func:`msum`: 移動合計関数。"
 
 #: of qfeval_functions.functions.mmax.mmax:64
-#, fuzzy
 msgid ":func:`msum`: Moving sum function."
 msgstr ":func:`mmin`: 移動最小値関数。 :func:`msum`: 移動合計関数。"
 

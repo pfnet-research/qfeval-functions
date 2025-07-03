@@ -370,7 +370,6 @@ msgid ":py:obj:`orthogonalize <qfeval_functions.functions.orthogonalize>`"
 msgstr ":py:obj:`orthogonalize <qfeval_functions.functions.orthogonalize>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Orthogonalize tensor x with respect to tensor y."
 msgstr "指定された次元に沿って、xをyに対して直交化します。"
 
@@ -387,7 +386,6 @@ msgid ":py:obj:`pca <qfeval_functions.functions.pca>`"
 msgstr ":py:obj:`pca <qfeval_functions.functions.pca>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute Principal Component Analysis (PCA) on the input data."
 msgstr "与えられたデータに対して主成分分析を実行します。"
 
@@ -396,7 +394,6 @@ msgid ":py:obj:`project <qfeval_functions.functions.project>`"
 msgstr ":py:obj:`project <qfeval_functions.functions.project>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Project tensor using a projection matrix."
 msgstr "与えられたテンソル `x` を、指定された射影行列 `a` を用いて投影します。"
 
@@ -405,7 +402,6 @@ msgid ":py:obj:`rand <qfeval_functions.functions.rand>`"
 msgstr ":py:obj:`rand <qfeval_functions.functions.rand>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Generate a tensor filled with random numbers from a uniform distribution."
 msgstr "[0, 1)の範囲の一様分布に従う乱数で埋められたテンソルを返します。"
 
@@ -422,7 +418,6 @@ msgid ":py:obj:`randint <qfeval_functions.functions.randint>`"
 msgstr ":py:obj:`randint <qfeval_functions.functions.randint>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Generate a tensor filled with random integers from a uniform distribution."
 msgstr "[0, 1)の範囲の一様分布に従う乱数で埋められたテンソルを返します。"
 
@@ -431,7 +426,6 @@ msgid ":py:obj:`randn <qfeval_functions.functions.randn>`"
 msgstr ":py:obj:`randn <qfeval_functions.functions.randn>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid ""
 "Generate a tensor filled with random numbers from a standard normal "
 "distribution."
@@ -452,7 +446,6 @@ msgid ":py:obj:`randperm <qfeval_functions.functions.randperm>`"
 msgstr ":py:obj:`randperm <qfeval_functions.functions.randperm>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Generate a random permutation of integers from 0 to n-1."
 msgstr "`0`から`n - 1`までの整数をランダムに並べ替えた配列を返します。"
 
@@ -469,7 +462,6 @@ msgid ":py:obj:`rcummax <qfeval_functions.functions.rcummax>`"
 msgstr ":py:obj:`rcummax <qfeval_functions.functions.rcummax>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute reverse cumulative maximum along a specified dimension."
 msgstr "指定された次元に沿って指数移動平均を計算します。"
 
@@ -478,7 +470,6 @@ msgid ":py:obj:`rcumsum <qfeval_functions.functions.rcumsum>`"
 msgstr ":py:obj:`rcumsum <qfeval_functions.functions.rcumsum>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute reverse cumulative sum along a specified dimension."
 msgstr "指定された次元に沿って指数移動平均を計算します。"
 
@@ -487,7 +478,6 @@ msgid ":py:obj:`rms <qfeval_functions.functions.rms>`"
 msgstr ":py:obj:`rms <qfeval_functions.functions.rms>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute the root mean square (RMS) along specified dimensions."
 msgstr "指定された次元に沿って指数移動平均を計算します。"
 
@@ -496,7 +486,6 @@ msgid ":py:obj:`rsi <qfeval_functions.functions.rsi>`"
 msgstr ":py:obj:`rsi <qfeval_functions.functions.rsi>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute Relative Strength Index (RSI) technical indicator."
 msgstr "Rank Correlation Index (RCI)テクニカル指標を計算します。"
 
@@ -505,7 +494,6 @@ msgid ":py:obj:`shift <qfeval_functions.functions.shift>`"
 msgstr ":py:obj:`shift <qfeval_functions.functions.shift>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Shift tensor elements along specified dimensions with NaN padding."
 msgstr "指定された次元に沿って配列要素をシフトします。"
 
@@ -514,7 +502,6 @@ msgid ":py:obj:`signif <qfeval_functions.functions.signif>`"
 msgstr ":py:obj:`signif <qfeval_functions.functions.signif>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Round tensor values to a specified number of significant digits."
 msgstr "指定された有効桁数にテンソルの数値を丸めます。"
 
@@ -523,7 +510,6 @@ msgid ":py:obj:`skipna <qfeval_functions.functions.skipna>`"
 msgstr ":py:obj:`skipna <qfeval_functions.functions.skipna>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Apply a function to tensors after removing NaN values along a dimension."
 msgstr "指定された次元に沿ってテンソルに2次元入力を期待する関数を適用します。"
 
@@ -532,7 +518,6 @@ msgid ":py:obj:`slope <qfeval_functions.functions.slope>`"
 msgstr ":py:obj:`slope <qfeval_functions.functions.slope>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Compute the slope of linear regression between two tensors."
 msgstr "`x`と`y`の相関係数の傾きを返し、NaN値は無視します。"
 
@@ -551,7 +536,6 @@ msgid ":py:obj:`stable_sort <qfeval_functions.functions.stable_sort>`"
 msgstr ":py:obj:`stable_sort <qfeval_functions.functions.stable_sort>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-#, fuzzy
 msgid "Perform stable sorting that preserves the order of equivalent elements."
 msgstr "等価な要素の順序を保持しながら与えられたテンソルをソートします。"
 

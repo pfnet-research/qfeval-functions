@@ -60,7 +60,6 @@ msgid ""
 msgstr "入力ベクトルの形状は ``(..., N, M)`` で、``N`` はベクトルの数、``M`` は各ベクトルの次元数です。バッチ次元 ``...`` はそのまま保持されます。"
 
 #: of qfeval_functions.functions.orthonormalize.orthonormalize
-#, fuzzy
 msgid "Returns"
 msgstr "戻り値の型"
 
