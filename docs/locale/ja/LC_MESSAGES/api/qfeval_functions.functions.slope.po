@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,20 +24,133 @@ msgid "qfeval\\_functions.functions.slope"
 msgstr "qfeval\\_functions.functions.slope"
 
 #: of qfeval_functions.functions.slope.slope:1
-msgid "Returns the slope of correlation bewteen `x` and `y`."
-msgstr "`x`と`y`の相関関係の傾きを返します。"
+msgid "Compute the slope of linear regression between two tensors."
+msgstr "2つのテンソル間の線形回帰の傾きを計算します。"
 
 #: of qfeval_functions.functions.slope.slope:3
 msgid ""
-"NOTE: This is based on calculation of slope beta at: "
-"https://en.wikipedia.org/wiki/Simple_linear_regression"
-msgstr "注意：この計算は単純線形回帰の傾きβの計算に基づいています：https://en.wikipedia.org/wiki/Simple_linear_regression"
+"This function computes the slope coefficient (beta) of the linear "
+"regression line that best fits the relationship between tensors :attr:`x`"
+" and :attr:`y`. The slope represents the rate of change in :attr:`y` with"
+" respect to changes in :attr:`x`, providing insight into the linear "
+"relationship between variables."
+msgstr "この関数は、テンソル :attr:`x` と :attr:`y` の関係を最もよく表す線形回帰直線の傾き係数 (ベータ) を計算します。傾きは、:attr:`x` の変化に対する :attr:`y` の変化率を表し、変数間の線形関係に関する洞察を提供します。"
+
+#: of qfeval_functions.functions.slope.slope:8
+msgid "The slope is calculated using the least squares method:"
+msgstr "傾きは最小二乗法を用いて計算されます："
+
+#: of qfeval_functions.functions.slope.slope:10
+msgid ""
+"\\beta = \\frac{\\text{Cov}(x, y)}{\\text{Var}(x)} = \\frac{\\sum (x_i - "
+"\\bar{x})(y_i - \\bar{y})}{\\sum (x_i - \\bar{x})^2}\n"
+"\n"
+msgstr "\\beta = \\frac{\\text{共分散}(x, y)}{\\text{分散}(x)} = \\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum (x_i - \\bar{x})^2}\n\n"
+
+#: of qfeval_functions.functions.slope.slope:13
+#, python-brace-format
+msgid ""
+"where :math:`\\bar{x}` and :math:`\\bar{y}` are the means of :attr:`x` "
+"and :attr:`y` respectively."
+msgstr "ここで :math:`\\bar{x}` と :math:`\\bar{y}` はそれぞれ :attr:`x` と :attr:`y` の平均値である。"
+
+#: ../../api/qfeval_functions.functions.slope.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.slope.slope:16
+msgid "The independent variable tensor. Must have the same shape as :attr:`y`."
+msgstr "独立変数テンソル。 :attr:`y`と同じ形状である必要があります。"
+
+#: of qfeval_functions.functions.slope.slope:19
+msgid "The dependent variable tensor. Must have the same shape as :attr:`x`."
+msgstr "従属変数テンソル。 :attr:`x`と同じ形状である必要があります。"
+
+#: of qfeval_functions.functions.slope.slope:22
+msgid ""
+"The dimension or dimensions along which to compute the slope. If empty "
+"tuple (default), computes slope over all elements."
+msgstr "傾きを計算する次元または次元を指定します。空のタプル（デフォルト値）の場合、すべての要素にわたって傾きを計算します。"
+
+#: of qfeval_functions.functions.slope.slope:26
+msgid ""
+"Whether the output tensor retains the specified dimensions. Default is "
+"False."
+msgstr "出力テンソルが指定された次元を保持するかどうか。デフォルトは False。"
+
+#: ../../api/qfeval_functions.functions.slope.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.slope.slope:30
+msgid ""
+"The slope coefficients. If :attr:`keepdim` is True, the output tensor has"
+" the same number of dimensions as the input with the reduced dimensions "
+"having size 1."
+msgstr "傾き係数。 :attr:`keepdim` が True の場合、出力テンソルは入力テンソルと同じ数の次元を持ち、削減された次元のサイズは 1 になります。"
 
 #: ../../api/qfeval_functions.functions.slope.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.slope.slope:7
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.slope.slope:36
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.slope.slope:88
+msgid ":func:`correl`: Pearson correlation coefficient."
+msgstr ":func:`correl`: ピアソン相関係数。"
+
+#: of qfeval_functions.functions.slope.slope:89
+msgid ":func:`covar`: Covariance between tensors."
+msgstr ":func:`covar`: テンソル間の共分散を計算します。"
+
+#: of qfeval_functions.functions.slope.slope:90
+msgid ":func:`mulmean`: Multiplicative mean used in slope calculation."
+msgstr ":func:`mulmean`: 傾き計算で使用される乗法的平均。"
+
+#: of qfeval_functions.functions.slope.slope:93
+msgid ""
+"The slope calculation assumes a linear relationship between variables and"
+" can be sensitive to outliers. For non-linear relationships, consider "
+"polynomial regression or robust regression methods."
+msgstr "この傾き計算は変数間に線形関係があることを前提としており、外れ値の影響を受けやすい特性があります。非線形関係を分析する場合は、多項式回帰や頑健な回帰手法の採用を検討してください。"
+
+#: of qfeval_functions.functions.slope.slope:98
+msgid ""
+"Division by zero occurs when :attr:`x` has zero variance (all values are "
+"identical). In such cases, the slope is undefined and will result in NaN "
+"values. Consider preprocessing the data to handle constant variables "
+"appropriately."
+msgstr ":attr:`x`の分散が0の場合（すべての値が同一の場合）には、傾きは定義されず、NaN値となります。このような定数変数を適切に処理するためには、データ前処理段階で適切な処理を行うことを検討してください。"
+
+#: of qfeval_functions.functions.slope.slope:104
+msgid "References"
+msgstr "参考文献"
+
+#: of qfeval_functions.functions.slope.slope:105
+#, fuzzy
+msgid ""
+"Simple linear regression: "
+"https://en.wikipedia.org/wiki/Simple_linear_regression"
+msgstr "注意：この計算は単純線形回帰の傾きβの計算に基づいています：https://en.wikipedia.org/wiki/Simple_linear_regression"
+
+#: of qfeval_functions.functions.slope.slope:106
+msgid ""
+"CAPM beta calculation: "
+"https://en.wikipedia.org/wiki/Capital_asset_pricing_model"
+msgstr "CAPMベータ計算：https://en.wikipedia.org/wiki/Capital_asset_pricing_model"
+
+#: of qfeval_functions.functions.slope.slope:107
+msgid ""
+"Factor models in finance: "
+"https://en.wikipedia.org/wiki/Factor_model_(finance)"
+msgstr "金融におけるファクターモデル：https://en.wikipedia.org/wiki/Factor_model_(finance)"
+
+#~ msgid "Returns the slope of correlation bewteen `x` and `y`."
+#~ msgstr "`x`と`y`の相関関係の傾きを返します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

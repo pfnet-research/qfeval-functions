@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,16 +24,94 @@ msgid "qfeval\\_functions.functions.rcummax"
 msgstr "qfeval\\_functions.functions.rcummax"
 
 #: of qfeval_functions.functions.rcummax.rcummax:1
+msgid "Compute reverse cumulative maximum along a specified dimension."
+msgstr "指定された次元に沿って逆累積最大値を計算します。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:3
 msgid ""
-"Returns the reversely cumulative max of elements of `input` in the "
-"dimension `dim`."
-msgstr "次元 `dim` における `input` の要素の逆累積最大値を返します。"
+"This function computes the cumulative maximum in reverse order along the "
+"specified dimension. For each position, it returns the maximum value from"
+" that position to the end of the tensor along the given dimension, along "
+"with the indices of those maximum values."
+msgstr "この関数は、指定された次元に沿って累積最大値を逆順で計算します。各位置において、指定された次元に沿ってテンソルのその位置から末尾までの累積最大値と、それら最大値のインデックスを返します。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:8
+msgid ""
+"Unlike :func:`torch.cummax` which computes cumulative maximum from the "
+"beginning to each position, this function computes from each position to "
+"the end, effectively computing ``cummax`` on the reversed tensor and then"
+" reversing the result."
+msgstr ":func:`torch.cummax` が先頭から各位置まで累積最大値を計算するのに対し、この関数は各位置から末尾まで累積最大値を計算します。つまり、テンソルを反転させた上で累積最大値を計算し、結果を再度反転させるという処理を行います。"
+
+#: ../../api/qfeval_functions.functions.rcummax.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.rcummax.rcummax:14
+msgid "The input tensor."
+msgstr "入力テンソル。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:17
+msgid "The dimension along which to compute the reverse cumulative maximum."
+msgstr "累積最大値を逆順に計算する次元を指定します。"
+
+#: ../../api/qfeval_functions.functions.rcummax.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.rcummax.rcummax:21
+msgid ""
+"A named tuple containing:  - **values** (*Tensor*): The reverse "
+"cumulative maximum values   with the same shape as the input tensor. - "
+"**indices** (*Tensor*): The indices of the maximum values   with the same"
+" shape as the input tensor."
+msgstr "以下の要素を含む名前付きタプル:  - **values** (*Tensor*): 入力テンソルと同じ形状を持つ逆累積最大値   - **indices** (*Tensor*): 入力テンソルと同じ形状を持つ最大値のインデックス"
+
+#: of qfeval_functions.functions.rcummax.rcummax:21
+msgid "A named tuple containing:"
+msgstr "以下の要素を含む名前付きタプル:"
+
+#: of qfeval_functions.functions.rcummax.rcummax:23
+msgid ""
+"**values** (*Tensor*): The reverse cumulative maximum values with the "
+"same shape as the input tensor."
+msgstr "**values** (*Tensor*): 入力テンソルと同じ形状を持つ逆累積最大値。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:25
+msgid ""
+"**indices** (*Tensor*): The indices of the maximum values with the same "
+"shape as the input tensor."
+msgstr "**indices** (*Tensor*): 入力テンソルと同じ形状を持つ最大値のインデックス。"
 
 #: ../../api/qfeval_functions.functions.rcummax.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.rcummax.rcummax:5
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.rcummax.Result\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.rcummax.Result\\``"
+#: of qfeval_functions.functions.rcummax.rcummax:30
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.rcummax.rcummax:63
+msgid ":func:`torch.cummax`: Cumulative maximum from beginning to each position."
+msgstr ":func:`torch.cummax`: 各位置までの累積最大値を計算します。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:64
+msgid ":func:`rcumsum`: Reverse cumulative sum."
+msgstr ":func:`rcumsum`: 逆累積和を計算します。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:67
+msgid ""
+"The indices returned correspond to the original positions in the input "
+"tensor, not the positions in the flipped tensor used internally."
+msgstr "返されるインデックスは、内部的に使用される反転テンソル内の位置ではなく、入力テンソル内の元の位置に対応するインデックスです。"
+
+#~ msgid ""
+#~ "Returns the reversely cumulative max of"
+#~ " elements of `input` in the dimension"
+#~ " `dim`."
+#~ msgstr "次元 `dim` における `input` の要素の逆累積最大値を返します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.rcummax.Result\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.rcummax.Result\\``"
 

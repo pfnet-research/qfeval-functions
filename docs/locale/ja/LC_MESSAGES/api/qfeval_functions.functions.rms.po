@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,37 +24,111 @@ msgid "qfeval\\_functions.functions.rms"
 msgstr "qfeval\\_functions.functions.rms"
 
 #: of qfeval_functions.functions.rms.rms:1
+msgid "Compute the root mean square (RMS) along specified dimensions."
+msgstr "指定された次元に沿って二乗平均平方根 (RMS) を計算します。"
+
+#: of qfeval_functions.functions.rms.rms:3
 msgid ""
-"Returns the root mean square of each row of the input tensor in the given"
-" dimension `dim`.  If `dim` is a list of dimensions, reduce over all of "
-"them."
-msgstr "指定された次元 `dim` において、入力テンソルの各行の二乗平均平方根を返します。`dim` が次元のリストである場合、すべての次元にわたって集約します。"
+"The root mean square is calculated as the square root of the arithmetic "
+"mean of the squares of the values. It provides a measure of the magnitude"
+" of the values, particularly useful for measuring variability or the "
+"effective value of oscillating quantities."
+msgstr "二乗平均平方根は、値の二乗の算術平均の平方根として計算されます。これは、特に変動性の測定や振動量の実効値を測定する際に有用な、値の大きさを測る尺度を提供します。"
+
+#: of qfeval_functions.functions.rms.rms:8
+msgid "The RMS is computed as:"
+msgstr "RMSは以下のように計算されます："
+
+#: of qfeval_functions.functions.rms.rms:10
+msgid ""
+"\\text{RMS} = \\sqrt{\\frac{1}{n} \\sum_{i=1}^{n} x_i^2}\n"
+"\n"
+msgstr "\\text{RMS} = \\sqrt{\\frac{1}{n} \\sum_{i=1}^{n} x_i^2}\n\n"
+
+#: of qfeval_functions.functions.rms.rms:13
+msgid ""
+"where :math:`n` is the number of elements along the specified "
+"dimension(s)."
+msgstr "ここで :math:`n` は指定された次元に沿った要素数を表します。"
 
 #: ../../api/qfeval_functions.functions.rms.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
-#: of qfeval_functions.functions.rms.rms:6
+#: of qfeval_functions.functions.rms.rms:16
 msgid "The input tensor."
 msgstr "入力テンソル。"
 
-#: of qfeval_functions.functions.rms.rms:9
-msgid "The dimension or dimensions to reduce."
-msgstr "削減する次元または次元のリスト。"
+#: of qfeval_functions.functions.rms.rms:19
+msgid ""
+"The dimension or dimensions along which to compute the RMS. If empty "
+"tuple (default), computes RMS over all elements."
+msgstr "RMSを計算する次元を指定します。空のタプルを指定すると（デフォルト）、全ての要素に対するRMSが計算されます。"
 
-#: of qfeval_functions.functions.rms.rms:12
-msgid "Whether the output tensor has `dim` retained or not."
+#: of qfeval_functions.functions.rms.rms:23
+#, fuzzy
+msgid ""
+"Whether the output tensor retains the specified dimensions. Default is "
+"False."
 msgstr "出力テンソルが次元 `dim` を保持するかどうかを指定します。"
 
 #: ../../api/qfeval_functions.functions.rms.rst
 msgid "Returns"
 msgstr "Returns"
 
-#: of qfeval_functions.functions.rms.rms:15
-msgid "The output tensor."
-msgstr "出力テンソル。"
+#: of qfeval_functions.functions.rms.rms:27
+msgid ""
+"The RMS values. If :attr:`keepdim` is True, the output tensor has the "
+"same number of dimensions as the input with the reduced dimensions having"
+" size 1."
+msgstr "RMS値。 :attr:`keepdim` が True の場合、出力テンソルの次元数は入力テンソルと同じですが、削減された次元のサイズは 1 になります。"
 
 #: ../../api/qfeval_functions.functions.rms.rst
 msgid "Return type"
 msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.rms.rms:33
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.rms.rms:69
+msgid ":func:`torch.norm`: L2 norm (RMS times sqrt(n))."
+msgstr ":func:`torch.norm`: L2ノルム（RMS値にnの平方根を乗じた値）。"
+
+#: of qfeval_functions.functions.rms.rms:70
+msgid ":func:`torch.std`: Standard deviation."
+msgstr ":func:`torch.std`: 標準偏差。"
+
+#: of qfeval_functions.functions.rms.rms:71
+msgid ":func:`torch.mean`: Arithmetic mean."
+msgstr ":func:`torch.mean`: 算術平均。"
+
+#: of qfeval_functions.functions.rms.rms:74
+msgid ""
+"For zero-mean data, RMS equals the standard deviation. For non-zero mean "
+"data, RMS² = mean² + variance."
+msgstr "平均がゼロのデータの場合、RMSは標準偏差と等しくなります。平均がゼロでないデータの場合、RMS² = 平均² + 分散となります。"
+
+#: of qfeval_functions.functions.rms.rms:78
+msgid ""
+"Unlike standard deviation, RMS is not translation-invariant. Adding a "
+"constant to all values will change the RMS, making it sensitive to the "
+"level of the data as well as its variability."
+msgstr "標準偏差とは異なり、RMSは翻訳不変ではありません。すべての値に定数値を加算するとRMS値が変化し、データのレベル変動だけでなくその変動性にも敏感に反応する特性があります。"
+
+#~ msgid ""
+#~ "Returns the root mean square of "
+#~ "each row of the input tensor in"
+#~ " the given dimension `dim`.  If `dim`"
+#~ " is a list of dimensions, reduce "
+#~ "over all of them."
+#~ msgstr ""
+#~ "指定された次元 `dim` において、入力テンソルの各行の二乗平均平方根を返します。`dim` "
+#~ "が次元のリストである場合、すべての次元にわたって集約します。"
+
+#~ msgid "The dimension or dimensions to reduce."
+#~ msgstr "削減する次元または次元のリスト。"
+
+#~ msgid "The output tensor."
+#~ msgstr "出力テンソル。"
 

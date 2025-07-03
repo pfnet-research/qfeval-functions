@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -36,6 +36,8 @@ msgid ""
 "values are treated as missing data and do not contribute to either the "
 "sum or the count used in the mean calculation."
 msgstr "この関数は、指定された次元に沿ってテンソル要素の平均値を計算します。計算時には NaN 値は無視されます。NaN 値は欠損データとして扱われ、平均値の計算に使用される合計値やカウント値には寄与しません。"
+"この関数は、指定された次元に沿ってテンソル要素の平均値を計算します。計算時には NaN 値は無視されます。NaN "
+"値は欠損データとして扱われ、平均値の計算に使用される合計値やカウント値には寄与しません。"
 
 #: of qfeval_functions.functions.nanmean.nanmean:8
 msgid "The NaN-aware mean is computed as:"
@@ -47,6 +49,9 @@ msgid ""
 "X_i}{N_{\\text{valid}}}\n"
 "\n"
 msgstr "\\text{nanmean}(X) = \\frac{\\sum_{i \\text{ valid}} X_i}{N_{\\text{valid}}}\n\n"
+"\\text{nanmean}(X) = \\frac{\\sum_{i \\text{ valid}} "
+"X_i}{N_{\\text{valid}}}\n"
+"\n"
 
 #: of qfeval_functions.functions.nanmean.nanmean:13
 msgid ""
@@ -84,6 +89,8 @@ msgid ""
 "depends on the input dimensions, :attr:`dim`, and :attr:`keepdim` "
 "parameters."
 msgstr "有効な値（NaNでない値）のみに基づいて計算された平均値。形状は入力次元、:attr:`dim`パラメータ、および :attr:`keepdim`パラメータに依存します。"
+"有効な値（NaNでない値）のみに基づいて計算された平均値。形状は入力次元、:attr:`dim`パラメータ、および "
+":attr:`keepdim`パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.nanmean.rst
 msgid "Return type"
@@ -94,15 +101,35 @@ msgid "Example"
 msgstr "使用例"
 
 #: of qfeval_functions.functions.nanmean.nanmean:66
-msgid ""
-":func:`nansum`: NaN-aware sum function. :func:`nanstd`: NaN-aware "
-"standard deviation function. :func:`nanvar`: NaN-aware variance function."
-" ``torch.nanmean``: PyTorch's built-in NaN-aware mean function."
-msgstr ":func:`nansum`: NaNを考慮した和関数。 :func:`nanstd`: NaNを考慮した標準偏差関数。 :func:`nanvar`: NaNを考慮した分散関数。 ``torch.nanmean``: PyTorchに組み込まれたNaNを考慮した平均関数。"
+msgid ":func:`nansum`: NaN-aware sum function."
+msgstr ":func:`nansum`: NaNを考慮した合計関数。"
+
+#: of qfeval_functions.functions.nanmean.nanmean:67
+msgid ":func:`nanstd`: NaN-aware standard deviation function."
+msgstr ":func:`nanstd`: NaNを考慮した標準偏差関数。"
+
+#: of qfeval_functions.functions.nanmean.nanmean:68
+msgid ":func:`nanvar`: NaN-aware variance function."
+msgstr ":func:`nanvar`: NaNを考慮した分散関数。"
+
+#: of qfeval_functions.functions.nanmean.nanmean:69
+msgid "``torch.nanmean``: PyTorch's built-in NaN-aware mean function."
+msgstr "``torch.nanmean``: PyTorchに組み込まれたNaNを考慮した平均関数。"
 
 #~ msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
 #~ msgstr "各行の平均値を返しますが、Not a Numbers (NaNs) は無視します。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid ""
+#~ ":func:`nansum`: NaN-aware sum function. "
+#~ ":func:`nanstd`: NaN-aware standard deviation"
+#~ " function. :func:`nanvar`: NaN-aware "
+#~ "variance function. ``torch.nanmean``: PyTorch's "
+#~ "built-in NaN-aware mean function."
+#~ msgstr ""
+#~ ":func:`nansum`: NaNを考慮した和関数。 :func:`nanstd`: "
+#~ "NaNを考慮した標準偏差関数。 :func:`nanvar`: NaNを考慮した分散関数。 "
+#~ "``torch.nanmean``: PyTorchに組み込まれたNaNを考慮した平均関数。"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,16 +24,68 @@ msgid "qfeval\\_functions.functions.rcumsum"
 msgstr "qfeval\\_functions.functions.rcumsum"
 
 #: of qfeval_functions.functions.rcumsum.rcumsum:1
+msgid "Compute reverse cumulative sum along a specified dimension."
+msgstr "指定された次元に沿って逆累積和を計算します。"
+
+#: of qfeval_functions.functions.rcumsum.rcumsum:3
 msgid ""
-"Returns the reversely cumulative sum of elements of `input` in the "
-"dimension `dim`."
+"This function computes the cumulative sum in reverse order along the "
+"specified dimension. For each position, it returns the sum of all values "
+"from that position to the end of the tensor along the given dimension."
+msgstr "この関数は、指定された次元に沿って累積和を逆順に計算します。各位置において、その位置からテンソルの末尾までの指定された次元に沿ったすべての値の合計を返します。"
+
+#: of qfeval_functions.functions.rcumsum.rcumsum:7
+msgid ""
+"Unlike :func:`torch.cumsum` which computes cumulative sum from the "
+"beginning to each position, this function computes from each position to "
+"the end, effectively computing ``cumsum`` on the reversed tensor and then"
+" reversing the result."
+msgstr ":func:`torch.cumsum` が各位置までの累積和を計算するのに対し、この関数は各位置から最後までの累積和を計算します。つまり、テンソルを反転させた上で累積和を計算し、結果を再度反転させるという処理を行います。"
+
+#: ../../api/qfeval_functions.functions.rcumsum.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.rcumsum.rcumsum:13
+msgid "The input tensor."
+msgstr "入力テンソル。"
+
+#: of qfeval_functions.functions.rcumsum.rcumsum:16
+msgid "The dimension along which to compute the reverse cumulative sum."
+msgstr "逆累積和を計算する次元を指定します。"
+
+#: ../../api/qfeval_functions.functions.rcumsum.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.rcumsum.rcumsum:19
+#, fuzzy
+msgid "The reverse cumulative sum with the same shape as the input tensor."
 msgstr "次元 `dim` に沿って `input` の要素の逆累積和を返します。"
 
 #: ../../api/qfeval_functions.functions.rcumsum.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.rcumsum.rcumsum:5
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.rcumsum.rcumsum:23
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.rcumsum.rcumsum:62
+msgid ":func:`torch.cumsum`: Cumulative sum from beginning to each position."
+msgstr ":func:`torch.cumsum`: 各位置までの累積和を計算します。"
+
+#: of qfeval_functions.functions.rcumsum.rcumsum:63
+msgid ":func:`rcummax`: Reverse cumulative maximum."
+msgstr ":func:`rcummax`: 逆累積最大値を計算します。"
+
+#: of qfeval_functions.functions.rcumsum.rcumsum:66
+msgid ""
+"Computes the sum of all future values from each time point, useful for "
+"forecasting and financial planning applications."
+msgstr "各時点から将来のすべての値を合計し、予測分析や財務計画アプリケーションにおいて有用です。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

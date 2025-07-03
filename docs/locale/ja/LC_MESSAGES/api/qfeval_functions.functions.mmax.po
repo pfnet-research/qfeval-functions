@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -35,7 +35,10 @@ msgid ""
 "window cannot fully cover preceding elements (i.e., the first ``span - "
 "1`` elements along the selected dimension), the result is computed using "
 "available values by padding with the first element."
-msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の最大値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の ``span - 1`` 要素の場合）、結果は最初の要素でパディングすることで利用可能な値を用いて計算されます。"
+msgstr ""
+"この関数は、指定された次元に沿ってサイズ :attr:`span` "
+"のスライディングウィンドウ内の最大値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の"
+" ``span - 1`` 要素の場合）、結果は最初の要素でパディングすることで利用可能な値を用いて計算されます。"
 
 #: of qfeval_functions.functions.mmax.mmax:10
 msgid "The moving maximum is computed as:"
@@ -45,7 +48,9 @@ msgstr "移動最大値は以下のように計算されます："
 msgid ""
 "\\text{MMAX}[i] = \\max_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n"
 "\n"
-msgstr "\\text{MMAX}[i] = \\max_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n\n"
+msgstr ""
+"\\text{MMAX}[i] = \\max_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n"
+"\n"
 
 #: ../../api/qfeval_functions.functions.mmax.rst
 msgid "Parameters"
@@ -84,7 +89,13 @@ msgid "Example"
 msgstr "使用例"
 
 #: of qfeval_functions.functions.mmax.mmax:63
-msgid ":func:`mmin`: Moving minimum function. :func:`msum`: Moving sum function."
+#, fuzzy
+msgid ":func:`mmin`: Moving minimum function."
+msgstr ":func:`mmin`: 移動最小値関数。 :func:`msum`: 移動合計関数。"
+
+#: of qfeval_functions.functions.mmax.mmax:64
+#, fuzzy
+msgid ":func:`msum`: Moving sum function."
 msgstr ":func:`mmin`: 移動最小値関数。 :func:`msum`: 移動合計関数。"
 
 #~ msgid "Returns the moving max of the given tensor."

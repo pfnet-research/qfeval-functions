@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,51 +24,128 @@ msgid "qfeval\\_functions.functions.pca"
 msgstr "qfeval\\_functions.functions.pca"
 
 #: of qfeval_functions.functions.pca.pca:1
-msgid ""
-"Computes principal components on the given input `x`. The returned value "
-"represents principal components.  Specifically, `result[*, i, :]` "
-"represents the :math:`(i+1)`-th largest principal component of the batch "
-"specified by `*`. Shape:"
-msgstr "与えられた入力 `x` に対して主成分を計算します。返される値は主成分を表します。具体的には、`result[*, i, :]` は `*` で指定されたバッチの :math:`(i+1)` 番目に大きい主成分を表します。形状:"
+msgid "Compute Principal Component Analysis (PCA) on the input data."
+msgstr "入力データに対して主成分分析（PCA）を実行します。"
 
-#: of qfeval_functions.functions.pca.pca:6
+#: of qfeval_functions.functions.pca.pca:3
 msgid ""
-"x: :math:`(*, S, D)` where `*` means any number of additional dimensions,"
-" `S` means the number of sections, and `D` means the number of "
-"dimensions."
-msgstr "x: :math:`(*, S, D)` ここで、`*` は任意の追加次元数を、`S` はセクション数を、`D` は次元数をそれぞれ表します。"
+"This function performs PCA by computing the covariance matrix of the "
+"input data and then finding its principal components through singular "
+"value decomposition (SVD). The principal components are ordered by their "
+"explained variance in descending order."
+msgstr "この関数は主成分分析（PCA）を実行します。まず、入力データの共分散行列を計算し、次に特異値分解（SVD）を用いてその主成分を求めます。主成分は、説明される分散の大きさに基づいて降順に並べ替えられます。"
 
-#: of qfeval_functions.functions.pca.pca:9
+#: of qfeval_functions.functions.pca.pca:8
 msgid ""
-"In qfeval, dimensions and sections often represent symbols and timestamps"
-" respectively. :returns:"
-msgstr "qfevalでは、次元とセクションはそれぞれシンボルとタイムスタンプを表すことがよくあります。 :returns:"
+"PCA is a dimensionality reduction technique that finds the directions of "
+"maximum variance in high-dimensional data and projects the data onto a "
+"lower-dimensional subspace formed by these principal components."
+msgstr "主成分分析（PCA）は、高次元データにおいて最大の分散を示す方向を特定し、これらの主成分によって形成される低次元部分空間にデータを投影する次元削減手法です。"
+
+#: ../../api/qfeval_functions.functions.pca.rst
+msgid "Parameters"
+msgstr "パラメータ"
 
 #: of qfeval_functions.functions.pca.pca:13
-msgid "`components[i]` represents the eigenvalue of the"
-msgstr "`components[i]` は、"
+msgid ""
+"Input data of shape ``(..., S, D)`` where ``S`` is the number of samples "
+"and ``D`` is the number of features/dimensions. The batch dimensions "
+"``...`` are preserved."
+msgstr "入力データの形状は ``(..., S, D)`` で、``S`` はサンプル数、``D`` は特徴量/次元数を表します。バッチ次元 ``...`` は保持されます。"
 
-#: of qfeval_functions.functions.pca.pca:14
-msgid ":math:`i`-th component."
-msgstr ":math:`i`番目の成分の固有値を表します。"
+#: ../../api/qfeval_functions.functions.pca.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.pca.pca:15
-msgid "explained_variance (Tensor): `explained_variance[i, j]` represents"
-msgstr "explained_variance (Tensor): `explained_variance[i, j]` represents"
+#: of qfeval_functions.functions.pca.pca:18
+msgid ""
+"A dataclass containing:  - **components** (*Tensor*): Principal component"
+" vectors of shape   ``(..., D, D)``. Each row ``components[..., i, :]`` "
+"represents   the i-th principal component direction. - "
+"**explained_variance** (*Tensor*): Explained variance ratios of   shape "
+"``(..., D)`` corresponding to each principal component,   ordered from "
+"largest to smallest."
+msgstr "以下の属性を含むデータクラス:  - **components** (*Tensor*): 主成分ベクトルの形状は   ``(..., D, D)``。各行 ``components[..., i, :]`` は   i番目の主成分方向を表します。 - **explained_variance** (*Tensor*): 形状 ``(..., D)`` の主成分ごとの説明分散比。   分散比は降順に並べ替えられています。"
 
-#: of qfeval_functions.functions.pca.pca:16
-msgid "the :math:`i`-th component's weight for the `j`-th feature."
-msgstr "`j`番目の特徴量に対する`i`番目の成分の重みを表す。"
+#: of qfeval_functions.functions.pca.pca:18
+msgid "A dataclass containing:"
+msgstr "以下の属性を含むデータクラス:"
+
+#: of qfeval_functions.functions.pca.pca:20
+msgid ""
+"**components** (*Tensor*): Principal component vectors of shape ``(..., "
+"D, D)``. Each row ``components[..., i, :]`` represents the i-th principal"
+" component direction."
+msgstr "**components** (*Tensor*): 主成分ベクトルの形状は ``(..., D, D)`` です。各行 ``components[..., i, :]`` は第 i 主成分の方向ベクトルを表します。"
+
+#: of qfeval_functions.functions.pca.pca:23
+msgid ""
+"**explained_variance** (*Tensor*): Explained variance ratios of shape "
+"``(..., D)`` corresponding to each principal component, ordered from "
+"largest to smallest."
+msgstr "**explained_variance** (*Tensor*): 各主成分に対応する説明分散比のテンソルで、形状は``(..., D)``。説明分散比は各主成分について、降順に並べ替えられています。"
 
 #: ../../api/qfeval_functions.functions.pca.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.pca.pca:17
-msgid "- components (Tensor)"
-msgstr "- components (Tensor)"
+#: of qfeval_functions.functions.pca.pca:29
+msgid "Example"
+msgstr "使用例"
 
-#: of qfeval_functions.functions.pca.pca:17
-msgid "components (Tensor)"
-msgstr "components (テンソル)"
+#: of qfeval_functions.functions.pca.pca:49
+msgid ":func:`pca_cov`: Compute PCA from a precomputed covariance matrix."
+msgstr ":func:`pca_cov`: 事前計算された共分散行列からPCAを計算します。"
+
+#: of qfeval_functions.functions.pca.pca:52
+msgid ""
+"In financial applications, dimensions often represent different assets or"
+" features, while samples represent time periods or observations."
+msgstr "金融アプリケーションにおいて、次元は通常異なる資産や特徴を表し、サンプルは時間期間や観測値を表します。"
+
+#~ msgid ""
+#~ "Computes principal components on the "
+#~ "given input `x`. The returned value "
+#~ "represents principal components.  Specifically, "
+#~ "`result[*, i, :]` represents the "
+#~ ":math:`(i+1)`-th largest principal component "
+#~ "of the batch specified by `*`. "
+#~ "Shape:"
+#~ msgstr ""
+#~ "与えられた入力 `x` に対して主成分を計算します。返される値は主成分を表します。具体的には、`result[*,"
+#~ " i, :]` は `*` で指定されたバッチの "
+#~ ":math:`(i+1)` 番目に大きい主成分を表します。形状:"
+
+#~ msgid ""
+#~ "x: :math:`(*, S, D)` where `*` "
+#~ "means any number of additional "
+#~ "dimensions, `S` means the number of "
+#~ "sections, and `D` means the number "
+#~ "of dimensions."
+#~ msgstr "x: :math:`(*, S, D)` ここで、`*` は任意の追加次元数を、`S` はセクション数を、`D` は次元数をそれぞれ表します。"
+
+#~ msgid ""
+#~ "In qfeval, dimensions and sections often"
+#~ " represent symbols and timestamps "
+#~ "respectively. :returns:"
+#~ msgstr "qfevalでは、次元とセクションはそれぞれシンボルとタイムスタンプを表すことがよくあります。 :returns:"
+
+#~ msgid "`components[i]` represents the eigenvalue of the"
+#~ msgstr "`components[i]` は、"
+
+#~ msgid ":math:`i`-th component."
+#~ msgstr ":math:`i`番目の成分の固有値を表します。"
+
+#~ msgid "explained_variance (Tensor): `explained_variance[i, j]` represents"
+#~ msgstr "explained_variance (Tensor): `explained_variance[i, j]` represents"
+
+#~ msgid "the :math:`i`-th component's weight for the `j`-th feature."
+#~ msgstr "`j`番目の特徴量に対する`i`番目の成分の重みを表す。"
+
+#~ msgid "- components (Tensor)"
+#~ msgstr "- components (Tensor)"
+
+#~ msgid "components (Tensor)"
+#~ msgstr "components (テンソル)"
 

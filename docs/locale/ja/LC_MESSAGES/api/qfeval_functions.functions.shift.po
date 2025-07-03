@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,14 +24,91 @@ msgid "qfeval\\_functions.functions.shift"
 msgstr "qfeval\\_functions.functions.shift"
 
 #: of qfeval_functions.functions.shift.shift:1
-msgid "Shifts array elements along specified dimensions."
+#, fuzzy
+msgid "Shift tensor elements along specified dimensions with NaN padding."
 msgstr "指定された次元に沿って配列要素をシフトします。"
+
+#: of qfeval_functions.functions.shift.shift:3
+msgid ""
+"This function shifts the elements of the input tensor along the specified"
+" dimensions by the given number of positions. The shifted positions are "
+"filled with NaN values, making this operation different from a circular "
+"shift. Positive shifts move elements forward (to higher indices), while "
+"negative shifts move elements backward (to lower indices)."
+msgstr "この関数は、指定された次元に沿って入力テンソルの要素を指定された数の位置分だけシフトします。シフトされた位置には NaN 値が代入されるため、この操作は循環シフトとは異なります。正のシフト値は要素を前方（高いインデックス方向）に移動させ、負のシフト値は要素を後方（低いインデックス方向）に移動させます。"
+
+#: of qfeval_functions.functions.shift.shift:9
+msgid ""
+"The function supports both single and multi-dimensional shifts, allowing "
+"for complex data transformations commonly used in time series analysis "
+"and sliding window operations."
+msgstr "この関数は単次元および多次元のシフト操作をサポートしており、時系列分析やスライディングウィンドウ操作で一般的に使用される複雑なデータ変換を実現します。"
+
+#: ../../api/qfeval_functions.functions.shift.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.shift.shift:14
+msgid "The input tensor to be shifted."
+msgstr "シフト対象の入力テンソル。"
+
+#: of qfeval_functions.functions.shift.shift:17
+msgid ""
+"The number of positions to shift along each dimension. Positive values "
+"shift forward, negative values shift backward. If a single int is "
+"provided with multiple dimensions, the same shift is applied to all "
+"specified dimensions."
+msgstr "各次元に沿ってデータをシフトする位置数を指定します。正の値はデータを前方にシフトし、負の値は後方にシフトします。単一の整数が複数の次元に適用される場合、同じシフト値がすべての指定された次元に適用されます。"
+
+#: of qfeval_functions.functions.shift.shift:23
+msgid ""
+"The dimension(s) along which to shift. Must have the same length as "
+":attr:`shifts` if :attr:`shifts` is a tuple."
+msgstr "シフトを実行する次元を指定します。 :attr:`shifts` がタプルの場合、 :attr:`dims` の長さは :attr:`shifts` の長さと一致している必要があります。"
+
+#: ../../api/qfeval_functions.functions.shift.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.shift.shift:27
+msgid ""
+"The shifted tensor with the same shape as the input. Positions that are "
+"shifted in from outside the tensor boundaries are filled with NaN values."
+msgstr "入力と同じ形状のシフト後テンソル。テンソルの境界外からシフトされた位置には NaN 値が代入されます。"
 
 #: ../../api/qfeval_functions.functions.shift.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.shift.shift:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: ../../api/qfeval_functions.functions.shift.rst
+msgid "Raises"
+msgstr "発生する例外"
+
+#: of qfeval_functions.functions.shift.shift:32
+msgid ""
+"If the length of :attr:`shifts` and :attr:`dims` don't match     when "
+"both are tuples."
+msgstr ":attr:`shifts` と :attr:`dims` のタプル長が一致しない場合。"
+
+#: of qfeval_functions.functions.shift.shift:35
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.shift.shift:73
+msgid ":func:`torch.roll`: Circular shift without NaN padding."
+msgstr ":func:`torch.roll`: NaNでパディングしない循環シフト。"
+
+#: of qfeval_functions.functions.shift.shift:74
+msgid ":func:`nanshift`: Shift operation that handles NaN values specially."
+msgstr ":func:`nanshift`: NaN値を特別に処理するシフト操作。"
+
+#: of qfeval_functions.functions.shift.shift:77
+msgid ""
+"The shift operation preserves tensor shape and data type. Large shift "
+"values are automatically clamped to prevent out-of-bounds access."
+msgstr "シフト操作はテンソルの形状とデータ型を保持します。大きなシフト値は範囲外アクセスを防ぐために自動的にクランプされます。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

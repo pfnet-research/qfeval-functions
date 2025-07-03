@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,14 +24,107 @@ msgid "qfeval\\_functions.functions.randperm"
 msgstr "qfeval\\_functions.functions.randperm"
 
 #: of qfeval_functions.functions.randperm.randperm:1
-msgid "Returns a random permutation of integers from `0` to `n - 1`."
+#, fuzzy
+msgid "Generate a random permutation of integers from 0 to n-1."
+msgstr "`0`から`n - 1`までの整数からなるランダムな順列を返します。"
+
+#: of qfeval_functions.functions.randperm.randperm:3
+msgid ""
+"This function creates a 1D tensor containing a random permutation of the "
+"integers from 0 to n-1 (inclusive). Each integer appears exactly once in "
+"the output, making this ideal for random sampling without replacement, "
+"shuffling operations, and creating random orderings."
+msgstr "この関数は、0からn-1までの整数をランダムに並べ替えた1次元テンソルを生成します。各整数は出力中にちょうど1回ずつ出現するため、この関数は置換を行わないランダムサンプリング、シャッフリング操作、およびランダムな順序付けの作成に最適です。"
+
+#: of qfeval_functions.functions.randperm.randperm:8
+msgid ""
+"The function ensures reproducibility across different devices when a seed"
+" is fixed, making it suitable for deterministic shuffling and sampling "
+"procedures in research and production environments."
+msgstr "この関数は、シード値を固定することで異なるデバイス間での再現性を確保し、研究環境や生産環境での決定論的なシャッフリングやサンプリング処理に適しています。"
+
+#: of qfeval_functions.functions.randperm.randperm:12
+msgid ""
+"When fast mode is enabled, this function delegates to PyTorch's native "
+":func:`torch.randperm` for optimal performance. Otherwise, it uses a "
+"custom random number generator to ensure cross-device reproducibility."
+msgstr "高速モードが有効の場合、この関数はPyTorchのネイティブ実装である:func:`torch.randperm`を利用して最適なパフォーマンスを実現します。それ以外の場合は、デバイス間での再現性を確保するために独自の乱数生成器を使用します。"
+
+#: ../../api/qfeval_functions.functions.randperm.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.randperm.randperm:17
+msgid ""
+"The upper bound (exclusive) for the permutation. The permutation will "
+"contain integers from 0 to n-1. Must be non-negative."
+msgstr "置換の上限値（包含せず）。置換には 0 から n-1 までの整数が含まれます。非負の値である必要があります。"
+
+#: of qfeval_functions.functions.randperm.randperm:21
+msgid ""
+"The desired integer data type of the returned tensor. If not specified, "
+"defaults to ``torch.int64``."
+msgstr "返されるテンソルの整数データ型を指定します。指定しない場合、デフォルトは``torch.int64``となります。"
+
+#: of qfeval_functions.functions.randperm.randperm:25
+msgid ""
+"The desired device of the returned tensor. If not specified, uses the "
+"default device."
+msgstr "返されるテンソルの希望するデバイス。指定しない場合、デフォルトデバイスが使用されます。"
+
+#: ../../api/qfeval_functions.functions.randperm.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.randperm.randperm:29
+#, fuzzy
+msgid ""
+"A 1D tensor of length ``n`` containing a random permutation of integers "
+"from 0 to n-1."
 msgstr "`0`から`n - 1`までの整数からなるランダムな順列を返します。"
 
 #: ../../api/qfeval_functions.functions.randperm.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.randperm.randperm:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: ../../api/qfeval_functions.functions.randperm.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.randperm.randperm:33
+msgid "If ``n < 0``."
+msgstr "``n < 0`` の場合。"
+
+#: of qfeval_functions.functions.randperm.randperm:36
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.randperm.randperm:71
+msgid ":func:`randint`: Generate random integers from a range."
+msgstr ":func:`randint`: 指定した範囲からランダムな整数を生成します。"
+
+#: of qfeval_functions.functions.randperm.randperm:72
+msgid ":func:`rand`: Generate random floats from uniform distribution."
+msgstr ":func:`rand`: 一様分布に従う乱数を生成します。"
+
+#: of qfeval_functions.functions.randperm.randperm:73
+msgid ":func:`torch.randperm`: PyTorch's native random permutation generation."
+msgstr ":func:`torch.randperm`: PyTorchのネイティブな乱数順列生成関数。"
+
+#: of qfeval_functions.functions.randperm.randperm:76
+msgid ""
+"Each integer from 0 to n-1 appears exactly once, making this function "
+"suitable for sampling without replacement scenarios."
+msgstr "0からn-1までの各整数が正確に1回ずつ出現するため、この関数は置換なしサンプリングのシナリオに適しています。"
+
+#: of qfeval_functions.functions.randperm.randperm:80
+msgid ""
+"When using this function for time series data, be mindful that random "
+"permutations can destroy temporal dependencies. Consider block-based or "
+"constrained permutations for time series applications."
+msgstr "時系列データにこの関数を使用する際は、ランダムな順列が時系列依存関係を破壊する可能性があることに留意してください。時系列アプリケーションでは、ブロックベースの順列や制約付き順列の使用を検討してください。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

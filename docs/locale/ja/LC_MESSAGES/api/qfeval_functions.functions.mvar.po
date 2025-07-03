@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,6 +32,9 @@ msgid ""
 "window cannot fully cover preceding elements (i.e., the first ``span - "
 "1`` elements along the selected dimension), the result is ``nan``."
 msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の分散を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
+"この関数は、指定された次元に沿ってサイズ :attr:`span` "
+"のスライディングウィンドウ内の要素の分散を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の"
+" ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
 
 #: of qfeval_functions.functions.mvar.mvar:9
 msgid "The moving variance is computed using the formula:"
@@ -44,6 +47,10 @@ msgid ""
 "\\frac{(\\sum_{j=i-\\text{span}+1}^{i} x[j])^2}{\\text{span}} \\right)\n"
 "\n"
 msgstr "\\text{MVAR}[i] = \\frac{1}{\\text{span} - \\text{ddof}} \\left(\n\\sum_{j=i-\\text{span}+1}^{i} x[j]^2 -\n\\frac{(\\sum_{j=i-\\text{span}+1}^{i} x[j])^2}{\\text{span}} \\right)\n\n"
+"\\text{MVAR}[i] = \\frac{1}{\\text{span} - \\text{ddof}} \\left(\n"
+"\\sum_{j=i-\\text{span}+1}^{i} x[j]^2 -\n"
+"\\frac{(\\sum_{j=i-\\text{span}+1}^{i} x[j])^2}{\\text{span}} \\right)\n"
+"\n"
 
 #: of qfeval_functions.functions.mvar.mvar:16
 msgid ""
@@ -95,12 +102,27 @@ msgid "Example"
 msgstr "使用例"
 
 #: of qfeval_functions.functions.mvar.mvar:75
-msgid ""
-":func:`mstd`: Moving standard deviation function (square root of this). "
-":func:`msum`: Moving sum function used in the implementation. :func:`ma`:"
-" Moving average function."
-msgstr ":func:`mstd`: 移動標準偏差関数（この関数の平方根） :func:`msum`: 実装で使用される移動合計関数 :func:`ma`: 移動平均関数"
+msgid ":func:`mstd`: Moving standard deviation function (square root of this)."
+msgstr ":func:`mstd`: 移動標準偏差関数（この関数の平方根）。"
+
+#: of qfeval_functions.functions.mvar.mvar:76
+msgid ":func:`msum`: Moving sum function used in the implementation."
+msgstr ":func:`msum`: 実装で使用される移動合計関数。"
+
+#: of qfeval_functions.functions.mvar.mvar:77
+msgid ":func:`ma`: Moving average function."
+msgstr ":func:`ma`: 移動平均関数。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid ""
+#~ ":func:`mstd`: Moving standard deviation "
+#~ "function (square root of this). "
+#~ ":func:`msum`: Moving sum function used "
+#~ "in the implementation. :func:`ma`: Moving "
+#~ "average function."
+#~ msgstr ""
+#~ ":func:`mstd`: 移動標準偏差関数（この関数の平方根） :func:`msum`: "
+#~ "実装で使用される移動合計関数 :func:`ma`: 移動平均関数"
 

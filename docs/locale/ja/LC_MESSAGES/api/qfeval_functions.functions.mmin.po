@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -36,6 +36,9 @@ msgid ""
 "1`` elements along the selected dimension), the result is computed using "
 "available values by padding with the first element."
 msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の最小値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の ``span - 1`` 要素の場合）、結果は最初の要素でパディングすることで利用可能な値を用いて計算されます。"
+"この関数は、指定された次元に沿ってサイズ :attr:`span` "
+"のスライディングウィンドウ内の最小値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の"
+" ``span - 1`` 要素の場合）、結果は最初の要素でパディングすることで利用可能な値を用いて計算されます。"
 
 #: of qfeval_functions.functions.mmin.mmin:10
 msgid "The moving minimum is computed as:"
@@ -46,6 +49,8 @@ msgid ""
 "\\text{MMIN}[i] = \\min_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n"
 "\n"
 msgstr "\\text{MMIN}[i] = \\min_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n\n"
+"\\text{MMIN}[i] = \\min_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n"
+"\n"
 
 #: ../../api/qfeval_functions.functions.mmin.rst
 msgid "Parameters"
@@ -90,16 +95,30 @@ msgid ""
 "consistent behavior and performance with the moving maximum function "
 "while avoiding code duplication."
 msgstr "この関数は``-mmax(-x, span, dim)``として実装されており、最小値演算と最大値演算の双対性を活用しています。このアプローチにより、移動最大値関数と一貫した動作と性能を確保しつつ、コードの重複を避けることができます。"
+"この関数は``-mmax(-x, span, "
+"dim)``として実装されており、最小値演算と最大値演算の双対性を活用しています。このアプローチにより、移動最大値関数と一貫した動作と性能を確保しつつ、コードの重複を避けることができます。"
 
 #: of qfeval_functions.functions.mmin.mmin:69
-msgid ""
-":func:`mmax`: Moving maximum function. :func:`msum`: Moving sum function."
-" :func:`ma`: Moving average function."
-msgstr ":func:`mmax`: 移動最大値関数。 :func:`msum`: 移動合計関数。 :func:`ma`: 移動平均関数。"
+msgid ":func:`mmax`: Moving maximum function."
+msgstr ":func:`mmax`: 移動最大値関数。"
+
+#: of qfeval_functions.functions.mmin.mmin:70
+msgid ":func:`msum`: Moving sum function."
+msgstr ":func:`msum`: 移動合計関数。"
+
+#: of qfeval_functions.functions.mmin.mmin:71
+msgid ":func:`ma`: Moving average function."
+msgstr ":func:`ma`: 移動平均関数。"
 
 #~ msgid "Returns the moving min of the given tensor."
 #~ msgstr "指定されたテンソルの移動最小値を返します。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid ""
+#~ ":func:`mmax`: Moving maximum function. "
+#~ ":func:`msum`: Moving sum function. :func:`ma`:"
+#~ " Moving average function."
+#~ msgstr ":func:`mmax`: 移動最大値関数。 :func:`msum`: 移動合計関数。 :func:`ma`: 移動平均関数。"
 

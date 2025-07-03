@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,14 +21,120 @@ msgid "qfeval\\_functions.functions.stable\\_sort"
 msgstr "qfeval\\_functions.functions.stable\\_sort"
 
 #: of qfeval_functions.functions.stable_sort.stable_sort:1
-msgid "Sorts the given tensor preserving the order of equivalent elements."
+#, fuzzy
+msgid "Perform stable sorting that preserves the order of equivalent elements."
 msgstr "与えられたテンソルを、等価な要素の順序を保持したままソートします。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:3
+msgid ""
+"This function sorts the input tensor along the specified dimension while "
+"maintaining the relative order of elements that compare equal. Unlike "
+"PyTorch's built-in ``torch.sort``, this implementation guarantees stable "
+"sorting behavior, which is crucial for maintaining consistency in "
+"applications where the original order of equal elements matters."
+msgstr "この関数は、指定された次元に沿って入力テンソルをソートし、等しい値を比較した際の要素の相対的な順序を保持します。PyTorchの組み込み関数``torch.sort``とは異なり、この実装は安定したソート動作を保証します。これは、等しい要素の元の順序が重要なアプリケーションにおいて、一貫性を維持するために不可欠です。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:9
+msgid ""
+"The function handles NaN values gracefully by placing them at the end of "
+"the sorted sequence while preserving their relative order. This makes it "
+"suitable for financial data analysis where missing values are common."
+msgstr "この関数は、NaN値を相対的な順序を保持したままソート済みシーケンスの末尾に配置することで、適切に処理します。これは、欠損値が一般的な金融データ分析に特に適しています。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:13
+msgid ""
+"Stable sorting ensures that when multiple elements have the same value, "
+"they appear in the same relative order as in the original tensor. This "
+"property is essential for consistent ranking and index-based operations."
+msgstr "安定ソートにより、複数の要素が同じ値を持つ場合、元のテンソルと同じ相対順序で要素が配置されます。この特性は、一貫したランキングやインデックスベースの操作において不可欠です。"
+
+#: ../../api/qfeval_functions.functions.stable_sort.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:18
+msgid ""
+"Input tensor to be sorted. Can contain NaN values which will be handled "
+"appropriately."
+msgstr "ソート対象の入力テンソル。NaN値を含む場合があり、適切に処理されます。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:22
+msgid "Dimension along which to sort. Default is -1 (last dimension)."
+msgstr "ソートを行う次元。デフォルトは-1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.stable_sort.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:25
+msgid ""
+"A named tuple containing:  - ``values`` (Tensor): The sorted values with "
+"the same shape as input. - ``indices`` (Tensor): The indices that would "
+"sort the original tensor."
+msgstr "以下の要素を含む名前付きタプル:
+- ``values`` (Tensor): 入力と同じ形状にソートされた値。
+- ``indices`` (Tensor): 元のテンソルをソートするために使用されるインデックス。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:25
+msgid "A named tuple containing:"
+msgstr "以下の要素を含む名前付きタプル:"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:27
+msgid "``values`` (Tensor): The sorted values with the same shape as input."
+msgstr "``values`` (Tensor): 入力と同じ形状にソートされた値。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:28
+msgid "``indices`` (Tensor): The indices that would sort the original tensor."
+msgstr "``indices`` (Tensor): 元のテンソルをソートするためのインデックス。"
 
 #: ../../api/qfeval_functions.functions.stable_sort.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.stable_sort.stable_sort:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"
+#: of qfeval_functions.functions.stable_sort.stable_sort:32
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:99
+msgid ":func:`torch.sort`: Standard sorting (not guaranteed to be stable)."
+msgstr ":func:`torch.sort`: 標準のソート処理（安定性は保証されません）。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:100
+msgid ":func:`torch.argsort`: Return indices that would sort a tensor."
+msgstr ":func:`torch.argsort`: テンソルをソートするためのインデックスを返します。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:101
+msgid ":func:`soft_topk`: Differentiable top-k selection."
+msgstr ":func:`soft_topk`: 微分可能なトップk選択。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:104
+msgid ""
+"The algorithm treats NaN values as the largest possible values and places"
+" them at the end, preserving their relative order."
+msgstr "アルゴリズムは NaN 値を最大可能な値として扱い、末尾に配置しつつ相対的な順序を保持します。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:108
+msgid ""
+"Large tensors with many duplicate values may require significant memory "
+"for the intermediate sorting steps. Consider using chunk-based processing"
+" for very large datasets if memory is a concern."
+msgstr "重複値が多い大規模なテンソルでは、中間的なソート処理に多大なメモリが必要になる場合があります。メモリが懸念事項となる場合は、非常に大規模なデータセットに対してチャンクベースの処理を検討することをお勧めします。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:113
+msgid "References"
+msgstr "参考文献"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:114
+msgid ""
+"Stable sorting algorithms: "
+"https://en.wikipedia.org/wiki/Sorting_algorithm#Stability"
+msgstr "安定ソートアルゴリズム: https://en.wikipedia.org/wiki/Sorting_algorithm#Stability"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:115
+msgid "Financial data ranking: https://en.wikipedia.org/wiki/Ranking#Finance"
+msgstr "金融データのランキング手法: https://en.wikipedia.org/wiki/Ranking#Finance"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"
 

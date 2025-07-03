@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,16 +24,87 @@ msgid "qfeval\\_functions.functions.signif"
 msgstr "qfeval\\_functions.functions.signif"
 
 #: of qfeval_functions.functions.signif.signif:1
-msgid ""
-"Rounds the numbers of the given tensor to the specified number of "
-"significant digits."
+#, fuzzy
+msgid "Round tensor values to a specified number of significant digits."
 msgstr "指定されたテンソルの数値を、指定された有効桁数に丸めます。"
+
+#: of qfeval_functions.functions.signif.signif:3
+msgid ""
+"This function rounds the elements of the input tensor to the specified "
+"number of significant digits, similar to R's ``signif()`` function. "
+"Significant digits are counted from the first non-zero digit, providing a"
+" more meaningful representation for values across different orders of "
+"magnitude compared to decimal place rounding."
+msgstr "この関数は、入力テンソルの要素を指定された有効桁数に丸めます。これはRの``signif()``関数と同様の動作です。有効桁数は非ゼロ桁の先頭からカウントされ、異なる桁数スケールにわたる値をより意味のある形で表現します。これは、小数点以下の桁数で丸める方法と比較して、桁数スケールの異なる値をより適切に表現できます。"
+
+#: of qfeval_functions.functions.signif.signif:9
+msgid "The rounding is performed using the formula:"
+msgstr "丸め処理は以下の数式を用いて実行されます："
+
+#: of qfeval_functions.functions.signif.signif:11
+msgid ""
+"\\text{signif}(x, n) = \\text{round}\\left(x \\times 10^{n - \\lceil "
+"\\log_{10}|x| \\rceil}\\right) \\times 10^{\\lceil \\log_{10}|x| \\rceil "
+"- n}\n"
+"\n"
+msgstr "\\text{signif}(x, n) = \\text{round}\\left(x \\times 10^{n - \\lceil \\log_{10}|x| \\rceil}\\right) \\times 10^{\\lceil \\log_{10}|x| \\rceil - n}\n\n"
+
+#: of qfeval_functions.functions.signif.signif:14
+msgid "where :math:`n` is the number of significant digits."
+msgstr "ここで :math:`n` は有意桁数を表します。"
+
+#: ../../api/qfeval_functions.functions.signif.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.signif.signif:17
+msgid "The input tensor containing values to be rounded."
+msgstr "丸め処理の対象となる値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.signif.signif:20
+msgid ""
+"The number of significant digits to preserve. Must be positive. Default "
+"is 6, following R's ``signif()`` function convention."
+msgstr "保持する有効桁数。正の値である必要があります。デフォルトは6で、Rの``signif()``関数の仕様に準拠しています。"
+
+#: ../../api/qfeval_functions.functions.signif.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.signif.signif:24
+msgid ""
+"A tensor with the same shape as the input, containing values rounded to "
+"the specified number of significant digits."
+msgstr "入力テンソルと同じ形状を持ち、指定された有効桁数に丸めた値を含むテンソル。"
 
 #: ../../api/qfeval_functions.functions.signif.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.signif.signif:5
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.signif.signif:29
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.signif.signif:65
+msgid ":func:`torch.round`: Round to nearest integer."
+msgstr ":func:`torch.round`: 最も近い整数に四捨五入します。"
+
+#: of qfeval_functions.functions.signif.signif:66
+msgid ":func:`torch.ceil`: Round up to nearest integer."
+msgstr ":func:`torch.ceil`: 最も近い整数に切り上げます。"
+
+#: of qfeval_functions.functions.signif.signif:67
+msgid ":func:`torch.floor`: Round down to nearest integer."
+msgstr ":func:`torch.floor`: 最も近い整数に切り捨てる。"
+
+#: of qfeval_functions.functions.signif.signif:71
+msgid ""
+"Be aware that floating-point precision limitations may affect the exact "
+"representation of rounded values, especially for very large or very small"
+" numbers."
+msgstr "浮動小数点演算の精度制限により、特に非常に大きな数値や非常に小さな数値の場合、丸め後の値の正確な表現が影響を受ける可能性があることに注意してください。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

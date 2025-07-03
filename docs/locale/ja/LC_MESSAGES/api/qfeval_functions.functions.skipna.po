@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,17 +24,108 @@ msgid "qfeval\\_functions.functions.skipna"
 msgstr "qfeval\\_functions.functions.skipna"
 
 #: of qfeval_functions.functions.skipna.skipna:1
+msgid "Apply a function to tensors after removing NaN values along a dimension."
+msgstr "指定された次元に沿って NaN 値を除去した後、テンソルに対して関数を適用します。"
+
+#: of qfeval_functions.functions.skipna.skipna:3
 msgid ""
-"Applies the given data to the given function after removing NaNs.  The "
-"function will take a tensor having non-NaN values and NaN values in the "
-"order.  The order of non-NaN values must be preserved."
-msgstr "NaN値を除去した後、与えられたデータを指定された関数に適用します。関数は、非NaN値とNaN値が指定された順序で含まれるテンソルを受け取ります。非NaN値の順序は保持されなければなりません。"
+"This function applies a given function to one or more tensors after "
+"temporarily removing NaN values along the specified dimension. The "
+"function effectively compacts the data by removing NaNs, applies the "
+"given function, and then restores the original tensor structure with NaNs"
+" in their original positions."
+msgstr "この関数は、指定された次元に沿って NaN 値を一時的に除去した後、1つ以上のテンソルに対して指定された関数を適用します。関数は NaN 値を除去することでデータをコンパクトにし、指定された関数を適用した後、元のテンソル構造を復元し、NaN 値を元の位置に配置します。"
+
+#: of qfeval_functions.functions.skipna.skipna:9
+msgid ""
+"The operation preserves the order of non-NaN values while ensuring that "
+"the function operates only on valid (non-NaN) data. This is particularly "
+"useful for applying statistical functions or other operations that should"
+" ignore missing values."
+msgstr "この処理では、非NaN値の順序を保持しつつ、関数が有効なデータ（すなわちNaNを含まないデータ）に対してのみ処理を行うようにします。これは、統計関数を適用する場合や、欠損値を無視すべき操作を行う場合に特に有用です。"
+
+#: ../../api/qfeval_functions.functions.skipna.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.skipna.skipna:15
+msgid ""
+"A function that takes one or more tensors and returns a tensor. The "
+"function will be applied to the compacted (NaN-free) data."
+msgstr "1つ以上のテンソルを受け取り、テンソルを返す関数です。この関数は、NaN値を除去した圧縮データに適用されます。"
+
+#: of qfeval_functions.functions.skipna.skipna:19
+msgid ""
+"One or more input tensors. All tensors must have the same shape. NaN "
+"positions must be consistent across all input tensors."
+msgstr "1つ以上の入力テンソル。すべてのテンソルは同じ形状でなければなりません。NaNの位置はすべての入力テンソル間で一貫性が保たれている必要があります。"
+
+#: of qfeval_functions.functions.skipna.skipna:23
+msgid ""
+"The dimension along which to remove and restore NaN values. Default is -1"
+" (the last dimension)."
+msgstr "NaN値を削除・復元する次元。デフォルトは-1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.skipna.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.skipna.skipna:27
+msgid ""
+"The result of applying function :attr:`f` to the compacted data, with NaN"
+" values restored to their original positions."
+msgstr "圧縮されたデータに対して関数 :attr:`f`を適用した結果。NaN値は元の位置に復元されている。"
 
 #: ../../api/qfeval_functions.functions.skipna.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.skipna.skipna:6
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.skipna.skipna:32
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.skipna.skipna:49
+msgid ":func:`torch.nansum`: Sum with NaN handling."
+msgstr ":func:`torch.nansum`: NaNを考慮した合計値の計算。"
+
+#: of qfeval_functions.functions.skipna.skipna:50
+msgid ":func:`torch.nanmean`: Mean with NaN handling."
+msgstr ":func:`torch.nanmean`: NaNを考慮した平均計算"
+
+#: of qfeval_functions.functions.skipna.skipna:51
+msgid ":func:`nanshift`: Shift operation with NaN handling."
+msgstr ":func:`nanshift`: NaNを考慮したシフト演算"
+
+#: of qfeval_functions.functions.skipna.skipna:54
+msgid ""
+"The function preserves tensor structure: NaN positions are restored in "
+"the output and the original shape/dtype are maintained."
+msgstr "この関数はテンソル構造を保持します：出力ではNaNの位置が復元され、元の形状/データ型が維持されます。"
+
+#: of qfeval_functions.functions.skipna.skipna:58
+msgid ""
+"All input tensors must have NaN values at the same positions. If NaN "
+"patterns differ across tensors, the behavior is undefined and may lead to"
+" incorrect results."
+msgstr "すべての入力テンソルは同じ位置にNaN値を持つ必要があります。テンソル間でNaNのパターンが異なる場合、動作は未定義となり、誤った結果を招く可能性があります。"
+
+#: of qfeval_functions.functions.skipna.skipna:63
+msgid ""
+"Be careful when applying functions that change the tensor dimensions, as "
+"the NaN restoration process expects the output to have compatible "
+"dimensions with the input structure."
+msgstr "テンソルの次元を変更する関数を適用する際には注意が必要です。NaN値の復元処理では、出力テンソルの次元が入力構造と互換性があることを前提としているためです。"
+
+#~ msgid ""
+#~ "Applies the given data to the "
+#~ "given function after removing NaNs.  The"
+#~ " function will take a tensor having"
+#~ " non-NaN values and NaN values "
+#~ "in the order.  The order of "
+#~ "non-NaN values must be preserved."
+#~ msgstr "NaN値を除去した後、与えられたデータを指定された関数に適用します。関数は、非NaN値とNaN値が指定された順序で含まれるテンソルを受け取ります。非NaN値の順序は保持されなければなりません。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

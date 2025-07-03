@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,17 +24,111 @@ msgid "qfeval\\_functions.functions.rand"
 msgstr "qfeval\\_functions.functions.rand"
 
 #: of qfeval_functions.functions.rand.rand:1
+msgid "Generate a tensor filled with random numbers from a uniform distribution."
+msgstr "一様分布に従う乱数で埋められたテンソルを生成します。"
+
+#: of qfeval_functions.functions.rand.rand:3
 msgid ""
-"Returns a tensor filled with random numbers from a uniform distribution "
-"on the interval [0, 1).  If the seed is fixed, it must be reproducible in"
-" any device."
-msgstr "[0, 1)の範囲において一様分布に従う乱数で満たされたテンソルを返します。シード値が固定されている場合、任意のデバイスで再現性が保証される必要があります。"
+"This function creates a tensor of the specified size filled with random "
+"numbers sampled from a uniform distribution on the interval [0, 1). The "
+"function ensures reproducibility across different devices when a seed is "
+"fixed, making it suitable for deterministic simulations and testing."
+msgstr "この関数は、[0, 1)の範囲の一様分布からサンプリングした乱数で満たされた、指定されたサイズのテンソルを生成します。シード値を固定することで、異なるデバイス間での再現性を確保できるため、決定論的なシミュレーションやテスト用途に適しています。"
+
+#: of qfeval_functions.functions.rand.rand:9
+msgid ""
+"When fast mode is enabled, this function delegates to PyTorch's native "
+":func:`torch.rand` for optimal performance. Otherwise, it uses a custom "
+"random number generator to ensure cross-device reproducibility."
+msgstr "高速モードが有効の場合、この関数はPyTorchのネイティブ実装である:func:`torch.rand`を利用して最適なパフォーマンスを実現します。それ以外の場合は、デバイス間での再現性を確保するために独自の乱数生成器を使用します。"
+
+#: ../../api/qfeval_functions.functions.rand.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.rand.rand:14
+msgid ""
+"Sequence of integers defining the shape of the output tensor. Can be a "
+"variable number of arguments or a single argument that is a sequence."
+msgstr "出力テンソルの形状を定義する整数のシーケンス。可変長引数として指定することも、単一のシーケンス引数として指定することも可能です。"
+
+#: of qfeval_functions.functions.rand.rand:19
+msgid ""
+"The desired data type of the returned tensor. If not specified, defaults "
+"to ``torch.float32``."
+msgstr "返されるテンソルの希望するデータ型。指定しない場合、デフォルトは ``torch.float32`` となります。"
+
+#: of qfeval_functions.functions.rand.rand:23
+msgid ""
+"The desired device of the returned tensor. If not specified, uses the "
+"default device."
+msgstr "返されるテンソルの希望するデバイス。指定しない場合、デフォルトデバイスが使用されます。"
+
+#: ../../api/qfeval_functions.functions.rand.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.rand.rand:27
+msgid ""
+"A tensor of shape ``size`` filled with random numbers from a uniform "
+"distribution on [0, 1)."
+msgstr "[0, 1)の範囲の一様分布に従う乱数で満たされた形状``size``のテンソル。"
 
 #: ../../api/qfeval_functions.functions.rand.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.rand.rand:6
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.rand.rand:32
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.rand.rand:59
+msgid ":func:`rand_like`: Generate random tensor with same shape as input."
+msgstr ":func:`rand_like`: 入力と同じ形状のランダムテンソルを生成します。"
+
+#: of qfeval_functions.functions.rand.rand:60
+msgid ":func:`torch.rand`: PyTorch's native random tensor generation."
+msgstr ":func:`torch.rand`: PyTorchの標準ランダムテンソル生成関数。"
+
+#: of qfeval_functions.functions.rand.rand:63
+msgid ""
+"This function provides deterministic behavior across devices when the "
+"random seed is fixed, which is particularly important for:"
+msgstr "この関数は、乱数シードを固定した場合にデバイス間で決定論的な動作を提供します。これは特に以下の場合に重要です："
+
+#: of qfeval_functions.functions.rand.rand:66
+msgid "Monte Carlo simulations in quantitative finance"
+msgstr "金融工学におけるモンテカルロシミュレーション"
+
+#: of qfeval_functions.functions.rand.rand:67
+msgid "Reproducible backtesting and research"
+msgstr "再現性のあるバックテストとリサーチ"
+
+#: of qfeval_functions.functions.rand.rand:68
+msgid "Cross-platform model validation"
+msgstr "クロスプラットフォームモデルの検証"
+
+#: of qfeval_functions.functions.rand.rand:69
+msgid "Distributed computing scenarios where consistency is required"
+msgstr "一貫性が求められる分散コンピューティングシナリオ"
+
+#: of qfeval_functions.functions.rand.rand:72
+msgid ""
+"When using this function in financial applications, ensure proper random "
+"seed management for reproducible results in production environments."
+msgstr "金融アプリケーションでこの関数を使用する際は、本番環境で再現性のある結果を得るために、適切な乱数シード管理を行ってください。"
+
+#~ msgid ""
+#~ "Returns a tensor filled with random "
+#~ "numbers from a uniform distribution on"
+#~ " the interval [0, 1).  If the "
+#~ "seed is fixed, it must be "
+#~ "reproducible in any device."
+#~ msgstr ""
+#~ "[0, "
+#~ "1)の範囲において一様分布に従う乱数で満たされたテンソルを返します。シード値が固定されている場合、任意のデバイスで再現性が保証される必要があります。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

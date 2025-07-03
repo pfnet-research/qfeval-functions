@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,16 +24,100 @@ msgid "qfeval\\_functions.functions.randint"
 msgstr "qfeval\\_functions.functions.randint"
 
 #: of qfeval_functions.functions.randint.randint:1
+msgid "Generate a tensor filled with random integers from a uniform distribution."
+msgstr "一様分布に従う乱数で埋められたテンソルを生成します。"
+
+#: of qfeval_functions.functions.randint.randint:3
 msgid ""
-"Returns a tensor filled with random integers generated uniformly between "
-"low (inclusive) and high (exclusive)."
-msgstr "低値（含む）から高値（除く）の範囲で一様分布するランダム整数で埋められたテンソルを返します。"
+"This function creates a tensor of the specified size filled with random "
+"integers sampled uniformly from the half-open interval [low, high). The "
+"function ensures reproducibility across different devices when a seed is "
+"fixed, making it suitable for deterministic simulations and testing "
+"scenarios."
+msgstr "この関数は、指定されたサイズのテンソルを生成し、[low, high)の半開区間から一様分布に従ってサンプリングされたランダム整数で埋めます。この関数は、シード値を固定することで異なるデバイス間での再現性を確保しており、決定論的なシミュレーションやテストシナリオに適しています。"
+
+#: of qfeval_functions.functions.randint.randint:9
+msgid ""
+"When fast mode is enabled, this function delegates to PyTorch's native "
+":func:`torch.randint` for optimal performance. Otherwise, it uses a "
+"custom random number generator to ensure cross-device reproducibility."
+msgstr "高速モードが有効の場合、この関数はPyTorchのネイティブ実装である:func:`torch.randint`を利用して最適なパフォーマンスを実現します。それ以外の場合は、デバイス間での再現性を保証するために独自の乱数生成器を使用します。"
+
+#: ../../api/qfeval_functions.functions.randint.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.randint.randint:14
+msgid "Lowest integer to be drawn from the distribution (inclusive)."
+msgstr "分布から抽出する最小の整数値（含む）。"
+
+#: of qfeval_functions.functions.randint.randint:17
+msgid ""
+"One above the highest integer to be drawn from the distribution "
+"(exclusive). Must be greater than :attr:`low`."
+msgstr "分布から抽出される最大整数の1つ上の値（包含しない）。 :attr:`low` より大きい値である必要があります。"
+
+#: of qfeval_functions.functions.randint.randint:21
+msgid "Tuple defining the shape of the output tensor."
+msgstr "出力テンソルの形状を定義するタプル。"
+
+#: of qfeval_functions.functions.randint.randint:24
+msgid ""
+"The desired integer data type of the returned tensor. If not specified, "
+"defaults to ``torch.int64``."
+msgstr "返されるテンソルの希望する整数データ型。指定しない場合、デフォルトは``torch.int64``です。"
+
+#: of qfeval_functions.functions.randint.randint:28
+msgid ""
+"The desired device of the returned tensor. If not specified, uses the "
+"default device."
+msgstr "返されるテンソルの希望するデバイス。指定しない場合、デフォルトデバイスが使用されます。"
+
+#: ../../api/qfeval_functions.functions.randint.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.randint.randint:32
+msgid ""
+"A tensor of shape ``size`` filled with random integers from the uniform "
+"distribution on [low, high)."
+msgstr "[low, high)の範囲における一様分布から生成されたランダム整数で満たされた形状``size``のテンソル。"
 
 #: ../../api/qfeval_functions.functions.randint.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.randint.randint:5
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: ../../api/qfeval_functions.functions.randint.rst
+msgid "Raises"
+msgstr "発生する例外"
+
+#: of qfeval_functions.functions.randint.randint:36
+msgid "If ``high <= low``."
+msgstr "``high <= low`` の場合。"
+
+#: of qfeval_functions.functions.randint.randint:39
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.randint.randint:69
+msgid ":func:`rand`: Generate random floats from uniform distribution."
+msgstr ":func:`rand`: 一様分布に従う乱数を生成します。"
+
+#: of qfeval_functions.functions.randint.randint:70
+msgid ":func:`randperm`: Generate random permutation of integers."
+msgstr ":func:`randperm`: 整数のランダム順列を生成します。"
+
+#: of qfeval_functions.functions.randint.randint:71
+msgid ":func:`torch.randint`: PyTorch's native random integer generation."
+msgstr ":func:`torch.randint`: PyTorchのネイティブな乱数整数生成関数。"
+
+#~ msgid ""
+#~ "Returns a tensor filled with random "
+#~ "integers generated uniformly between low "
+#~ "(inclusive) and high (exclusive)."
+#~ msgstr "低値（含む）から高値（除く）の範囲で一様分布するランダム整数で埋められたテンソルを返します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -23,24 +23,104 @@ msgstr ""
 msgid "qfeval\\_functions.functions.rci"
 msgstr "qfeval\\_functions.functions.rci"
 
-#: ../../api/qfeval_functions.functions.rci.rst:16
-msgid "Functions"
-msgstr "関数"
-
-#: of qfeval_functions.functions.rci.rci:1:<autosummary>:1
-msgid ":py:obj:`rci <qfeval_functions.functions.rci.rci>`"
-msgstr ":py:obj:`rci <qfeval_functions.functions.rci.rci>`"
-
 #: of qfeval_functions.functions.rci.rci:1
-#: qfeval_functions.functions.rci.rci:1:<autosummary>:1
 msgid "Compute Rank Correlation Index (RCI) technical indicator."
 msgstr "Rank Correlation Index (RCI)テクニカル指標を計算します。"
+
+#: of qfeval_functions.functions.rci.rci:3
+msgid ""
+"The Rank Correlation Index is a momentum oscillator that measures the "
+"correlation between the rank of current prices and the rank of their "
+"positions in the time series. RCI values range from -100 to +100, where "
+"values near +100 indicate strong upward momentum and values near -100 "
+"indicate strong downward momentum."
+msgstr "順位相関指数（Rank Correlation Index）は、現在の価格の順位と時系列データにおけるその位置の順位との相関関係を測定するモメンタムオシレーターです。RCIの値は-100から+100の範囲で推移し、+100に近い値は強い上昇モメンタムを示し、-100に近い値は強い下降モメンタムを示します。"
+
+#: of qfeval_functions.functions.rci.rci:9
+msgid "The RCI is calculated using Spearman's rank correlation coefficient:"
+msgstr "RCIはスピアマンの順位相関係数を用いて算出されます："
+
+#: of qfeval_functions.functions.rci.rci:11
+msgid ""
+"\\text{RCI} = \\left(1 - \\frac{6 \\sum_{i=1}^{n} d_i^2}{n(n^2 - "
+"1)}\\right) \\times 100\n"
+"\n"
+msgstr "\\text{RCI} = \\left(1 - \\frac{6 \\sum_{i=1}^{n} d_i^2}{n(n^2 - 1)}\\right) \\times 100\n\n"
+
+#: of qfeval_functions.functions.rci.rci:14
+msgid ""
+"where :math:`d_i` is the difference between the rank of the price at "
+"position :math:`i` and the position index :math:`i`, and :math:`n` is the"
+" period length."
+msgstr "ここで :math:`d_i` は、位置 :math:`i` における価格の順位と位置インデックス :math:`i` の差を表し、:math:`n` は期間の長さを示します。"
+
+#: ../../api/qfeval_functions.functions.rci.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.rci.rci:19
+msgid ""
+"Input tensor containing price data. The RCI is computed along the "
+"specified dimension."
+msgstr "価格データを含む入力テンソル。RCIは指定された次元に沿って計算されます。"
+
+#: of qfeval_functions.functions.rci.rci:23
+msgid ""
+"The number of periods to use in the RCI calculation. Must be greater than"
+" 1. Default is 9."
+msgstr "RCI計算に使用する期間数。1より大きい値を指定する必要があります。デフォルト値は9です。"
+
+#: of qfeval_functions.functions.rci.rci:27
+msgid ""
+"The dimension along which to compute the RCI. Default is -1 (the last "
+"dimension)."
+msgstr "RCIを計算する次元。デフォルトは-1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.rci.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.rci.rci:31
+msgid ""
+"The RCI values with the same shape as the input. The first ``period - 1``"
+" values along the specified dimension are set to NaN since they cannot be"
+" computed."
+msgstr "入力と同じ形状のRCI値。指定された次元に沿って最初の``period - 1``個の値は計算不能のためNaNに設定されます。"
 
 #: ../../api/qfeval_functions.functions.rci.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.rci.rci:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.rci.rci:37
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.rci.rci:65
+msgid ":func:`torch.argsort`: Used internally for ranking prices."
+msgstr ":func:`torch.argsort`: 内部的に価格のランキング付けに使用されます。"
+
+#: of qfeval_functions.functions.rci.rci:69
+msgid ""
+"RCI is a lagging indicator and may generate false signals in sideways or "
+"choppy markets. Consider combining with other technical indicators for "
+"better signal quality."
+msgstr "RCIは遅行指標であり、横ばい相場や乱高下相場では誤ったシグナルを生成する可能性があります。より精度の高いシグナルを得るためには、他のテクニカル指標と組み合わせて使用することをお勧めします。"
+
+#: of qfeval_functions.functions.rci.rci:74
+msgid "References"
+msgstr "参考文献"
+
+#: of qfeval_functions.functions.rci.rci:75
+msgid "https://kabu.com/investment/guide/technical/14.html"
+msgstr "https://kabu.com/investment/guide/technical/14.html"
+
+#~ msgid "Functions"
+#~ msgstr "関数"
+
+#~ msgid ":py:obj:`rci <qfeval_functions.functions.rci.rci>`"
+#~ msgstr ":py:obj:`rci <qfeval_functions.functions.rci.rci>`"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

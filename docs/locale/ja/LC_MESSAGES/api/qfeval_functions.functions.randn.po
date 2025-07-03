@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,17 +25,111 @@ msgstr "qfeval\\_functions.functions.randn"
 
 #: of qfeval_functions.functions.randn.randn:1
 msgid ""
-"Returns a tensor filled with random numbers from a normal distribution "
-"with mean 0 and variance 1 (also called the standard normal "
-"distribution). If the seed is fixed, it must be reproducible in any "
-"device."
-msgstr "平均0、分散1の正規分布に従う乱数で満たされたテンソルを返します（標準正規分布とも呼ばれます）。シード値が固定されている場合、どのデバイスでも再現可能な結果が得られる必要があります。"
+"Generate a tensor filled with random numbers from a standard normal "
+"distribution."
+msgstr "標準正規分布に従う乱数で満たされたテンソルを生成します。"
+
+#: of qfeval_functions.functions.randn.randn:3
+msgid ""
+"This function creates a tensor of the specified size filled with random "
+"numbers sampled from a normal (Gaussian) distribution with mean 0 and "
+"standard deviation 1. The function ensures reproducibility across "
+"different devices when a seed is fixed, making it ideal for deterministic"
+" simulations and statistical modeling."
+msgstr "この関数は、平均0、標準偏差1の正規分布からサンプリングされた乱数で満たされた、指定されたサイズのテンソルを生成します。シード値を固定することで、異なるデバイス間での再現性を確保できるため、決定論的なシミュレーションや統計モデリングの用途に最適です。"
+
+#: of qfeval_functions.functions.randn.randn:9
+msgid ""
+"When fast mode is enabled, this function delegates to PyTorch's native "
+":func:`torch.randn` for optimal performance. Otherwise, it uses a custom "
+"random number generator to ensure cross-device reproducibility."
+msgstr "高速モードが有効の場合、この関数はPyTorchのネイティブ実装である:func:`torch.randn`を呼び出すことで最適なパフォーマンスを実現します。それ以外の場合は、デバイス間での再現性を保証するために独自の乱数生成器を使用します。"
+
+#: of qfeval_functions.functions.randn.randn:13
+msgid "The standard normal distribution has the probability density function:"
+msgstr "標準正規分布の確率密度関数は以下の通りです："
+
+#: of qfeval_functions.functions.randn.randn:15
+msgid ""
+"f(x) = \\frac{1}{\\sqrt{2\\pi}} e^{-\\frac{x^2}{2}}\n"
+"\n"
+msgstr "f(x) = \\frac{1}{\\sqrt{2\\pi}} e^{-\\frac{x^2}{2}}\n\n"
+
+#: ../../api/qfeval_functions.functions.randn.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.randn.randn:19
+msgid ""
+"Sequence of integers defining the shape of the output tensor. Can be a "
+"variable number of arguments or a single argument that is a sequence."
+msgstr "出力テンソルの形状を定義する整数のシーケンス。可変長引数として指定することも、単一のシーケンス引数として指定することも可能です。"
+
+#: of qfeval_functions.functions.randn.randn:24
+msgid ""
+"The desired data type of the returned tensor. If not specified, defaults "
+"to ``torch.float32``."
+msgstr "返されるテンソルの希望するデータ型。指定しない場合、デフォルトは``torch.float32``です。"
+
+#: of qfeval_functions.functions.randn.randn:28
+msgid ""
+"The desired device of the returned tensor. If not specified, uses the "
+"default device."
+msgstr "返されるテンソルの希望するデバイス。指定しない場合はデフォルトデバイスが使用されます。"
+
+#: ../../api/qfeval_functions.functions.randn.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.randn.randn:32
+msgid ""
+"A tensor of shape ``size`` filled with random numbers from the standard "
+"normal distribution N(0, 1)."
+msgstr "標準正規分布 N(0, 1) から生成された乱数で満たされた形状 ``size`` のテンソル。"
 
 #: ../../api/qfeval_functions.functions.randn.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.randn.randn:6
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.randn.randn:37
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.randn.randn:70
+msgid ""
+":func:`randn_like`: Generate normal random tensor with same shape as "
+"input."
+msgstr ":func:`randn_like`: 入力テンソルと同じ形状の正規分布に従うランダムテンソルを生成します。"
+
+#: of qfeval_functions.functions.randn.randn:71
+msgid ":func:`rand`: Generate random tensor from uniform distribution."
+msgstr ":func:`rand`: 一様分布からランダムテンソルを生成します。"
+
+#: of qfeval_functions.functions.randn.randn:72
+msgid ":func:`torch.randn`: PyTorch's native normal random tensor generation."
+msgstr ":func:`torch.randn`: PyTorchの標準機能による正規分布に従う乱数テンソル生成。"
+
+#: of qfeval_functions.functions.randn.randn:75
+msgid "To generate samples from N(μ, σ²), use: ``μ + σ * QF.randn(...)``."
+msgstr "N(μ, σ²)分布からサンプルを生成するには、``μ + σ * QF.randn(...)``を使用します。"
+
+#: of qfeval_functions.functions.randn.randn:78
+msgid ""
+"In financial applications, ensure that the normality assumption is "
+"appropriate for your use case, as financial returns often exhibit fat "
+"tails and skewness not captured by the normal distribution."
+msgstr "金融アプリケーションでは、正規性の仮定が使用ケースに適切であることを確認してください。金融リターンはしばしばファットテールや正規分布では捉えられない歪度を示すためです。"
+
+#~ msgid ""
+#~ "Returns a tensor filled with random "
+#~ "numbers from a normal distribution with"
+#~ " mean 0 and variance 1 (also "
+#~ "called the standard normal distribution). "
+#~ "If the seed is fixed, it must "
+#~ "be reproducible in any device."
+#~ msgstr "平均0、分散1の正規分布に従う乱数で満たされたテンソルを返します（標準正規分布とも呼ばれます）。シード値が固定されている場合、どのデバイスでも再現可能な結果が得られる必要があります。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

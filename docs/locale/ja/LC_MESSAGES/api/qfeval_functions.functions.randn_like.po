@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -25,16 +25,87 @@ msgstr "qfeval\\_functions.functions.randn\\_like"
 
 #: of qfeval_functions.functions.randn_like.randn_like:1
 msgid ""
-"Returns a tensor with the same size as input that is filled with random "
-"numbers from a normal distribution with mean 0 and variance 1. If the "
-"seed is fixed, it must be reproducible in any device."
+"Generate a tensor with normal random numbers matching the shape of input "
+"tensor."
+msgstr "入力テンソルの形状に一致する正規分布に従う乱数からなるテンソルを生成します。"
+
+#: of qfeval_functions.functions.randn_like.randn_like:3
+#, fuzzy
+msgid ""
+"This function creates a tensor with the same shape as the input tensor, "
+"filled with random numbers sampled from a standard normal distribution "
+"with mean 0 and standard deviation 1. The data type and device can be "
+"optionally overridden, otherwise they default to the input tensor's dtype"
+" and device."
 msgstr "入力と同じサイズのテンソルを返し、その要素には平均 0、分散 1 の正規分布に従う乱数が格納されます。シード値が固定されている場合、この処理はどのデバイスでも再現可能である必要があります。"
+"入力と同じサイズのテンソルを返し、その要素には平均 0、分散 1 "
+"の正規分布に従う乱数が格納されます。シード値が固定されている場合、この処理はどのデバイスでも再現可能である必要があります。"
+
+#: of qfeval_functions.functions.randn_like.randn_like:9
+msgid ""
+"This function ensures reproducibility across different devices when a "
+"seed is fixed, making it ideal for creating random tensors that match the"
+" structure of existing data while maintaining deterministic behavior for "
+"statistical modeling and simulations."
+msgstr "この関数は、シード値を固定することで異なるデバイス間での再現性を確保します。既存データの構造に合致したランダムテンソルを生成する際に特に有用であり、統計モデリングやシミュレーションにおいて決定論的な挙動を維持しながらランダムデータを生成できます。"
+
+#: ../../api/qfeval_functions.functions.randn_like.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.randn_like.randn_like:15
+msgid ""
+"The input tensor whose shape will be used to determine the shape of the "
+"output tensor."
+msgstr "出力テンソルの形状を決定するために使用される入力テンソルの形状。"
+
+#: of qfeval_functions.functions.randn_like.randn_like:19
+msgid ""
+"The desired data type of the returned tensor. If not specified, defaults "
+"to the dtype of the input tensor."
+msgstr "返されるテンソルの希望するデータ型。指定しない場合、入力テンソルのデータ型がデフォルト値として使用されます。"
+
+#: of qfeval_functions.functions.randn_like.randn_like:23
+msgid ""
+"The desired device of the returned tensor. If not specified, defaults to "
+"the device of the input tensor."
+msgstr "返されるテンソルの希望するデバイス。指定しない場合、入力テンソルと同じデバイスがデフォルトで使用されます。"
+
+#: ../../api/qfeval_functions.functions.randn_like.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.randn_like.randn_like:27
+msgid ""
+"A tensor with the same shape as :attr:`input`, filled with random numbers"
+" from the standard normal distribution N(0, 1)."
+msgstr ":attr:`input`と同じ形状のテンソルで、標準正規分布 N(0, 1) から生成された乱数で満たされています。"
 
 #: ../../api/qfeval_functions.functions.randn_like.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.randn_like.randn_like:6
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.randn_like.randn_like:32
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.randn_like.randn_like:71
+msgid ":func:`randn`: Generate normal random tensor with specified shape."
+msgstr ":func:`randn`: 指定された形状の正規分布に従う乱数テンソルを生成します。"
+
+#: of qfeval_functions.functions.randn_like.randn_like:72
+msgid ""
+":func:`rand_like`: Generate uniform random tensor with same shape as "
+"input."
+msgstr ":func:`rand_like`: 入力テンソルと同じ形状の一様分布に従うランダムテンソルを生成します。"
+
+#: of qfeval_functions.functions.randn_like.randn_like:73
+msgid ""
+":func:`torch.randn_like`: PyTorch's native normal random tensor "
+"generation."
+msgstr ":func:`torch.randn_like`: PyTorch標準の正規乱数テンソル生成関数。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

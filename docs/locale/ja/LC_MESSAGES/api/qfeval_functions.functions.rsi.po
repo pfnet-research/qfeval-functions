@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,17 +24,128 @@ msgid "qfeval\\_functions.functions.rsi"
 msgstr "qfeval\\_functions.functions.rsi"
 
 #: of qfeval_functions.functions.rsi.rsi:1
+msgid "Compute Relative Strength Index (RSI) technical indicator."
+msgstr "相対力指数（RSI）テクニカル指標を計算します。"
+
+#: of qfeval_functions.functions.rsi.rsi:3
 msgid ""
-"Definition(use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp"
-" - Compatible with TA-lib Definition(use_sma=True): - "
-"https://info.monex.co.jp/technical-analysis/indicators/005.html"
-msgstr "Definition(use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp - Compatible with TA-lib Definition(use_sma=True): - https://info.monex.co.jp/technical-analysis/indicators/005.html"
+"The Relative Strength Index is a momentum oscillator that measures the "
+"speed and change of price movements. RSI oscillates between 0 and 100, "
+"where values above 70 are typically considered overbought and values "
+"below 30 are considered oversold."
+msgstr "相対力指数（Relative Strength Index）は、価格変動の速度と変化を測定するモメンタム系オシレーターです。RSIは0から100の間で推移し、70を超えると「買われすぎ」、30を下回ると「売られすぎ」と判断されるのが一般的です。"
+
+#: of qfeval_functions.functions.rsi.rsi:8
+msgid "The RSI is calculated using the formula:"
+msgstr "RSIは以下の計算式を用いて算出されます："
+
+#: of qfeval_functions.functions.rsi.rsi:10
+msgid ""
+"\\text{RSI} = 100 - \\frac{100}{1 + \\text{RS}}\n"
+"\n"
+msgstr "\\text{RSI} = 100 - \\frac{100}{1 + \\text{RS}}\n\n"
+
+#: of qfeval_functions.functions.rsi.rsi:13
+msgid ""
+"where :math:`\\text{RS} = \\frac{\\text{Average Gain}}{\\text{Average "
+"Loss}}`"
+msgstr "ここで :math:`\\text{RS} = \\frac{\\text{平均ゲイン}}{\\text{平均ロス}}`"
+
+#: of qfeval_functions.functions.rsi.rsi:15
+msgid ""
+"When :attr:`use_sma` is False (default), the implementation follows the "
+"standard Wilder's smoothing method (exponential moving average) which is "
+"compatible with TA-Lib. When :attr:`use_sma` is True, simple moving "
+"averages are used instead."
+msgstr "デフォルト設定の :attr:`use_sma` が False の場合、実装は TA-Lib と互換性のある標準的な Wilder 平滑化手法（指数移動平均）に従います。 :attr:`use_sma` が True の場合、代わりに単純移動平均が使用されます。"
+
+#: ../../api/qfeval_functions.functions.rsi.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.rsi.rsi:21
+msgid ""
+"Input tensor containing price data. The RSI is computed along the "
+"specified dimension."
+msgstr "価格データを含む入力テンソル。RSIは指定された次元に沿って計算されます。"
+
+#: of qfeval_functions.functions.rsi.rsi:25
+msgid ""
+"The number of periods to use for RSI calculation. Standard value is 14. "
+"Must be greater than 1. Default is 14."
+msgstr "RSI算出に使用する期間数。標準値は14です。1より大きい値を指定してください。デフォルト値は14です。"
+
+#: of qfeval_functions.functions.rsi.rsi:29
+msgid ""
+"If True, uses Simple Moving Average for gain/loss smoothing. If False, "
+"uses Exponential Moving Average (Wilder's method). Default is False."
+msgstr "Trueの場合、利得/損失の平滑化に単純移動平均を使用します。Falseの場合、指数移動平均（ワイルダー法）を使用します。デフォルトはFalseです。"
+
+#: of qfeval_functions.functions.rsi.rsi:34
+msgid ""
+"The dimension along which to compute the RSI. Default is -1 (the last "
+"dimension)."
+msgstr "RSIを計算する次元。デフォルトは-1（最後の次元）。"
+
+#: ../../api/qfeval_functions.functions.rsi.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.rsi.rsi:38
+msgid ""
+"The RSI values with the same shape as the input. The first :attr:`span` "
+"values along the specified dimension are set to NaN since they cannot be "
+"computed."
+msgstr "入力と同じ形状のRSI値。指定された次元に沿って最初の :attr:`span` 値は、計算不能のため NaN に設定されます。"
 
 #: ../../api/qfeval_functions.functions.rsi.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.rsi.rsi:8
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.rsi.rsi:44
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.rsi.rsi:74
+msgid ":func:`ema`: Exponential moving average used in RSI calculation."
+msgstr ":func:`ema`: RSI計算で使用される指数移動平均。"
+
+#: of qfeval_functions.functions.rsi.rsi:75
+msgid ":func:`msum`: Moving sum used in SMA-based RSI calculation."
+msgstr ":func:`msum`: SMAベースのRSI計算で使用される移動合計値。"
+
+#: of qfeval_functions.functions.rsi.rsi:79
+msgid ""
+"RSI is a lagging indicator and can remain in overbought/oversold "
+"conditions for extended periods during strong trends. Consider combining "
+"with other indicators for better signal quality."
+msgstr "RSIは遅行指標であり、強いトレンド時には過買い/過売り状態が長期間持続することがあります。より精度の高いシグナルを得るためには、他の指標と組み合わせて使用することをお勧めします。"
+
+#: of qfeval_functions.functions.rsi.rsi:84
+msgid "References"
+msgstr "参考文献"
+
+#: of qfeval_functions.functions.rsi.rsi:85
+msgid ""
+"Default method (use_sma=False): "
+"https://www.investopedia.com/terms/r/rsi.asp"
+msgstr "デフォルト手法 (use_sma=False): https://www.investopedia.com/terms/r/rsi.asp"
+
+#: of qfeval_functions.functions.rsi.rsi:86
+#, fuzzy
+msgid ""
+"SMA method (use_sma=True): https://info.monex.co.jp/technical-"
+"analysis/indicators/005.html"
+msgstr "Definition(use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp - Compatible with TA-lib Definition(use_sma=True): - https://info.monex.co.jp/technical-analysis/indicators/005.html"
+"Definition(use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp"
+" - Compatible with TA-lib Definition(use_sma=True): - "
+"https://info.monex.co.jp/technical-analysis/indicators/005.html"
+
+#: of qfeval_functions.functions.rsi.rsi:87
+msgid "TA-Lib compatibility: https://github.com/TA-Lib/ta-lib"
+msgstr "TA-Libとの互換性: https://github.com/TA-Lib/ta-lib"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

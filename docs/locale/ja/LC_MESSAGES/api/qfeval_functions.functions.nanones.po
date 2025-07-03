@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -52,6 +52,11 @@ msgid ""
 "\\end{cases}\n"
 "\n"
 msgstr "\\text{nanones}(X)_i = \\begin{cases}\n\\text{NaN} & \\text{if } X_i = \\text{NaN} \\\\\n1 & \\text{otherwise}\n\\end{cases}\n\n"
+"\\text{nanones}(X)_i = \\begin{cases}\n"
+"\\text{NaN} & \\text{if } X_i = \\text{NaN} \\\\\n"
+"1 & \\text{otherwise}\n"
+"\\end{cases}\n"
+"\n"
 
 #: ../../api/qfeval_functions.functions.nanones.rst
 msgid "Parameters"
@@ -84,11 +89,16 @@ msgid "Example"
 msgstr "使用例"
 
 #: of qfeval_functions.functions.nanones.nanones:59
-msgid ""
-":func:`nanzeros`: Create zeros tensor preserving NaN positions. "
-"``torch.ones_like``: Create ones tensor with same properties. "
-"``torch.where``: Conditional tensor selection."
-msgstr ":func:`nanzeros`: NaN値の位置を保持したままゼロ値のテンソルを作成します。``torch.ones_like``: 同じプロパティを持つワン値のテンソルを作成します。``torch.where``: 条件付きテンソルの選択を行います。"
+msgid ":func:`nanzeros`: Create zeros tensor preserving NaN positions."
+msgstr ":func:`nanzeros`: NaNの位置を保持したままゼロ値のテンソルを作成します。"
+
+#: of qfeval_functions.functions.nanones.nanones:60
+msgid "``torch.ones_like``: Create ones tensor with same properties."
+msgstr "``torch.ones_like``: 同じプロパティを持つonesテンソルを作成します。"
+
+#: of qfeval_functions.functions.nanones.nanones:61
+msgid "``torch.where``: Conditional tensor selection."
+msgstr "``torch.where``: 条件付きテンソル選択。"
 
 #~ msgid ""
 #~ "Returns a tensor having ones with "
@@ -98,4 +108,14 @@ msgstr ":func:`nanzeros`: NaN値の位置を保持したままゼロ値のテン
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid ""
+#~ ":func:`nanzeros`: Create zeros tensor "
+#~ "preserving NaN positions. ``torch.ones_like``: "
+#~ "Create ones tensor with same properties."
+#~ " ``torch.where``: Conditional tensor selection."
+#~ msgstr ""
+#~ ":func:`nanzeros`: "
+#~ "NaN値の位置を保持したままゼロ値のテンソルを作成します。``torch.ones_like``: "
+#~ "同じプロパティを持つワン値のテンソルを作成します。``torch.where``: 条件付きテンソルの選択を行います。"
 

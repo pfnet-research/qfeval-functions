@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -90,12 +90,26 @@ msgid ""
 msgstr "シフト操作は有効な要素を循環させます。例えば、有効な要素が3つあり``shift=1``の場合、最後の有効な要素が最初の要素となり、他の要素は1つシフトします。"
 
 #: of qfeval_functions.functions.nanshift.nanshift:75
-msgid ""
-":func:`shift`: Standard shift function without NaN handling. "
-":func:`group_shift`: Shift operation within groups. ``torch.roll``: "
-"PyTorch's standard tensor rolling function."
-msgstr ":func:`shift`: NaN処理を行わない標準的なシフト関数。 :func:`group_shift`: グループ内でのシフト操作。 ``torch.roll``: PyTorch標準のテンソルロール関数。"
+msgid ":func:`shift`: Standard shift function without NaN handling."
+msgstr ":func:`shift`: 標準のシフト関数（NaN処理なし）。"
+
+#: of qfeval_functions.functions.nanshift.nanshift:76
+msgid ":func:`group_shift`: Shift operation within groups."
+msgstr ":func:`group_shift`: グループ内のシフト操作。"
+
+#: of qfeval_functions.functions.nanshift.nanshift:77
+msgid "``torch.roll``: PyTorch's standard tensor rolling function."
+msgstr "``torch.roll``: PyTorch標準のテンソル転置関数。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid ""
+#~ ":func:`shift`: Standard shift function without"
+#~ " NaN handling. :func:`group_shift`: Shift "
+#~ "operation within groups. ``torch.roll``: "
+#~ "PyTorch's standard tensor rolling function."
+#~ msgstr ""
+#~ ":func:`shift`: NaN処理を行わない標準的なシフト関数。 :func:`group_shift`:"
+#~ " グループ内でのシフト操作。 ``torch.roll``: PyTorch標準のテンソルロール関数。"
 

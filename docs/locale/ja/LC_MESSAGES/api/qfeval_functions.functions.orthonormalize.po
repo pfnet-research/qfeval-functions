@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,33 +24,96 @@ msgid "qfeval\\_functions.functions.orthonormalize"
 msgstr "qfeval\\_functions.functions.orthonormalize"
 
 #: of qfeval_functions.functions.orthonormalize.orthonormalize:1
-msgid ""
-"Orthonormalizes the given vectors and returns the corresponding "
-"orthonormal vectors.  Ignoring numerical errorrs, this function returns "
-"the same results as the Gram-Schmidt process."
-msgstr "与えられたベクトルを正規直交化し、対応する正規直交ベクトルを返します。数値誤差を無視した場合、この関数はグラム・シュミット過程と同じ結果を返します。"
+msgid "Compute orthonormal vectors using the Gram-Schmidt process."
+msgstr "グラム・シュミット過程を用いて正交ベクトルを計算します。"
 
-#: of qfeval_functions.functions.orthonormalize.orthonormalize:5
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:3
 msgid ""
-"If the given vectors is orthonormal, this function must return the "
-"identical vectors (CAVEAT: It may have a little numerical errors)."
-msgstr "与えられたベクトルが直交正規化されている場合、この関数は同一のベクトルを返さなければなりません（注意：数値誤差が若干生じる可能性があります）。"
+"This function takes a set of vectors and returns orthonormal vectors that"
+" span the same subspace. The orthonormalization is performed using QR "
+"decomposition, which is numerically stable and equivalent to the Gram-"
+"Schmidt process."
+msgstr "この関数はベクトル集合を受け取り、同じ部分空間を張る直交正規化ベクトルを返します。直交正規化にはQR分解が用いられ、これは数値的に安定しており、グラム・シュミット過程と同等の結果を得ることができます。"
 
-#: ../../api/qfeval_functions.functions.orthonormalize.rst
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:8
+msgid ""
+"The resulting vectors are orthogonal (perpendicular to each other) and "
+"normalized (unit length). If the input vectors are already orthonormal, "
+"the output will be identical (up to numerical precision)."
+msgstr "生成されるベクトルは互いに直交しており（垂直関係）、かつ正規化されています（単位長）。入力ベクトルが既に直交正規化されている場合、出力は入力と同一になります（数値精度の範囲内で）。"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:13
+msgid ""
+"The number of vectors must not exceed the dimension of the vector space "
+"(i.e., :attr:`a.shape[-2] <= a.shape[-1]`)."
+msgstr "ベクトルの数は、ベクトル空間の次元を超えてはなりません (すなわち、 :attr:`a.shape[-2] <= a.shape[-1]`)。"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:17
+msgid ""
+"Input vectors of shape ``(..., N, M)`` where ``N`` is the number of "
+"vectors and ``M`` is the dimension of each vector. The batch dimensions "
+"``...`` are preserved."
+msgstr "入力ベクトルの形状は ``(..., N, M)`` で、``N`` はベクトルの数、``M`` は各ベクトルの次元数です。バッチ次元 ``...`` はそのまま保持されます。"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:22
+msgid ""
+"Orthonormal vectors of the same shape as the input. The vectors span the "
+"same subspace as the input vectors."
+msgstr "入力と同じ形状の正交ベクトル。これらのベクトルは入力ベクトルと同じ部分空間を張ることができます。"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.orthonormalize.orthonormalize:8
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.orthonormalize.orthonormalize
+msgid "Raises"
+msgstr "例外条件"
 
-#: of qfeval_functions.functions.orthonormalize.orthonormalize:10
-msgid "Shape:"
-msgstr "形状:"
-
-#: of qfeval_functions.functions.orthonormalize.orthonormalize:11
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:26
 msgid ""
-"a: :math:`(*, N, M)` where `*` means any number of additional dimensions,"
-" `N` means the number of vectors, and `M` means the number of dimensions."
-msgstr "a: :math:`(*, N, M)` ここで `*` は任意の追加次元数を、`N` はベクトルの数を、`M` は次元数をそれぞれ示します。"
+"If the number of vectors exceeds the vector dimension     (``a.shape[-2] "
+"> a.shape[-1]``)."
+msgstr "ベクトルの数がベクトルの次元を超える場合     (``a.shape[-2] > a.shape[-1]``)。"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:29
+msgid "Example"
+msgstr "使用例"
+
+#~ msgid ""
+#~ "Orthonormalizes the given vectors and "
+#~ "returns the corresponding orthonormal vectors."
+#~ "  Ignoring numerical errorrs, this function"
+#~ " returns the same results as the "
+#~ "Gram-Schmidt process."
+#~ msgstr "与えられたベクトルを正規直交化し、対応する正規直交ベクトルを返します。数値誤差を無視した場合、この関数はグラム・シュミット過程と同じ結果を返します。"
+
+#~ msgid ""
+#~ "If the given vectors is orthonormal, "
+#~ "this function must return the identical"
+#~ " vectors (CAVEAT: It may have a "
+#~ "little numerical errors)."
+#~ msgstr "与えられたベクトルが直交正規化されている場合、この関数は同一のベクトルを返さなければなりません（注意：数値誤差が若干生じる可能性があります）。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "Shape:"
+#~ msgstr "形状:"
+
+#~ msgid ""
+#~ "a: :math:`(*, N, M)` where `*` "
+#~ "means any number of additional "
+#~ "dimensions, `N` means the number of "
+#~ "vectors, and `M` means the number "
+#~ "of dimensions."
+#~ msgstr "a: :math:`(*, N, M)` ここで `*` は任意の追加次元数を、`N` はベクトルの数を、`M` は次元数をそれぞれ示します。"
 

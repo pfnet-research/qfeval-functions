@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -370,7 +370,8 @@ msgid ":py:obj:`orthogonalize <qfeval_functions.functions.orthogonalize>`"
 msgstr ":py:obj:`orthogonalize <qfeval_functions.functions.orthogonalize>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Orthogonalizes x with respect to y along the specified dimension."
+#, fuzzy
+msgid "Orthogonalize tensor x with respect to tensor y."
 msgstr "指定された次元に沿って、xをyに対して直交化します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -378,36 +379,25 @@ msgid ":py:obj:`orthonormalize <qfeval_functions.functions.orthonormalize>`"
 msgstr ":py:obj:`orthonormalize <qfeval_functions.functions.orthonormalize>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Orthonormalizes the given vectors and returns the corresponding "
-"orthonormal vectors."
-msgstr "与えられたベクトルを正規直交化し、対応する正規直交ベクトルを返します。"
+msgid "Compute orthonormal vectors using the Gram-Schmidt process."
+msgstr "グラム・シュミット過程を用いて正交ベクトルを計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`pca <qfeval_functions.functions.pca>`"
 msgstr ":py:obj:`pca <qfeval_functions.functions.pca>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Computes principal components on the given input `x`. The returned value "
-"represents principal components. Specifically, `result[*, i, :]` "
-"represents the :math:`(i+1)`-th largest principal component of the batch "
-"specified by `*`. Shape:     - x: :math:`(*, S, D)` where `*` means any "
-"number of additional       dimensions, `S` means the number of sections, "
-"and `D` means the       number of dimensions. In qfeval, dimensions and "
-"sections often represent symbols and timestamps respectively. :returns:."
-msgstr "入力データ `x` に対して主成分分析を実行します。返される値は主成分を表します。具体的には、`result[*, i, :]` は `*` で指定されたバッチの :math:`(i+1)` 番目に大きい主成分を表します。形状:     - x: :math:`(*, S, D)` ここで `*` は任意の追加次元数、`S` はセクション数、`D` は次元数を表します。qfeval では、次元数とセクション数はそれぞれシンボルとタイムスタンプを表すことが多いです。:returns:"
-"入力データ `x` に対して主成分分析を実行します。返される値は主成分を表します。具体的には、`result[*, i, :]` は `*` "
-"で指定されたバッチの :math:`(i+1)` 番目に大きい主成分を表します。形状:     - x: :math:`(*, S, D)` "
-"ここで `*` は任意の追加次元数、`S` はセクション数、`D` は次元数を表します。qfeval "
-"では、次元数とセクション数はそれぞれシンボルとタイムスタンプを表すことが多いです。:returns:"
+#, fuzzy
+msgid "Compute Principal Component Analysis (PCA) on the input data."
+msgstr "与えられたデータに対して主成分分析を実行します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`project <qfeval_functions.functions.project>`"
 msgstr ":py:obj:`project <qfeval_functions.functions.project>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Projects the given tensor `x` using the given projection matrix `a`."
+#, fuzzy
+msgid "Project tensor using a projection matrix."
 msgstr "与えられたテンソル `x` を、指定された射影行列 `a` を用いて投影します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -415,9 +405,8 @@ msgid ":py:obj:`rand <qfeval_functions.functions.rand>`"
 msgstr ":py:obj:`rand <qfeval_functions.functions.rand>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Returns a tensor filled with random numbers from a uniform distribution "
-"on the interval [0, 1)."
+#, fuzzy
+msgid "Generate a tensor filled with random numbers from a uniform distribution."
 msgstr "[0, 1)の範囲の一様分布に従う乱数で埋められたテンソルを返します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -425,31 +414,28 @@ msgid ":py:obj:`rand_like <qfeval_functions.functions.rand_like>`"
 msgstr ":py:obj:`rand_like <qfeval_functions.functions.rand_like>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Returns a tensor with the same size as input that is filled with random "
-"numbers from a uniform distribution on the interval [0, 1)."
-msgstr "入力と同じサイズのテンソルを返し、その値は[0, 1)の範囲の一様分布から生成された乱数で埋められます。"
+msgid "Generate a tensor with random numbers matching the shape of input tensor."
+msgstr "入力テンソルの形状に一致するランダムな数値からなるテンソルを生成します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`randint <qfeval_functions.functions.randint>`"
 msgstr ":py:obj:`randint <qfeval_functions.functions.randint>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Returns a tensor filled with random integers generated uniformly between "
-"low (inclusive) and high (exclusive)."
-msgstr "低値（含む）から高値（除く）の範囲で一様に生成されたランダムな整数で埋められたテンソルを返します。"
+#, fuzzy
+msgid "Generate a tensor filled with random integers from a uniform distribution."
+msgstr "[0, 1)の範囲の一様分布に従う乱数で埋められたテンソルを返します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`randn <qfeval_functions.functions.randn>`"
 msgstr ":py:obj:`randn <qfeval_functions.functions.randn>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
+#, fuzzy
 msgid ""
-"Returns a tensor filled with random numbers from a normal distribution "
-"with mean 0 and variance 1 (also called the standard normal "
-"distribution)."
-msgstr "平均0、分散1の正規分布に従う乱数で埋められたテンソルを返します（標準正規分布とも呼ばれます）。"
+"Generate a tensor filled with random numbers from a standard normal "
+"distribution."
+msgstr "[0, 1)の範囲の一様分布に従う乱数で埋められたテンソルを返します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`randn_like <qfeval_functions.functions.randn_like>`"
@@ -457,16 +443,17 @@ msgstr ":py:obj:`randn_like <qfeval_functions.functions.randn_like>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ""
-"Returns a tensor with the same size as input that is filled with random "
-"numbers from a normal distribution with mean 0 and variance 1."
-msgstr "入力と同じサイズのテンソルを返し、その中に平均0、分散1の正規分布に従う乱数で埋めます。"
+"Generate a tensor with normal random numbers matching the shape of input "
+"tensor."
+msgstr "入力テンソルの形状に一致する正規分布の乱数からなるテンソルを生成します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`randperm <qfeval_functions.functions.randperm>`"
 msgstr ":py:obj:`randperm <qfeval_functions.functions.randperm>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns a random permutation of integers from `0` to `n - 1`."
+#, fuzzy
+msgid "Generate a random permutation of integers from 0 to n-1."
 msgstr "`0`から`n - 1`までの整数をランダムに並べ替えた配列を返します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -482,51 +469,44 @@ msgid ":py:obj:`rcummax <qfeval_functions.functions.rcummax>`"
 msgstr ":py:obj:`rcummax <qfeval_functions.functions.rcummax>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Returns the reversely cumulative max of elements of `input` in the "
-"dimension `dim`."
-msgstr "次元 `dim` において、入力 `input` の要素の累積最大値を逆順に返します。"
+#, fuzzy
+msgid "Compute reverse cumulative maximum along a specified dimension."
+msgstr "指定された次元に沿って指数移動平均を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`rcumsum <qfeval_functions.functions.rcumsum>`"
 msgstr ":py:obj:`rcumsum <qfeval_functions.functions.rcumsum>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Returns the reversely cumulative sum of elements of `input` in the "
-"dimension `dim`."
-msgstr "次元 `dim` において、`input` の要素の累積和を逆順に計算します。"
+#, fuzzy
+msgid "Compute reverse cumulative sum along a specified dimension."
+msgstr "指定された次元に沿って指数移動平均を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`rms <qfeval_functions.functions.rms>`"
 msgstr ":py:obj:`rms <qfeval_functions.functions.rms>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Returns the root mean square of each row of the input tensor in the given"
-" dimension `dim`."
-msgstr "指定された次元 `dim` において、入力テンソルの各行の二乗平均平方根を返します。"
+#, fuzzy
+msgid "Compute the root mean square (RMS) along specified dimensions."
+msgstr "指定された次元に沿って指数移動平均を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`rsi <qfeval_functions.functions.rsi>`"
 msgstr ":py:obj:`rsi <qfeval_functions.functions.rsi>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Definition(use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp"
-" - Compatible with TA-lib Definition(use_sma=True): - "
-"https://info.monex.co.jp/technical-analysis/indicators/005.html"
-msgstr "定義 (use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp - TA-lib定義と互換性あり (use_sma=True): - https://info.monex.co.jp/technical-analysis/indicators/005.html"
-"定義 (use_sma=False): - https://www.investopedia.com/terms/r/rsi.asp - TA-"
-"lib定義と互換性あり (use_sma=True): - https://info.monex.co.jp/technical-"
-"analysis/indicators/005.html"
+#, fuzzy
+msgid "Compute Relative Strength Index (RSI) technical indicator."
+msgstr "Rank Correlation Index (RCI)テクニカル指標を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`shift <qfeval_functions.functions.shift>`"
 msgstr ":py:obj:`shift <qfeval_functions.functions.shift>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Shifts array elements along specified dimensions."
+#, fuzzy
+msgid "Shift tensor elements along specified dimensions with NaN padding."
 msgstr "指定された次元に沿って配列要素をシフトします。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -534,9 +514,8 @@ msgid ":py:obj:`signif <qfeval_functions.functions.signif>`"
 msgstr ":py:obj:`signif <qfeval_functions.functions.signif>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid ""
-"Rounds the numbers of the given tensor to the specified number of "
-"significant digits."
+#, fuzzy
+msgid "Round tensor values to a specified number of significant digits."
 msgstr "指定された有効桁数にテンソルの数値を丸めます。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
@@ -544,31 +523,36 @@ msgid ":py:obj:`skipna <qfeval_functions.functions.skipna>`"
 msgstr ":py:obj:`skipna <qfeval_functions.functions.skipna>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Applies the given data to the given function after removing NaNs."
-msgstr "NaN値を除去した後、与えられたデータを指定された関数に適用します。"
+#, fuzzy
+msgid "Apply a function to tensors after removing NaN values along a dimension."
+msgstr "指定された次元に沿ってテンソルに2次元入力を期待する関数を適用します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`slope <qfeval_functions.functions.slope>`"
 msgstr ":py:obj:`slope <qfeval_functions.functions.slope>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Returns the slope of correlation bewteen `x` and `y`."
-msgstr "`x`と`y`の相関関係の傾きを返します。"
+#, fuzzy
+msgid "Compute the slope of linear regression between two tensors."
+msgstr "`x`と`y`の相関係数の傾きを返し、NaN値は無視します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`soft_topk_bottomk <qfeval_functions.functions.soft_topk_bottomk>`"
 msgstr ":py:obj:`soft_topk_bottomk <qfeval_functions.functions.soft_topk_bottomk>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Apply SoftTopKBottomK module along with given dimension."
-msgstr "与えられた次元と共に SoftTopKBottomK モジュールを適用します。"
+msgid ""
+"Compute differentiable soft top-k and bottom-k selection along a "
+"dimension."
+msgstr "次元に沿って異なる微分可能なソフト top-k および bottom-k 選択を計算します。"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
 msgid ":py:obj:`stable_sort <qfeval_functions.functions.stable_sort>`"
 msgstr ":py:obj:`stable_sort <qfeval_functions.functions.stable_sort>`"
 
 #: ../../api/qfeval_functions.functions.rst:71:<autosummary>:1
-msgid "Sorts the given tensor preserving the order of equivalent elements."
+#, fuzzy
+msgid "Perform stable sorting that preserves the order of equivalent elements."
 msgstr "等価な要素の順序を保持しながら与えられたテンソルをソートします。"
 
 #~ msgid ""
@@ -680,4 +664,109 @@ msgstr "等価な要素の順序を保持しながら与えられたテンソル
 
 #~ msgid "Returns the sum of all elements, ignoring Not a Numbers (NaNs)."
 #~ msgstr "Not a Numbers (NaNs) を無視して、すべての要素の合計を返します。"
+
+#~ msgid ""
+#~ "Orthonormalizes the given vectors and "
+#~ "returns the corresponding orthonormal vectors."
+#~ msgstr "与えられたベクトルを正規直交化し、対応する正規直交ベクトルを返します。"
+
+#~ msgid ""
+#~ "Computes principal components on the "
+#~ "given input `x`. The returned value "
+#~ "represents principal components. Specifically, "
+#~ "`result[*, i, :]` represents the "
+#~ ":math:`(i+1)`-th largest principal component "
+#~ "of the batch specified by `*`. "
+#~ "Shape:     - x: :math:`(*, S, D)` "
+#~ "where `*` means any number of "
+#~ "additional       dimensions, `S` means the "
+#~ "number of sections, and `D` means "
+#~ "the       number of dimensions. In "
+#~ "qfeval, dimensions and sections often "
+#~ "represent symbols and timestamps respectively."
+#~ " :returns:."
+#~ msgstr ""
+#~ "入力データ `x` に対して主成分分析を実行します。返される値は主成分を表します。具体的には、`result[*,"
+#~ " i, :]` は `*` で指定されたバッチの "
+#~ ":math:`(i+1)` 番目に大きい主成分を表します。形状:     - x: "
+#~ ":math:`(*, S, D)` ここで `*` は任意の追加次元数、`S`"
+#~ " はセクション数、`D` は次元数を表します。qfeval "
+#~ "では、次元数とセクション数はそれぞれシンボルとタイムスタンプを表すことが多いです。:returns:入力データ `x` "
+#~ "に対して主成分分析を実行します。返される値は主成分を表します。具体的には、`result[*, i, :]` "
+#~ "は `*` で指定されたバッチの :math:`(i+1)` "
+#~ "番目に大きい主成分を表します。形状:     - x: :math:`(*, S, "
+#~ "D)` ここで `*` は任意の追加次元数、`S` はセクション数、`D` "
+#~ "は次元数を表します。qfeval "
+#~ "では、次元数とセクション数はそれぞれシンボルとタイムスタンプを表すことが多いです。:returns:"
+
+#~ msgid ""
+#~ "Returns a tensor with the same "
+#~ "size as input that is filled with"
+#~ " random numbers from a uniform "
+#~ "distribution on the interval [0, 1)."
+#~ msgstr "入力と同じサイズのテンソルを返し、その値は[0, 1)の範囲の一様分布から生成された乱数で埋められます。"
+
+#~ msgid ""
+#~ "Returns a tensor filled with random "
+#~ "integers generated uniformly between low "
+#~ "(inclusive) and high (exclusive)."
+#~ msgstr "低値（含む）から高値（除く）の範囲で一様に生成されたランダムな整数で埋められたテンソルを返します。"
+
+#~ msgid ""
+#~ "Returns a tensor filled with random "
+#~ "numbers from a normal distribution with"
+#~ " mean 0 and variance 1 (also "
+#~ "called the standard normal distribution)."
+#~ msgstr "平均0、分散1の正規分布に従う乱数で埋められたテンソルを返します（標準正規分布とも呼ばれます）。"
+
+#~ msgid ""
+#~ "Returns a tensor with the same "
+#~ "size as input that is filled with"
+#~ " random numbers from a normal "
+#~ "distribution with mean 0 and variance"
+#~ " 1."
+#~ msgstr "入力と同じサイズのテンソルを返し、その中に平均0、分散1の正規分布に従う乱数で埋めます。"
+
+#~ msgid ""
+#~ "Returns the reversely cumulative max of"
+#~ " elements of `input` in the dimension"
+#~ " `dim`."
+#~ msgstr "次元 `dim` において、入力 `input` の要素の累積最大値を逆順に返します。"
+
+#~ msgid ""
+#~ "Returns the reversely cumulative sum of"
+#~ " elements of `input` in the dimension"
+#~ " `dim`."
+#~ msgstr "次元 `dim` において、`input` の要素の累積和を逆順に計算します。"
+
+#~ msgid ""
+#~ "Returns the root mean square of "
+#~ "each row of the input tensor in"
+#~ " the given dimension `dim`."
+#~ msgstr "指定された次元 `dim` において、入力テンソルの各行の二乗平均平方根を返します。"
+
+#~ msgid ""
+#~ "Definition(use_sma=False): - "
+#~ "https://www.investopedia.com/terms/r/rsi.asp - Compatible"
+#~ " with TA-lib Definition(use_sma=True): -"
+#~ " https://info.monex.co.jp/technical-"
+#~ "analysis/indicators/005.html"
+#~ msgstr ""
+#~ "定義 (use_sma=False): - "
+#~ "https://www.investopedia.com/terms/r/rsi.asp - TA-"
+#~ "lib定義と互換性あり (use_sma=True): - "
+#~ "https://info.monex.co.jp/technical-"
+#~ "analysis/indicators/005.html定義 (use_sma=False): - "
+#~ "https://www.investopedia.com/terms/r/rsi.asp - TA-"
+#~ "lib定義と互換性あり (use_sma=True): - "
+#~ "https://info.monex.co.jp/technical-analysis/indicators/005.html"
+
+#~ msgid "Applies the given data to the given function after removing NaNs."
+#~ msgstr "NaN値を除去した後、与えられたデータを指定された関数に適用します。"
+
+#~ msgid "Returns the slope of correlation bewteen `x` and `y`."
+#~ msgstr "`x`と`y`の相関関係の傾きを返します。"
+
+#~ msgid "Apply SoftTopKBottomK module along with given dimension."
+#~ msgstr "与えられた次元と共に SoftTopKBottomK モジュールを適用します。"
 

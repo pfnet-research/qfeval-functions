@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -48,6 +48,8 @@ msgid ""
 "\\text{nansum}(X) = \\sum_{i \\text{ valid}} X_i\n"
 "\n"
 msgstr "\\text{nansum}(X) = \\sum_{i \\text{が有効}} X_i\n\n"
+"\\text{nansum}(X) = \\sum_{i \\text{が有効}} X_i\n"
+"\n"
 
 #: of qfeval_functions.functions.nansum.nansum:16
 msgid "where the sum is over all valid (non-NaN) values."
@@ -84,6 +86,9 @@ msgid ""
 "``torch.nansum`` which returns 0). The shape depends on the input "
 "dimensions, :attr:`dim`, and :attr:`keepdim` parameters."
 msgstr "この和は、有効な値（NaNでない値）のみに対して計算されます。指定した次元に沿って有効な値が存在しない場合、結果はNaNとなります（``torch.nansum`` のように0を返すことはありません）。出力の形状は、入力の次元、:attr:`dim` パラメータ、および :attr:`keepdim` パラメータに依存します。"
+"この和は、有効な値（NaNでない値）のみに対して計算されます。指定した次元に沿って有効な値が存在しない場合、結果はNaNとなります（``torch.nansum``"
+" のように0を返すことはありません）。出力の形状は、入力の次元、:attr:`dim` パラメータ、および :attr:`keepdim` "
+"パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.nansum.rst
 msgid "Return type"
@@ -101,6 +106,9 @@ msgid ""
 "computations where the absence of data should be distinguished from a sum"
 " of zero."
 msgstr "この関数は、有効な値がない場合に 0 を返す ``torch.nansum`` と比較して、より数学的に整合性のある動作を提供します。具体的には、有効な値がない場合に NaN を返す点が異なります。これは、統計計算においてデータの欠如を 0 の合計と区別する必要がある場合に特に重要です。"
+"この関数は、有効な値がない場合に 0 を返す ``torch.nansum`` "
+"と比較して、より数学的に整合性のある動作を提供します。具体的には、有効な値がない場合に NaN "
+"を返す点が異なります。これは、統計計算においてデータの欠如を 0 の合計と区別する必要がある場合に特に重要です。"
 
 #: of qfeval_functions.functions.nansum.nansum:93
 msgid ""
@@ -108,14 +116,26 @@ msgid ""
 " 0 like ``torch.nansum``). This behavior difference should be considered "
 "when replacing ``torch.nansum`` with this function."
 msgstr "次元に沿ってすべての値が NaN の場合、この関数は NaN を返します（``torch.nansum`` のように 0 を返すことはありません）。この動作の違いは、``torch.nansum`` をこの関数で置き換える際に考慮する必要があります。"
+"次元に沿ってすべての値が NaN の場合、この関数は NaN を返します（``torch.nansum`` のように 0 "
+"を返すことはありません）。この動作の違いは、``torch.nansum`` をこの関数で置き換える際に考慮する必要があります。"
 
 #: of qfeval_functions.functions.nansum.nansum:98
+msgid ":func:`nanmean`: NaN-aware mean function."
+msgstr ":func:`nanmean`: NaNを考慮した平均関数。"
+
+#: of qfeval_functions.functions.nansum.nansum:99
+msgid ":func:`nanstd`: NaN-aware standard deviation function."
+msgstr ":func:`nanstd`: NaNを考慮した標準偏差関数。"
+
+#: of qfeval_functions.functions.nansum.nansum:100
+msgid ":func:`nanvar`: NaN-aware variance function."
+msgstr ":func:`nanvar`: NaNを考慮した分散関数。"
+
+#: of qfeval_functions.functions.nansum.nansum:101
 msgid ""
-":func:`nanmean`: NaN-aware mean function. :func:`nanstd`: NaN-aware "
-"standard deviation function. :func:`nanvar`: NaN-aware variance function."
-" ``torch.nansum``: PyTorch's built-in NaN-aware sum (returns 0 for all-"
+"``torch.nansum``: PyTorch's built-in NaN-aware sum (returns 0 for all-"
 "NaN)."
-msgstr ":func:`nanmean`: NaNを考慮した平均関数。 :func:`nanstd`: NaNを考慮した標準偏差関数。 :func:`nanvar`: NaNを考慮した分散関数。 ``torch.nansum``: PyTorchに組み込まれたNaNを考慮した和関数（すべてNaNの場合は0を返す）。"
+msgstr "``torch.nansum``: PyTorchに組み込まれたNaNを考慮した和関数（すべてNaNの場合は0を返す）。"
 
 #~ msgid "Returns the sum of all elements, ignoring Not a Numbers (NaNs)."
 #~ msgstr "Not a Number (NaN) 値を無視して全ての要素の合計を返します。"
@@ -128,4 +148,16 @@ msgstr ":func:`nanmean`: NaNを考慮した平均関数。 :func:`nanstd`: NaN�
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid ""
+#~ ":func:`nanmean`: NaN-aware mean function. "
+#~ ":func:`nanstd`: NaN-aware standard deviation"
+#~ " function. :func:`nanvar`: NaN-aware "
+#~ "variance function. ``torch.nansum``: PyTorch's "
+#~ "built-in NaN-aware sum (returns 0"
+#~ " for all-NaN)."
+#~ msgstr ""
+#~ ":func:`nanmean`: NaNを考慮した平均関数。 :func:`nanstd`: "
+#~ "NaNを考慮した標準偏差関数。 :func:`nanvar`: NaNを考慮した分散関数。 "
+#~ "``torch.nansum``: PyTorchに組み込まれたNaNを考慮した和関数（すべてNaNの場合は0を返す）。"
 

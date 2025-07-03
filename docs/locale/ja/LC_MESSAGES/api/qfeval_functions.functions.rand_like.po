@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,17 +24,79 @@ msgid "qfeval\\_functions.functions.rand\\_like"
 msgstr "qfeval\\_functions.functions.rand\\_like"
 
 #: of qfeval_functions.functions.rand_like.rand_like:1
+msgid "Generate a tensor with random numbers matching the shape of input tensor."
+msgstr "入力テンソルの形状に一致するランダムな数値からなるテンソルを生成します。"
+
+#: of qfeval_functions.functions.rand_like.rand_like:3
+#, fuzzy
 msgid ""
-"Returns a tensor with the same size as input that is filled with random "
-"numbers from a uniform distribution on the interval [0, 1).  If the seed "
-"is fixed, it must be reproducible in any device."
+"This function creates a tensor with the same shape as the input tensor, "
+"filled with random numbers sampled from a uniform distribution on the "
+"interval [0, 1). The data type and device can be optionally overridden, "
+"otherwise they default to the input tensor's dtype and device."
 msgstr "入力と同じサイズのテンソルを返し、その要素は区間 [0, 1) 上の一様分布から生成された乱数で埋められます。シード値が固定されている場合、この処理はどのデバイスでも再現可能である必要があります。"
+"入力と同じサイズのテンソルを返し、その要素は区間 [0, 1) "
+"上の一様分布から生成された乱数で埋められます。シード値が固定されている場合、この処理はどのデバイスでも再現可能である必要があります。"
+
+#: of qfeval_functions.functions.rand_like.rand_like:8
+msgid ""
+"This function ensures reproducibility across different devices when a "
+"seed is fixed, making it ideal for creating random tensors that match the"
+" structure of existing data while maintaining deterministic behavior."
+msgstr "この関数は、シード値を固定することで異なるデバイス間での再現性を確保し、既存データの構造に合致したランダムテンソルを生成する際に、決定論的な動作を維持するのに最適です。"
+
+#: ../../api/qfeval_functions.functions.rand_like.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.rand_like.rand_like:13
+msgid ""
+"The input tensor whose shape will be used to determine the shape of the "
+"output tensor."
+msgstr "出力テンソルの形状を決定するために使用される入力テンソルの形状。"
+
+#: of qfeval_functions.functions.rand_like.rand_like:17
+msgid ""
+"The desired data type of the returned tensor. If not specified, defaults "
+"to the dtype of the input tensor."
+msgstr "返されるテンソルの希望するデータ型。指定しない場合、入力テンソルのデータ型がデフォルト値として使用されます。"
+
+#: of qfeval_functions.functions.rand_like.rand_like:21
+msgid ""
+"The desired device of the returned tensor. If not specified, defaults to "
+"the device of the input tensor."
+msgstr "返されるテンソルの希望するデバイス。指定しない場合、入力テンソルと同じデバイスがデフォルトとなります。"
+
+#: ../../api/qfeval_functions.functions.rand_like.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.rand_like.rand_like:25
+#, fuzzy
+msgid ""
+"A tensor with the same shape as :attr:`input`, filled with random numbers"
+" from a uniform distribution on [0, 1)."
+msgstr "入力と同じサイズのテンソルを返し、その要素は区間 [0, 1) 上の一様分布から生成された乱数で埋められます。シード値が固定されている場合、この処理はどのデバイスでも再現可能である必要があります。"
+"入力と同じサイズのテンソルを返し、その要素は区間 [0, 1) "
+"上の一様分布から生成された乱数で埋められます。シード値が固定されている場合、この処理はどのデバイスでも再現可能である必要があります。"
 
 #: ../../api/qfeval_functions.functions.rand_like.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.rand_like.rand_like:6
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.rand_like.rand_like:30
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.rand_like.rand_like:67
+msgid ":func:`rand`: Generate random tensor with specified shape."
+msgstr ":func:`rand`: 指定した形状のランダムテンソルを生成します。"
+
+#: of qfeval_functions.functions.rand_like.rand_like:68
+msgid ":func:`torch.rand_like`: PyTorch's native random tensor generation."
+msgstr ":func:`torch.rand_like`: PyTorch の標準機能によるランダムテンソル生成。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 

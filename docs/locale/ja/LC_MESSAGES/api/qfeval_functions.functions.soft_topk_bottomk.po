@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2025-07-03 02:53+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -24,22 +24,148 @@ msgid "qfeval\\_functions.functions.soft\\_topk\\_bottomk"
 msgstr "qfeval\\_functions.functions.soft\\_topk\\_bottomk"
 
 #: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:1
-msgid "Apply SoftTopKBottomK module along with given dimension."
-msgstr "指定された次元と共に SoftTopKBottomK モジュールを適用します。"
+msgid ""
+"Compute differentiable soft top-k and bottom-k selection along a "
+"dimension."
+msgstr "指定された次元に沿って、微分可能なソフト方式による上位k件および下位k件の選択を計算します。"
 
 #: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:3
-msgid "See `qfeval.extension.SoftTopKBottomK` for futher information."
-msgstr "詳細情報については `qfeval.extension.SoftTopKBottomK` を参照してください。"
+msgid ""
+"This function implements a differentiable approximation to the top-k and "
+"bottom-k selection operators using optimal transport theory and the "
+"Sinkhorn algorithm. Unlike hard selection, this soft version provides "
+"smooth gradients and allows for end-to-end training in neural networks "
+"while maintaining interpretability similar to traditional ranking "
+"operations."
+msgstr "この関数は、最適輸送理論とSinkhornアルゴリズムを用いて、top-kおよびbottom-k選択演算子の微分可能な近似を実装しています。従来のhard selectionとは異なり、このsoftバージョンは滑らかな勾配を提供し、ニューラルネットワークのエンドツーエンド学習を可能にしつつ、従来のランキング演算と同様の解釈可能性を維持します。"
 
-#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:9
+msgid ""
+"The algorithm uses entropic regularization to solve the optimal transport"
+" problem between the input distribution and target distributions "
+"representing top-k, middle, and bottom-k elements. The result is a "
+"continuous relaxation of discrete ranking operations."
+msgstr "このアルゴリズムはエントロピー正則化を用いて、入力分布と上位k要素、中間要素、下位k要素を表すターゲット分布間の最適輸送問題を解決します。その結果、離散的なランキング操作を連続的に緩和した表現が得られます。"
+
+#: ../../api/qfeval_functions.functions.soft_topk_bottomk.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:15
+msgid ""
+"Input tensor of any shape. The soft selection is applied along the "
+"specified dimension."
+msgstr "任意の形状の入力テンソル。指定された次元に沿ってソフト選択が適用されます。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:19
+msgid ""
+"Number of elements to select for top-k and bottom-k. Must satisfy ``2*k "
+"<= x.size(dim)`` when ``topk_only=False``, or ``k <= x.size(dim)`` when "
+"``topk_only=True``."
+msgstr "Top-kおよびbottom-k選択のための要素数。``topk_only=False``の場合は``2*k <= x.size(dim)``を満たす必要があり、``topk_only=True``の場合は``k <= x.size(dim)``を満たす必要があります。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:24
+msgid ""
+"Dimension along which to perform the soft selection. Default is -1 (last "
+"dimension)."
+msgstr "ソフト選択を実行する次元。デフォルトは-1（最後の次元）です。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:28
+msgid ""
+"Entropic regularization parameter controlling the smoothness of the "
+"approximation. Smaller values produce sharper selections but may cause "
+"numerical instability. Default is 0.1."
+msgstr "近似の滑らかさを制御するエントロピー正則化パラメータ。値が小さいほど選択が鋭くなりますが、数値的不安定を引き起こす可能性があります。デフォルト値は 0.1 です。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:33
+msgid ""
+"Maximum number of Sinkhorn iterations for solving the optimal transport "
+"problem. Default is 200."
+msgstr "最適輸送問題を解くためのSinkhorn反復の最大回数。デフォルト値は200です。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:37
+msgid ""
+"If True, only performs top-k selection (binary classification). If False,"
+" performs top-k, middle, and bottom-k selection (ternary classification)."
+" Default is False."
+msgstr "Trueの場合、上位k個の選択のみを実行します（二値分類）。Falseの場合、上位k個、中間k個、下位k個の選択を実行します（三値分類）。デフォルトはFalseです。"
+
+#: ../../api/qfeval_functions.functions.soft_topk_bottomk.rst
+#, fuzzy
+msgid "Returns"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:42
+msgid ""
+"Soft selection weights with the same shape as input. When "
+"``topk_only=False``, values near +1 indicate top-k elements, values near "
+"0 indicate middle elements, and values near -1 indicate bottom-k "
+"elements. When ``topk_only=True``, values near 1 indicate top-k elements "
+"and values near 0 indicate the remaining elements."
+msgstr "入力と同じ形状のソフト選択重み。``topk_only=False``の場合、+1に近い値は上位k要素を示し、0に近い値は中間要素を示し、-1に近い値は下位k要素を示します。``topk_only=True``の場合、1に近い値は上位k要素を示し、0に近い値は残りの要素を示します。"
+
+#: ../../api/qfeval_functions.functions.soft_topk_bottomk.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:5
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-
-#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:8
-msgid "Examples"
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:51
+#, fuzzy
+msgid "Example"
 msgstr "使用例"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:88
+msgid ":func:`soft_topk`: Binary top-k selection only."
+msgstr ":func:`soft_topk`: 二値分類における上位k個の選択のみを行います。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:89
+msgid ":func:`torch.topk`: Hard top-k selection (non-differentiable)."
+msgstr ":func:`torch.topk`: ハード型の top-k 選択（微分不可能）。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:90
+msgid ":func:`stable_sort`: Stable sorting with NaN handling."
+msgstr ":func:`stable_sort`: NaNを考慮した安定ソート処理。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:93
+msgid ""
+"The entropic regularization parameter :attr:`epsilon` controls the trade-"
+"off between approximation accuracy and numerical stability."
+msgstr "エントロピー正則化パラメータ :attr:`epsilon` は、近似精度と数値安定性のトレードオフを制御します。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:97
+msgid ""
+"Very small values of :attr:`epsilon` (< 1e-3) may cause numerical "
+"instability and NaN values. Use stabilized Sinkhorn iterations for high-"
+"precision requirements."
+msgstr ":attr:`epsilon` の値が極めて小さい場合 (< 1e-3)、数値的不安定や NaN 値が発生する可能性があります。高精度が求められる場合は、安定化された Sinkhorn 反復法を使用してください。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:102
+msgid ""
+"The function assumes finite input values. NaN or infinite values will "
+"raise a ValueError during computation."
+msgstr "この関数は有限の入力値を前提としています。NaN値や無限大値は計算時にValueErrorを発生させます。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:106
+msgid "References"
+msgstr "参考文献"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:107
+msgid "Optimal Transport: https://optimaltransport.github.io/"
+msgstr "最適輸送理論: https://optimaltransport.github.io/"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:108
+msgid "Sinkhorn Algorithm: https://arxiv.org/abs/1306.0895"
+msgstr "Sinkhornアルゴリズム: https://arxiv.org/abs/1306.0895"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk_bottomk:109
+msgid "Differentiable Ranking: https://arxiv.org/abs/1802.08665"
+msgstr "微分可能なランキング手法: https://arxiv.org/abs/1802.08665"
+
+#~ msgid "Apply SoftTopKBottomK module along with given dimension."
+#~ msgstr "指定された次元と共に SoftTopKBottomK モジュールを適用します。"
+
+#~ msgid "See `qfeval.extension.SoftTopKBottomK` for futher information."
+#~ msgstr "詳細情報については `qfeval.extension.SoftTopKBottomK` を参照してください。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 
