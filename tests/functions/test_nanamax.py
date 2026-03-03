@@ -454,11 +454,37 @@ def test_nanamax_all_dimensions_nan() -> None:
 
 
 def test_nanamax_empty_tensor() -> None:
-    """Test nanamax with an empty tensor."""
-    x_empty = torch.empty(0)
-    result = QF.nanamax(x_empty)
+    """Test nanamax with empty tensors respects dim and keepdim."""
+    # 1D empty tensor
+    x = torch.empty(0)
+    result = QF.nanamax(x)
     assert result.shape == torch.Size([])
     assert torch.isnan(result)
+
+    # 2D empty tensor: dim=0 collapses the empty axis, leaves size-3 axis
+    x = torch.empty(0, 3)
+    result = QF.nanamax(x, dim=0)
+    assert result.shape == torch.Size([3])
+    assert torch.all(torch.isnan(result))
+
+    # 2D empty tensor: dim=1 collapses the size-3 axis, leaves empty axis
+    result = QF.nanamax(x, dim=1)
+    assert result.shape == torch.Size([0])
+
+    # 2D empty tensor: keepdim=True
+    result = QF.nanamax(x, dim=0, keepdim=True)
+    assert result.shape == torch.Size([1, 3])
+    assert torch.all(torch.isnan(result))
+
+    # 2D empty tensor (transposed shape)
+    x = torch.empty(2, 0)
+    result = QF.nanamax(x, dim=1)
+    assert result.shape == torch.Size([2])
+    assert torch.all(torch.isnan(result))
+
+    result = QF.nanamax(x, dim=1, keepdim=True)
+    assert result.shape == torch.Size([2, 1])
+    assert torch.all(torch.isnan(result))
 
 
 def test_nanamax_precision_preservation() -> None:
@@ -575,3 +601,40 @@ def test_nanamax_boundary_conditions() -> None:
     # Positive infinity should be maximum
     assert torch.isinf(result_mixed[0]) and result_mixed[0] > 0
     assert torch.isinf(result_mixed[1]) and result_mixed[1] > 0
+
+
+def test_nanamax_gradient_with_duplicate_max() -> None:
+    """Test gradient distribution when multiple elements share the max value.
+
+    Unlike torch.max (which sends gradient to the first max element only),
+    torch.amax distributes gradient equally among all max elements
+    (subgradient). Since nanamax uses amax internally, this behavior
+    must be verified.
+    """
+    # 1D: two elements share the max value
+    x = torch.tensor([3.0, 3.0, 1.0], requires_grad=True)
+    y = QF.nanamax(x)
+    y.backward()
+    expected_grad = torch.tensor(
+        [0.5, 0.5, 0.0], dtype=x.dtype, device=x.device
+    )
+    torch.testing.assert_close(x.grad, expected_grad)
+
+    # 2D: duplicate max along dim=1
+    x = torch.tensor([[2.0, 2.0, 1.0], [5.0, 3.0, 5.0]], requires_grad=True)
+    y = QF.nanamax(x, dim=1)
+    loss = y.sum()
+    loss.backward()
+    expected_grad = torch.tensor(
+        [[0.5, 0.5, 0.0], [0.5, 0.0, 0.5]], dtype=x.dtype, device=x.device
+    )
+    torch.testing.assert_close(x.grad, expected_grad)
+
+    # With NaN: NaN elements should receive zero gradient
+    x = torch.tensor([3.0, math.nan, 3.0, 1.0], requires_grad=True)
+    y = QF.nanamax(x)
+    y.backward()
+    expected_grad = torch.tensor(
+        [0.5, 0.0, 0.5, 0.0], dtype=x.dtype, device=x.device
+    )
+    torch.testing.assert_close(x.grad, expected_grad)

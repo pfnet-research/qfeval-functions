@@ -467,11 +467,37 @@ def test_nanamin_all_dimensions_nan() -> None:
 
 
 def test_nanamin_empty_tensor() -> None:
-    """Test nanamin with an empty tensor."""
-    x_empty = torch.empty(0)
-    result = QF.nanamin(x_empty)
+    """Test nanamin with empty tensors respects dim and keepdim."""
+    # 1D empty tensor
+    x = torch.empty(0)
+    result = QF.nanamin(x)
     assert result.shape == torch.Size([])
     assert torch.isnan(result)
+
+    # 2D empty tensor: dim=0 collapses the empty axis, leaves size-3 axis
+    x = torch.empty(0, 3)
+    result = QF.nanamin(x, dim=0)
+    assert result.shape == torch.Size([3])
+    assert torch.all(torch.isnan(result))
+
+    # 2D empty tensor: dim=1 collapses the size-3 axis, leaves empty axis
+    result = QF.nanamin(x, dim=1)
+    assert result.shape == torch.Size([0])
+
+    # 2D empty tensor: keepdim=True
+    result = QF.nanamin(x, dim=0, keepdim=True)
+    assert result.shape == torch.Size([1, 3])
+    assert torch.all(torch.isnan(result))
+
+    # 2D empty tensor (transposed shape)
+    x = torch.empty(2, 0)
+    result = QF.nanamin(x, dim=1)
+    assert result.shape == torch.Size([2])
+    assert torch.all(torch.isnan(result))
+
+    result = QF.nanamin(x, dim=1, keepdim=True)
+    assert result.shape == torch.Size([2, 1])
+    assert torch.all(torch.isnan(result))
 
 
 def test_nanamin_precision_preservation() -> None:
@@ -588,3 +614,39 @@ def test_nanamin_boundary_conditions() -> None:
     # Negative infinity should be minimum
     assert torch.isneginf(result_mixed[0])
     assert torch.isneginf(result_mixed[1])
+
+
+def test_nanamin_gradient_with_duplicate_min() -> None:
+    """Test gradient distribution when multiple elements share the min value.
+
+    nanamin delegates to nanamax via -nanamax(-x), so the gradient of amin
+    (equal distribution among duplicate min elements) must propagate
+    correctly through the sign negation.
+    """
+    # 1D: two elements share the min value
+    x = torch.tensor([1.0, 1.0, 3.0], requires_grad=True)
+    y = QF.nanamin(x)
+    y.backward()
+    expected_grad = torch.tensor(
+        [0.5, 0.5, 0.0], dtype=x.dtype, device=x.device
+    )
+    torch.testing.assert_close(x.grad, expected_grad)
+
+    # 2D: duplicate min along dim=1
+    x = torch.tensor([[2.0, 2.0, 5.0], [1.0, 3.0, 1.0]], requires_grad=True)
+    y = QF.nanamin(x, dim=1)
+    loss = y.sum()
+    loss.backward()
+    expected_grad = torch.tensor(
+        [[0.5, 0.5, 0.0], [0.5, 0.0, 0.5]], dtype=x.dtype, device=x.device
+    )
+    torch.testing.assert_close(x.grad, expected_grad)
+
+    # With NaN: NaN elements should receive zero gradient
+    x = torch.tensor([1.0, math.nan, 1.0, 3.0], requires_grad=True)
+    y = QF.nanamin(x)
+    y.backward()
+    expected_grad = torch.tensor(
+        [0.5, 0.0, 0.5, 0.0], dtype=x.dtype, device=x.device
+    )
+    torch.testing.assert_close(x.grad, expected_grad)

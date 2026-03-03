@@ -96,14 +96,16 @@ def nanamax(
     """
     # 1. Handle empty tensor (amax raises RuntimeError for numel() == 0).
     if x.numel() == 0:
-        return torch.as_tensor(math.nan).to(x)
+        return x.sum(dim=dim, keepdim=keepdim) * math.nan
 
     # 2. Build a mask for slices with at least one valid (non-NaN) element.
-    is_valid = (~x.isnan()).sum(dim=dim, keepdim=keepdim) > 0
+    # any(dim=()) does not reduce, so fall back to any() for that case.
+    not_nan = ~x.isnan()
+    is_valid = (
+        not_nan.any() if dim == () else not_nan.any(dim=dim, keepdim=keepdim)
+    )
 
-    # 3. Replace NaN -> -inf and compute amax (-inf does not affect max).
-    # Note: nan_to_num without explicit posinf/neginf replaces ±inf with
-    # finite values, so all three arguments must be specified.
+    # 3. Replace NaN -> -inf and compute amax.
     y = x.nan_to_num(-math.inf, math.inf, -math.inf).amax(
         dim=dim, keepdim=keepdim
     )
