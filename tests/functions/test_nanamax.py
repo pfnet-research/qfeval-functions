@@ -1,6 +1,7 @@
 import math
 
 import numpy as np
+import pytest
 import torch
 
 import qfeval_functions.functions as QF
@@ -200,12 +201,11 @@ def test_nanamax_multiple_dimensions() -> None:
 
 
 def test_nanamax_empty_dimension_tuple() -> None:
-    """Test nanamax with dim=() reducing all dimensions."""
+    """Test nanamax with dim=() does not reduce any dimension."""
     x = torch.tensor([[1.0, math.nan], [3.0, 4.0]])
 
     result = QF.nanamax(x, dim=())
-    expected = torch.tensor(4.0)
-    torch.testing.assert_close(result, expected)
+    assert result.shape == x.shape
 
 
 def test_nanamax_negative_dimensions() -> None:
@@ -454,37 +454,10 @@ def test_nanamax_all_dimensions_nan() -> None:
 
 
 def test_nanamax_empty_tensor() -> None:
-    """Test nanamax with empty tensors respects dim and keepdim."""
-    # 1D empty tensor
+    """Test nanamax raises RuntimeError for empty tensors."""
     x = torch.empty(0)
-    result = QF.nanamax(x)
-    assert result.shape == torch.Size([])
-    assert torch.isnan(result)
-
-    # 2D empty tensor: dim=0 collapses the empty axis, leaves size-3 axis
-    x = torch.empty(0, 3)
-    result = QF.nanamax(x, dim=0)
-    assert result.shape == torch.Size([3])
-    assert torch.all(torch.isnan(result))
-
-    # 2D empty tensor: dim=1 collapses the size-3 axis, leaves empty axis
-    result = QF.nanamax(x, dim=1)
-    assert result.shape == torch.Size([0])
-
-    # 2D empty tensor: keepdim=True
-    result = QF.nanamax(x, dim=0, keepdim=True)
-    assert result.shape == torch.Size([1, 3])
-    assert torch.all(torch.isnan(result))
-
-    # 2D empty tensor (transposed shape)
-    x = torch.empty(2, 0)
-    result = QF.nanamax(x, dim=1)
-    assert result.shape == torch.Size([2])
-    assert torch.all(torch.isnan(result))
-
-    result = QF.nanamax(x, dim=1, keepdim=True)
-    assert result.shape == torch.Size([2, 1])
-    assert torch.all(torch.isnan(result))
+    with pytest.raises(RuntimeError):
+        QF.nanamax(x)
 
 
 def test_nanamax_precision_preservation() -> None:

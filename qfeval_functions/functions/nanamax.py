@@ -6,7 +6,7 @@ import torch
 
 def nanamax(
     x: torch.Tensor,
-    dim: typing.Union[int, typing.Tuple[int, ...]] = (),
+    dim: typing.Union[None, int, typing.Tuple[int, ...]] = None,
     keepdim: bool = False,
 ) -> torch.Tensor:
     r"""Compute the maximum of tensor elements along specified dimensions,
@@ -27,10 +27,9 @@ def nanamax(
     Args:
         x (Tensor):
             The input tensor containing values.
-        dim (int or tuple of ints, optional):
-            The dimension(s) along which to compute the maximum. If not
-            specified (default is empty tuple), the maximum is computed
-            over all dimensions.
+        dim (None, int, or tuple of ints, optional):
+            The dimension(s) along which to compute the maximum. If None
+            (default), the maximum is computed over all dimensions.
         keepdim (bool, optional):
             Whether the output tensor has :attr:`dim`
             retained or not. Default is False.
@@ -96,19 +95,19 @@ def nanamax(
     """
     # 1. Handle empty tensor (amax raises RuntimeError for numel() == 0).
     if x.numel() == 0:
-        return x.sum(dim=dim, keepdim=keepdim) * math.nan
+        raise RuntimeError(
+            "nanamax(): Expected reduction dim to be specified for "
+            "input.numel() == 0. Specify the reduction dim with the "
+            "'dim' argument."
+        )
 
-    # 2. Build a mask for slices with at least one valid (non-NaN) element.
-    # any(dim=()) does not reduce, so fall back to any() for that case.
-    not_nan = ~x.isnan()
-    is_valid = (
-        not_nan.any() if dim == () else not_nan.any(dim=dim, keepdim=keepdim)
-    )
+    # 2. Check for all-NaN slices.
+    is_invalid = x.isnan().all(dim=dim, keepdim=keepdim)
 
     # 3. Replace NaN -> -inf and compute amax.
     y = x.nan_to_num(-math.inf, math.inf, -math.inf).amax(
-        dim=dim, keepdim=keepdim
+        dim=dim, keepdim=keepdim  # type: ignore[arg-type]
     )
 
     # 4. Restore NaN for all-NaN slices.
-    return torch.where(is_valid, y, torch.as_tensor(math.nan).to(y))
+    return torch.where(is_invalid, torch.as_tensor(math.nan).to(y), y)
