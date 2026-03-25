@@ -1,0 +1,199 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qfeval_functions.functions.nanamin &mdash; qfeval-functions  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            qfeval-functions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <!-- Local TOC -->
+              <div class="local-toc"></div>
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">qfeval-functions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">qfeval_functions.functions.nanamin</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for qfeval_functions.functions.nanamin</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.nanamax</span><span class="w"> </span><span class="kn">import</span> <span class="n">nanamax</span>
+
+
+<div class="viewcode-block" id="nanamin">
+<a class="viewcode-back" href="../../../api/qfeval_functions.functions.nanamin.html#qfeval_functions.functions.nanamin">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">nanamin</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+    <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the minimum of tensor elements along specified dimensions,</span>
+<span class="sd">    ignoring NaN values.</span>
+
+<span class="sd">    This function calculates the minimum of all valid (non-NaN) elements</span>
+<span class="sd">    in a tensor along the specified dimension(s). Unlike :func:`nanmin`,</span>
+<span class="sd">    this function supports multiple dimensions but does not return indices.</span>
+<span class="sd">    When no valid elements are found along a dimension, the result is NaN.</span>
+
+<span class="sd">    The NaN-aware minimum is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{nanamin}(X) = \min_{i \text{ valid}} X_i</span>
+
+<span class="sd">    where the minimum is over all valid (non-NaN) values.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.</span>
+<span class="sd">        dim (None, int, or tuple of ints, optional):</span>
+<span class="sd">            The dimension(s) along which to compute the minimum. If None</span>
+<span class="sd">            (default), the minimum is computed over all dimensions.</span>
+<span class="sd">        keepdim (bool, optional):</span>
+<span class="sd">            Whether the output tensor has :attr:`dim`</span>
+<span class="sd">            retained or not. Default is False.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            The minimum values computed only over valid (non-NaN) values.</span>
+<span class="sd">            When no valid values exist along a dimension, the result is NaN.</span>
+<span class="sd">            The shape depends on the input dimensions, :attr:`dim`, and</span>
+<span class="sd">            :attr:`keepdim` parameters.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple minimum with NaN values</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanamin(x)</span>
+<span class="sd">        tensor(1.)</span>
+
+<span class="sd">        &gt;&gt;&gt; # All NaN returns NaN</span>
+<span class="sd">        &gt;&gt;&gt; all_nan = torch.tensor([nan, nan, nan])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanamin(all_nan)</span>
+<span class="sd">        tensor(nan)</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with min along columns</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanamin(x, dim=0)</span>
+<span class="sd">        tensor([1., 5., 3.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Min along rows</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanamin(x, dim=1)</span>
+<span class="sd">        tensor([1., 4.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Multiple dimensions</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[[1.0, nan], [3.0, 4.0]],</span>
+<span class="sd">        ...                   [[nan, 6.0], [7.0, nan]]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanamin(x, dim=(1, 2))</span>
+<span class="sd">        tensor([1., 6.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # With keepdim</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, nan, 3.0],</span>
+<span class="sd">        ...                   [4.0, 5.0, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanamin(x, dim=1, keepdim=True)</span>
+<span class="sd">        tensor([[1.],</span>
+<span class="sd">                [4.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # All NaN slice returns NaN</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0],</span>
+<span class="sd">        ...                   [nan, nan]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanamin(x, dim=1)</span>
+<span class="sd">        tensor([1., nan])</span>
+
+<span class="sd">        &gt;&gt;&gt; # With positive infinity</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, inf, 3.0],</span>
+<span class="sd">        ...                   [nan, 2.0, inf]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.nanamin(x, dim=1)</span>
+<span class="sd">        tensor([1., 2.])</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        :func:`nanmin`: NaN-aware minimum with indices (single dimension only).</span>
+<span class="sd">        :func:`nanamax`: NaN-aware maximum over multiple dimensions.</span>
+<span class="sd">        ``torch.amin``: Standard minimum over multiple dimensions (NaN propagates).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Delegate to nanamax via sign negation: min(x) == -max(-x).</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">nanamax</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="n">dim</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="n">keepdim</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, qfeval-functions contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

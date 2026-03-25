@@ -100,12 +100,12 @@ is the number of valid pairs.</p>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>Tensor</em>) – The first input tensor.</p></li>
 <li><p><strong>y</strong> (<em>Tensor</em>) – The second input tensor. Must be broadcastable with <code class="xref py py-attr docutils literal notranslate"><span class="pre">x</span></code>.</p></li>
-<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) – The dimension(s) along which to
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) – The dimension(s) along which to
 compute the mean. If not specified (default is empty tuple), the
 mean is computed over all dimensions.</p></li>
-<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the output tensor has <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – Whether the output tensor has <code class="xref py py-attr docutils literal notranslate"><span class="pre">dim</span></code>
 retained or not. Default is False.</p></li>
-<li><p><strong>_ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) – Delta degrees of freedom for internal calculations.
+<li><p><strong>_ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Delta degrees of freedom for internal calculations.
 The divisor used is <code class="docutils literal notranslate"><span class="pre">N_valid</span> <span class="pre">-</span> <span class="pre">_ddof</span></code>, where <code class="docutils literal notranslate"><span class="pre">N_valid</span></code> is the
 number of valid (non-NaN) pairs. Default is 0. This is an internal
 parameter.</p></li>

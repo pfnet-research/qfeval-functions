@@ -31,6 +31,8 @@ Functions
    mulmean
    mulsum
    mvar
+   nanamax
+   nanamin
    nancorrel
    nancovar
    nancumprod

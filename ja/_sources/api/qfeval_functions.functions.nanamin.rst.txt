@@ -1,0 +1,6 @@
+﻿qfeval\_functions.functions.nanamin
+===================================
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: nanamin

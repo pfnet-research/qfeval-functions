@@ -89,7 +89,7 @@ padded with <code class="xref py py-attr docutils literal notranslate"><span cla
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>Tensor</em>) -- グループ化する入力テンソル。</p></li>
 <li><p><strong>group_id</strong> (<em>Tensor</em>) -- <a href="#id1"><span class="problematic" id="id2">``</span></a>x.shape[dim]``と同じ長さの整数グループ識別子の1次元テンソル。各要素は、:attr:<a href="#id3"><span class="problematic" id="id4">`</span></a>x`の対応する要素が属するグループを指定します。グループIDは非負整数である必要があります。</p></li>
-<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 要素をグループ化する次元。デフォルトは-1（最後の次元）です。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- 要素をグループ化する次元。デフォルトは-1（最後の次元）です。</p></li>
 <li><p><strong>empty_value</strong> (<em>scalar</em><em>, </em><em>optional</em>) -- グループサイズの最大値よりも要素数が少ないグループをパディングするために使用される値。デフォルトは <code class="docutils literal notranslate"><span class="pre">nan</span></code> です。</p></li>
 </ul>
 </dd>

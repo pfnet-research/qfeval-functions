@@ -86,13 +86,13 @@ either the unbiased estimator (dividing by N-1) or the biased estimator
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor.</p></li>
-<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.13)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) – The dimension(s) along which to compute the variance. If not
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><em>ints</em><em>, </em><em>optional</em>) – The dimension(s) along which to compute the variance. If not
 specified (default is an empty tuple), the variance is computed
 over all elements. Can be a single dimension or multiple dimensions.</p></li>
-<li><p><strong>unbiased</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), uses Bessel’s correction and divides by
+<li><p><strong>unbiased</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code> (default), uses Bessel’s correction and divides by
 <code class="docutils literal notranslate"><span class="pre">N-1</span></code> where <code class="docutils literal notranslate"><span class="pre">N</span></code> is the number of non-NaN elements. If <code class="docutils literal notranslate"><span class="pre">False</span></code>,
 divides by <code class="docutils literal notranslate"><span class="pre">N</span></code>.</p></li>
-<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.13)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the output tensor has the same number of dimensions
+<li><p><strong>keepdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, the output tensor has the same number of dimensions
 as the input, with the reduced dimensions having size 1.
 If <code class="docutils literal notranslate"><span class="pre">False</span></code> (default), the reduced dimensions are removed.</p></li>
 </ul>

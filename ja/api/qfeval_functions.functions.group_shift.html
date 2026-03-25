@@ -89,12 +89,12 @@
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>Tensor</em>) -- The input tensor to be shifted.</p></li>
-<li><p><strong>shift</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- シフトする位置の数。正の値は前方へシフト（高いインデックス方向へ）、負の値は後方へシフトします。デフォルト値は1です。</p></li>
-<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- The dimension along which to perform the shift.
+<li><p><strong>shift</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- シフトする位置の数。正の値は前方へシフト（高いインデックス方向へ）、負の値は後方へシフトします。デフォルト値は1です。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- The dimension along which to perform the shift.
 Default is 0.</p></li>
 <li><p><strong>mask</strong> (<em>Tensor</em><em>, </em><em>optional</em>) -- 1次元のブールテンソルで、<a href="#id1"><span class="problematic" id="id2">``</span></a>True``はシフト処理に含めるべき位置を示し、<a href="#id3"><span class="problematic" id="id4">``</span></a>False``はスキップすべき位置を示します。長さは``x.shape[dim]``と一致している必要があります。指定されていない場合、:attr:<a href="#id5"><span class="problematic" id="id6">`</span></a>refdim`を指定する必要があります。</p></li>
-<li><p><strong>refdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.13)"><em>int</em></a><em>, </em><em>optional</em>) -- 指定されている場合、<code class="xref py py-func docutils literal notranslate"><span class="pre">reduce_nan_patterns()</span></code> を使用して自動的にマスクを生成します。このマスクは、参照次元における非 NaN パターンに基づいて有効な位置を識別します。デフォルト値は -1 です。</p></li>
-<li><p><strong>agg_f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.13)"><em>str</em></a><em>, </em><em>optional</em>) -- <code class="xref py py-attr docutils literal notranslate"><span class="pre">refdim</span></code> からマスクを生成する際に使用する集計関数。&quot;any&quot; または &quot;all&quot; のいずれかを指定可能。デフォルトは &quot;any&quot; です。</p></li>
+<li><p><strong>refdim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- 指定されている場合、<code class="xref py py-func docutils literal notranslate"><span class="pre">reduce_nan_patterns()</span></code> を使用して自動的にマスクを生成します。このマスクは、参照次元における非 NaN パターンに基づいて有効な位置を識別します。デフォルト値は -1 です。</p></li>
+<li><p><strong>agg_f</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.14)"><em>str</em></a><em>, </em><em>optional</em>) -- <code class="xref py py-attr docutils literal notranslate"><span class="pre">refdim</span></code> からマスクを生成する際に使用する集計関数。&quot;any&quot; または &quot;all&quot; のいずれかを指定可能。デフォルトは &quot;any&quot; です。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値<span class="colon">:</span></dt>
