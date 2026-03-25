@@ -22,6 +22,8 @@ from .msum import msum
 from .mulmean import mulmean
 from .mulsum import mulsum
 from .mvar import mvar
+from .nanamax import nanamax
+from .nanamin import nanamin
 from .nancorrel import nancorrel
 from .nancovar import nancovar
 from .nancumprod import nancumprod
@@ -86,6 +88,8 @@ __all__ = [
     "mulmean",
     "mulsum",
     "mvar",
+    "nanamax",
+    "nanamin",
     "nancorrel",
     "nancovar",
     "nancumprod",
