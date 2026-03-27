@@ -5,7 +5,7 @@ import torch
 
 def rms(
     x: torch.Tensor,
-    dim: typing.Union[int, typing.Tuple[int, ...]] = (),
+    dim: typing.Union[None, int, typing.Tuple[int, ...]] = None,
     keepdim: bool = False,
 ) -> torch.Tensor:
     r"""Returns the root mean square of each row of the input tensor in the
@@ -15,8 +15,9 @@ def rms(
     Args:
         x (Tensor):
             The input tensor.
-        dim (int or tuple of ints):
-            The dimension or dimensions to reduce.
+        dim (None, int, or tuple of ints):
+            The dimension or dimensions to reduce. If None (default),
+            reduces over all dimensions.
         keepdim (bool):
             Whether the output tensor has `dim` retained or not.
 

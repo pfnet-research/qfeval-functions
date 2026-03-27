@@ -11,7 +11,7 @@ from .nansum import nansum
 def nanslope(
     x: torch.Tensor,
     y: torch.Tensor,
-    dim: typing.Union[int, typing.Tuple[int, ...]] = (),
+    dim: typing.Union[None, int, typing.Tuple[int, ...]] = None,
     keepdim: bool = False,
 ) -> torch.Tensor:
     r"""Compute the slope of simple linear regression between two tensors,
@@ -41,9 +41,9 @@ def nanslope(
         y (Tensor):
             The dependent variable tensor (response). Must be broadcastable
             with :attr:`x`.
-        dim (int or tuple of ints, optional):
+        dim (None, int, or tuple of ints, optional):
             The dimension(s) along which to
-            compute the slope. If not specified (default is empty tuple), the
+            compute the slope. If None (default), the
             slope is computed over all dimensions.
         keepdim (bool, optional):
             Whether the output tensor has :attr:`dim`

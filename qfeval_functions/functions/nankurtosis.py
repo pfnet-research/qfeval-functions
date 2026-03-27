@@ -6,7 +6,7 @@ import torch
 
 def nankurtosis(
     x: torch.Tensor,
-    dim: typing.Union[int, typing.Tuple[int, ...]] = (),
+    dim: typing.Union[None, int, typing.Tuple[int, ...]] = None,
     unbiased: bool = True,
     *,
     fisher: bool = True,
@@ -33,9 +33,9 @@ def nankurtosis(
     Args:
         x (Tensor):
             The input tensor containing values.
-        dim (int or tuple of ints, optional):
-            The dimension(s) along which to compute the kurtosis. If not
-            specified (default is empty tuple), computes over all dimensions.
+        dim (None, int, or tuple of ints, optional):
+            The dimension(s) along which to compute the kurtosis. If None
+            (default), computes over all dimensions.
         unbiased (bool, optional):
             If True (default), uses unbiased estimation
             with bias correction. If False, uses biased estimation.

@@ -10,7 +10,7 @@ from .einsum import einsum
 def mulsum(
     x: torch.Tensor,
     y: torch.Tensor,
-    dim: typing.Union[int, typing.Tuple[int, ...]] = (),
+    dim: typing.Union[None, int, typing.Tuple[int, ...]] = None,
     keepdim: bool = False,
     mean: bool = False,
     *,
@@ -29,9 +29,9 @@ def mulsum(
             The first input tensor.
         y (Tensor):
             The second input tensor. Must be broadcastable with :attr:`x`.
-        dim (int or tuple of ints, optional):
+        dim (None, int, or tuple of ints, optional):
             The dimension(s) along which to
-            compute the sum or mean. If not specified (default is empty tuple),
+            compute the sum or mean. If None (default),
             the operation is computed over all dimensions.
         keepdim (bool, optional):
             Whether the output tensor has :attr:`dim`

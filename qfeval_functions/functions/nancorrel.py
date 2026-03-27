@@ -11,7 +11,7 @@ from .nansum import nansum
 def nancorrel(
     x: torch.Tensor,
     y: torch.Tensor,
-    dim: typing.Union[int, typing.Tuple[int, ...]] = (),
+    dim: typing.Union[None, int, typing.Tuple[int, ...]] = None,
     keepdim: bool = False,
 ) -> torch.Tensor:
     r"""Compute Pearson correlation coefficient between two tensors, ignoring
@@ -41,10 +41,9 @@ def nancorrel(
             The first input tensor.
         y (Tensor):
             The second input tensor. Must be the same shape as :attr:`x`.
-        dim (int or tuple of ints, optional):
-            The dimension(s) along which to compute the correlation. If not
-            specified (default is empty tuple), computes element-wise
-            correlation and sums the result.
+        dim (None, int, or tuple of ints, optional):
+            The dimension(s) along which to compute the correlation. If None
+            (default), computes element-wise correlation and sums the result.
         keepdim (bool, optional):
             Whether the output tensor has :attr:`dim` retained or not.
             Default is False.
