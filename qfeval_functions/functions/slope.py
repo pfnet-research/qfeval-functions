@@ -8,7 +8,7 @@ from .mulmean import mulmean
 def slope(
     x: torch.Tensor,
     y: torch.Tensor,
-    dim: typing.Union[int, typing.Tuple[int, ...]] = (),
+    dim: typing.Union[None, int, typing.Tuple[int, ...]] = None,
     keepdim: bool = False,
 ) -> torch.Tensor:
     r"""Returns the slope of simple linear regression of ``y`` on ``x`` over the
