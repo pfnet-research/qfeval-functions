@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,21 +21,106 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.skipna.rst:2
-msgid "qfeval\\_functions.functions.skipna"
-msgstr "qfeval\\_functions.functions.skipna"
+msgid "skipna"
+msgstr ""
 
 #: of qfeval_functions.functions.skipna.skipna:1
+msgid "Applies the given data to the given function after removing NaNs."
+msgstr "NaNを取り除いた上で、与えられたデータを与えられた関数に適用します。"
+
+#: of qfeval_functions.functions.skipna.skipna:3
 msgid ""
-"Applies the given data to the given function after removing NaNs.  The "
-"function will take a tensor having non-NaN values and NaN values in the "
-"order.  The order of non-NaN values must be preserved."
-msgstr "NaN値を除去した後、与えられたデータを指定された関数に適用します。関数は、非NaN値とNaN値が指定された順序で含まれるテンソルを受け取ります。非NaN値の順序は保持されなければなりません。"
+"This function makes a NaN-unaware function applicable to data containing "
+"NaNs.  Along the specified dimension, it first packs the non-NaN values "
+"to the front (preserving their order) followed by the NaN values, then "
+"applies the given function ``f`` to the packed tensors, and finally "
+"restores the results to the original positions of the non-NaN values. "
+"Positions that had NaN in any of the input tensors are NaN in the output."
+msgstr ""
+"この関数は、NaNに対応していない関数をNaNを含むデータに適用できるようにします。指定された次元に沿って、まずNaNでない値を（順序を保ったまま）前方に詰め、その後ろにNaN値を配置します。次に、詰められたテンソルに関数"
+" ``f`` を適用し、最後に結果をNaNでない値の元の位置に戻します。いずれかの入力テンソルでNaNだった位置は、出力でもNaNになります。"
+
+#: of qfeval_functions.functions.skipna.skipna:11
+msgid ""
+"CAVEAT: The given function ``f`` must preserve the shape of its inputs "
+"and must map the :math:`i`-th element of its input to the :math:`i`-th "
+"element of its output (e.g., cumulative or element-wise operations)."
+msgstr ""
+"注意: 与えられる関数 ``f`` は入力の形状を保持し、入力の :math:`i` 番目の要素を出力の :math:`i` "
+"番目の要素に対応付けるものでなければなりません（例: 累積演算や要素ごとの演算）。"
+
+#: ../../api/qfeval_functions.functions.skipna.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.skipna.skipna:16
+msgid ""
+"The function to apply.  It takes as many tensors as ``xs`` and returns a "
+"tensor of the same shape."
+msgstr "適用する関数。``xs`` と同じ数のテンソルを受け取り、同じ形状のテンソルを返します。"
+
+#: of qfeval_functions.functions.skipna.skipna:20
+msgid ""
+"The input tensors.  They must have the same shape.  If multiple tensors "
+"are given, positions where any tensor has NaN are treated as missing in "
+"all of them."
+msgstr "入力テンソル。すべて同じ形状でなければなりません。複数のテンソルが与えられた場合、いずれかのテンソルでNaNである位置は、すべてのテンソルで欠損として扱われます。"
+
+#: of qfeval_functions.functions.skipna.skipna:25
+msgid ""
+"The dimension along which to pack non-NaN values. Default is -1 (the last"
+" dimension)."
+msgstr "NaNでない値を詰める次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.skipna.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.skipna.skipna:29
+msgid ""
+"A tensor of the same shape as the input, containing the result of ``f`` "
+"applied to the non-NaN values, with NaN at positions where any input "
+"tensor has NaN."
+msgstr "NaNでない値に ``f`` を適用した結果を含む、入力と同じ形状のテンソル。いずれかの入力テンソルがNaNである位置はNaNになります。"
 
 #: ../../api/qfeval_functions.functions.skipna.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.skipna.skipna:6
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.skipna.skipna:35
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.skipna.skipna:37
+msgid ""
+">>> # Cumulative sum, skipping NaNs.\n"
+">>> x = torch.tensor([1.0, nan, 2.0, nan, 3.0])\n"
+">>> QF.skipna(lambda a: a.cumsum(-1), x)\n"
+"tensor([1., nan, 3., nan, 6.])"
+msgstr ">>> # NaNをスキップした累積和。\n>>> x = torch.tensor([1.0, nan, 2.0, nan, 3.0])\n>>> QF.skipna(lambda a: a.cumsum(-1), x)\ntensor([1., nan, 3., nan, 6.])"
+
+#: of qfeval_functions.functions.skipna.skipna:42
+msgid ""
+":func:`apply_for_axis`: Applies a function expecting 2D input along a "
+"dimension."
+msgstr ":func:`apply_for_axis`: 2次元入力を想定した関数を指定した次元に沿って適用します。"
+
+#: of qfeval_functions.functions.skipna.skipna:44
+msgid ":func:`fillna`: Replace NaN values instead of removing them."
+msgstr ":func:`fillna`: NaN値を除去する代わりに置き換えます。"
+
+#~ msgid ""
+#~ "Applies the given data to the "
+#~ "given function after removing NaNs.  The"
+#~ " function will take a tensor having"
+#~ " non-NaN values and NaN values "
+#~ "in the order.  The order of "
+#~ "non-NaN values must be preserved."
+#~ msgstr "NaN値を除去した後、与えられたデータを指定された関数に適用します。関数は、非NaN値とNaN値が指定された順序で含まれるテンソルを受け取ります。非NaN値の順序は保持されなければなりません。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.skipna"
+#~ msgstr "qfeval\\_functions.functions.skipna"
 

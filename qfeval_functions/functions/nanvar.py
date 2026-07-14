@@ -60,6 +60,12 @@ def nanvar(
         >>> QF.nanvar(x, dim=1, keepdim=True)
         tensor([[0.5000],
                 [2.0000]])
+
+    .. seealso::
+        - :func:`nanmean`: NaN-aware mean function.
+        - :func:`nanskew`: NaN-aware skewness function.
+        - :func:`nankurtosis`: NaN-aware kurtosis function.
+        - ``torch.var``: Standard variance function (NaN propagates).
     """
     n = (~x.isnan()).to(x).sum(dim=dim, keepdim=True)
     if unbiased:

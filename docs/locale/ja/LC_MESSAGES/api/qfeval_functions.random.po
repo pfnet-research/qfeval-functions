@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 01:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,26 +21,42 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.random.rst:2
-msgid "qfeval\\_functions.random package"
-msgstr "qfeval\\_functions.randomパッケージ"
+msgid "Random (qfeval_functions.random)"
+msgstr "乱数 (qfeval_functions.random)"
 
-#: ../../api/qfeval_functions.random.rst
-msgid "Return type"
-msgstr "戻り値の型"
+#: ../../api/qfeval_functions.random.rst:12:<autosummary>:1
+msgid ":py:obj:`is_fast <qfeval_functions.random.is_fast>`"
+msgstr ":py:obj:`is_fast <qfeval_functions.random.is_fast>`"
 
-#: of qfeval_functions.random._seed.is_fast:2
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`bool\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`bool\\``"
+#: ../../api/qfeval_functions.random.rst:12:<autosummary>:1
+msgid "Returns whether the current seed is set with the fast mode."
+msgstr "現在のシードが fast モードで設定されているかどうかを返します。"
 
-#: of qfeval_functions.random._seed.rng:2
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~numpy.random.\\_generator.Generator\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~numpy.random.\\_generator.Generator\\``"
+#: ../../api/qfeval_functions.random.rst:12:<autosummary>:1
+msgid ":py:obj:`rng <qfeval_functions.random.rng>`"
+msgstr ":py:obj:`rng <qfeval_functions.random.rng>`"
 
-#: of qfeval_functions.random._seed.seed:1
+#: ../../api/qfeval_functions.random.rst:12:<autosummary>:1
+msgid "Returns the random number generator managed by :func:`seed`."
+msgstr ":func:`seed` が管理する乱数生成器を返します。"
+
+#: ../../api/qfeval_functions.random.rst:12:<autosummary>:1
+msgid ":py:obj:`seed <qfeval_functions.random.seed>`"
+msgstr ":py:obj:`seed <qfeval_functions.random.seed>`"
+
+#: ../../api/qfeval_functions.random.rst:12:<autosummary>:1
 msgid "Sets the seed for generating random numbers."
-msgstr "乱数生成のためのシード値を設定する。"
+msgstr "乱数生成のためのシード値を設定します。"
 
-#: of qfeval_functions.random._seed.seed:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.random.\\_seed.Seed\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.random.\\_seed.Seed\\``"
+#~ msgid "Return type"
+#~ msgstr "戻り値の型"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`bool\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`bool\\``"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~numpy.random.\\_generator.Generator\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~numpy.random.\\_generator.Generator\\``"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.random.\\_seed.Seed\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.random.\\_seed.Seed\\``"
 

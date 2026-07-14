@@ -75,10 +75,15 @@ def nanmax(x: torch.Tensor, dim: int, keepdim: bool = False) -> NanmaxResult:
         tensor([[1],
                 [2]])
 
+    .. note::
+        When all values along the dimension are NaN, the returned value is
+        NaN and the accompanying index is 0, which does not point to a valid
+        element.
+
     .. seealso::
-        :func:`nanmin`: NaN-aware minimum function.
-        :func:`nanargmax`: NaN-aware argument maximum function.
-        ``torch.max``: Standard maximum function (NaN propagates).
+        - :func:`nanmin`: NaN-aware minimum function.
+        - :func:`nanamax`: NaN-aware maximum over multiple dimensions.
+        - ``torch.max``: Standard maximum function (NaN propagates).
     """
 
     # 1. Replace NaN -> -inf and name it `a`.

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,21 +21,86 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.rand_like.rst:2
-msgid "qfeval\\_functions.functions.rand\\_like"
-msgstr "qfeval\\_functions.functions.rand\\_like"
+msgid "rand\\_like"
+msgstr ""
 
 #: of qfeval_functions.functions.rand_like.rand_like:1
 msgid ""
-"Returns a tensor with the same size as input that is filled with random "
-"numbers from a uniform distribution on the interval [0, 1).  If the seed "
-"is fixed, it must be reproducible in any device."
-msgstr "入力と同じサイズのテンソルを返し、その要素は区間 [0, 1) 上の一様分布から生成された乱数で埋められます。シード値が固定されている場合、この処理はどのデバイスでも再現可能である必要があります。"
+"Returns a tensor with the same size as ``input`` that is filled with "
+"random numbers from a uniform distribution on the interval :math:`[0, "
+"1)`."
+msgstr "区間 :math:`[0, 1)` 上の一様分布に従う乱数で埋められた、``input`` と同じサイズのテンソルを返します。"
+
+#: of qfeval_functions.functions.rand_like.rand_like:4
+msgid ""
+"Unlike :func:`torch.rand_like`, if the seed is fixed with "
+":func:`qfeval_functions.random.seed`, the result must be reproducible on "
+"any device.  See :func:`rand` for details."
+msgstr ""
+":func:`torch.rand_like` と異なり、:func:`qfeval_functions.random.seed` "
+"でシードを固定した場合、結果はどのデバイスでも再現可能です。詳細は :func:`rand` を参照してください。"
+
+#: ../../api/qfeval_functions.functions.rand_like.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.rand_like.rand_like:9
+msgid ""
+"The input tensor whose shape, dtype, and device determine those of the "
+"output tensor."
+msgstr "出力テンソルの形状、dtype、デバイスを決定する入力テンソル。"
+
+#: of qfeval_functions.functions.rand_like.rand_like:13
+msgid ""
+"The desired data type of the returned tensor. Default is the dtype of "
+"``input``."
+msgstr "返されるテンソルの望ましいデータ型。デフォルトは ``input`` のdtypeです。"
+
+#: of qfeval_functions.functions.rand_like.rand_like:17
+msgid ""
+"The desired device of the returned tensor. Default is the device of "
+"``input``."
+msgstr "返されるテンソルの望ましいデバイス。デフォルトは ``input`` のデバイスです。"
+
+#: ../../api/qfeval_functions.functions.rand_like.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.rand_like.rand_like:21
+msgid ""
+"A tensor with the same shape as ``input`` filled with uniform random "
+"numbers in :math:`[0, 1)`."
+msgstr ":math:`[0, 1)` の一様乱数で埋められた、``input`` と同じ形状のテンソル。"
 
 #: ../../api/qfeval_functions.functions.rand_like.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.rand_like.rand_like:6
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.rand_like.rand_like:26
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.rand_like.rand_like:28
+msgid ""
+">>> import qfeval_functions\n"
+">>> with qfeval_functions.random.seed(1):\n"
+"...     x = QF.rand_like(torch.zeros(2, 3, dtype=torch.float64))\n"
+">>> x\n"
+"tensor([[0.2407, 0.7296, 0.5584],\n"
+"        [0.5268, 0.1469, 0.9072]], dtype=torch.float64)"
+msgstr ">>> import qfeval_functions\n>>> with qfeval_functions.random.seed(1):\n...     x = QF.rand_like(torch.zeros(2, 3, dtype=torch.float64))\n>>> x\ntensor([[0.2407, 0.7296, 0.5584],\n        [0.5268, 0.1469, 0.9072]], dtype=torch.float64)"
+
+#: of qfeval_functions.functions.rand_like.rand_like:35
+msgid ":func:`rand`: Uniform random tensor with a specified shape."
+msgstr ":func:`rand`: 指定した形状の一様乱数テンソル。"
+
+#: of qfeval_functions.functions.rand_like.rand_like:36
+msgid ":func:`randn_like`: Normal random tensor with the shape of another tensor."
+msgstr ":func:`randn_like`: 別のテンソルと同じ形状の正規乱数テンソル。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.rand\\_like"
+#~ msgstr "qfeval\\_functions.functions.rand\\_like"
 

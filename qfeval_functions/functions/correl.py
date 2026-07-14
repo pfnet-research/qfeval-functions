@@ -54,6 +54,16 @@ def correl(
         >>> QF.correl(x, y, dim=1, keepdim=True)
         tensor([[0.9820],
                 [1.0000]])
+
+    .. note::
+        If either :attr:`x` or :attr:`y` has zero variance along the
+        dimension (i.e., all values are identical), the correlation is
+        mathematically undefined and the result is NaN.
+
+    .. seealso::
+        - :func:`nancorrel`: NaN-aware Pearson correlation function.
+        - :func:`covar`: Covariance function.
+        - :func:`slope`: Simple linear regression slope function.
     """
     ax = x - x.mean(dim=dim, keepdim=True)
     ay = y - y.mean(dim=dim, keepdim=True)

@@ -1,0 +1,144 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-15 03:09+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.pca_cov.rst:2
+msgid "pca\\_cov"
+msgstr ""
+
+#: of qfeval_functions.functions.pca.pca_cov:1
+msgid "Compute principal components on the given covariance matrix ``cov``."
+msgstr "与えられた共分散行列 ``cov`` に対して主成分を計算します。"
+
+#: of qfeval_functions.functions.pca.pca_cov:3
+msgid ""
+"This function extracts principal components directly from a covariance "
+"matrix via singular value decomposition, which is useful when the "
+"covariance matrix is already available (e.g., computed with :func:`covar`"
+" or estimated by other means).  The components are returned in descending"
+" order of explained variance.  Specifically, ``components[*, i, :]`` "
+"represents the :math:`(i+1)`-th largest principal component of the batch "
+"specified by ``*``."
+msgstr ""
+"この関数は、特異値分解によって共分散行列から直接主成分を抽出します。共分散行列が既に手元にある場合（例えば :func:`covar` "
+"で計算済みの場合や、他の方法で推定した場合）に有用です。主成分は説明分散の降順で返されます。具体的には、``components[*, i, "
+":]`` は ``*`` で指定されるバッチの :math:`(i+1)` 番目に大きい主成分を表します。"
+
+#: ../../api/qfeval_functions.functions.pca_cov.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.pca.pca_cov:12
+msgid "The input tensor containing symmetric covariance matrices."
+msgstr "対称な共分散行列を含む入力テンソル。"
+
+#: ../../api/qfeval_functions.functions.pca_cov.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.pca.pca_cov:15
+msgid ""
+"A dataclass containing:      - ``components`` (Tensor): Principal "
+"components (eigenvectors of       the covariance matrix) of shape "
+":math:`(*, D, D)`.       ``components[..., i, j]`` represents the "
+":math:`i`-th       component's weight for the :math:`j`-th dimension."
+"     - ``explained_variance`` (Tensor): The variance explained by each"
+"       component (eigenvalues of the covariance matrix) of shape       "
+":math:`(*, D)`, in descending order."
+msgstr ""
+
+#: of qfeval_functions.functions.pca.pca_cov:17
+msgid "A dataclass containing:"
+msgstr "以下を含むデータクラス:"
+
+#: of qfeval_functions.functions.pca.pca_cov:19
+msgid ""
+"``components`` (Tensor): Principal components (eigenvectors of the "
+"covariance matrix) of shape :math:`(*, D, D)`. ``components[..., i, j]`` "
+"represents the :math:`i`-th component's weight for the :math:`j`-th "
+"dimension."
+msgstr ""
+"``components`` (Tensor): 形状 :math:`(*, D, D)` "
+"の主成分（共分散行列の固有ベクトル）。``components[..., i, j]`` は第 :math:`i` 成分の第 :math:`j` "
+"次元に対する重みを表します。"
+
+#: of qfeval_functions.functions.pca.pca_cov:23
+msgid ""
+"``explained_variance`` (Tensor): The variance explained by each component"
+" (eigenvalues of the covariance matrix) of shape :math:`(*, D)`, in "
+"descending order."
+msgstr ""
+"``explained_variance`` (Tensor): 形状 :math:`(*, D)` "
+"の、各成分によって説明される分散（共分散行列の固有値）。降順に並びます。"
+
+#: ../../api/qfeval_functions.functions.pca_cov.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.pca.pca_cov:28
+msgid "Shape:"
+msgstr "形状:"
+
+#: of qfeval_functions.functions.pca.pca_cov:29
+msgid ""
+"cov: :math:`(*, D, D)` where ``*`` means any number of additional "
+"dimensions, and ``D`` means the number of dimensions."
+msgstr "cov: :math:`(*, D, D)`。``*`` は任意の数の追加次元を、``D`` は次元数を表します。"
+
+#: of qfeval_functions.functions.pca.pca_cov:33
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.pca.pca_cov:35
+msgid ""
+">>> cov = torch.tensor([[2.0, 0.0],\n"
+"...                     [0.0, 1.0]])\n"
+">>> result = QF.pca_cov(cov)\n"
+">>> result.components\n"
+"tensor([[1., 0.],\n"
+"        [0., 1.]])\n"
+">>> result.explained_variance\n"
+"tensor([2., 1.])"
+msgstr ""
+">>> cov = torch.tensor([[2.0, 0.0],\n"
+"...                     [0.0, 1.0]])\n"
+">>> result = QF.pca_cov(cov)\n"
+">>> result.components\n"
+"tensor([[1., 0.],\n"
+"        [0., 1.]])\n"
+">>> result.explained_variance\n"
+"tensor([2., 1.])"
+
+#: of qfeval_functions.functions.pca.pca_cov:44
+msgid ""
+"The sign of each principal component is arbitrary: components are defined"
+" only up to sign, so an equivalent input may yield components multiplied "
+"by -1."
+msgstr "各主成分の符号は任意です。主成分は符号を除いてのみ定義されるため、等価な入力に対して-1倍された主成分が返されることがあります。"
+
+#: of qfeval_functions.functions.pca.pca_cov:49
+msgid ":func:`pca`: PCA computed directly from data."
+msgstr ":func:`pca`: データから直接計算するPCA。"
+
+#: of qfeval_functions.functions.pca.pca_cov:50
+msgid ":func:`nanpca`: NaN-aware principal component analysis."
+msgstr ":func:`nanpca`: NaNを考慮した主成分分析。"
+

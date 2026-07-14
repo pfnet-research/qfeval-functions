@@ -43,6 +43,10 @@ def cumcount(x: torch.Tensor, dim: int = -1) -> torch.Tensor:
         tensor([[0, 0, 0],
                 [1, 1, 1],
                 [2, 2, 2]])
+
+    .. seealso::
+        - :func:`bincount`: Count occurrences of each value.
+        - :func:`groupby`: Group tensor elements by group identifiers.
     """
 
     # 1. Flatten the input tensor.

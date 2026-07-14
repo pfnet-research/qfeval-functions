@@ -22,6 +22,12 @@ def eigh(
     .. note::
         This function does not support automatic differentiation (autograd).
 
+    .. note::
+        The symmetry of the input is not validated. Only the triangular
+        part selected by :attr:`uplo` is used and the other part is ignored,
+        so a non-symmetric input silently yields the result for a different
+        (symmetrized) matrix.
+
     Args:
         tensor (Tensor):
             A symmetric (if real) or Hermitian (if complex) matrix of shape
@@ -59,6 +65,11 @@ def eigh(
         ...                   [0.0, 4.0, 5.0],
         ...                   [0.0, 0.0, 6.0]])
         >>> eigenvalues, eigenvectors = QF.eigh(B, uplo='U')
+
+    .. seealso::
+        - :func:`nanpca`: NaN-aware principal component analysis using this
+          function.
+        - ``torch.linalg.eigh``: PyTorch's built-in eigendecomposition.
     """
 
     def calculate() -> typing.Tuple[torch.Tensor, torch.Tensor]:

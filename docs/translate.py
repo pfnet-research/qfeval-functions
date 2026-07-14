@@ -146,6 +146,11 @@ def parse_po_file(file_path: Path) -> List[Tuple[str, str, str]]:
     return entries
 
 
+def is_code_block(msgid: str) -> bool:
+    """msgidがコードブロック（doctest等）かどうかを判定"""
+    return msgid.lstrip().startswith(">>>")
+
+
 def should_translate(msgid: str, msgstr: str, force: bool = False) -> bool:
     """翻訳が必要かどうかを判定"""
     # 空のmsgidはスキップ
@@ -156,11 +161,19 @@ def should_translate(msgid: str, msgstr: str, force: bool = False) -> bool:
     if not force and msgstr.strip():
         return False
 
+    # フィールド本体がフラット化された複合メッセージ（例:
+    # "A named tuple of ...:      - ``values`` ..."）は、構造化された
+    # 個別エントリ側で翻訳されるため、翻訳するとリスト構造が失われる。
+    # 未翻訳のままにしておく必要がある。
+    if re.search(r":\s{2,}-\s", msgid):
+        return False
+
     # 特定のパターンはスキップ
     skip_patterns = [
         r"^:.*:$",  # :ref:`genindex` など
         r"^\.\..*$",  # .. directive など
         r"^\s*$",  # 空白のみ
+        r"^[a-z0-9_\\.]+$",  # 関数名などの識別子（例: apply\_for\_axis）
     ]
 
     for pattern in skip_patterns:
@@ -168,6 +181,36 @@ def should_translate(msgid: str, msgstr: str, force: bool = False) -> bool:
             return False
 
     return True
+
+
+def translate_code_block_comments(
+    client: MCPClient,  # type: ignore
+    from_lang: str,
+    to_lang: str,
+    msgid: str,
+    context_text: Optional[str] = None,
+) -> str:
+    """コードブロック内の ``#`` コメントのみを翻訳
+
+    コード自体を翻訳するとdoctestが壊れるため、各行の ``#`` 以降の
+    コメント部分だけを翻訳して置き換える。msgidは.poファイルの
+    エスケープ表現（改行は ``\\n``）のまま処理する。
+    """
+    lines = msgid.split("\\n")
+    translated_lines = []
+    for line in lines:
+        comment_index = line.find("#")
+        comment = line[comment_index + 1 :].strip() if comment_index >= 0 else ""
+        if comment_index < 0 or not re.search(r"[A-Za-z]", comment):
+            translated_lines.append(line)
+            continue
+        translated = translate_text(
+            client, from_lang, to_lang, comment, context_text=context_text
+        )
+        # .poファイルの二重引用符エスケープを維持する
+        translated = translated.replace('"', '\\"')
+        translated_lines.append(line[: comment_index + 1] + " " + translated)
+    return "\\n".join(translated_lines)
 
 
 def is_file_fully_translated(file_path: Path) -> bool:
@@ -266,8 +309,11 @@ def translate_po_file_with_lang(
     logger.info(f"  翻訳対象: {len(to_translate)}件 {force_msg}")
 
     # 同じファイル内の翻訳対象テキストをcontextとして収集
+    # （コードブロックは長大になるため除外）
     file_context_texts = [
-        msgid for msgid, _, _ in to_translate if msgid.strip()
+        msgid
+        for msgid, _, _ in to_translate
+        if msgid.strip() and not is_code_block(msgid)
     ]
 
     # グローバルcontextとファイル内contextを結合
@@ -287,9 +333,23 @@ def translate_po_file_with_lang(
     translated_entries = []
     for i, (msgid, msgstr, context) in enumerate(to_translate, 1):
         logger.debug(f"  {i}/{len(to_translate)}: {msgid[:50]}...")
-        translated = translate_text(
-            client, from_lang, to_lang, msgid, context_text=combined_context
-        )
+        if is_code_block(msgid):
+            # コードブロックはコメント部分のみ翻訳
+            translated = translate_code_block_comments(
+                client,
+                from_lang,
+                to_lang,
+                msgid,
+                context_text=combined_context,
+            )
+        else:
+            translated = translate_text(
+                client,
+                from_lang,
+                to_lang,
+                msgid,
+                context_text=combined_context,
+            )
         translated_entries.append((msgid, translated, context))
 
     # 翻訳結果をマージ

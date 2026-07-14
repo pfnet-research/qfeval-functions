@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 03:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,15 +21,14 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.nancorrel.rst:2
-msgid "qfeval\\_functions.functions.nancorrel"
-msgstr "qfeval\\_functions.functions.nancorrel"
+msgid "nancorrel"
+msgstr ""
 
 #: of qfeval_functions.functions.nancorrel.nancorrel:1
-#, fuzzy
 msgid ""
 "Compute Pearson correlation coefficient between two tensors, ignoring NaN"
 " values."
-msgstr "`x`と`y`の間のピアソン相関係数を返し、NaN値は無視します。"
+msgstr "NaN値を無視して、2つのテンソル間のピアソン相関係数を計算します。"
 
 #: of qfeval_functions.functions.nancorrel.nancorrel:4
 msgid ""
@@ -39,7 +38,11 @@ msgid ""
 "coefficient measures the linear relationship between two variables and "
 "ranges from -1 (perfect negative correlation) to 1 (perfect positive "
 "correlation), with 0 indicating no linear correlation."
-msgstr "この関数は、指定された次元に沿ってテンソル :attr:`x` と :attr:`y` の間のピアソン相関係数を計算します。計算対象から除外されるのは、いずれかの値が NaN であるペアです。相関係数は2つの変数間の線形関係の強さを測定する指標であり、-1（完全な負の相関）から 1（完全な正の相関）の範囲で表され、0の場合は線形相関がないことを示します。"
+msgstr ""
+"この関数は、指定された次元に沿ってテンソル :attr:`x` と :attr:`y` "
+"の間のピアソン相関係数を計算します。計算対象から除外されるのは、いずれかの値が NaN "
+"であるペアです。相関係数は2つの変数間の線形関係の強さを測定する指標であり、-1（完全な負の相関）から "
+"1（完全な正の相関）の範囲で表され、0の場合は線形相関がないことを示します。"
 
 #: of qfeval_functions.functions.nancorrel.nancorrel:11
 msgid ""
@@ -47,7 +50,9 @@ msgid ""
 " values in the computation. If either :attr:`x` or :attr:`y` has a NaN at"
 " a given position, that pair is excluded from the correlation "
 "calculation."
-msgstr ":func:`correl` とは異なり、この関数は欠損データを処理する際に計算から NaN 値を除外します。もし :attr:`x` または :attr:`y` の特定の位置に NaN が存在する場合、そのペアは相関計算から除外されます。"
+msgstr ""
+":func:`correl` とは異なり、この関数は欠損データを処理する際に計算から NaN 値を除外します。もし :attr:`x` または "
+":attr:`y` の特定の位置に NaN が存在する場合、そのペアは相関計算から除外されます。"
 
 #: of qfeval_functions.functions.nancorrel.nancorrel:15
 msgid "The NaN-aware Pearson correlation is computed as:"
@@ -59,7 +64,11 @@ msgid ""
 "        \\sqrt{\\text{E}[(X - \\mu_X)^2]}\\sqrt{\\text{E}[(Y - "
 "\\mu_Y)^2]}}\n"
 "\n"
-msgstr "r = \\frac{\\text{E}[(X - \\mu_X)(Y - \\mu_Y)]}{\n        \\sqrt{\\text{E}[(X - \\mu_X)^2]}\\sqrt{\\text{E}[(Y - \\mu_Y)^2]}}\n\n"
+msgstr ""
+"r = \\frac{\\text{E}[(X - \\mu_X)(Y - \\mu_Y)]}{\n"
+"        \\sqrt{\\text{E}[(X - \\mu_X)^2]}\\sqrt{\\text{E}[(Y - "
+"\\mu_Y)^2]}}\n"
+"\n"
 
 #: of qfeval_functions.functions.nancorrel.nancorrel:21
 msgid "where the expectations are computed only over valid (non-NaN) pairs."
@@ -75,7 +84,7 @@ msgstr "最初の入力テンソル。"
 
 #: of qfeval_functions.functions.nancorrel.nancorrel:27
 msgid "The second input tensor. Must be the same shape as :attr:`x`."
-msgstr "第2の入力テンソル。 :attr:`x`と同じ形状である必要があります。"
+msgstr "第2の入力テンソル。 :attr:`x`\\ と同じ形状である必要があります。"
 
 #: of qfeval_functions.functions.nancorrel.nancorrel:30
 msgid ""
@@ -91,9 +100,8 @@ msgid ""
 msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
 
 #: ../../api/qfeval_functions.functions.nancorrel.rst
-#, fuzzy
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.nancorrel.nancorrel:39
 msgid ""
@@ -110,18 +118,94 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
+#: of qfeval_functions.functions.nancorrel.nancorrel:47
+msgid ""
+">>> # Perfect positive correlation with some NaNs\n"
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n"
+">>> y = torch.tensor([2.0, 4.0, 6.0, 8.0, nan])\n"
+">>> QF.nancorrel(x, y, dim=0)\n"
+"tensor(1.)"
+msgstr ""
+">>> # NaNを含む完全な正の相関\n"
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n"
+">>> y = torch.tensor([2.0, 4.0, 6.0, 8.0, nan])\n"
+">>> QF.nancorrel(x, y, dim=0)\n"
+"tensor(1.)"
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:53
+msgid ""
+">>> # 2D tensors with NaN values\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [4.0, 5.0, nan]])\n"
+">>> y = torch.tensor([[2.0, 4.0, 5.0],\n"
+"...                   [nan, 10.0, 12.0]])\n"
+">>> QF.nancorrel(x, y, dim=1)\n"
+"tensor([1., nan])"
+msgstr ""
+">>> # NaN値を含む2次元テンソル\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [4.0, 5.0, nan]])\n"
+">>> y = torch.tensor([[2.0, 4.0, 5.0],\n"
+"...                   [nan, 10.0, 12.0]])\n"
+">>> QF.nancorrel(x, y, dim=1)\n"
+"tensor([1., nan])"
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:61
+msgid ""
+">>> # Comparison with regular correl (which would give NaN)\n"
+">>> x_with_nan = torch.tensor([1.0, 2.0, nan, 4.0])\n"
+">>> y_with_nan = torch.tensor([2.0, 4.0, 6.0, 8.0])\n"
+">>> QF.nancorrel(x_with_nan, y_with_nan, dim=0)  # Ignores NaN\n"
+"tensor(1.)"
+msgstr ""
+">>> # 通常の correl との比較（この場合はNaNになる）\n"
+">>> x_with_nan = torch.tensor([1.0, 2.0, nan, 4.0])\n"
+">>> y_with_nan = torch.tensor([2.0, 4.0, 6.0, 8.0])\n"
+">>> QF.nancorrel(x_with_nan, y_with_nan, dim=0)  # NaNを無視\n"
+"tensor(1.)"
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:67
+msgid ""
+">>> # With keepdim\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [4.0, 5.0, 6.0]])\n"
+">>> y = torch.tensor([[2.0, 4.0, 6.0],\n"
+"...                   [8.0, 10.0, 12.0]])\n"
+">>> QF.nancorrel(x, y, dim=1, keepdim=True)\n"
+"tensor([[1.],\n"
+"        [1.]])"
+msgstr ""
+">>> # keepdim を使用\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [4.0, 5.0, 6.0]])\n"
+">>> y = torch.tensor([[2.0, 4.0, 6.0],\n"
+"...                   [8.0, 10.0, 12.0]])\n"
+">>> QF.nancorrel(x, y, dim=1, keepdim=True)\n"
+"tensor([[1.],\n"
+"        [1.]])"
+
 #: of qfeval_functions.functions.nancorrel.nancorrel:76
+msgid ""
+"If either :attr:`x` or :attr:`y` has zero variance over the valid (non-"
+"NaN) pairs (i.e., all valid values are identical), the correlation is "
+"mathematically undefined and the result is NaN."
+msgstr "有効な（NaNでない）ペアにおいて :attr:`x` または :attr:`y` のいずれかが分散ゼロ（すべての有効値が同一）の場合、相関は数学的に未定義であり、結果はNaNになります。"
+
+#: of qfeval_functions.functions.nancorrel.nancorrel:81
 msgid ":func:`correl`: Pearson correlation without NaN handling."
 msgstr ":func:`correl`: NaN処理を行わないピアソン相関係数。"
 
-#: of qfeval_functions.functions.nancorrel.nancorrel:77
+#: of qfeval_functions.functions.nancorrel.nancorrel:82
 msgid ":func:`nancovar`: NaN-aware covariance function."
 msgstr ":func:`nancovar`: NaNを考慮した共分散関数。"
 
-#: of qfeval_functions.functions.nancorrel.nancorrel:78
+#: of qfeval_functions.functions.nancorrel.nancorrel:83
 msgid ":func:`nanmean`: NaN-aware mean function."
 msgstr ":func:`nanmean`: NaNを考慮した平均関数。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.nancorrel"
+#~ msgstr "qfeval\\_functions.functions.nancorrel"
 

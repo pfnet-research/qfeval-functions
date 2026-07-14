@@ -52,6 +52,7 @@ from .randint import randint
 from .randn import randn
 from .randn_like import randn_like
 from .randperm import randperm
+from .rci import rci
 from .rcummax import rcummax
 from .rcumsum import rcumsum
 from .rms import rms
@@ -118,6 +119,7 @@ __all__ = [
     "randn",
     "randn_like",
     "randperm",
+    "rci",
     "rcummax",
     "rcumsum",
     "reduce_nan_patterns",

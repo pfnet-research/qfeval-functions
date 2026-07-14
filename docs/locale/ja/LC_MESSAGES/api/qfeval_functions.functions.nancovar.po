@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 01:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,13 +21,12 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.nancovar.rst:2
-msgid "qfeval\\_functions.functions.nancovar"
-msgstr "qfeval\\_functions.functions.nancovar"
+msgid "nancovar"
+msgstr ""
 
 #: of qfeval_functions.functions.nancovar.nancovar:1
-#, fuzzy
 msgid "Compute covariance between two tensors, ignoring NaN values."
-msgstr "指定されたテンソル間の共分散を計算します。"
+msgstr "NaN値を無視して、2つのテンソル間の共分散を計算します。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:3
 msgid ""
@@ -37,7 +36,11 @@ msgid ""
 "together. Unlike ``numpy.cov``, this function computes element-wise "
 "covariance for each batch index rather than producing a covariance "
 "matrix."
-msgstr "この関数は、指定された次元に沿ってテンソル :attr:`x` と :attr:`y` の共分散を計算します。計算対象から除外されるのは、いずれかの値が NaN であるペアです。共分散は、2つの変数がどの程度連動して変化するかを測る指標です。``numpy.cov`` とは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対して要素ごとの共分散を計算します。"
+msgstr ""
+"この関数は、指定された次元に沿ってテンソル :attr:`x` と :attr:`y` "
+"の共分散を計算します。計算対象から除外されるのは、いずれかの値が NaN "
+"であるペアです。共分散は、2つの変数がどの程度連動して変化するかを測る指標です。``numpy.cov`` "
+"とは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対して要素ごとの共分散を計算します。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:9
 msgid ""
@@ -56,13 +59,17 @@ msgstr "NaNを考慮した共分散は以下のように計算されます："
 msgid ""
 "\\text{Cov}(X, Y) = \\text{E}[(X - \\mu_X)(Y - \\mu_Y)]\n"
 "\n"
-msgstr "\\text{Cov}(X, Y) = \\text{E}[(X - \\mu_X)(Y - \\mu_Y)]\n\n"
+msgstr ""
+"\\text{Cov}(X, Y) = \\text{E}[(X - \\mu_X)(Y - \\mu_Y)]\n"
+"\n"
 
 #: of qfeval_functions.functions.nancovar.nancovar:19
 msgid ""
 "where the expectation is computed only over valid (non-NaN) pairs, and "
 ":math:`\\mu_X`, :math:`\\mu_Y` are the means computed over valid values."
-msgstr "ここで、期待値は有効な値のペア（NaNでない値）に対してのみ計算され、:math:`\\mu_X` および :math:`\\mu_Y` は有効な値に対して計算された平均値です。"
+msgstr ""
+"ここで、期待値は有効な値のペア（NaNでない値）に対してのみ計算され、:math:`\\mu_X` および :math:`\\mu_Y` "
+"は有効な値に対して計算された平均値です。"
 
 #: ../../api/qfeval_functions.functions.nancovar.rst
 msgid "Parameters"
@@ -74,7 +81,7 @@ msgstr "最初の入力テンソル。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:26
 msgid "The second input tensor. Must be broadcastable with :attr:`x`."
-msgstr "第2の入力テンソル。 :attr:`x`とブロードキャスト可能である必要があります。"
+msgstr "第2の入力テンソル。 :attr:`x`\\ とブロードキャスト可能である必要があります。"
 
 #: of qfeval_functions.functions.nancovar.nancovar:29
 msgid ""
@@ -93,12 +100,13 @@ msgid ""
 "Delta degrees of freedom. The divisor used in the calculation is ``N - "
 "ddof``, where ``N`` represents the number of valid (non-NaN) pairs. "
 "Default is 1."
-msgstr "自由度のデルタ値。計算に使用される除数は ``N - ddof`` で、ここで ``N`` は有効な（NaNでない）ペアの数を表します。デフォルト値は 1 です。"
+msgstr ""
+"自由度のデルタ値。計算に使用される除数は ``N - ddof`` で、ここで ``N`` "
+"は有効な（NaNでない）ペアの数を表します。デフォルト値は 1 です。"
 
 #: ../../api/qfeval_functions.functions.nancovar.rst
-#, fuzzy
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.nancovar.nancovar:42
 msgid ""
@@ -113,6 +121,47 @@ msgstr "戻り値の型"
 #: of qfeval_functions.functions.nancovar.nancovar:48
 msgid "Example"
 msgstr "使用例"
+
+#: of qfeval_functions.functions.nancovar.nancovar:50
+msgid ""
+">>> # Simple covariance with NaN values\n"
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n"
+">>> y = torch.tensor([2.0, 4.0, 6.0, nan, 10.0])\n"
+">>> QF.nancovar(x, y, dim=0)\n"
+"tensor(8.6250)"
+msgstr ">>> # NaN値を含む単純な共分散\n>>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n>>> y = torch.tensor([2.0, 4.0, 6.0, nan, 10.0])\n>>> QF.nancovar(x, y, dim=0)\ntensor(8.6250)"
+
+#: of qfeval_functions.functions.nancovar.nancovar:56
+msgid ""
+">>> # 2D tensors with NaN values\n"
+">>> x = torch.tensor([[1.0, nan, 3.0, 4.0],\n"
+"...                   [5.0, 6.0, nan, 8.0]])\n"
+">>> y = torch.tensor([[2.0, 4.0, 6.0, nan],\n"
+"...                   [10.0, nan, 14.0, 16.0]])\n"
+">>> QF.nancovar(x, y, dim=1)\n"
+"tensor([4.0000, 9.1111])"
+msgstr ">>> # NaN値を含む2次元テンソル\n>>> x = torch.tensor([[1.0, nan, 3.0, 4.0],\n...                   [5.0, 6.0, nan, 8.0]])\n>>> y = torch.tensor([[2.0, 4.0, 6.0, nan],\n...                   [10.0, nan, 14.0, 16.0]])\n>>> QF.nancovar(x, y, dim=1)\ntensor([4.0000, 9.1111])"
+
+#: of qfeval_functions.functions.nancovar.nancovar:64
+msgid ""
+">>> # Population covariance (ddof=0)\n"
+">>> x = torch.tensor([1.0, nan, 3.0, 4.0])\n"
+">>> y = torch.tensor([2.0, 4.0, nan, 8.0])\n"
+">>> QF.nancovar(x, y, dim=0, ddof=0)\n"
+"tensor(4.5000)"
+msgstr ">>> # 母共分散（ddof=0）\n>>> x = torch.tensor([1.0, nan, 3.0, 4.0])\n>>> y = torch.tensor([2.0, 4.0, nan, 8.0])\n>>> QF.nancovar(x, y, dim=0, ddof=0)\ntensor(4.5000)"
+
+#: of qfeval_functions.functions.nancovar.nancovar:70
+msgid ""
+">>> # With keepdim\n"
+">>> x = torch.tensor([[1.0, 2.0, nan],\n"
+"...                   [4.0, nan, 6.0]])\n"
+">>> y = torch.tensor([[2.0, nan, 6.0],\n"
+"...                   [8.0, 10.0, nan]])\n"
+">>> QF.nancovar(x, y, dim=1, keepdim=True)\n"
+"tensor([[nan],\n"
+"        [nan]])"
+msgstr ">>> # keepdim を使用\n>>> x = torch.tensor([[1.0, 2.0, nan],\n...                   [4.0, nan, 6.0]])\n>>> y = torch.tensor([[2.0, nan, 6.0],\n...                   [8.0, 10.0, nan]])\n>>> QF.nancovar(x, y, dim=1, keepdim=True)\ntensor([[nan],\n        [nan]])"
 
 #: of qfeval_functions.functions.nancovar.nancovar:79
 msgid ""
@@ -154,4 +203,7 @@ msgstr ":func:`nanmean`: NaNを考慮した平均関数。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.nancovar"
+#~ msgstr "qfeval\\_functions.functions.nancovar"
 

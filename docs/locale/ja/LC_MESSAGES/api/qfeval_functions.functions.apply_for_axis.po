@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.apply_for_axis.rst:2
-msgid "qfeval\\_functions.functions.apply\\_for\\_axis"
-msgstr "qfeval\\_functions.functions.apply\\_for\\_axis"
+msgid "apply\\_for\\_axis"
+msgstr ""
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:1
 msgid ""
@@ -38,7 +38,9 @@ msgid ""
 " the function, and then restoring the original shape. This is "
 "particularly useful for implementing dimension-aware operations without "
 "explicitly handling different tensor shapes."
-msgstr "このユーティリティ関数は、形状が ``(batch, n)`` の2次元テンソルを想定した関数を、任意の次元のテンソルに適用することを可能にします。具体的には、指定された次元以外のすべての次元を平坦化し、関数を適用した後、元の形状に復元します。この処理は、異なるテンソル形状を明示的に処理することなく、次元を意識した操作を実装する際に特に有用です。"
+msgstr ""
+"このユーティリティ関数は、形状が ``(batch, n)`` "
+"の2次元テンソルを想定した関数を、任意の次元のテンソルに適用することを可能にします。具体的には、指定された次元以外のすべての次元を平坦化し、関数を適用した後、元の形状に復元します。この処理は、異なるテンソル形状を明示的に処理することなく、次元を意識した操作を実装する際に特に有用です。"
 
 #: ../../api/qfeval_functions.functions.apply_for_axis.rst
 msgid "Parameters"
@@ -49,7 +51,9 @@ msgid ""
 "A function that expects a 2D tensor of shape ``(batch, n)`` as input and "
 "returns a tensor where the batch dimension is preserved. The function "
 "must be dimension-preserving along the batch dimension."
-msgstr "入力として形状が``(batch, n)``の2次元テンソルを想定し、バッチ次元が保持されたテンソルを返す関数です。関数はバッチ次元に沿って次元を保持する必要があります。"
+msgstr ""
+"入力として形状が\\ ``(batch, n)``\\ "
+"の2次元テンソルを想定し、バッチ次元が保持されたテンソルを返す関数です。関数はバッチ次元に沿って次元を保持する必要があります。"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:17
 msgid "The input tensor of arbitrary dimensions to process."
@@ -62,9 +66,8 @@ msgid ""
 msgstr "関数を適用する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.apply_for_axis.rst
-#, fuzzy
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:24
 msgid ""
@@ -80,12 +83,50 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
+#: of qfeval_functions.functions.apply_for_axis.apply_for_axis:31
+msgid ""
+">>> # Apply to a 3D tensor along dimension 1\n"
+">>> x = torch.tensor([[[1., 2.], [3., 4.], [5., 6.]],\n"
+"...                   [[7., 8.], [9., 10.], [11., 12.]]])\n"
+">>> QF.apply_for_axis(lambda x: x.cumsum(dim=1), x, dim=1)\n"
+"tensor([[[ 1.,  2.],\n"
+"         [ 4.,  6.],\n"
+"         [ 9., 12.]],\n"
+"\n"
+"        [[ 7.,  8.],\n"
+"         [16., 18.],\n"
+"         [27., 30.]]])"
+msgstr ">>> # 3次元テンソルの次元1に沿って適用\n>>> x = torch.tensor([[[1., 2.], [3., 4.], [5., 6.]],\n...                   [[7., 8.], [9., 10.], [11., 12.]]])\n>>> QF.apply_for_axis(lambda x: x.cumsum(dim=1), x, dim=1)\ntensor([[[ 1.,  2.],\n         [ 4.,  6.],\n         [ 9., 12.]],\n\n        [[ 7.,  8.],\n         [16., 18.],\n         [27., 30.]]])"
+
+#: of qfeval_functions.functions.apply_for_axis.apply_for_axis:43
+msgid ""
+">>> # Simple 2D example: apply function along columns (dim=0)\n"
+">>> x = torch.tensor([[1., 2., 3.],\n"
+"...                   [4., 5., 6.]])\n"
+">>> def normalize_columns(x):\n"
+"...     # Normalize each column to sum to 1\n"
+"...     return x / x.sum(dim=0, keepdim=True)\n"
+">>> QF.apply_for_axis(normalize_columns, x, dim=0)\n"
+"tensor([[0.1667, 0.3333, 0.5000],\n"
+"        [0.2667, 0.3333, 0.4000]])"
+msgstr ">>> # 単純な2次元の例: 列方向に関数を適用（dim=0）\n>>> x = torch.tensor([[1., 2., 3.],\n...                   [4., 5., 6.]])\n>>> def normalize_columns(x):\n...     # 各列を合計1に正規化\n...     return x / x.sum(dim=0, keepdim=True)\n>>> QF.apply_for_axis(normalize_columns, x, dim=0)\ntensor([[0.1667, 0.3333, 0.5000],\n        [0.2667, 0.3333, 0.4000]])"
+
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:53
 msgid ""
 "The function :attr:`f` must preserve the batch dimension size. Functions "
 "that change the batch dimension size will cause shape mismatch errors "
 "during the reshape operation."
-msgstr "関数 :attr:`f` はバッチ次元のサイズを保持しなければなりません。バッチ次元のサイズを変更する関数は、形状不一致エラーを引き起こし、形状変更処理中にエラーが発生します。"
+msgstr ""
+"関数 :attr:`f` "
+"はバッチ次元のサイズを保持しなければなりません。バッチ次元のサイズを変更する関数は、形状不一致エラーを引き起こし、形状変更処理中にエラーが発生します。"
+
+#: of qfeval_functions.functions.apply_for_axis.apply_for_axis:58
+msgid ":func:`skipna`: Applies a function to values after removing NaNs."
+msgstr ":func:`skipna`: NaNを除去してから関数を適用します。"
+
+#: of qfeval_functions.functions.apply_for_axis.apply_for_axis:59
+msgid "``torch.vmap``: PyTorch's vectorizing map over a batch dimension."
+msgstr "``torch.vmap``: PyTorchのバッチ次元に対するベクトル化マップ。"
 
 #~ msgid ""
 #~ "Applies the given data `x` into "
@@ -107,4 +148,7 @@ msgstr "関数 :attr:`f` はバッチ次元のサイズを保持しなければ�
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.apply\\_for\\_axis"
+#~ msgstr "qfeval\\_functions.functions.apply\\_for\\_axis"
 

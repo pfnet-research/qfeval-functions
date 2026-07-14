@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,18 +21,82 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.randperm.rst:2
-msgid "qfeval\\_functions.functions.randperm"
-msgstr "qfeval\\_functions.functions.randperm"
+msgid "randperm"
+msgstr ""
 
 #: of qfeval_functions.functions.randperm.randperm:1
-msgid "Returns a random permutation of integers from `0` to `n - 1`."
-msgstr "`0`から`n - 1`までの整数からなるランダムな順列を返します。"
+msgid "Returns a random permutation of integers from ``0`` to ``n - 1``."
+msgstr "``0``\\ から\\ ``n - 1``\\ までの整数からなるランダムな順列を返します。"
+
+#: of qfeval_functions.functions.randperm.randperm:3
+msgid ""
+"Unlike :func:`torch.randperm`, if the seed is fixed with "
+":func:`qfeval_functions.random.seed`, the result must be reproducible on "
+"any device.  See :func:`rand` for details."
+msgstr ""
+":func:`torch.randperm` と異なり、:func:`qfeval_functions.random.seed` "
+"でシードを固定した場合、結果はどのデバイスでも再現可能です。詳細は :func:`rand` を参照してください。"
+
+#: ../../api/qfeval_functions.functions.randperm.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.randperm.randperm:8
+msgid "The upper bound (exclusive) of the permutation."
+msgstr "順列の上限（含まない）。"
+
+#: of qfeval_functions.functions.randperm.randperm:11
+msgid "The desired data type of the returned tensor. Default is ``torch.int64``."
+msgstr "返されるテンソルの望ましいデータ型。デフォルトは ``torch.int64`` です。"
+
+#: of qfeval_functions.functions.randperm.randperm:15
+msgid ""
+"The desired device of the returned tensor. Default uses the current "
+"device."
+msgstr "返されるテンソルの望ましいデバイス。デフォルトは現在のデバイスを使用します。"
+
+#: ../../api/qfeval_functions.functions.randperm.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.randperm.randperm:19
+msgid ""
+"A 1-dimensional tensor of length ``n`` containing a random permutation of"
+" the integers from ``0`` to ``n - 1``."
+msgstr "``0`` から ``n - 1`` までの整数のランダムな順列を含む、長さ ``n`` の1次元テンソル。"
 
 #: ../../api/qfeval_functions.functions.randperm.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.randperm.randperm:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.randperm.randperm:24
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.randperm.randperm:26
+msgid ""
+">>> import qfeval_functions\n"
+">>> with qfeval_functions.random.seed(1):\n"
+"...     x = QF.randperm(10)\n"
+">>> x\n"
+"tensor([1, 0, 9, 8, 6, 3, 7, 4, 2, 5])"
+msgstr ">>> import qfeval_functions\n>>> with qfeval_functions.random.seed(1):\n...     x = QF.randperm(10)\n>>> x\ntensor([1, 0, 9, 8, 6, 3, 7, 4, 2, 5])"
+
+#: of qfeval_functions.functions.randperm.randperm:32
+msgid ":func:`randint`: Uniform random integers."
+msgstr ":func:`randint`: 一様なランダム整数。"
+
+#: of qfeval_functions.functions.randperm.randperm:33
+msgid ":func:`rand`: Uniform random floats on the interval [0, 1)."
+msgstr ":func:`rand`: 区間 [0, 1) 上の一様乱数。"
+
+#: of qfeval_functions.functions.randperm.randperm:34
+msgid "``torch.randperm``: PyTorch's built-in random permutation."
+msgstr "``torch.randperm``: PyTorchに組み込まれたランダム順列生成関数。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.randperm"
+#~ msgstr "qfeval\\_functions.functions.randperm"
 

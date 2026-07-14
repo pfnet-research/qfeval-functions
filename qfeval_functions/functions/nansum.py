@@ -105,10 +105,10 @@ def nansum(
         considered when replacing ``torch.nansum`` with this function.
 
     .. seealso::
-        :func:`nanmean`: NaN-aware mean function.
-        :func:`nanstd`: NaN-aware standard deviation function.
-        :func:`nanvar`: NaN-aware variance function.
-        ``torch.nansum``: PyTorch's built-in NaN-aware sum (returns 0 for all-NaN).
+        - :func:`nanmean`: NaN-aware mean function.
+        - :func:`nanvar`: NaN-aware variance function.
+        - ``torch.nansum``: PyTorch's built-in NaN-aware sum (returns 0 for
+          all-NaN).
     """
     is_valid = (~x.isnan()).sum(dim=dim, keepdim=keepdim) > 0
     y = x.nansum(dim=dim, keepdim=keepdim)

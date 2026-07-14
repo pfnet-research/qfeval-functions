@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 01:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,15 +21,14 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.nanslope.rst:2
-msgid "qfeval\\_functions.functions.nanslope"
-msgstr "qfeval\\_functions.functions.nanslope"
+msgid "nanslope"
+msgstr ""
 
 #: of qfeval_functions.functions.nanslope.nanslope:1
-#, fuzzy
 msgid ""
 "Compute the slope of simple linear regression between two tensors, "
 "ignoring NaN values."
-msgstr "`x`と`y`の相関係数の傾きを返し、NaN値は無視します。"
+msgstr "NaN値を無視して、2つのテンソル間の単回帰の傾きを計算します。"
 
 #: of qfeval_functions.functions.nanslope.nanslope:4
 msgid ""
@@ -37,7 +36,9 @@ msgid ""
 "regression line that best fits the relationship between :attr:`x` and "
 ":attr:`y`, excluding NaN values from the computation. The slope "
 "represents the rate of change in :attr:`y` per unit change in :attr:`x`."
-msgstr "この関数は、:attr:`x` と :attr:`y` の関係を最もよく説明する線形回帰直線の傾き (ベータ係数) を計算します。計算時には NaN 値は除外されます。傾きは、:attr:`x` の単位変化に対する :attr:`y` の変化率を表します。"
+msgstr ""
+"この関数は、:attr:`x` と :attr:`y` の関係を最もよく説明する線形回帰直線の傾き (ベータ係数) を計算します。計算時には "
+"NaN 値は除外されます。傾きは、:attr:`x` の単位変化に対する :attr:`y` の変化率を表します。"
 
 #: of qfeval_functions.functions.nanslope.nanslope:9
 msgid ""
@@ -50,21 +51,28 @@ msgid ""
 "\\beta = \\frac{\\text{Cov}(X, Y)}{\\text{Var}(X)} =\n"
 "\\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum (x_i - \\bar{x})^2}\n"
 "\n"
-msgstr "\\beta = \\frac{\\text{共分散}(X, Y)}{\\text{分散}(X)} =\n\\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum (x_i - \\bar{x})^2}\n\n"
+msgstr ""
+"\\beta = \\frac{\\text{共分散}(X, Y)}{\\text{分散}(X)} =\n"
+"\\frac{\\sum (x_i - \\bar{x})(y_i - \\bar{y})}{\\sum (x_i - \\bar{x})^2}\n"
+"\n"
 
 #: of qfeval_functions.functions.nanslope.nanslope:16
 #, python-brace-format
 msgid ""
 "where :math:`\\bar{x}` and :math:`\\bar{y}` are the means of :attr:`x` "
 "and :attr:`y` respectively, computed only over valid (non-NaN) pairs."
-msgstr "ここで :math:`\\bar{x}` と :math:`\\bar{y}` はそれぞれ :attr:`x` と :attr:`y` の平均値であり、有効なデータペア (NaN を含まない) のみを用いて計算されます。"
+msgstr ""
+"ここで :math:`\\bar{x}` と :math:`\\bar{y}` はそれぞれ :attr:`x` と :attr:`y` "
+"の平均値であり、有効なデータペア (NaN を含まない) のみを用いて計算されます。"
 
 #: of qfeval_functions.functions.nanslope.nanslope:19
 msgid ""
 "If either :attr:`x` or :attr:`y` has a NaN at a given position, that pair"
 " is excluded from all calculations including mean computation and slope "
 "estimation."
-msgstr "いずれかの :attr:`x` または :attr:`y` に特定の位置で NaN 値が存在する場合、そのペアは平均計算および傾き推定を含むすべての計算から除外されます。"
+msgstr ""
+"いずれかの :attr:`x` または :attr:`y` に特定の位置で NaN "
+"値が存在する場合、そのペアは平均計算および傾き推定を含むすべての計算から除外されます。"
 
 #: ../../api/qfeval_functions.functions.nanslope.rst
 msgid "Parameters"
@@ -78,7 +86,7 @@ msgstr "独立変数テンソル（予測子）。"
 msgid ""
 "The dependent variable tensor (response). Must be broadcastable with "
 ":attr:`x`."
-msgstr "従属変数テンソル（応答変数）。 :attr:`x`とブロードキャスト可能である必要があります。"
+msgstr "従属変数テンソル（応答変数）。 :attr:`x`\\ とブロードキャスト可能である必要があります。"
 
 #: of qfeval_functions.functions.nanslope.nanslope:30
 msgid ""
@@ -93,9 +101,8 @@ msgid ""
 msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False。"
 
 #: ../../api/qfeval_functions.functions.nanslope.rst
-#, fuzzy
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.nanslope.nanslope:39
 msgid ""
@@ -103,7 +110,10 @@ msgid ""
 " are insufficient valid pairs or if the variance of :attr:`x` is zero, "
 "the result may contain NaN values. The shape depends on the input "
 "dimensions, :attr:`dim`, and :attr:`keepdim` parameters."
-msgstr "有効なペア（NaNでない値）のみを用いて計算された傾き係数です。有効なペアが不足する場合や、:attr:`x`の分散がゼロの場合、結果にNaN値が含まれる可能性があります。形状は入力次元、:attr:`dim`、および:attr:`keepdim`パラメータに依存します。"
+msgstr ""
+"有効なペア（NaNでない値）のみを用いて計算された傾き係数です。有効なペアが不足する場合や、:attr:`x`\\ "
+"の分散がゼロの場合、結果にNaN値が含まれる可能性があります。形状は入力次元、:attr:`dim`、および\\ "
+":attr:`keepdim`\\ パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.nanslope.rst
 msgid "Return type"
@@ -113,21 +123,90 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
+#: of qfeval_functions.functions.nanslope.nanslope:48
+msgid ""
+">>> # Simple linear relationship with some NaN values\n"
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n"
+">>> y = torch.tensor([2.0, 4.0, 6.0, nan, 10.0])\n"
+">>> QF.nanslope(x, y)\n"
+"tensor(2.)"
+msgstr ">>> # NaN値を含む単純な線形関係\n>>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n>>> y = torch.tensor([2.0, 4.0, 6.0, nan, 10.0])\n>>> QF.nanslope(x, y)\ntensor(2.)"
+
+#: of qfeval_functions.functions.nanslope.nanslope:54
+msgid ""
+">>> # 2D tensors with slopes along rows\n"
+">>> x = torch.tensor([[1.0, 2.0, 3.0],\n"
+"...                   [1.0, nan, 3.0]])\n"
+">>> y = torch.tensor([[2.0, 4.0, 6.0],\n"
+"...                   [3.0, 5.0, nan]])\n"
+">>> QF.nanslope(x, y, dim=1)\n"
+"tensor([2., nan])"
+msgstr ">>> # 2次元テンソルの行方向の傾き\n>>> x = torch.tensor([[1.0, 2.0, 3.0],\n...                   [1.0, nan, 3.0]])\n>>> y = torch.tensor([[2.0, 4.0, 6.0],\n...                   [3.0, 5.0, nan]])\n>>> QF.nanslope(x, y, dim=1)\ntensor([2., nan])"
+
+#: of qfeval_functions.functions.nanslope.nanslope:62
+msgid ""
+">>> # Perfect linear relationship\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0])\n"
+">>> y = torch.tensor([3.0, 5.0, 7.0, 9.0])  # y = 2x + 1\n"
+">>> QF.nanslope(x, y)\n"
+"tensor(2.)"
+msgstr ">>> # 完全な線形関係\n>>> x = torch.tensor([1.0, 2.0, 3.0, 4.0])\n>>> y = torch.tensor([3.0, 5.0, 7.0, 9.0])  # y = 2x + 1\n>>> QF.nanslope(x, y)\ntensor(2.)"
+
+#: of qfeval_functions.functions.nanslope.nanslope:68
+msgid ""
+">>> # With keepdim\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [2.0, 4.0, 6.0]])\n"
+">>> y = torch.tensor([[2.0, 4.0, nan],\n"
+"...                   [1.0, 2.0, 3.0]])\n"
+">>> QF.nanslope(x, y, dim=1, keepdim=True)\n"
+"tensor([[   nan],\n"
+"        [0.5000]])"
+msgstr ">>> # keepdim を使用\n>>> x = torch.tensor([[1.0, nan, 3.0],\n...                   [2.0, 4.0, 6.0]])\n>>> y = torch.tensor([[2.0, 4.0, nan],\n...                   [1.0, 2.0, 3.0]])\n>>> QF.nanslope(x, y, dim=1, keepdim=True)\ntensor([[   nan],\n        [0.5000]])"
+
+#: of qfeval_functions.functions.nanslope.nanslope:77
+msgid ""
+">>> # Broadcasting example\n"
+">>> x = torch.tensor([[1.0], [2.0], [3.0]])\n"
+">>> y = torch.tensor([2.0, 4.0, 6.0])\n"
+">>> QF.nanslope(x, y)\n"
+"tensor(0.)"
+msgstr ">>> # ブロードキャストの例\n>>> x = torch.tensor([[1.0], [2.0], [3.0]])\n>>> y = torch.tensor([2.0, 4.0, 6.0])\n>>> QF.nanslope(x, y)\ntensor(0.)"
+
+#: of qfeval_functions.functions.nanslope.nanslope:83
+msgid ""
+">>> # Zero variance in x (undefined slope)\n"
+">>> x = torch.tensor([2.0, 2.0, 2.0])\n"
+">>> y = torch.tensor([1.0, 3.0, 5.0])\n"
+">>> QF.nanslope(x, y)\n"
+"tensor(nan)"
+msgstr ">>> # xの分散がゼロ（傾きが定義されない）\n>>> x = torch.tensor([2.0, 2.0, 2.0])\n>>> y = torch.tensor([1.0, 3.0, 5.0])\n>>> QF.nanslope(x, y)\ntensor(nan)"
+
 #: of qfeval_functions.functions.nanslope.nanslope:89
 msgid ""
 "The slope calculation requires at least 2 valid (non-NaN) pairs of "
 "observations. With fewer valid pairs, the result will be NaN. "
 "Additionally, if all valid :attr:`x` values are identical (zero "
 "variance), the slope is mathematically undefined."
-msgstr "傾きの計算には少なくとも2組の有効な（NaNでない）観測値ペアが必要です。有効なペアが2組未満の場合、結果はNaNになります。さらに、すべての有効な:attr:`x`値が同一である場合（分散が0の場合）、数学的に傾きは定義されません。"
+msgstr ""
+"傾きの計算には少なくとも2組の有効な（NaNでない）観測値ペアが必要です。有効なペアが2組未満の場合、結果はNaNになります。さらに、すべての有効な\\"
+" :attr:`x`\\ 値が同一である場合（分散が0の場合）、数学的に傾きは定義されません。"
 
 #: of qfeval_functions.functions.nanslope.nanslope:95
-msgid ""
-":func:`nancorrel`: NaN-aware correlation coefficient computation. "
-":func:`nancovar`: NaN-aware covariance computation. :func:`nanmean`: NaN-"
-"aware mean computation. :func:`nanmulmean`: NaN-aware element-wise "
-"product mean."
-msgstr ":func:`nancorrel`: NaNを考慮した相関係数の計算。 :func:`nancovar`: NaNを考慮した共分散の計算。 :func:`nanmean`: NaNを考慮した平均の計算。 :func:`nanmulmean`: NaNを考慮した要素ごとの積の平均。"
+msgid ":func:`nancorrel`: NaN-aware correlation coefficient computation."
+msgstr ":func:`nancorrel`: NaNを考慮した相関係数の計算。"
+
+#: of qfeval_functions.functions.nanslope.nanslope:96
+msgid ":func:`nancovar`: NaN-aware covariance computation."
+msgstr ":func:`nancovar`: NaNを考慮した共分散の計算。"
+
+#: of qfeval_functions.functions.nanslope.nanslope:97
+msgid ":func:`nanmean`: NaN-aware mean computation."
+msgstr ":func:`nanmean`: NaNを考慮した平均の計算。"
+
+#: of qfeval_functions.functions.nanslope.nanslope:98
+msgid ":func:`nanmulmean`: NaN-aware element-wise product mean."
+msgstr ":func:`nanmulmean`: NaNを考慮した要素ごとの積の平均。"
 
 #~ msgid ""
 #~ "NOTE: This is based on calculation "
@@ -139,4 +218,19 @@ msgstr ":func:`nancorrel`: NaNを考慮した相関係数の計算。 :func:`nan
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid ""
+#~ ":func:`nancorrel`: NaN-aware correlation "
+#~ "coefficient computation. :func:`nancovar`: NaN-"
+#~ "aware covariance computation. :func:`nanmean`: "
+#~ "NaN-aware mean computation. "
+#~ ":func:`nanmulmean`: NaN-aware element-wise "
+#~ "product mean."
+#~ msgstr ""
+#~ ":func:`nancorrel`: NaNを考慮した相関係数の計算。 :func:`nancovar`: "
+#~ "NaNを考慮した共分散の計算。 :func:`nanmean`: NaNを考慮した平均の計算。 "
+#~ ":func:`nanmulmean`: NaNを考慮した要素ごとの積の平均。"
+
+#~ msgid "qfeval\\_functions.functions.nanslope"
+#~ msgstr "qfeval\\_functions.functions.nanslope"
 

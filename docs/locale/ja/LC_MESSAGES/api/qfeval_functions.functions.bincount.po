@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.bincount.rst:2
-msgid "qfeval\\_functions.functions.bincount"
-msgstr "qfeval\\_functions.functions.bincount"
+msgid "bincount"
+msgstr ""
 
 #: of qfeval_functions.functions.bincount.bincount:1
 msgid "Count number of occurrences of each value in a tensor."
@@ -35,9 +35,12 @@ msgid ""
 "size along the counted dimension is the maximum of :attr:`minlength` and "
 "the largest value in the input plus one. Each position in the output "
 "contains the count of that index value in the input."
-msgstr "この関数は、指定された次元に沿って入力テンソル内の各非負整数値の出現頻度を計算します。出力テンソルの指定された次元方向のサイズは、:attr:`minlength` と入力テンソル内の最大値に 1 を加えた値の最大値となります。出力テンソルの各位置には、そのインデックス値の入力テンソル内での出現回数が格納されます。"
+msgstr ""
+"この関数は、指定された次元に沿って入力テンソル内の各非負整数値の出現頻度を計算します。出力テンソルの指定された次元方向のサイズは、:attr:`minlength`"
+" と入力テンソル内の最大値に 1 "
+"を加えた値の最大値となります。出力テンソルの各位置には、そのインデックス値の入力テンソル内での出現回数が格納されます。"
 
-#: of qfeval_functions.functions.bincount.bincount
+#: ../../api/qfeval_functions.functions.bincount.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
@@ -50,7 +53,9 @@ msgid ""
 "Minimum length of the output tensor along the counted dimension. If the "
 "maximum value in :attr:`x` is less than :attr:`minlength` - 1, the output"
 " is padded with zeros. Default is 0."
-msgstr "カウント対象次元に沿った出力テンソルの最小長。 :attr:`x` 内の最大値が :attr:`minlength` - 1 未満の場合、出力はゼロでパディングされます。デフォルト値は 0 です。"
+msgstr ""
+"カウント対象次元に沿った出力テンソルの最小長。 :attr:`x` 内の最大値が :attr:`minlength` - 1 "
+"未満の場合、出力はゼロでパディングされます。デフォルト値は 0 です。"
 
 #: of qfeval_functions.functions.bincount.bincount:19
 msgid ""
@@ -58,26 +63,58 @@ msgid ""
 "dimension)."
 msgstr "カウントする次元。デフォルトは -1 で、最後の次元を意味します。"
 
-#: of qfeval_functions.functions.bincount.bincount
-#, fuzzy
+#: ../../api/qfeval_functions.functions.bincount.rst
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.bincount.bincount:23
 msgid ""
-"A tensor where the value at index `i` along the specified dimension "
-"contains the count of occurrences of value `i` in the corresponding slice"
-" of the input tensor."
-msgstr "指定された次元に沿ってインデックス `i` の値が、入力テンソルの対応するスライス内で値 `i` が出現する回数を表しているテンソル。"
+"A tensor where the value at index ``i`` along the specified dimension "
+"contains the count of occurrences of value ``i`` in the corresponding "
+"slice of the input tensor."
+msgstr "指定された次元に沿ってインデックス ``i`` の値が、入力テンソルの対応するスライス内で値 ``i`` が出現する回数を表しているテンソル。"
 
-#: of qfeval_functions.functions.bincount.bincount
+#: ../../api/qfeval_functions.functions.bincount.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.bincount.bincount:29
-#, fuzzy
 msgid "Example"
 msgstr "使用例"
+
+#: of qfeval_functions.functions.bincount.bincount:31
+msgid ""
+">>> x = torch.tensor([1, 2, 2, 3, 3, 1])\n"
+">>> QF.bincount(x)\n"
+"tensor([0, 2, 2, 2])"
+msgstr ">>> x = torch.tensor([1, 2, 2, 3, 3, 1])\n>>> QF.bincount(x)\ntensor([0, 2, 2, 2])"
+
+#: of qfeval_functions.functions.bincount.bincount:35
+msgid ""
+">>> x = torch.tensor([[1, 2, 2], [3, 3, 1]])\n"
+">>> QF.bincount(x, dim=1)\n"
+"tensor([[0, 1, 2, 0],\n"
+"        [0, 1, 0, 2]])"
+msgstr ">>> x = torch.tensor([[1, 2, 2], [3, 3, 1]])\n>>> QF.bincount(x, dim=1)\ntensor([[0, 1, 2, 0],\n        [0, 1, 0, 2]])"
+
+#: of qfeval_functions.functions.bincount.bincount:40
+msgid ""
+">>> x = torch.tensor([1, 2])\n"
+">>> QF.bincount(x, minlength=5)\n"
+"tensor([0, 1, 1, 0, 0])"
+msgstr ">>> x = torch.tensor([1, 2])\n>>> QF.bincount(x, minlength=5)\ntensor([0, 1, 1, 0, 0])"
+
+#: of qfeval_functions.functions.bincount.bincount:44
+msgid ":func:`cumcount`: Number each occurrence of unique values."
+msgstr ":func:`cumcount`: 一意な値の出現ごとに番号を付ける関数。"
+
+#: of qfeval_functions.functions.bincount.bincount:45
+msgid ":func:`groupby`: Group tensor elements by group identifiers."
+msgstr ":func:`groupby`: グループ識別子によってテンソルの要素をグループ化する関数。"
+
+#: of qfeval_functions.functions.bincount.bincount:46
+msgid "``torch.bincount``: PyTorch's built-in bincount (1D tensors only)."
+msgstr "``torch.bincount``: PyTorchに組み込まれたbincount（1次元テンソルのみ対応）。"
 
 #~ msgid ""
 #~ "Computes the frequency of each value "
@@ -88,4 +125,7 @@ msgstr "使用例"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.bincount"
+#~ msgstr "qfeval\\_functions.functions.bincount"
 

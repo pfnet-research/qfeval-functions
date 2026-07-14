@@ -28,8 +28,8 @@ def bincount(
 
     Returns:
         Tensor:
-            A tensor where the value at index `i` along the specified dimension
-            contains the count of occurrences of value `i` in the corresponding
+            A tensor where the value at index ``i`` along the specified dimension
+            contains the count of occurrences of value ``i`` in the corresponding
             slice of the input tensor.
 
     Example:
@@ -46,6 +46,11 @@ def bincount(
         >>> x = torch.tensor([1, 2])
         >>> QF.bincount(x, minlength=5)
         tensor([0, 1, 1, 0, 0])
+
+    .. seealso::
+        - :func:`cumcount`: Number each occurrence of unique values.
+        - :func:`groupby`: Group tensor elements by group identifiers.
+        - ``torch.bincount``: PyTorch's built-in bincount (1D tensors only).
     """
 
     def _bincount(x: torch.Tensor) -> torch.Tensor:

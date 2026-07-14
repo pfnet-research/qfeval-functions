@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 01:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.nancumprod.rst:2
-msgid "qfeval\\_functions.functions.nancumprod"
-msgstr "qfeval\\_functions.functions.nancumprod"
+msgid "nancumprod"
+msgstr ""
 
 #: of qfeval_functions.functions.nancumprod.nancumprod:1
 msgid "Compute the cumulative product along a dimension, treating NaN as 1."
@@ -50,9 +50,8 @@ msgid "The dimension along which to compute the cumulative product."
 msgstr "累積積を計算する次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.nancumprod.rst
-#, fuzzy
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.nancumprod.nancumprod:15
 msgid ""
@@ -68,6 +67,44 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
+#: of qfeval_functions.functions.nancumprod.nancumprod:22
+msgid ""
+">>> # Simple cumulative product with NaN\n"
+">>> x = torch.tensor([2.0, nan, 3.0, 4.0])\n"
+">>> QF.nancumprod(x, dim=0)\n"
+"tensor([ 2., nan,  6., 24.])"
+msgstr ">>> # NaNを含む単純な累積積\n>>> x = torch.tensor([2.0, nan, 3.0, 4.0])\n>>> QF.nancumprod(x, dim=0)\ntensor([ 2., nan,  6., 24.])"
+
+#: of qfeval_functions.functions.nancumprod.nancumprod:27
+msgid ""
+">>> # 2D tensor along columns\n"
+">>> x = torch.tensor([[1.0, 2.0, nan, 4.0],\n"
+"...                   [2.0, nan, 3.0, 5.0]])\n"
+">>> QF.nancumprod(x, dim=1)\n"
+"tensor([[ 1.,  2., nan,  8.],\n"
+"        [ 2., nan,  6., 30.]])"
+msgstr ">>> # 2次元テンソルの列方向\n>>> x = torch.tensor([[1.0, 2.0, nan, 4.0],\n...                   [2.0, nan, 3.0, 5.0]])\n>>> QF.nancumprod(x, dim=1)\ntensor([[ 1.,  2., nan,  8.],\n        [ 2., nan,  6., 30.]])"
+
+#: of qfeval_functions.functions.nancumprod.nancumprod:34
+msgid ""
+">>> # Cumulative product along rows\n"
+">>> x = torch.tensor([[2.0, 3.0],\n"
+"...                   [nan, 4.0],\n"
+"...                   [5.0, 2.0]])\n"
+">>> QF.nancumprod(x, dim=0)\n"
+"tensor([[ 2.,  3.],\n"
+"        [nan, 12.],\n"
+"        [10., 24.]])"
+msgstr ">>> # 行方向の累積積\n>>> x = torch.tensor([[2.0, 3.0],\n...                   [nan, 4.0],\n...                   [5.0, 2.0]])\n>>> QF.nancumprod(x, dim=0)\ntensor([[ 2.,  3.],\n        [nan, 12.],\n        [10., 24.]])"
+
+#: of qfeval_functions.functions.nancumprod.nancumprod:43
+msgid ""
+">>> # Multiple NaNs\n"
+">>> x = torch.tensor([1.0, nan, nan, 2.0, 3.0])\n"
+">>> QF.nancumprod(x, dim=0)\n"
+"tensor([1., nan, nan, 2., 6.])"
+msgstr ">>> # 複数のNaN\n>>> x = torch.tensor([1.0, nan, nan, 2.0, 3.0])\n>>> QF.nancumprod(x, dim=0)\ntensor([1., nan, nan, 2., 6.])"
+
 #: of qfeval_functions.functions.nancumprod.nancumprod:48
 msgid ":func:`nancumsum`: NaN-aware cumulative sum."
 msgstr ":func:`nancumsum`: NaNを考慮した累積和。"
@@ -82,4 +119,7 @@ msgstr ":func:`torch.nan_to_num`: NaN値を指定した数値に変換します�
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.nancumprod"
+#~ msgstr "qfeval\\_functions.functions.nancumprod"
 

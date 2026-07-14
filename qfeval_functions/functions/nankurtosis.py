@@ -84,10 +84,15 @@ def nankurtosis(
         >>> QF.nankurtosis(x, dim=0, unbiased=False)
         tensor(-1.2686)
 
+    .. note::
+        With ``unbiased=True`` (default), the bias correction requires at
+        least 4 valid observations: slices with exactly 3 valid values have
+        a zero denominator and produce NaN or ±inf, and slices with fewer
+        produce NaN.
+
     .. seealso::
-        :func:`nanskew`: NaN-aware skewness function.
-        :func:`nanvar`: NaN-aware variance function.
-        :func:`nanstd`: NaN-aware standard deviation function.
+        - :func:`nanskew`: NaN-aware skewness function.
+        - :func:`nanvar`: NaN-aware variance function.
     """
     n = (~x.isnan()).to(x).sum(dim=dim, keepdim=True)
     ddof = 1 if unbiased else 0

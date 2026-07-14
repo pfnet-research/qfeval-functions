@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,13 +21,12 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.fillna.rst:2
-msgid "qfeval\\_functions.functions.fillna"
-msgstr "qfeval\\_functions.functions.fillna"
+msgid "fillna"
+msgstr ""
 
 #: of qfeval_functions.functions.fillna.fillna:1
-#, fuzzy
 msgid "Replace NaN and infinity values with specified numbers."
-msgstr "NaN、正の無限大、負の無限大の値を指定した数値に置換します。"
+msgstr "NaNおよび無限大の値を指定した数値に置換します。"
 
 #: of qfeval_functions.functions.fillna.fillna:3
 msgid ""
@@ -37,9 +36,12 @@ msgid ""
 "preserved. This behavior differs from ``torch.nan_to_num``, which "
 "replaces infinities with the largest/smallest representable finite values"
 " by default."
-msgstr "この関数は、テンソル内の NaN (Not a Number) 値、正の無限大値、負の無限大値をユーザーが指定した値で置換します。デフォルトでは、NaN 値は 0 に置換され、無限大値は保持されます。この動作は、デフォルトで無限大値を表現可能な最大/最小の有限値に置換する「torch.nan_to_num」関数とは異なります。"
+msgstr ""
+"この関数は、テンソル内の NaN (Not a Number) "
+"値、正の無限大値、負の無限大値をユーザーが指定した値で置換します。デフォルトでは、NaN 値は 0 "
+"に置換され、無限大値は保持されます。この動作は、デフォルトで無限大値を表現可能な最大/最小の有限値に置換する「torch.nan_to_num」関数とは異なります。"
 
-#: of qfeval_functions.functions.fillna.fillna
+#: ../../api/qfeval_functions.functions.fillna.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
@@ -55,7 +57,7 @@ msgstr "NaN を置き換える値。デフォルトは 0.0 です。"
 msgid ""
 "The value to replace positive infinity with. Default is ``math.inf`` "
 "(preserves positive infinity)."
-msgstr "正の無限大を置き換える値。デフォルトは``math.inf``（正の無限大を保持します）。"
+msgstr "正の無限大を置き換える値。デフォルトは\\ ``math.inf``\\ （正の無限大を保持します）。"
 
 #: of qfeval_functions.functions.fillna.fillna:21
 msgid ""
@@ -63,10 +65,9 @@ msgid ""
 "(preserves negative infinity)."
 msgstr "負の無限大を置き換える値。デフォルトは ``-math.inf`` で、負の無限大をそのまま保持します。"
 
-#: of qfeval_functions.functions.fillna.fillna
-#, fuzzy
+#: ../../api/qfeval_functions.functions.fillna.rst
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.fillna.fillna:25
 msgid ""
@@ -74,13 +75,58 @@ msgid ""
 "infinity values are replaced according to the specified parameters."
 msgstr "入力と同じ形状とデータ型を持つ新しいテンソルで、NaN値と無限大値は指定されたパラメータに従って置換されます。"
 
-#: of qfeval_functions.functions.fillna.fillna
+#: ../../api/qfeval_functions.functions.fillna.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.fillna.fillna:31
 msgid "Example"
 msgstr "使用例"
+
+#: of qfeval_functions.functions.fillna.fillna:33
+msgid ""
+">>> # Replace NaN values with 0 (default behavior)\n"
+">>> x = torch.tensor([1.0, nan, 3.0, nan])\n"
+">>> QF.fillna(x)\n"
+"tensor([1., 0., 3., 0.])"
+msgstr ">>> # NaN値を0で置換（デフォルトの動作）\n>>> x = torch.tensor([1.0, nan, 3.0, nan])\n>>> QF.fillna(x)\ntensor([1., 0., 3., 0.])"
+
+#: of qfeval_functions.functions.fillna.fillna:38
+msgid ""
+">>> # Replace NaN with -1\n"
+">>> x = torch.tensor([[nan, 2.0], [3.0, nan]])\n"
+">>> QF.fillna(x, nan=-1.0)\n"
+"tensor([[-1.,  2.],\n"
+"        [ 3., -1.]])"
+msgstr ">>> # NaNを-1で置換\n>>> x = torch.tensor([[nan, 2.0], [3.0, nan]])\n>>> QF.fillna(x, nan=-1.0)\ntensor([[-1.,  2.],\n        [ 3., -1.]])"
+
+#: of qfeval_functions.functions.fillna.fillna:44
+msgid ""
+">>> # Handle infinity values\n"
+">>> x = torch.tensor([1.0, inf, -inf, nan])\n"
+">>> QF.fillna(x, nan=0.0, posinf=999.0, neginf=-999.0)\n"
+"tensor([   1.,  999., -999.,    0.])"
+msgstr ">>> # 無限大値の扱い\n>>> x = torch.tensor([1.0, inf, -inf, nan])\n>>> QF.fillna(x, nan=0.0, posinf=999.0, neginf=-999.0)\ntensor([   1.,  999., -999.,    0.])"
+
+#: of qfeval_functions.functions.fillna.fillna:49
+msgid ""
+">>> # Preserve infinity by default\n"
+">>> x = torch.tensor([inf, -inf, nan])\n"
+">>> QF.fillna(x)\n"
+"tensor([inf, -inf, 0.])"
+msgstr ">>> # デフォルトでは無限大を保持\n>>> x = torch.tensor([inf, -inf, nan])\n>>> QF.fillna(x)\ntensor([inf, -inf, 0.])"
+
+#: of qfeval_functions.functions.fillna.fillna:54
+msgid ":func:`ffill`: Forward fill missing values."
+msgstr ":func:`ffill`: 欠損値を前方補完する関数。"
+
+#: of qfeval_functions.functions.fillna.fillna:55
+msgid ":func:`bfill`: Backward fill missing values."
+msgstr ":func:`bfill`: 欠損値を後方補完する関数。"
+
+#: of qfeval_functions.functions.fillna.fillna:56
+msgid "``torch.nan_to_num``: PyTorch's built-in NaN replacement function."
+msgstr "``torch.nan_to_num``: PyTorchに組み込まれたNaN置換関数。"
 
 #~ msgid ""
 #~ "NOTE: Differently from torch.nan_to_num, this"
@@ -89,4 +135,7 @@ msgstr "使用例"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.fillna"
+#~ msgstr "qfeval\\_functions.functions.fillna"
 

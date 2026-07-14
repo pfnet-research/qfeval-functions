@@ -96,13 +96,13 @@ def nanmulsum(
 
     .. warning::
         If all pairs along a dimension contain at least one NaN value, the
-        result for that dimension is NaN. This differs from standard summation
-        where NaN values would propagate through the entire calculation.
+        result for that dimension is NaN (unlike ``torch.nansum``, which
+        returns 0 when no valid values remain).
 
     .. seealso::
-        :func:`mulsum`: Memory-efficient product sum without NaN handling.
-        :func:`nansum`: NaN-aware sum function.
-        :func:`nanmulmean`: NaN-aware memory-efficient product mean.
+        - :func:`mulsum`: Memory-efficient product sum without NaN handling.
+        - :func:`nansum`: NaN-aware sum function.
+        - :func:`nanmulmean`: NaN-aware memory-efficient product mean.
     """
     result = mulsum(fillna(x), fillna(y), dim=dim, keepdim=keepdim)
     x_mask = (~x.isnan()).to(result)

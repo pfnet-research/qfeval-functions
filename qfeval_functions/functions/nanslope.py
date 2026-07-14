@@ -106,10 +106,10 @@ def nanslope(
         is mathematically undefined.
 
     .. seealso::
-        :func:`nancorrel`: NaN-aware correlation coefficient computation.
-        :func:`nancovar`: NaN-aware covariance computation.
-        :func:`nanmean`: NaN-aware mean computation.
-        :func:`nanmulmean`: NaN-aware element-wise product mean.
+        - :func:`nancorrel`: NaN-aware correlation coefficient computation.
+        - :func:`nancovar`: NaN-aware covariance computation.
+        - :func:`nanmean`: NaN-aware mean computation.
+        - :func:`nanmulmean`: NaN-aware element-wise product mean.
     """
     isnan = x.isnan() | y.isnan()
     x = torch.where(isnan, torch.as_tensor(math.nan).to(x), x)

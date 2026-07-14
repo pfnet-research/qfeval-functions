@@ -90,9 +90,11 @@ def nanamin(
         tensor([1., 2.])
 
     .. seealso::
-        :func:`nanmin`: NaN-aware minimum with indices (single dimension only).
-        :func:`nanamax`: NaN-aware maximum over multiple dimensions.
-        ``torch.amin``: Standard minimum over multiple dimensions (NaN propagates).
+        - :func:`nanmin`: NaN-aware minimum with indices (single dimension
+          only).
+        - :func:`nanamax`: NaN-aware maximum over multiple dimensions.
+        - ``torch.amin``: Standard minimum over multiple dimensions (NaN
+          propagates).
     """
     # Delegate to nanamax via sign negation: min(x) == -max(-x).
     return -nanamax(-x, dim=dim, keepdim=keepdim)

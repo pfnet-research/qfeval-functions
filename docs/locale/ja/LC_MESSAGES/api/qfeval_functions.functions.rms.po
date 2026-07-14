@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,41 +21,93 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.rms.rst:2
-msgid "qfeval\\_functions.functions.rms"
-msgstr "qfeval\\_functions.functions.rms"
+msgid "rms"
+msgstr ""
 
 #: of qfeval_functions.functions.rms.rms:1
 msgid ""
 "Returns the root mean square of each row of the input tensor in the given"
-" dimension `dim`.  If `dim` is a list of dimensions, reduce over all of "
-"them."
-msgstr "指定された次元 `dim` において、入力テンソルの各行の二乗平均平方根を返します。`dim` が次元のリストである場合、すべての次元にわたって集約します。"
+" dimension ``dim``.  If ``dim`` is a list of dimensions, reduce over all "
+"of them."
+msgstr ""
+"指定された次元 ``dim`` において、入力テンソルの各行の二乗平均平方根を返します。``dim`` "
+"が次元のリストである場合、すべての次元にわたって集約します。"
+
+#: of qfeval_functions.functions.rms.rms:5
+msgid "The root mean square (RMS) is defined as:"
+msgstr "二乗平均平方根（RMS）は次のように定義されます:"
+
+#: of qfeval_functions.functions.rms.rms:7
+msgid ""
+"\\text{RMS}(x) = \\sqrt{\\frac{1}{n} \\sum_{i=1}^{n} x_i^2}\n"
+"\n"
+msgstr ""
+"\\text{RMS}(x) = \\sqrt{\\frac{1}{n} \\sum_{i=1}^{n} x_i^2}\n"
+"\n"
+
+#: of qfeval_functions.functions.rms.rms:10
+msgid ""
+"It measures the magnitude of values regardless of their signs, and is "
+"commonly used to quantify the size of signals or returns."
+msgstr "これは符号によらず値の大きさを測るもので、シグナルやリターンの大きさを定量化するためによく用いられます。"
 
 #: ../../api/qfeval_functions.functions.rms.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
-#: of qfeval_functions.functions.rms.rms:6
+#: of qfeval_functions.functions.rms.rms:14
 msgid "The input tensor."
 msgstr "入力テンソル。"
 
-#: of qfeval_functions.functions.rms.rms:9
-msgid "The dimension or dimensions to reduce."
-msgstr "削減する次元または次元のリスト。"
+#: of qfeval_functions.functions.rms.rms:17
+msgid ""
+"The dimension or dimensions to reduce. Default is ``()`` (reduce over all"
+" dimensions)."
+msgstr "縮約する次元（複数可）。デフォルトは ``()``\\ （すべての次元にわたって縮約）です。"
 
-#: of qfeval_functions.functions.rms.rms:12
-msgid "Whether the output tensor has `dim` retained or not."
-msgstr "出力テンソルが次元 `dim` を保持するかどうかを指定します。"
+#: of qfeval_functions.functions.rms.rms:21
+msgid ""
+"Whether the output tensor has ``dim`` retained or not. Default is "
+"``False``."
+msgstr "出力テンソルが ``dim`` を保持するかどうか。デフォルトは ``False`` です。"
 
 #: ../../api/qfeval_functions.functions.rms.rst
 msgid "Returns"
 msgstr "Returns"
 
-#: of qfeval_functions.functions.rms.rms:15
-msgid "The output tensor."
-msgstr "出力テンソル。"
+#: of qfeval_functions.functions.rms.rms:25
+msgid "The root mean square of the input tensor over the specified dimensions."
+msgstr "指定された次元にわたる入力テンソルの二乗平均平方根。"
 
 #: ../../api/qfeval_functions.functions.rms.rst
 msgid "Return type"
 msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.rms.rms:30
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.rms.rms:32
+msgid ""
+">>> x = torch.tensor([1.0, -2.0, 3.0, -4.0])\n"
+">>> QF.rms(x)\n"
+"tensor(2.7386)"
+msgstr ">>> x = torch.tensor([1.0, -2.0, 3.0, -4.0])\n>>> QF.rms(x)\ntensor(2.7386)"
+
+#: of qfeval_functions.functions.rms.rms:36
+msgid ""
+">>> x = torch.tensor([[1.0, -2.0], [3.0, -4.0]])\n"
+">>> QF.rms(x, dim=1)\n"
+"tensor([1.5811, 3.5355])"
+msgstr ">>> x = torch.tensor([[1.0, -2.0], [3.0, -4.0]])\n>>> QF.rms(x, dim=1)\ntensor([1.5811, 3.5355])"
+
+#: of qfeval_functions.functions.rms.rms:40
+msgid "``torch.std``: Standard deviation (RMS of deviations from the mean)."
+msgstr "``torch.std``: 標準偏差（平均からの偏差のRMS）。"
+
+#~ msgid "The output tensor."
+#~ msgstr "出力テンソル。"
+
+#~ msgid "qfeval\\_functions.functions.rms"
+#~ msgstr "qfeval\\_functions.functions.rms"
 

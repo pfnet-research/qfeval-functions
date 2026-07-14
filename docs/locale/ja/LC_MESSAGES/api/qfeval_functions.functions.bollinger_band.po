@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.bollinger_band.rst:2
-msgid "qfeval\\_functions.functions.bollinger\\_band"
-msgstr "qfeval\\_functions.functions.bollinger\\_band"
+msgid "bollinger\\_band"
+msgstr ""
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:1
 msgid "Compute Bollinger Bands for a tensor."
@@ -35,9 +35,12 @@ msgid ""
 "are placed at a distance of :attr:`sigma` standard deviations from the "
 "middle band. This indicator is commonly used in financial analysis to "
 "identify potential support and resistance levels."
-msgstr "ボリンジャーバンドは、テクニカル分析ツールの一種で、中心バンド（移動平均線）と上下2本のバンドで構成されます。上下バンドは、中心バンドから :attr:`sigma` 標準偏差の距離に配置されます。この指標は金融分析において一般的に使用され、潜在的なサポートレベルやレジスタンスレベルを識別するために用いられます。"
+msgstr ""
+"ボリンジャーバンドは、テクニカル分析ツールの一種で、中心バンド（移動平均線）と上下2本のバンドで構成されます。上下バンドは、中心バンドから "
+":attr:`sigma` "
+"標準偏差の距離に配置されます。この指標は金融分析において一般的に使用され、潜在的なサポートレベルやレジスタンスレベルを識別するために用いられます。"
 
-#: of qfeval_functions.functions.bollinger_band.bollinger_band
+#: ../../api/qfeval_functions.functions.bollinger_band.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
@@ -63,17 +66,16 @@ msgid ""
 "(the last dimension)."
 msgstr "ボリンジャーバンドを計算する次元。デフォルトは-1（最後の次元）です。"
 
-#: of qfeval_functions.functions.bollinger_band.bollinger_band
-#, fuzzy
+#: ../../api/qfeval_functions.functions.bollinger_band.rst
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:26
 msgid ""
 "A tuple containing three tensors of the same shape as the input:  - Upper"
 " band: middle band + (sigma * standard deviation) - Middle band: moving "
 "average - Lower band: middle band - (sigma * standard deviation)"
-msgstr "入力と同じ形状の3つのテンソルを含むタプル:  - 上バンド: 中央バンド + (シグマ * 標準偏差) - 中央バンド: 移動平均 - 下バンド: 中央バンド - (シグマ * 標準偏差)"
+msgstr ""
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:26
 msgid "A tuple containing three tensors of the same shape as the input:"
@@ -89,15 +91,40 @@ msgstr "中央バンド: 移動平均線"
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:30
 msgid "Lower band: middle band - (sigma * standard deviation)"
-msgstr "Lower band: middle band - (σ × standard deviation)"
+msgstr "下バンド: 中バンド - (シグマ * 標準偏差)"
 
-#: of qfeval_functions.functions.bollinger_band.bollinger_band
+#: ../../api/qfeval_functions.functions.bollinger_band.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:34
 msgid "Example"
 msgstr "使用例"
+
+#: of qfeval_functions.functions.bollinger_band.bollinger_band:36
+msgid ""
+">>> x = torch.tensor([[100., 102., 101., 103., 105.],\n"
+"...                   [50., 48., 49., 51., 52.]])\n"
+">>> upper, middle, lower = QF.bollinger_band(x, window=3, sigma=1.0, "
+"dim=1)\n"
+">>> upper\n"
+"tensor([[     nan,      nan, 101.8165, 102.8165, 104.6330],\n"
+"        [     nan,      nan,  49.8165,  50.5805,  51.9139]])\n"
+">>> middle\n"
+"tensor([[     nan,      nan, 101.0000, 102.0000, 103.0000],\n"
+"        [     nan,      nan,  49.0000,  49.3333,  50.6667]])\n"
+">>> lower\n"
+"tensor([[     nan,      nan, 100.1835, 101.1835, 101.3670],\n"
+"        [     nan,      nan,  48.1835,  48.0861,  49.4195]])"
+msgstr ">>> x = torch.tensor([[100., 102., 101., 103., 105.],\n...                   [50., 48., 49., 51., 52.]])\n>>> upper, middle, lower = QF.bollinger_band(x, window=3, sigma=1.0, dim=1)\n>>> upper\ntensor([[     nan,      nan, 101.8165, 102.8165, 104.6330],\n        [     nan,      nan,  49.8165,  50.5805,  51.9139]])\n>>> middle\ntensor([[     nan,      nan, 101.0000, 102.0000, 103.0000],\n        [     nan,      nan,  49.0000,  49.3333,  50.6667]])\n>>> lower\ntensor([[     nan,      nan, 100.1835, 101.1835, 101.3670],\n        [     nan,      nan,  48.1835,  48.0861,  49.4195]])"
+
+#: of qfeval_functions.functions.bollinger_band.bollinger_band:49
+msgid ":func:`ma`: Moving average function used for the middle band."
+msgstr ":func:`ma`: ミドルバンドに使用される移動平均関数。"
+
+#: of qfeval_functions.functions.bollinger_band.bollinger_band:50
+msgid ":func:`mstd`: Moving standard deviation function used for the band width."
+msgstr ":func:`mstd`: バンド幅の計算に使用される移動標準偏差関数。"
 
 #~ msgid ""
 #~ "Returns the upper/middle/bottom values of "
@@ -122,4 +149,7 @@ msgstr "使用例"
 #~ " \\\\\\[\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, "
 #~ "\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, "
 #~ "\\:py\\:class\\:\\`\\~torch.Tensor\\`\\]`"
+
+#~ msgid "qfeval\\_functions.functions.bollinger\\_band"
+#~ msgstr "qfeval\\_functions.functions.bollinger\\_band"
 

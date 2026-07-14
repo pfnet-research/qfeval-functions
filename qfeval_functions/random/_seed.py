@@ -74,8 +74,10 @@ def seed(seed: typing.Optional[int] = 42, fast: bool = False) -> Seed:
 
 
 def rng() -> np.random.Generator:
+    """Returns the random number generator managed by :func:`seed`."""
     return Seed.qfeval_rng
 
 
 def is_fast() -> bool:
+    """Returns whether the current seed is set with the fast mode."""
     return Seed.fast

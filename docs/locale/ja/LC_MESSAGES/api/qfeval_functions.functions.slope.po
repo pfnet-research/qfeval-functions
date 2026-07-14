@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 03:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,24 +21,135 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.slope.rst:2
-msgid "qfeval\\_functions.functions.slope"
-msgstr "qfeval\\_functions.functions.slope"
+msgid "slope"
+msgstr ""
 
 #: of qfeval_functions.functions.slope.slope:1
-msgid "Returns the slope of correlation bewteen `x` and `y`."
-msgstr "`x`と`y`の相関関係の傾きを返します。"
+msgid ""
+"Returns the slope of simple linear regression of ``y`` on ``x`` over the "
+"given dimension ``dim``."
+msgstr "指定された次元 ``dim`` において、``y`` を ``x`` に回帰させた単回帰の傾きを返します。"
 
-#: of qfeval_functions.functions.slope.slope:3
+#: of qfeval_functions.functions.slope.slope:4
+msgid ""
+"This function computes the ordinary least squares slope coefficient "
+":math:`\\beta` of the regression :math:`y = \\alpha + \\beta x`:"
+msgstr ""
+"この関数は、回帰式 :math:`y = \\alpha + \\beta x` の最小二乗法による傾き係数 :math:`\\beta` "
+"を計算します:"
+
+#: of qfeval_functions.functions.slope.slope:7
+msgid ""
+"\\beta = \\frac{\\sum_i (x_i - \\bar{x})(y_i - \\bar{y})}\n"
+"{\\sum_i (x_i - \\bar{x})^2}\n"
+"\n"
+msgstr ""
+"\\beta = \\frac{\\sum_i (x_i - \\bar{x})(y_i - \\bar{y})}\n"
+"{\\sum_i (x_i - \\bar{x})^2}\n"
+"\n"
+
+#: of qfeval_functions.functions.slope.slope:11
+msgid ""
+"In quantitative finance, this is used, for example, to estimate the beta "
+"of an asset's returns against market returns."
+msgstr "クオンツファイナンスでは、例えば市場リターンに対する資産リターンのベータを推定するために用いられます。"
+
+#: of qfeval_functions.functions.slope.slope:14
 msgid ""
 "NOTE: This is based on calculation of slope beta at: "
 "https://en.wikipedia.org/wiki/Simple_linear_regression"
 msgstr "注意：この計算は単純線形回帰の傾きβの計算に基づいています：https://en.wikipedia.org/wiki/Simple_linear_regression"
 
 #: ../../api/qfeval_functions.functions.slope.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.slope.slope:18
+msgid "The input tensor of explanatory (independent) values."
+msgstr "説明変数（独立変数）の値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.slope.slope:21
+msgid ""
+"The input tensor of response (dependent) values.  Its shape must be "
+"broadcastable to the shape of ``x``."
+msgstr "目的変数（従属変数）の値を含む入力テンソル。その形状は ``x`` の形状にブロードキャスト可能でなければなりません。"
+
+#: of qfeval_functions.functions.slope.slope:25
+msgid ""
+"The dimension or dimensions to reduce. Default is ``()`` (reduce over all"
+" dimensions)."
+msgstr "縮約する次元（複数可）。デフォルトは ``()``\\ （すべての次元にわたって縮約）です。"
+
+#: of qfeval_functions.functions.slope.slope:29
+msgid ""
+"Whether the output tensor has ``dim`` retained or not. Default is "
+"``False``."
+msgstr "出力テンソルが ``dim`` を保持するかどうか。デフォルトは ``False`` です。"
+
+#: ../../api/qfeval_functions.functions.slope.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.slope.slope:33
+msgid ""
+"The slope coefficient of the linear regression over the specified "
+"dimensions."
+msgstr "指定された次元にわたる線形回帰の傾き係数。"
+
+#: ../../api/qfeval_functions.functions.slope.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.slope.slope:7
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.slope.slope:38
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.slope.slope:40
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0])\n"
+">>> y = torch.tensor([2.0, 4.0, 6.0, 8.0])\n"
+">>> QF.slope(x, y)\n"
+"tensor(2.)"
+msgstr ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0])\n"
+">>> y = torch.tensor([2.0, 4.0, 6.0, 8.0])\n"
+">>> QF.slope(x, y)\n"
+"tensor(2.)"
+
+#: of qfeval_functions.functions.slope.slope:45
+msgid ""
+">>> y = torch.tensor([1.0, 3.0, 2.0, 5.0])\n"
+">>> QF.slope(x, y)\n"
+"tensor(1.1000)"
+msgstr ""
+">>> y = torch.tensor([1.0, 3.0, 2.0, 5.0])\n"
+">>> QF.slope(x, y)\n"
+"tensor(1.1000)"
+
+#: of qfeval_functions.functions.slope.slope:49
+msgid ""
+"If all :attr:`x` values are identical (zero variance), the slope is "
+"mathematically undefined and the result is NaN."
+msgstr "すべての :attr:`x` の値が同一（分散ゼロ）の場合、傾きは数学的に未定義であり、結果はNaNになります。"
+
+#: of qfeval_functions.functions.slope.slope:53
+msgid ":func:`nanslope`: NaN-aware slope function."
+msgstr ":func:`nanslope`: NaNを考慮した傾き関数。"
+
+#: of qfeval_functions.functions.slope.slope:54
+msgid ":func:`correl`: Pearson correlation function."
+msgstr ":func:`correl`: ピアソン相関関数。"
+
+#: of qfeval_functions.functions.slope.slope:55
+msgid ":func:`covar`: Covariance function."
+msgstr ":func:`covar`: 共分散関数。"
+
+#~ msgid "Returns the slope of correlation bewteen `x` and `y`."
+#~ msgstr "`x`と`y`の相関関係の傾きを返します。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.slope"
+#~ msgstr "qfeval\\_functions.functions.slope"
 

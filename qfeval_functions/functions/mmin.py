@@ -65,14 +65,18 @@ def mmin(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
         tensor([-1., -5., -5., -4., -4.])
 
     .. note::
+        If a window contains any NaN value, the moving minimum for that
+        window is NaN. There is no option to skip NaN values.
+
+    .. note::
         This function is implemented as ``-mmax(-x, span, dim)``, leveraging
         the duality between minimum and maximum operations. This approach
         ensures consistent behavior and performance with the moving maximum
         function while avoiding code duplication.
 
     .. seealso::
-        :func:`mmax`: Moving maximum function.
-        :func:`msum`: Moving sum function.
-        :func:`ma`: Moving average function.
+        - :func:`mmax`: Moving maximum function.
+        - :func:`msum`: Moving sum function.
+        - :func:`ma`: Moving average function.
     """
     return -mmax(-x, span, dim)

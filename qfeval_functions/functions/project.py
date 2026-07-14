@@ -2,7 +2,7 @@ import torch
 
 
 def project(a: torch.Tensor, x: torch.Tensor) -> torch.Tensor:
-    """Projects the given tensor `x` using the given projection matrix `a`.
+    """Projects the given tensor ``x`` using the given projection matrix ``a``.
 
     Args:
         a (Tensor):
@@ -27,6 +27,26 @@ def project(a: torch.Tensor, x: torch.Tensor) -> torch.Tensor:
 
     In qfeval, I/O dimensions and sections often represent symbols and
     timestamps respectively.
+
+    Example:
+
+        >>> # Extract the first input dimension.
+        >>> a = torch.tensor([[1.0, 0.0]])
+        >>> x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])
+        >>> QF.project(a, x)
+        tensor([[1.],
+                [3.]])
+
+        >>> # Project onto the average and the difference of dimensions.
+        >>> a = torch.tensor([[0.5, 0.5], [1.0, -1.0]])
+        >>> QF.project(a, x)
+        tensor([[ 1.5000, -1.0000],
+                [ 3.5000, -1.0000]])
+
+    .. seealso::
+        - :func:`orthogonalize`: Orthogonalize vectors against another set
+          of vectors.
+        - :func:`orthonormalize`: Orthonormalize a set of vectors.
     """
 
     if a.shape[-1] != x.shape[-1]:

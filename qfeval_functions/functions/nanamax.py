@@ -89,9 +89,11 @@ def nanamax(
         tensor([3., 2.])
 
     .. seealso::
-        :func:`nanmax`: NaN-aware maximum with indices (single dimension only).
-        :func:`nanamin`: NaN-aware minimum over multiple dimensions.
-        ``torch.amax``: Standard maximum over multiple dimensions (NaN propagates).
+        - :func:`nanmax`: NaN-aware maximum with indices (single dimension
+          only).
+        - :func:`nanamin`: NaN-aware minimum over multiple dimensions.
+        - ``torch.amax``: Standard maximum over multiple dimensions (NaN
+          propagates).
     """
     # 1. Handle empty tensor (amax raises RuntimeError for numel() == 0).
     if x.numel() == 0:

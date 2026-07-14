@@ -82,9 +82,14 @@ def nanmin(x: torch.Tensor, dim: int, keepdim: bool = False) -> NanminResult:
         tensor([[2],
                 [0]])
 
+    .. note::
+        When all values along the dimension are NaN, the returned value is
+        NaN and the accompanying index is 0, which does not point to a valid
+        element.
+
     .. seealso::
         - :func:`nanmax`: NaN-aware maximum function.
-        - :func:`nanargmin`: NaN-aware argument minimum function.
+        - :func:`nanamin`: NaN-aware minimum over multiple dimensions.
         - :func:`torch.min`: Standard minimum function (NaN propagates).
     """
 

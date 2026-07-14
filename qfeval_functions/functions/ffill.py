@@ -44,6 +44,10 @@ def ffill(x: torch.Tensor, dim: int = -1) -> torch.Tensor:
         tensor([[1., nan, 3.],
                 [1., 2., 3.],
                 [4., 2., 3.]])
+
+    .. seealso::
+        - :func:`bfill`: Backward fill missing values.
+        - :func:`fillna`: Replace NaN/infinity values with fixed numbers.
     """
     if x.shape[dim] == 0:
         return x

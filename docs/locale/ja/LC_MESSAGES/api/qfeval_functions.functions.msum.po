@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 03:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.msum.rst:2
-msgid "qfeval\\_functions.functions.msum"
-msgstr "qfeval\\_functions.functions.msum"
+msgid "msum"
+msgstr ""
 
 #: of qfeval_functions.functions.msum.msum:1
 msgid "Compute the moving (sliding window) sum of a tensor."
@@ -33,11 +33,14 @@ msgid ""
 "This function calculates the sum of elements within a sliding window of "
 "size :attr:`span` along the specified dimension. The output tensor has "
 "the same shape as the input tensor. For positions where the sliding "
-"window cannot fully cover preceding elements (i.e., the first `span - 1` "
-"elements along the selected dimension), the result is `nan`."
-msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の合計を計算します。出力テンソルは入力テンソルと同じ形状を持ちます。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の `span - 1` 要素の場合）、結果は `nan` となります。"
+"window cannot fully cover preceding elements (i.e., the first ``span - "
+"1`` elements along the selected dimension), the result is ``nan``."
+msgstr ""
+"この関数は、指定された次元に沿ってサイズ :attr:`span` "
+"のスライディングウィンドウ内の要素の合計を計算します。出力テンソルは入力テンソルと同じ形状を持ちます。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の"
+" ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
 
-#: of qfeval_functions.functions.msum.msum
+#: ../../api/qfeval_functions.functions.msum.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
@@ -55,7 +58,7 @@ msgid ""
 "last dimension)."
 msgstr "移動合計を計算する次元。デフォルトは -1 で、最後の次元を指定します。"
 
-#: of qfeval_functions.functions.msum.msum
+#: ../../api/qfeval_functions.functions.msum.rst
 msgid "Returns"
 msgstr "Returns"
 
@@ -63,11 +66,57 @@ msgstr "Returns"
 msgid "A tensor of the same shape as the input, containing the moving sums."
 msgstr "入力と同じ形状のテンソルで、移動合計値を格納しています。"
 
-#: of qfeval_functions.functions.msum.msum
+#: ../../api/qfeval_functions.functions.msum.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.msum.msum:24
 msgid "Example"
 msgstr "使用例"
+
+#: of qfeval_functions.functions.msum.msum:26
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.msum(x, span=3)\n"
+"tensor([nan, nan,  6.,  9., 12.])"
+msgstr ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.msum(x, span=3)\n"
+"tensor([nan, nan,  6.,  9., 12.])"
+
+#: of qfeval_functions.functions.msum.msum:30
+msgid ""
+">>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n"
+"...                   [5.0, 6.0, 7.0, 8.0]])\n"
+">>> QF.msum(x, span=2, dim=1)\n"
+"tensor([[nan,  3.,  5.,  7.],\n"
+"        [nan, 11., 13., 15.]])"
+msgstr ""
+">>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n"
+"...                   [5.0, 6.0, 7.0, 8.0]])\n"
+">>> QF.msum(x, span=2, dim=1)\n"
+"tensor([[nan,  3.,  5.,  7.],\n"
+"        [nan, 11., 13., 15.]])"
+
+#: of qfeval_functions.functions.msum.msum:36
+msgid ""
+"If a window contains any NaN value, the moving sum for that window is "
+"NaN. Unlike ``pandas.DataFrame.rolling``, there is no "
+"``min_periods``-style option to skip NaN values."
+msgstr "ウィンドウ内にNaN値が1つでも含まれる場合、そのウィンドウの移動和はNaNになります。``pandas.DataFrame.rolling`` とは異なり、NaN値をスキップする ``min_periods`` のようなオプションはありません。"
+
+#: of qfeval_functions.functions.msum.msum:41
+msgid ":func:`ma`: Moving average function (this divided by the window size)."
+msgstr ":func:`ma`: 移動平均関数（この関数の結果をウィンドウサイズで割ったもの）。"
+
+#: of qfeval_functions.functions.msum.msum:43
+msgid ":func:`mstd`: Moving standard deviation function."
+msgstr ":func:`mstd`: 移動標準偏差関数。"
+
+#: of qfeval_functions.functions.msum.msum:44
+msgid ":func:`mvar`: Moving variance function."
+msgstr ":func:`mvar`: 移動分散関数。"
+
+#~ msgid "qfeval\\_functions.functions.msum"
+#~ msgstr "qfeval\\_functions.functions.msum"
 

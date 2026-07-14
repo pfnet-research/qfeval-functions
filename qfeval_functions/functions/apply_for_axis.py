@@ -63,6 +63,10 @@ def apply_for_axis(
         The function :attr:`f` must preserve the batch dimension size. Functions
         that change the batch dimension size will cause shape mismatch errors
         during the reshape operation.
+
+    .. seealso::
+        - :func:`skipna`: Applies a function to values after removing NaNs.
+        - ``torch.vmap``: PyTorch's vectorizing map over a batch dimension.
     """
 
     # 1. Move the target dimension to the top to make data manipulation easier.

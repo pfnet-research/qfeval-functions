@@ -7,8 +7,8 @@ from .rcumsum import rcumsum
 
 
 def _msum(x: torch.Tensor, span: int) -> torch.Tensor:
-    """Returns the moving sum of the given tensor `x`, whose shape is
-    `(B, N)`, along the 2nd dimension."""
+    """Returns the moving sum of the given tensor ``x``, whose shape is
+    ``(B, N)``, along the 2nd dimension."""
 
     # 1. Reshape the target dimension into `(*, span)` with prepending NaNs.
     pad_len = span * 2 - x.shape[1] % span
@@ -29,8 +29,8 @@ def msum(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
     This function calculates the sum of elements within a sliding window of
     size :attr:`span` along the specified dimension. The output tensor has the
     same shape as the input tensor. For positions where the sliding window
-    cannot fully cover preceding elements (i.e., the first `span - 1` elements
-    along the selected dimension), the result is `nan`.
+    cannot fully cover preceding elements (i.e., the first ``span - 1`` elements
+    along the selected dimension), the result is ``nan``.
 
     Args:
         x (Tensor):
@@ -55,5 +55,16 @@ def msum(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
         >>> QF.msum(x, span=2, dim=1)
         tensor([[nan,  3.,  5.,  7.],
                 [nan, 11., 13., 15.]])
+
+    .. note::
+        If a window contains any NaN value, the moving sum for that window
+        is NaN. Unlike ``pandas.DataFrame.rolling``, there is no
+        ``min_periods``-style option to skip NaN values.
+
+    .. seealso::
+        - :func:`ma`: Moving average function (this divided by the window
+          size).
+        - :func:`mstd`: Moving standard deviation function.
+        - :func:`mvar`: Moving variance function.
     """
     return apply_for_axis(lambda x: _msum(x, span), x, dim)

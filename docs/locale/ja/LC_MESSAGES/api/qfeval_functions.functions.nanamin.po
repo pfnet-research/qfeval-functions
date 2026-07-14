@@ -1,0 +1,197 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-15 01:46+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.nanamin.rst:2
+msgid "nanamin"
+msgstr ""
+
+#: of qfeval_functions.functions.nanamin.nanamin:1
+msgid ""
+"Compute the minimum of tensor elements along specified dimensions, "
+"ignoring NaN values."
+msgstr "NaN値を無視して、指定された次元に沿ってテンソル要素の最小値を計算します。"
+
+#: of qfeval_functions.functions.nanamin.nanamin:4
+msgid ""
+"This function calculates the minimum of all valid (non-NaN) elements in a"
+" tensor along the specified dimension(s). Unlike :func:`nanmin`, this "
+"function supports multiple dimensions but does not return indices. When "
+"no valid elements are found along a dimension, the result is NaN."
+msgstr ""
+"この関数は、指定された次元に沿って、テンソル内のすべての有効な（NaNでない）要素の最小値を計算します。:func:`nanmin` "
+"と異なり、この関数は複数の次元をサポートしますが、インデックスは返しません。次元に沿って有効な要素が1つも存在しない場合、結果はNaNとなります。"
+
+#: of qfeval_functions.functions.nanamin.nanamin:9
+msgid "The NaN-aware minimum is computed as:"
+msgstr "NaNを考慮した最小値は次のように計算されます:"
+
+#: of qfeval_functions.functions.nanamin.nanamin:11
+msgid ""
+"\\text{nanamin}(X) = \\min_{i \\text{ valid}} X_i\n"
+"\n"
+msgstr ""
+"\\text{nanamin}(X) = \\min_{i \\text{ valid}} X_i\n"
+"\n"
+
+#: of qfeval_functions.functions.nanamin.nanamin:14
+msgid "where the minimum is over all valid (non-NaN) values."
+msgstr "ここで、最小値はすべての有効な（NaNでない）値に対して計算されます。"
+
+#: ../../api/qfeval_functions.functions.nanamin.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.nanamin.nanamin:17
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.nanamin.nanamin:20
+msgid ""
+"The dimension(s) along which to compute the minimum. If None (default), "
+"the minimum is computed over all dimensions."
+msgstr "最小値を計算する次元（複数可）。None（デフォルト）の場合、すべての次元にわたって最小値が計算されます。"
+
+#: of qfeval_functions.functions.nanamin.nanamin:24
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False です。"
+
+#: ../../api/qfeval_functions.functions.nanamin.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.nanamin.nanamin:28
+msgid ""
+"The minimum values computed only over valid (non-NaN) values. When no "
+"valid values exist along a dimension, the result is NaN. The shape "
+"depends on the input dimensions, :attr:`dim`, and :attr:`keepdim` "
+"parameters."
+msgstr ""
+"有効な（NaNでない）値のみに対して計算された最小値。次元に沿って有効な値が存在しない場合、結果はNaNとなります。形状は入力の次元、:attr:`dim`"
+" および :attr:`keepdim` パラメータに依存します。"
+
+#: ../../api/qfeval_functions.functions.nanamin.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanamin.nanamin:35
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.nanamin.nanamin:37
+msgid ""
+">>> # Simple minimum with NaN values\n"
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n"
+">>> QF.nanamin(x)\n"
+"tensor(1.)"
+msgstr ">>> # NaN値を含む単純な最小値\n>>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n>>> QF.nanamin(x)\ntensor(1.)"
+
+#: of qfeval_functions.functions.nanamin.nanamin:42
+msgid ""
+">>> # All NaN returns NaN\n"
+">>> all_nan = torch.tensor([nan, nan, nan])\n"
+">>> QF.nanamin(all_nan)\n"
+"tensor(nan)"
+msgstr ">>> # すべてNaNの場合はNaNを返す\n>>> all_nan = torch.tensor([nan, nan, nan])\n>>> QF.nanamin(all_nan)\ntensor(nan)"
+
+#: of qfeval_functions.functions.nanamin.nanamin:47
+msgid ""
+">>> # 2D tensor with min along columns\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [4.0, 5.0, nan]])\n"
+">>> QF.nanamin(x, dim=0)\n"
+"tensor([1., 5., 3.])"
+msgstr ">>> # 2次元テンソルの列方向の最小値\n>>> x = torch.tensor([[1.0, nan, 3.0],\n...                   [4.0, 5.0, nan]])\n>>> QF.nanamin(x, dim=0)\ntensor([1., 5., 3.])"
+
+#: of qfeval_functions.functions.nanamin.nanamin:53
+msgid ""
+">>> # Min along rows\n"
+">>> QF.nanamin(x, dim=1)\n"
+"tensor([1., 4.])"
+msgstr ">>> # 行方向の最小値\n>>> QF.nanamin(x, dim=1)\ntensor([1., 4.])"
+
+#: of qfeval_functions.functions.nanamin.nanamin:57
+msgid ""
+">>> # Multiple dimensions\n"
+">>> x = torch.tensor([[[1.0, nan], [3.0, 4.0]],\n"
+"...                   [[nan, 6.0], [7.0, nan]]])\n"
+">>> QF.nanamin(x, dim=(1, 2))\n"
+"tensor([1., 6.])"
+msgstr ">>> # 複数の次元\n>>> x = torch.tensor([[[1.0, nan], [3.0, 4.0]],\n...                   [[nan, 6.0], [7.0, nan]]])\n>>> QF.nanamin(x, dim=(1, 2))\ntensor([1., 6.])"
+
+#: of qfeval_functions.functions.nanamin.nanamin:63
+msgid ""
+">>> # With keepdim\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [4.0, 5.0, nan]])\n"
+">>> QF.nanamin(x, dim=1, keepdim=True)\n"
+"tensor([[1.],\n"
+"        [4.]])"
+msgstr ">>> # keepdim を使用\n>>> x = torch.tensor([[1.0, nan, 3.0],\n...                   [4.0, 5.0, nan]])\n>>> QF.nanamin(x, dim=1, keepdim=True)\ntensor([[1.],\n        [4.]])"
+
+#: of qfeval_functions.functions.nanamin.nanamin:70
+msgid ""
+">>> # All NaN slice returns NaN\n"
+">>> x = torch.tensor([[1.0, 2.0],\n"
+"...                   [nan, nan]])\n"
+">>> QF.nanamin(x, dim=1)\n"
+"tensor([1., nan])"
+msgstr ">>> # すべてNaNのスライスはNaNを返す\n>>> x = torch.tensor([[1.0, 2.0],\n...                   [nan, nan]])\n>>> QF.nanamin(x, dim=1)\ntensor([1., nan])"
+
+#: of qfeval_functions.functions.nanamin.nanamin:76
+msgid ""
+">>> # With positive infinity\n"
+">>> x = torch.tensor([[1.0, inf, 3.0],\n"
+"...                   [nan, 2.0, inf]])\n"
+">>> QF.nanamin(x, dim=1)\n"
+"tensor([1., 2.])"
+msgstr ">>> # 正の無限大を含む\n>>> x = torch.tensor([[1.0, inf, 3.0],\n...                   [nan, 2.0, inf]])\n>>> QF.nanamin(x, dim=1)\ntensor([1., 2.])"
+
+#: of qfeval_functions.functions.nanamin.nanamin:82
+msgid ":func:`nanmin`: NaN-aware minimum with indices (single dimension only)."
+msgstr ":func:`nanmin`: インデックスも返すNaN対応の最小値（単一次元のみ）。"
+
+#: of qfeval_functions.functions.nanamin.nanamin:84
+msgid ":func:`nanamax`: NaN-aware maximum over multiple dimensions."
+msgstr ":func:`nanamax`: 複数次元に対応したNaN対応の最大値。"
+
+#: of qfeval_functions.functions.nanamin.nanamin:85
+msgid ""
+"``torch.amin``: Standard minimum over multiple dimensions (NaN "
+"propagates)."
+msgstr "``torch.amin``: 複数次元に対応した標準の最小値（NaNは伝播します）。"
+
+#~ msgid ""
+#~ ":func:`nanmin`: NaN-aware minimum with "
+#~ "indices (single dimension only). "
+#~ ":func:`nanamax`: NaN-aware maximum over "
+#~ "multiple dimensions. ``torch.amin``: Standard "
+#~ "minimum over multiple dimensions (NaN "
+#~ "propagates)."
+#~ msgstr ""
+#~ ":func:`nanmin`: インデックスも返すNaN対応の最小値（単一次元のみ）。:func:`nanamax`: "
+#~ "複数次元に対応したNaN対応の最大値。``torch.amin``: 複数次元に対応した標準の最小値（NaNは伝播します）。"
+
+#~ msgid "qfeval\\_functions.functions.nanamin"
+#~ msgstr "qfeval\\_functions.functions.nanamin"
+

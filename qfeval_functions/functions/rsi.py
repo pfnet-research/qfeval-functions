@@ -72,11 +72,62 @@ def _rsi(
 def rsi(
     x: torch.Tensor, span: int = 14, use_sma: bool = False, dim: int = -1
 ) -> torch.Tensor:
-    """
-    Definition(use_sma=False):
-    - https://www.investopedia.com/terms/r/rsi.asp
-    - Compatible with TA-lib
-    Definition(use_sma=True):
-    - https://info.monex.co.jp/technical-analysis/indicators/005.html
+    r"""Compute the Relative Strength Index (RSI) along the specified
+    dimension.
+
+    RSI is a momentum oscillator that measures the magnitude of recent gains
+    relative to recent losses, ranging from 0 to 100:
+
+    .. math::
+        \text{RSI} = \frac{\text{gain}}{\text{gain} + \text{loss}}
+        \times 100
+
+    where gain and loss are averages of the upward and downward price
+    changes over the trailing window of ``span`` elements.  Values above 70
+    are conventionally considered overbought, and values below 30 oversold.
+
+    Two averaging methods are supported:
+
+    - ``use_sma=False`` (default): Wilder's smoothing (an exponential moving
+      average), compatible with TA-Lib.
+      See https://www.investopedia.com/terms/r/rsi.asp
+    - ``use_sma=True``: a simple moving average.
+      See https://info.monex.co.jp/technical-analysis/indicators/005.html
+
+    The first ``span`` elements along the dimension are filled with NaN
+    because they do not have enough preceding elements.
+
+    Args:
+        x (Tensor):
+            The input tensor containing prices.
+        span (int, optional):
+            The window size used to average gains and losses.
+            Default is 14.
+        use_sma (bool, optional):
+            If ``True``, use a simple moving average instead of Wilder's
+            smoothing.  Default is ``False``.
+        dim (int, optional):
+            The dimension along which to compute RSI.
+            Default is -1 (the last dimension).
+
+    Returns:
+        Tensor:
+            A tensor of the same shape as the input, containing RSI values
+            in :math:`[0, 100]` (the first ``span`` elements along the
+            dimension are NaN).
+
+    Example:
+
+        >>> x = torch.tensor([1.0, 2.0, 3.0, 2.0, 3.0, 4.0, 3.0])
+        >>> QF.rsi(x, span=3)
+        tensor([    nan,     nan,     nan, 66.6667, 77.7778, 85.1852, 56.7901])
+
+        >>> QF.rsi(x, span=3, use_sma=True)
+        tensor([    nan,     nan,     nan, 66.6667, 66.6667, 66.6667, 66.6667])
+
+    .. seealso::
+        - :func:`rci`: Rank Correlation Index, another momentum indicator.
+        - :func:`ma`: Simple moving average function.
+        - :func:`ema`: Exponential moving average function.
     """
     return apply_for_axis(lambda x: _rsi(x, span, use_sma), x, dim)
