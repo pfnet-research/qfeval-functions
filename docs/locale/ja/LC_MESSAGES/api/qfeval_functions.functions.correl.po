@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-15 03:09+0900\n"
+"POT-Creation-Date: 2026-07-15 15:44+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -35,7 +35,10 @@ msgid ""
 "correlation coefficient measures the linear relationship between two "
 "variables and ranges from -1 (perfect negative correlation) to 1 (perfect"
 " positive correlation), with 0 indicating no linear correlation."
-msgstr "この関数は、指定された次元に沿ってテンソル :attr:`x` と :attr:`y` の間のピアソン相関係数を計算します。相関係数は 2 つの変数間の線形関係の強さを測定する指標で、-1（完全な負の相関）から 1（完全な正の相関）の範囲で表され、0 の場合は線形相関がないことを示します。"
+msgstr ""
+"この関数は、指定された次元に沿ってテンソル :attr:`x` と :attr:`y` の間のピアソン相関係数を計算します。相関係数は 2 "
+"つの変数間の線形関係の強さを測定する指標で、-1（完全な負の相関）から 1（完全な正の相関）の範囲で表され、0 "
+"の場合は線形相関がないことを示します。"
 
 #: ../../api/qfeval_functions.functions.correl.rst
 msgid "Parameters"
@@ -51,12 +54,11 @@ msgstr "第 2 の入力テンソル。:attr:`x` と同じ形状である必要�
 
 #: of qfeval_functions.functions.correl.correl:16
 msgid ""
-"The dimension(s) along which to compute the correlation. If not specified"
-" (default is empty tuple), computes element-wise correlation and sums the"
-" result."
-msgstr "相関係数を計算する次元を指定します。指定しない場合（デフォルトは空のタプル）は、要素ごとの相関係数を計算し、その結果を合計します。"
+"The dimension(s) along which to compute the correlation. If None "
+"(default), computes element-wise correlation and sums the result."
+msgstr "相関係数を計算する次元を指定します。None（デフォルト）の場合は、要素ごとの相関係数を計算し、その結果を合計します。"
 
-#: of qfeval_functions.functions.correl.correl:21
+#: of qfeval_functions.functions.correl.correl:20
 msgid ""
 "Whether the output tensor has :attr:`dim` retained or not. Default is "
 "False."
@@ -66,7 +68,7 @@ msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフ�
 msgid "Returns"
 msgstr "戻り値"
 
-#: of qfeval_functions.functions.correl.correl:25
+#: of qfeval_functions.functions.correl.correl:24
 msgid ""
 "The Pearson correlation coefficient(s). The shape depends on the input "
 "dimensions and the :attr:`keepdim` parameter."
@@ -76,11 +78,11 @@ msgstr "ピアソン相関係数。形状は入力次元と :attr:`keepdim` パ�
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.correl.correl:30
+#: of qfeval_functions.functions.correl.correl:29
 msgid "Example"
 msgstr "使用例"
 
-#: of qfeval_functions.functions.correl.correl:32
+#: of qfeval_functions.functions.correl.correl:31
 msgid ""
 ">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
 ">>> y = torch.tensor([2.0, 4.0, 6.0, 8.0, 10.0])\n"
@@ -92,7 +94,7 @@ msgstr ""
 ">>> QF.correl(x, y, dim=0)\n"
 "tensor(1.)"
 
-#: of qfeval_functions.functions.correl.correl:37
+#: of qfeval_functions.functions.correl.correl:36
 msgid ""
 ">>> x = torch.tensor([[1.0, 2.0, 3.0],\n"
 "...                   [4.0, 5.0, 6.0]])\n"
@@ -108,7 +110,7 @@ msgstr ""
 ">>> QF.correl(x, y, dim=1)\n"
 "tensor([0.9820, 1.0000])"
 
-#: of qfeval_functions.functions.correl.correl:44
+#: of qfeval_functions.functions.correl.correl:43
 msgid ""
 ">>> QF.correl(x, y, dim=1, keepdim=True)\n"
 "tensor([[0.9820],\n"
@@ -118,22 +120,24 @@ msgstr ""
 "tensor([[0.9820],\n"
 "        [1.0000]])"
 
-#: of qfeval_functions.functions.correl.correl:48
+#: of qfeval_functions.functions.correl.correl:47
 msgid ""
 "If either :attr:`x` or :attr:`y` has zero variance along the dimension "
 "(i.e., all values are identical), the correlation is mathematically "
 "undefined and the result is NaN."
-msgstr ":attr:`x` または :attr:`y` のいずれかが次元に沿って分散ゼロ（すべての値が同一）の場合、相関は数学的に未定義であり、結果は NaN になります。"
+msgstr ""
+":attr:`x` または :attr:`y` のいずれかが次元に沿って分散ゼロ（すべての値が同一）の場合、相関は数学的に未定義であり、結果は "
+"NaN になります。"
 
-#: of qfeval_functions.functions.correl.correl:53
+#: of qfeval_functions.functions.correl.correl:52
 msgid ":func:`nancorrel`: NaN-aware Pearson correlation function."
 msgstr ":func:`nancorrel`: NaN を考慮したピアソン相関関数。"
 
-#: of qfeval_functions.functions.correl.correl:54
+#: of qfeval_functions.functions.correl.correl:53
 msgid ":func:`covar`: Covariance function."
 msgstr ":func:`covar`: 共分散関数。"
 
-#: of qfeval_functions.functions.correl.correl:55
+#: of qfeval_functions.functions.correl.correl:54
 msgid ":func:`slope`: Simple linear regression slope function."
 msgstr ":func:`slope`: 単回帰の傾きを計算する関数。"
 
