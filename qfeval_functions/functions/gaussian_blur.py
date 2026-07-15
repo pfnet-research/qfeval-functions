@@ -34,12 +34,19 @@ def gaussian_blur(x: torch.Tensor, sigma: float, dim: int = -1) -> torch.Tensor:
     :attr:`sigma` values. This approach avoids undersampling issues and
     provides more accurate results.
 
+    NaN values are excluded from the weighted average: at each output
+    position, the Gaussian weights are renormalized over the valid
+    (non-NaN) values only, and positions that are NaN in the input remain
+    NaN in the output.  All other output positions are finite as long as at
+    least one valid value exists along the target dimension.  If the target
+    dimension is empty, a tensor with the same (empty) shape is returned.
+
     Args:
         x (Tensor):
             The input tensor to be blurred.
         sigma (float):
             The standard deviation of the Gaussian kernel. Larger values
-            produce more smoothing. Must be positive.
+            produce more smoothing. Must be a positive finite number.
         dim (int, optional):
             The dimension along which to apply the Gaussian blur.
             Default is -1 (the last dimension).
@@ -48,6 +55,11 @@ def gaussian_blur(x: torch.Tensor, sigma: float, dim: int = -1) -> torch.Tensor:
         Tensor:
             A tensor of the same shape as the input, containing the
             Gaussian-blurred values.
+
+    Raises:
+        ValueError:
+            If :attr:`sigma` is not a positive finite number (e.g., zero,
+            negative, NaN, or infinity).
 
     Example:
 
@@ -75,15 +87,29 @@ def gaussian_blur(x: torch.Tensor, sigma: float, dim: int = -1) -> torch.Tensor:
         - https://bartwronski.com/2021/10/31/gaussian-blur-corrected-improved-and-optimized/
     """
 
-    def _blur(x: torch.Tensor) -> torch.Tensor:
-        # Apply convolution with x and a Gaussian filter.
-        w = _gaussian_filter(x.shape[-1] * 2 + 1, sigma).to(x.device)
-        a = F.conv1d(x.to(w)[:, None], w[None, None], padding="same")
-        # TODO(imos): Divding by count is not necessary and confusing. Fix this
-        # in another PR.
-        count = F.conv1d(
-            (~x.isnan()).to(w)[:, None], w[None, None], padding="same"
+    if not math.isfinite(sigma) or sigma <= 0:
+        raise ValueError(
+            f"sigma must be a positive finite number, but got {sigma}."
         )
-        return (a / count)[:, 0].to(x)
+    if x.shape[dim] == 0:
+        return x.clone()
+
+    def _blur(x: torch.Tensor) -> torch.Tensor:
+        # Apply convolution with x and a Gaussian filter, excluding NaNs.
+        w = _gaussian_filter(x.shape[-1] * 2 + 1, sigma).to(x.device)
+        m = ~x.isnan()
+        xf = torch.where(m, x, torch.zeros_like(x))
+        a = F.conv1d(xf.to(w)[:, None], w[None, None], padding="same")
+        # `weight` accumulates the Gaussian weights of the valid (non-NaN)
+        # values only, so dividing by it both corrects the boundary effect
+        # (weights cut off outside the tensor) and renormalizes the weights
+        # over non-NaN values.
+        weight = F.conv1d(m.to(w)[:, None], w[None, None], padding="same")
+        # NOTE: torch.where does not prevent the unselected branch from being
+        # evaluated, so replace zero weights with one before dividing and
+        # restore NaNs with the original mask afterwards.
+        safe_weight = torch.where(weight > 0, weight, torch.ones_like(weight))
+        out = (a / safe_weight)[:, 0].to(x)
+        return torch.where(m, out, torch.as_tensor(math.nan).to(out))
 
     return apply_for_axis(_blur, x, dim)
