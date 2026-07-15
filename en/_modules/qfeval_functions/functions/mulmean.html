@@ -155,7 +155,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">mulmean</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-    <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
     <span class="o">*</span><span class="p">,</span>
     <span class="n">_ddof</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
@@ -177,9 +177,9 @@
 <span class="sd">            The first input tensor.</span>
 <span class="sd">        y (Tensor):</span>
 <span class="sd">            The second input tensor. Must be broadcastable with :attr:`x`.</span>
-<span class="sd">        dim (int or tuple of ints, optional):</span>
-<span class="sd">            The dimension(s) along which to compute the mean. If not specified</span>
-<span class="sd">            (default is empty tuple), the mean is computed over all dimensions.</span>
+<span class="sd">        dim (None, int, or tuple of ints, optional):</span>
+<span class="sd">            The dimension(s) along which to compute the mean. If None</span>
+<span class="sd">            (default), the mean is computed over all dimensions.</span>
 <span class="sd">        keepdim (bool, optional):</span>
 <span class="sd">            Whether the output tensor has :attr:`dim`</span>
 <span class="sd">            retained or not. Default is False.</span>

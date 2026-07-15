@@ -153,7 +153,7 @@
 <a class="viewcode-back" href="../../../api/qfeval_functions.functions.nanmean.html#qfeval_functions.functions.nanmean">[ドキュメント]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">nanmean</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-    <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the arithmetic mean along specified dimensions, ignoring NaN values.</span>
@@ -174,9 +174,9 @@
 <span class="sd">    Args:</span>
 <span class="sd">        x (Tensor):</span>
 <span class="sd">            The input tensor containing values.</span>
-<span class="sd">        dim (int or tuple of ints, optional):</span>
-<span class="sd">            The dimension(s) along which to compute the mean. If not specified</span>
-<span class="sd">            (default is empty tuple), the mean is computed over all dimensions.</span>
+<span class="sd">        dim (None, int, or tuple of ints, optional):</span>
+<span class="sd">            The dimension(s) along which to compute the mean. If None</span>
+<span class="sd">            (default), the mean is computed over all dimensions.</span>
 <span class="sd">        keepdim (bool, optional):</span>
 <span class="sd">            Whether the output tensor has :attr:`dim` retained or not.</span>
 <span class="sd">            Default is False.</span>

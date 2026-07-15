@@ -159,7 +159,7 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">nanslope</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
     <span class="n">y</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
-    <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="p">(),</span>
+    <span class="n">dim</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">keepdim</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the slope of simple linear regression between two tensors,</span>
@@ -189,9 +189,9 @@
 <span class="sd">        y (Tensor):</span>
 <span class="sd">            The dependent variable tensor (response). Must be broadcastable</span>
 <span class="sd">            with :attr:`x`.</span>
-<span class="sd">        dim (int or tuple of ints, optional):</span>
+<span class="sd">        dim (None, int, or tuple of ints, optional):</span>
 <span class="sd">            The dimension(s) along which to</span>
-<span class="sd">            compute the slope. If not specified (default is empty tuple), the</span>
+<span class="sd">            compute the slope. If None (default), the</span>
 <span class="sd">            slope is computed over all dimensions.</span>
 <span class="sd">        keepdim (bool, optional):</span>
 <span class="sd">            Whether the output tensor has :attr:`dim`</span>
