@@ -1,3 +1,5 @@
+import math
+
 import torch
 
 from .msum import msum
@@ -21,8 +23,10 @@ def mvar(
         \sum_{j=i-\text{span}+1}^{i} x[j]^2 -
         \frac{(\sum_{j=i-\text{span}+1}^{i} x[j])^2}{\text{span}} \right)
 
-    This uses the computational formula for variance that is numerically stable
-    and efficient for sliding window calculations.
+    This computational formula is efficient for sliding window calculations
+    because it only requires moving sums.  However, it may suffer from
+    catastrophic cancellation when the input has a large offset relative to
+    its variance (e.g., values around ``1e6`` with a variance of ``1e-6``).
 
     Args:
         x (Tensor):
@@ -35,13 +39,19 @@ def mvar(
         ddof (int, optional):
             Delta degrees of freedom. The divisor used in the calculation is
             ``span - ddof``. Use 0 for population variance.
+            Must be less than ``span``; otherwise the result is all ``nan``.
             Default is 1 (sample variance).
 
     Returns:
         Tensor:
             A tensor of the same shape as the input, containing the moving
             variance values. The first ``span - 1`` elements along the specified
-            dimension are ``nan``.
+            dimension are ``nan``. If ``ddof >= span``, all elements are
+            ``nan``.
+
+    Raises:
+        ValueError: If ``span`` is not positive.
+        TypeError: If ``x`` is not a floating-point tensor.
 
     Example:
 
@@ -88,6 +98,14 @@ def mvar(
         - :func:`msum`: Moving sum function used in the implementation.
         - :func:`ma`: Moving average function.
     """
+    if span <= 0:
+        raise ValueError(f"span must be positive, but got {span}.")
+    if not x.is_floating_point():
+        raise TypeError(
+            f"x must be a floating-point tensor, but got {x.dtype}."
+        )
+    if ddof >= span:
+        return torch.full_like(x, math.nan)
     numerator = msum(x**2, span, dim) - msum(x, span, dim) ** 2 / span
     result: torch.Tensor = numerator / (span - ddof)
     return result

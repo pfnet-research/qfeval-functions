@@ -34,13 +34,20 @@ def mstd(
         ddof (int, optional):
             Delta degrees of freedom. The divisor used in
             the calculation is ``N - ddof``, where ``N`` represents the number
-            of elements in the window. Default is 1 (sample standard deviation).
+            of elements in the window. Must be less than ``span``; otherwise
+            the result is all ``nan``. Default is 1 (sample standard
+            deviation).
 
     Returns:
         Tensor:
             A tensor of the same shape as the input, containing the moving
             standard deviation values. The first ``span - 1`` elements along
-            the specified dimension are ``nan``.
+            the specified dimension are ``nan``. If ``ddof >= span``, all
+            elements are ``nan``.
+
+    Raises:
+        ValueError: If ``span`` is not positive.
+        TypeError: If ``x`` is not a floating-point tensor.
 
     Example:
 
