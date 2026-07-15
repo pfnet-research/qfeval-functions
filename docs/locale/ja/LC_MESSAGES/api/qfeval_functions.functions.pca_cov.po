@@ -132,13 +132,13 @@ msgid ""
 "The sign of each principal component is arbitrary: components are defined"
 " only up to sign, so an equivalent input may yield components multiplied "
 "by -1."
-msgstr "各主成分の符号は任意です。主成分は符号を除いてのみ定義されるため、等価な入力に対して-1倍された主成分が返されることがあります。"
+msgstr "各主成分の符号は任意です。主成分は符号を除いてのみ定義されるため、等価な入力に対して -1 倍された主成分が返されることがあります。"
 
 #: of qfeval_functions.functions.pca.pca_cov:49
 msgid ":func:`pca`: PCA computed directly from data."
-msgstr ":func:`pca`: データから直接計算するPCA。"
+msgstr ":func:`pca`: データから直接計算する PCA。"
 
 #: of qfeval_functions.functions.pca.pca_cov:50
 msgid ":func:`nanpca`: NaN-aware principal component analysis."
-msgstr ":func:`nanpca`: NaNを考慮した主成分分析。"
+msgstr ":func:`nanpca`: NaN を考慮した主成分分析。"
 

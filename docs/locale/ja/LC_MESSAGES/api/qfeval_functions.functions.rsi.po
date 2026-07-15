@@ -32,7 +32,7 @@ msgstr "指定された次元に沿って相対力指数（RSI）を計算しま
 msgid ""
 "RSI is a momentum oscillator that measures the magnitude of recent gains "
 "relative to recent losses, ranging from 0 to 100:"
-msgstr "RSIは、直近の上昇幅の大きさを直近の下落幅と比較して測定するモメンタム系オシレーターで、0から100の範囲を取ります:"
+msgstr "RSI は、直近の上昇幅の大きさを直近の下落幅と比較して測定するモメンタム系オシレーターで、0 から 100 の範囲を取ります:"
 
 #: of qfeval_functions.functions.rsi.rsi:7
 msgid ""
@@ -49,22 +49,18 @@ msgid ""
 "where gain and loss are averages of the upward and downward price changes"
 " over the trailing window of ``span`` elements.  Values above 70 are "
 "conventionally considered overbought, and values below 30 oversold."
-msgstr ""
-"ここで、gainとlossはそれぞれ、直近 ``span`` "
-"個の要素からなるウィンドウにおける価格の上昇幅と下落幅の平均です。慣例として、70を超える値は買われすぎ、30を下回る値は売られすぎと見なされます。"
+msgstr "ここで、gain と loss はそれぞれ、直近 ``span`` 個の要素からなるウィンドウにおける価格の上昇幅と下落幅の平均です。慣例として、70 を超える値は買われすぎ、30 を下回る値は売られすぎと見なされます。"
 
 #: of qfeval_functions.functions.rsi.rsi:15
 msgid "Two averaging methods are supported:"
-msgstr "2つの平均化手法がサポートされています:"
+msgstr "2 つの平均化手法がサポートされています:"
 
 #: of qfeval_functions.functions.rsi.rsi:17
 msgid ""
 "``use_sma=False`` (default): Wilder's smoothing (an exponential moving "
 "average), compatible with TA-Lib. See "
 "https://www.investopedia.com/terms/r/rsi.asp"
-msgstr ""
-"``use_sma=False``\\ （デフォルト）: ワイルダー平滑化（指数移動平均の一種）。TA-"
-"Libと互換性があります。https://www.investopedia.com/terms/r/rsi.asp を参照してください。"
+msgstr "``use_sma=False``\\ （デフォルト）: ワイルダー平滑化（指数移動平均の一種）。TA-Lib と互換性があります。https://www.investopedia.com/terms/r/rsi.asp を参照してください。"
 
 #: of qfeval_functions.functions.rsi.rsi:20
 msgid ""
@@ -78,7 +74,7 @@ msgstr ""
 msgid ""
 "The first ``span`` elements along the dimension are filled with NaN "
 "because they do not have enough preceding elements."
-msgstr "次元に沿った最初の ``span`` 個の要素は、先行する要素が不足しているためNaNで埋められます。"
+msgstr "次元に沿った最初の ``span`` 個の要素は、先行する要素が不足しているため NaN で埋められます。"
 
 #: ../../api/qfeval_functions.functions.rsi.rst
 msgid "Parameters"
@@ -102,7 +98,7 @@ msgstr "``True`` の場合、ワイルダー平滑化の代わりに単純移動
 msgid ""
 "The dimension along which to compute RSI. Default is -1 (the last "
 "dimension)."
-msgstr "RSIを計算する次元。デフォルトは -1（最後の次元）です。"
+msgstr "RSI を計算する次元。デフォルトは -1（最後の次元）です。"
 
 #: ../../api/qfeval_functions.functions.rsi.rst
 msgid "Returns"
@@ -113,7 +109,7 @@ msgid ""
 "A tensor of the same shape as the input, containing RSI values in "
 ":math:`[0, 100]` (the first ``span`` elements along the dimension are "
 "NaN)."
-msgstr ":math:`[0, 100]` のRSI値を含む、入力と同じ形状のテンソル（次元に沿った最初の ``span`` 個の要素はNaNです）。"
+msgstr ":math:`[0, 100]` の RSI 値を含む、入力と同じ形状のテンソル（次元に沿った最初の ``span`` 個の要素は NaN です）。"
 
 #: ../../api/qfeval_functions.functions.rsi.rst
 msgid "Return type"

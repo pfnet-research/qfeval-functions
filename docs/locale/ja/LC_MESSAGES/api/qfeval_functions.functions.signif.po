@@ -39,11 +39,7 @@ msgid ""
 "0.0123).  This is the same behavior as R's ``signif`` function, and the "
 "default number of digits follows it.  Zeros and non-finite values (NaN "
 "and infinities) are returned unchanged."
-msgstr ""
-"小数点以下の固定桁数に丸める :func:`torch.round` "
-"と異なり、この関数は指定された有効桁数を保つため、丸めの精度は各要素の大きさに応じて変化します（例: "
-"有効数字3桁への丸めでは、12345は12300に、0.012345は0.0123になります）。これはRの ``signif`` "
-"関数と同じ動作であり、デフォルトの桁数もそれに従います。ゼロおよび有限でない値（NaNと無限大）はそのまま返されます。"
+msgstr "小数点以下の固定桁数に丸める :func:`torch.round` と異なり、この関数は指定された有効桁数を保つため、丸めの精度は各要素の大きさに応じて変化します（例: 有効数字 3 桁への丸めでは、12345 は 12300 に、0.012345 は 0.0123 になります）。これは R の ``signif`` 関数と同じ動作であり、デフォルトの桁数もそれに従います。ゼロおよび有限でない値（NaN と無限大）はそのまま返されます。"
 
 #: ../../api/qfeval_functions.functions.signif.rst
 msgid "Parameters"
@@ -57,7 +53,7 @@ msgstr "入力テンソル。"
 msgid ""
 "The number of significant digits to keep.  Default is 6, the same default"
 " as R's ``signif`` function."
-msgstr "保持する有効桁数。デフォルトはRの ``signif`` 関数と同じく 6 です。"
+msgstr "保持する有効桁数。デフォルトは R の ``signif`` 関数と同じく 6 です。"
 
 #: ../../api/qfeval_functions.functions.signif.rst
 msgid "Returns"

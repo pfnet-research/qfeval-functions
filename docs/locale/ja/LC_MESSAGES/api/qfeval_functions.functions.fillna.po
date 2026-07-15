@@ -26,7 +26,7 @@ msgstr ""
 
 #: of qfeval_functions.functions.fillna.fillna:1
 msgid "Replace NaN and infinity values with specified numbers."
-msgstr "NaNおよび無限大の値を指定した数値に置換します。"
+msgstr "NaN および無限大の値を指定した数値に置換します。"
 
 #: of qfeval_functions.functions.fillna.fillna:3
 msgid ""
@@ -57,7 +57,7 @@ msgstr "NaN を置き換える値。デフォルトは 0.0 です。"
 msgid ""
 "The value to replace positive infinity with. Default is ``math.inf`` "
 "(preserves positive infinity)."
-msgstr "正の無限大を置き換える値。デフォルトは\\ ``math.inf``\\ （正の無限大を保持します）。"
+msgstr "正の無限大を置き換える値。デフォルトは ``math.inf``\\ （正の無限大を保持します）。"
 
 #: of qfeval_functions.functions.fillna.fillna:21
 msgid ""
@@ -73,7 +73,7 @@ msgstr "戻り値"
 msgid ""
 "A new tensor with the same shape and dtype as the input, where NaN and "
 "infinity values are replaced according to the specified parameters."
-msgstr "入力と同じ形状とデータ型を持つ新しいテンソルで、NaN値と無限大値は指定されたパラメータに従って置換されます。"
+msgstr "入力と同じ形状とデータ型を持つ新しいテンソルで、NaN 値と無限大値は指定されたパラメータに従って置換されます。"
 
 #: ../../api/qfeval_functions.functions.fillna.rst
 msgid "Return type"
@@ -89,7 +89,7 @@ msgid ""
 ">>> x = torch.tensor([1.0, nan, 3.0, nan])\n"
 ">>> QF.fillna(x)\n"
 "tensor([1., 0., 3., 0.])"
-msgstr ">>> # NaN値を0で置換（デフォルトの動作）\n>>> x = torch.tensor([1.0, nan, 3.0, nan])\n>>> QF.fillna(x)\ntensor([1., 0., 3., 0.])"
+msgstr ">>> # NaN 値を 0 で置換（デフォルトの動作）\n>>> x = torch.tensor([1.0, nan, 3.0, nan])\n>>> QF.fillna(x)\ntensor([1., 0., 3., 0.])"
 
 #: of qfeval_functions.functions.fillna.fillna:38
 msgid ""
@@ -98,7 +98,7 @@ msgid ""
 ">>> QF.fillna(x, nan=-1.0)\n"
 "tensor([[-1.,  2.],\n"
 "        [ 3., -1.]])"
-msgstr ">>> # NaNを-1で置換\n>>> x = torch.tensor([[nan, 2.0], [3.0, nan]])\n>>> QF.fillna(x, nan=-1.0)\ntensor([[-1.,  2.],\n        [ 3., -1.]])"
+msgstr ">>> # NaN を -1 で置換\n>>> x = torch.tensor([[nan, 2.0], [3.0, nan]])\n>>> QF.fillna(x, nan=-1.0)\ntensor([[-1.,  2.],\n        [ 3., -1.]])"
 
 #: of qfeval_functions.functions.fillna.fillna:44
 msgid ""
@@ -126,7 +126,7 @@ msgstr ":func:`bfill`: 欠損値を後方補完する関数。"
 
 #: of qfeval_functions.functions.fillna.fillna:56
 msgid "``torch.nan_to_num``: PyTorch's built-in NaN replacement function."
-msgstr "``torch.nan_to_num``: PyTorchに組み込まれたNaN置換関数。"
+msgstr "``torch.nan_to_num``: PyTorch に組み込まれた NaN 置換関数。"
 
 #~ msgid ""
 #~ "NOTE: Differently from torch.nan_to_num, this"

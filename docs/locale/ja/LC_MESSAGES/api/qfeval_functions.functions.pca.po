@@ -44,7 +44,7 @@ msgstr ""
 msgid ""
 "In qfeval, dimensions and sections often represent symbols and timestamps"
 " respectively."
-msgstr "qfevalでは、次元とセクションはそれぞれ銘柄（シンボル）とタイムスタンプを表すことがよくあります。"
+msgstr "qfeval では、次元とセクションはそれぞれ銘柄（シンボル）とタイムスタンプを表すことがよくあります。"
 
 #: ../../api/qfeval_functions.functions.pca.rst
 msgid "Parameters"
@@ -143,17 +143,17 @@ msgid ""
 "The sign of each principal component is arbitrary: components are defined"
 " only up to sign, so an equivalent input may yield components multiplied "
 "by -1."
-msgstr "各主成分の符号は任意です。主成分は符号を除いてのみ定義されるため、等価な入力に対して-1倍された主成分が返されることがあります。"
+msgstr "各主成分の符号は任意です。主成分は符号を除いてのみ定義されるため、等価な入力に対して -1 倍された主成分が返されることがあります。"
 
 #: of qfeval_functions.functions.pca.pca:54
 msgid ""
 ":func:`pca_cov`: PCA on a precomputed covariance matrix, used in the "
 "implementation."
-msgstr ":func:`pca_cov`: 実装に使用されている、計算済みの共分散行列に対するPCA。"
+msgstr ":func:`pca_cov`: 実装に使用されている、計算済みの共分散行列に対する PCA。"
 
 #: of qfeval_functions.functions.pca.pca:56
 msgid ":func:`nanpca`: NaN-aware principal component analysis."
-msgstr ":func:`nanpca`: NaNを考慮した主成分分析。"
+msgstr ":func:`nanpca`: NaN を考慮した主成分分析。"
 
 #: of qfeval_functions.functions.pca.pca:57
 msgid ":func:`covar`: Covariance function used in the implementation."

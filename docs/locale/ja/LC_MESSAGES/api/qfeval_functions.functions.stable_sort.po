@@ -33,9 +33,7 @@ msgid ""
 "the end, also preserving their original relative order.  Unlike "
 ":func:`torch.sort`, whose default algorithm does not guarantee stability,"
 " this function always returns deterministic indices."
-msgstr ""
-"この関数は、指定された次元に沿って要素を昇順にソートし、等しい値を持つ要素が元の相対順序を保つこと（すなわち安定ソート）を保証します。NaN値は末尾に配置され、これらも元の相対順序を保ちます。デフォルトのアルゴリズムが安定性を保証しない"
-" :func:`torch.sort` と異なり、この関数は常に決定的なインデックスを返します。"
+msgstr "この関数は、指定された次元に沿って要素を昇順にソートし、等しい値を持つ要素が元の相対順序を保つこと（すなわち安定ソート）を保証します。NaN 値は末尾に配置され、これらも元の相対順序を保ちます。デフォルトのアルゴリズムが安定性を保証しない :func:`torch.sort` と異なり、この関数は常に決定的なインデックスを返します。"
 
 #: ../../api/qfeval_functions.functions.stable_sort.rst
 msgid "Parameters"
@@ -91,7 +89,7 @@ msgid ""
 "tensor([1., 1., 2., 3.])\n"
 ">>> result.indices\n"
 "tensor([1, 3, 2, 0])"
-msgstr ">>> # 2つの1.0は元の順序を保ちます（インデックス1が3より前）。\n>>> x = torch.tensor([3.0, 1.0, 2.0, 1.0])\n>>> result = QF.stable_sort(x)\n>>> result.values\ntensor([1., 1., 2., 3.])\n>>> result.indices\ntensor([1, 3, 2, 0])"
+msgstr ">>> # 2 つの 1.0 は元の順序を保ちます（インデックス 1 が 3 より前）。\n>>> x = torch.tensor([3.0, 1.0, 2.0, 1.0])\n>>> result = QF.stable_sort(x)\n>>> result.values\ntensor([1., 1., 2., 3.])\n>>> result.indices\ntensor([1, 3, 2, 0])"
 
 #: of qfeval_functions.functions.stable_sort.stable_sort:39
 msgid ""
@@ -102,11 +100,11 @@ msgid ""
 "tensor([1., 2., nan])\n"
 ">>> result.indices\n"
 "tensor([2, 0, 1])"
-msgstr ">>> # NaN値は末尾に配置されます。\n>>> x = torch.tensor([2.0, nan, 1.0])\n>>> result = QF.stable_sort(x)\n>>> result.values\ntensor([1., 2., nan])\n>>> result.indices\ntensor([2, 0, 1])"
+msgstr ">>> # NaN 値は末尾に配置されます。\n>>> x = torch.tensor([2.0, nan, 1.0])\n>>> result = QF.stable_sort(x)\n>>> result.values\ntensor([1., 2., nan])\n>>> result.indices\ntensor([2, 0, 1])"
 
 #: of qfeval_functions.functions.stable_sort.stable_sort:47
 msgid "``torch.sort``: PyTorch's built-in sort (also supports ``stable=True``)."
-msgstr "``torch.sort``: PyTorchに組み込まれたソート関数（``stable=True`` もサポート）。"
+msgstr "``torch.sort``: PyTorch に組み込まれたソート関数（``stable=True`` もサポート）。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"

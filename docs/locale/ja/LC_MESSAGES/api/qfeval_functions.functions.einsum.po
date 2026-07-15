@@ -50,7 +50,7 @@ msgid ""
 "A string describing the subscripts for summation. The string contains "
 "comma-separated subscript labels for each operand, followed by ``->`` and"
 " the subscript labels for the output."
-msgstr "和算の添字を記述する文字列です。文字列には、各演算子の添字ラベルがカンマ区切りで並び、その後に\\ ``->``\\ と出力の添字ラベルが続きます。"
+msgstr "和算の添字を記述する文字列です。文字列には、各演算子の添字ラベルがカンマ区切りで並び、その後に ``->`` と出力の添字ラベルが続きます。"
 
 #: of qfeval_functions.functions.einsum.einsum:16
 msgid ""
@@ -124,7 +124,7 @@ msgstr ":func:`mulmean`: メモリ効率の良い積の平均関数。"
 
 #: of qfeval_functions.functions.einsum.einsum:56
 msgid "``torch.einsum``: PyTorch's built-in Einstein summation."
-msgstr "``torch.einsum``: PyTorchに組み込まれたアインシュタインの縮約記法による総和。"
+msgstr "``torch.einsum``: PyTorch に組み込まれたアインシュタインの縮約記法による総和。"
 
 #~ msgid "Typed version of torch.einsum."
 #~ msgstr "torch.einsumの型付けバージョン。"

@@ -33,7 +33,7 @@ msgid ""
 "A mask is a one-dimensional boolean tensor that represents the pattern of"
 " observed values in a reference dimension (``refdim``). i.e., ``True`` "
 "values correspond to the locations of non-nan values."
-msgstr "マスクは、参照次元（``refdim``）における観測値のパターンを表す1次元のブールテンソルです。すなわち、``True`` の値は非NaN値の位置に対応します。"
+msgstr "マスクは、参照次元（``refdim``）における観測値のパターンを表す 1 次元のブールテンソルです。すなわち、``True`` の値は非 NaN 値の位置に対応します。"
 
 #: ../../api/qfeval_functions.functions.reduce_nan_patterns.rst
 msgid "Parameters"
@@ -41,7 +41,7 @@ msgstr "パラメータ"
 
 #: of qfeval_functions.functions.group_shift.reduce_nan_patterns:7
 msgid "The input tensor. This should have at least 2 dimensions."
-msgstr "入力テンソル。少なくとも2次元である必要があります。"
+msgstr "入力テンソル。少なくとも 2 次元である必要があります。"
 
 #: of qfeval_functions.functions.group_shift.reduce_nan_patterns:8
 msgid "The dimension along which ``x`` will be shifted."
@@ -49,7 +49,7 @@ msgstr "``x`` をシフトする次元。"
 
 #: of qfeval_functions.functions.group_shift.reduce_nan_patterns:9
 msgid "The reference dimension to extract a pattern of (non-)nans."
-msgstr "（非）NaNのパターンを抽出する参照次元。"
+msgstr "（非）NaN のパターンを抽出する参照次元。"
 
 #: of qfeval_functions.functions.group_shift.reduce_nan_patterns:10
 msgid "The function for aggregating all other dimensions."
@@ -61,7 +61,7 @@ msgstr "戻り値"
 
 #: of qfeval_functions.functions.group_shift.reduce_nan_patterns:12
 msgid "a 1-D boolean tensor"
-msgstr "1次元のブールテンソル"
+msgstr "1 次元のブールテンソル"
 
 #: ../../api/qfeval_functions.functions.reduce_nan_patterns.rst
 msgid "Return type"

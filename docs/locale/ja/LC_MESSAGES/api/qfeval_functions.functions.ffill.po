@@ -34,7 +34,7 @@ msgid ""
 "the specified dimension. For each NaN value, it is replaced with the most"
 " recent valid value that appears before it along the dimension. If no "
 "valid value exists before a NaN, it remains NaN."
-msgstr "この関数は、指定された次元に沿って最後の有効な値（NaNでない値）を前方に伝播させます。各NaN値については、その次元に沿って直前に現れる最も新しい有効な値で置き換えられます。もしNaN値の直前に有効な値が存在しない場合、そのNaN値は変更されずにそのまま保持されます。"
+msgstr "この関数は、指定された次元に沿って最後の有効な値（NaN でない値）を前方に伝播させます。各 NaN 値については、その次元に沿って直前に現れる最も新しい有効な値で置き換えられます。もし NaN 値の直前に有効な値が存在しない場合、その NaN 値は変更されずにそのまま保持されます。"
 
 #: ../../api/qfeval_functions.functions.ffill.rst
 msgid "Parameters"
@@ -44,7 +44,7 @@ msgstr "パラメータ"
 msgid ""
 "The input tensor containing values to be filled. May contain NaN values "
 "that will be replaced."
-msgstr "値を補完するための入力テンソル。NaN値が含まれている場合があり、これらは指定された方法で置換されます。"
+msgstr "値を補完するための入力テンソル。NaN 値が含まれている場合があり、これらは指定された方法で置換されます。"
 
 #: of qfeval_functions.functions.ffill.ffill:13
 msgid ""
@@ -60,7 +60,7 @@ msgstr "戻り値"
 msgid ""
 "A tensor of the same shape as the input, with NaN values replaced by the "
 "nearest preceding valid values where possible."
-msgstr "入力テンソルと同じ形状で、NaN値は可能な限り直前の有効な値で置き換えられます。"
+msgstr "入力テンソルと同じ形状で、NaN 値は可能な限り直前の有効な値で置き換えられます。"
 
 #: ../../api/qfeval_functions.functions.ffill.rst
 msgid "Return type"
@@ -76,7 +76,7 @@ msgid ""
 ">>> x = torch.tensor([1.0, nan, nan, 4.0, 5.0])\n"
 ">>> QF.ffill(x)\n"
 "tensor([1., 1., 1., 4., 5.])"
-msgstr ">>> # 単純な1次元の前方埋め\n>>> x = torch.tensor([1.0, nan, nan, 4.0, 5.0])\n>>> QF.ffill(x)\ntensor([1., 1., 1., 4., 5.])"
+msgstr ">>> # 単純な 1 次元の前方埋め\n>>> x = torch.tensor([1.0, nan, nan, 4.0, 5.0])\n>>> QF.ffill(x)\ntensor([1., 1., 1., 4., 5.])"
 
 #: of qfeval_functions.functions.ffill.ffill:29
 msgid ""
@@ -86,7 +86,7 @@ msgid ""
 ">>> QF.ffill(x, dim=1)\n"
 "tensor([[nan, 2., 2., 4.],\n"
 "        [5., 5., 5., 8.]])"
-msgstr ">>> # dim=1 を指定した2次元の例\n>>> x = torch.tensor([[nan, 2.0, nan, 4.0],\n...                   [5.0, nan, nan, 8.0]])\n>>> QF.ffill(x, dim=1)\ntensor([[nan, 2., 2., 4.],\n        [5., 5., 5., 8.]])"
+msgstr ">>> # dim=1 を指定した 2 次元の例\n>>> x = torch.tensor([[nan, 2.0, nan, 4.0],\n...                   [5.0, nan, nan, 8.0]])\n>>> QF.ffill(x, dim=1)\ntensor([[nan, 2., 2., 4.],\n        [5., 5., 5., 8.]])"
 
 #: of qfeval_functions.functions.ffill.ffill:36
 msgid ""
@@ -106,7 +106,7 @@ msgstr ":func:`bfill`: 欠損値を後方補完する関数。"
 
 #: of qfeval_functions.functions.ffill.ffill:46
 msgid ":func:`fillna`: Replace NaN/infinity values with fixed numbers."
-msgstr ":func:`fillna`: NaNや無限大を固定値で置き換える関数。"
+msgstr ":func:`fillna`: NaN や無限大を固定値で置き換える関数。"
 
 #~ msgid "Propagates last valid values forward."
 #~ msgstr "最後に有効な値を前方に伝播します。"

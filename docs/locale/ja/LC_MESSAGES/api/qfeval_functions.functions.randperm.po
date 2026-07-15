@@ -26,7 +26,7 @@ msgstr ""
 
 #: of qfeval_functions.functions.randperm.randperm:1
 msgid "Returns a random permutation of integers from ``0`` to ``n - 1``."
-msgstr "``0``\\ から\\ ``n - 1``\\ までの整数からなるランダムな順列を返します。"
+msgstr "``0`` から ``n - 1`` までの整数からなるランダムな順列を返します。"
 
 #: of qfeval_functions.functions.randperm.randperm:3
 msgid ""
@@ -63,7 +63,7 @@ msgstr "戻り値"
 msgid ""
 "A 1-dimensional tensor of length ``n`` containing a random permutation of"
 " the integers from ``0`` to ``n - 1``."
-msgstr "``0`` から ``n - 1`` までの整数のランダムな順列を含む、長さ ``n`` の1次元テンソル。"
+msgstr "``0`` から ``n - 1`` までの整数のランダムな順列を含む、長さ ``n`` の 1 次元テンソル。"
 
 #: ../../api/qfeval_functions.functions.randperm.rst
 msgid "Return type"
@@ -92,7 +92,7 @@ msgstr ":func:`rand`: 区間 [0, 1) 上の一様乱数。"
 
 #: of qfeval_functions.functions.randperm.randperm:34
 msgid "``torch.randperm``: PyTorch's built-in random permutation."
-msgstr "``torch.randperm``: PyTorchに組み込まれたランダム順列生成関数。"
+msgstr "``torch.randperm``: PyTorch に組み込まれたランダム順列生成関数。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"

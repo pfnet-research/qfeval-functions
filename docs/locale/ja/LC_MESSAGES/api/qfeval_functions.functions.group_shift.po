@@ -69,7 +69,7 @@ msgstr "シフト対象の入力テンソル。"
 msgid ""
 "The number of positions to shift. Positive values shift forward (toward "
 "higher indices), negative values shift backward. Default is 1."
-msgstr "シフトする位置の数。正の値は前方へシフト（高いインデックス方向へ）、負の値は後方へシフトします。デフォルト値は1です。"
+msgstr "シフトする位置の数。正の値は前方へシフト（高いインデックス方向へ）、負の値は後方へシフトします。デフォルト値は 1 です。"
 
 #: of qfeval_functions.functions.group_shift.group_shift:28
 msgid "The dimension along which to perform the shift. Default is 0."
@@ -80,10 +80,7 @@ msgid ""
 "A 1D boolean tensor where ``True`` indicates positions to include in the "
 "shift, and ``False`` indicates positions to skip. Length must equal "
 "``x.shape[dim]``. If not provided, :attr:`refdim` must be specified."
-msgstr ""
-"1次元のブールテンソルで、``True``\\ はシフト処理に含めるべき位置を示し、``False``\\ "
-"はスキップすべき位置を示します。長さは\\ ``x.shape[dim]``\\ "
-"と一致している必要があります。指定されていない場合、:attr:`refdim`\\ を指定する必要があります。"
+msgstr "1 次元のブールテンソルで、``True`` はシフト処理に含めるべき位置を示し、``False`` はスキップすべき位置を示します。長さは ``x.shape[dim]`` と一致している必要があります。指定されていない場合、:attr:`refdim` を指定する必要があります。"
 
 #: of qfeval_functions.functions.group_shift.group_shift:38
 msgid ""
@@ -110,7 +107,7 @@ msgstr "戻り値"
 msgid ""
 "A tensor of the same shape as the input, with elements shifted according "
 "to the mask. Unmasked positions contain NaN."
-msgstr "入力と同じ形状のテンソルで、マスクに従って要素がシフトされています。マスクされていない位置にはNaNが格納されます。"
+msgstr "入力と同じ形状のテンソルで、マスクに従って要素がシフトされています。マスクされていない位置には NaN が格納されます。"
 
 #: ../../api/qfeval_functions.functions.group_shift.rst
 msgid "Return type"
@@ -138,7 +135,7 @@ msgid ""
 ">>> shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)\n"
 ">>> shifted\n"
 "tensor([nan, nan, 1., nan, 2.])"
-msgstr ">>> # 既存のNaN値を含むシフト\n>>> x = torch.tensor([1.0, nan, 2.0, nan, 3.0])\n>>> mask = torch.tensor([True, False, True, False, True])\n>>> shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)\n>>> shifted\ntensor([nan, nan, 1., nan, 2.])"
+msgstr ">>> # 既存の NaN 値を含むシフト\n>>> x = torch.tensor([1.0, nan, 2.0, nan, 3.0])\n>>> mask = torch.tensor([True, False, True, False, True])\n>>> shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)\n>>> shifted\ntensor([nan, nan, 1., nan, 2.])"
 
 #: of qfeval_functions.functions.group_shift.group_shift:69
 msgid ""
@@ -152,7 +149,7 @@ msgid ""
 "tensor([[nan,  1., nan,  2.],\n"
 "        [nan,  5., nan,  6.],\n"
 "        [nan,  9., nan, 10.]])"
-msgstr ">>> # マスクを自動生成する2次元テンソル\n>>> x = torch.tensor([[1.0, 2.0, nan, 4.0],\n...                   [5.0, 6.0, nan, 8.0],\n...                   [9.0, 10., nan, 12.]])\n>>> # refdim=0 で最初の行のNaNパターンからマスクを生成\n>>> shifted = QF.group_shift(x, shift=1, dim=1, refdim=0)\n>>> shifted\ntensor([[nan,  1., nan,  2.],\n        [nan,  5., nan,  6.],\n        [nan,  9., nan, 10.]])"
+msgstr ">>> # マスクを自動生成する 2 次元テンソル\n>>> x = torch.tensor([[1.0, 2.0, nan, 4.0],\n...                   [5.0, 6.0, nan, 8.0],\n...                   [9.0, 10., nan, 12.]])\n>>> # refdim=0 で最初の行の NaN パターンからマスクを生成\n>>> shifted = QF.group_shift(x, shift=1, dim=1, refdim=0)\n>>> shifted\ntensor([[nan,  1., nan,  2.],\n        [nan,  5., nan,  6.],\n        [nan,  9., nan, 10.]])"
 
 #: of qfeval_functions.functions.group_shift.group_shift:80
 msgid ""
@@ -166,7 +163,7 @@ msgstr ":func:`shift`: グループ化を行わない標準のシフト関数。
 
 #: of qfeval_functions.functions.group_shift.group_shift:83
 msgid ":func:`nanshift`: Shift function that skips NaN values."
-msgstr ":func:`nanshift`: NaNをスキップするシフト関数。"
+msgstr ":func:`nanshift`: NaN をスキップするシフト関数。"
 
 #~ msgid ""
 #~ "This function applies shifts only for"

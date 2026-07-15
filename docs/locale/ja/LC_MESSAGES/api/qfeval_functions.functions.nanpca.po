@@ -26,7 +26,7 @@ msgstr ""
 
 #: of qfeval_functions.functions.nanpca.nanpca:1
 msgid "Compute Principal Component Analysis (PCA) on data, ignoring NaN values."
-msgstr "NaN値を無視して、データに対して主成分分析（PCA）を計算します。"
+msgstr "NaN 値を無視して、データに対して主成分分析（PCA）を計算します。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:3
 msgid ""
@@ -34,7 +34,7 @@ msgid ""
 "covariance matrix calculated with NaN-aware operations. PCA finds the "
 "principal components (eigenvectors) that capture the maximum variance in "
 "the data, ordered by their explained variance (eigenvalues)."
-msgstr "この関数は、NaNを考慮した演算で計算された共分散行列の固有値分解を行うことで主成分分析（PCA）を実行します。PCAは、データの分散を最もよく説明する主成分（固有ベクトル）を見つけ出し、それらを説明分散量（固有値）の降順に並べ替えます。"
+msgstr "この関数は、NaN を考慮した演算で計算された共分散行列の固有値分解を行うことで主成分分析（PCA）を実行します。PCA は、データの分散を最もよく説明する主成分（固有ベクトル）を見つけ出し、それらを説明分散量（固有値）の降順に並べ替えます。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:8
 msgid ""
@@ -48,7 +48,7 @@ msgstr ""
 
 #: of qfeval_functions.functions.nanpca.nanpca:13
 msgid "The mathematical formulation follows standard PCA:"
-msgstr "数学的定式化は標準的なPCAに従います："
+msgstr "数学的定式化は標準的な PCA に従います："
 
 #: of qfeval_functions.functions.nanpca.nanpca:15
 #, python-brace-format
@@ -147,17 +147,7 @@ msgid ""
 "torch.Size([1, 2, 2])\n"
 ">>> result.explained_variance.shape\n"
 "torch.Size([1, 2])"
-msgstr ""
-">>> # NaN値を含む単純な2次元PCA\n"
-">>> data = torch.tensor([[[1.0, 2.0],\n"
-"...                       [nan, 4.0],\n"
-"...                       [3.0, 6.0],\n"
-"...                       [4.0, nan]]])\n"
-">>> result = QF.nanpca(data)\n"
-">>> result.components.shape\n"
-"torch.Size([1, 2, 2])\n"
-">>> result.explained_variance.shape\n"
-"torch.Size([1, 2])"
+msgstr ">>> # NaN 値を含む単純な 2 次元 PCA\n>>> data = torch.tensor([[[1.0, 2.0],\n...                       [nan, 4.0],\n...                       [3.0, 6.0],\n...                       [4.0, nan]]])\n>>> result = QF.nanpca(data)\n>>> result.components.shape\ntorch.Size([1, 2, 2])\n>>> result.explained_variance.shape\ntorch.Size([1, 2])"
 
 #: of qfeval_functions.functions.nanpca.nanpca:56
 msgid ""
@@ -171,17 +161,7 @@ msgid ""
 "torch.Size([2, 3, 3])\n"
 ">>> result.explained_variance.shape\n"
 "torch.Size([2, 3])"
-msgstr ""
-">>> # 複数データセットのバッチ処理\n"
-">>> data = torch.randn(2, 10, 3)  # 2バッチ、10サンプル、3特徴量\n"
-">>> # NaN値をいくつか挿入\n"
-">>> data[0, 2, 1] = nan\n"
-">>> data[1, 5, :] = nan\n"
-">>> result = QF.nanpca(data)\n"
-">>> result.components.shape\n"
-"torch.Size([2, 3, 3])\n"
-">>> result.explained_variance.shape\n"
-"torch.Size([2, 3])"
+msgstr ">>> # 複数データセットのバッチ処理\n>>> data = torch.randn(2, 10, 3)  # 2 バッチ、10 サンプル、3 特徴量\n>>> # NaN 値をいくつか挿入\n>>> data[0, 2, 1] = nan\n>>> data[1, 5, :] = nan\n>>> result = QF.nanpca(data)\n>>> result.components.shape\ntorch.Size([2, 3, 3])\n>>> result.explained_variance.shape\ntorch.Size([2, 3])"
 
 #: of qfeval_functions.functions.nanpca.nanpca:67
 msgid ""
@@ -190,10 +170,7 @@ msgid ""
 "\n"
 ">>> first_variance = result.explained_variance[0, 0]  # Corresponding "
 "variance"
-msgstr ""
-">>> # 第1主成分へのアクセス\n"
-">>> first_pc = result.components[0, 0, :]  # 最初のバッチの第1主成分\n"
-">>> first_variance = result.explained_variance[0, 0]  # 対応する分散"
+msgstr ">>> # 第 1 主成分へのアクセス\n>>> first_pc = result.components[0, 0, :]  # 最初のバッチの第 1 主成分\n>>> first_variance = result.explained_variance[0, 0]  # 対応する分散"
 
 #: of qfeval_functions.functions.nanpca.nanpca:71
 msgid ""
@@ -218,18 +195,18 @@ msgid ""
 "If there are insufficient valid (non-NaN) observations to compute "
 "meaningful covariance estimates, the results may contain NaN values. "
 "Ensure adequate data coverage for reliable PCA results."
-msgstr "有意な共分散推定値を計算するのに十分な有効な観測値（NaNでない値）がない場合、結果にはNaN値が含まれる可能性があります。PCAの信頼性の高い結果を得るためには、十分なデータカバレッジを確保してください。"
+msgstr "有意な共分散推定値を計算するのに十分な有効な観測値（NaN でない値）がない場合、結果には NaN 値が含まれる可能性があります。PCA の信頼性の高い結果を得るためには、十分なデータカバレッジを確保してください。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:84
 msgid ""
 "The sign of each principal component is arbitrary: components are defined"
 " only up to sign, so an equivalent input may yield components multiplied "
 "by -1."
-msgstr "各主成分の符号は任意です。主成分は符号を除いてのみ定義されるため、等価な入力に対して-1倍された主成分が返されることがあります。"
+msgstr "各主成分の符号は任意です。主成分は符号を除いてのみ定義されるため、等価な入力に対して -1 倍された主成分が返されることがあります。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:89
 msgid ":func:`nancovar`: NaN-aware covariance computation."
-msgstr ":func:`nancovar`: NaNを考慮した共分散計算。"
+msgstr ":func:`nancovar`: NaN を考慮した共分散計算。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:90
 msgid ":func:`eigh`: Eigendecomposition for symmetric matrices."
@@ -237,7 +214,7 @@ msgstr ":func:`eigh`: 対称行列の固有値分解。"
 
 #: of qfeval_functions.functions.nanpca.nanpca:91
 msgid ":func:`nanmean`: NaN-aware mean used in covariance calculation."
-msgstr ":func:`nanmean`: 共分散計算で使用されるNaNを考慮した平均。"
+msgstr ":func:`nanmean`: 共分散計算で使用される NaN を考慮した平均。"
 
 #~ msgid ""
 #~ "The returned value represents principal "

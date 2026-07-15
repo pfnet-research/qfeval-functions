@@ -112,7 +112,7 @@ msgid ""
 "NaN values propagate in the direction of accumulation: because the "
 "accumulation runs from the end of the dimension, all positions at or "
 "before a NaN become NaN."
-msgstr "NaN値は累積の方向に伝播します。累積は次元の末尾から実行されるため、NaNと同じ位置およびそれより前のすべての位置がNaNになります。"
+msgstr "NaN 値は累積の方向に伝播します。累積は次元の末尾から実行されるため、NaN と同じ位置およびそれより前のすべての位置が NaN になります。"
 
 #: of qfeval_functions.functions.rcummax.rcummax:44
 msgid ":func:`rcumsum`: Reversely cumulative sum function."

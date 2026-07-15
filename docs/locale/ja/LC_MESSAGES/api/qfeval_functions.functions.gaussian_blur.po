@@ -35,7 +35,7 @@ msgid ""
 "weighted average of neighboring values, where weights follow a Gaussian "
 "(normal) distribution centered at each point. This is commonly used for "
 "noise reduction, data smoothing, and signal processing."
-msgstr "この関数は、指定された次元に沿って1次元ガウシアンフィルタを適用し、データを平滑化します。ガウシアンぼかし処理では、各点を中心としたガウシアン（正規）分布に従って重み付けされた近傍値の加重平均を計算します。これは主にノイズ低減、データ平滑化、および信号処理用途で使用されます。"
+msgstr "この関数は、指定された次元に沿って 1 次元ガウシアンフィルタを適用し、データを平滑化します。ガウシアンぼかし処理では、各点を中心としたガウシアン（正規）分布に従って重み付けされた近傍値の加重平均を計算します。これは主にノイズ低減、データ平滑化、および信号処理用途で使用されます。"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:9
 msgid ""
@@ -44,10 +44,7 @@ msgid ""
 "averages of the Gaussian function for improved accuracy, especially for "
 "small :attr:`sigma` values. This approach avoids undersampling issues and"
 " provides more accurate results."
-msgstr ""
-"一般的な実装手法（例えば\\ ``scipy.ndimage.gaussian_filter1d``\\ "
-"のような点サンプリング手法）とは異なり、この関数はガウス関数の区間平均を用いて精度を向上させています。特に :attr:`sigma` "
-"値が小さい場合に、この手法はサンプリング不足の問題を回避し、より正確な結果を提供します。"
+msgstr "一般的な実装手法（例えば ``scipy.ndimage.gaussian_filter1d`` のような点サンプリング手法）とは異なり、この関数はガウス関数の区間平均を用いて精度を向上させています。特に :attr:`sigma` 値が小さい場合に、この手法はサンプリング不足の問題を回避し、より正確な結果を提供します。"
 
 #: ../../api/qfeval_functions.functions.gaussian_blur.rst
 msgid "Parameters"
@@ -93,7 +90,7 @@ msgid ""
 ">>> x = torch.tensor([0., 0., 0., 10., 0., 0., 0.])\n"
 ">>> QF.gaussian_blur(x, sigma=1.0)\n"
 "tensor([0.0864, 0.6494, 2.4324, 3.8310, 2.4324, 0.6494, 0.0864])"
-msgstr ">>> # 単純な1次元ガウシアンブラー\n>>> x = torch.tensor([0., 0., 0., 10., 0., 0., 0.])\n>>> QF.gaussian_blur(x, sigma=1.0)\ntensor([0.0864, 0.6494, 2.4324, 3.8310, 2.4324, 0.6494, 0.0864])"
+msgstr ">>> # 単純な 1 次元ガウシアンブラー\n>>> x = torch.tensor([0., 0., 0., 10., 0., 0., 0.])\n>>> QF.gaussian_blur(x, sigma=1.0)\ntensor([0.0864, 0.6494, 2.4324, 3.8310, 2.4324, 0.6494, 0.0864])"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:39
 msgid ""
@@ -108,7 +105,7 @@ msgid ""
 "tensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n"
 "        [0.0000, 0.0621, 9.8758, 0.0621, 0.0000],\n"
 "        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000]])"
-msgstr ">>> # 2次元テンソル: 異なる次元に沿ったブラー\n>>> x = torch.zeros(3, 5)\n>>> x[1, 2] = 10.0\n>>> QF.gaussian_blur(x, sigma=0.2, dim=0)  # 行方向のブラー\ntensor([[0.0000, 0.0000, 0.0625, 0.0000, 0.0000],\n        [0.0000, 0.0000, 9.8758, 0.0000, 0.0000],\n        [0.0000, 0.0000, 0.0625, 0.0000, 0.0000]])\n>>> QF.gaussian_blur(x, sigma=0.2, dim=1)  # 列方向のブラー\ntensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n        [0.0000, 0.0621, 9.8758, 0.0621, 0.0000],\n        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000]])"
+msgstr ">>> # 2 次元テンソル: 異なる次元に沿ったブラー\n>>> x = torch.zeros(3, 5)\n>>> x[1, 2] = 10.0\n>>> QF.gaussian_blur(x, sigma=0.2, dim=0)  # 行方向のブラー\ntensor([[0.0000, 0.0000, 0.0625, 0.0000, 0.0000],\n        [0.0000, 0.0000, 9.8758, 0.0000, 0.0000],\n        [0.0000, 0.0000, 0.0625, 0.0000, 0.0000]])\n>>> QF.gaussian_blur(x, sigma=0.2, dim=1)  # 列方向のブラー\ntensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n        [0.0000, 0.0621, 9.8758, 0.0621, 0.0000],\n        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000]])"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:51
 msgid ":func:`ma`: Simple moving average, another smoothing function."

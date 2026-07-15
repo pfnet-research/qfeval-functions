@@ -35,10 +35,7 @@ msgid ""
 "are placed at a distance of :attr:`sigma` standard deviations from the "
 "middle band. This indicator is commonly used in financial analysis to "
 "identify potential support and resistance levels."
-msgstr ""
-"ボリンジャーバンドは、テクニカル分析ツールの一種で、中心バンド（移動平均線）と上下2本のバンドで構成されます。上下バンドは、中心バンドから "
-":attr:`sigma` "
-"標準偏差の距離に配置されます。この指標は金融分析において一般的に使用され、潜在的なサポートレベルやレジスタンスレベルを識別するために用いられます。"
+msgstr "ボリンジャーバンドは、テクニカル分析ツールの一種で、中心バンド（移動平均線）と上下 2 本のバンドで構成されます。上下バンドは、中心バンドから :attr:`sigma` 標準偏差の距離に配置されます。この指標は金融分析において一般的に使用され、潜在的なサポートレベルやレジスタンスレベルを識別するために用いられます。"
 
 #: ../../api/qfeval_functions.functions.bollinger_band.rst
 msgid "Parameters"
@@ -52,19 +49,19 @@ msgstr "時系列データを含む入力テンソル。"
 msgid ""
 "The size of the moving window for calculating the moving average and "
 "standard deviation. Default is 20."
-msgstr "移動平均と標準偏差を算出するための移動ウィンドウのサイズ。デフォルト値は20です。"
+msgstr "移動平均と標準偏差を算出するための移動ウィンドウのサイズ。デフォルト値は 20 です。"
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:18
 msgid ""
 "The number of standard deviations for the upper and lower bands. Default "
 "is 2.0."
-msgstr "上バンドと下バンドの標準偏差の数。デフォルト値は2.0です。"
+msgstr "上バンドと下バンドの標準偏差の数。デフォルト値は 2.0 です。"
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:22
 msgid ""
 "The dimension along which to compute the Bollinger Bands. Default is -1 "
 "(the last dimension)."
-msgstr "ボリンジャーバンドを計算する次元。デフォルトは-1（最後の次元）です。"
+msgstr "ボリンジャーバンドを計算する次元。デフォルトは -1（最後の次元）です。"
 
 #: ../../api/qfeval_functions.functions.bollinger_band.rst
 msgid "Returns"
@@ -79,7 +76,7 @@ msgstr ""
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:26
 msgid "A tuple containing three tensors of the same shape as the input:"
-msgstr "入力と同じ形状の3つのテンソルを含むタプル:"
+msgstr "入力と同じ形状の 3 つのテンソルを含むタプル:"
 
 #: of qfeval_functions.functions.bollinger_band.bollinger_band:28
 msgid "Upper band: middle band + (sigma * standard deviation)"

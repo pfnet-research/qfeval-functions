@@ -103,7 +103,7 @@ msgid ""
 "If a window contains any NaN value, the moving sum for that window is "
 "NaN. Unlike ``pandas.DataFrame.rolling``, there is no "
 "``min_periods``-style option to skip NaN values."
-msgstr "ウィンドウ内にNaN値が1つでも含まれる場合、そのウィンドウの移動和はNaNになります。``pandas.DataFrame.rolling`` とは異なり、NaN値をスキップする ``min_periods`` のようなオプションはありません。"
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動和は NaN になります。``pandas.DataFrame.rolling`` とは異なり、NaN 値をスキップする ``min_periods`` のようなオプションはありません。"
 
 #: of qfeval_functions.functions.msum.msum:41
 msgid ":func:`ma`: Moving average function (this divided by the window size)."

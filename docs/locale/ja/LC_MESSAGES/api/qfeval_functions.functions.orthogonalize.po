@@ -33,9 +33,7 @@ msgid ""
 "This function subtracts from ``x`` its orthogonal projection onto ``y``, "
 "so that the result is orthogonal to ``y`` along ``dim`` (i.e., their dot "
 "product along ``dim`` is zero):"
-msgstr ""
-"この関数は ``x`` から ``y`` への正射影を差し引くことで、結果が ``dim`` に沿って ``y`` と直交する（すなわち "
-"``dim`` に沿った内積が0になる）ようにします:"
+msgstr "この関数は ``x`` から ``y`` への正射影を差し引くことで、結果が ``dim`` に沿って ``y`` と直交する（すなわち ``dim`` に沿った内積が 0 になる）ようにします:"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:7
 #, python-brace-format
@@ -125,7 +123,7 @@ msgstr ""
 msgid ""
 "If :attr:`y` is a zero vector along the dimension, the projection "
 "involves division by zero and the result is NaN."
-msgstr ":attr:`y` が次元に沿ってゼロベクトルの場合、射影の計算でゼロ除算が発生し、結果はNaNになります。"
+msgstr ":attr:`y` が次元に沿ってゼロベクトルの場合、射影の計算でゼロ除算が発生し、結果は NaN になります。"
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:49
 msgid ":func:`orthonormalize`: Orthonormalize a set of vectors."

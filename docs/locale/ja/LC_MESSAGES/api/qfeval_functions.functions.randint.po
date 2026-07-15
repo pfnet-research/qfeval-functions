@@ -51,7 +51,7 @@ msgstr "分布から取り出される最小の整数（含む）。"
 msgid ""
 "One above the highest integer to be drawn from the distribution "
 "(exclusive)."
-msgstr "分布から取り出される最大の整数に1を加えた値（含まない）。"
+msgstr "分布から取り出される最大の整数に 1 を加えた値（含まない）。"
 
 #: of qfeval_functions.functions.randint.randint:16
 msgid "A tuple defining the shape of the output tensor."
@@ -110,7 +110,7 @@ msgstr ":func:`randperm`: 整数のランダムな順列。"
 
 #: of qfeval_functions.functions.randint.randint:44
 msgid "``torch.randint``: PyTorch's built-in random integer generator."
-msgstr "``torch.randint``: PyTorchに組み込まれたランダム整数生成関数。"
+msgstr "``torch.randint``: PyTorch に組み込まれたランダム整数生成関数。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"

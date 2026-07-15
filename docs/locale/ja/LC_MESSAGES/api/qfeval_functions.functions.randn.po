@@ -29,7 +29,7 @@ msgid ""
 "Returns a tensor filled with random numbers from a normal distribution "
 "with mean 0 and variance 1 (also called the standard normal "
 "distribution)."
-msgstr "平均0、分散1の正規分布（標準正規分布とも呼ばれます）に従う乱数で埋められたテンソルを返します。"
+msgstr "平均 0、分散 1 の正規分布（標準正規分布とも呼ばれます）に従う乱数で埋められたテンソルを返します。"
 
 #: of qfeval_functions.functions.randn.randn:4
 msgid ""

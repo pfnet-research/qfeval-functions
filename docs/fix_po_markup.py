@@ -1,15 +1,14 @@
-"""Fix reST markup issues in translated .po files.
+"""Fix reST markup and spacing issues in translated .po files.
 
-This script post-processes translated ``.po`` files to fix two classes of
-problems that break the rendered Japanese documentation:
+This script post-processes translated ``.po`` files to fix three classes of
+problems in the rendered Japanese documentation:
 
 1. Inline markup adjacency: docutils only recognizes inline markup (e.g.
    ``...``, :func:`...`) when it is delimited by whitespace or certain
    punctuation.  Japanese translations often place markup directly next to
    Japanese characters (e.g. この関数は``-mmax(-x)``として), which makes
-   docutils render the raw backticks.  This script inserts escaped spaces
-   ("\\ ") around inline markup where needed; escaped whitespace is removed
-   from the rendered output.
+   docutils render the raw backticks.  This script inserts spaces around
+   inline markup where needed.
 
 2. Flattened composite messages: Sphinx's gettext builder extracts a field
    body that contains a nested bullet list (e.g. a "Returns:" section
@@ -18,6 +17,14 @@ problems that break the rendered Japanese documentation:
    translation replaces the whole structure and the list renders as flat
    text.  This script empties such translations so that Sphinx falls back to
    the per-element translations, preserving the list structure.
+
+3. Japanese/Latin spacing: following common Japanese technical writing
+   style, a half-width space is inserted between Japanese characters and
+   half-width alphanumerics (e.g. NaNになります -> NaN になります), and
+   spaces adjacent to Japanese punctuation (、。（）etc.) are removed.
+   Inline markup that would touch punctuation is delimited with an escaped
+   space ("\\ ") instead, which renders without a visible space.  In
+   doctest blocks, only the ``#`` comment parts are adjusted.
 """
 
 import argparse
@@ -44,6 +51,31 @@ INLINE_MARKUP_RE = re.compile(
     r"|`[^`\n]+`_{0,2}"  # title reference or link, e.g. `dim` / `x`_
 )
 
+# Japanese characters that participate in spacing: kana, iteration marks,
+# and CJK ideographs.  Punctuation (、。（）：etc.) is deliberately excluded
+# so that no space is inserted next to it.
+JA_CHAR = "[々〆ぁ-ゟ゠-ヿ" "㐀-䶿一-鿿豈-﫿]"
+# Half-width characters that should be separated from Japanese characters:
+# alphanumerics, Greek letters and the plus-minus sign.
+HW_CHAR = "[0-9A-Za-z±Ͱ-Ͽ]"
+JA_SPACING_RES = [
+    # Japanese character followed by a half-width character (optionally a
+    # signed number, e.g. デフォルトは-1).
+    re.compile(f"({JA_CHAR})([-+±]?{HW_CHAR})"),
+    # Half-width character followed by a Japanese character.
+    re.compile(f"({HW_CHAR})({JA_CHAR})"),
+]
+# Japanese punctuation must not be surrounded by spaces.
+JA_PUNCT = "、。（）「」『』：；！？・"
+JA_PUNCT_SPACE_RES = [
+    re.compile(f"([{JA_PUNCT}]) +"),
+    re.compile(f" +([{JA_PUNCT}])"),
+]
+# Characters that take a regular (visible) space when adjacent to inline
+# markup; any other character takes an escaped space ("\\ "), which is
+# removed from the rendered output.
+WORD_CHAR_RE = re.compile(f"{JA_CHAR}|{HW_CHAR}")
+
 # docutils inline markup recognition rules:
 # https://docutils.sourceforge.io/docs/ref/rst/restructuredtext.html#inline-markup-recognition-rules
 OPENERS = set("-:/'\"<([{")
@@ -68,18 +100,59 @@ def _may_follow_markup(ch: str) -> bool:
     )
 
 
+def _markup_separator(ch: str) -> str:
+    """Return the separator to insert between inline markup and ``ch``.
+
+    Word-like characters get a regular space (visible in the output);
+    punctuation and other symbols get an escaped space ("\\ "), which
+    delimits the markup without rendering a space.
+    """
+    return " " if WORD_CHAR_RE.fullmatch(ch) else "\\ "
+
+
 def fix_inline_markup_adjacency(text: str) -> str:
-    """Insert escaped spaces around inline markup adjacent to CJK text."""
-    insertions: List[int] = []
+    """Insert spaces around inline markup adjacent to CJK text."""
+    insertions: List[Tuple[int, str]] = []
     for match in INLINE_MARKUP_RE.finditer(text):
         start, end = match.span()
         if start > 0 and not _may_precede_markup(text[start - 1]):
-            insertions.append(start)
+            insertions.append((start, _markup_separator(text[start - 1])))
         if end < len(text) and not _may_follow_markup(text[end]):
-            insertions.append(end)
-    for pos in sorted(insertions, reverse=True):
-        text = text[:pos] + "\\ " + text[pos:]
+            insertions.append((end, _markup_separator(text[end])))
+    for pos, separator in sorted(insertions, reverse=True):
+        text = text[:pos] + separator + text[pos:]
     return text
+
+
+def _space_ja_text(text: str) -> str:
+    """Insert spaces between Japanese characters and alphanumerics."""
+    for pattern in JA_PUNCT_SPACE_RES:
+        text = pattern.sub(r"\1", text)
+    for pattern in JA_SPACING_RES:
+        text = pattern.sub(r"\1 \2", text)
+    return text
+
+
+def add_ja_spacing(text: str) -> str:
+    """Apply Japanese/Latin spacing outside inline markup spans."""
+    parts: List[str] = []
+    last = 0
+    for match in INLINE_MARKUP_RE.finditer(text):
+        parts.append(_space_ja_text(text[last : match.start()]))
+        parts.append(match.group(0))
+        last = match.end()
+    parts.append(_space_ja_text(text[last:]))
+    return "".join(parts)
+
+
+def space_code_block_comments(text: str) -> str:
+    """Apply Japanese/Latin spacing to ``#`` comments in doctest blocks."""
+    lines = text.split("\n")
+    for i, line in enumerate(lines):
+        match = re.match(r"^(\s*(?:>>>|\.\.\.)\s[^#]*)(#.*)$", line)
+        if match:
+            lines[i] = match.group(1) + _space_ja_text(match.group(2))
+    return "\n".join(lines)
 
 
 def _is_code_block(msgid: str) -> bool:
@@ -99,13 +172,16 @@ def fix_msgstr(msgid: str, msgstr: str) -> str:
         # is well-formed by construction.
         return msgstr
     if _is_code_block(msgid) or _is_code_block(msgstr):
-        # Code blocks are rendered literally; escaped spaces would corrupt
-        # the code.
-        return msgstr
+        # Code blocks are rendered literally; only adjust their comments.
+        return space_code_block_comments(msgstr)
     if "\\`" in msgstr:
         # Escaped backticks (e.g. in :sphinx_autodoc_typehints_type: roles)
         # are beyond what INLINE_MARKUP_RE can parse reliably.
         return msgstr
+    # Escaped spaces ("\ ") inserted by earlier runs render as no space at
+    # all; replace them with regular spaces to match the spacing style.
+    msgstr = msgstr.replace("\\ ", " ")
+    msgstr = add_ja_spacing(msgstr)
     return fix_inline_markup_adjacency(msgstr)
 
 

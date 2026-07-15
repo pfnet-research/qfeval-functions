@@ -23,7 +23,7 @@ msgstr ""
 
 #: of qfeval_functions.functions.nanvar.nanvar:1
 msgid "Compute the variance of a tensor, ignoring NaN values."
-msgstr "NaN値を無視してテンソルの分散を計算します。"
+msgstr "NaN 値を無視してテンソルの分散を計算します。"
 
 #: of qfeval_functions.functions.nanvar.nanvar:3
 msgid ""
@@ -55,9 +55,7 @@ msgid ""
 "If ``True`` (default), uses Bessel's correction and divides by ``N-1`` "
 "where ``N`` is the number of non-NaN elements. If ``False``, divides by "
 "``N``."
-msgstr ""
-"デフォルト値の\\ ``True``\\ の場合、ベッセル補正を適用し、非NaN要素の数を\\ ``N``\\ として\\ ``N-1``\\ "
-"で除算します。``False``\\ の場合、``N``\\ で除算します。"
+msgstr "デフォルト値の ``True`` の場合、ベッセル補正を適用し、非 NaN 要素の数を ``N`` として ``N-1`` で除算します。``False`` の場合、``N`` で除算します。"
 
 #: of qfeval_functions.functions.nanvar.nanvar:22
 msgid ""
@@ -76,7 +74,7 @@ msgstr "戻り値"
 msgid ""
 "The variance of non-NaN elements. The shape depends on the :attr:`dim` "
 "and :attr:`keepdim` parameters."
-msgstr "非NaN要素の分散。形状は :attr:`dim` と :attr:`keepdim` パラメータに依存します。"
+msgstr "非 NaN 要素の分散。形状は :attr:`dim` と :attr:`keepdim` パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.nanvar.rst
 msgid "Return type"
@@ -107,7 +105,7 @@ msgid ""
 "...                   [4.0, nan, 6.0]])\n"
 ">>> QF.nanvar(x, dim=1)\n"
 "tensor([0.5000, 2.0000])"
-msgstr ">>> # 次元を指定した2次元テンソル\n>>> x = torch.tensor([[1.0, 2.0, nan],\n...                   [4.0, nan, 6.0]])\n>>> QF.nanvar(x, dim=1)\ntensor([0.5000, 2.0000])"
+msgstr ">>> # 次元を指定した 2 次元テンソル\n>>> x = torch.tensor([[1.0, 2.0, nan],\n...                   [4.0, nan, 6.0]])\n>>> QF.nanvar(x, dim=1)\ntensor([0.5000, 2.0000])"
 
 #: of qfeval_functions.functions.nanvar.nanvar:48
 msgid ""
@@ -119,19 +117,19 @@ msgstr ">>> # 次元を保持\n>>> QF.nanvar(x, dim=1, keepdim=True)\ntensor([[0
 
 #: of qfeval_functions.functions.nanvar.nanvar:53
 msgid ":func:`nanmean`: NaN-aware mean function."
-msgstr ":func:`nanmean`: NaNを考慮した平均関数。"
+msgstr ":func:`nanmean`: NaN を考慮した平均関数。"
 
 #: of qfeval_functions.functions.nanvar.nanvar:54
 msgid ":func:`nanskew`: NaN-aware skewness function."
-msgstr ":func:`nanskew`: NaNを考慮した歪度関数。"
+msgstr ":func:`nanskew`: NaN を考慮した歪度関数。"
 
 #: of qfeval_functions.functions.nanvar.nanvar:55
 msgid ":func:`nankurtosis`: NaN-aware kurtosis function."
-msgstr ":func:`nankurtosis`: NaNを考慮した尖度関数。"
+msgstr ":func:`nankurtosis`: NaN を考慮した尖度関数。"
 
 #: of qfeval_functions.functions.nanvar.nanvar:56
 msgid "``torch.var``: Standard variance function (NaN propagates)."
-msgstr "``torch.var``: 標準の分散関数（NaNは伝播します）。"
+msgstr "``torch.var``: 標準の分散関数（NaN は伝播します）。"
 
 #~ msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
 #~ msgstr "各行の平均値を返しますが、Not a Numbers (NaNs) は無視します。"

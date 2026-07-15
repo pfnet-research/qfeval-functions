@@ -28,7 +28,7 @@ msgstr ""
 msgid ""
 "Shifts array elements along specified dimensions, filling vacated "
 "positions with NaN."
-msgstr "指定された次元に沿って配列要素をシフトし、空いた位置をNaNで埋めます。"
+msgstr "指定された次元に沿って配列要素をシフトし、空いた位置を NaN で埋めます。"
 
 #: of qfeval_functions.functions.shift.shift:4
 msgid ""
@@ -38,11 +38,7 @@ msgid ""
 ":meth:`pandas.DataFrame.shift` and is useful for creating lagged (or "
 "leading) time series.  A positive shift moves elements toward larger "
 "indices, and a negative shift moves them toward smaller indices."
-msgstr ""
-"この関数は :func:`torch.roll` "
-"と同様に動作しますが、境界を越えてシフトされた要素は循環せず、空いた位置はNaNで埋められます。これは "
-":meth:`pandas.DataFrame.shift` "
-"の動作と一致しており、ラグ付き（または先行）時系列の作成に有用です。正のシフトは要素をより大きいインデックスの方向へ、負のシフトはより小さいインデックスの方向へ移動させます。"
+msgstr "この関数は :func:`torch.roll` と同様に動作しますが、境界を越えてシフトされた要素は循環せず、空いた位置は NaN で埋められます。これは :meth:`pandas.DataFrame.shift` の動作と一致しており、ラグ付き（または先行）時系列の作成に有用です。正のシフトは要素をより大きいインデックスの方向へ、負のシフトはより小さいインデックスの方向へ移動させます。"
 
 #: ../../api/qfeval_functions.functions.shift.rst
 msgid "Parameters"
@@ -52,7 +48,7 @@ msgstr "パラメータ"
 msgid ""
 "The input tensor.  It should have a floating-point dtype because vacated "
 "positions are filled with NaN."
-msgstr "入力テンソル。空いた位置はNaNで埋められるため、浮動小数点のdtypeを持つ必要があります。"
+msgstr "入力テンソル。空いた位置は NaN で埋められるため、浮動小数点の dtype を持つ必要があります。"
 
 #: of qfeval_functions.functions.shift.shift:16
 msgid ""
@@ -60,9 +56,7 @@ msgid ""
 " the same shift is applied to all dimensions in ``dims``.  Shifts whose "
 "magnitudes exceed the dimension size are clamped to the dimension size "
 "(i.e., the result becomes all NaN)."
-msgstr ""
-"要素をシフトする量。intの場合、``dims`` "
-"のすべての次元に同じシフト量が適用されます。シフト量の絶対値が次元のサイズを超える場合は次元のサイズに丸められます（すなわち、結果はすべてNaNになります）。"
+msgstr "要素をシフトする量。int の場合、``dims`` のすべての次元に同じシフト量が適用されます。シフト量の絶対値が次元のサイズを超える場合は次元のサイズに丸められます（すなわち、結果はすべて NaN になります）。"
 
 #: of qfeval_functions.functions.shift.shift:23
 msgid ""
@@ -78,7 +72,7 @@ msgstr "戻り値"
 msgid ""
 "A tensor of the same shape as the input, with elements shifted and "
 "vacated positions filled with NaN."
-msgstr "要素がシフトされ、空いた位置がNaNで埋められた、入力と同じ形状のテンソル。"
+msgstr "要素がシフトされ、空いた位置が NaN で埋められた、入力と同じ形状のテンソル。"
 
 #: ../../api/qfeval_functions.functions.shift.rst
 msgid "Return type"
@@ -111,7 +105,7 @@ msgstr ">>> x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])\n>>> QF.shift(x, (1, 1), 
 
 #: of qfeval_functions.functions.shift.shift:46
 msgid ":func:`nanshift`: Shift function that skips NaN values."
-msgstr ":func:`nanshift`: NaNをスキップするシフト関数。"
+msgstr ":func:`nanshift`: NaN をスキップするシフト関数。"
 
 #: of qfeval_functions.functions.shift.shift:47
 msgid ":func:`group_shift`: Shift operation within groups."

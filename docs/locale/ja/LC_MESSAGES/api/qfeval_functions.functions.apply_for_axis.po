@@ -28,7 +28,7 @@ msgstr ""
 msgid ""
 "Apply a function expecting 2D input to a tensor along a specified "
 "dimension."
-msgstr "指定された次元に沿って、2次元入力を想定した関数をテンソルに適用します。"
+msgstr "指定された次元に沿って、2 次元入力を想定した関数をテンソルに適用します。"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:4
 msgid ""
@@ -38,9 +38,7 @@ msgid ""
 " the function, and then restoring the original shape. This is "
 "particularly useful for implementing dimension-aware operations without "
 "explicitly handling different tensor shapes."
-msgstr ""
-"このユーティリティ関数は、形状が ``(batch, n)`` "
-"の2次元テンソルを想定した関数を、任意の次元のテンソルに適用することを可能にします。具体的には、指定された次元以外のすべての次元を平坦化し、関数を適用した後、元の形状に復元します。この処理は、異なるテンソル形状を明示的に処理することなく、次元を意識した操作を実装する際に特に有用です。"
+msgstr "このユーティリティ関数は、形状が ``(batch, n)`` の 2 次元テンソルを想定した関数を、任意の次元のテンソルに適用することを可能にします。具体的には、指定された次元以外のすべての次元を平坦化し、関数を適用した後、元の形状に復元します。この処理は、異なるテンソル形状を明示的に処理することなく、次元を意識した操作を実装する際に特に有用です。"
 
 #: ../../api/qfeval_functions.functions.apply_for_axis.rst
 msgid "Parameters"
@@ -51,9 +49,7 @@ msgid ""
 "A function that expects a 2D tensor of shape ``(batch, n)`` as input and "
 "returns a tensor where the batch dimension is preserved. The function "
 "must be dimension-preserving along the batch dimension."
-msgstr ""
-"入力として形状が\\ ``(batch, n)``\\ "
-"の2次元テンソルを想定し、バッチ次元が保持されたテンソルを返す関数です。関数はバッチ次元に沿って次元を保持する必要があります。"
+msgstr "入力として形状が ``(batch, n)`` の 2 次元テンソルを想定し、バッチ次元が保持されたテンソルを返す関数です。関数はバッチ次元に沿って次元を保持する必要があります。"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:17
 msgid "The input tensor of arbitrary dimensions to process."
@@ -96,7 +92,7 @@ msgid ""
 "        [[ 7.,  8.],\n"
 "         [16., 18.],\n"
 "         [27., 30.]]])"
-msgstr ">>> # 3次元テンソルの次元1に沿って適用\n>>> x = torch.tensor([[[1., 2.], [3., 4.], [5., 6.]],\n...                   [[7., 8.], [9., 10.], [11., 12.]]])\n>>> QF.apply_for_axis(lambda x: x.cumsum(dim=1), x, dim=1)\ntensor([[[ 1.,  2.],\n         [ 4.,  6.],\n         [ 9., 12.]],\n\n        [[ 7.,  8.],\n         [16., 18.],\n         [27., 30.]]])"
+msgstr ">>> # 3 次元テンソルの次元 1 に沿って適用\n>>> x = torch.tensor([[[1., 2.], [3., 4.], [5., 6.]],\n...                   [[7., 8.], [9., 10.], [11., 12.]]])\n>>> QF.apply_for_axis(lambda x: x.cumsum(dim=1), x, dim=1)\ntensor([[[ 1.,  2.],\n         [ 4.,  6.],\n         [ 9., 12.]],\n\n        [[ 7.,  8.],\n         [16., 18.],\n         [27., 30.]]])"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:43
 msgid ""
@@ -109,7 +105,7 @@ msgid ""
 ">>> QF.apply_for_axis(normalize_columns, x, dim=0)\n"
 "tensor([[0.1667, 0.3333, 0.5000],\n"
 "        [0.2667, 0.3333, 0.4000]])"
-msgstr ">>> # 単純な2次元の例: 列方向に関数を適用（dim=0）\n>>> x = torch.tensor([[1., 2., 3.],\n...                   [4., 5., 6.]])\n>>> def normalize_columns(x):\n...     # 各列を合計1に正規化\n...     return x / x.sum(dim=0, keepdim=True)\n>>> QF.apply_for_axis(normalize_columns, x, dim=0)\ntensor([[0.1667, 0.3333, 0.5000],\n        [0.2667, 0.3333, 0.4000]])"
+msgstr ">>> # 単純な 2 次元の例: 列方向に関数を適用（dim=0）\n>>> x = torch.tensor([[1., 2., 3.],\n...                   [4., 5., 6.]])\n>>> def normalize_columns(x):\n...     # 各列を合計 1 に正規化\n...     return x / x.sum(dim=0, keepdim=True)\n>>> QF.apply_for_axis(normalize_columns, x, dim=0)\ntensor([[0.1667, 0.3333, 0.5000],\n        [0.2667, 0.3333, 0.4000]])"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:53
 msgid ""
@@ -122,11 +118,11 @@ msgstr ""
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:58
 msgid ":func:`skipna`: Applies a function to values after removing NaNs."
-msgstr ":func:`skipna`: NaNを除去してから関数を適用します。"
+msgstr ":func:`skipna`: NaN を除去してから関数を適用します。"
 
 #: of qfeval_functions.functions.apply_for_axis.apply_for_axis:59
 msgid "``torch.vmap``: PyTorch's vectorizing map over a batch dimension."
-msgstr "``torch.vmap``: PyTorchのバッチ次元に対するベクトル化マップ。"
+msgstr "``torch.vmap``: PyTorch のバッチ次元に対するベクトル化マップ。"
 
 #~ msgid ""
 #~ "Applies the given data `x` into "

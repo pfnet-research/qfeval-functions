@@ -34,7 +34,7 @@ msgid ""
 "symmetric or complex Hermitian matrix. The eigenvalues are returned in "
 "ascending order, and the corresponding eigenvectors are normalized. This "
 "implementation uses NumPy for CPU tensors and CuPy for CUDA tensors."
-msgstr "この関数は、実対称行列または複素エルミート行列の固有値と固有ベクトルを計算します。固有値は昇順に返され、対応する固有ベクトルは正規化されます。この実装では、CPUテンソルにはNumPyを、CUDAテンソルにはCuPyを使用しています。"
+msgstr "この関数は、実対称行列または複素エルミート行列の固有値と固有ベクトルを計算します。固有値は昇順に返され、対応する固有ベクトルは正規化されます。この実装では、CPU テンソルには NumPy を、CUDA テンソルには CuPy を使用しています。"
 
 #: of qfeval_functions.functions.eigh.eigh:9
 msgid "This function does not support automatic differentiation (autograd)."
@@ -57,9 +57,7 @@ msgid ""
 "A symmetric (if real) or Hermitian (if complex) matrix of shape ``(..., "
 "N, N)``. Only the upper or lower triangular part is used, depending on "
 "the :attr:`uplo` parameter."
-msgstr ""
-"形状が ``(..., N, N)`` の対称行列（実数の場合）またはエルミート行列（複素数の場合）。 :attr:`uplo` "
-"パラメータに応じて、上三角部分または下三角部分が使用されます。"
+msgstr "形状が ``(..., N, N)`` の対称行列（実数の場合）またはエルミート行列（複素数の場合）。:attr:`uplo` パラメータに応じて、上三角部分または下三角部分が使用されます。"
 
 #: of qfeval_functions.functions.eigh.eigh:23
 msgid ""
@@ -162,11 +160,11 @@ msgstr ""
 msgid ""
 ":func:`nanpca`: NaN-aware principal component analysis using this "
 "function."
-msgstr ":func:`nanpca`: この関数を使用する、NaNを考慮した主成分分析。"
+msgstr ":func:`nanpca`: この関数を使用する、NaN を考慮した主成分分析。"
 
 #: of qfeval_functions.functions.eigh.eigh:59
 msgid "``torch.linalg.eigh``: PyTorch's built-in eigendecomposition."
-msgstr "``torch.linalg.eigh``: PyTorchに組み込まれた固有値分解。"
+msgstr "``torch.linalg.eigh``: PyTorch に組み込まれた固有値分解。"
 
 #~ msgid ""
 #~ ":sphinx_autodoc_typehints_type:`\\:py\\:data\\:\\`\\~typing.Tuple\\`\\\\"

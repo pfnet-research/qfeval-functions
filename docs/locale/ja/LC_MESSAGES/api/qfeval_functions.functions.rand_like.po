@@ -54,7 +54,7 @@ msgstr "出力テンソルの形状、dtype、デバイスを決定する入力�
 msgid ""
 "The desired data type of the returned tensor. Default is the dtype of "
 "``input``."
-msgstr "返されるテンソルの望ましいデータ型。デフォルトは ``input`` のdtypeです。"
+msgstr "返されるテンソルの望ましいデータ型。デフォルトは ``input`` の dtype です。"
 
 #: of qfeval_functions.functions.rand_like.rand_like:17
 msgid ""

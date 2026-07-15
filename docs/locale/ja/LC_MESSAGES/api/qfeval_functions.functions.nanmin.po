@@ -28,7 +28,7 @@ msgstr ""
 msgid ""
 "Return the minimum values and indices along a dimension, ignoring NaN "
 "values."
-msgstr "NaN値を無視して、指定された次元に沿って最小値とそのインデックスを返します。"
+msgstr "NaN 値を無視して、指定された次元に沿って最小値とそのインデックスを返します。"
 
 #: of qfeval_functions.functions.nanmin.nanmin:3
 msgid ""
@@ -36,9 +36,7 @@ msgid ""
 "excluding NaN values from consideration. It returns both the minimum "
 "values and their corresponding indices in the original tensor. This is "
 "similar to ``torch.min`` but with NaN-aware behavior."
-msgstr ""
-"この関数は、指定された次元に沿って最小値を計算し、NaN値を計算対象から除外します。元のテンソルにおける最小値とその対応するインデックスの両方を返します。これは\\"
-" ``torch.min``\\ と似ていますが、NaN値を考慮した動作をします。"
+msgstr "この関数は、指定された次元に沿って最小値を計算し、NaN 値を計算対象から除外します。元のテンソルにおける最小値とその対応するインデックスの両方を返します。これは ``torch.min`` と似ていますが、NaN 値を考慮した動作をします。"
 
 #: of qfeval_functions.functions.nanmin.nanmin:8
 msgid "The function handles edge cases including:"
@@ -50,7 +48,7 @@ msgstr "純粋な NaN スライス（値は NaN として返されます）"
 
 #: of qfeval_functions.functions.nanmin.nanmin:11
 msgid "Mixed NaN and positive infinity values"
-msgstr "NaN値と正の無限大値が混在している場合"
+msgstr "NaN 値と正の無限大値が混在している場合"
 
 #: of qfeval_functions.functions.nanmin.nanmin:12
 msgid "All positive infinity values (returns positive infinity)"
@@ -95,9 +93,7 @@ msgid ""
 "``values`` (Tensor): The minimum values along the specified dimension, "
 "with NaN values ignored. If a slice contains only NaN values, the result "
 "is NaN."
-msgstr ""
-"``values`` (Tensor): "
-"指定された次元に沿って計算された最小値。NaN値は無視されます。スライスがNaN値のみで構成されている場合、結果はNaNとなります。"
+msgstr "``values`` (Tensor): 指定された次元に沿って計算された最小値。NaN 値は無視されます。スライスが NaN 値のみで構成されている場合、結果は NaN となります。"
 
 #: of qfeval_functions.functions.nanmin.nanmin:32
 msgid ""
@@ -123,15 +119,7 @@ msgid ""
 "tensor([1., 4.])\n"
 ">>> result.indices\n"
 "tensor([0, 0])"
-msgstr ""
-">>> # NaN値を含む単純な最小値\n"
-">>> x = torch.tensor([[1.0, nan, 3.0],\n"
-"...                   [4.0, 5.0, nan]])\n"
-">>> result = QF.nanmin(x, dim=1)\n"
-">>> result.values\n"
-"tensor([1., 4.])\n"
-">>> result.indices\n"
-"tensor([0, 0])"
+msgstr ">>> # NaN 値を含む単純な最小値\n>>> x = torch.tensor([[1.0, nan, 3.0],\n...                   [4.0, 5.0, nan]])\n>>> result = QF.nanmin(x, dim=1)\n>>> result.values\ntensor([1., 4.])\n>>> result.indices\ntensor([0, 0])"
 
 #: of qfeval_functions.functions.nanmin.nanmin:48
 msgid ""
@@ -143,15 +131,7 @@ msgid ""
 "tensor([1., nan])\n"
 ">>> result.indices\n"
 "tensor([0, 0])"
-msgstr ""
-">>> # すべてNaNのスライス\n"
-">>> x = torch.tensor([[1.0, 2.0],\n"
-"...                   [nan, nan]])\n"
-">>> result = QF.nanmin(x, dim=1)\n"
-">>> result.values\n"
-"tensor([1., nan])\n"
-">>> result.indices\n"
-"tensor([0, 0])"
+msgstr ">>> # すべて NaN のスライス\n>>> x = torch.tensor([[1.0, 2.0],\n...                   [nan, nan]])\n>>> result = QF.nanmin(x, dim=1)\n>>> result.values\ntensor([1., nan])\n>>> result.indices\ntensor([0, 0])"
 
 #: of qfeval_functions.functions.nanmin.nanmin:57
 msgid ""
@@ -201,19 +181,19 @@ msgstr ""
 msgid ""
 "When all values along the dimension are NaN, the returned value is NaN "
 "and the accompanying index is 0, which does not point to a valid element."
-msgstr "次元に沿ったすべての値がNaNの場合、返される値はNaNとなり、対応するインデックスは0になります。このインデックスは有効な要素を指しません。"
+msgstr "次元に沿ったすべての値が NaN の場合、返される値は NaN となり、対応するインデックスは 0 になります。このインデックスは有効な要素を指しません。"
 
 #: of qfeval_functions.functions.nanmin.nanmin:82
 msgid ":func:`nanmax`: NaN-aware maximum function."
-msgstr ":func:`nanmax`: NaNを考慮した最大値関数。"
+msgstr ":func:`nanmax`: NaN を考慮した最大値関数。"
 
 #: of qfeval_functions.functions.nanmin.nanmin:83
 msgid ":func:`nanamin`: NaN-aware minimum over multiple dimensions."
-msgstr ":func:`nanamin`: 複数次元に対応したNaN対応の最小値。"
+msgstr ":func:`nanamin`: 複数次元に対応した NaN 対応の最小値。"
 
 #: of qfeval_functions.functions.nanmin.nanmin:84
 msgid ":func:`torch.min`: Standard minimum function (NaN propagates)."
-msgstr ":func:`torch.min`: 標準の最小値関数（NaNは伝播します）。"
+msgstr ":func:`torch.min`: 標準の最小値関数（NaN は伝播します）。"
 
 #~ msgid ""
 #~ "Returns a namedtuple `(values, indices)` "

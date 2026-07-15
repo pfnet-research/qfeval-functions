@@ -34,7 +34,7 @@ msgid ""
 "the specified dimension. For each NaN value, it is replaced with the "
 "nearest valid value that appears after it along the dimension. If no "
 "valid value exists after a NaN, it remains NaN."
-msgstr "この関数は、指定された次元に沿って最後の有効な値（NaNでない値）を後方に伝播させます。各NaN値については、その次元に沿って後に現れる最も近い有効な値で置き換えられます。もしNaN値の後に有効な値がない場合、そのNaN値は変更されません。"
+msgstr "この関数は、指定された次元に沿って最後の有効な値（NaN でない値）を後方に伝播させます。各 NaN 値については、その次元に沿って後に現れる最も近い有効な値で置き換えられます。もし NaN 値の後に有効な値がない場合、その NaN 値は変更されません。"
 
 #: ../../api/qfeval_functions.functions.bfill.rst
 msgid "Parameters"
@@ -58,7 +58,7 @@ msgstr "戻り値"
 msgid ""
 "A tensor of the same shape as the input, with NaN values replaced by the "
 "nearest subsequent valid values where possible."
-msgstr "入力テンソルと同じ形状を持ち、可能な場合はNaN値をその直後の有効な値で置き換えたテンソル。"
+msgstr "入力テンソルと同じ形状を持ち、可能な場合は NaN 値をその直後の有効な値で置き換えたテンソル。"
 
 #: ../../api/qfeval_functions.functions.bfill.rst
 msgid "Return type"
@@ -90,7 +90,7 @@ msgstr ":func:`ffill`: 欠損値を前方補完する関数。"
 
 #: of qfeval_functions.functions.bfill.bfill:34
 msgid ":func:`fillna`: Replace NaN/infinity values with fixed numbers."
-msgstr ":func:`fillna`: NaNや無限大を固定値で置き換える関数。"
+msgstr ":func:`fillna`: NaN や無限大を固定値で置き換える関数。"
 
 #~ msgid "Propagates last valid values backward."
 #~ msgstr "最後に有効な値を後方に伝播します。"

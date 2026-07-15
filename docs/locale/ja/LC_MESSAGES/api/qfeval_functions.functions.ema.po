@@ -59,9 +59,7 @@ msgid ""
 "where :math:`\\alpha` is the smoothing factor (0 < :math:`\\alpha` < 1). "
 "Smaller values of :math:`\\alpha` give more weight to recent "
 "observations."
-msgstr ""
-"ここで :math:`\\alpha` は平滑化係数です（0 < :math:`\\alpha` < 1）。 :math:`\\alpha` "
-"の値が小さいほど、最近の観測値により多くの重みが与えられます。"
+msgstr "ここで :math:`\\alpha` は平滑化係数です（0 < :math:`\\alpha` < 1）。:math:`\\alpha` の値が小さいほど、最近の観測値により多くの重みが与えられます。"
 
 #: ../../api/qfeval_functions.functions.ema.rst
 msgid "Parameters"
@@ -108,7 +106,7 @@ msgid ""
 ">>> ema_result = QF.ema(x, alpha=0.5)\n"
 ">>> ema_result\n"
 "tensor([1.0000, 1.6667, 2.4286, 3.2667, 4.1613])"
-msgstr ">>> # 単純な1次元の例\n>>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> ema_result = QF.ema(x, alpha=0.5)\n>>> ema_result\ntensor([1.0000, 1.6667, 2.4286, 3.2667, 4.1613])"
+msgstr ">>> # 単純な 1 次元の例\n>>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> ema_result = QF.ema(x, alpha=0.5)\n>>> ema_result\ntensor([1.0000, 1.6667, 2.4286, 3.2667, 4.1613])"
 
 #: of qfeval_functions.functions.ema.ema:44
 msgid ""
@@ -119,7 +117,7 @@ msgid ""
 ">>> ema_result\n"
 "tensor([[1.0000, 1.5882, 2.2329, 2.9305],\n"
 "        [4.0000, 3.4118, 2.7671, 2.0695]])"
-msgstr ">>> # dim=1 を指定した2次元の例\n>>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n...                   [4.0, 3.0, 2.0, 1.0]])\n>>> ema_result = QF.ema(x, alpha=0.3, dim=1)\n>>> ema_result\ntensor([[1.0000, 1.5882, 2.2329, 2.9305],\n        [4.0000, 3.4118, 2.7671, 2.0695]])"
+msgstr ">>> # dim=1 を指定した 2 次元の例\n>>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n...                   [4.0, 3.0, 2.0, 1.0]])\n>>> ema_result = QF.ema(x, alpha=0.3, dim=1)\n>>> ema_result\ntensor([[1.0000, 1.5882, 2.2329, 2.9305],\n        [4.0000, 3.4118, 2.7671, 2.0695]])"
 
 #: of qfeval_functions.functions.ema.ema:52
 msgid ""

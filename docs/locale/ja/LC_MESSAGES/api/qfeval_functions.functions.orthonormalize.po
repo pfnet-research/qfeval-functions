@@ -37,10 +37,7 @@ msgid ""
 "input vector orthogonalized with respect to all preceding vectors and "
 "then normalized to unit length.  Internally, it is implemented with QR "
 "decomposition for numerical stability and efficiency."
-msgstr ""
-"数値誤差を無視すれば、この関数はグラム・シュミット過程と同じ結果を返します。すなわち、:math:`i` 番目の出力ベクトルは、:math:`i`"
-" "
-"番目の入力ベクトルをそれより前のすべてのベクトルに対して直交化し、単位長に正規化したものです。内部的には、数値的安定性と効率のためにQR分解で実装されています。"
+msgstr "数値誤差を無視すれば、この関数はグラム・シュミット過程と同じ結果を返します。すなわち、:math:`i` 番目の出力ベクトルは、:math:`i` 番目の入力ベクトルをそれより前のすべてのベクトルに対して直交化し、単位長に正規化したものです。内部的には、数値的安定性と効率のために QR 分解で実装されています。"
 
 #: of qfeval_functions.functions.orthonormalize.orthonormalize:10
 msgid ""

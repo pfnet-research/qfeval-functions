@@ -28,7 +28,7 @@ msgstr "qfeval-functions ドキュメント"
 msgid ""
 "PyTorch-based quantitative finance library for mathematical operations on"
 " financial data."
-msgstr "PyTorchベースの定量金融ライブラリで、金融データに対する数学的演算を実行するためのものです。"
+msgstr "PyTorch ベースの定量金融ライブラリで、金融データに対する数学的演算を実行するためのものです。"
 
 #: ../../index.rst:7
 msgid "Contents"

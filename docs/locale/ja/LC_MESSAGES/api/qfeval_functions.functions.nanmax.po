@@ -28,7 +28,7 @@ msgstr ""
 msgid ""
 "Return the maximum values and indices along a dimension, ignoring NaN "
 "values."
-msgstr "指定された次元に沿って最大値と対応するインデックスを返し、NaN値は無視します。"
+msgstr "指定された次元に沿って最大値と対応するインデックスを返し、NaN 値は無視します。"
 
 #: of qfeval_functions.functions.nanmax.nanmax:3
 msgid ""
@@ -36,9 +36,7 @@ msgid ""
 "excluding NaN values from consideration. It returns both the maximum "
 "values and their corresponding indices in the original tensor. This is "
 "similar to ``torch.max`` but with NaN-aware behavior."
-msgstr ""
-"この関数は、指定された次元に沿って最大値を計算し、NaN値を計算対象から除外します。元のテンソルにおける最大値とその対応するインデックスの両方を返します。これは\\"
-" ``torch.max``\\ と似ていますが、NaN値を考慮した動作をします。"
+msgstr "この関数は、指定された次元に沿って最大値を計算し、NaN 値を計算対象から除外します。元のテンソルにおける最大値とその対応するインデックスの両方を返します。これは ``torch.max`` と似ていますが、NaN 値を考慮した動作をします。"
 
 #: ../../api/qfeval_functions.functions.nanmax.rst
 msgid "Parameters"
@@ -79,9 +77,7 @@ msgid ""
 "``values`` (Tensor): The maximum values along the specified dimension, "
 "with NaN values ignored. If a slice contains only NaN values, the result "
 "is NaN."
-msgstr ""
-"``values`` (Tensor): "
-"指定された次元に沿って計算された最大値。NaN値は無視されます。スライス内にNaN値のみが含まれる場合、結果はNaNとなります。"
+msgstr "``values`` (Tensor): 指定された次元に沿って計算された最大値。NaN 値は無視されます。スライス内に NaN 値のみが含まれる場合、結果は NaN となります。"
 
 #: of qfeval_functions.functions.nanmax.nanmax:26
 msgid ""
@@ -107,15 +103,7 @@ msgid ""
 "tensor([3., 5.])\n"
 ">>> result.indices\n"
 "tensor([2, 1])"
-msgstr ""
-">>> # NaN値を含む単純な最大値\n"
-">>> x = torch.tensor([[1.0, nan, 3.0],\n"
-"...                   [4.0, 5.0, nan]])\n"
-">>> result = QF.nanmax(x, dim=1)\n"
-">>> result.values\n"
-"tensor([3., 5.])\n"
-">>> result.indices\n"
-"tensor([2, 1])"
+msgstr ">>> # NaN 値を含む単純な最大値\n>>> x = torch.tensor([[1.0, nan, 3.0],\n...                   [4.0, 5.0, nan]])\n>>> result = QF.nanmax(x, dim=1)\n>>> result.values\ntensor([3., 5.])\n>>> result.indices\ntensor([2, 1])"
 
 #: of qfeval_functions.functions.nanmax.nanmax:42
 msgid ""
@@ -127,15 +115,7 @@ msgid ""
 "tensor([2., nan])\n"
 ">>> result.indices\n"
 "tensor([1, 0])"
-msgstr ""
-">>> # すべてNaNのスライス\n"
-">>> x = torch.tensor([[1.0, 2.0],\n"
-"...                   [nan, nan]])\n"
-">>> result = QF.nanmax(x, dim=1)\n"
-">>> result.values\n"
-"tensor([2., nan])\n"
-">>> result.indices\n"
-"tensor([1, 0])"
+msgstr ">>> # すべて NaN のスライス\n>>> x = torch.tensor([[1.0, 2.0],\n...                   [nan, nan]])\n>>> result = QF.nanmax(x, dim=1)\n>>> result.values\ntensor([2., nan])\n>>> result.indices\ntensor([1, 0])"
 
 #: of qfeval_functions.functions.nanmax.nanmax:51
 msgid ""
@@ -185,19 +165,19 @@ msgstr ""
 msgid ""
 "When all values along the dimension are NaN, the returned value is NaN "
 "and the accompanying index is 0, which does not point to a valid element."
-msgstr "次元に沿ったすべての値がNaNの場合、返される値はNaNとなり、対応するインデックスは0になります。このインデックスは有効な要素を指しません。"
+msgstr "次元に沿ったすべての値が NaN の場合、返される値は NaN となり、対応するインデックスは 0 になります。このインデックスは有効な要素を指しません。"
 
 #: of qfeval_functions.functions.nanmax.nanmax:76
 msgid ":func:`nanmin`: NaN-aware minimum function."
-msgstr ":func:`nanmin`: NaNを考慮した最小値関数。"
+msgstr ":func:`nanmin`: NaN を考慮した最小値関数。"
 
 #: of qfeval_functions.functions.nanmax.nanmax:77
 msgid ":func:`nanamax`: NaN-aware maximum over multiple dimensions."
-msgstr ":func:`nanamax`: 複数次元に対応したNaN対応の最大値。"
+msgstr ":func:`nanamax`: 複数次元に対応した NaN 対応の最大値。"
 
 #: of qfeval_functions.functions.nanmax.nanmax:78
 msgid "``torch.max``: Standard maximum function (NaN propagates)."
-msgstr "``torch.max``: 標準の最大値関数（NaNは伝播する）。"
+msgstr "``torch.max``: 標準の最大値関数（NaN は伝播する）。"
 
 #~ msgid ""
 #~ "Returns a namedtuple `(values, indices)` "

@@ -28,7 +28,7 @@ msgstr ""
 msgid ""
 "Returns a tensor with the same size as ``input`` that is filled with "
 "random numbers from a normal distribution with mean 0 and variance 1."
-msgstr "平均0、分散1の正規分布に従う乱数で埋められた、``input`` と同じサイズのテンソルを返します。"
+msgstr "平均 0、分散 1 の正規分布に従う乱数で埋められた、``input`` と同じサイズのテンソルを返します。"
 
 #: of qfeval_functions.functions.randn_like.randn_like:4
 msgid ""
@@ -53,7 +53,7 @@ msgstr "出力テンソルの形状、dtype、デバイスを決定する入力�
 msgid ""
 "The desired data type of the returned tensor. Default is the dtype of "
 "``input``."
-msgstr "返されるテンソルの望ましいデータ型。デフォルトは ``input`` のdtypeです。"
+msgstr "返されるテンソルの望ましいデータ型。デフォルトは ``input`` の dtype です。"
 
 #: of qfeval_functions.functions.randn_like.randn_like:17
 msgid ""

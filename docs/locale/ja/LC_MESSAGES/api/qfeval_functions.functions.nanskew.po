@@ -26,7 +26,7 @@ msgstr ""
 
 #: of qfeval_functions.functions.nanskew.nanskew:1
 msgid "Compute the skewness along specified dimensions, ignoring NaN values."
-msgstr "指定された次元に沿って歪度を計算し、NaN値を無視します。"
+msgstr "指定された次元に沿って歪度を計算し、NaN 値を無視します。"
 
 #: of qfeval_functions.functions.nanskew.nanskew:3
 msgid ""
@@ -57,9 +57,7 @@ msgid ""
 "deviation, computed only over valid (non-NaN) values. Positive skewness "
 "indicates a longer tail on the right side of the distribution, while "
 "negative skewness indicates a longer tail on the left side."
-msgstr ""
-"ここで :math:`\\mu` は平均値、:math:`\\sigma` "
-"は標準偏差を表し、これらは有効な値（NaNではない）に対してのみ計算されます。正の歪度は分布の右側に長い裾があることを示し、負の歪度は左側に長い裾があることを示します。"
+msgstr "ここで :math:`\\mu` は平均値、:math:`\\sigma` は標準偏差を表し、これらは有効な値（NaN ではない）に対してのみ計算されます。正の歪度は分布の右側に長い裾があることを示し、負の歪度は左側に長い裾があることを示します。"
 
 #: ../../api/qfeval_functions.functions.nanskew.rst
 msgid "Parameters"
@@ -79,7 +77,7 @@ msgstr "歪度を計算する次元を指定します。指定しない場合（
 msgid ""
 "If True (default), uses unbiased estimation with bias correction. If "
 "False, uses biased estimation."
-msgstr "デフォルトでTrueの場合、バイアス補正を施した無偏推定量を使用します。Falseの場合、バイアス推定量を使用します。"
+msgstr "デフォルトで True の場合、バイアス補正を施した無偏推定量を使用します。False の場合、バイアス推定量を使用します。"
 
 #: of qfeval_functions.functions.nanskew.nanskew:32
 msgid ""
@@ -95,7 +93,7 @@ msgstr "戻り値"
 msgid ""
 "The skewness values computed only over valid (non-NaN) values. The shape "
 "depends on the input dimensions and the :attr:`keepdim` parameter."
-msgstr "有効な値（NaNでない値）のみに基づいて計算された歪度値。形状は入力次元と :attr:`keepdim` パラメータに依存します。"
+msgstr "有効な値（NaN でない値）のみに基づいて計算された歪度値。形状は入力次元と :attr:`keepdim` パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.nanskew.rst
 msgid "Return type"
@@ -111,11 +109,7 @@ msgid ""
 ">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0, 10.0])\n"
 ">>> QF.nanskew(x, dim=0)\n"
 "tensor(1.1846)"
-msgstr ""
-">>> # NaN値を含む単純な歪度\n"
-">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0, 10.0])\n"
-">>> QF.nanskew(x, dim=0)\n"
-"tensor(1.1846)"
+msgstr ">>> # NaN 値を含む単純な歪度\n>>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0, 10.0])\n>>> QF.nanskew(x, dim=0)\ntensor(1.1846)"
 
 #: of qfeval_functions.functions.nanskew.nanskew:49
 msgid ""
@@ -125,13 +119,7 @@ msgid ""
 "...                   [3.0, 7.0, 8.0, nan]])\n"
 ">>> QF.nanskew(x, dim=1)\n"
 "tensor([-0.9352, -1.2933, -1.4579])"
-msgstr ""
-">>> # 2次元テンソルの列方向の歪度\n"
-">>> x = torch.tensor([[1.0, nan, 3.0, 4.0],\n"
-"...                   [2.0, 5.0, nan, 6.0],\n"
-"...                   [3.0, 7.0, 8.0, nan]])\n"
-">>> QF.nanskew(x, dim=1)\n"
-"tensor([-0.9352, -1.2933, -1.4579])"
+msgstr ">>> # 2 次元テンソルの列方向の歪度\n>>> x = torch.tensor([[1.0, nan, 3.0, 4.0],\n...                   [2.0, 5.0, nan, 6.0],\n...                   [3.0, 7.0, 8.0, nan]])\n>>> QF.nanskew(x, dim=1)\ntensor([-0.9352, -1.2933, -1.4579])"
 
 #: of qfeval_functions.functions.nanskew.nanskew:56
 msgid ""
@@ -192,19 +180,19 @@ msgid ""
 "small sample sizes. With ``unbiased=True`` (default), the bias correction"
 " requires at least 3 valid observations; slices with fewer valid values "
 "produce NaN."
-msgstr "歪度の計算は外れ値の影響を受けやすい特性があります。極端な単一の値であっても、特にサンプルサイズが小さい場合、歪度の測定値に大きな影響を与える可能性があります。``unbiased=True`` （デフォルト）の場合、バイアス補正には少なくとも3つの有効な観測値が必要で、有効値がそれより少ないスライスはNaNを生成します。"
+msgstr "歪度の計算は外れ値の影響を受けやすい特性があります。極端な単一の値であっても、特にサンプルサイズが小さい場合、歪度の測定値に大きな影響を与える可能性があります。``unbiased=True``\\ （デフォルト）の場合、バイアス補正には少なくとも 3 つの有効な観測値が必要で、有効値がそれより少ないスライスは NaN を生成します。"
 
 #: of qfeval_functions.functions.nanskew.nanskew:85
 msgid ":func:`nankurtosis`: NaN-aware kurtosis function."
-msgstr ":func:`nankurtosis`: NaNを考慮した尖度関数。"
+msgstr ":func:`nankurtosis`: NaN を考慮した尖度関数。"
 
 #: of qfeval_functions.functions.nanskew.nanskew:86
 msgid ":func:`nanvar`: NaN-aware variance function."
-msgstr ":func:`nanvar`: NaNを考慮した分散関数。"
+msgstr ":func:`nanvar`: NaN を考慮した分散関数。"
 
 #: of qfeval_functions.functions.nanskew.nanskew:87
 msgid ":func:`nanmean`: NaN-aware mean function."
-msgstr ":func:`nanmean`: NaNを考慮した平均関数。"
+msgstr ":func:`nanmean`: NaN を考慮した平均関数。"
 
 #~ msgid "Returns the skewness of each row, ignoring Not a Numbers (NaNs)."
 #~ msgstr "各行の歪度を返し、非数値値（NaN）は無視します。"

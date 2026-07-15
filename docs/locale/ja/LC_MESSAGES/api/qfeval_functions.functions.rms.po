@@ -103,7 +103,7 @@ msgstr ">>> x = torch.tensor([[1.0, -2.0], [3.0, -4.0]])\n>>> QF.rms(x, dim=1)\n
 
 #: of qfeval_functions.functions.rms.rms:40
 msgid "``torch.std``: Standard deviation (RMS of deviations from the mean)."
-msgstr "``torch.std``: 標準偏差（平均からの偏差のRMS）。"
+msgstr "``torch.std``: 標準偏差（平均からの偏差の RMS）。"
 
 #~ msgid "The output tensor."
 #~ msgstr "出力テンソル。"

@@ -36,11 +36,7 @@ msgid ""
 ":math:`100`: values close to :math:`100` indicate that prices have been "
 "consistently rising within the window, and values close to :math:`-100` "
 "indicate that prices have been consistently falling."
-msgstr ""
-"RCIは、直近 ``period`` "
-"個の要素からなるウィンドウにおける時間順序と価格順位のスピアマン順位相関をパーセンテージで表すテクニカル指標です。値は :math:`-100` "
-"から :math:`100` の範囲を取り、:math:`100` "
-"に近い値はウィンドウ内で価格が一貫して上昇していることを、:math:`-100` に近い値は価格が一貫して下落していることを示します。"
+msgstr "RCI は、直近 ``period`` 個の要素からなるウィンドウにおける時間順序と価格順位のスピアマン順位相関をパーセンテージで表すテクニカル指標です。値は :math:`-100` から :math:`100` の範囲を取り、:math:`100` に近い値はウィンドウ内で価格が一貫して上昇していることを、:math:`-100` に近い値は価格が一貫して下落していることを示します。"
 
 #: of qfeval_functions.functions.rci.rci:11
 msgid "The mathematical formulation is:"
@@ -70,7 +66,7 @@ msgstr ""
 msgid ""
 "The first ``period - 1`` elements along the dimension are filled with NaN"
 " because they do not have enough preceding elements."
-msgstr "次元に沿った最初の ``period - 1`` 個の要素は、先行する要素が不足しているためNaNで埋められます。"
+msgstr "次元に沿った最初の ``period - 1`` 個の要素は、先行する要素が不足しているため NaN で埋められます。"
 
 #: of qfeval_functions.functions.rci.rci:24
 msgid "Reference:"
@@ -96,7 +92,7 @@ msgstr "順位相関の計算に用いるウィンドウサイズ。デフォル
 msgid ""
 "The dimension along which to compute RCI. Default is -1 (the last "
 "dimension)."
-msgstr "RCIを計算する次元。デフォルトは -1（最後の次元）です。"
+msgstr "RCI を計算する次元。デフォルトは -1（最後の次元）です。"
 
 #: ../../api/qfeval_functions.functions.rci.rst
 msgid "Returns"
@@ -107,9 +103,7 @@ msgid ""
 "A tensor of the same shape as the input, containing RCI values in "
 ":math:`[-100, 100]` (the first ``period - 1`` elements along the "
 "dimension are NaN)."
-msgstr ""
-":math:`[-100, 100]` のRCI値を含む、入力と同じ形状のテンソル（次元に沿った最初の ``period - 1`` "
-"個の要素はNaNです）。"
+msgstr ":math:`[-100, 100]` の RCI 値を含む、入力と同じ形状のテンソル（次元に沿った最初の ``period - 1`` 個の要素は NaN です）。"
 
 #: ../../api/qfeval_functions.functions.rci.rst
 msgid "Return type"
@@ -134,7 +128,7 @@ msgid ""
 "This function is not NaN-aware: NaN values participate in the internal "
 "ranking, so windows containing NaN produce unreliable RCI values rather "
 "than NaN."
-msgstr "この関数はNaNを考慮しません。NaN値は内部のランキングに参加するため、NaNを含むウィンドウはNaNではなく信頼できないRCI値を生成します。"
+msgstr "この関数は NaN を考慮しません。NaN 値は内部のランキングに参加するため、NaN を含むウィンドウは NaN ではなく信頼できない RCI 値を生成します。"
 
 #: of qfeval_functions.functions.rci.rci:56
 msgid ":func:`rsi`: Relative Strength Index, another momentum indicator."

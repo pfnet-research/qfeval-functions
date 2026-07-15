@@ -53,9 +53,7 @@ msgid ""
 "Minimum length of the output tensor along the counted dimension. If the "
 "maximum value in :attr:`x` is less than :attr:`minlength` - 1, the output"
 " is padded with zeros. Default is 0."
-msgstr ""
-"カウント対象次元に沿った出力テンソルの最小長。 :attr:`x` 内の最大値が :attr:`minlength` - 1 "
-"未満の場合、出力はゼロでパディングされます。デフォルト値は 0 です。"
+msgstr "カウント対象次元に沿った出力テンソルの最小長。:attr:`x` 内の最大値が :attr:`minlength` - 1 未満の場合、出力はゼロでパディングされます。デフォルト値は 0 です。"
 
 #: of qfeval_functions.functions.bincount.bincount:19
 msgid ""
@@ -114,7 +112,7 @@ msgstr ":func:`groupby`: グループ識別子によってテンソルの要素�
 
 #: of qfeval_functions.functions.bincount.bincount:46
 msgid "``torch.bincount``: PyTorch's built-in bincount (1D tensors only)."
-msgstr "``torch.bincount``: PyTorchに組み込まれたbincount（1次元テンソルのみ対応）。"
+msgstr "``torch.bincount``: PyTorch に組み込まれた bincount（1 次元テンソルのみ対応）。"
 
 #~ msgid ""
 #~ "Computes the frequency of each value "

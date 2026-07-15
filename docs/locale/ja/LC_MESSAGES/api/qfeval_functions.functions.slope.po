@@ -58,7 +58,7 @@ msgstr "クオンツファイナンスでは、例えば市場リターンに対
 msgid ""
 "NOTE: This is based on calculation of slope beta at: "
 "https://en.wikipedia.org/wiki/Simple_linear_regression"
-msgstr "注意：この計算は単純線形回帰の傾きβの計算に基づいています：https://en.wikipedia.org/wiki/Simple_linear_regression"
+msgstr "注意：この計算は単純線形回帰の傾き β の計算に基づいています：https://en.wikipedia.org/wiki/Simple_linear_regression"
 
 #: ../../api/qfeval_functions.functions.slope.rst
 msgid "Parameters"
@@ -130,11 +130,11 @@ msgstr ""
 msgid ""
 "If all :attr:`x` values are identical (zero variance), the slope is "
 "mathematically undefined and the result is NaN."
-msgstr "すべての :attr:`x` の値が同一（分散ゼロ）の場合、傾きは数学的に未定義であり、結果はNaNになります。"
+msgstr "すべての :attr:`x` の値が同一（分散ゼロ）の場合、傾きは数学的に未定義であり、結果は NaN になります。"
 
 #: of qfeval_functions.functions.slope.slope:53
 msgid ":func:`nanslope`: NaN-aware slope function."
-msgstr ":func:`nanslope`: NaNを考慮した傾き関数。"
+msgstr ":func:`nanslope`: NaN を考慮した傾き関数。"
 
 #: of qfeval_functions.functions.slope.slope:54
 msgid ":func:`correl`: Pearson correlation function."
