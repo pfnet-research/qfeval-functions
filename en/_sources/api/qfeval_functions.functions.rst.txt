@@ -1,5 +1,5 @@
-Functions
-=========
+Functions (qfeval_functions.functions)
+======================================
 
 
 .. currentmodule:: qfeval_functions.functions
@@ -53,6 +53,7 @@ Functions
    orthogonalize
    orthonormalize
    pca
+   pca_cov
    project
    rand
    rand_like
@@ -63,11 +64,13 @@ Functions
    rci
    rcummax
    rcumsum
+   reduce_nan_patterns
    rms
    rsi
    shift
    signif
    skipna
    slope
+   soft_topk
    soft_topk_bottomk
    stable_sort

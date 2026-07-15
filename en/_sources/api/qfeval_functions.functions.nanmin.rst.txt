@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.nanmin
-==================================
+﻿nanmin
+======
 
 .. currentmodule:: qfeval_functions.functions
 

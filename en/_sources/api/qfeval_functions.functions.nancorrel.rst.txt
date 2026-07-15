@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.nancorrel
-=====================================
+﻿nancorrel
+=========
 
 .. currentmodule:: qfeval_functions.functions
 

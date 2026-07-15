@@ -1,7 +1,12 @@
-qfeval\_functions.random package
+Random (qfeval_functions.random)
 ================================
 
-.. automodule:: qfeval_functions.random
-   :members:
-   :show-inheritance:
-   :undoc-members:
+.. currentmodule:: qfeval_functions.random
+
+.. autosummary::
+   :toctree: .
+   :nosignatures:
+
+   is_fast
+   rng
+   seed

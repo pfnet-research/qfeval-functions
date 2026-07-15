@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.bollinger\_band
-===========================================
+﻿bollinger\_band
+===============
 
 .. currentmodule:: qfeval_functions.functions
 

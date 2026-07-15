@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.randn\_like
-=======================================
+﻿randn\_like
+===========
 
 .. currentmodule:: qfeval_functions.functions
 

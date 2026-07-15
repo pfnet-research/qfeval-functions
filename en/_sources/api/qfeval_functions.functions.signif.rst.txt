@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.signif
-==================================
+﻿signif
+======
 
 .. currentmodule:: qfeval_functions.functions
 

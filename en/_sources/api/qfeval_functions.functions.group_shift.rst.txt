@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.group\_shift
-========================================
+﻿group\_shift
+============
 
 .. currentmodule:: qfeval_functions.functions
 

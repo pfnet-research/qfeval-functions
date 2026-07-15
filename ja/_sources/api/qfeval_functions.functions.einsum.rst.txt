@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.einsum
-==================================
+﻿einsum
+======
 
 .. currentmodule:: qfeval_functions.functions
 

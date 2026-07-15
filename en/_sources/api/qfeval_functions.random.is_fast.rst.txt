@@ -1,0 +1,6 @@
+﻿is\_fast
+========
+
+.. currentmodule:: qfeval_functions.random
+
+.. autofunction:: is_fast

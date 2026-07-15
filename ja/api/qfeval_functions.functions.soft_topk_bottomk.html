@@ -6,9 +6,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>qfeval_functions.functions.soft_topk_bottomk &mdash; qfeval-functions  ドキュメント</title>
+  <title>soft_topk_bottomk &mdash; qfeval-functions  ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fdfa09e0" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -17,9 +18,12 @@
       <script src="../_static/doctools.js?v=9bcbadda"></script>
       <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
       <script src="../_static/translations.js?v=4755f45a"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
-    <link rel="search" title="検索" href="../search.html" /> 
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="stable_sort" href="qfeval_functions.functions.stable_sort.html" />
+    <link rel="prev" title="soft_topk" href="qfeval_functions.functions.soft_topk.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,14 +45,84 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">qfeval_functions.functions.soft_topk_bottomk</a><ul>
-<li><a class="reference internal" href="#qfeval_functions.functions.soft_topk_bottomk"><code class="docutils literal notranslate"><span class="pre">soft_topk_bottomk()</span></code></a></li>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="qfeval_functions.functions.html">関数 (qfeval_functions.functions)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.apply_for_axis.html">apply_for_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bfill.html">bfill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bincount.html">bincount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bollinger_band.html">bollinger_band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.correl.html">correl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.covar.html">covar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.cumcount.html">cumcount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.eigh.html">eigh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.einsum.html">einsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ema.html">ema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ffill.html">ffill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.fillna.html">fillna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.gaussian_blur.html">gaussian_blur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.group_shift.html">group_shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.groupby.html">groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ma.html">ma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mmax.html">mmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mmin.html">mmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mstd.html">mstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.msum.html">msum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mulmean.html">mulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mulsum.html">mulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mvar.html">mvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanamax.html">nanamax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanamin.html">nanamin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancorrel.html">nancorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancovar.html">nancovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancumprod.html">nancumprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancumsum.html">nancumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nankurtosis.html">nankurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmax.html">nanmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmean.html">nanmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmin.html">nanmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmulmean.html">nanmulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmulsum.html">nanmulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanones.html">nanones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanpca.html">nanpca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanshift.html">nanshift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanskew.html">nanskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanslope.html">nanslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nansum.html">nansum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanvar.html">nanvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.orthogonalize.html">orthogonalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.orthonormalize.html">orthonormalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.pca.html">pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.pca_cov.html">pca_cov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.project.html">project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rand.html">rand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rand_like.html">rand_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randint.html">randint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randn.html">randn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randn_like.html">randn_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randperm.html">randperm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rci.html">rci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rcummax.html">rcummax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rcumsum.html">rcumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.reduce_nan_patterns.html">reduce_nan_patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rms.html">rms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rsi.html">rsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.shift.html">shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.signif.html">signif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.skipna.html">skipna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.slope.html">slope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.soft_topk.html">soft_topk</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">soft_topk_bottomk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.stable_sort.html">stable_sort</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="qfeval_functions.random.html">乱数 (qfeval_functions.random)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.is_fast.html">is_fast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.rng.html">rng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.seed.html">seed</a></li>
 </ul>
 </li>
 </ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -63,7 +137,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">qfeval_functions.functions.soft_topk_bottomk</li>
+          <li class="breadcrumb-item"><a href="qfeval_functions.functions.html">関数 (qfeval_functions.functions)</a></li>
+      <li class="breadcrumb-item active">soft_topk_bottomk</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/qfeval_functions.functions.soft_topk_bottomk.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -73,16 +148,30 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="qfeval-functions-functions-soft-topk-bottomk">
-<h1>qfeval_functions.functions.soft_topk_bottomk<a class="headerlink" href="#qfeval-functions-functions-soft-topk-bottomk" title="Link to this heading"></a></h1>
+  <section id="soft-topk-bottomk">
+<h1>soft_topk_bottomk<a class="headerlink" href="#soft-topk-bottomk" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.soft_topk_bottomk">
 <span class="sig-name descname"><span class="pre">soft_topk_bottomk</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">epsilon</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_iter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">200</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">topk_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/soft_topk_bottomk.html#soft_topk_bottomk"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.soft_topk_bottomk" title="Link to this definition"></a></dt>
-<dd><p>指定された次元と共に SoftTopKBottomK モジュールを適用します。</p>
-<p>詳細情報については <cite>qfeval.extension.SoftTopKBottomK</cite> を参照してください。</p>
+<dd><p>指定された次元に沿って、微分可能な（ソフトな）top-k/bottom-k 選択を適用します。</p>
+<p>この関数は、ハードな top-k/bottom-k 選択の滑らかな緩和です。次元に沿って、大きい方から <code class="docutils literal notranslate"><span class="pre">k</span></code> 個の要素には <span class="math notranslate nohighlight">\(1\)</span> に近い値を、小さい方から <code class="docutils literal notranslate"><span class="pre">k</span></code> 個の要素には <span class="math notranslate nohighlight">\(-1\)</span> に近い値を、残りの要素には <span class="math notranslate nohighlight">\(0\)</span> に近い値を返します。この緩和は微分可能であるため、選択を通じて勾配が流れ、機械学習モデルにおいて微分可能なロング・ショートポートフォリオを構築するのに適しています。</p>
+<p>この緩和は、入力要素と 3 つのアンカー <span class="math notranslate nohighlight">\(\{-1, 0, 1\}\)</span> の間のエントロピー正則化付き最適輸送問題として定式化され、Sinkhorn アルゴリズムで解かれます。求解の前に、入力は次元に沿って標準化されます。<code class="docutils literal notranslate"><span class="pre">epsilon</span></code> が <span class="math notranslate nohighlight">\(0\)</span> に近づくと結果はハードな選択に近づき、<code class="docutils literal notranslate"><span class="pre">epsilon</span></code> が大きいほど結果は滑らかになります。</p>
 <dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- スコアを含む入力テンソル。すべての要素は有限でなければなりません。</p></li>
+<li><p><strong>k</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) -- top-k および bottom-k として選択する要素数。<code class="docutils literal notranslate"><span class="pre">2</span> <span class="pre">*</span> <span class="pre">k</span></code> は次元のサイズを超えてはなりません。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- 選択を適用する次元。デフォルトは -1（最後の次元）です。</p></li>
+<li><p><strong>epsilon</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a><em>, </em><em>optional</em>) -- 緩和の滑らかさを制御するエントロピー正則化パラメータ。正の値でなければなりません。デフォルトは 0.1 です。</p></li>
+<li><p><strong>max_iter</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- Sinkhorn 反復の最大回数。デフォルトは 200 です。</p></li>
+<li><p><strong>topk_only</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.14)"><em>bool</em></a><em>, </em><em>optional</em>) -- <code class="docutils literal notranslate"><span class="pre">True</span></code> の場合、ソフトな top-k 選択のみを行います（<a class="reference internal" href="qfeval_functions.functions.soft_topk.html#qfeval_functions.functions.soft_topk" title="qfeval_functions.functions.soft_topk"><code class="xref py py-func docutils literal notranslate"><span class="pre">soft_topk()</span></code></a> と等価）。デフォルトは <code class="docutils literal notranslate"><span class="pre">False</span></code> です。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p>top-k（<span class="math notranslate nohighlight">\(\approx 1\)</span>）および bottom-k（<span class="math notranslate nohighlight">\(\approx -1\)</span>）への帰属度を表す <span class="math notranslate nohighlight">\([-1, 1]\)</span> の値を持つ、入力と同じ形状のテンソル。</p>
+</dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference external" href="https://docs.pytorch.org/docs/stable/tensors.html#torch.Tensor" title="(in PyTorch v2.11)"><code class="xref py py-class docutils literal notranslate"><span class="pre">Tensor</span></code></a></span></p>
+<dd class="field-odd"><p>Tensor</p>
 </dd>
 </dl>
 <p class="rubric">サンプル</p>
@@ -98,6 +187,13 @@
 <span class="go">        [-0.9965, -0.0035,  0.0000,  0.0035,  0.9965]])</span>
 </pre></div>
 </div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="qfeval_functions.functions.soft_topk.html#qfeval_functions.functions.soft_topk" title="qfeval_functions.functions.soft_topk"><code class="xref py py-func docutils literal notranslate"><span class="pre">soft_topk()</span></code></a>: 微分可能な top-k 選択のみを行う関数。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">torch.topk</span></code>: ハードな（微分不可能な）top-k 選択。</p></li>
+</ul>
+</div>
 </dd></dl>
 
 </section>
@@ -105,7 +201,10 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="qfeval_functions.functions.soft_topk.html" class="btn btn-neutral float-left" title="soft_topk" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="qfeval_functions.functions.stable_sort.html" class="btn btn-neutral float-right" title="stable_sort" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.rand
-================================
+﻿rand
+====
 
 .. currentmodule:: qfeval_functions.functions
 

@@ -6,7 +6,11 @@ PyTorch-based quantitative finance library for mathematical operations on financ
 Contents
 ========
 
-* :doc:`Functions <api/qfeval_functions.functions>`
+.. toctree::
+   :maxdepth: 1
+
+   api/qfeval_functions.functions
+   api/qfeval_functions.random
 
 Indices and tables
 ==================

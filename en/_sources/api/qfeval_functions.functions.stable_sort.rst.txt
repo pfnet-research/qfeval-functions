@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.stable\_sort
-========================================
+﻿stable\_sort
+============
 
 .. currentmodule:: qfeval_functions.functions
 

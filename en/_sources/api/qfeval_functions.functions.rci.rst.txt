@@ -1,31 +1,6 @@
-﻿qfeval\_functions.functions.rci
-===============================
+﻿rci
+===
 
-.. automodule:: qfeval_functions.functions.rci
-   :members:
-   :undoc-members:
-   :show-inheritance:
+.. currentmodule:: qfeval_functions.functions
 
-   
-   
-   
-
-   
-   
-   .. rubric:: Functions
-
-   .. autosummary::
-      :toctree:
-      :nosignatures:
-   
-      rci
-   
-   
-
-   
-   
-   
-
-   
-   
-   
+.. autofunction:: rci

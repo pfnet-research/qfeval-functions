@@ -1,0 +1,6 @@
+﻿rng
+===
+
+.. currentmodule:: qfeval_functions.random
+
+.. autofunction:: rng

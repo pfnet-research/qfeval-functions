@@ -6,9 +6,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Functions &mdash; qfeval-functions  documentation</title>
+  <title>Functions (qfeval_functions.functions) &mdash; qfeval-functions  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fdfa09e0" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -19,7 +20,9 @@
       <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
-    <link rel="search" title="Search" href="../search.html" /> 
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="apply_for_axis" href="qfeval_functions.functions.apply_for_axis.html" />
+    <link rel="prev" title="qfeval-functions Documentation" href="../index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,11 +44,84 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Functions</a></li>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Functions (qfeval_functions.functions)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.apply_for_axis.html">apply_for_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bfill.html">bfill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bincount.html">bincount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bollinger_band.html">bollinger_band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.correl.html">correl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.covar.html">covar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.cumcount.html">cumcount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.eigh.html">eigh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.einsum.html">einsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ema.html">ema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ffill.html">ffill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.fillna.html">fillna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.gaussian_blur.html">gaussian_blur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.group_shift.html">group_shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.groupby.html">groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ma.html">ma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mmax.html">mmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mmin.html">mmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mstd.html">mstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.msum.html">msum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mulmean.html">mulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mulsum.html">mulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mvar.html">mvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanamax.html">nanamax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanamin.html">nanamin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancorrel.html">nancorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancovar.html">nancovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancumprod.html">nancumprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancumsum.html">nancumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nankurtosis.html">nankurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmax.html">nanmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmean.html">nanmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmin.html">nanmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmulmean.html">nanmulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmulsum.html">nanmulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanones.html">nanones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanpca.html">nanpca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanshift.html">nanshift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanskew.html">nanskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanslope.html">nanslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nansum.html">nansum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanvar.html">nanvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.orthogonalize.html">orthogonalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.orthonormalize.html">orthonormalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.pca.html">pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.pca_cov.html">pca_cov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.project.html">project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rand.html">rand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rand_like.html">rand_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randint.html">randint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randn.html">randn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randn_like.html">randn_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randperm.html">randperm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rci.html">rci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rcummax.html">rcummax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rcumsum.html">rcumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.reduce_nan_patterns.html">reduce_nan_patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rms.html">rms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rsi.html">rsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.shift.html">shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.signif.html">signif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.skipna.html">skipna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.slope.html">slope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.soft_topk.html">soft_topk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.soft_topk_bottomk.html">soft_topk_bottomk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.stable_sort.html">stable_sort</a></li>
 </ul>
-</div>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="qfeval_functions.random.html">Random (qfeval_functions.random)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.is_fast.html">is_fast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.rng.html">rng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.seed.html">seed</a></li>
+</ul>
+</li>
+</ul>
+
         </div>
       </div>
     </nav>
@@ -60,7 +136,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Functions</li>
+      <li class="breadcrumb-item active">Functions (qfeval_functions.functions)</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/qfeval_functions.functions.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -70,8 +146,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="functions">
-<h1>Functions<a class="headerlink" href="#functions" title="Link to this heading"></a></h1>
+  <section id="functions-qfeval-functions-functions">
+<h1>Functions (qfeval_functions.functions)<a class="headerlink" href="#functions-qfeval-functions-functions" title="Link to this heading"></a></h1>
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.apply_for_axis.html#qfeval_functions.functions.apply_for_axis" title="qfeval_functions.functions.apply_for_axis"><code class="xref py py-obj docutils literal notranslate"><span class="pre">apply_for_axis</span></code></a></p></td>
@@ -201,52 +277,58 @@
 <td><p>Compute the variance of a tensor, ignoring NaN values.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.orthogonalize.html#qfeval_functions.functions.orthogonalize" title="qfeval_functions.functions.orthogonalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">orthogonalize</span></code></a></p></td>
-<td><p>Orthogonalizes x with respect to y along the specified dimension.</p></td>
+<td><p>Orthogonalize <code class="docutils literal notranslate"><span class="pre">x</span></code> with respect to <code class="docutils literal notranslate"><span class="pre">y</span></code> along the specified dimension.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.orthonormalize.html#qfeval_functions.functions.orthonormalize" title="qfeval_functions.functions.orthonormalize"><code class="xref py py-obj docutils literal notranslate"><span class="pre">orthonormalize</span></code></a></p></td>
-<td><p>Orthonormalizes the given vectors and returns the corresponding orthonormal vectors.</p></td>
+<td><p>Orthonormalize the given vectors and return the corresponding orthonormal vectors.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.pca.html#qfeval_functions.functions.pca" title="qfeval_functions.functions.pca"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pca</span></code></a></p></td>
-<td><p>Computes principal components on the given input <cite>x</cite>. The returned value represents principal components. Specifically, <cite>result[*, i, :]</cite> represents the <span class="math notranslate nohighlight">\((i+1)\)</span>-th largest principal component of the batch specified by <cite>*</cite>. Shape:     - x: <span class="math notranslate nohighlight">\((*, S, D)\)</span> where <cite>*</cite> means any number of additional       dimensions, <cite>S</cite> means the number of sections, and <cite>D</cite> means the       number of dimensions. In qfeval, dimensions and sections often represent symbols and timestamps respectively. :returns:.</p></td>
+<td><p>Compute Principal Component Analysis (PCA) on the given input <code class="docutils literal notranslate"><span class="pre">x</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.project.html#qfeval_functions.functions.project" title="qfeval_functions.functions.project"><code class="xref py py-obj docutils literal notranslate"><span class="pre">project</span></code></a></p></td>
-<td><p>Projects the given tensor <cite>x</cite> using the given projection matrix <cite>a</cite>.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.pca_cov.html#qfeval_functions.functions.pca_cov" title="qfeval_functions.functions.pca_cov"><code class="xref py py-obj docutils literal notranslate"><span class="pre">pca_cov</span></code></a></p></td>
+<td><p>Compute principal components on the given covariance matrix <code class="docutils literal notranslate"><span class="pre">cov</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.rand.html#qfeval_functions.functions.rand" title="qfeval_functions.functions.rand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rand</span></code></a></p></td>
-<td><p>Returns a tensor filled with random numbers from a uniform distribution on the interval [0, 1).</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.project.html#qfeval_functions.functions.project" title="qfeval_functions.functions.project"><code class="xref py py-obj docutils literal notranslate"><span class="pre">project</span></code></a></p></td>
+<td><p>Projects the given tensor <code class="docutils literal notranslate"><span class="pre">x</span></code> using the given projection matrix <code class="docutils literal notranslate"><span class="pre">a</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.rand_like.html#qfeval_functions.functions.rand_like" title="qfeval_functions.functions.rand_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rand_like</span></code></a></p></td>
-<td><p>Returns a tensor with the same size as input that is filled with random numbers from a uniform distribution on the interval [0, 1).</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.rand.html#qfeval_functions.functions.rand" title="qfeval_functions.functions.rand"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rand</span></code></a></p></td>
+<td><p>Returns a tensor filled with random numbers from a uniform distribution on the interval <span class="math notranslate nohighlight">\([0, 1)\)</span>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.randint.html#qfeval_functions.functions.randint" title="qfeval_functions.functions.randint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">randint</span></code></a></p></td>
-<td><p>Returns a tensor filled with random integers generated uniformly between low (inclusive) and high (exclusive).</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.rand_like.html#qfeval_functions.functions.rand_like" title="qfeval_functions.functions.rand_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rand_like</span></code></a></p></td>
+<td><p>Returns a tensor with the same size as <code class="docutils literal notranslate"><span class="pre">input</span></code> that is filled with random numbers from a uniform distribution on the interval <span class="math notranslate nohighlight">\([0, 1)\)</span>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.randn.html#qfeval_functions.functions.randn" title="qfeval_functions.functions.randn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">randn</span></code></a></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.randint.html#qfeval_functions.functions.randint" title="qfeval_functions.functions.randint"><code class="xref py py-obj docutils literal notranslate"><span class="pre">randint</span></code></a></p></td>
+<td><p>Returns a tensor filled with random integers generated uniformly between <code class="docutils literal notranslate"><span class="pre">low</span></code> (inclusive) and <code class="docutils literal notranslate"><span class="pre">high</span></code> (exclusive).</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.randn.html#qfeval_functions.functions.randn" title="qfeval_functions.functions.randn"><code class="xref py py-obj docutils literal notranslate"><span class="pre">randn</span></code></a></p></td>
 <td><p>Returns a tensor filled with random numbers from a normal distribution with mean 0 and variance 1 (also called the standard normal distribution).</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.randn_like.html#qfeval_functions.functions.randn_like" title="qfeval_functions.functions.randn_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">randn_like</span></code></a></p></td>
-<td><p>Returns a tensor with the same size as input that is filled with random numbers from a normal distribution with mean 0 and variance 1.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.randn_like.html#qfeval_functions.functions.randn_like" title="qfeval_functions.functions.randn_like"><code class="xref py py-obj docutils literal notranslate"><span class="pre">randn_like</span></code></a></p></td>
+<td><p>Returns a tensor with the same size as <code class="docutils literal notranslate"><span class="pre">input</span></code> that is filled with random numbers from a normal distribution with mean 0 and variance 1.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.randperm.html#qfeval_functions.functions.randperm" title="qfeval_functions.functions.randperm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">randperm</span></code></a></p></td>
-<td><p>Returns a random permutation of integers from <cite>0</cite> to <cite>n - 1</cite>.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.randperm.html#qfeval_functions.functions.randperm" title="qfeval_functions.functions.randperm"><code class="xref py py-obj docutils literal notranslate"><span class="pre">randperm</span></code></a></p></td>
+<td><p>Returns a random permutation of integers from <code class="docutils literal notranslate"><span class="pre">0</span></code> to <code class="docutils literal notranslate"><span class="pre">n</span> <span class="pre">-</span> <span class="pre">1</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.rci.html#module-qfeval_functions.functions.rci" title="qfeval_functions.functions.rci"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rci</span></code></a></p></td>
-<td><p></p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.rci.html#qfeval_functions.functions.rci" title="qfeval_functions.functions.rci"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rci</span></code></a></p></td>
+<td><p>Compute the Rank Correlation Index (RCI) along the specified dimension.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.rcummax.html#qfeval_functions.functions.rcummax" title="qfeval_functions.functions.rcummax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rcummax</span></code></a></p></td>
-<td><p>Returns the reversely cumulative max of elements of <cite>input</cite> in the dimension <cite>dim</cite>.</p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.rcummax.html#qfeval_functions.functions.rcummax" title="qfeval_functions.functions.rcummax"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rcummax</span></code></a></p></td>
+<td><p>Returns the reversely cumulative max of elements of <code class="docutils literal notranslate"><span class="pre">x</span></code> in the dimension <code class="docutils literal notranslate"><span class="pre">dim</span></code>.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.rcumsum.html#qfeval_functions.functions.rcumsum" title="qfeval_functions.functions.rcumsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rcumsum</span></code></a></p></td>
-<td><p>Returns the reversely cumulative sum of elements of <cite>input</cite> in the dimension <cite>dim</cite>.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.rcumsum.html#qfeval_functions.functions.rcumsum" title="qfeval_functions.functions.rcumsum"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rcumsum</span></code></a></p></td>
+<td><p>Returns the reversely cumulative sum of elements of <code class="docutils literal notranslate"><span class="pre">x</span></code> in the dimension <code class="docutils literal notranslate"><span class="pre">dim</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.reduce_nan_patterns.html#qfeval_functions.functions.reduce_nan_patterns" title="qfeval_functions.functions.reduce_nan_patterns"><code class="xref py py-obj docutils literal notranslate"><span class="pre">reduce_nan_patterns</span></code></a></p></td>
+<td><p>Creates a mask for group shift.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.rms.html#qfeval_functions.functions.rms" title="qfeval_functions.functions.rms"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rms</span></code></a></p></td>
-<td><p>Returns the root mean square of each row of the input tensor in the given dimension <cite>dim</cite>.</p></td>
+<td><p>Returns the root mean square of each row of the input tensor in the given dimension <code class="docutils literal notranslate"><span class="pre">dim</span></code>.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.rsi.html#qfeval_functions.functions.rsi" title="qfeval_functions.functions.rsi"><code class="xref py py-obj docutils literal notranslate"><span class="pre">rsi</span></code></a></p></td>
-<td><p>Definition(use_sma=False): - <a class="reference external" href="https://www.investopedia.com/terms/r/rsi.asp">https://www.investopedia.com/terms/r/rsi.asp</a> - Compatible with TA-lib Definition(use_sma=True): - <a class="reference external" href="https://info.monex.co.jp/technical-analysis/indicators/005.html">https://info.monex.co.jp/technical-analysis/indicators/005.html</a></p></td>
+<td><p>Compute the Relative Strength Index (RSI) along the specified dimension.</p></td>
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.shift.html#qfeval_functions.functions.shift" title="qfeval_functions.functions.shift"><code class="xref py py-obj docutils literal notranslate"><span class="pre">shift</span></code></a></p></td>
-<td><p>Shifts array elements along specified dimensions.</p></td>
+<td><p>Shifts array elements along specified dimensions, filling vacated positions with NaN.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.signif.html#qfeval_functions.functions.signif" title="qfeval_functions.functions.signif"><code class="xref py py-obj docutils literal notranslate"><span class="pre">signif</span></code></a></p></td>
 <td><p>Rounds the numbers of the given tensor to the specified number of significant digits.</p></td>
@@ -255,12 +337,15 @@
 <td><p>Applies the given data to the given function after removing NaNs.</p></td>
 </tr>
 <tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.slope.html#qfeval_functions.functions.slope" title="qfeval_functions.functions.slope"><code class="xref py py-obj docutils literal notranslate"><span class="pre">slope</span></code></a></p></td>
-<td><p>Returns the slope of correlation bewteen <cite>x</cite> and <cite>y</cite>.</p></td>
+<td><p>Returns the slope of simple linear regression of <code class="docutils literal notranslate"><span class="pre">y</span></code> on <code class="docutils literal notranslate"><span class="pre">x</span></code> over the given dimension <code class="docutils literal notranslate"><span class="pre">dim</span></code>.</p></td>
 </tr>
-<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.soft_topk_bottomk.html#qfeval_functions.functions.soft_topk_bottomk" title="qfeval_functions.functions.soft_topk_bottomk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">soft_topk_bottomk</span></code></a></p></td>
-<td><p>Apply SoftTopKBottomK module along with given dimension.</p></td>
+<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.soft_topk.html#qfeval_functions.functions.soft_topk" title="qfeval_functions.functions.soft_topk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">soft_topk</span></code></a></p></td>
+<td><p>Apply a differentiable (soft) top-k selection along the given dimension.</p></td>
 </tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.stable_sort.html#qfeval_functions.functions.stable_sort" title="qfeval_functions.functions.stable_sort"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stable_sort</span></code></a></p></td>
+<tr class="row-odd"><td><p><a class="reference internal" href="qfeval_functions.functions.soft_topk_bottomk.html#qfeval_functions.functions.soft_topk_bottomk" title="qfeval_functions.functions.soft_topk_bottomk"><code class="xref py py-obj docutils literal notranslate"><span class="pre">soft_topk_bottomk</span></code></a></p></td>
+<td><p>Apply a differentiable (soft) top-k/bottom-k selection along the given dimension.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="qfeval_functions.functions.stable_sort.html#qfeval_functions.functions.stable_sort" title="qfeval_functions.functions.stable_sort"><code class="xref py py-obj docutils literal notranslate"><span class="pre">stable_sort</span></code></a></p></td>
 <td><p>Sorts the given tensor preserving the order of equivalent elements.</p></td>
 </tr>
 </tbody>
@@ -270,7 +355,10 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="qfeval-functions Documentation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="qfeval_functions.functions.apply_for_axis.html" class="btn btn-neutral float-right" title="apply_for_axis" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

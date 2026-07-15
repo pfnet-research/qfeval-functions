@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.msum
-================================
+﻿msum
+====
 
 .. currentmodule:: qfeval_functions.functions
 

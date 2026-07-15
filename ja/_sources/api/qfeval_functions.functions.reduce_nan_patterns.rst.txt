@@ -1,0 +1,6 @@
+﻿reduce\_nan\_patterns
+=====================
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: reduce_nan_patterns

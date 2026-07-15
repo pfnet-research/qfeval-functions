@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.eigh
-================================
+﻿eigh
+====
 
 .. currentmodule:: qfeval_functions.functions
 

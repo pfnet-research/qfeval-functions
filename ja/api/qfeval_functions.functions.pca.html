@@ -6,9 +6,10 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>qfeval_functions.functions.pca &mdash; qfeval-functions  ドキュメント</title>
+  <title>pca &mdash; qfeval-functions  ドキュメント</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fdfa09e0" />
 
   
       <script src="../_static/jquery.js?v=5d32c60e"></script>
@@ -20,7 +21,9 @@
       <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
-    <link rel="search" title="検索" href="../search.html" /> 
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="pca_cov" href="qfeval_functions.functions.pca_cov.html" />
+    <link rel="prev" title="orthonormalize" href="qfeval_functions.functions.orthonormalize.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,14 +45,84 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <!-- Local TOC -->
-              <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">qfeval_functions.functions.pca</a><ul>
-<li><a class="reference internal" href="#qfeval_functions.functions.pca"><code class="docutils literal notranslate"><span class="pre">pca()</span></code></a></li>
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="qfeval_functions.functions.html">関数 (qfeval_functions.functions)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.apply_for_axis.html">apply_for_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bfill.html">bfill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bincount.html">bincount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bollinger_band.html">bollinger_band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.correl.html">correl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.covar.html">covar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.cumcount.html">cumcount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.eigh.html">eigh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.einsum.html">einsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ema.html">ema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ffill.html">ffill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.fillna.html">fillna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.gaussian_blur.html">gaussian_blur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.group_shift.html">group_shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.groupby.html">groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ma.html">ma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mmax.html">mmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mmin.html">mmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mstd.html">mstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.msum.html">msum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mulmean.html">mulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mulsum.html">mulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mvar.html">mvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanamax.html">nanamax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanamin.html">nanamin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancorrel.html">nancorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancovar.html">nancovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancumprod.html">nancumprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancumsum.html">nancumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nankurtosis.html">nankurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmax.html">nanmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmean.html">nanmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmin.html">nanmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmulmean.html">nanmulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmulsum.html">nanmulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanones.html">nanones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanpca.html">nanpca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanshift.html">nanshift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanskew.html">nanskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanslope.html">nanslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nansum.html">nansum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanvar.html">nanvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.orthogonalize.html">orthogonalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.orthonormalize.html">orthonormalize</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.pca_cov.html">pca_cov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.project.html">project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rand.html">rand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rand_like.html">rand_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randint.html">randint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randn.html">randn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randn_like.html">randn_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randperm.html">randperm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rci.html">rci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rcummax.html">rcummax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rcumsum.html">rcumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.reduce_nan_patterns.html">reduce_nan_patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rms.html">rms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rsi.html">rsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.shift.html">shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.signif.html">signif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.skipna.html">skipna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.slope.html">slope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.soft_topk.html">soft_topk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.soft_topk_bottomk.html">soft_topk_bottomk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.stable_sort.html">stable_sort</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="qfeval_functions.random.html">乱数 (qfeval_functions.random)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.is_fast.html">is_fast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.rng.html">rng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.seed.html">seed</a></li>
 </ul>
 </li>
 </ul>
-</div>
+
         </div>
       </div>
     </nav>
@@ -64,7 +137,8 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">qfeval_functions.functions.pca</li>
+          <li class="breadcrumb-item"><a href="qfeval_functions.functions.html">関数 (qfeval_functions.functions)</a></li>
+      <li class="breadcrumb-item active">pca</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../_sources/api/qfeval_functions.functions.pca.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -74,39 +148,63 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="qfeval-functions-functions-pca">
-<h1>qfeval_functions.functions.pca<a class="headerlink" href="#qfeval-functions-functions-pca" title="Link to this heading"></a></h1>
+  <section id="pca">
+<h1>pca<a class="headerlink" href="#pca" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.pca">
 <span class="sig-name descname"><span class="pre">pca</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/pca.html#pca"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.pca" title="Link to this definition"></a></dt>
-<dd><p>与えられた入力 <cite>x</cite> に対して主成分を計算します。返される値は主成分を表します。具体的には、<cite>result[*, i, :]</cite> は <cite>*</cite> で指定されたバッチの <span class="math notranslate nohighlight">\((i+1)\)</span> 番目に大きい主成分を表します。形状:</p>
+<dd><p>与えられた入力 <code class="docutils literal notranslate"><span class="pre">x</span></code> に対して主成分分析（PCA）を計算します。</p>
+<p>この関数は、セクション次元に沿って入力観測値の共分散行列を計算し、特異値分解によって主成分を抽出します。主成分は説明分散の降順で返されます。具体的には、<code class="docutils literal notranslate"><span class="pre">components[*,</span> <span class="pre">i,</span> <span class="pre">:]</span></code> は <code class="docutils literal notranslate"><span class="pre">*</span></code> で指定されたバッチの <span class="math notranslate nohighlight">\((i+1)\)</span> 番目に大きい主成分を表します。</p>
+<p>qfeval では、次元とセクションはそれぞれ銘柄（シンボル）とタイムスタンプを表すことがよくあります。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Tensor</em>) -- 観測値を含む入力テンソル。</p>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>以下の要素を含むデータクラス:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>x: <span class="math notranslate nohighlight">\((*, S, D)\)</span> ここで、<cite>*</cite> は任意の追加次元数を、<cite>S</cite> はセクション数を、<cite>D</cite> は次元数をそれぞれ表します。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">components</span></code> (Tensor): 形状 <span class="math notranslate nohighlight">\((*, D, D)\)</span> の主成分（共分散行列の固有ベクトル）。<code class="docutils literal notranslate"><span class="pre">components[...,</span> <span class="pre">i,</span> <span class="pre">j]</span></code> は第 <span class="math notranslate nohighlight">\(i\)</span> 成分の第 <span class="math notranslate nohighlight">\(j\)</span> 次元に対する重みを表します。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">explained_variance</span></code> (Tensor): 形状 <span class="math notranslate nohighlight">\((*, D)\)</span> の、各成分によって説明される分散（共分散行列の固有値）。降順に並びます。</p></li>
 </ul>
 </div></blockquote>
-<p>qfevalでは、次元とセクションはそれぞれシンボルとタイムスタンプを表すことがよくあります。 :returns:</p>
-<blockquote>
-<div><dl class="simple">
-<dt><cite>components[i]</cite> は、</dt><dd><p>:math:<a href="#id1"><span class="problematic" id="id2">`</span></a>i`番目の成分の固有値を表します。</p>
-</dd>
-</dl>
-<ul class="simple">
-<li><dl class="simple">
-<dt>explained_variance (Tensor): <cite>explained_variance[i, j]</cite> represents</dt><dd><p><a href="#id1"><span class="problematic" id="id2">`</span></a>j`番目の特徴量に対する`i`番目の成分の重みを表す。</p>
-</dd>
-</dl>
-</li>
-</ul>
-</div></blockquote>
-<dl class="field-list simple">
-<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
-<dd class="field-odd"><p><ul class="simple">
-<li><p>components (テンソル)</p></li>
-</ul>
 </p>
 </dd>
+<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>PcaResult</p>
+</dd>
 </dl>
+<dl class="simple">
+<dt>形状:</dt><dd><ul class="simple">
+<li><p>x: <span class="math notranslate nohighlight">\((*, S, D)\)</span> ここで、<code class="docutils literal notranslate"><span class="pre">*</span></code> は任意の追加次元数を、<code class="docutils literal notranslate"><span class="pre">S</span></code> はセクション数を、<code class="docutils literal notranslate"><span class="pre">D</span></code> は次元数をそれぞれ表します。</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([[</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span>
+<span class="gp">... </span>                  <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.0</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">pca</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">components</span>
+<span class="go">tensor([[1., 0.],</span>
+<span class="go">        [0., 1.]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span><span class="o">.</span><span class="n">explained_variance</span>
+<span class="go">tensor([2.6667, 0.6667])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>各主成分の符号は任意です。主成分は符号を除いてのみ定義されるため、等価な入力に対して -1 倍された主成分が返されることがあります。</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="qfeval_functions.functions.pca_cov.html#qfeval_functions.functions.pca_cov" title="qfeval_functions.functions.pca_cov"><code class="xref py py-func docutils literal notranslate"><span class="pre">pca_cov()</span></code></a>: 実装に使用されている、計算済みの共分散行列に対する PCA。</p></li>
+<li><p><a class="reference internal" href="qfeval_functions.functions.nanpca.html#qfeval_functions.functions.nanpca" title="qfeval_functions.functions.nanpca"><code class="xref py py-func docutils literal notranslate"><span class="pre">nanpca()</span></code></a>: NaN を考慮した主成分分析。</p></li>
+<li><p><a class="reference internal" href="qfeval_functions.functions.covar.html#qfeval_functions.functions.covar" title="qfeval_functions.functions.covar"><code class="xref py py-func docutils literal notranslate"><span class="pre">covar()</span></code></a>: 実装に使用されている共分散関数。</p></li>
+</ul>
+</div>
 </dd></dl>
 
 </section>
@@ -114,7 +212,10 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="qfeval_functions.functions.orthonormalize.html" class="btn btn-neutral float-left" title="orthonormalize" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="qfeval_functions.functions.pca_cov.html" class="btn btn-neutral float-right" title="pca_cov" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.soft\_topk\_bottomk
-===============================================
+﻿soft\_topk\_bottomk
+===================
 
 .. currentmodule:: qfeval_functions.functions
 

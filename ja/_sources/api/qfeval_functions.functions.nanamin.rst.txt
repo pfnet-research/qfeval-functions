@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.nanamin
-===================================
+﻿nanamin
+=======
 
 .. currentmodule:: qfeval_functions.functions
 

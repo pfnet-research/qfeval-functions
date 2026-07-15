@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.rsi
-===============================
+﻿rsi
+===
 
 .. currentmodule:: qfeval_functions.functions
 

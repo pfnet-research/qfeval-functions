@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.ma
-==============================
+﻿ma
+==
 
 .. currentmodule:: qfeval_functions.functions
 

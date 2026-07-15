@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.ffill
-=================================
+﻿ffill
+=====
 
 .. currentmodule:: qfeval_functions.functions
 

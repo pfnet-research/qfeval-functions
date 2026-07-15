@@ -1,0 +1,6 @@
+﻿seed
+====
+
+.. currentmodule:: qfeval_functions.random
+
+.. autofunction:: seed

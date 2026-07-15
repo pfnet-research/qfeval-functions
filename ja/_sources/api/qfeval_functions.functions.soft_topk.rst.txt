@@ -1,0 +1,6 @@
+﻿soft\_topk
+==========
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: soft_topk

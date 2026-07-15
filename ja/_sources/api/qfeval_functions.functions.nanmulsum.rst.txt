@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.nanmulsum
-=====================================
+﻿nanmulsum
+=========
 
 .. currentmodule:: qfeval_functions.functions
 

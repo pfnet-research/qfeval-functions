@@ -1,0 +1,6 @@
+﻿pca\_cov
+========
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: pca_cov

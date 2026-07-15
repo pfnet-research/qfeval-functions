@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.mmin
-================================
+﻿mmin
+====
 
 .. currentmodule:: qfeval_functions.functions
 

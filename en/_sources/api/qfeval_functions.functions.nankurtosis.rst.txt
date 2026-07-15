@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.nankurtosis
-=======================================
+﻿nankurtosis
+===========
 
 .. currentmodule:: qfeval_functions.functions
 

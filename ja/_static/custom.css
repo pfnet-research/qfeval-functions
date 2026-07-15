@@ -1,0 +1,11 @@
+/* The sphinx_rtd_theme forces `white-space: nowrap` on cells of tables
+ * wrapped in .wy-table-responsive, which makes wide autosummary tables
+ * (e.g. the function list pages) scroll horizontally.  Let the summary
+ * column wrap instead, but keep function names on a single line. */
+.wy-table-responsive table.autosummary td {
+    white-space: normal;
+}
+
+.wy-table-responsive table.autosummary td:first-child {
+    white-space: nowrap;
+}

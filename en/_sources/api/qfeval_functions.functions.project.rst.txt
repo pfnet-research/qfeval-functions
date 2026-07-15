@@ -1,5 +1,5 @@
-﻿qfeval\_functions.functions.project
-===================================
+﻿project
+=======
 
 .. currentmodule:: qfeval_functions.functions
 
