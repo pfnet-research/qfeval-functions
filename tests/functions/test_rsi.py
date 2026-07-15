@@ -39,6 +39,9 @@ def test_rsi_ema_helper_function() -> None:
 
 @pytest.mark.parametrize("use_sma", [False, True])
 def test_rsi_compare_to_talib(use_sma: bool) -> None:
+    # NOTE: Flat series are excluded here because their behavior
+    # intentionally differs from TA-Lib; see
+    # test_rsi_flat_series_returns_neutral_50.
     # fmt: off
     input1 = torch.Tensor(
         [0.6235, 0.1706, 0.3752, 0.7054, 0.8990, 0.6094, 0.0059, 0.3593, 0.1826,
@@ -46,7 +49,6 @@ def test_rsi_compare_to_talib(use_sma: bool) -> None:
          0.7002, 0.9204, 0.0557, 0.0570, 0.2576, 0.0705, 0.3982, 0.8095, 0.3947,
          0.1699, 0.5444, 0.7492, 0.9748, 0.9154, 0.9813, 0.4870, 0.1490, 0.3727,
          0.4822, 0.4026, 0.2695, 0.9464])
-    input2 = torch.zeros(40)
     # talib.RSI(np.float64(input1.numpy())) to get below result
     expect_out1 = np.array(
         [np.nan, np.nan, np.nan, np.nan, np.nan,
@@ -57,33 +59,25 @@ def test_rsi_compare_to_talib(use_sma: bool) -> None:
          53.73696277, 49.25609654, 46.97039567, 51.04635441, 53.1660725,
          55.45432227, 54.69645998, 55.42427616, 49.05848796, 45.23257006,
          48.11649394, 49.51854405, 48.49300354, 46.74952339, 55.5080972])
-    expect_out2 = np.array([math.nan] * 14 + [0.] * 26)
     rtol_case1 = 1e-4
     atol_case1 = 1e-4
     if use_sma:  # If use_sma=True and use_sma=False result is not too far.
         rtol_case1 = 0.14
         atol_case1 = 6.2
-    rtol_case2 = 1e-10  # case2 is always 0
-    atol_case2 = 1e-10
 
     # fmt: on
 
-    results = [rsi(input1, use_sma=use_sma).numpy(), rsi(input2).numpy()]
+    result = rsi(input1, use_sma=use_sma).numpy()
 
     np.testing.assert_allclose(
-        results[0],
+        result,
         expect_out1,
         rtol_case1,
         atol_case1,
     )
 
-    np.testing.assert_allclose(
-        results[1],
-        expect_out2,
-        rtol_case2,
-        atol_case2,
-    )
-    results2 = rsi(torch.stack((input1, input2)), use_sma=use_sma).numpy()
+    # Batch processing must keep each series independent.
+    results2 = rsi(torch.stack((input1, input1)), use_sma=use_sma).numpy()
     np.testing.assert_allclose(
         results2[0],
         expect_out1,
@@ -93,10 +87,43 @@ def test_rsi_compare_to_talib(use_sma: bool) -> None:
 
     np.testing.assert_allclose(
         results2[1],
-        expect_out2,
-        rtol_case2,
-        atol_case2,
+        expect_out1,
+        rtol_case1,
+        atol_case1,
     )
+
+
+@pytest.mark.parametrize("use_sma", [False, True])
+def test_rsi_flat_series_returns_neutral_50(use_sma: bool) -> None:
+    """Flat series has no gains and no losses (0/0), which is defined as
+    the neutral RSI value 50.
+
+    NOTE: This intentionally differs from TA-Lib, which returns 0 for flat
+    series.
+    """
+    x = torch.zeros(40)
+    expected = np.array([math.nan] * 14 + [50.0] * 26)
+    np.testing.assert_allclose(rsi(x, use_sma=use_sma).numpy(), expected)
+
+
+def test_rsi_partially_flat_series_sma() -> None:
+    """In SMA mode, RSI becomes 50 once all ``span`` price changes in the
+    window are zero."""
+    x = torch.tensor([1.0, 2.0, 3.0, 3.0, 3.0, 3.0, 3.0])
+    expected = np.array(
+        [math.nan, math.nan, math.nan, 100.0, 100.0, 50.0, 50.0]
+    )
+    np.testing.assert_allclose(rsi(x, span=3, use_sma=True).numpy(), expected)
+
+
+def test_rsi_partially_flat_series_wilder() -> None:
+    """In Wilder mode, the smoothed gain stays positive after an upward
+    move, so RSI stays 100 (not 50) on a later flat region."""
+    x = torch.tensor([1.0, 2.0, 3.0, 3.0, 3.0, 3.0, 3.0])
+    expected = np.array(
+        [math.nan, math.nan, math.nan, 100.0, 100.0, 100.0, 100.0]
+    )
+    np.testing.assert_allclose(rsi(x, span=3).numpy(), expected)
 
 
 def test_rsi_basic_functionality() -> None:
@@ -166,9 +193,9 @@ def test_rsi_constant_values() -> None:
 
     # First 14 values should be NaN
     assert torch.isnan(result[:14]).all()
-    # RSI should be 0 for constant prices (no gains or losses)
+    # RSI is the neutral value 50 for constant prices (no gains or losses)
     for i in range(14, len(result)):
-        assert result[i].item() == 0.0
+        assert result[i].item() == 50.0
 
 
 def test_rsi_alternating_pattern() -> None:
@@ -412,11 +439,149 @@ def test_rsi_with_nan_values() -> None:
     )
     result = rsi(prices_with_nan, span=14)
 
-    # RSI function may handle NaN by treating it as 0 or skipping it
-    # The actual behavior should be validated rather than assumed
     assert result.shape == prices_with_nan.shape
-    # First 14 values should be NaN regardless
-    assert torch.isnan(result[:14]).all()
+    # The NaN price change enters the initial Wilder average, so every
+    # output (not only the warmup region) is NaN.
+    assert torch.isnan(result).all()
+
+
+def test_rsi_nan_propagation_wilder() -> None:
+    """In Wilder mode, a NaN price change poisons the initial average, so
+    every output is NaN."""
+    x = torch.tensor([1.0, 2.0, math.nan, 2.0, 3.0, 4.0, 3.0])
+    result = rsi(x, span=3)
+
+    assert result.shape == x.shape
+    assert torch.isnan(result).all()
+
+
+def test_rsi_nan_propagation_wilder_after_valid_prefix() -> None:
+    """In Wilder mode, outputs before a NaN enters the recursion stay
+    valid, and all subsequent outputs are NaN."""
+    x = torch.tensor([1.0, 2.0, 3.0, 2.0, math.nan, 4.0, 3.0])
+    expected = np.array(
+        [math.nan, math.nan, math.nan, 66.6667, math.nan, math.nan, math.nan]
+    )
+    np.testing.assert_allclose(
+        rsi(x, span=3).numpy(), expected, rtol=1e-4, atol=1e-4
+    )
+
+
+def test_rsi_nan_propagation_sma() -> None:
+    """In SMA mode, only outputs whose windows contain the NaN price
+    changes are NaN."""
+    x = torch.tensor([1.0, 2.0, math.nan, 2.0, 3.0, 4.0, 3.0])
+    expected = np.array([math.nan] * 6 + [66.6667])
+    np.testing.assert_allclose(
+        rsi(x, span=3, use_sma=True).numpy(), expected, rtol=1e-4, atol=1e-4
+    )
+
+
+def test_rsi_nan_recovery_sma() -> None:
+    """In SMA mode, RSI recovers once the window no longer contains NaN
+    price changes: at most ``span + 1`` outputs are NaN."""
+    x = torch.tensor([1.0, 2.0, math.nan, 2.0, 3.0, 4.0, 3.0, 4.0, 5.0])
+    # The NaN price poisons two adjacent price changes, which affect
+    # output positions 3-5 only; positions 6-8 use NaN-free windows again.
+    expected = np.array([math.nan] * 6 + [66.6667] * 3)
+    np.testing.assert_allclose(
+        rsi(x, span=3, use_sma=True).numpy(), expected, rtol=1e-4, atol=1e-4
+    )
+
+
+def test_rsi_infinite_prices_produce_nan() -> None:
+    """Undefined operations caused by infinite prices stay NaN instead of
+    being converted to a valid RSI value."""
+    x = torch.tensor([1.0, math.inf, math.inf, 2.0, 3.0, 4.0, 5.0])
+    result = rsi(x, span=3, use_sma=True)
+
+    # Windows containing inf - inf (= NaN) or inf / inf must be NaN.
+    assert torch.isnan(result[:5]).all()
+    # A window with an infinite loss but finite gains gives RSI = 0.
+    assert result[5].item() == 0.0
+    # A NaN-free and inf-free window recovers.
+    assert result[6].item() == 100.0
+
+
+@pytest.mark.parametrize("use_sma", [False, True])
+def test_rsi_short_series_returns_all_nan(use_sma: bool) -> None:
+    """A series with ``span`` or fewer elements yields an all-NaN output
+    of the input shape, because one RSI value needs ``span + 1`` prices."""
+    span = 5
+    for length in [0, 1, 3, 5]:
+        x = torch.arange(length, dtype=torch.float32)
+        result = rsi(x, span=span, use_sma=use_sma)
+        assert result.shape == x.shape
+        assert torch.isnan(result).all()
+
+    # `span + 1` prices are exactly enough for one RSI value.
+    x = torch.arange(6, dtype=torch.float32)
+    result = rsi(x, span=span, use_sma=use_sma)
+    assert result.shape == x.shape
+    assert torch.isnan(result[:span]).all()
+    assert torch.isfinite(result[span])
+
+
+def test_rsi_short_series_multi_dimensional() -> None:
+    """Short series along the target dimension keep the input shape even
+    for multi-dimensional inputs and negative dimensions."""
+    x = torch.randn(4, 3)
+    for dim in [1, -1]:
+        result = rsi(x, span=5, dim=dim)
+        assert result.shape == x.shape
+        assert torch.isnan(result).all()
+
+    result_dim0 = rsi(torch.randn(3, 4), span=5, dim=0)
+    assert result_dim0.shape == (3, 4)
+    assert torch.isnan(result_dim0).all()
+
+
+def test_rsi_invalid_span_raises_value_error() -> None:
+    """``span`` must be a positive integer."""
+    x = torch.tensor([1.0, 2.0, 3.0])
+    for span in [0, -1]:
+        with pytest.raises(ValueError, match="span must be a positive"):
+            rsi(x, span=span)
+
+
+def test_rsi_non_integer_span_raises_type_error() -> None:
+    """Non-integer ``span`` values are rejected instead of failing in
+    internal slicing; ``bool`` is a subclass of ``int`` and must not be
+    silently accepted as 1."""
+    x = torch.tensor([1.0, 2.0, 3.0])
+    with pytest.raises(TypeError, match="span must be an integer"):
+        rsi(x, span=1.5)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="span must be an integer"):
+        rsi(x, span=math.nan)  # type: ignore[arg-type]
+    with pytest.raises(TypeError, match="span must be an integer"):
+        rsi(x, span=True)
+
+
+def test_rsi_non_floating_point_input_raises_type_error() -> None:
+    """Non-floating-point inputs are rejected."""
+    for dtype in [torch.int32, torch.int64, torch.bool]:
+        x = torch.ones(20, dtype=dtype)
+        with pytest.raises(TypeError, match="floating point"):
+            rsi(x)
+
+
+@pytest.mark.parametrize("dtype", [torch.float32, torch.float64])
+@pytest.mark.parametrize("use_sma", [False, True])
+def test_rsi_dtype_and_device_preservation(
+    dtype: torch.dtype, use_sma: bool
+) -> None:
+    """The output (including the NaN warmup region) keeps the input dtype
+    and device."""
+    x = torch.linspace(0.0, 1.0, 10, dtype=dtype)
+    result = rsi(x, span=3, use_sma=use_sma)
+    assert result.dtype == dtype
+    assert result.device == x.device
+    assert result.shape == x.shape
+
+    # Short series (early return path) also keeps dtype/device.
+    result_short = rsi(x[:3], span=5, use_sma=use_sma)
+    assert result_short.dtype == dtype
+    assert result_short.device == x.device
 
 
 def test_rsi_single_large_move() -> None:
@@ -569,7 +734,7 @@ def test_rsi_batch_processing() -> None:
     # Verify patterns
     assert result[0, span].item() > 50  # Upward trend -> high RSI
     assert result[1, span].item() < 50  # Downward trend -> low RSI
-    assert result[2, span].item() == 0  # Constant -> zero RSI
+    assert result[2, span].item() == 50  # Constant -> neutral RSI
 
 
 def test_rsi_numerical_stability() -> None:
@@ -600,9 +765,9 @@ def test_rsi_numerical_stability() -> None:
     assert torch.all(finite_values >= 0)
     assert torch.all(finite_values <= 100)
 
-    # Test with zero gains and losses (should result in RSI = 0)
+    # Test with zero gains and losses (should result in the neutral RSI 50)
     zero_change = torch.full((20,), 50.0)
     result_zero = rsi(zero_change, span=14)
 
     finite_values = result_zero[torch.isfinite(result_zero)]
-    assert torch.all(finite_values == 0)
+    assert torch.all(finite_values == 50)
