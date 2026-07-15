@@ -62,8 +62,13 @@ def ma(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
                 [3., 4.],
                 [5., 6.]])
 
+    .. note::
+        If a window contains any NaN value, the moving average for that
+        window is NaN. Unlike ``pandas.DataFrame.rolling``, there is no
+        ``min_periods``-style option to skip NaN values.
+
     .. seealso::
-        :func:`msum`: The underlying moving sum function.
-        :func:`ema`: Exponential moving average for weighted averaging.
+        - :func:`msum`: The underlying moving sum function.
+        - :func:`ema`: Exponential moving average for weighted averaging.
     """
     return msum(x, span, dim) / span

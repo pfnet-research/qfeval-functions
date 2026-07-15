@@ -17,12 +17,12 @@ def reduce_nan_patterns(
     r"""Creates a mask for group shift.
 
     A mask is a one-dimensional boolean tensor that represents the pattern
-    of observed values in a reference dimension (`refdim`).
-    i.e., `True` values correspond to the locations of non-nan values.
+    of observed values in a reference dimension (``refdim``).
+    i.e., ``True`` values correspond to the locations of non-nan values.
 
     Args:
         - x: The input tensor. This should have at least 2 dimensions.
-        - dim: The dimension along which `x` will be shifted.
+        - dim: The dimension along which ``x`` will be shifted.
         - refdim: The reference dimension to extract a pattern of (non-)nans.
         - agg_f: The function for aggregating all other dimensions.
     Returns:
@@ -42,6 +42,10 @@ def reduce_nan_patterns(
         tensor([ True, False, False,  True])
         >>> reduce_nan_patterns(x, 0, 1)
         tensor([False, False, False,  True])
+
+    .. seealso::
+        - :func:`group_shift`: Shift function using masks created by this
+          function.
     """
     # transpose x so that the first dimension is dim and the second is refdim
     # NOTE: currently, dimensions added here will not be squeezed, since
@@ -146,8 +150,10 @@ def group_shift(
                 [nan,  9., nan, 10.]])
 
     .. seealso::
-        :func:`reduce_nan_patterns`: For understanding mask generation from
-        reference dimensions.
+        - :func:`reduce_nan_patterns`: For understanding mask generation from
+          reference dimensions.
+        - :func:`shift`: Standard shift function without grouping.
+        - :func:`nanshift`: Shift function that skips NaN values.
     """
     n = x.shape[dim]
 

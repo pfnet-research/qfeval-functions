@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 03:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,8 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.mulsum.rst:2
-msgid "qfeval\\_functions.functions.mulsum"
-msgstr "qfeval\\_functions.functions.mulsum"
+msgid "mulsum"
+msgstr ""
 
 #: of qfeval_functions.functions.mulsum.mulsum:1
 msgid "Compute sum or mean of element-wise product in a memory-efficient way."
@@ -32,7 +32,7 @@ msgid ""
 "creating the intermediate product tensor in memory. This is particularly "
 "crucial when working with large tensors or when broadcasting would result"
 " in a very large intermediate tensor that could exceed available memory."
-msgstr "この関数は、中間的な積テンソルをメモリ上に作成することなく、2つのテンソルの要素ごとの積の和（または平均） ``(x * y).sum(dim)`` または ``(x * y).mean(dim)`` を計算します。これは、特に大規模なテンソルを扱う場合や、ブロードキャスト操作によって中間テンソルが非常に大きくなり、利用可能なメモリを超える可能性がある場合に特に重要です。"
+msgstr "この関数は、中間的な積テンソルをメモリ上に作成することなく、2 つのテンソルの要素ごとの積の和（または平均）\\ ``(x * y).sum(dim)`` または ``(x * y).mean(dim)`` を計算します。これは、特に大規模なテンソルを扱う場合や、ブロードキャスト操作によって中間テンソルが非常に大きくなり、利用可能なメモリを超える可能性がある場合に特に重要です。"
 
 #: ../../api/qfeval_functions.functions.mulsum.rst
 msgid "Parameters"
@@ -44,7 +44,7 @@ msgstr "最初の入力テンソル。"
 
 #: of qfeval_functions.functions.mulsum.mulsum:13
 msgid "The second input tensor. Must be broadcastable with :attr:`x`."
-msgstr "第2の入力テンソル。 :attr:`x`とブロードキャスト可能である必要があります。"
+msgstr "第 2 の入力テンソル。:attr:`x` とブロードキャスト可能である必要があります。"
 
 #: of qfeval_functions.functions.mulsum.mulsum:16
 msgid ""
@@ -62,19 +62,20 @@ msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフ�
 msgid ""
 "If True, computes the mean instead of sum. Default is False (computes "
 "sum)."
-msgstr "Trueの場合、和ではなく平均を計算します。デフォルトはFalse（和を計算）です。"
+msgstr "True の場合、和ではなく平均を計算します。デフォルトは False（和を計算）です。"
 
 #: of qfeval_functions.functions.mulsum.mulsum:29
 msgid ""
 "Delta degrees of freedom for mean calculations. The divisor used is ``N -"
 " _ddof``, where ``N`` is the number of elements. Default is 0. This is an"
 " internal parameter."
-msgstr "平均計算における自由度の増分。使用する除数は ``N - _ddof`` で、ここで ``N`` は要素数を表します。デフォルト値は 0 です。これは内部パラメータです。"
+msgstr ""
+"平均計算における自由度の増分。使用する除数は ``N - _ddof`` で、ここで ``N`` は要素数を表します。デフォルト値は 0 "
+"です。これは内部パラメータです。"
 
 #: ../../api/qfeval_functions.functions.mulsum.rst
-#, fuzzy
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.mulsum.mulsum:34
 msgid ""
@@ -90,16 +91,112 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
+#: of qfeval_functions.functions.mulsum.mulsum:41
+msgid ""
+">>> # Simple element-wise product sum\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0])\n"
+">>> y = torch.tensor([2.0, 3.0, 4.0])\n"
+">>> QF.mulsum(x, y)\n"
+"tensor(20.)"
+msgstr ""
+">>> # 単純な要素ごとの積の合計\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0])\n"
+">>> y = torch.tensor([2.0, 3.0, 4.0])\n"
+">>> QF.mulsum(x, y)\n"
+"tensor(20.)"
+
+#: of qfeval_functions.functions.mulsum.mulsum:47
+msgid ""
+">>> # Equivalent to (x * y).sum()\n"
+">>> torch.allclose(QF.mulsum(x, y), (x * y).sum())\n"
+"True"
+msgstr ""
+">>> # (x * y).sum() と等価\n"
+">>> torch.allclose(QF.mulsum(x, y), (x * y).sum())\n"
+"True"
+
+#: of qfeval_functions.functions.mulsum.mulsum:51
+msgid ""
+">>> # Mean instead of sum\n"
+">>> QF.mulsum(x, y, mean=True)\n"
+"tensor(6.6667)"
+msgstr ""
+">>> # 合計の代わりに平均\n"
+">>> QF.mulsum(x, y, mean=True)\n"
+"tensor(6.6667)"
+
+#: of qfeval_functions.functions.mulsum.mulsum:55
+msgid ""
+">>> # 2D tensors with specific dimension\n"
+">>> x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])\n"
+">>> y = torch.tensor([[2.0, 1.0], [1.0, 2.0]])\n"
+">>> QF.mulsum(x, y, dim=1)\n"
+"tensor([ 4., 11.])"
+msgstr ">>> # 次元を指定した 2 次元テンソル\n>>> x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])\n>>> y = torch.tensor([[2.0, 1.0], [1.0, 2.0]])\n>>> QF.mulsum(x, y, dim=1)\ntensor([ 4., 11.])"
+
+#: of qfeval_functions.functions.mulsum.mulsum:61
+msgid ""
+">>> # Memory-efficient broadcasting\n"
+">>> x = torch.randn(1000, 1)\n"
+">>> y = torch.randn(1, 1000)\n"
+">>> # Efficiently computes without creating 1000x1000 intermediate tensor"
+"\n"
+">>> result = QF.mulsum(x, y)"
+msgstr ">>> # メモリ効率の良いブロードキャスト\n>>> x = torch.randn(1000, 1)\n>>> y = torch.randn(1, 1000)\n>>> # 1000x1000 の中間テンソルを作らずに効率的に計算\n>>> result = QF.mulsum(x, y)"
+
+#: of qfeval_functions.functions.mulsum.mulsum:67
+msgid ""
+">>> # With keepdim\n"
+">>> x = torch.tensor([[[1.0, 2.0]], [[3.0, 4.0]]])\n"
+">>> y = torch.tensor([[[2.0, 1.0]], [[1.0, 2.0]]])\n"
+">>> QF.mulsum(x, y, dim=(1, 2), keepdim=True)\n"
+"tensor([[[ 4.]],\n"
+"\n"
+"        [[11.]]])"
+msgstr ""
+">>> # keepdim を使用\n"
+">>> x = torch.tensor([[[1.0, 2.0]], [[3.0, 4.0]]])\n"
+">>> y = torch.tensor([[[2.0, 1.0]], [[1.0, 2.0]]])\n"
+">>> QF.mulsum(x, y, dim=(1, 2), keepdim=True)\n"
+"tensor([[[ 4.]],\n"
+"\n"
+"        [[11.]]])"
+
 #: of qfeval_functions.functions.mulsum.mulsum:75
 msgid ""
-":func:`mulmean`: Convenience function for computing means. "
-":func:`einsum`: The underlying Einstein summation function. "
-":func:`covar`: Uses this function for efficient covariance calculations."
-msgstr ":func:`mulmean`: 平均値計算のための便利な関数。 :func:`einsum`: 基礎となるアインシュタイン総和関数。 :func:`covar`: 効率的な共分散計算のためにこの関数を使用します。"
+":attr:`x` and :attr:`y` must have the same dtype; mixing dtypes (e.g., an"
+" integer tensor with a floating-point tensor) raises a ``RuntimeError`` "
+"instead of casting implicitly."
+msgstr ":attr:`x` と :attr:`y` は同じ dtype でなければなりません。異なる dtype（例: 整数テンソルと浮動小数点テンソル）を混在させると、暗黙的にキャストされる代わりに ``RuntimeError`` が送出されます。"
+
+#: of qfeval_functions.functions.mulsum.mulsum:80
+msgid ":func:`mulmean`: Convenience function for computing means."
+msgstr ":func:`mulmean`: 平均値計算のための便利な関数。"
+
+#: of qfeval_functions.functions.mulsum.mulsum:81
+msgid ":func:`einsum`: The underlying Einstein summation function."
+msgstr ":func:`einsum`: 基礎となるアインシュタイン総和関数。"
+
+#: of qfeval_functions.functions.mulsum.mulsum:82
+msgid ":func:`covar`: Uses this function for efficient covariance calculations."
+msgstr ":func:`covar`: 効率的な共分散計算のためにこの関数を使用します。"
 
 #~ msgid "Calculate `(x * y).sum(...)` in a memory-efficient way."
 #~ msgstr "メモリ効率に優れた方法で `(x * y).sum(...)` を計算します。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid ""
+#~ ":func:`mulmean`: Convenience function for "
+#~ "computing means. :func:`einsum`: The "
+#~ "underlying Einstein summation function. "
+#~ ":func:`covar`: Uses this function for "
+#~ "efficient covariance calculations."
+#~ msgstr ""
+#~ ":func:`mulmean`: 平均値計算のための便利な関数。 :func:`einsum`: "
+#~ "基礎となるアインシュタイン総和関数。 :func:`covar`: 効率的な共分散計算のためにこの関数を使用します。"
+
+#~ msgid "qfeval\\_functions.functions.mulsum"
+#~ msgstr "qfeval\\_functions.functions.mulsum"
 

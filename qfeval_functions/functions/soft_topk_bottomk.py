@@ -16,9 +16,48 @@ def soft_topk_bottomk(
     max_iter: int = 200,
     topk_only: bool = False,
 ) -> torch.Tensor:
-    r"""Apply SoftTopKBottomK module along with given dimension.
+    r"""Apply a differentiable (soft) top-k/bottom-k selection along the
+    given dimension.
 
-    See `qfeval.extension.SoftTopKBottomK` for futher information.
+    This function is a smooth relaxation of the hard top-k/bottom-k
+    selection: it returns values close to :math:`1` for the ``k`` largest
+    elements, close to :math:`-1` for the ``k`` smallest elements, and close
+    to :math:`0` for the remaining elements along the dimension.  Because
+    the relaxation is differentiable, gradients can flow through the
+    selection, which makes it suitable for building differentiable
+    long-short portfolios in machine learning models.
+
+    The relaxation is formulated as an entropy-regularized optimal
+    transport problem between the input elements and the three anchors
+    :math:`\{-1, 0, 1\}`, and is solved with the Sinkhorn algorithm.  The
+    input is standardized along the dimension before solving.  As ``epsilon``
+    approaches :math:`0`, the result approaches the hard selection; larger
+    ``epsilon`` makes the result smoother.
+
+    Args:
+        x (Tensor):
+            The input tensor of scores.  All elements must be finite.
+        k (int):
+            The number of elements to select as the top-k and as the
+            bottom-k.  ``2 * k`` must not exceed the size of the dimension.
+        dim (int, optional):
+            The dimension along which to apply the selection.
+            Default is -1 (the last dimension).
+        epsilon (float, optional):
+            The entropic-regularization parameter controlling the
+            smoothness of the relaxation.  Must be positive.
+            Default is 0.1.
+        max_iter (int, optional):
+            The maximum number of Sinkhorn iterations.  Default is 200.
+        topk_only (bool, optional):
+            If ``True``, perform soft top-k selection only (equivalent to
+            :func:`soft_topk`).  Default is ``False``.
+
+    Returns:
+        Tensor:
+            A tensor of the same shape as the input, with values in
+            :math:`[-1, 1]` representing the degree of membership in the
+            top-k (:math:`\approx 1`) and the bottom-k (:math:`\approx -1`).
 
     Examples:
         >>> x = torch.tensor([[1., 2., 3., 4., 5.], [6., 7., 8., 9., 10.]])
@@ -31,6 +70,10 @@ def soft_topk_bottomk(
         >>> soft_topk_bottomk(x, k=1, dim=1, epsilon=1e-3)
         tensor([[-0.9965, -0.0035,  0.0000,  0.0035,  0.9965],
                 [-0.9965, -0.0035,  0.0000,  0.0035,  0.9965]])
+
+    .. seealso::
+        - :func:`soft_topk`: Differentiable top-k selection only.
+        - ``torch.topk``: Hard (non-differentiable) top-k selection.
     """
     # 1. Move the target dimension to the last.
     x = x.transpose(-1, dim)
@@ -56,9 +99,38 @@ def soft_topk(
     epsilon: float = 0.1,
     max_iter: int = 200,
 ) -> torch.Tensor:
-    r"""Apply soft top-k operator along with given dimension.
+    r"""Apply a differentiable (soft) top-k selection along the given
+    dimension.
 
-    See `qfeval.extension.SoftTopk` for futher information.
+    This function is a smooth relaxation of the hard top-k selection: it
+    returns values close to :math:`1` for the ``k`` largest elements and
+    close to :math:`0` for the remaining elements along the dimension.
+    Because the relaxation is differentiable, gradients can flow through
+    the selection.  See :func:`soft_topk_bottomk` for the underlying
+    formulation; this function is equivalent to calling it with
+    ``topk_only=True``.
+
+    Args:
+        x (Tensor):
+            The input tensor of scores.  All elements must be finite.
+        k (int):
+            The number of elements to select as the top-k.  ``k`` must not
+            exceed the size of the dimension.
+        dim (int, optional):
+            The dimension along which to apply the selection.
+            Default is -1 (the last dimension).
+        epsilon (float, optional):
+            The entropic-regularization parameter controlling the
+            smoothness of the relaxation.  Must be positive.
+            Default is 0.1.
+        max_iter (int, optional):
+            The maximum number of Sinkhorn iterations.  Default is 200.
+
+    Returns:
+        Tensor:
+            A tensor of the same shape as the input, with values in
+            :math:`[0, 1]` representing the degree of membership in the
+            top-k.
 
     Examples:
         >>> x = torch.tensor([[1., 2., 3., 4., 5.], [6., 7., 8., 9., 10.]])
@@ -71,6 +143,11 @@ def soft_topk(
         >>> soft_topk(x, k=1, dim=1, epsilon=1e-3)
         tensor([[0.0000, 0.0000, 0.0000, 0.5000, 0.5000],
                 [0.0000, 0.0000, 0.0000, 0.5000, 0.5000]])
+
+    .. seealso::
+        - :func:`soft_topk_bottomk`: Differentiable top-k/bottom-k
+          selection.
+        - ``torch.topk``: Hard (non-differentiable) top-k selection.
     """
     return soft_topk_bottomk(
         x, k, dim, epsilon=epsilon, max_iter=max_iter, topk_only=True
@@ -137,18 +214,18 @@ class _Sinkhorn(torch.autograd.Function):
             ctx (typing.Any):
                 Context object.
             C (torch.Tensor):
-                Cost matrix in the shape of `(B, N, M)`.
+                Cost matrix in the shape of ``(B, N, M)``.
             mu (torch.Tensor):
-                Source vector in the shape of `(1, N, 1)`.
+                Source vector in the shape of ``(1, N, 1)``.
             nu (torch.Tensor):
-                Target vector in the shape of `(1, 1, M)`.
+                Target vector in the shape of ``(1, 1, M)``.
             epsilon (float):
                 Entropic-regularization parameter.
             max_iter (int):
                 Maximum number of iterations.
 
         Returns:
-            torch.Tensor: Optimal transport plan in the shape of `(B, N, M)`.
+            torch.Tensor: Optimal transport plan in the shape of ``(B, N, M)``.
         """
         with torch.no_grad():  # type: ignore[no-untyped-call]
             if epsilon > 1e-2:
@@ -276,18 +353,18 @@ def _sinkhorn(
 
     Args:
         C (torch.Tensor):
-            Cost matrix in the shape of `(B, N, M)`.
+            Cost matrix in the shape of ``(B, N, M)``.
         mu (torch.Tensor):
-            Source vector in the shape of `(N)`.
+            Source vector in the shape of ``(N)``.
         nu (torch.Tensor):
-            Target vector in the shape of `(M)`.
+            Target vector in the shape of ``(M)``.
         epsilon (float):
             Entropic-regularization parameter.
         max_iter (int):
             Maximum number of iterations.
 
     Returns:
-        torch.Tensor: Optimal transport plan in the shape of `(B, N, M)`.
+        torch.Tensor: Optimal transport plan in the shape of ``(B, N, M)``.
     """
     result: torch.Tensor = _Sinkhorn.apply(  # type:ignore[no-untyped-call]
         C, mu[None, :, None], nu[None, None, :], epsilon, max_iter

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.signif.rst:2
-msgid "qfeval\\_functions.functions.signif"
-msgstr "qfeval\\_functions.functions.signif"
+msgid "signif"
+msgstr ""
 
 #: of qfeval_functions.functions.signif.signif:1
 msgid ""
@@ -30,11 +30,73 @@ msgid ""
 "significant digits."
 msgstr "指定されたテンソルの数値を、指定された有効桁数に丸めます。"
 
+#: of qfeval_functions.functions.signif.signif:4
+msgid ""
+"Unlike :func:`torch.round`, which rounds to a fixed number of decimal "
+"places, this function keeps the given number of significant digits, so "
+"the rounding precision adapts to the magnitude of each element (e.g., "
+"rounding to 3 significant digits maps 12345 to 12300 and 0.012345 to "
+"0.0123).  This is the same behavior as R's ``signif`` function, and the "
+"default number of digits follows it.  Zeros and non-finite values (NaN "
+"and infinities) are returned unchanged."
+msgstr "小数点以下の固定桁数に丸める :func:`torch.round` と異なり、この関数は指定された有効桁数を保つため、丸めの精度は各要素の大きさに応じて変化します（例: 有効数字 3 桁への丸めでは、12345 は 12300 に、0.012345 は 0.0123 になります）。これは R の ``signif`` 関数と同じ動作であり、デフォルトの桁数もそれに従います。ゼロおよび有限でない値（NaN と無限大）はそのまま返されます。"
+
+#: ../../api/qfeval_functions.functions.signif.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.signif.signif:13
+msgid "The input tensor."
+msgstr "入力テンソル。"
+
+#: of qfeval_functions.functions.signif.signif:16
+msgid ""
+"The number of significant digits to keep.  Default is 6, the same default"
+" as R's ``signif`` function."
+msgstr "保持する有効桁数。デフォルトは R の ``signif`` 関数と同じく 6 です。"
+
+#: ../../api/qfeval_functions.functions.signif.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.signif.signif:20
+msgid ""
+"A tensor of the same shape as the input, with each element rounded to the"
+" specified number of significant digits."
+msgstr "各要素が指定された有効桁数に丸められた、入力と同じ形状のテンソル。"
+
 #: ../../api/qfeval_functions.functions.signif.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.signif.signif:5
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#: of qfeval_functions.functions.signif.signif:25
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.signif.signif:27
+msgid ""
+">>> x = torch.tensor([3.14159265, 2.71828183])\n"
+">>> QF.signif(x, 3)\n"
+"tensor([3.1400, 2.7200])"
+msgstr ">>> x = torch.tensor([3.14159265, 2.71828183])\n>>> QF.signif(x, 3)\ntensor([3.1400, 2.7200])"
+
+#: of qfeval_functions.functions.signif.signif:31
+msgid ""
+">>> # Zeros are kept as is, and the magnitude adapts per element.\n"
+">>> x = torch.tensor([0.0, 100.0])\n"
+">>> QF.signif(x, 3)\n"
+"tensor([  0., 100.])"
+msgstr ">>> # ゼロはそのまま保持され、桁の大きさは要素ごとに適応します。\n>>> x = torch.tensor([0.0, 100.0])\n>>> QF.signif(x, 3)\ntensor([  0., 100.])"
+
+#: of qfeval_functions.functions.signif.signif:36
+msgid ""
+"``torch.round``: Rounds to a number of decimal places instead of "
+"significant digits."
+msgstr "``torch.round``: 有効数字ではなく小数点以下の桁数で丸めます。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.signif"
+#~ msgstr "qfeval\\_functions.functions.signif"
 

@@ -1,0 +1,110 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.soft_topk.rst:2
+msgid "soft\\_topk"
+msgstr ""
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:1
+msgid "Apply a differentiable (soft) top-k selection along the given dimension."
+msgstr "指定した次元に沿って微分可能な（ソフトな）top-k 選択を適用します。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:4
+msgid ""
+"This function is a smooth relaxation of the hard top-k selection: it "
+"returns values close to :math:`1` for the ``k`` largest elements and "
+"close to :math:`0` for the remaining elements along the dimension. "
+"Because the relaxation is differentiable, gradients can flow through the "
+"selection.  See :func:`soft_topk_bottomk` for the underlying formulation;"
+" this function is equivalent to calling it with ``topk_only=True``."
+msgstr "この関数はハードな top-k 選択の滑らかな緩和であり、次元に沿って上位 ``k`` 個の要素には :math:`1` に近い値を、残りの要素には :math:`0` に近い値を返します。この緩和は微分可能であるため、選択を通して勾配を流すことができます。基礎となる定式化については :func:`soft_topk_bottomk` を参照してください。この関数は ``topk_only=True`` を指定して呼び出すことと等価です。"
+
+#: ../../api/qfeval_functions.functions.soft_topk.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:13
+msgid "The input tensor of scores.  All elements must be finite."
+msgstr "スコアの入力テンソル。すべての要素は有限である必要があります。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:16
+msgid ""
+"The number of elements to select as the top-k.  ``k`` must not exceed the"
+" size of the dimension."
+msgstr "top-k として選択する要素数。``k`` は次元のサイズを超えてはいけません。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:20
+msgid ""
+"The dimension along which to apply the selection. Default is -1 (the last"
+" dimension)."
+msgstr "選択を適用する次元。デフォルトは -1（最後の次元）です。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:24
+msgid ""
+"The entropic-regularization parameter controlling the smoothness of the "
+"relaxation.  Must be positive. Default is 0.1."
+msgstr "緩和の滑らかさを制御するエントロピー正則化パラメータ。正の値である必要があります。デフォルトは 0.1 です。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:29
+msgid "The maximum number of Sinkhorn iterations.  Default is 200."
+msgstr "Sinkhorn 反復の最大回数。デフォルトは 200 です。"
+
+#: ../../api/qfeval_functions.functions.soft_topk.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:32
+msgid ""
+"A tensor of the same shape as the input, with values in :math:`[0, 1]` "
+"representing the degree of membership in the top-k."
+msgstr "入力と同じ形状のテンソル。top-k への帰属度を表す :math:`[0, 1]` の値を持ちます。"
+
+#: ../../api/qfeval_functions.functions.soft_topk.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:38
+msgid "Examples"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:40
+msgid ""
+">>> x = torch.tensor([[1., 2., 3., 4., 5.], [6., 7., 8., 9., 10.]])\n"
+">>> soft_topk(x, k=1, dim=0)\n"
+"tensor([[0.0001, 0.0001, 0.0001, 0.0001, 0.0001],\n"
+"        [0.9999, 0.9999, 0.9999, 0.9999, 0.9999]])\n"
+">>> soft_topk(x, k=2, dim=1)\n"
+"tensor([[0.0000, 0.0006, 0.0783, 0.9217, 0.9994],\n"
+"        [0.0000, 0.0006, 0.0783, 0.9217, 0.9994]])\n"
+">>> soft_topk(x, k=1, dim=1, epsilon=1e-3)\n"
+"tensor([[0.0000, 0.0000, 0.0000, 0.5000, 0.5000],\n"
+"        [0.0000, 0.0000, 0.0000, 0.5000, 0.5000]])"
+msgstr ">>> x = torch.tensor([[1., 2., 3., 4., 5.], [6., 7., 8., 9., 10.]])\n>>> soft_topk(x, k=1, dim=0)\ntensor([[0.0001, 0.0001, 0.0001, 0.0001, 0.0001],\n        [0.9999, 0.9999, 0.9999, 0.9999, 0.9999]])\n>>> soft_topk(x, k=2, dim=1)\ntensor([[0.0000, 0.0006, 0.0783, 0.9217, 0.9994],\n        [0.0000, 0.0006, 0.0783, 0.9217, 0.9994]])\n>>> soft_topk(x, k=1, dim=1, epsilon=1e-3)\ntensor([[0.0000, 0.0000, 0.0000, 0.5000, 0.5000],\n        [0.0000, 0.0000, 0.0000, 0.5000, 0.5000]])"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:51
+msgid ":func:`soft_topk_bottomk`: Differentiable top-k/bottom-k selection."
+msgstr ":func:`soft_topk_bottomk`: 微分可能な top-k/bottom-k 選択。"
+
+#: of qfeval_functions.functions.soft_topk_bottomk.soft_topk:53
+msgid "``torch.topk``: Hard (non-differentiable) top-k selection."
+msgstr "``torch.topk``: ハードな（微分不可能な）top-k 選択。"
+

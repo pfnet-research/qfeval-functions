@@ -52,5 +52,11 @@ def einsum(equation: str, *operands: torch.Tensor) -> torch.Tensor:
         >>> A_T = QF.einsum("ij->ji", A)
         >>> torch.allclose(A_T, A.T)
         True
+
+    .. seealso::
+        - :func:`mulsum`: Memory-efficient product sum built on this
+          function.
+        - :func:`mulmean`: Memory-efficient product mean function.
+        - ``torch.einsum``: PyTorch's built-in Einstein summation.
     """
     return torch.einsum(equation, *operands)  # type: ignore

@@ -63,9 +63,8 @@ def nanones(like: torch.Tensor) -> torch.Tensor:
         torch.float32
 
     .. seealso::
-        :func:`nanzeros`: Create zeros tensor preserving NaN positions.
-        ``torch.ones_like``: Create ones tensor with same properties.
-        ``torch.where``: Conditional tensor selection.
+        - ``torch.ones_like``: Create ones tensor with same properties.
+        - ``torch.where``: Conditional tensor selection.
     """
     return torch.where(
         like.isnan(), torch.as_tensor(math.nan).to(like), torch.ones_like(like)

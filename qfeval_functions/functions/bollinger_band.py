@@ -56,6 +56,11 @@ def bollinger_band(
         >>> lower
         tensor([[     nan,      nan, 100.1835, 101.1835, 101.3670],
                 [     nan,      nan,  48.1835,  48.0861,  49.4195]])
+
+    .. seealso::
+        - :func:`ma`: Moving average function used for the middle band.
+        - :func:`mstd`: Moving standard deviation function used for the band
+          width.
     """
     middle = ma(x, window, dim=dim)
     width = mstd(x, window, dim=dim, ddof=0) * sigma

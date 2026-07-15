@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 03:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.mmin.rst:2
-msgid "qfeval\\_functions.functions.mmin"
-msgstr "qfeval\\_functions.functions.mmin"
+msgid "mmin"
+msgstr ""
 
 #: of qfeval_functions.functions.mmin.mmin:1
 msgid "Compute the moving (sliding window) minimum of a tensor."
@@ -36,7 +36,10 @@ msgid ""
 "window cannot fully cover preceding elements (i.e., the first ``span - "
 "1`` elements along the selected dimension), the result is computed using "
 "available values by padding with the first element."
-msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の最小値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の ``span - 1`` 要素の場合）、結果は最初の要素でパディングすることで利用可能な値を用いて計算されます。"
+msgstr ""
+"この関数は、指定された次元に沿ってサイズ :attr:`span` "
+"のスライディングウィンドウ内の最小値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の"
+" ``span - 1`` 要素の場合）、結果は最初の要素でパディングすることで利用可能な値を用いて計算されます。"
 
 #: of qfeval_functions.functions.mmin.mmin:10
 msgid "The moving minimum is computed as:"
@@ -46,7 +49,9 @@ msgstr "移動最小値は以下のように計算されます："
 msgid ""
 "\\text{MMIN}[i] = \\min_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n"
 "\n"
-msgstr "\\text{MMIN}[i] = \\min_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n\n"
+msgstr ""
+"\\text{MMIN}[i] = \\min_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n"
+"\n"
 
 #: ../../api/qfeval_functions.functions.mmin.rst
 msgid "Parameters"
@@ -67,9 +72,8 @@ msgid ""
 msgstr "移動最小値を計算する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.mmin.rst
-#, fuzzy
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.mmin.mmin:26
 msgid ""
@@ -85,23 +89,100 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
+#: of qfeval_functions.functions.mmin.mmin:33
+msgid ""
+">>> # Simple moving minimum with window size 3\n"
+">>> x = torch.tensor([5.0, 1.0, 3.0, 2.0, 8.0])\n"
+">>> QF.mmin(x, span=3)\n"
+"tensor([5., 1., 1., 1., 2.])"
+msgstr ">>> # ウィンドウサイズ 3 の単純な移動最小値\n>>> x = torch.tensor([5.0, 1.0, 3.0, 2.0, 8.0])\n>>> QF.mmin(x, span=3)\ntensor([5., 1., 1., 1., 2.])"
+
+#: of qfeval_functions.functions.mmin.mmin:38
+msgid ""
+">>> # 2D tensor with moving minimum along columns\n"
+">>> x = torch.tensor([[4.0, 1.0, 6.0, 2.0],\n"
+"...                   [2.0, 5.0, 1.0, 4.0],\n"
+"...                   [7.0, 2.0, 4.0, 3.0]])\n"
+">>> QF.mmin(x, span=2, dim=1)\n"
+"tensor([[4., 1., 1., 2.],\n"
+"        [2., 2., 1., 1.],\n"
+"        [7., 2., 2., 3.]])"
+msgstr ">>> # 2 次元テンソルの列方向の移動最小値\n>>> x = torch.tensor([[4.0, 1.0, 6.0, 2.0],\n...                   [2.0, 5.0, 1.0, 4.0],\n...                   [7.0, 2.0, 4.0, 3.0]])\n>>> QF.mmin(x, span=2, dim=1)\ntensor([[4., 1., 1., 2.],\n        [2., 2., 1., 1.],\n        [7., 2., 2., 3.]])"
+
+#: of qfeval_functions.functions.mmin.mmin:47
+msgid ""
+">>> # Moving minimum along the first dimension\n"
+">>> x = torch.tensor([[4.0, 5.0],\n"
+"...                   [1.0, 3.0],\n"
+"...                   [3.0, 2.0],\n"
+"...                   [2.0, 4.0]])\n"
+">>> QF.mmin(x, span=3, dim=0)\n"
+"tensor([[4., 5.],\n"
+"        [1., 3.],\n"
+"        [1., 2.],\n"
+"        [1., 2.]])"
+msgstr ""
+">>> # 最初の次元に沿った移動最小値\n"
+">>> x = torch.tensor([[4.0, 5.0],\n"
+"...                   [1.0, 3.0],\n"
+"...                   [3.0, 2.0],\n"
+"...                   [2.0, 4.0]])\n"
+">>> QF.mmin(x, span=3, dim=0)\n"
+"tensor([[4., 5.],\n"
+"        [1., 3.],\n"
+"        [1., 2.],\n"
+"        [1., 2.]])"
+
+#: of qfeval_functions.functions.mmin.mmin:58
+msgid ""
+">>> # Handling negative values\n"
+">>> x = torch.tensor([-1.0, -5.0, -2.0, -4.0, -1.0])\n"
+">>> QF.mmin(x, span=2)\n"
+"tensor([-1., -5., -5., -4., -4.])"
+msgstr ""
+">>> # 負の値の扱い\n"
+">>> x = torch.tensor([-1.0, -5.0, -2.0, -4.0, -1.0])\n"
+">>> QF.mmin(x, span=2)\n"
+"tensor([-1., -5., -5., -4., -4.])"
+
 #: of qfeval_functions.functions.mmin.mmin:63
+msgid ""
+"If a window contains any NaN value, the moving minimum for that window is"
+" NaN. There is no option to skip NaN values."
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動最小値は NaN になります。NaN 値をスキップするオプションはありません。"
+
+#: of qfeval_functions.functions.mmin.mmin:67
 msgid ""
 "This function is implemented as ``-mmax(-x, span, dim)``, leveraging the "
 "duality between minimum and maximum operations. This approach ensures "
 "consistent behavior and performance with the moving maximum function "
 "while avoiding code duplication."
-msgstr "この関数は``-mmax(-x, span, dim)``として実装されており、最小値演算と最大値演算の双対性を活用しています。このアプローチにより、移動最大値関数と一貫した動作と性能を確保しつつ、コードの重複を避けることができます。"
+msgstr "この関数は ``-mmax(-x, span, dim)`` として実装されており、最小値演算と最大値演算の双対性を活用しています。このアプローチにより、移動最大値関数と一貫した動作と性能を確保しつつ、コードの重複を避けることができます。"
 
-#: of qfeval_functions.functions.mmin.mmin:69
-msgid ""
-":func:`mmax`: Moving maximum function. :func:`msum`: Moving sum function."
-" :func:`ma`: Moving average function."
-msgstr ":func:`mmax`: 移動最大値関数。 :func:`msum`: 移動合計関数。 :func:`ma`: 移動平均関数。"
+#: of qfeval_functions.functions.mmin.mmin:73
+msgid ":func:`mmax`: Moving maximum function."
+msgstr ":func:`mmax`: 移動最大値関数。"
+
+#: of qfeval_functions.functions.mmin.mmin:74
+msgid ":func:`msum`: Moving sum function."
+msgstr ":func:`msum`: 移動合計関数。"
+
+#: of qfeval_functions.functions.mmin.mmin:75
+msgid ":func:`ma`: Moving average function."
+msgstr ":func:`ma`: 移動平均関数。"
 
 #~ msgid "Returns the moving min of the given tensor."
 #~ msgstr "指定されたテンソルの移動最小値を返します。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid ""
+#~ ":func:`mmax`: Moving maximum function. "
+#~ ":func:`msum`: Moving sum function. :func:`ma`:"
+#~ " Moving average function."
+#~ msgstr ":func:`mmax`: 移動最大値関数。 :func:`msum`: 移動合計関数。 :func:`ma`: 移動平均関数。"
+
+#~ msgid "qfeval\\_functions.functions.mmin"
+#~ msgstr "qfeval\\_functions.functions.mmin"
 

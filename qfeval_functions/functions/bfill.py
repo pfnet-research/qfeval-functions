@@ -34,5 +34,9 @@ def bfill(x: torch.Tensor, dim: int = -1) -> torch.Tensor:
         >>> QF.bfill(x, dim=1)
         tensor([[2., 2., 4., 4.],
                 [5., nan, nan, nan]])
+
+    .. seealso::
+        - :func:`ffill`: Forward fill missing values.
+        - :func:`fillna`: Replace NaN/infinity values with fixed numbers.
     """
     return torch.flip(ffill(torch.flip(x, [dim]), dim), [dim])

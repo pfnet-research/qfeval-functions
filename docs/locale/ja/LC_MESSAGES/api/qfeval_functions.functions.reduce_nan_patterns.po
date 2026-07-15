@@ -1,0 +1,102 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.reduce_nan_patterns.rst:2
+msgid "reduce\\_nan\\_patterns"
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:1
+msgid "Creates a mask for group shift."
+msgstr "グループシフト用のマスクを作成します。"
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:3
+msgid ""
+"A mask is a one-dimensional boolean tensor that represents the pattern of"
+" observed values in a reference dimension (``refdim``). i.e., ``True`` "
+"values correspond to the locations of non-nan values."
+msgstr "マスクは、参照次元（``refdim``）における観測値のパターンを表す 1 次元のブールテンソルです。すなわち、``True`` の値は非 NaN 値の位置に対応します。"
+
+#: ../../api/qfeval_functions.functions.reduce_nan_patterns.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:7
+msgid "The input tensor. This should have at least 2 dimensions."
+msgstr "入力テンソル。少なくとも 2 次元である必要があります。"
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:8
+msgid "The dimension along which ``x`` will be shifted."
+msgstr "``x`` をシフトする次元。"
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:9
+msgid "The reference dimension to extract a pattern of (non-)nans."
+msgstr "（非）NaN のパターンを抽出する参照次元。"
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:10
+msgid "The function for aggregating all other dimensions."
+msgstr "他のすべての次元を集約するための関数。"
+
+#: ../../api/qfeval_functions.functions.reduce_nan_patterns.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:12
+msgid "a 1-D boolean tensor"
+msgstr "1 次元のブールテンソル"
+
+#: ../../api/qfeval_functions.functions.reduce_nan_patterns.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:13
+msgid "- mask"
+msgstr "- mask"
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:13
+msgid "mask"
+msgstr ""
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:16
+msgid "Examples"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:18
+msgid ""
+">>> x = torch.tensor([\n"
+"...     [1.0, 2.0, nan, 1.0],\n"
+"...     [2.0, 4.0, nan, 2.0],\n"
+"...     [3.0, nan, nan, 3.0],\n"
+"...     [1.0, 1.0, 1.0, 1.0],\n"
+"... ])\n"
+">>> reduce_nan_patterns(x, -1, 0)\n"
+"tensor([ True, False, False,  True])\n"
+">>> # As x.dim() == 2, agg_f does not affect the results\n"
+">>> reduce_nan_patterns(x, -1, 0, agg_f=\"all\")\n"
+"tensor([ True, False, False,  True])\n"
+">>> reduce_nan_patterns(x, 0, 1)\n"
+"tensor([False, False, False,  True])"
+msgstr ">>> x = torch.tensor([\n...     [1.0, 2.0, nan, 1.0],\n...     [2.0, 4.0, nan, 2.0],\n...     [3.0, nan, nan, 3.0],\n...     [1.0, 1.0, 1.0, 1.0],\n... ])\n>>> reduce_nan_patterns(x, -1, 0)\ntensor([ True, False, False,  True])\n>>> # x.dim() == 2 のため、agg_f は結果に影響しません\n>>> reduce_nan_patterns(x, -1, 0, agg_f=\"all\")\ntensor([ True, False, False,  True])\n>>> reduce_nan_patterns(x, 0, 1)\ntensor([False, False, False,  True])"
+
+#: of qfeval_functions.functions.group_shift.reduce_nan_patterns:32
+msgid ":func:`group_shift`: Shift function using masks created by this function."
+msgstr ":func:`group_shift`: この関数で作成したマスクを使用するシフト関数。"
+

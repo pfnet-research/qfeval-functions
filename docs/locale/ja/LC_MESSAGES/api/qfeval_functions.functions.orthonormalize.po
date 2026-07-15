@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,37 +21,100 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.orthonormalize.rst:2
-msgid "qfeval\\_functions.functions.orthonormalize"
-msgstr "qfeval\\_functions.functions.orthonormalize"
+msgid "orthonormalize"
+msgstr ""
 
 #: of qfeval_functions.functions.orthonormalize.orthonormalize:1
 msgid ""
-"Orthonormalizes the given vectors and returns the corresponding "
-"orthonormal vectors.  Ignoring numerical errorrs, this function returns "
-"the same results as the Gram-Schmidt process."
-msgstr "与えられたベクトルを正規直交化し、対応する正規直交ベクトルを返します。数値誤差を無視した場合、この関数はグラム・シュミット過程と同じ結果を返します。"
+"Orthonormalize the given vectors and return the corresponding orthonormal"
+" vectors."
+msgstr "与えられたベクトルを正規直交化し、対応する正規直交ベクトルを返します。"
 
-#: of qfeval_functions.functions.orthonormalize.orthonormalize:5
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:4
 msgid ""
-"If the given vectors is orthonormal, this function must return the "
-"identical vectors (CAVEAT: It may have a little numerical errors)."
-msgstr "与えられたベクトルが直交正規化されている場合、この関数は同一のベクトルを返さなければなりません（注意：数値誤差が若干生じる可能性があります）。"
+"Ignoring numerical errors, this function returns the same results as the "
+"Gram-Schmidt process: the :math:`i`-th output vector is the :math:`i`-th "
+"input vector orthogonalized with respect to all preceding vectors and "
+"then normalized to unit length.  Internally, it is implemented with QR "
+"decomposition for numerical stability and efficiency."
+msgstr "数値誤差を無視すれば、この関数はグラム・シュミット過程と同じ結果を返します。すなわち、:math:`i` 番目の出力ベクトルは、:math:`i` 番目の入力ベクトルをそれより前のすべてのベクトルに対して直交化し、単位長に正規化したものです。内部的には、数値的安定性と効率のために QR 分解で実装されています。"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:10
+msgid ""
+"If the given vectors are already orthonormal, this function must return "
+"the identical vectors (CAVEAT: it may have a little numerical errors)."
+msgstr "与えられたベクトルが既に正規直交である場合、この関数は同一のベクトルを返します（注意: 若干の数値誤差が生じる場合があります）。"
+
+#: ../../api/qfeval_functions.functions.orthonormalize.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:14
+msgid ""
+"The input tensor containing sets of linearly independent vectors.  Each "
+"of the trailing :math:`N` rows is a vector of :math:`M` elements, and "
+":math:`N` must not exceed :math:`M`."
+msgstr ""
+"線形独立なベクトルの集合を含む入力テンソル。末尾の :math:`N` 行はそれぞれ :math:`M` 要素のベクトルであり、:math:`N`"
+" は :math:`M` を超えてはなりません。"
+
+#: ../../api/qfeval_functions.functions.orthonormalize.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:19
+msgid ""
+"A tensor of the same shape as the input, containing the corresponding "
+"orthonormal vectors."
+msgstr "対応する正規直交ベクトルを含む、入力と同じ形状のテンソル。"
 
 #: ../../api/qfeval_functions.functions.orthonormalize.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.orthonormalize.orthonormalize:8
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-
-#: of qfeval_functions.functions.orthonormalize.orthonormalize:10
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:23
 msgid "Shape:"
 msgstr "形状:"
 
-#: of qfeval_functions.functions.orthonormalize.orthonormalize:11
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:24
 msgid ""
-"a: :math:`(*, N, M)` where `*` means any number of additional dimensions,"
-" `N` means the number of vectors, and `M` means the number of dimensions."
-msgstr "a: :math:`(*, N, M)` ここで `*` は任意の追加次元数を、`N` はベクトルの数を、`M` は次元数をそれぞれ示します。"
+"a: :math:`(*, N, M)` where ``*`` means any number of additional "
+"dimensions, ``N`` means the number of vectors, and ``M`` means the number"
+" of dimensions."
+msgstr ""
+"a: :math:`(*, N, M)` ここで ``*`` は任意の追加次元数を、``N`` はベクトルの数を、``M`` "
+"は次元数をそれぞれ示します。"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:27
+msgid "return: :math:`(*, N, M)`, the same shape as the input."
+msgstr "return: :math:`(*, N, M)`、入力と同じ形状。"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:30
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:32
+msgid ""
+">>> a = torch.tensor([[3.0, 4.0],\n"
+"...                   [0.0, 5.0]])\n"
+">>> QF.orthonormalize(a)\n"
+"tensor([[ 0.6000,  0.8000],\n"
+"        [-0.8000,  0.6000]])"
+msgstr ">>> a = torch.tensor([[3.0, 4.0],\n...                   [0.0, 5.0]])\n>>> QF.orthonormalize(a)\ntensor([[ 0.6000,  0.8000],\n        [-0.8000,  0.6000]])"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:38
+msgid ""
+":func:`orthogonalize`: Orthogonalize vectors against another set of "
+"vectors."
+msgstr ":func:`orthogonalize`: ベクトルを別のベクトルの集合に対して直交化する関数。"
+
+#: of qfeval_functions.functions.orthonormalize.orthonormalize:40
+msgid ":func:`project`: Project a tensor with a projection matrix."
+msgstr ":func:`project`: 射影行列を用いてテンソルを射影する関数。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.orthonormalize"
+#~ msgstr "qfeval\\_functions.functions.orthonormalize"
 

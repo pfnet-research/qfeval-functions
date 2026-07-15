@@ -91,9 +91,9 @@ def nanmulmean(
                 [20.]])
 
     .. seealso::
-        :func:`mulmean`: Memory-efficient product mean without NaN handling.
-        :func:`nanmean`: NaN-aware mean function.
-        :func:`mulsum`: Memory-efficient product sum function.
+        - :func:`mulmean`: Memory-efficient product mean without NaN handling.
+        - :func:`nanmean`: NaN-aware mean function.
+        - :func:`mulsum`: Memory-efficient product sum function.
     """
     result = mulsum(fillna(x), fillna(y), dim=dim, keepdim=keepdim)
     x_mask = (~x.isnan()).to(result)

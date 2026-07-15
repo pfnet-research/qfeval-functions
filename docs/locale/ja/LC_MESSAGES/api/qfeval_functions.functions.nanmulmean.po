@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 01:46+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,14 +21,14 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.nanmulmean.rst:2
-msgid "qfeval\\_functions.functions.nanmulmean"
-msgstr "qfeval\\_functions.functions.nanmulmean"
+msgid "nanmulmean"
+msgstr ""
 
 #: of qfeval_functions.functions.nanmulmean.nanmulmean:1
 msgid ""
 "Compute the mean of element-wise product, ignoring NaN values, in a "
 "memory-efficient way."
-msgstr "メモリ効率に優れた方法で、NaN値を無視した要素ごとの積の平均値を計算します。"
+msgstr "メモリ効率に優れた方法で、NaN 値を無視した要素ごとの積の平均値を計算します。"
 
 #: of qfeval_functions.functions.nanmulmean.nanmulmean:4
 msgid ""
@@ -37,7 +37,7 @@ msgid ""
 " tensor in memory, while also excluding NaN values from the computation. "
 "If either :attr:`x` or :attr:`y` has a NaN at a given position, that pair"
 " is excluded from the mean calculation."
-msgstr "この関数は、中間的な積テンソルをメモリ上に作成することなく、2つのテンソルの要素ごとの積の平均値 ``nanmean(x * y, dim)`` を計算します。また、計算から NaN 値を除外します。もし :attr:`x` または :attr:`y` の特定の位置に NaN 値がある場合、そのペアは平均値の計算から除外されます。"
+msgstr "この関数は、中間的な積テンソルをメモリ上に作成することなく、2 つのテンソルの要素ごとの積の平均値 ``nanmean(x * y, dim)`` を計算します。また、計算から NaN 値を除外します。もし :attr:`x` または :attr:`y` の特定の位置に NaN 値がある場合、そのペアは平均値の計算から除外されます。"
 
 #: of qfeval_functions.functions.nanmulmean.nanmulmean:10
 msgid ""
@@ -45,11 +45,13 @@ msgid ""
 "uses a more memory-efficient implementation that avoids materializing the"
 " full product tensor, making it suitable for large tensor operations and "
 "complex broadcasting patterns."
-msgstr "この関数は数学的には ``nanmean(x * y, dim)`` と等価ですが、完全な積テンソルをメモリ上に展開しないよりメモリ効率の高い実装を採用しており、大規模なテンソル演算や複雑なブロードキャストパターンに適しています。"
+msgstr ""
+"この関数は数学的には ``nanmean(x * y, dim)`` "
+"と等価ですが、完全な積テンソルをメモリ上に展開しないよりメモリ効率の高い実装を採用しており、大規模なテンソル演算や複雑なブロードキャストパターンに適しています。"
 
 #: of qfeval_functions.functions.nanmulmean.nanmulmean:15
 msgid "The NaN-aware mean is computed as:"
-msgstr "NaNを考慮した平均値は以下のように計算されます："
+msgstr "NaN を考慮した平均値は以下のように計算されます："
 
 #: of qfeval_functions.functions.nanmulmean.nanmulmean:17
 msgid ""
@@ -57,13 +59,17 @@ msgid ""
 "Y_i}{\n"
 "    N_{\\text{valid}} - \\text{ddof}}\n"
 "\n"
-msgstr "\\text{nanmulmean}(X, Y) = \\frac{\\sum_{i \\text{ valid}} X_i \\cdot Y_i}{\n    N_{\\text{valid}} - \\text{ddof}}\n\n"
+msgstr ""
+"\\text{nanmulmean}(X, Y) = \\frac{\\sum_{i \\text{ valid}} X_i \\cdot "
+"Y_i}{\n"
+"    N_{\\text{valid}} - \\text{ddof}}\n"
+"\n"
 
 #: of qfeval_functions.functions.nanmulmean.nanmulmean:21
 msgid ""
 "where the sum is over valid (non-NaN) pairs and :math:`N_{\\text{valid}}`"
 " is the number of valid pairs."
-msgstr "ここで、和は有効な（NaNでない）ペアに対して計算され、:math:`N_{\text{valid}}`は有効なペアの数を表します。"
+msgstr "ここで、和は有効な（NaN でない）ペアに対して計算され、:math:`N_{\\text{valid}}` は有効なペアの数を表します。"
 
 #: ../../api/qfeval_functions.functions.nanmulmean.rst
 msgid "Parameters"
@@ -75,7 +81,7 @@ msgstr "最初の入力テンソル。"
 
 #: of qfeval_functions.functions.nanmulmean.nanmulmean:28
 msgid "The second input tensor. Must be broadcastable with :attr:`x`."
-msgstr "第2の入力テンソル。 :attr:`x` とブロードキャスト可能である必要があります。"
+msgstr "第 2 の入力テンソル。:attr:`x` とブロードキャスト可能である必要があります。"
 
 #: of qfeval_functions.functions.nanmulmean.nanmulmean:31
 msgid ""
@@ -94,19 +100,18 @@ msgid ""
 "Delta degrees of freedom for internal calculations. The divisor used is "
 "``N_valid - _ddof``, where ``N_valid`` is the number of valid (non-NaN) "
 "pairs. Default is 0. This is an internal parameter."
-msgstr "内部計算で使用する自由度のデルタ値。除数は``N_valid - _ddof``で表され、``N_valid``は有効な（NaNでない）ペアの数です。デフォルト値は0です。これは内部パラメータです。"
+msgstr "内部計算で使用する自由度のデルタ値。除数は ``N_valid - _ddof`` で表され、``N_valid`` は有効な（NaN でない）ペアの数です。デフォルト値は 0 です。これは内部パラメータです。"
 
 #: ../../api/qfeval_functions.functions.nanmulmean.rst
-#, fuzzy
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.nanmulmean.nanmulmean:46
 msgid ""
 "The mean of the element-wise product computed only over valid (non-NaN) "
 "pairs. The shape depends on the input dimensions, :attr:`dim`, and "
 ":attr:`keepdim` parameters."
-msgstr "有効な（NaNでない）ペアのみを対象に計算された要素ごとの積の平均値。形状は入力次元、:attr:`dim`、および :attr:`keepdim` パラメータに依存します。"
+msgstr "有効な（NaN でない）ペアのみを対象に計算された要素ごとの積の平均値。形状は入力次元、:attr:`dim`、および :attr:`keepdim` パラメータに依存します。"
 
 #: ../../api/qfeval_functions.functions.nanmulmean.rst
 msgid "Return type"
@@ -116,12 +121,56 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
-#: of qfeval_functions.functions.nanmulmean.nanmulmean:81
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:54
 msgid ""
-":func:`mulmean`: Memory-efficient product mean without NaN handling. "
-":func:`nanmean`: NaN-aware mean function. :func:`mulsum`: Memory-"
-"efficient product sum function."
-msgstr ":func:`mulmean`: メモリ効率に優れた積の平均値計算関数（NaN処理なし）。 :func:`nanmean`: NaNを考慮した平均値計算関数。 :func:`mulsum`: メモリ効率に優れた積の総和計算関数。"
+">>> # Simple element-wise product mean with NaN\n"
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0])\n"
+">>> y = torch.tensor([2.0, nan, 4.0, 5.0])\n"
+">>> QF.nanmulmean(x, y)\n"
+"tensor(11.)"
+msgstr ">>> # NaN を含む単純な要素ごとの積の平均\n>>> x = torch.tensor([1.0, 2.0, nan, 4.0])\n>>> y = torch.tensor([2.0, nan, 4.0, 5.0])\n>>> QF.nanmulmean(x, y)\ntensor(11.)"
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:60
+msgid ""
+">>> # 2D tensors with NaN values\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [4.0, 5.0, nan]])\n"
+">>> y = torch.tensor([[2.0, 4.0, nan],\n"
+"...                   [nan, 10.0, 12.0]])\n"
+">>> QF.nanmulmean(x, y, dim=1)\n"
+"tensor([ 2., 50.])"
+msgstr ">>> # NaN 値を含む 2 次元テンソル\n>>> x = torch.tensor([[1.0, nan, 3.0],\n...                   [4.0, 5.0, nan]])\n>>> y = torch.tensor([[2.0, 4.0, nan],\n...                   [nan, 10.0, 12.0]])\n>>> QF.nanmulmean(x, y, dim=1)\ntensor([ 2., 50.])"
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:68
+msgid ""
+">>> # Broadcasting with NaN handling\n"
+">>> x = torch.tensor([[1.0], [nan], [3.0]])\n"
+">>> y = torch.tensor([2.0, 4.0, nan])\n"
+">>> QF.nanmulmean(x, y)\n"
+"tensor(6.)"
+msgstr ">>> # NaN 処理を伴うブロードキャスト\n>>> x = torch.tensor([[1.0], [nan], [3.0]])\n>>> y = torch.tensor([2.0, 4.0, nan])\n>>> QF.nanmulmean(x, y)\ntensor(6.)"
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:74
+msgid ""
+">>> # With keepdim\n"
+">>> x = torch.tensor([[1.0, nan], [3.0, 4.0]])\n"
+">>> y = torch.tensor([[2.0, 4.0], [nan, 5.0]])\n"
+">>> QF.nanmulmean(x, y, dim=1, keepdim=True)\n"
+"tensor([[ 2.],\n"
+"        [20.]])"
+msgstr ">>> # keepdim を使用\n>>> x = torch.tensor([[1.0, nan], [3.0, 4.0]])\n>>> y = torch.tensor([[2.0, 4.0], [nan, 5.0]])\n>>> QF.nanmulmean(x, y, dim=1, keepdim=True)\ntensor([[ 2.],\n        [20.]])"
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:81
+msgid ":func:`mulmean`: Memory-efficient product mean without NaN handling."
+msgstr ":func:`mulmean`: メモリ効率に優れた積の平均値計算関数（NaN 処理なし）。"
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:82
+msgid ":func:`nanmean`: NaN-aware mean function."
+msgstr ":func:`nanmean`: NaN を考慮した平均値計算関数。"
+
+#: of qfeval_functions.functions.nanmulmean.nanmulmean:83
+msgid ":func:`mulsum`: Memory-efficient product sum function."
+msgstr ":func:`mulsum`: メモリ効率に優れた積の総和計算関数。"
 
 #~ msgid "Calculates `QF.nanmean(x * y, ...)` in a memory-efficient way."
 #~ msgstr "メモリ効率に優れた方法で `QF.nanmean(x * y, ...)` を計算します。"
@@ -134,4 +183,17 @@ msgstr ":func:`mulmean`: メモリ効率に優れた積の平均値計算関数�
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid ""
+#~ ":func:`mulmean`: Memory-efficient product mean"
+#~ " without NaN handling. :func:`nanmean`: "
+#~ "NaN-aware mean function. :func:`mulsum`: "
+#~ "Memory-efficient product sum function."
+#~ msgstr ""
+#~ ":func:`mulmean`: メモリ効率に優れた積の平均値計算関数（NaN処理なし）。 "
+#~ ":func:`nanmean`: NaNを考慮した平均値計算関数。 :func:`mulsum`: "
+#~ "メモリ効率に優れた積の総和計算関数。"
+
+#~ msgid "qfeval\\_functions.functions.nanmulmean"
+#~ msgstr "qfeval\\_functions.functions.nanmulmean"
 

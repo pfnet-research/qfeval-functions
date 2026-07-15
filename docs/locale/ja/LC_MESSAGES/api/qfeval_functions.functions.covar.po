@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,13 +21,12 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.covar.rst:2
-msgid "qfeval\\_functions.functions.covar"
-msgstr "qfeval\\_functions.functions.covar"
+msgid "covar"
+msgstr ""
 
 #: of qfeval_functions.functions.covar.covar:1
-#, fuzzy
 msgid "Compute covariance between two tensors along a specified dimension."
-msgstr "指定された次元に沿って、与えられたテンソル間の共分散を計算します。"
+msgstr "指定された次元に沿って、2 つのテンソル間の共分散を計算します。"
 
 #: of qfeval_functions.functions.covar.covar:3
 msgid ""
@@ -36,7 +35,7 @@ msgid ""
 " variables change together. Unlike ``numpy.cov``, this function computes "
 "element-wise covariance for each batch index rather than producing a "
 "covariance matrix."
-msgstr "この関数は、指定された次元に沿ってテンソル :attr:`x` と :attr:`y` の間の共分散を計算します。共分散は、2つの変数がどの程度一緒に変化するかを測る指標です。``numpy.cov`` とは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対して要素ごとの共分散を計算します。"
+msgstr "この関数は、指定された次元に沿ってテンソル :attr:`x` と :attr:`y` の間の共分散を計算します。共分散は、2 つの変数がどの程度一緒に変化するかを測る指標です。``numpy.cov`` とは異なり、この関数は共分散行列を生成するのではなく、各バッチインデックスに対して要素ごとの共分散を計算します。"
 
 #: of qfeval_functions.functions.covar.covar:9
 msgid "The covariance is computed as:"
@@ -47,7 +46,10 @@ msgid ""
 "\\text{Cov}(X, Y) = \\frac{1}{N - \\text{ddof}}\n"
 "\\sum_{i=1}^{N} (X_i - \\bar{X})(Y_i - \\bar{Y})\n"
 "\n"
-msgstr "\\text{Cov}(X, Y) = \\frac{1}{N - \\text{ddof}}\n\\sum_{i=1}^{N} (X_i - \\bar{X})(Y_i - \\bar{Y})\n\n"
+msgstr ""
+"\\text{Cov}(X, Y) = \\frac{1}{N - \\text{ddof}}\n"
+"\\sum_{i=1}^{N} (X_i - \\bar{X})(Y_i - \\bar{Y})\n"
+"\n"
 
 #: of qfeval_functions.functions.covar.covar:15
 #, python-brace-format
@@ -55,16 +57,20 @@ msgid ""
 "where :math:`\\bar{X}` and :math:`\\bar{Y}` are the means of :attr:`x` "
 "and :attr:`y` respectively along the specified dimension, and :math:`N` "
 "is the number of elements along that dimension."
-msgstr "ここで :math:`\\bar{X}` と :math:`\\bar{Y}` は、それぞれ指定された次元に沿って :attr:`x` と :attr:`y` の平均値を表し、:math:`N` はその次元に沿った要素数です。"
+msgstr ""
+"ここで :math:`\\bar{X}` と :math:`\\bar{Y}` は、それぞれ指定された次元に沿って :attr:`x` と "
+":attr:`y` の平均値を表し、:math:`N` はその次元に沿った要素数です。"
 
 #: of qfeval_functions.functions.covar.covar:19
 msgid ""
 "The function is memory-efficient when broadcasting tensors. For example, "
 "when operating on tensors with shapes ``(N, 1, D)`` and ``(1, M, D)``, "
 "the space complexity remains ``O(ND + MD)`` instead of ``O(NMD)``."
-msgstr "この関数はテンソルのブロードキャスト処理においてメモリ効率に優れています。例えば、形状が ``(N, 1, D)`` と ``(1, M, D)`` の形状を持つテンソルを処理する場合、空間計算量は ``O(NMD)`` ではなく ``O(ND + MD)`` となります。"
+msgstr ""
+"この関数はテンソルのブロードキャスト処理においてメモリ効率に優れています。例えば、形状が ``(N, 1, D)`` と ``(1, M, "
+"D)`` の形状を持つテンソルを処理する場合、空間計算量は ``O(NMD)`` ではなく ``O(ND + MD)`` となります。"
 
-#: of qfeval_functions.functions.covar.covar
+#: ../../api/qfeval_functions.functions.covar.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
@@ -74,7 +80,7 @@ msgstr "最初の入力テンソル。"
 
 #: of qfeval_functions.functions.covar.covar:27
 msgid "The second input tensor. Must be broadcastable with :attr:`x`."
-msgstr "第2の入力テンソル。 :attr:`x`とブロードキャスト可能である必要があります。"
+msgstr "第 2 の入力テンソル。:attr:`x` とブロードキャスト可能である必要があります。"
 
 #: of qfeval_functions.functions.covar.covar:30
 msgid ""
@@ -94,10 +100,9 @@ msgid ""
 "ddof``, where ``N`` represents the number of elements. Default is 1."
 msgstr "自由度の差分。計算に使用される除数は ``N - ddof`` で、ここで ``N`` は要素数を表します。デフォルト値は 1 です。"
 
-#: of qfeval_functions.functions.covar.covar
-#, fuzzy
+#: ../../api/qfeval_functions.functions.covar.rst
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.covar.covar:43
 msgid ""
@@ -105,13 +110,46 @@ msgid ""
 ":attr:`keepdim` parameter."
 msgstr "共分散値。形状は入力次元と :attr:`keepdim` パラメータに依存します。"
 
-#: of qfeval_functions.functions.covar.covar
+#: ../../api/qfeval_functions.functions.covar.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
 #: of qfeval_functions.functions.covar.covar:48
 msgid "Example"
 msgstr "使用例"
+
+#: of qfeval_functions.functions.covar.covar:50
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> y = torch.tensor([2.0, 4.0, 6.0, 8.0, 10.0])\n"
+">>> QF.covar(x, y, dim=0)\n"
+"tensor(5.)"
+msgstr ">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> y = torch.tensor([2.0, 4.0, 6.0, 8.0, 10.0])\n>>> QF.covar(x, y, dim=0)\ntensor(5.)"
+
+#: of qfeval_functions.functions.covar.covar:55
+msgid ""
+">>> x = torch.tensor([[1.0, 2.0, 3.0],\n"
+"...                   [4.0, 5.0, 6.0]])\n"
+">>> y = torch.tensor([[2.0, 4.0, 5.0],\n"
+"...                   [8.0, 10.0, 12.0]])\n"
+">>> QF.covar(x, y, dim=1)\n"
+"tensor([1.5000, 2.0000])\n"
+">>> QF.covar(x, y, dim=1, keepdim=True, ddof=0)\n"
+"tensor([[1.0000],\n"
+"        [1.3333]])"
+msgstr ">>> x = torch.tensor([[1.0, 2.0, 3.0],\n...                   [4.0, 5.0, 6.0]])\n>>> y = torch.tensor([[2.0, 4.0, 5.0],\n...                   [8.0, 10.0, 12.0]])\n>>> QF.covar(x, y, dim=1)\ntensor([1.5000, 2.0000])\n>>> QF.covar(x, y, dim=1, keepdim=True, ddof=0)\ntensor([[1.0000],\n        [1.3333]])"
+
+#: of qfeval_functions.functions.covar.covar:65
+msgid ":func:`nancovar`: NaN-aware covariance function."
+msgstr ":func:`nancovar`: NaN を考慮した共分散関数。"
+
+#: of qfeval_functions.functions.covar.covar:66
+msgid ":func:`correl`: Pearson correlation function."
+msgstr ":func:`correl`: ピアソン相関関数。"
+
+#: of qfeval_functions.functions.covar.covar:67
+msgid ":func:`mulmean`: Memory-efficient product mean used in the implementation."
+msgstr ":func:`mulmean`: 実装に使用されているメモリ効率の良い積の平均関数。"
 
 #~ msgid ""
 #~ "When performing broadcast between the "
@@ -139,4 +177,7 @@ msgstr "使用例"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.covar"
+#~ msgstr "qfeval\\_functions.functions.covar"
 

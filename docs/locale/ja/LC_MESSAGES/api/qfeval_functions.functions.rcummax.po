@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 03:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,20 +21,114 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.rcummax.rst:2
-msgid "qfeval\\_functions.functions.rcummax"
-msgstr "qfeval\\_functions.functions.rcummax"
+msgid "rcummax"
+msgstr ""
 
 #: of qfeval_functions.functions.rcummax.rcummax:1
 msgid ""
-"Returns the reversely cumulative max of elements of `input` in the "
-"dimension `dim`."
-msgstr "次元 `dim` における `input` の要素の逆累積最大値を返します。"
+"Returns the reversely cumulative max of elements of ``x`` in the "
+"dimension ``dim``."
+msgstr "次元 ``dim`` における ``x`` の要素の逆方向累積最大値を返します。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:4
+msgid ""
+"This is the reverse-direction counterpart of :func:`torch.cummax`: the "
+":math:`i`-th output element is the maximum of all elements at or after "
+"position :math:`i` along the dimension, together with the index of the "
+"first position achieving that maximum.  This is useful, for example, to "
+"find the highest future price at each time step."
+msgstr ""
+"これは :func:`torch.cummax` の逆方向版です。:math:`i` 番目の出力要素は、次元に沿って位置 :math:`i` "
+"以降にあるすべての要素の最大値と、その最大値を最初に達成する位置のインデックスです。これは、例えば各時点における将来の最高価格を求めるのに有用です。"
+
+#: ../../api/qfeval_functions.functions.rcummax.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.rcummax.rcummax:11
+msgid "The input tensor."
+msgstr "入力テンソル。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:14
+msgid "The dimension along which to compute the reversely cumulative max."
+msgstr "逆方向累積最大値を計算する次元。"
+
+#: ../../api/qfeval_functions.functions.rcummax.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.rcummax.rcummax:18
+msgid ""
+"A named tuple of ``(values, indices)``:      - ``values`` (Tensor): A "
+"tensor of the same shape as the input,       where each element is the "
+"maximum of the input elements at or       after its position along the "
+"dimension.     - ``indices`` (Tensor): The index of the first occurrence "
+"of       each maximum value along the dimension."
+msgstr ""
+
+#: of qfeval_functions.functions.rcummax.rcummax:20
+msgid "A named tuple of ``(values, indices)``:"
+msgstr "``(values, indices)`` の名前付きタプル:"
+
+#: of qfeval_functions.functions.rcummax.rcummax:22
+msgid ""
+"``values`` (Tensor): A tensor of the same shape as the input, where each "
+"element is the maximum of the input elements at or after its position "
+"along the dimension."
+msgstr "``values`` (Tensor): 入力と同じ形状のテンソルで、各要素は次元に沿ってその位置以降にある入力要素の最大値です。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:25
+msgid ""
+"``indices`` (Tensor): The index of the first occurrence of each maximum "
+"value along the dimension."
+msgstr "``indices`` (Tensor): 次元に沿って各最大値が最初に現れる位置のインデックス。"
 
 #: ../../api/qfeval_functions.functions.rcummax.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.rcummax.rcummax:5
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.rcummax.Result\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.rcummax.Result\\``"
+#: of qfeval_functions.functions.rcummax.rcummax:30
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.rcummax.rcummax:32
+msgid ""
+">>> x = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n"
+">>> result = QF.rcummax(x, dim=0)\n"
+">>> result.values\n"
+"tensor([5., 5., 5., 5., 4.])\n"
+">>> result.indices\n"
+"tensor([3, 3, 3, 3, 4])"
+msgstr ""
+">>> x = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n"
+">>> result = QF.rcummax(x, dim=0)\n"
+">>> result.values\n"
+"tensor([5., 5., 5., 5., 4.])\n"
+">>> result.indices\n"
+"tensor([3, 3, 3, 3, 4])"
+
+#: of qfeval_functions.functions.rcummax.rcummax:39
+msgid ""
+"NaN values propagate in the direction of accumulation: because the "
+"accumulation runs from the end of the dimension, all positions at or "
+"before a NaN become NaN."
+msgstr "NaN 値は累積の方向に伝播します。累積は次元の末尾から実行されるため、NaN と同じ位置およびそれより前のすべての位置が NaN になります。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:44
+msgid ":func:`rcumsum`: Reversely cumulative sum function."
+msgstr ":func:`rcumsum`: 逆方向の累積和関数。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:45
+msgid ":func:`mmax`: Moving maximum function."
+msgstr ":func:`mmax`: 移動最大値関数。"
+
+#: of qfeval_functions.functions.rcummax.rcummax:46
+msgid "``torch.cummax``: Standard (forward) cumulative maximum."
+msgstr "``torch.cummax``: 標準の（順方向の）累積最大値。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.rcummax.Result\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.rcummax.Result\\``"
+
+#~ msgid "qfeval\\_functions.functions.rcummax"
+#~ msgstr "qfeval\\_functions.functions.rcummax"
 

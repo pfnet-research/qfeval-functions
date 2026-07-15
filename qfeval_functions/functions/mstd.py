@@ -67,6 +67,11 @@ def mstd(
         >>> QF.mstd(x, span=2, ddof=1)
         tensor([   nan, 1.4142, 1.4142, 1.4142])
 
+    .. note::
+        If a window contains any NaN value, the moving standard deviation
+        for that window is NaN. Unlike ``pandas.DataFrame.rolling``, there
+        is no ``min_periods``-style option to skip NaN values.
+
     .. seealso::
         - :func:`mvar`: Moving variance function.
         - :func:`ma`: Moving average function.

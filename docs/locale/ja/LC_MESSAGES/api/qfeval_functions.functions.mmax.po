@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 03:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.mmax.rst:2
-msgid "qfeval\\_functions.functions.mmax"
-msgstr "qfeval\\_functions.functions.mmax"
+msgid "mmax"
+msgstr ""
 
 #: of qfeval_functions.functions.mmax.mmax:1
 msgid "Compute the moving (sliding window) maximum of a tensor."
@@ -36,7 +36,10 @@ msgid ""
 "window cannot fully cover preceding elements (i.e., the first ``span - "
 "1`` elements along the selected dimension), the result is computed using "
 "available values by padding with the first element."
-msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の最大値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の ``span - 1`` 要素の場合）、結果は最初の要素でパディングすることで利用可能な値を用いて計算されます。"
+msgstr ""
+"この関数は、指定された次元に沿ってサイズ :attr:`span` "
+"のスライディングウィンドウ内の最大値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、選択された次元に沿って最初の"
+" ``span - 1`` 要素の場合）、結果は最初の要素でパディングすることで利用可能な値を用いて計算されます。"
 
 #: of qfeval_functions.functions.mmax.mmax:10
 msgid "The moving maximum is computed as:"
@@ -46,7 +49,9 @@ msgstr "移動最大値は以下のように計算されます："
 msgid ""
 "\\text{MMAX}[i] = \\max_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n"
 "\n"
-msgstr "\\text{MMAX}[i] = \\max_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n\n"
+msgstr ""
+"\\text{MMAX}[i] = \\max_{j=\\max(0, i-\\text{span}+1)}^{i} x[j]\n"
+"\n"
 
 #: ../../api/qfeval_functions.functions.mmax.rst
 msgid "Parameters"
@@ -67,9 +72,8 @@ msgid ""
 msgstr "移動最大値を計算する次元。デフォルトは -1 で、最後の次元を指定します。"
 
 #: ../../api/qfeval_functions.functions.mmax.rst
-#, fuzzy
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.mmax.mmax:26
 msgid ""
@@ -85,13 +89,82 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
+#: of qfeval_functions.functions.mmax.mmax:33
+msgid ""
+">>> # Simple moving maximum with window size 3\n"
+">>> x = torch.tensor([1.0, 5.0, 3.0, 8.0, 2.0])\n"
+">>> QF.mmax(x, span=3)\n"
+"tensor([1., 5., 5., 8., 8.])"
+msgstr ">>> # ウィンドウサイズ 3 の単純な移動最大値\n>>> x = torch.tensor([1.0, 5.0, 3.0, 8.0, 2.0])\n>>> QF.mmax(x, span=3)\ntensor([1., 5., 5., 8., 8.])"
+
+#: of qfeval_functions.functions.mmax.mmax:38
+msgid ""
+">>> # 2D tensor with moving maximum along columns\n"
+">>> x = torch.tensor([[1.0, 4.0, 2.0, 6.0],\n"
+"...                   [3.0, 1.0, 5.0, 2.0],\n"
+"...                   [2.0, 7.0, 3.0, 4.0]])\n"
+">>> QF.mmax(x, span=2, dim=1)\n"
+"tensor([[1., 4., 4., 6.],\n"
+"        [3., 3., 5., 5.],\n"
+"        [2., 7., 7., 4.]])"
+msgstr ">>> # 2 次元テンソルの列方向の移動最大値\n>>> x = torch.tensor([[1.0, 4.0, 2.0, 6.0],\n...                   [3.0, 1.0, 5.0, 2.0],\n...                   [2.0, 7.0, 3.0, 4.0]])\n>>> QF.mmax(x, span=2, dim=1)\ntensor([[1., 4., 4., 6.],\n        [3., 3., 5., 5.],\n        [2., 7., 7., 4.]])"
+
+#: of qfeval_functions.functions.mmax.mmax:47
+msgid ""
+">>> # Moving maximum along the first dimension\n"
+">>> x = torch.tensor([[1.0, 2.0],\n"
+"...                   [4.0, 1.0],\n"
+"...                   [2.0, 5.0],\n"
+"...                   [3.0, 2.0]])\n"
+">>> QF.mmax(x, span=3, dim=0)\n"
+"tensor([[1., 2.],\n"
+"        [4., 2.],\n"
+"        [4., 5.],\n"
+"        [4., 5.]])"
+msgstr ""
+">>> # 最初の次元に沿った移動最大値\n"
+">>> x = torch.tensor([[1.0, 2.0],\n"
+"...                   [4.0, 1.0],\n"
+"...                   [2.0, 5.0],\n"
+"...                   [3.0, 2.0]])\n"
+">>> QF.mmax(x, span=3, dim=0)\n"
+"tensor([[1., 2.],\n"
+"        [4., 2.],\n"
+"        [4., 5.],\n"
+"        [4., 5.]])"
+
+#: of qfeval_functions.functions.mmax.mmax:58
+msgid ""
+">>> # Handling negative values\n"
+">>> x = torch.tensor([-2.0, -1.0, -5.0, -3.0, -1.0])\n"
+">>> QF.mmax(x, span=2)\n"
+"tensor([-2., -1., -1., -3., -1.])"
+msgstr ""
+">>> # 負の値の扱い\n"
+">>> x = torch.tensor([-2.0, -1.0, -5.0, -3.0, -1.0])\n"
+">>> QF.mmax(x, span=2)\n"
+"tensor([-2., -1., -1., -3., -1.])"
+
 #: of qfeval_functions.functions.mmax.mmax:63
-msgid ":func:`mmin`: Moving minimum function. :func:`msum`: Moving sum function."
-msgstr ":func:`mmin`: 移動最小値関数。 :func:`msum`: 移動合計関数。"
+msgid ""
+"If a window contains any NaN value, the moving maximum for that window is"
+" NaN. There is no option to skip NaN values."
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動最大値は NaN になります。NaN 値をスキップするオプションはありません。"
+
+#: of qfeval_functions.functions.mmax.mmax:67
+msgid ":func:`mmin`: Moving minimum function."
+msgstr ":func:`mmin`: 移動最小値関数。"
+
+#: of qfeval_functions.functions.mmax.mmax:68
+msgid ":func:`msum`: Moving sum function."
+msgstr ":func:`msum`: 移動合計関数。"
 
 #~ msgid "Returns the moving max of the given tensor."
 #~ msgstr "指定されたテンソルの移動最大値を返します。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.mmax"
+#~ msgstr "qfeval\\_functions.functions.mmax"
 

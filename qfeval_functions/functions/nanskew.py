@@ -85,16 +85,17 @@ def nanskew(
         >>> QF.nanskew(x, dim=0)
         tensor(-2.0287)
 
-    .. warning::
+    .. note::
         Skewness calculations can be sensitive to outliers. A single extreme
         value can significantly affect the skewness measure, especially with
-        small sample sizes.
+        small sample sizes. With ``unbiased=True`` (default), the bias
+        correction requires at least 3 valid observations; slices with fewer
+        valid values produce NaN.
 
     .. seealso::
-        :func:`nankurtosis`: NaN-aware kurtosis function.
-        :func:`nanvar`: NaN-aware variance function.
-        :func:`nanstd`: NaN-aware standard deviation function.
-        :func:`nanmean`: NaN-aware mean function.
+        - :func:`nankurtosis`: NaN-aware kurtosis function.
+        - :func:`nanvar`: NaN-aware variance function.
+        - :func:`nanmean`: NaN-aware mean function.
     """
     n = (~x.isnan()).to(x).sum(dim=dim, keepdim=True)
     ddof = 1 if unbiased else 0

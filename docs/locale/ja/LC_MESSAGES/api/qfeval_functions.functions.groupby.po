@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.groupby.rst:2
-msgid "qfeval\\_functions.functions.groupby"
-msgstr "qfeval\\_functions.functions.groupby"
+msgid "groupby"
+msgstr ""
 
 #: of qfeval_functions.functions.groupby.groupby:1
 msgid "Group tensor elements by group identifiers along a dimension."
@@ -34,21 +34,19 @@ msgid ""
 "provided group identifiers. It creates a new dimension that contains all "
 "elements belonging to each group. This is similar to SQL's GROUP BY or "
 "pandas' groupby operation, but adapted for tensor operations."
-msgstr "この関数は、与えられたグループ識別子に基づいてテンソルの要素をグループに再編成します。各グループに属するすべての要素を含む新しい次元を作成します。これはSQLのGROUP BY句やpandasのgroupby操作に似ていますが、テンソル演算用に最適化されています。"
+msgstr "この関数は、与えられたグループ識別子に基づいてテンソルの要素をグループに再編成します。各グループに属するすべての要素を含む新しい次元を作成します。これは SQL の GROUP BY 句や pandas の groupby 操作に似ていますが、テンソル演算用に最適化されています。"
 
 #: of qfeval_functions.functions.groupby.groupby:8
-#, fuzzy
 msgid ""
 "The function adds a new dimension immediately after the specified "
 "dimension. This new dimension represents the items within each group. "
 "Since tensors require fixed-size dimensions, groups with fewer elements "
 "are padded with :attr:`empty_value`."
-msgstr "この操作は、`dim` で指定された次元の直後に新しい次元を追加します。この追加次元はグループ内のアイテム数を表します。テンソルではすべての次元が固定サイズである必要があるため、グループ内のアイテム数が異なる場合には `empty_value` でこの次元を埋めます。"
-"この操作は、`dim` "
-"で指定された次元の直後に新しい次元を追加します。この追加次元はグループ内のアイテム数を表します。テンソルではすべての次元が固定サイズである必要があるため、グループ内のアイテム数が異なる場合には"
-" `empty_value` でこの次元を埋めます。"
+msgstr ""
+"この関数は、指定された次元の直後に新しい次元を追加します。この新しい次元は各グループ内のアイテムを表します。テンソルの次元は固定サイズである必要があるため、要素数が少ないグループは"
+" :attr:`empty_value` で埋められます。"
 
-#: of qfeval_functions.functions.groupby.groupby
+#: ../../api/qfeval_functions.functions.groupby.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
@@ -62,13 +60,13 @@ msgid ""
 "``x.shape[dim]``. Each element specifies which group the corresponding "
 "element in :attr:`x` belongs to. Group IDs should be non-negative "
 "integers."
-msgstr "``x.shape[dim]``と同じ長さの整数グループ識別子の1次元テンソル。各要素は、:attr:`x`の対応する要素が属するグループを指定します。グループIDは非負整数である必要があります。"
+msgstr "``x.shape[dim]`` と同じ長さの整数グループ識別子の 1 次元テンソル。各要素は、:attr:`x` の対応する要素が属するグループを指定します。グループ ID は非負整数である必要があります。"
 
 #: of qfeval_functions.functions.groupby.groupby:23
 msgid ""
 "The dimension along which to group elements. Default is -1 (the last "
 "dimension)."
-msgstr "要素をグループ化する次元。デフォルトは-1（最後の次元）です。"
+msgstr "要素をグループ化する次元。デフォルトは -1（最後の次元）です。"
 
 #: of qfeval_functions.functions.groupby.groupby:27
 msgid ""
@@ -76,10 +74,9 @@ msgid ""
 "group size. Default is ``nan``."
 msgstr "グループサイズの最大値よりも要素数が少ないグループをパディングするために使用される値。デフォルトは ``nan`` です。"
 
-#: of qfeval_functions.functions.groupby.groupby
-#, fuzzy
+#: ../../api/qfeval_functions.functions.groupby.rst
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.groupby.groupby:32
 msgid ""
@@ -87,9 +84,9 @@ msgid ""
 "is the same as :attr:`x` except at dimension :attr:`dim`, which is "
 "replaced by two dimensions: ``(num_groups, max_group_size)``. Elements "
 "are rearranged according to their group membership."
-msgstr "入力テンソルに1次元追加されたテンソルです。形状は:attr:`x`と同じですが、次元:attr:`dim`は2つの次元に置き換えられます: ``(num_groups, max_group_size)``。要素はグループ所属に基づいて再配置されます。"
+msgstr "入力テンソルに 1 次元追加されたテンソルです。形状は :attr:`x` と同じですが、次元 :attr:`dim` は 2 つの次元に置き換えられます: ``(num_groups, max_group_size)``。要素はグループ所属に基づいて再配置されます。"
 
-#: of qfeval_functions.functions.groupby.groupby
+#: ../../api/qfeval_functions.functions.groupby.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
@@ -97,9 +94,63 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
+#: of qfeval_functions.functions.groupby.groupby:42
+msgid ""
+">>> # Group a 1D tensor\n"
+">>> x = torch.tensor([10., 20., 30., 40., 50.])\n"
+">>> group_id = torch.tensor([0, 1, 0, 1, 0])\n"
+">>> grouped = QF.groupby(x, group_id)\n"
+">>> grouped\n"
+"tensor([[10., 30., 50.],\n"
+"        [20., 40., nan]])"
+msgstr ">>> # 1 次元テンソルのグループ化\n>>> x = torch.tensor([10., 20., 30., 40., 50.])\n>>> group_id = torch.tensor([0, 1, 0, 1, 0])\n>>> grouped = QF.groupby(x, group_id)\n>>> grouped\ntensor([[10., 30., 50.],\n        [20., 40., nan]])"
+
+#: of qfeval_functions.functions.groupby.groupby:50
+msgid ""
+">>> # Group along a specific dimension of 2D tensor\n"
+">>> x = torch.tensor([[1., 2., 3., 4.],\n"
+"...                   [5., 6., 7., 8.]])\n"
+">>> group_id = torch.tensor([0, 1, 0, 2])\n"
+">>> grouped = QF.groupby(x, group_id, dim=1)\n"
+">>> grouped\n"
+"tensor([[[1., 3.],\n"
+"         [2., nan],\n"
+"         [4., nan]],\n"
+"\n"
+"        [[5., 7.],\n"
+"         [6., nan],\n"
+"         [8., nan]]])"
+msgstr ">>> # 2 次元テンソルの特定の次元に沿ったグループ化\n>>> x = torch.tensor([[1., 2., 3., 4.],\n...                   [5., 6., 7., 8.]])\n>>> group_id = torch.tensor([0, 1, 0, 2])\n>>> grouped = QF.groupby(x, group_id, dim=1)\n>>> grouped\ntensor([[[1., 3.],\n         [2., nan],\n         [4., nan]],\n\n        [[5., 7.],\n         [6., nan],\n         [8., nan]]])"
+
+#: of qfeval_functions.functions.groupby.groupby:64
+msgid ""
+">>> # Using custom empty value\n"
+">>> x = torch.tensor([1, 2, 3, 4, 5], dtype=torch.int)\n"
+">>> group_id = torch.tensor([0, 0, 1, 1, 1])\n"
+">>> grouped = QF.groupby(x, group_id, empty_value=-1)\n"
+">>> grouped\n"
+"tensor([[ 1,  2, -1],\n"
+"        [ 3,  4,  5]], dtype=torch.int32)"
+msgstr ">>> # カスタムの空値を使用\n>>> x = torch.tensor([1, 2, 3, 4, 5], dtype=torch.int)\n>>> group_id = torch.tensor([0, 0, 1, 1, 1])\n>>> grouped = QF.groupby(x, group_id, empty_value=-1)\n>>> grouped\ntensor([[ 1,  2, -1],\n        [ 3,  4,  5]], dtype=torch.int32)"
+
+#: of qfeval_functions.functions.groupby.groupby:72
+msgid ":func:`group_shift`: Shift operation within groups."
+msgstr ":func:`group_shift`: グループ内でのシフト演算。"
+
+#: of qfeval_functions.functions.groupby.groupby:73
+msgid ":func:`cumcount`: Number each occurrence of unique values."
+msgstr ":func:`cumcount`: 一意な値の出現ごとに番号を付ける関数。"
+
+#: of qfeval_functions.functions.groupby.groupby:74
+msgid ":func:`bincount`: Count occurrences of each value."
+msgstr ":func:`bincount`: 各値の出現回数を数える関数。"
+
 #~ msgid "Groups items of `x` by `group_id`."
 #~ msgstr "`group_id` に基づいて `x` の項目をグループ化します。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.groupby"
+#~ msgstr "qfeval\\_functions.functions.groupby"
 

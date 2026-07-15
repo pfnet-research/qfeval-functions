@@ -1,0 +1,193 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-15 01:46+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.nanamax.rst:2
+msgid "nanamax"
+msgstr ""
+
+#: of qfeval_functions.functions.nanamax.nanamax:1
+msgid ""
+"Compute the maximum of tensor elements along specified dimensions, "
+"ignoring NaN values."
+msgstr "NaN 値を無視して、指定された次元に沿ってテンソル要素の最大値を計算します。"
+
+#: of qfeval_functions.functions.nanamax.nanamax:4
+msgid ""
+"This function calculates the maximum of all valid (non-NaN) elements in a"
+" tensor along the specified dimension(s). Unlike :func:`nanmax`, this "
+"function supports multiple dimensions but does not return indices. When "
+"no valid elements are found along a dimension, the result is NaN."
+msgstr "この関数は、指定された次元に沿って、テンソル内のすべての有効な（NaN でない）要素の最大値を計算します。:func:`nanmax` と異なり、この関数は複数の次元をサポートしますが、インデックスは返しません。次元に沿って有効な要素が 1 つも存在しない場合、結果は NaN となります。"
+
+#: of qfeval_functions.functions.nanamax.nanamax:9
+msgid "The NaN-aware maximum is computed as:"
+msgstr "NaN を考慮した最大値は次のように計算されます:"
+
+#: of qfeval_functions.functions.nanamax.nanamax:11
+msgid ""
+"\\text{nanamax}(X) = \\max_{i \\text{ valid}} X_i\n"
+"\n"
+msgstr ""
+"\\text{nanamax}(X) = \\max_{i \\text{ valid}} X_i\n"
+"\n"
+
+#: of qfeval_functions.functions.nanamax.nanamax:14
+msgid "where the maximum is over all valid (non-NaN) values."
+msgstr "ここで、最大値はすべての有効な（NaN でない）値に対して計算されます。"
+
+#: ../../api/qfeval_functions.functions.nanamax.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.nanamax.nanamax:17
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.nanamax.nanamax:20
+msgid ""
+"The dimension(s) along which to compute the maximum. If None (default), "
+"the maximum is computed over all dimensions."
+msgstr "最大値を計算する次元（複数可）。None（デフォルト）の場合、すべての次元にわたって最大値が計算されます。"
+
+#: of qfeval_functions.functions.nanamax.nanamax:24
+msgid ""
+"Whether the output tensor has :attr:`dim` retained or not. Default is "
+"False."
+msgstr "出力テンソルが :attr:`dim` を保持するかどうか。デフォルトは False です。"
+
+#: ../../api/qfeval_functions.functions.nanamax.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.nanamax.nanamax:28
+msgid ""
+"The maximum values computed only over valid (non-NaN) values. When no "
+"valid values exist along a dimension, the result is NaN. The shape "
+"depends on the input dimensions, :attr:`dim`, and :attr:`keepdim` "
+"parameters."
+msgstr "有効な（NaN でない）値のみに対して計算された最大値。次元に沿って有効な値が存在しない場合、結果は NaN となります。形状は入力の次元、:attr:`dim` および :attr:`keepdim` パラメータに依存します。"
+
+#: ../../api/qfeval_functions.functions.nanamax.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanamax.nanamax:35
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.nanamax.nanamax:37
+msgid ""
+">>> # Simple maximum with NaN values\n"
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n"
+">>> QF.nanamax(x)\n"
+"tensor(5.)"
+msgstr ">>> # NaN 値を含む単純な最大値\n>>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n>>> QF.nanamax(x)\ntensor(5.)"
+
+#: of qfeval_functions.functions.nanamax.nanamax:42
+msgid ""
+">>> # All NaN returns NaN\n"
+">>> all_nan = torch.tensor([nan, nan, nan])\n"
+">>> QF.nanamax(all_nan)\n"
+"tensor(nan)"
+msgstr ">>> # すべて NaN の場合は NaN を返す\n>>> all_nan = torch.tensor([nan, nan, nan])\n>>> QF.nanamax(all_nan)\ntensor(nan)"
+
+#: of qfeval_functions.functions.nanamax.nanamax:47
+msgid ""
+">>> # 2D tensor with max along columns\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [4.0, 5.0, nan]])\n"
+">>> QF.nanamax(x, dim=0)\n"
+"tensor([4., 5., 3.])"
+msgstr ">>> # 2 次元テンソルの列方向の最大値\n>>> x = torch.tensor([[1.0, nan, 3.0],\n...                   [4.0, 5.0, nan]])\n>>> QF.nanamax(x, dim=0)\ntensor([4., 5., 3.])"
+
+#: of qfeval_functions.functions.nanamax.nanamax:53
+msgid ""
+">>> # Max along rows\n"
+">>> QF.nanamax(x, dim=1)\n"
+"tensor([3., 5.])"
+msgstr ">>> # 行方向の最大値\n>>> QF.nanamax(x, dim=1)\ntensor([3., 5.])"
+
+#: of qfeval_functions.functions.nanamax.nanamax:57
+msgid ""
+">>> # Multiple dimensions\n"
+">>> x = torch.tensor([[[1.0, nan], [3.0, 4.0]],\n"
+"...                   [[nan, 6.0], [7.0, nan]]])\n"
+">>> QF.nanamax(x, dim=(1, 2))\n"
+"tensor([4., 7.])"
+msgstr ">>> # 複数の次元\n>>> x = torch.tensor([[[1.0, nan], [3.0, 4.0]],\n...                   [[nan, 6.0], [7.0, nan]]])\n>>> QF.nanamax(x, dim=(1, 2))\ntensor([4., 7.])"
+
+#: of qfeval_functions.functions.nanamax.nanamax:63
+msgid ""
+">>> # With keepdim\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [4.0, 5.0, nan]])\n"
+">>> QF.nanamax(x, dim=1, keepdim=True)\n"
+"tensor([[3.],\n"
+"        [5.]])"
+msgstr ">>> # keepdim を使用\n>>> x = torch.tensor([[1.0, nan, 3.0],\n...                   [4.0, 5.0, nan]])\n>>> QF.nanamax(x, dim=1, keepdim=True)\ntensor([[3.],\n        [5.]])"
+
+#: of qfeval_functions.functions.nanamax.nanamax:70
+msgid ""
+">>> # All NaN slice returns NaN\n"
+">>> x = torch.tensor([[1.0, 2.0],\n"
+"...                   [nan, nan]])\n"
+">>> QF.nanamax(x, dim=1)\n"
+"tensor([2., nan])"
+msgstr ">>> # すべて NaN のスライスは NaN を返す\n>>> x = torch.tensor([[1.0, 2.0],\n...                   [nan, nan]])\n>>> QF.nanamax(x, dim=1)\ntensor([2., nan])"
+
+#: of qfeval_functions.functions.nanamax.nanamax:76
+msgid ""
+">>> # With negative infinity\n"
+">>> x = torch.tensor([[1.0, -inf, 3.0],\n"
+"...                   [nan, 2.0, -inf]])\n"
+">>> QF.nanamax(x, dim=1)\n"
+"tensor([3., 2.])"
+msgstr ">>> # 負の無限大を含む\n>>> x = torch.tensor([[1.0, -inf, 3.0],\n...                   [nan, 2.0, -inf]])\n>>> QF.nanamax(x, dim=1)\ntensor([3., 2.])"
+
+#: of qfeval_functions.functions.nanamax.nanamax:82
+msgid ":func:`nanmax`: NaN-aware maximum with indices (single dimension only)."
+msgstr ":func:`nanmax`: インデックスも返す NaN 対応の最大値（単一次元のみ）。"
+
+#: of qfeval_functions.functions.nanamax.nanamax:84
+msgid ":func:`nanamin`: NaN-aware minimum over multiple dimensions."
+msgstr ":func:`nanamin`: 複数次元に対応した NaN 対応の最小値。"
+
+#: of qfeval_functions.functions.nanamax.nanamax:85
+msgid ""
+"``torch.amax``: Standard maximum over multiple dimensions (NaN "
+"propagates)."
+msgstr "``torch.amax``: 複数次元に対応した標準の最大値（NaN は伝播します）。"
+
+#~ msgid ""
+#~ ":func:`nanmax`: NaN-aware maximum with "
+#~ "indices (single dimension only). "
+#~ ":func:`nanamin`: NaN-aware minimum over "
+#~ "multiple dimensions. ``torch.amax``: Standard "
+#~ "maximum over multiple dimensions (NaN "
+#~ "propagates)."
+#~ msgstr ""
+#~ ":func:`nanmax`: インデックスも返すNaN対応の最大値（単一次元のみ）。:func:`nanamin`: "
+#~ "複数次元に対応したNaN対応の最小値。``torch.amax``: 複数次元に対応した標準の最大値（NaNは伝播します）。"
+
+#~ msgid "qfeval\\_functions.functions.nanamax"
+#~ msgstr "qfeval\\_functions.functions.nanamax"
+

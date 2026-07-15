@@ -64,9 +64,13 @@ def mmax(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
         >>> QF.mmax(x, span=2)
         tensor([-2., -1., -1., -3., -1.])
 
+    .. note::
+        If a window contains any NaN value, the moving maximum for that
+        window is NaN. There is no option to skip NaN values.
+
     .. seealso::
-        :func:`mmin`: Moving minimum function.
-        :func:`msum`: Moving sum function.
+        - :func:`mmin`: Moving minimum function.
+        - :func:`msum`: Moving sum function.
     """
     # 1. Move the target dimension to the top to make data manipulation easier.
     x = x.transpose(0, dim)

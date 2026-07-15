@@ -69,6 +69,8 @@ def gaussian_blur(x: torch.Tensor, sigma: float, dim: int = -1) -> torch.Tensor:
                 [0.0000, 0.0000, 0.0000, 0.0000, 0.0000]])
 
     .. seealso::
+        - :func:`ma`: Simple moving average, another smoothing function.
+        - :func:`ema`: Exponential moving average function.
         - https://en.wikipedia.org/wiki/Gaussian_blur
         - https://bartwronski.com/2021/10/31/gaussian-blur-corrected-improved-and-optimized/
     """

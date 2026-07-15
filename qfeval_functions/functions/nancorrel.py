@@ -86,6 +86,11 @@ def nancorrel(
         tensor([[1.],
                 [1.]])
 
+    .. note::
+        If either :attr:`x` or :attr:`y` has zero variance over the valid
+        (non-NaN) pairs (i.e., all valid values are identical), the
+        correlation is mathematically undefined and the result is NaN.
+
     .. seealso::
         - :func:`correl`: Pearson correlation without NaN handling.
         - :func:`nancovar`: NaN-aware covariance function.

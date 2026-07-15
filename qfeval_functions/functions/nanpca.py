@@ -93,10 +93,15 @@ def nanpca(data: torch.Tensor) -> NanpcaResult:
         meaningful covariance estimates, the results may contain NaN values.
         Ensure adequate data coverage for reliable PCA results.
 
+    .. note::
+        The sign of each principal component is arbitrary: components are
+        defined only up to sign, so an equivalent input may yield components
+        multiplied by -1.
+
     .. seealso::
-        :func:`nancovar`: NaN-aware covariance computation.
-        :func:`eigh`: Eigendecomposition for symmetric matrices.
-        :func:`nanmean`: NaN-aware mean used in covariance calculation.
+        - :func:`nancovar`: NaN-aware covariance computation.
+        - :func:`eigh`: Eigendecomposition for symmetric matrices.
+        - :func:`nanmean`: NaN-aware mean used in covariance calculation.
     """
     batch_shape = data.shape[:-2]
     data = data[None].flatten(end_dim=-3)

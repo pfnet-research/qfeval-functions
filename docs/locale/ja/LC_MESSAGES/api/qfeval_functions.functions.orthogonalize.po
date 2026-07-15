@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 03:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,40 +21,121 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.orthogonalize.rst:2
-msgid "qfeval\\_functions.functions.orthogonalize"
-msgstr "qfeval\\_functions.functions.orthogonalize"
+msgid "orthogonalize"
+msgstr ""
 
 #: of qfeval_functions.functions.orthogonalize.orthogonalize:1
-msgid "Orthogonalizes x with respect to y along the specified dimension."
-msgstr "指定された次元に沿って、xをyに対して直交化します。"
+msgid "Orthogonalize ``x`` with respect to ``y`` along the specified dimension."
+msgstr "指定された次元に沿って、``x`` を ``y`` に対して直交化します。"
+
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:3
+msgid ""
+"This function subtracts from ``x`` its orthogonal projection onto ``y``, "
+"so that the result is orthogonal to ``y`` along ``dim`` (i.e., their dot "
+"product along ``dim`` is zero):"
+msgstr "この関数は ``x`` から ``y`` への正射影を差し引くことで、結果が ``dim`` に沿って ``y`` と直交する（すなわち ``dim`` に沿った内積が 0 になる）ようにします:"
+
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:7
+#, python-brace-format
+msgid ""
+"x - \\frac{\\langle x, y \\rangle}{\\langle y, y \\rangle} y\n"
+"\n"
+msgstr ""
+"x - \\frac{\\langle x, y \\rangle}{\\langle y, y \\rangle} y\n"
+"\n"
+
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:10
+msgid ""
+"This is the elementary step of the Gram-Schmidt process.  In quantitative"
+" finance, it is useful for neutralizing a signal against another factor "
+"(e.g., removing market exposure from an alpha signal)."
+msgstr ""
+"これはグラム・シュミット過程の基本ステップです。クオンツファイナンスでは、あるシグナルを別のファクターに対して中立化する（例: "
+"アルファシグナルから市場エクスポージャーを除去する）のに有用です。"
 
 #: ../../api/qfeval_functions.functions.orthogonalize.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
-#: of qfeval_functions.functions.orthogonalize.orthogonalize:4
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:15
 msgid "The tensor to be orthogonalized."
 msgstr "直交化するテンソル。"
 
-#: of qfeval_functions.functions.orthogonalize.orthogonalize:7
-msgid "The tensor with respect to which x will be orthogonalized."
-msgstr "xを直交化する際に基準となるテンソル。"
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:18
+msgid ""
+"The tensor with respect to which ``x`` will be orthogonalized. Its shape "
+"must be broadcastable to the shape of ``x``."
+msgstr "``x`` を直交化する際の基準となるテンソル。その形状は ``x`` の形状にブロードキャスト可能でなければなりません。"
 
-#: of qfeval_functions.functions.orthogonalize.orthogonalize:11
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:22
 msgid ""
 "The dimension along which the orthogonalization will be performed.  "
-"Default is -1."
-msgstr "直交化を実行する次元。デフォルト値は -1 です。"
+"Default is -1 (the last dimension)."
+msgstr "直交化を行う次元。デフォルトは -1（最後の次元）です。"
 
 #: ../../api/qfeval_functions.functions.orthogonalize.rst
 msgid "Returns"
 msgstr "Returns"
 
-#: of qfeval_functions.functions.orthogonalize.orthogonalize:15
-msgid "The orthogonalized tensor."
-msgstr "直交化されたテンソル。"
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:26
+msgid ""
+"A tensor of the same shape as ``x`` that is orthogonal to ``y`` along the"
+" specified dimension."
+msgstr "指定された次元に沿って ``y`` と直交する、``x`` と同じ形状のテンソル。"
 
 #: ../../api/qfeval_functions.functions.orthogonalize.rst
 msgid "Return type"
 msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:31
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:33
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, 3.0])\n"
+">>> y = torch.tensor([1.0, 1.0, 1.0])\n"
+">>> QF.orthogonalize(x, y)\n"
+"tensor([-1.,  0.,  1.])"
+msgstr ""
+">>> x = torch.tensor([1.0, 2.0, 3.0])\n"
+">>> y = torch.tensor([1.0, 1.0, 1.0])\n"
+">>> QF.orthogonalize(x, y)\n"
+"tensor([-1.,  0.,  1.])"
+
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:38
+msgid ""
+">>> # Each row is orthogonalized independently along dim=1.\n"
+">>> x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])\n"
+">>> y = torch.tensor([[1.0, 0.0], [0.0, 1.0]])\n"
+">>> QF.orthogonalize(x, y, dim=1)\n"
+"tensor([[0., 2.],\n"
+"        [3., 0.]])"
+msgstr ""
+">>> # 各行は dim=1 に沿って独立に直交化されます。\n"
+">>> x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])\n"
+">>> y = torch.tensor([[1.0, 0.0], [0.0, 1.0]])\n"
+">>> QF.orthogonalize(x, y, dim=1)\n"
+"tensor([[0., 2.],\n"
+"        [3., 0.]])"
+
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:45
+msgid ""
+"If :attr:`y` is a zero vector along the dimension, the projection "
+"involves division by zero and the result is NaN."
+msgstr ":attr:`y` が次元に沿ってゼロベクトルの場合、射影の計算でゼロ除算が発生し、結果は NaN になります。"
+
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:49
+msgid ":func:`orthonormalize`: Orthonormalize a set of vectors."
+msgstr ":func:`orthonormalize`: ベクトルの集合を正規直交化する関数。"
+
+#: of qfeval_functions.functions.orthogonalize.orthogonalize:50
+msgid ":func:`project`: Project a tensor with a projection matrix."
+msgstr ":func:`project`: 射影行列を用いてテンソルを射影する関数。"
+
+#~ msgid "The orthogonalized tensor."
+#~ msgstr "直交化されたテンソル。"
+
+#~ msgid "qfeval\\_functions.functions.orthogonalize"
+#~ msgstr "qfeval\\_functions.functions.orthogonalize"
 

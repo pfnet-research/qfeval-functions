@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-26 21:42+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,18 +18,97 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.stable_sort.rst:2
-msgid "qfeval\\_functions.functions.stable\\_sort"
-msgstr "qfeval\\_functions.functions.stable\\_sort"
+msgid "stable\\_sort"
+msgstr ""
 
 #: of qfeval_functions.functions.stable_sort.stable_sort:1
 msgid "Sorts the given tensor preserving the order of equivalent elements."
 msgstr "与えられたテンソルを、等価な要素の順序を保持したままソートします。"
 
+#: of qfeval_functions.functions.stable_sort.stable_sort:3
+msgid ""
+"This function sorts elements in ascending order along the specified "
+"dimension, guaranteeing that elements with equal values keep their "
+"original relative order (i.e., a stable sort).  NaN values are placed at "
+"the end, also preserving their original relative order.  Unlike "
+":func:`torch.sort`, whose default algorithm does not guarantee stability,"
+" this function always returns deterministic indices."
+msgstr "この関数は、指定された次元に沿って要素を昇順にソートし、等しい値を持つ要素が元の相対順序を保つこと（すなわち安定ソート）を保証します。NaN 値は末尾に配置され、これらも元の相対順序を保ちます。デフォルトのアルゴリズムが安定性を保証しない :func:`torch.sort` と異なり、この関数は常に決定的なインデックスを返します。"
+
+#: ../../api/qfeval_functions.functions.stable_sort.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:11
+msgid "The input tensor."
+msgstr "入力テンソル。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:14
+msgid "The dimension along which to sort. Default is -1 (the last dimension)."
+msgstr "ソートを行う次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.stable_sort.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:18
+msgid ""
+"A named tuple of ``(values, indices)``:      - ``values`` (Tensor): The "
+"sorted values, in the same shape as       the input.     - ``indices`` "
+"(Tensor): The indices of the sorted values in the       original tensor."
+msgstr ""
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:20
+msgid "A named tuple of ``(values, indices)``:"
+msgstr "``(values, indices)`` の名前付きタプル:"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:22
+msgid "``values`` (Tensor): The sorted values, in the same shape as the input."
+msgstr "``values`` (Tensor): ソートされた値。入力と同じ形状です。"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:24
+msgid ""
+"``indices`` (Tensor): The indices of the sorted values in the original "
+"tensor."
+msgstr "``indices`` (Tensor): ソートされた値の元のテンソルにおけるインデックス。"
+
 #: ../../api/qfeval_functions.functions.stable_sort.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.stable_sort.stable_sort:4
-msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"
-msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"
+#: of qfeval_functions.functions.stable_sort.stable_sort:29
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:31
+msgid ""
+">>> # The two 1.0s keep their original order (index 1 before 3).\n"
+">>> x = torch.tensor([3.0, 1.0, 2.0, 1.0])\n"
+">>> result = QF.stable_sort(x)\n"
+">>> result.values\n"
+"tensor([1., 1., 2., 3.])\n"
+">>> result.indices\n"
+"tensor([1, 3, 2, 0])"
+msgstr ">>> # 2 つの 1.0 は元の順序を保ちます（インデックス 1 が 3 より前）。\n>>> x = torch.tensor([3.0, 1.0, 2.0, 1.0])\n>>> result = QF.stable_sort(x)\n>>> result.values\ntensor([1., 1., 2., 3.])\n>>> result.indices\ntensor([1, 3, 2, 0])"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:39
+msgid ""
+">>> # NaN values are placed at the end.\n"
+">>> x = torch.tensor([2.0, nan, 1.0])\n"
+">>> result = QF.stable_sort(x)\n"
+">>> result.values\n"
+"tensor([1., 2., nan])\n"
+">>> result.indices\n"
+"tensor([2, 0, 1])"
+msgstr ">>> # NaN 値は末尾に配置されます。\n>>> x = torch.tensor([2.0, nan, 1.0])\n>>> result = QF.stable_sort(x)\n>>> result.values\ntensor([1., 2., nan])\n>>> result.indices\ntensor([2, 0, 1])"
+
+#: of qfeval_functions.functions.stable_sort.stable_sort:47
+msgid "``torch.sort``: PyTorch's built-in sort (also supports ``stable=True``)."
+msgstr "``torch.sort``: PyTorch に組み込まれたソート関数（``stable=True`` もサポート）。"
+
+#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"
+#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~qfeval\\_functions.functions.stable\\_sort.StableSortResult\\``"
+
+#~ msgid "qfeval\\_functions.functions.stable\\_sort"
+#~ msgstr "qfeval\\_functions.functions.stable\\_sort"
 

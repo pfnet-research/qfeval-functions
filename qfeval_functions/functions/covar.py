@@ -68,6 +68,12 @@ def covar(
         >>> QF.covar(x, y, dim=1, keepdim=True, ddof=0)
         tensor([[1.0000],
                 [1.3333]])
+
+    .. seealso::
+        - :func:`nancovar`: NaN-aware covariance function.
+        - :func:`correl`: Pearson correlation function.
+        - :func:`mulmean`: Memory-efficient product mean used in the
+          implementation.
     """
     x = x - x.mean(dim=dim, keepdim=True)
     y = y - y.mean(dim=dim, keepdim=True)

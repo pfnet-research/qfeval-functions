@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,12 +18,12 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.nanvar.rst:2
-msgid "qfeval\\_functions.functions.nanvar"
-msgstr "qfeval\\_functions.functions.nanvar"
+msgid "nanvar"
+msgstr ""
 
 #: of qfeval_functions.functions.nanvar.nanvar:1
 msgid "Compute the variance of a tensor, ignoring NaN values."
-msgstr "NaN値を無視してテンソルの分散を計算します。"
+msgstr "NaN 値を無視してテンソルの分散を計算します。"
 
 #: of qfeval_functions.functions.nanvar.nanvar:3
 msgid ""
@@ -31,9 +31,11 @@ msgid ""
 "dimensions while excluding NaN values. The variance can be computed using"
 " either the unbiased estimator (dividing by N-1) or the biased estimator "
 "(dividing by N), where N is the number of non-NaN elements."
-msgstr "この関数は、指定された次元に沿ってテンソル要素の分散を計算します。計算時には NaN 値は除外されます。分散は、不偏推定量（要素数 N-1 で除算）または偏推定量（要素数 N で除算）のいずれかを用いて計算できます。ここで N は NaN 値を除いた要素数です。"
+msgstr ""
+"この関数は、指定された次元に沿ってテンソル要素の分散を計算します。計算時には NaN 値は除外されます。分散は、不偏推定量（要素数 N-1 "
+"で除算）または偏推定量（要素数 N で除算）のいずれかを用いて計算できます。ここで N は NaN 値を除いた要素数です。"
 
-#: of qfeval_functions.functions.nanvar.nanvar
+#: ../../api/qfeval_functions.functions.nanvar.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
@@ -53,27 +55,28 @@ msgid ""
 "If ``True`` (default), uses Bessel's correction and divides by ``N-1`` "
 "where ``N`` is the number of non-NaN elements. If ``False``, divides by "
 "``N``."
-msgstr "デフォルト値の``True``の場合、ベッセル補正を適用し、非NaN要素の数を``N``として``N-1``で除算します。``False``の場合、``N``で除算します。"
+msgstr "デフォルト値の ``True`` の場合、ベッセル補正を適用し、非 NaN 要素の数を ``N`` として ``N-1`` で除算します。``False`` の場合、``N`` で除算します。"
 
 #: of qfeval_functions.functions.nanvar.nanvar:22
 msgid ""
 "If ``True``, the output tensor has the same number of dimensions as the "
 "input, with the reduced dimensions having size 1. If ``False`` (default),"
 " the reduced dimensions are removed."
-msgstr "``True`` の場合、出力テンソルは入力テンソルと同じ数の次元を持ち、削減された次元のサイズは 1 になります。``False`` の場合（デフォルト）、削減された次元は削除されます。"
+msgstr ""
+"``True`` の場合、出力テンソルは入力テンソルと同じ数の次元を持ち、削減された次元のサイズは 1 になります。``False`` "
+"の場合（デフォルト）、削減された次元は削除されます。"
 
-#: of qfeval_functions.functions.nanvar.nanvar
-#, fuzzy
+#: ../../api/qfeval_functions.functions.nanvar.rst
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.nanvar.nanvar:27
 msgid ""
 "The variance of non-NaN elements. The shape depends on the :attr:`dim` "
 "and :attr:`keepdim` parameters."
-msgstr "非NaN要素の分散。形状は :attr:`dim` と :attr:`keepdim` パラメータに依存します。"
+msgstr "非 NaN 要素の分散。形状は :attr:`dim` と :attr:`keepdim` パラメータに依存します。"
 
-#: of qfeval_functions.functions.nanvar.nanvar
+#: ../../api/qfeval_functions.functions.nanvar.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
@@ -81,9 +84,59 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
+#: of qfeval_functions.functions.nanvar.nanvar:34
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n"
+">>> QF.nanvar(x)\n"
+"tensor(3.3333)"
+msgstr ">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n>>> QF.nanvar(x)\ntensor(3.3333)"
+
+#: of qfeval_functions.functions.nanvar.nanvar:38
+msgid ""
+">>> # With biased estimator\n"
+">>> QF.nanvar(x, unbiased=False)\n"
+"tensor(2.5000)"
+msgstr ">>> # 偏りのある推定量を使用\n>>> QF.nanvar(x, unbiased=False)\ntensor(2.5000)"
+
+#: of qfeval_functions.functions.nanvar.nanvar:42
+msgid ""
+">>> # 2D tensor with dimension specification\n"
+">>> x = torch.tensor([[1.0, 2.0, nan],\n"
+"...                   [4.0, nan, 6.0]])\n"
+">>> QF.nanvar(x, dim=1)\n"
+"tensor([0.5000, 2.0000])"
+msgstr ">>> # 次元を指定した 2 次元テンソル\n>>> x = torch.tensor([[1.0, 2.0, nan],\n...                   [4.0, nan, 6.0]])\n>>> QF.nanvar(x, dim=1)\ntensor([0.5000, 2.0000])"
+
+#: of qfeval_functions.functions.nanvar.nanvar:48
+msgid ""
+">>> # Keep dimensions\n"
+">>> QF.nanvar(x, dim=1, keepdim=True)\n"
+"tensor([[0.5000],\n"
+"        [2.0000]])"
+msgstr ">>> # 次元を保持\n>>> QF.nanvar(x, dim=1, keepdim=True)\ntensor([[0.5000],\n        [2.0000]])"
+
+#: of qfeval_functions.functions.nanvar.nanvar:53
+msgid ":func:`nanmean`: NaN-aware mean function."
+msgstr ":func:`nanmean`: NaN を考慮した平均関数。"
+
+#: of qfeval_functions.functions.nanvar.nanvar:54
+msgid ":func:`nanskew`: NaN-aware skewness function."
+msgstr ":func:`nanskew`: NaN を考慮した歪度関数。"
+
+#: of qfeval_functions.functions.nanvar.nanvar:55
+msgid ":func:`nankurtosis`: NaN-aware kurtosis function."
+msgstr ":func:`nankurtosis`: NaN を考慮した尖度関数。"
+
+#: of qfeval_functions.functions.nanvar.nanvar:56
+msgid "``torch.var``: Standard variance function (NaN propagates)."
+msgstr "``torch.var``: 標準の分散関数（NaN は伝播します）。"
+
 #~ msgid "Returns the mean value of each row, ignoring Not a Numbers (NaNs)."
 #~ msgstr "各行の平均値を返しますが、Not a Numbers (NaNs) は無視します。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.nanvar"
+#~ msgstr "qfeval\\_functions.functions.nanvar"
 

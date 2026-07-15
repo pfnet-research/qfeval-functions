@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,8 +21,8 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.bfill.rst:2
-msgid "qfeval\\_functions.functions.bfill"
-msgstr "qfeval\\_functions.functions.bfill"
+msgid "bfill"
+msgstr ""
 
 #: of qfeval_functions.functions.bfill.bfill:1
 msgid "Backward fill missing values along the specified dimension."
@@ -34,9 +34,9 @@ msgid ""
 "the specified dimension. For each NaN value, it is replaced with the "
 "nearest valid value that appears after it along the dimension. If no "
 "valid value exists after a NaN, it remains NaN."
-msgstr "この関数は、指定された次元に沿って最後の有効な値（NaNでない値）を後方に伝播させます。各NaN値については、その次元に沿って後に現れる最も近い有効な値で置き換えられます。もしNaN値の後に有効な値がない場合、そのNaN値は変更されません。"
+msgstr "この関数は、指定された次元に沿って最後の有効な値（NaN でない値）を後方に伝播させます。各 NaN 値については、その次元に沿って後に現れる最も近い有効な値で置き換えられます。もし NaN 値の後に有効な値がない場合、その NaN 値は変更されません。"
 
-#: of qfeval_functions.functions.bfill.bfill
+#: ../../api/qfeval_functions.functions.bfill.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
@@ -50,18 +50,17 @@ msgid ""
 "last dimension)."
 msgstr "後方補完を実行する次元。デフォルトは -1 で、最後の次元を指定します。"
 
-#: of qfeval_functions.functions.bfill.bfill
-#, fuzzy
+#: ../../api/qfeval_functions.functions.bfill.rst
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.bfill.bfill:16
 msgid ""
 "A tensor of the same shape as the input, with NaN values replaced by the "
 "nearest subsequent valid values where possible."
-msgstr "入力テンソルと同じ形状を持ち、可能な場合はNaN値をその直後の有効な値で置き換えたテンソル。"
+msgstr "入力テンソルと同じ形状を持ち、可能な場合は NaN 値をその直後の有効な値で置き換えたテンソル。"
 
-#: of qfeval_functions.functions.bfill.bfill
+#: ../../api/qfeval_functions.functions.bfill.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
@@ -69,9 +68,36 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
+#: of qfeval_functions.functions.bfill.bfill:23
+msgid ""
+">>> x = torch.tensor([1.0, nan, nan, 4.0, 5.0])\n"
+">>> QF.bfill(x)\n"
+"tensor([1., 4., 4., 4., 5.])"
+msgstr ">>> x = torch.tensor([1.0, nan, nan, 4.0, 5.0])\n>>> QF.bfill(x)\ntensor([1., 4., 4., 4., 5.])"
+
+#: of qfeval_functions.functions.bfill.bfill:27
+msgid ""
+">>> x = torch.tensor([[nan, 2.0, nan, 4.0],\n"
+"...                   [5.0, nan, nan, nan]])\n"
+">>> QF.bfill(x, dim=1)\n"
+"tensor([[2., 2., 4., 4.],\n"
+"        [5., nan, nan, nan]])"
+msgstr ">>> x = torch.tensor([[nan, 2.0, nan, 4.0],\n...                   [5.0, nan, nan, nan]])\n>>> QF.bfill(x, dim=1)\ntensor([[2., 2., 4., 4.],\n        [5., nan, nan, nan]])"
+
+#: of qfeval_functions.functions.bfill.bfill:33
+msgid ":func:`ffill`: Forward fill missing values."
+msgstr ":func:`ffill`: 欠損値を前方補完する関数。"
+
+#: of qfeval_functions.functions.bfill.bfill:34
+msgid ":func:`fillna`: Replace NaN/infinity values with fixed numbers."
+msgstr ":func:`fillna`: NaN や無限大を固定値で置き換える関数。"
+
 #~ msgid "Propagates last valid values backward."
 #~ msgstr "最後に有効な値を後方に伝播します。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.bfill"
+#~ msgstr "qfeval\\_functions.functions.bfill"
 

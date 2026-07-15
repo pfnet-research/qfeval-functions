@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 03:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,13 +21,12 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.ma.rst:2
-msgid "qfeval\\_functions.functions.ma"
-msgstr "qfeval\\_functions.functions.ma"
+msgid "ma"
+msgstr ""
 
 #: of qfeval_functions.functions.ma.ma:1
-#, fuzzy
 msgid "Compute the moving (sliding window) average of a tensor."
-msgstr "指定されたテンソルの移動平均を返します。"
+msgstr "テンソルの移動平均（スライディングウィンドウ平均）を計算します。"
 
 #: of qfeval_functions.functions.ma.ma:3
 msgid ""
@@ -36,7 +35,10 @@ msgid ""
 " the same shape as the input tensor. For positions where the sliding "
 "window cannot fully cover preceding elements (i.e., the first ``span - "
 "1`` elements along the selected dimension), the result is ``nan``."
-msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の平均値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが直前の要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
+msgstr ""
+"この関数は、指定された次元に沿ってサイズ :attr:`span` "
+"のスライディングウィンドウ内の要素の平均値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが直前の要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の"
+" ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
 
 #: of qfeval_functions.functions.ma.ma:9
 msgid "The moving average is computed as:"
@@ -47,7 +49,10 @@ msgid ""
 "\\text{MA}[i] = \\frac{1}{\\text{span}} \\sum_{j=i-\\text{span}+1}^{i} "
 "x[j]\n"
 "\n"
-msgstr "\\text{MA}[i] = \\frac{1}{\\text{span}} \\sum_{j=i-\\text{span}+1}^{i} x[j]\n\n"
+msgstr ""
+"\\text{MA}[i] = \\frac{1}{\\text{span}} \\sum_{j=i-\\text{span}+1}^{i} "
+"x[j]\n"
+"\n"
 
 #: of qfeval_functions.functions.ma.ma:14
 msgid ""
@@ -74,9 +79,8 @@ msgid ""
 msgstr "移動平均を計算する次元。デフォルトは -1 で、最後の次元を意味します。"
 
 #: ../../api/qfeval_functions.functions.ma.rst
-#, fuzzy
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
 #: of qfeval_functions.functions.ma.ma:28
 msgid ""
@@ -93,12 +97,68 @@ msgstr "戻り値の型"
 msgid "Example"
 msgstr "使用例"
 
+#: of qfeval_functions.functions.ma.ma:36
+msgid ""
+">>> # Simple moving average with window size 3\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.ma(x, span=3)\n"
+"tensor([nan, nan, 2., 3., 4.])"
+msgstr ">>> # ウィンドウサイズ 3 の単純な移動平均\n>>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> QF.ma(x, span=3)\ntensor([nan, nan, 2., 3., 4.])"
+
+#: of qfeval_functions.functions.ma.ma:41
+msgid ""
+">>> # 2D tensor with moving average along columns\n"
+">>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n"
+"...                   [5.0, 6.0, 7.0, 8.0],\n"
+"...                   [9.0, 10.0, 11.0, 12.0]])\n"
+">>> QF.ma(x, span=2, dim=1)\n"
+"tensor([[    nan,  1.5000,  2.5000,  3.5000],\n"
+"        [    nan,  5.5000,  6.5000,  7.5000],\n"
+"        [    nan,  9.5000, 10.5000, 11.5000]])"
+msgstr ">>> # 2 次元テンソルの列方向の移動平均\n>>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n...                   [5.0, 6.0, 7.0, 8.0],\n...                   [9.0, 10.0, 11.0, 12.0]])\n>>> QF.ma(x, span=2, dim=1)\ntensor([[    nan,  1.5000,  2.5000,  3.5000],\n        [    nan,  5.5000,  6.5000,  7.5000],\n        [    nan,  9.5000, 10.5000, 11.5000]])"
+
+#: of qfeval_functions.functions.ma.ma:50
+msgid ""
+">>> # Moving average along the first dimension\n"
+">>> x = torch.tensor([[1.0, 2.0],\n"
+"...                   [3.0, 4.0],\n"
+"...                   [5.0, 6.0],\n"
+"...                   [7.0, 8.0]])\n"
+">>> QF.ma(x, span=3, dim=0)\n"
+"tensor([[nan, nan],\n"
+"        [nan, nan],\n"
+"        [3., 4.],\n"
+"        [5., 6.]])"
+msgstr ""
+">>> # 最初の次元に沿った移動平均\n"
+">>> x = torch.tensor([[1.0, 2.0],\n"
+"...                   [3.0, 4.0],\n"
+"...                   [5.0, 6.0],\n"
+"...                   [7.0, 8.0]])\n"
+">>> QF.ma(x, span=3, dim=0)\n"
+"tensor([[nan, nan],\n"
+"        [nan, nan],\n"
+"        [3., 4.],\n"
+"        [5., 6.]])"
+
 #: of qfeval_functions.functions.ma.ma:61
 msgid ""
-":func:`msum`: The underlying moving sum function. :func:`ema`: "
-"Exponential moving average for weighted averaging."
-msgstr ":func:`msum`: 移動合計を計算する基礎関数。 :func:`ema`: 加重平均を計算するための指数移動平均。"
+"If a window contains any NaN value, the moving average for that window is"
+" NaN. Unlike ``pandas.DataFrame.rolling``, there is no "
+"``min_periods``-style option to skip NaN values."
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動平均は NaN になります。``pandas.DataFrame.rolling`` とは異なり、NaN 値をスキップする ``min_periods`` のようなオプションはありません。"
+
+#: of qfeval_functions.functions.ma.ma:66
+msgid ":func:`msum`: The underlying moving sum function."
+msgstr ":func:`msum`: 移動合計を計算する基礎関数。"
+
+#: of qfeval_functions.functions.ma.ma:67
+msgid ":func:`ema`: Exponential moving average for weighted averaging."
+msgstr ":func:`ema`: 加重平均を計算するための指数移動平均。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.ma"
+#~ msgstr "qfeval\\_functions.functions.ma"
 

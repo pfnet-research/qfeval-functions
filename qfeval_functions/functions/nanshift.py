@@ -65,7 +65,7 @@ def nanshift(
         tensor([[nan, nan, 1.],
                 [nan, 4., nan]])
 
-        >>> # Large shift (wraps around valid elements)
+        >>> # Large shift (excess valid elements are shifted out)
         >>> x = torch.tensor([1.0, nan, 3.0, 4.0, nan])
         >>> QF.nanshift(x, shift=2)
         tensor([nan, nan, nan, 1., nan])
@@ -75,15 +75,17 @@ def nanshift(
         >>> QF.nanshift(x, shift=1)
         tensor([nan, nan, nan])
 
-    .. warning::
-        The shift operation wraps around the valid elements. For example, if
-        there are 3 valid elements and ``shift=1``, the last valid element
-        becomes the first, and all others shift by one position.
+    .. note::
+        The shift is not circular: like :func:`shift`, valid elements moved
+        beyond the range of valid positions are dropped, and vacated valid
+        positions are filled with NaN. Only NaN positions are preserved.
+        For example, with 3 valid elements and ``shift=1``, the last valid
+        element is dropped and the first valid position becomes NaN.
 
     .. seealso::
-        :func:`shift`: Standard shift function without NaN handling.
-        :func:`group_shift`: Shift operation within groups.
-        ``torch.roll``: PyTorch's standard tensor rolling function.
+        - :func:`shift`: Standard shift function without NaN handling.
+        - :func:`group_shift`: Shift operation within groups.
+        - ``torch.roll``: PyTorch's standard tensor rolling function.
     """
 
     # 1. Move the target dimension to the top to make data manipulation easier.

@@ -5,11 +5,11 @@ def _exponential_weighted_sum(
     x: torch.Tensor, alpha: float, dim: int = -1
 ) -> torch.Tensor:
     r"""This returns :math:`ews[i]=\sum_{j=0}^{i}v[j]*(1-\alpha)^(i-j)` over a
-    given dimension `dim`.
+    given dimension ``dim``.
 
     NOTE: This uses a nature of a geometrical progression:
     :math:`a[i]/a[i-d]==(1-\alpha)^d`.  In each iteration, this calculates a
-    geometrical progression of `2^i` elements internally for each original
+    geometrical progression of ``2^i`` elements internally for each original
     element.
     """
 
@@ -83,6 +83,10 @@ def ema(x: torch.Tensor, alpha: float, dim: int = -1) -> torch.Tensor:
     .. note::
         The implementation uses an efficient :math:`O(\log n)` algorithm based on
         geometric progression properties, making it suitable for long sequences.
+
+    .. seealso::
+        - :func:`ma`: Simple moving average function.
+        - :func:`msum`: Moving sum function.
     """
     ew_weight = _exponential_weighted_sum(
         torch.ones_like(x), alpha=alpha, dim=dim

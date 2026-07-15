@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 03:09+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,13 +21,12 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.eigh.rst:2
-msgid "qfeval\\_functions.functions.eigh"
-msgstr "qfeval\\_functions.functions.eigh"
+msgid "eigh"
+msgstr ""
 
 #: of qfeval_functions.functions.eigh.eigh:1
-#, fuzzy
 msgid "Compute eigenvalues and eigenvectors of a symmetric/Hermitian matrix."
-msgstr "固有値と固有ベクトルを計算します。"
+msgstr "対称行列（エルミート行列）の固有値と固有ベクトルを計算します。"
 
 #: of qfeval_functions.functions.eigh.eigh:3
 msgid ""
@@ -35,79 +34,137 @@ msgid ""
 "symmetric or complex Hermitian matrix. The eigenvalues are returned in "
 "ascending order, and the corresponding eigenvectors are normalized. This "
 "implementation uses NumPy for CPU tensors and CuPy for CUDA tensors."
-msgstr "この関数は、実対称行列または複素エルミート行列の固有値と固有ベクトルを計算します。固有値は昇順に返され、対応する固有ベクトルは正規化されます。この実装では、CPUテンソルにはNumPyを、CUDAテンソルにはCuPyを使用しています。"
+msgstr "この関数は、実対称行列または複素エルミート行列の固有値と固有ベクトルを計算します。固有値は昇順に返され、対応する固有ベクトルは正規化されます。この実装では、CPU テンソルには NumPy を、CUDA テンソルには CuPy を使用しています。"
 
 #: of qfeval_functions.functions.eigh.eigh:9
-#, fuzzy
 msgid "This function does not support automatic differentiation (autograd)."
-msgstr "注意: この関数は微分可能な計算をサポートしていません。"
+msgstr "この関数は自動微分（autograd）をサポートしていません。"
 
-#: of qfeval_functions.functions.eigh.eigh
+#: of qfeval_functions.functions.eigh.eigh:12
+msgid ""
+"The symmetry of the input is not validated. Only the triangular part "
+"selected by :attr:`uplo` is used and the other part is ignored, so a non-"
+"symmetric input silently yields the result for a different (symmetrized) "
+"matrix."
+msgstr "入力の対称性は検証されません。:attr:`uplo` で選択された三角部分のみが使用され、もう一方の部分は無視されるため、非対称な入力を与えると、（対称化された）別の行列に対する結果が警告なく返されます。"
+
+#: ../../api/qfeval_functions.functions.eigh.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
-#: of qfeval_functions.functions.eigh.eigh:12
+#: of qfeval_functions.functions.eigh.eigh:18
 msgid ""
 "A symmetric (if real) or Hermitian (if complex) matrix of shape ``(..., "
 "N, N)``. Only the upper or lower triangular part is used, depending on "
 "the :attr:`uplo` parameter."
-msgstr "形状が ``(..., N, N)`` の対称行列（実数の場合）またはエルミート行列（複素数の場合）。 :attr:`uplo` パラメータに応じて、上三角部分または下三角部分が使用されます。"
+msgstr "形状が ``(..., N, N)`` の対称行列（実数の場合）またはエルミート行列（複素数の場合）。:attr:`uplo` パラメータに応じて、上三角部分または下三角部分が使用されます。"
 
-#: of qfeval_functions.functions.eigh.eigh:17
+#: of qfeval_functions.functions.eigh.eigh:23
 msgid ""
 "Indicates which triangular part of the matrix is used:  - 'L' or 'l': Use"
 " the lower triangular part (default) - 'U' or 'u': Use the upper "
 "triangular part"
-msgstr "使用する行列の三角部分を示します：  - 'L' または 'l': 下三角部分を使用する（デフォルト） - 'U' または 'u': 上三角部分を使用する"
+msgstr ""
 
-#: of qfeval_functions.functions.eigh.eigh:17
+#: of qfeval_functions.functions.eigh.eigh:23
 msgid "Indicates which triangular part of the matrix is used:"
 msgstr "使用する行列の三角部分を示します："
 
-#: of qfeval_functions.functions.eigh.eigh:19
+#: of qfeval_functions.functions.eigh.eigh:25
 msgid "'L' or 'l': Use the lower triangular part (default)"
 msgstr "'L' または 'l': 下三角部分を使用する（デフォルト）"
 
-#: of qfeval_functions.functions.eigh.eigh:20
+#: of qfeval_functions.functions.eigh.eigh:26
 msgid "'U' or 'u': Use the upper triangular part"
 msgstr "'U' または 'u': 上三角部分を使用する"
 
-#: of qfeval_functions.functions.eigh.eigh
-#, fuzzy
+#: ../../api/qfeval_functions.functions.eigh.rst
 msgid "Returns"
-msgstr "戻り値の型"
+msgstr "戻り値"
 
-#: of qfeval_functions.functions.eigh.eigh:23
+#: of qfeval_functions.functions.eigh.eigh:29
 msgid ""
 "A tuple containing:  - Eigenvalues: A tensor of shape ``(..., N)`` "
 "containing   eigenvalues in ascending order - Eigenvectors: A tensor of "
 "shape ``(..., N, N)`` where the columns   are the normalized eigenvectors"
 " corresponding to the eigenvalues"
-msgstr "以下の要素を含むタプル:  - 固有値: 昇順に並んだ固有値を含む形状 ``(..., N)`` のテンソル  - 固有ベクトル: 形状 ``(..., N, N)`` のテンソルで、列は対応する固有値の正規化された固有ベクトル"
+msgstr ""
 
-#: of qfeval_functions.functions.eigh.eigh:23
+#: of qfeval_functions.functions.eigh.eigh:29
 msgid "A tuple containing:"
 msgstr "以下の要素を含むタプル:"
 
-#: of qfeval_functions.functions.eigh.eigh:25
+#: of qfeval_functions.functions.eigh.eigh:31
 msgid ""
 "Eigenvalues: A tensor of shape ``(..., N)`` containing eigenvalues in "
 "ascending order"
 msgstr "固有値: 昇順に並んだ固有値を含む形状 ``(..., N)`` のテンソル"
 
-#: of qfeval_functions.functions.eigh.eigh:27
+#: of qfeval_functions.functions.eigh.eigh:33
 msgid ""
 "Eigenvectors: A tensor of shape ``(..., N, N)`` where the columns are the"
 " normalized eigenvectors corresponding to the eigenvalues"
 msgstr "固有ベクトル: 形状が ``(..., N, N)`` のテンソルで、列は対応する固有値の正規化固有ベクトルです"
 
-#: of qfeval_functions.functions.eigh.eigh
+#: ../../api/qfeval_functions.functions.eigh.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.eigh.eigh:32
+#: of qfeval_functions.functions.eigh.eigh:38
 msgid "Example"
 msgstr "使用例"
+
+#: of qfeval_functions.functions.eigh.eigh:40
+msgid ""
+">>> # Create a symmetric matrix\n"
+">>> A = torch.tensor([[4.0, -2.0],\n"
+"...                   [-2.0, 3.0]])\n"
+">>> eigenvalues, eigenvectors = QF.eigh(A)\n"
+">>> eigenvalues\n"
+"tensor([1.4384, 5.5616])"
+msgstr ""
+">>> # 対称行列を作成\n"
+">>> A = torch.tensor([[4.0, -2.0],\n"
+"...                   [-2.0, 3.0]])\n"
+">>> eigenvalues, eigenvectors = QF.eigh(A)\n"
+">>> eigenvalues\n"
+"tensor([1.4384, 5.5616])"
+
+#: of qfeval_functions.functions.eigh.eigh:47
+msgid ""
+">>> # Verify: A @ v = λ @ v\n"
+">>> torch.allclose(A @ eigenvectors, eigenvectors @ "
+"torch.diag(eigenvalues))\n"
+"True"
+msgstr ""
+">>> # 検証: A @ v = λ @ v\n"
+">>> torch.allclose(A @ eigenvectors, eigenvectors @ "
+"torch.diag(eigenvalues))\n"
+"True"
+
+#: of qfeval_functions.functions.eigh.eigh:51
+msgid ""
+">>> # Using upper triangular part\n"
+">>> B = torch.tensor([[1.0, 2.0, 3.0],\n"
+"...                   [0.0, 4.0, 5.0],\n"
+"...                   [0.0, 0.0, 6.0]])\n"
+">>> eigenvalues, eigenvectors = QF.eigh(B, uplo='U')"
+msgstr ""
+">>> # 上三角部分を使用\n"
+">>> B = torch.tensor([[1.0, 2.0, 3.0],\n"
+"...                   [0.0, 4.0, 5.0],\n"
+"...                   [0.0, 0.0, 6.0]])\n"
+">>> eigenvalues, eigenvectors = QF.eigh(B, uplo='U')"
+
+#: of qfeval_functions.functions.eigh.eigh:57
+msgid ""
+":func:`nanpca`: NaN-aware principal component analysis using this "
+"function."
+msgstr ":func:`nanpca`: この関数を使用する、NaN を考慮した主成分分析。"
+
+#: of qfeval_functions.functions.eigh.eigh:59
+msgid "``torch.linalg.eigh``: PyTorch's built-in eigendecomposition."
+msgstr "``torch.linalg.eigh``: PyTorch に組み込まれた固有値分解。"
 
 #~ msgid ""
 #~ ":sphinx_autodoc_typehints_type:`\\:py\\:data\\:\\`\\~typing.Tuple\\`\\\\"
@@ -117,4 +174,7 @@ msgstr "使用例"
 #~ ":sphinx_autodoc_typehints_type:`\\:py\\:data\\:\\`\\~typing.Tuple\\`\\\\"
 #~ " \\\\\\[\\:py\\:class\\:\\`\\~torch.Tensor\\`\\, "
 #~ "\\:py\\:class\\:\\`\\~torch.Tensor\\`\\]`"
+
+#~ msgid "qfeval\\_functions.functions.eigh"
+#~ msgstr "qfeval\\_functions.functions.eigh"
 

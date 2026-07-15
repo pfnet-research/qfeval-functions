@@ -72,9 +72,13 @@ docs-apidoc:
 .PHONY: docs-generate-locale-ja
 docs-generate-locale-ja: docs
 	@cd docs && \
-	$(RUN) sphinx-build -M gettext ./ ./_build/ && \
+	$(RUN) sphinx-build -M gettext ./ ./_build/ -E && \
 	$(RUN) sphinx-intl update -p ./_build/gettext -l ja && \
 	echo "please check and modify docs/source/locale/ja/LC_MESSAGES/index.po"
+
+.PHONY: docs-fix-po
+docs-fix-po:
+	$(RUN) python docs/fix_po_markup.py
 
 .PHONY: docs-clean
 docs-clean:
@@ -98,6 +102,7 @@ docs-plamo-translate: docs-generate-locale-ja
 	fi
 	uv pip install plamo-translate
 	$(RUN) python docs/translate.py
+	$(RUN) python docs/fix_po_markup.py
 
 .PHONY: docs-plamo-translate-dry-run
 docs-plamo-translate-dry-run: docs-generate-locale-ja

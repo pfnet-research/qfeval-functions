@@ -79,6 +79,11 @@ def groupby(
         >>> grouped
         tensor([[ 1,  2, -1],
                 [ 3,  4,  5]], dtype=torch.int32)
+
+    .. seealso::
+        - :func:`group_shift`: Shift operation within groups.
+        - :func:`cumcount`: Number each occurrence of unique values.
+        - :func:`bincount`: Count occurrences of each value.
     """
 
     # 1. Resolve dimension and keep subsidiary dimensions.

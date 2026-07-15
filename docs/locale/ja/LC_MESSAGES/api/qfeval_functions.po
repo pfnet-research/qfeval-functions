@@ -22,7 +22,7 @@ msgstr ""
 
 #: ../../api/qfeval_functions.rst:2
 msgid "qfeval\\_functions package"
-msgstr "qfeval\\_functionsパッケージ"
+msgstr "qfeval\\_functions パッケージ"
 
 #: ../../api/qfeval_functions.rst:10
 msgid "Subpackages"

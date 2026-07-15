@@ -58,5 +58,10 @@ def fillna(
         >>> x = torch.tensor([inf, -inf, nan])
         >>> QF.fillna(x)
         tensor([inf, -inf, 0.])
+
+    .. seealso::
+        - :func:`ffill`: Forward fill missing values.
+        - :func:`bfill`: Backward fill missing values.
+        - ``torch.nan_to_num``: PyTorch's built-in NaN replacement function.
     """
     return x.nan_to_num(nan=nan, posinf=posinf, neginf=neginf)

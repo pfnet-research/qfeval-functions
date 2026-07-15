@@ -79,8 +79,8 @@ def mulmean(
                 [[5.5000]]])
 
     .. seealso::
-        :func:`mulsum`: The underlying function for memory-efficient
-        multiplication and summation.
-        :func:`covar`: Uses this function for covariance calculations.
+        - :func:`mulsum`: The underlying function for memory-efficient
+          multiplication and summation.
+        - :func:`covar`: Uses this function for covariance calculations.
     """
     return mulsum(x, y, dim=dim, keepdim=keepdim, mean=True, _ddof=_ddof)

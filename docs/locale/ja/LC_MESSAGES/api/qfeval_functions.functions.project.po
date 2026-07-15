@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-06-28 00:58+0900\n"
+"POT-Creation-Date: 2026-07-15 02:15+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -21,14 +21,14 @@ msgstr ""
 "Generated-By: Babel 2.17.0\n"
 
 #: ../../api/qfeval_functions.functions.project.rst:2
-msgid "qfeval\\_functions.functions.project"
-msgstr "qfeval\\_functions.functions.project"
+msgid "project"
+msgstr ""
 
 #: of qfeval_functions.functions.project.project:1
-msgid "Projects the given tensor `x` using the given projection matrix `a`."
-msgstr "指定された投影行列 `a` を使用して、与えられたテンソル `x` を投影します。"
+msgid "Projects the given tensor ``x`` using the given projection matrix ``a``."
+msgstr "指定された投影行列 ``a`` を使用して、与えられたテンソル ``x`` を投影します。"
 
-#: of qfeval_functions.functions.project.project
+#: ../../api/qfeval_functions.functions.project.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
@@ -40,16 +40,15 @@ msgstr "射影行列。"
 msgid "A tensor to be projected."
 msgstr "投影対象のテンソル。"
 
-#: of qfeval_functions.functions.project.project
+#: ../../api/qfeval_functions.functions.project.rst
 msgid "Returns"
 msgstr "Returns"
 
 #: of qfeval_functions.functions.project.project:10
-#, fuzzy
 msgid "The projected tensor."
-msgstr "y (Tensor): 射影されたテンソル。"
+msgstr "射影されたテンソル。"
 
-#: of qfeval_functions.functions.project.project
+#: ../../api/qfeval_functions.functions.project.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
@@ -65,7 +64,7 @@ msgstr "a: :math:`(*, O, I)` 形式の行列。ここで :math:`*` は任意の�
 msgid ""
 "dimensions (including None), :math:`O` is the number of output "
 "dimensions, and :math:`I` is the number of input dimensions."
-msgstr "次元数（Noneを含む）、:math:`O`は出力次元数、:math:`I`は入力次元数を表す。"
+msgstr "次元数（None を含む）、:math:`O` は出力次元数、:math:`I` は入力次元数を表す。"
 
 #: of qfeval_functions.functions.project.project:17
 msgid "x: :math:`(*, S, I)`, where :math:`*` represents any number of"
@@ -75,7 +74,7 @@ msgstr "x: :math:`(*, S, I)` 形式のテンソル。ここで :math:`*` は任�
 msgid ""
 "dimensions (including None), :math:`S` is the number of sections, and "
 ":math:`I` is the number of input dimensions."
-msgstr "次元数（Noneを含む）、:math:`S`はセクション数、:math:`I`は入力次元数を表す。"
+msgstr "次元数（None を含む）、:math:`S` はセクション数、:math:`I` は入力次元数を表す。"
 
 #: of qfeval_functions.functions.project.project:20
 msgid "return: :math:`(*, S, O)`, where :math:`*` represents any number of"
@@ -85,14 +84,50 @@ msgstr "return: :math:`(*, S, O)`, where :math:`*` represents any number of"
 msgid ""
 "dimensions (including None), :math:`S` is the number of sections, and "
 ":math:`O` is the number of output dimensions."
-msgstr "次元数（Noneを含む）、:math:`S`はセクション数、:math:`O`は出力次元数を表す。"
+msgstr "次元数（None を含む）、:math:`S` はセクション数、:math:`O` は出力次元数を表す。"
 
 #: of qfeval_functions.functions.project.project:24
 msgid ""
 "In qfeval, I/O dimensions and sections often represent symbols and "
 "timestamps respectively."
-msgstr "qfevalにおいて、I/O次元とセクションはそれぞれシンボルとタイムスタンプを表すことが多い。"
+msgstr "qfeval において、I/O 次元とセクションはそれぞれシンボルとタイムスタンプを表すことが多い。"
+
+#: of qfeval_functions.functions.project.project:28
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.project.project:30
+msgid ""
+">>> # Extract the first input dimension.\n"
+">>> a = torch.tensor([[1.0, 0.0]])\n"
+">>> x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])\n"
+">>> QF.project(a, x)\n"
+"tensor([[1.],\n"
+"        [3.]])"
+msgstr ">>> # 最初の入力次元を抽出します。\n>>> a = torch.tensor([[1.0, 0.0]])\n>>> x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])\n>>> QF.project(a, x)\ntensor([[1.],\n        [3.]])"
+
+#: of qfeval_functions.functions.project.project:37
+msgid ""
+">>> # Project onto the average and the difference of dimensions.\n"
+">>> a = torch.tensor([[0.5, 0.5], [1.0, -1.0]])\n"
+">>> QF.project(a, x)\n"
+"tensor([[ 1.5000, -1.0000],\n"
+"        [ 3.5000, -1.0000]])"
+msgstr ">>> # 次元の平均と差に射影します。\n>>> a = torch.tensor([[0.5, 0.5], [1.0, -1.0]])\n>>> QF.project(a, x)\ntensor([[ 1.5000, -1.0000],\n        [ 3.5000, -1.0000]])"
+
+#: of qfeval_functions.functions.project.project:43
+msgid ""
+":func:`orthogonalize`: Orthogonalize vectors against another set of "
+"vectors."
+msgstr ":func:`orthogonalize`: ベクトルを別のベクトルの集合に対して直交化する関数。"
+
+#: of qfeval_functions.functions.project.project:45
+msgid ":func:`orthonormalize`: Orthonormalize a set of vectors."
+msgstr ":func:`orthonormalize`: ベクトルの集合を正規直交化する関数。"
 
 #~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
 #~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
+
+#~ msgid "qfeval\\_functions.functions.project"
+#~ msgstr "qfeval\\_functions.functions.project"
 
