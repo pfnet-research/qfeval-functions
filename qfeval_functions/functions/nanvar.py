@@ -9,7 +9,7 @@ from .nansum import nansum
 
 def nanvar(
     x: torch.Tensor,
-    dim: typing.Union[int, typing.Tuple[int, ...]] = (),
+    dim: typing.Union[None, int, typing.Tuple[int, ...]] = None,
     unbiased: bool = True,
     keepdim: bool = False,
 ) -> torch.Tensor:
@@ -23,9 +23,9 @@ def nanvar(
     Args:
         x (Tensor):
             The input tensor.
-        dim (int or tuple of ints, optional):
-            The dimension(s) along which to compute the variance. If not
-            specified (default is an empty tuple), the variance is computed
+        dim (None, int, or tuple of ints, optional):
+            The dimension(s) along which to compute the variance. If None
+            (default), the variance is computed
             over all elements. Can be a single dimension or multiple dimensions.
         unbiased (bool, optional):
             If ``True`` (default), uses Bessel's correction and divides by

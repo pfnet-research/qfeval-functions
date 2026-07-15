@@ -5,7 +5,7 @@ import torch
 
 def nanmean(
     x: torch.Tensor,
-    dim: typing.Union[int, typing.Tuple[int, ...]] = (),
+    dim: typing.Union[None, int, typing.Tuple[int, ...]] = None,
     keepdim: bool = False,
 ) -> torch.Tensor:
     r"""Compute the arithmetic mean along specified dimensions, ignoring NaN values.
@@ -26,9 +26,9 @@ def nanmean(
     Args:
         x (Tensor):
             The input tensor containing values.
-        dim (int or tuple of ints, optional):
-            The dimension(s) along which to compute the mean. If not specified
-            (default is empty tuple), the mean is computed over all dimensions.
+        dim (None, int, or tuple of ints, optional):
+            The dimension(s) along which to compute the mean. If None
+            (default), the mean is computed over all dimensions.
         keepdim (bool, optional):
             Whether the output tensor has :attr:`dim` retained or not.
             Default is False.
