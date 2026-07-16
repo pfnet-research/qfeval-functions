@@ -21,8 +21,10 @@ def mvar(
         \sum_{j=i-\text{span}+1}^{i} x[j]^2 -
         \frac{(\sum_{j=i-\text{span}+1}^{i} x[j])^2}{\text{span}} \right)
 
-    This uses the computational formula for variance that is numerically stable
-    and efficient for sliding window calculations.
+    This computational formula is efficient for sliding window calculations
+    because it only requires moving sums.  However, it may suffer from
+    catastrophic cancellation when the input has a large offset relative to
+    its variance (e.g., values around ``1e6`` with a variance of ``1e-6``).
 
     Args:
         x (Tensor):
@@ -34,7 +36,8 @@ def mvar(
             Default is -1 (the last dimension).
         ddof (int, optional):
             Delta degrees of freedom. The divisor used in the calculation is
-            ``span - ddof``. Use 0 for population variance.
+            ``span - ddof``. Use 0 for population variance. Must be less than
+            ``span``; otherwise the result is ``inf`` or ``nan``.
             Default is 1 (sample variance).
 
     Returns:
