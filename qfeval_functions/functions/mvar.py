@@ -75,6 +75,10 @@ def mvar(
     when the input has a large offset relative to its variance (e.g., values
     around ``1e6`` with a variance of ``1e-6``).
 
+    See `A Numerically Stable and Fast Implementation of Moving Averages and
+    Variances <https://imoz.jp/scraps/202607_mvar.en.html>`_ for a detailed
+    description of the chunked cumulative-statistics algorithm.
+
     Args:
         x (Tensor):
             The input tensor containing values.
