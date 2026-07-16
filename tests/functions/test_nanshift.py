@@ -1,6 +1,7 @@
 import math
 
 import numpy as np
+import pytest
 import torch
 
 import qfeval_functions.functions as QF
@@ -235,6 +236,27 @@ def test_nanshift_large_shift() -> None:
     torch.testing.assert_close(
         result_large_left, expected_large_left, equal_nan=True
     )
+
+
+def test_nanshift_non_floating_dtype_raises() -> None:
+    """Test that non-floating-point inputs raise TypeError."""
+    for dtype in (torch.int8, torch.int32, torch.int64, torch.bool):
+        x = torch.zeros(2, 3, dtype=dtype)
+        with pytest.raises(TypeError):
+            QF.nanshift(x, 1, 1)
+        # Zero shift must follow the same contract.
+        with pytest.raises(TypeError):
+            QF.nanshift(x, 0, 1)
+
+
+def test_nanshift_floating_dtype_preservation() -> None:
+    """Test that nanshift preserves floating-point dtypes."""
+    for dtype in (torch.float16, torch.float32, torch.float64):
+        x = torch.tensor([1.0, math.nan, 3.0, 4.0], dtype=dtype)
+        result = QF.nanshift(x, 1, 0)
+        assert result.dtype == dtype
+        expected = torch.tensor([math.nan, math.nan, 1.0, 3.0], dtype=dtype)
+        torch.testing.assert_close(result, expected, equal_nan=True)
 
 
 def test_nanshift_negative_dimension() -> None:

@@ -22,7 +22,8 @@ def nanshift(
 
     Args:
         x (Tensor):
-            The input tensor to be shifted.
+            The input tensor to be shifted.  It must have a floating-point
+            dtype because vacated positions are filled with NaN.
         shift (int, optional):
             Number of positions to shift. Positive values
             shift towards higher indices, negative values shift towards lower
@@ -36,6 +37,9 @@ def nanshift(
             A tensor with the same shape as the input, where valid elements
             have been shifted along the specified dimension while NaN positions
             remain unchanged.
+
+    Raises:
+        TypeError: If ``x`` does not have a floating-point dtype.
 
     Example:
 
@@ -87,6 +91,12 @@ def nanshift(
         - :func:`group_shift`: Shift operation within groups.
         - ``torch.roll``: PyTorch's standard tensor rolling function.
     """
+
+    if not x.is_floating_point():
+        raise TypeError(
+            f"nanshift requires a floating-point tensor because vacated "
+            f"positions are filled with NaN, but got dtype: {x.dtype}."
+        )
 
     # 1. Move the target dimension to the top to make data manipulation easier.
     x = x.transpose(0, dim)

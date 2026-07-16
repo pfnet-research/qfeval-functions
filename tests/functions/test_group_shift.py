@@ -1,6 +1,7 @@
 from math import nan
 
 import numpy as np
+import pytest
 import torch
 
 import qfeval_functions.functions as QF
@@ -148,3 +149,26 @@ def test_group_shift() -> None:
             ]
         ),
     )
+
+
+def test_group_shift_non_floating_dtype_raises() -> None:
+    """Test that non-floating-point inputs raise TypeError."""
+    mask = torch.tensor([True, False, True])
+    for dtype in (torch.int8, torch.int32, torch.int64, torch.bool):
+        x = torch.zeros(3, 4, dtype=dtype)
+        with pytest.raises(TypeError):
+            QF.group_shift(x, 1, 0, mask=mask)
+        # Zero shift must follow the same contract.
+        with pytest.raises(TypeError):
+            QF.group_shift(x, 0, 0, mask=mask)
+
+
+def test_group_shift_floating_dtype_preservation() -> None:
+    """Test that group_shift preserves floating-point dtypes."""
+    mask = torch.tensor([True, False, True, False, True])
+    for dtype in (torch.float16, torch.float32, torch.float64):
+        x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0], dtype=dtype)
+        result = QF.group_shift(x, 1, 0, mask=mask)
+        assert result.dtype == dtype
+        expected = torch.tensor([nan, nan, 1.0, nan, 3.0], dtype=dtype)
+        torch.testing.assert_close(result, expected, equal_nan=True)

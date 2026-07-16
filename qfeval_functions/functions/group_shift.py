@@ -95,7 +95,9 @@ def group_shift(
 
     Args:
         x (Tensor):
-            The input tensor to be shifted.
+            The input tensor to be shifted.  It must have a floating-point
+            dtype because masked-out and vacated positions are filled with
+            NaN.
         shift (int, optional):
             The number of positions to shift. Positive values shift forward
             (toward higher indices), negative values shift backward.
@@ -121,6 +123,10 @@ def group_shift(
         Tensor:
             A tensor of the same shape as the input, with elements shifted
             according to the mask. Unmasked positions contain NaN.
+
+    Raises:
+        TypeError: If ``x`` does not have a floating-point dtype.
+        ValueError: If neither ``mask`` nor ``refdim`` is specified.
 
     Example:
 
@@ -155,6 +161,13 @@ def group_shift(
         - :func:`shift`: Standard shift function without grouping.
         - :func:`nanshift`: Shift function that skips NaN values.
     """
+    if not x.is_floating_point():
+        raise TypeError(
+            f"group_shift requires a floating-point tensor because "
+            f"masked-out and vacated positions are filled with NaN, but got "
+            f"dtype: {x.dtype}."
+        )
+
     n = x.shape[dim]
 
     # 1. Create a priority index from the mask
