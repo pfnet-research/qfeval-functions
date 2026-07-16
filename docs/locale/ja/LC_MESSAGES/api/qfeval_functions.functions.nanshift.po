@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-15 23:58+0900\n"
+"POT-Creation-Date: 2026-07-16 22:42+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -55,17 +55,22 @@ msgstr "パラメータ"
 
 #: of qfeval_functions.functions.nanshift.nanshift:14
 msgid ""
-"The input tensor to be shifted.  It must have a floating-point dtype "
-"because vacated positions are filled with NaN."
-msgstr "シフト対象の入力テンソル。空いた位置は NaN で埋められるため、浮動小数点の dtype を持たなければなりません。"
+"The input tensor to be shifted.  Vacated positions are filled with NaN "
+"for floating-point (and complex) tensors, ``0`` for integer tensors, and "
+"``False`` for boolean tensors.  Integer and boolean tensors have no NaN "
+"values to skip, so this behaves like :func:`shift`."
+msgstr ""
+"シフト対象の入力テンソル。空いた位置は、浮動小数点（および複素数）テンソルでは NaN、整数テンソルでは ``0``、ブールテンソルでは "
+"``False`` で埋められます。整数およびブールテンソルにはスキップすべき NaN 値が存在しないため、:func:`shift` "
+"と同様に動作します。"
 
-#: of qfeval_functions.functions.nanshift.nanshift:18
+#: of qfeval_functions.functions.nanshift.nanshift:21
 msgid ""
 "Number of positions to shift. Positive values shift towards higher "
 "indices, negative values shift towards lower indices. Default is 1."
 msgstr "シフトする位置の数。正の値はインデックスの高い方向へ、負の値はインデックスの低い方向へシフトします。デフォルト値は 1 です。"
 
-#: of qfeval_functions.functions.nanshift.nanshift:23
+#: of qfeval_functions.functions.nanshift.nanshift:26
 msgid ""
 "The dimension along which to perform the shift. Default is -1 (last "
 "dimension)."
@@ -75,7 +80,7 @@ msgstr "シフトを実行する次元。デフォルトは -1（最後の次元
 msgid "Returns"
 msgstr "戻り値"
 
-#: of qfeval_functions.functions.nanshift.nanshift:27
+#: of qfeval_functions.functions.nanshift.nanshift:30
 msgid ""
 "A tensor with the same shape as the input, where valid elements have been"
 " shifted along the specified dimension while NaN positions remain "
@@ -86,19 +91,11 @@ msgstr "入力と同じ形状のテンソルで、指定された次元に沿っ
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: ../../api/qfeval_functions.functions.nanshift.rst
-msgid "Raises"
-msgstr "例外"
-
-#: of qfeval_functions.functions.nanshift.nanshift:32
-msgid "If ``x`` does not have a floating-point dtype."
-msgstr "``x`` が浮動小数点の dtype を持たない場合。"
-
-#: of qfeval_functions.functions.nanshift.nanshift:35
+#: of qfeval_functions.functions.nanshift.nanshift:36
 msgid "Example"
 msgstr "使用例"
 
-#: of qfeval_functions.functions.nanshift.nanshift:37
+#: of qfeval_functions.functions.nanshift.nanshift:38
 msgid ""
 ">>> # Simple 1D shift with NaN values\n"
 ">>> x = torch.tensor([1.0, nan, 3.0, 4.0, nan])\n"
@@ -110,7 +107,7 @@ msgstr ""
 ">>> QF.nanshift(x, shift=1)\n"
 "tensor([nan, nan, 1., 3., nan])"
 
-#: of qfeval_functions.functions.nanshift.nanshift:42
+#: of qfeval_functions.functions.nanshift.nanshift:43
 msgid ""
 ">>> # Negative shift\n"
 ">>> x = torch.tensor([1.0, nan, 3.0, 4.0, nan])\n"
@@ -122,7 +119,7 @@ msgstr ""
 ">>> QF.nanshift(x, shift=-1)\n"
 "tensor([3., nan, 4., nan, nan])"
 
-#: of qfeval_functions.functions.nanshift.nanshift:47
+#: of qfeval_functions.functions.nanshift.nanshift:48
 msgid ""
 ">>> # 2D tensor shift along rows\n"
 ">>> x = torch.tensor([[1.0, nan, 3.0],\n"
@@ -142,7 +139,7 @@ msgstr ""
 "        [1., nan, nan],\n"
 "        [nan, 5., 3.]])"
 
-#: of qfeval_functions.functions.nanshift.nanshift:56
+#: of qfeval_functions.functions.nanshift.nanshift:57
 msgid ""
 ">>> # 2D tensor shift along columns\n"
 ">>> x = torch.tensor([[1.0, nan, 3.0],\n"
@@ -158,7 +155,7 @@ msgstr ""
 "tensor([[nan, nan, 1.],\n"
 "        [nan, 4., nan]])"
 
-#: of qfeval_functions.functions.nanshift.nanshift:63
+#: of qfeval_functions.functions.nanshift.nanshift:64
 msgid ""
 ">>> # Large shift (excess valid elements are shifted out)\n"
 ">>> x = torch.tensor([1.0, nan, 3.0, 4.0, nan])\n"
@@ -170,7 +167,7 @@ msgstr ""
 ">>> QF.nanshift(x, shift=2)\n"
 "tensor([nan, nan, nan, 1., nan])"
 
-#: of qfeval_functions.functions.nanshift.nanshift:68
+#: of qfeval_functions.functions.nanshift.nanshift:69
 msgid ""
 ">>> # All NaN tensor (no change)\n"
 ">>> x = torch.tensor([nan, nan, nan])\n"
@@ -182,27 +179,31 @@ msgstr ""
 ">>> QF.nanshift(x, shift=1)\n"
 "tensor([nan, nan, nan])"
 
-#: of qfeval_functions.functions.nanshift.nanshift:73
+#: of qfeval_functions.functions.nanshift.nanshift:74
 msgid ""
 "The shift is not circular: like :func:`shift`, valid elements moved "
 "beyond the range of valid positions are dropped, and vacated valid "
-"positions are filled with NaN. Only NaN positions are preserved. For "
-"example, with 3 valid elements and ``shift=1``, the last valid element is"
-" dropped and the first valid position becomes NaN."
+"positions are filled with the fill value (NaN for floating-point "
+"tensors). Only NaN positions are preserved, so for integer and boolean "
+"tensors -- which have no NaN values -- this behaves exactly like "
+":func:`shift`. For example, with 3 valid elements and ``shift=1``, the "
+"last valid element is dropped and the first valid position becomes the "
+"fill value."
 msgstr ""
-"シフトは循環しません。:func:`shift` と同様に、有効位置の範囲を越えて移動した有効要素は破棄され、空いた有効位置は NaN "
-"で埋められます。保持されるのは NaN の位置のみです。例えば、有効要素が 3 つで ``shift=1`` "
-"の場合、最後の有効要素は破棄され、最初の有効位置は NaN になります。"
+"シフトは循環しません。:func:`shift` と同様に、有効位置の範囲を越えて移動した有効要素は破棄され、空いた有効位置は埋め込み値"
+"（浮動小数点テンソルでは NaN）で埋められます。保持されるのは NaN の位置のみであるため、NaN 値を持たない整数およびブールテンソルでは"
+" :func:`shift` と全く同じように動作します。例えば、有効要素が 3 つで ``shift=1`` "
+"の場合、最後の有効要素は破棄され、最初の有効位置は埋め込み値になります。"
 
-#: of qfeval_functions.functions.nanshift.nanshift:80
+#: of qfeval_functions.functions.nanshift.nanshift:84
 msgid ":func:`shift`: Standard shift function without NaN handling."
 msgstr ":func:`shift`: NaN 処理を行わない標準的なシフト関数。"
 
-#: of qfeval_functions.functions.nanshift.nanshift:81
+#: of qfeval_functions.functions.nanshift.nanshift:85
 msgid ":func:`group_shift`: Shift operation within groups."
 msgstr ":func:`group_shift`: グループ内でのシフト操作。"
 
-#: of qfeval_functions.functions.nanshift.nanshift:82
+#: of qfeval_functions.functions.nanshift.nanshift:86
 msgid "``torch.roll``: PyTorch's standard tensor rolling function."
 msgstr "``torch.roll``: PyTorch 標準のテンソルロール関数。"
 
@@ -234,4 +235,17 @@ msgstr "``torch.roll``: PyTorch 標準のテンソルロール関数。"
 
 #~ msgid "The input tensor to be shifted."
 #~ msgstr "シフト対象の入力テンソル。"
+
+#~ msgid ""
+#~ "The input tensor to be shifted.  "
+#~ "It must have a floating-point "
+#~ "dtype because vacated positions are "
+#~ "filled with NaN."
+#~ msgstr "シフト対象の入力テンソル。空いた位置は NaN で埋められるため、浮動小数点の dtype を持たなければなりません。"
+
+#~ msgid "Raises"
+#~ msgstr "例外"
+
+#~ msgid "If ``x`` does not have a floating-point dtype."
+#~ msgstr "``x`` が浮動小数点の dtype を持たない場合。"
 

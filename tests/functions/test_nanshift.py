@@ -1,7 +1,6 @@
 import math
 
 import numpy as np
-import pytest
 import torch
 
 import qfeval_functions.functions as QF
@@ -238,15 +237,26 @@ def test_nanshift_large_shift() -> None:
     )
 
 
-def test_nanshift_non_floating_dtype_raises() -> None:
-    """Test that non-floating-point inputs raise TypeError."""
-    for dtype in (torch.int8, torch.int32, torch.int64, torch.bool):
-        x = torch.zeros(2, 3, dtype=dtype)
-        with pytest.raises(TypeError):
-            QF.nanshift(x, 1, 1)
-        # Zero shift must follow the same contract.
-        with pytest.raises(TypeError):
-            QF.nanshift(x, 0, 1)
+def test_nanshift_integer_dtype_fills_zero() -> None:
+    """Test that integer tensors have no NaN to skip and fill with 0."""
+    for dtype in (torch.int8, torch.int32, torch.int64):
+        x = torch.tensor([1, 2, 3, 4], dtype=dtype)
+        result = QF.nanshift(x, 1, 0)
+        assert result.dtype == dtype
+        # With no NaN values, nanshift behaves like a plain shift.
+        torch.testing.assert_close(result, QF.shift(x, 1, 0))
+        torch.testing.assert_close(
+            result, torch.tensor([0, 1, 2, 3], dtype=dtype)
+        )
+
+
+def test_nanshift_bool_dtype_fills_false() -> None:
+    """Test that boolean tensors have no NaN to skip and fill with False."""
+    x = torch.tensor([True, True, True, True])
+    result = QF.nanshift(x, 1, 0)
+    assert result.dtype == torch.bool
+    torch.testing.assert_close(result, QF.shift(x, 1, 0))
+    torch.testing.assert_close(result, torch.tensor([False, True, True, True]))
 
 
 def test_nanshift_floating_dtype_preservation() -> None:

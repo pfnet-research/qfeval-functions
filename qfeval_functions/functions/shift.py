@@ -4,6 +4,18 @@ import typing
 import torch
 
 
+def fill_value(x: torch.Tensor) -> torch.Tensor:
+    r"""Returns the value used to fill vacated positions for ``x``'s dtype.
+
+    Floating-point and complex tensors are filled with NaN (``nan+0j`` for
+    complex), integer tensors with ``0``, and boolean tensors with
+    ``False``.
+    """
+    if x.is_floating_point() or x.is_complex():
+        return torch.as_tensor(math.nan).to(x)
+    return torch.zeros((), dtype=x.dtype, device=x.device)
+
+
 @typing.overload
 def shift(x: torch.Tensor, shifts: int, dims: int) -> torch.Tensor:
     pass
@@ -24,25 +36,26 @@ def shift(
     dims: typing.Union[int, typing.Tuple[int, ...]],
 ) -> torch.Tensor:
     r"""Shifts array elements along specified dimensions, filling vacated
-    positions with NaN.
+    positions with a dtype-appropriate value.
 
     This function behaves like :func:`torch.roll` except that elements
     shifted beyond the boundary do not wrap around; instead, the vacated
-    positions are filled with NaN.  This matches the behavior of
-    :meth:`pandas.DataFrame.shift` and is useful for creating lagged (or
-    leading) time series.  A positive shift moves elements toward larger
-    indices, and a negative shift moves them toward smaller indices.
+    positions are filled with a dtype-appropriate value.  This matches the
+    behavior of :meth:`pandas.DataFrame.shift` and is useful for creating
+    lagged (or leading) time series.  A positive shift moves elements toward
+    larger indices, and a negative shift moves them toward smaller indices.
 
     Args:
         x (Tensor):
-            The input tensor.  It must have a floating-point dtype
-            because vacated positions are filled with NaN.
+            The input tensor.  Vacated positions are filled with NaN for
+            floating-point (and complex) tensors, ``0`` for integer tensors,
+            and ``False`` for boolean tensors.
         shifts (int or tuple of ints):
             The number of places by which the elements are shifted.  If it
             is an int, the same shift is applied to all dimensions in
             ``dims``.  Shifts whose magnitudes exceed the dimension size are
-            clamped to the dimension size (i.e., the result becomes all
-            NaN).
+            clamped to the dimension size (i.e., the result becomes entirely
+            the fill value).
         dims (int or tuple of ints):
             The dimension or dimensions along which to shift.  Negative
             values are counted from the last dimension.  If both ``shifts``
@@ -53,10 +66,11 @@ def shift(
     Returns:
         Tensor:
             A tensor of the same shape as the input, with elements shifted
-            and vacated positions filled with NaN.
+            and vacated positions filled with a dtype-appropriate value (NaN
+            for floating-point and complex, ``0`` for integer, ``False`` for
+            boolean).
 
     Raises:
-        TypeError: If ``x`` does not have a floating-point dtype.
         RuntimeError: If ``shifts`` and ``dims`` have different lengths.
         IndexError: If a dimension in ``dims`` is out of range.
 
@@ -74,17 +88,19 @@ def shift(
         tensor([[nan, nan],
                 [nan, 1.]])
 
+        >>> # Integer tensors are filled with 0.
+        >>> QF.shift(torch.tensor([1, 2, 3, 4]), 1, 0)
+        tensor([0, 1, 2, 3])
+
+        >>> # Boolean tensors are filled with False.
+        >>> QF.shift(torch.tensor([True, True, True]), 1, 0)
+        tensor([False,  True,  True])
+
     .. seealso::
         - :func:`nanshift`: Shift function that skips NaN values.
         - :func:`group_shift`: Shift operation within groups.
         - ``torch.roll``: Circular shift where elements wrap around.
     """
-
-    if not x.is_floating_point():
-        raise TypeError(
-            f"shift requires a floating-point tensor because vacated "
-            f"positions are filled with NaN, but got dtype: {x.dtype}."
-        )
 
     # 1. Force dims/shifts to be tuples.
     if isinstance(dims, int):
@@ -122,6 +138,6 @@ def shift(
         key = tuple(s if i == dim else slice(None) for i in range(len(x.shape)))
         mask[key] = True
 
-    # 4. Apply torch.roll and fill rolled values with NaNs using the mask.
+    # 4. Apply torch.roll and fill rolled values using the mask.
     x = x.roll(shifts, dims)
-    return torch.where(mask, torch.as_tensor(math.nan).to(x), x)
+    return torch.where(mask, fill_value(x), x)

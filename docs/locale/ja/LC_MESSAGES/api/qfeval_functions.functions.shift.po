@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-15 23:59+0900\n"
+"POT-Creation-Date: 2026-07-16 22:42+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -27,20 +27,20 @@ msgstr ""
 #: of qfeval_functions.functions.shift.shift:1
 msgid ""
 "Shifts array elements along specified dimensions, filling vacated "
-"positions with NaN."
-msgstr "指定された次元に沿って配列要素をシフトし、空いた位置を NaN で埋めます。"
+"positions with a dtype-appropriate value."
+msgstr "指定された次元に沿って配列要素をシフトし、空いた位置を dtype に応じた値で埋めます。"
 
 #: of qfeval_functions.functions.shift.shift:4
 msgid ""
 "This function behaves like :func:`torch.roll` except that elements "
 "shifted beyond the boundary do not wrap around; instead, the vacated "
-"positions are filled with NaN.  This matches the behavior of "
-":meth:`pandas.DataFrame.shift` and is useful for creating lagged (or "
-"leading) time series.  A positive shift moves elements toward larger "
-"indices, and a negative shift moves them toward smaller indices."
+"positions are filled with a dtype-appropriate value.  This matches the "
+"behavior of :meth:`pandas.DataFrame.shift` and is useful for creating "
+"lagged (or leading) time series.  A positive shift moves elements toward "
+"larger indices, and a negative shift moves them toward smaller indices."
 msgstr ""
-"この関数は :func:`torch.roll` と同様に動作しますが、境界を越えてシフトされた要素は循環せず、空いた位置は NaN "
-"で埋められます。これは :meth:`pandas.DataFrame.shift` "
+"この関数は :func:`torch.roll` と同様に動作しますが、境界を越えてシフトされた要素は循環せず、空いた位置は dtype "
+"に応じた値で埋められます。これは :meth:`pandas.DataFrame.shift` "
 "の動作と一致しており、ラグ付き（または先行）時系列の作成に有用です。正のシフトは要素をより大きいインデックスの方向へ、負のシフトはより小さいインデックスの方向へ移動させます。"
 
 #: ../../api/qfeval_functions.functions.shift.rst
@@ -49,22 +49,24 @@ msgstr "パラメータ"
 
 #: of qfeval_functions.functions.shift.shift:12
 msgid ""
-"The input tensor.  It must have a floating-point dtype because vacated "
-"positions are filled with NaN."
-msgstr "入力テンソル。空いた位置は NaN で埋められるため、浮動小数点の dtype を持たなければなりません。"
+"The input tensor.  Vacated positions are filled with NaN for floating-"
+"point (and complex) tensors, ``0`` for integer tensors, and ``False`` for"
+" boolean tensors."
+msgstr ""
+"入力テンソル。空いた位置は、浮動小数点（および複素数）テンソルでは NaN、整数テンソルでは ``0``、ブールテンソルでは ``False`` "
+"で埋められます。"
 
-#: of qfeval_functions.functions.shift.shift:16
+#: of qfeval_functions.functions.shift.shift:17
 msgid ""
 "The number of places by which the elements are shifted.  If it is an int,"
 " the same shift is applied to all dimensions in ``dims``.  Shifts whose "
 "magnitudes exceed the dimension size are clamped to the dimension size "
-"(i.e., the result becomes all NaN)."
+"(i.e., the result becomes entirely the fill value)."
 msgstr ""
 "要素をシフトする量。int の場合、``dims`` "
-"のすべての次元に同じシフト量が適用されます。シフト量の絶対値が次元のサイズを超える場合は次元のサイズに丸められます（すなわち、結果はすべて NaN"
-" になります）。"
+"のすべての次元に同じシフト量が適用されます。シフト量の絶対値が次元のサイズを超える場合は次元のサイズに丸められます（すなわち、結果はすべて埋め込み値になります）。"
 
-#: of qfeval_functions.functions.shift.shift:23
+#: of qfeval_functions.functions.shift.shift:24
 msgid ""
 "The dimension or dimensions along which to shift.  Negative values are "
 "counted from the last dimension.  If both ``shifts`` and ``dims`` are "
@@ -80,11 +82,14 @@ msgstr ""
 msgid "Returns"
 msgstr "戻り値"
 
-#: of qfeval_functions.functions.shift.shift:30
+#: of qfeval_functions.functions.shift.shift:31
 msgid ""
 "A tensor of the same shape as the input, with elements shifted and "
-"vacated positions filled with NaN."
-msgstr "要素がシフトされ、空いた位置が NaN で埋められた、入力と同じ形状のテンソル。"
+"vacated positions filled with a dtype-appropriate value (NaN for "
+"floating-point and complex, ``0`` for integer, ``False`` for boolean)."
+msgstr ""
+"要素がシフトされ、空いた位置が dtype に応じた値（浮動小数点および複素数では NaN、整数では ``0``、ブールでは "
+"``False``）で埋められた、入力と同じ形状のテンソル。"
 
 #: ../../api/qfeval_functions.functions.shift.rst
 msgid "Return type"
@@ -94,23 +99,19 @@ msgstr "戻り値の型"
 msgid "Raises"
 msgstr "例外"
 
-#: of qfeval_functions.functions.shift.shift:34
-msgid "If ``x`` does not have a floating-point dtype."
-msgstr "``x`` が浮動小数点の dtype を持たない場合。"
-
-#: of qfeval_functions.functions.shift.shift:35
+#: of qfeval_functions.functions.shift.shift:37
 msgid "If ``shifts`` and ``dims`` have different lengths."
 msgstr "``shifts`` と ``dims`` の長さが異なる場合。"
 
-#: of qfeval_functions.functions.shift.shift:36
+#: of qfeval_functions.functions.shift.shift:38
 msgid "If a dimension in ``dims`` is out of range."
 msgstr "``dims`` 内の次元が範囲外の場合。"
 
-#: of qfeval_functions.functions.shift.shift:39
+#: of qfeval_functions.functions.shift.shift:41
 msgid "Example"
 msgstr "使用例"
 
-#: of qfeval_functions.functions.shift.shift:41
+#: of qfeval_functions.functions.shift.shift:43
 msgid ""
 ">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0])\n"
 ">>> QF.shift(x, 1, 0)\n"
@@ -120,7 +121,7 @@ msgstr ""
 ">>> QF.shift(x, 1, 0)\n"
 "tensor([nan, 1., 2., 3.])"
 
-#: of qfeval_functions.functions.shift.shift:45
+#: of qfeval_functions.functions.shift.shift:47
 msgid ""
 ">>> QF.shift(x, -1, 0)\n"
 "tensor([2., 3., 4., nan])"
@@ -128,7 +129,7 @@ msgstr ""
 ">>> QF.shift(x, -1, 0)\n"
 "tensor([2., 3., 4., nan])"
 
-#: of qfeval_functions.functions.shift.shift:48
+#: of qfeval_functions.functions.shift.shift:50
 msgid ""
 ">>> x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])\n"
 ">>> QF.shift(x, (1, 1), (0, 1))\n"
@@ -140,15 +141,35 @@ msgstr ""
 "tensor([[nan, nan],\n"
 "        [nan, 1.]])"
 
-#: of qfeval_functions.functions.shift.shift:53
+#: of qfeval_functions.functions.shift.shift:55
+msgid ""
+">>> # Integer tensors are filled with 0.\n"
+">>> QF.shift(torch.tensor([1, 2, 3, 4]), 1, 0)\n"
+"tensor([0, 1, 2, 3])"
+msgstr ""
+">>> # 整数テンソルは 0 で埋められます。\n"
+">>> QF.shift(torch.tensor([1, 2, 3, 4]), 1, 0)\n"
+"tensor([0, 1, 2, 3])"
+
+#: of qfeval_functions.functions.shift.shift:59
+msgid ""
+">>> # Boolean tensors are filled with False.\n"
+">>> QF.shift(torch.tensor([True, True, True]), 1, 0)\n"
+"tensor([False,  True,  True])"
+msgstr ""
+">>> # ブールテンソルは False で埋められます。\n"
+">>> QF.shift(torch.tensor([True, True, True]), 1, 0)\n"
+"tensor([False,  True,  True])"
+
+#: of qfeval_functions.functions.shift.shift:63
 msgid ":func:`nanshift`: Shift function that skips NaN values."
 msgstr ":func:`nanshift`: NaN をスキップするシフト関数。"
 
-#: of qfeval_functions.functions.shift.shift:54
+#: of qfeval_functions.functions.shift.shift:64
 msgid ":func:`group_shift`: Shift operation within groups."
 msgstr ":func:`group_shift`: グループ内でのシフト演算。"
 
-#: of qfeval_functions.functions.shift.shift:55
+#: of qfeval_functions.functions.shift.shift:65
 msgid "``torch.roll``: Circular shift where elements wrap around."
 msgstr "``torch.roll``: 要素が巡回する循環シフト。"
 
@@ -167,4 +188,13 @@ msgstr "``torch.roll``: 要素が巡回する循環シフト。"
 
 #~ msgid "If ``shifts`` and ``dims`` are tuples with different     lengths."
 #~ msgstr ""
+
+#~ msgid ""
+#~ "The input tensor.  It must have a"
+#~ " floating-point dtype because vacated "
+#~ "positions are filled with NaN."
+#~ msgstr "入力テンソル。空いた位置は NaN で埋められるため、浮動小数点の dtype を持たなければなりません。"
+
+#~ msgid "If ``x`` does not have a floating-point dtype."
+#~ msgstr "``x`` が浮動小数点の dtype を持たない場合。"
 

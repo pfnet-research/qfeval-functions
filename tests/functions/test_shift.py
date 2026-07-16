@@ -295,15 +295,43 @@ def test_shift_tuple_length_mismatch() -> None:
         QF.shift(x, (1,), (0, 1))
 
 
-def test_shift_non_floating_dtype_raises() -> None:
-    """Test that non-floating-point inputs raise TypeError."""
-    for dtype in (torch.int8, torch.int32, torch.int64, torch.bool):
-        x = torch.zeros(3, dtype=dtype)
-        with pytest.raises(TypeError):
-            QF.shift(x, 1, 0)
-        # Zero shift must follow the same contract.
-        with pytest.raises(TypeError):
-            QF.shift(x, 0, 0)
+def test_shift_integer_dtype_fills_zero() -> None:
+    """Test that integer tensors are shifted and filled with 0."""
+    for dtype in (torch.int8, torch.int32, torch.int64):
+        x = torch.tensor([1, 2, 3, 4], dtype=dtype)
+        result = QF.shift(x, 1, 0)
+        assert result.dtype == dtype
+        torch.testing.assert_close(
+            result, torch.tensor([0, 1, 2, 3], dtype=dtype)
+        )
+        # Negative shift fills the trailing vacated positions.
+        result_neg = QF.shift(x, -1, 0)
+        torch.testing.assert_close(
+            result_neg, torch.tensor([2, 3, 4, 0], dtype=dtype)
+        )
+
+
+def test_shift_bool_dtype_fills_false() -> None:
+    """Test that boolean tensors are shifted and filled with False."""
+    x = torch.tensor([True, True, True, True])
+    result = QF.shift(x, 1, 0)
+    assert result.dtype == torch.bool
+    torch.testing.assert_close(result, torch.tensor([False, True, True, True]))
+    result_neg = QF.shift(x, -1, 0)
+    torch.testing.assert_close(
+        result_neg, torch.tensor([True, True, True, False])
+    )
+
+
+def test_shift_complex_dtype_fills_nan() -> None:
+    """Test that complex tensors are filled with NaN (as ``nan+0j``)."""
+    for dtype in (torch.complex64, torch.complex128):
+        x = torch.tensor([1 + 2j, 3 + 4j], dtype=dtype)
+        result = QF.shift(x, 1, 0)
+        assert result.dtype == dtype
+        # The shifted-in value moves forward; the vacated position is NaN.
+        assert torch.isnan(result[0])
+        torch.testing.assert_close(result[1], torch.tensor(1 + 2j, dtype=dtype))
 
 
 def test_shift_floating_dtype_preservation() -> None:
