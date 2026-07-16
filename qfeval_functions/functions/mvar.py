@@ -8,45 +8,65 @@ from .rcumsum import rcumsum
 
 def _mvar(x: torch.Tensor, span: int, ddof: int) -> torch.Tensor:
     """Returns the moving variance of the given tensor ``x``, whose shape is
-    ``(B, N)``, along the 2nd dimension."""
+    ``(B, N)``, along the 2nd dimension.
 
-    # 1. Reshape the target dimension into `(*, span)` with prepending NaNs
-    # (the same chunk layout as `msum`).
-    pad_len = span * 2 - x.shape[1] % span
+    This follows the chunked cumulative-statistics algorithm described in
+    https://imoz.jp/scraps/202607_mvar.en.html .  The notation below matches
+    the article: ``w`` is the window size, and each part (a chunk prefix or
+    suffix) keeps ``n`` (count), ``r`` (local reference value), ``S`` (sum of
+    local deviations ``y = x - r``), ``m_bar`` (relative mean ``S / n``) and
+    ``M`` (sum of squared deviations ``Sum(x - mu)^2``, with ``mu = r +
+    m_bar``).
+    """
+
+    w = span
+
+    # 1. Reshape the target dimension into length-`w` chunks with prepended
+    # NaNs (the same chunk layout as `msum`).
+    pad_len = w * 2 - x.shape[1] % w
     x = torch.nn.functional.pad(x, (pad_len, 0), value=math.nan)
-    x = x.reshape((x.shape[0], x.shape[1] // span, span))
+    x = x.reshape((x.shape[0], x.shape[1] // w, w))
 
-    # 2. Compute the mean and the sum of squared deviations (M2) of every
-    # chunk prefix and suffix.  Each part is centered on one of its own
-    # elements (the chunk's first/last element), so all sums are taken over
-    # small local deviations, which avoids catastrophic cancellation, and
-    # NaN/inf values contaminate exactly the parts containing them.
-    n_p = torch.arange(1, span + 1, dtype=x.dtype, device=x.device)
-    y_p = x - x[:, :, :1]
-    s_p = y_p.cumsum(dim=2)
-    mean_p = s_p / n_p
-    m2_p = (y_p * y_p).cumsum(dim=2) - s_p * mean_p
+    # 2. Compute the per-part statistics `(n, S, m_bar, M)` for every chunk
+    # prefix (part B) and chunk suffix (part A).  Each part is locally
+    # centered on a reference value `r` (the chunk's first element for a
+    # prefix, its last element for a suffix), so that `S`, `m_bar` and `M`
+    # are all accumulated over small local deviations `y = x - r`.  This
+    # avoids catastrophic cancellation, and lets NaN/inf contaminate exactly
+    # the parts that contain them.
+    #
+    # Prefixes (part B): counts n = 1..w, reference r_p = first chunk element.
+    n_p = torch.arange(1, w + 1, dtype=x.dtype, device=x.device)
+    r_p = x[:, :, :1]
+    y_p = x - r_p
+    S_p = y_p.cumsum(dim=2)
+    m_bar_p = S_p / n_p
+    M_p = (y_p * y_p).cumsum(dim=2) - S_p * m_bar_p
+    #
+    # Suffixes (part A): counts n = w..1, reference r_s = last chunk element.
+    n_s = torch.arange(w, 0, -1, dtype=x.dtype, device=x.device)
+    r_s = x[:, :, -1:]
+    y_s = x - r_s
+    S_s = rcumsum(y_s, dim=2)
+    m_bar_s = S_s / n_s
+    M_s = rcumsum(y_s * y_s, dim=2) - S_s * m_bar_s
 
-    n_s = torch.arange(span, 0, -1, dtype=x.dtype, device=x.device)
-    y_s = x - x[:, :, -1:]
-    s_s = rcumsum(y_s, dim=2)
-    mean_s = s_s / n_s
-    m2_s = rcumsum(y_s * y_s, dim=2) - s_s * mean_s
-
-    # 3. Each window is a chunk suffix followed by a chunk prefix (the
-    # prefix is the whole chunk for aligned windows).  Merge the two parts
-    # with Chan's parallel algorithm:
-    # `M2 = M2_s + M2_p + delta^2 * n_s * n_p / (n_s + n_p)`, where `delta`
-    # is the difference of the part means.  The part means are represented
-    # relative to the part centers, so `delta` is also computed without a
-    # large offset.
-    delta = (x[:, 1:, :1] - x[:, :-1, -1:]) + (
-        mean_p[:, 1:, :-1] - mean_s[:, :-1, 1:]
+    # 3. Each window is a suffix of the previous chunk (part A) followed by a
+    # prefix of the current chunk (part B); an aligned window is just a whole
+    # chunk prefix.  Merge the two parts with Chan et al.'s parallel formula
+    # `M = M_A + M_B + n_A * n_B / (n_A + n_B) * delta^2`, where the mean gap
+    # is `delta = mu_B - mu_A`.  Since the means are stored relative to their
+    # references, `delta = (r_B - r_A) + (m_bar_B - m_bar_A)` never forms a
+    # large offset.  Here `n_A + n_B = w`, so the weight is `n_A * n_B / w`.
+    delta = (r_p[:, 1:] - r_s[:, :-1]) + (
+        m_bar_p[:, 1:, :-1] - m_bar_s[:, :-1, 1:]
     )
-    weight = n_s[1:] * n_p[:-1] / span
-    m2 = m2_s[:, :-1, 1:] + m2_p[:, 1:, :-1] + delta * delta * weight
-    m2 = torch.cat((m2, m2_p[:, 1:, -1:]), dim=2)
-    return m2.flatten(start_dim=1)[:, pad_len - span :] / max(0, span - ddof)
+    weight = n_s[1:] * n_p[:-1] / w
+    M = M_s[:, :-1, 1:] + M_p[:, 1:, :-1] + delta * delta * weight
+    M = torch.cat((M, M_p[:, 1:, -1:]), dim=2)
+
+    # 4. Var = M / (w - ddof).
+    return M.flatten(start_dim=1)[:, pad_len - w :] / max(0, w - ddof)
 
 
 def mvar(
