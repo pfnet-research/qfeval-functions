@@ -172,29 +172,3 @@ msgstr ":func:`group_shift`: グループ内でのシフト演算。"
 #: of qfeval_functions.functions.shift.shift:65
 msgid "``torch.roll``: Circular shift where elements wrap around."
 msgstr "``torch.roll``: 要素が巡回する循環シフト。"
-
-#~ msgid ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-#~ msgstr ":sphinx_autodoc_typehints_type:`\\:py\\:class\\:\\`\\~torch.Tensor\\``"
-
-#~ msgid "qfeval\\_functions.functions.shift"
-#~ msgstr "qfeval\\_functions.functions.shift"
-
-#~ msgid ""
-#~ "The dimension or dimensions along which"
-#~ " to shift.  If both ``shifts`` and"
-#~ " ``dims`` are tuples, they must have"
-#~ " the same length."
-#~ msgstr "シフトを行う次元（複数可）。``shifts`` と ``dims`` の両方がタプルの場合、それらは同じ長さでなければなりません。"
-
-#~ msgid "If ``shifts`` and ``dims`` are tuples with different     lengths."
-#~ msgstr ""
-
-#~ msgid ""
-#~ "The input tensor.  It must have a"
-#~ " floating-point dtype because vacated "
-#~ "positions are filled with NaN."
-#~ msgstr "入力テンソル。空いた位置は NaN で埋められるため、浮動小数点の dtype を持たなければなりません。"
-
-#~ msgid "If ``x`` does not have a floating-point dtype."
-#~ msgstr "``x`` が浮動小数点の dtype を持たない場合。"
-
