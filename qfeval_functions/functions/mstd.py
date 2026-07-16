@@ -23,9 +23,10 @@ def mstd(
     where :math:`\mu[i]` is the moving average at position :math:`i` and
     :math:`N` is the number of elements in the window.
 
-    Like :func:`mvar`, this may suffer from catastrophic cancellation when the
-    input has a large offset relative to its variance (e.g., values around
-    ``1e6`` with a variance of ``1e-6``).
+    Like :func:`mvar`, each window's result is computed from deviations
+    around the window mean, so it is numerically stable even when the input
+    has a large offset relative to its variance (e.g., values around ``1e6``
+    with a variance of ``1e-6``).
 
     Args:
         x (Tensor):

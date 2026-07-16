@@ -49,13 +49,13 @@ def bollinger_band(
         >>> upper, middle, lower = QF.bollinger_band(x, window=3, sigma=1.0, dim=1)
         >>> upper
         tensor([[     nan,      nan, 101.8165, 102.8165, 104.6330],
-                [     nan,      nan,  49.8165,  50.5805,  51.9139]])
+                [     nan,      nan,  49.8165,  50.5806,  51.9139]])
         >>> middle
         tensor([[     nan,      nan, 101.0000, 102.0000, 103.0000],
                 [     nan,      nan,  49.0000,  49.3333,  50.6667]])
         >>> lower
         tensor([[     nan,      nan, 100.1835, 101.1835, 101.3670],
-                [     nan,      nan,  48.1835,  48.0861,  49.4195]])
+                [     nan,      nan,  48.1835,  48.0861,  49.4194]])
 
     .. seealso::
         - :func:`ma`: Moving average function used for the middle band.
