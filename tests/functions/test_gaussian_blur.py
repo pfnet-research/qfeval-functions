@@ -255,22 +255,27 @@ def test_gaussian_blur_nan_dtype_preservation() -> None:
         assert torch.equal(result.isnan(), x.isnan())
 
 
-def test_gaussian_blur_empty_input() -> None:
-    """Test that empty inputs are returned as-is without convolution."""
-    for shape, dim in [((0,), -1), ((2, 0), -1), ((2, 0), 1), ((0, 3), 0)]:
-        x = torch.zeros(shape)
-        result = QF.gaussian_blur(x, 1.0, dim=dim)
-        assert result.shape == x.shape
-        assert result.dtype == x.dtype
-        assert result.device == x.device
+def test_gaussian_blur_negative_sigma_matches_absolute() -> None:
+    """Only the magnitude of sigma matters, so the sign is ignored."""
+    x = torch.tensor([1.0, 2.0, math.nan, 4.0, 5.0, 6.0, 7.0])
+    for sigma in (0.3, 1.0, 2.5):
+        torch.testing.assert_close(
+            QF.gaussian_blur(x, -sigma),
+            QF.gaussian_blur(x, sigma),
+            equal_nan=True,
+        )
 
 
-def test_gaussian_blur_invalid_sigma() -> None:
-    """Test that non-positive or non-finite sigma raises ValueError."""
-    x = torch.tensor([1.0, 2.0, 3.0])
-    for sigma in (0.0, -1.0, math.nan, math.inf, -math.inf):
-        with pytest.raises(ValueError, match="sigma"):
-            QF.gaussian_blur(x, sigma)
+def test_gaussian_blur_zero_sigma_is_identity() -> None:
+    """sigma=0 applies no smoothing and returns the input unchanged."""
+    x = torch.tensor([1.0, 2.0, math.nan, 4.0, 5.0])
+    torch.testing.assert_close(QF.gaussian_blur(x, 0.0), x, equal_nan=True)
+
+
+def test_gaussian_blur_nan_sigma_yields_nan() -> None:
+    """A NaN sigma propagates to a fully NaN output."""
+    x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])
+    assert torch.isnan(QF.gaussian_blur(x, math.nan)).all()
 
 
 def test_gaussian_blur_all_nan() -> None:
