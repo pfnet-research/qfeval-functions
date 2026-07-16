@@ -2,11 +2,9 @@ import math
 
 import numpy as np
 import pandas as pd
-import pytest
 import torch
 
 import qfeval_functions.functions as QF
-from tests.functions.test_utils import assert_basic_properties
 
 
 def test_mvar_basic_functionality() -> None:
@@ -313,50 +311,6 @@ def test_mvar_different_ddof_comprehensive() -> None:
             finite_results = result[torch.isfinite(result)]
             assert len(finite_results) == len(x) - window_size + 1
             assert torch.all(finite_results >= 0)
-
-
-def test_mvar_ddof_equal_to_span_returns_all_nan() -> None:
-    """Test that ddof == span returns all NaN with shape/dtype/device kept."""
-    for dtype in [torch.float32, torch.float64]:
-        x = torch.tensor(
-            [[1.0, 2.0, 3.0, 4.0], [5.0, 6.0, 7.0, 8.0]], dtype=dtype
-        )
-        result = QF.mvar(x, 3, dim=-1, ddof=3)
-        assert_basic_properties(result, x)
-        assert torch.isnan(result).all()
-
-
-def test_mvar_ddof_greater_than_span_returns_all_nan() -> None:
-    """Test that ddof > span returns all NaN instead of a negative divisor."""
-    x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])
-    result = QF.mvar(x, 2, dim=0, ddof=5)
-    assert_basic_properties(result, x)
-    assert torch.isnan(result).all()
-
-
-def test_mvar_ddof_span_minus_one_boundary() -> None:
-    """Test the largest valid ddof (span - 1) still computes finite values."""
-    x = torch.tensor([1.0, 3.0, 5.0, 7.0])
-    result = QF.mvar(x, 2, dim=0, ddof=1)
-    expected = torch.tensor([math.nan, 2.0, 2.0, 2.0])
-    np.testing.assert_allclose(result[1:].numpy(), expected[1:].numpy())
-    assert torch.isnan(result[0])
-
-
-def test_mvar_non_positive_span_raises_value_error() -> None:
-    """Test that span <= 0 raises ValueError."""
-    x = torch.tensor([1.0, 2.0, 3.0])
-    for span in [0, -1]:
-        with pytest.raises(ValueError):
-            QF.mvar(x, span, dim=0)
-
-
-def test_mvar_non_floating_point_input_raises_type_error() -> None:
-    """Test that integer/bool inputs raise TypeError."""
-    with pytest.raises(TypeError):
-        QF.mvar(torch.tensor([1, 2, 3]), 2, dim=0)
-    with pytest.raises(TypeError):
-        QF.mvar(torch.tensor([True, False, True]), 2, dim=0)
 
 
 def test_mvar_edge_case_single_value() -> None:

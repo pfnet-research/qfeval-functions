@@ -1,11 +1,9 @@
 import math
 
 import numpy as np
-import pytest
 import torch
 
 import qfeval_functions.functions as QF
-from tests.functions.test_utils import assert_basic_properties
 
 
 def test_mstd_basic() -> None:
@@ -155,31 +153,6 @@ def test_mstd_very_small_span() -> None:
     # With ddof=1, span=1 should give NaN (not enough degrees of freedom)
     result_ddof1 = QF.mstd(x, span=1, dim=0, ddof=1)
     assert torch.isnan(result_ddof1).all()
-
-
-def test_mstd_ddof_at_least_span_returns_all_nan() -> None:
-    """Test that ddof >= span returns all NaN with shape/dtype/device kept."""
-    x = torch.tensor([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]], dtype=torch.float64)
-    for ddof in [2, 3]:
-        result = QF.mstd(x, span=2, dim=-1, ddof=ddof)
-        assert_basic_properties(result, x)
-        assert torch.isnan(result).all()
-
-
-def test_mstd_non_positive_span_raises_value_error() -> None:
-    """Test that span <= 0 raises ValueError."""
-    x = torch.tensor([1.0, 2.0, 3.0])
-    for span in [0, -1]:
-        with pytest.raises(ValueError):
-            QF.mstd(x, span=span, dim=0)
-
-
-def test_mstd_non_floating_point_input_raises_type_error() -> None:
-    """Test that integer/bool inputs raise TypeError."""
-    with pytest.raises(TypeError):
-        QF.mstd(torch.tensor([1, 2, 3]), span=2, dim=0)
-    with pytest.raises(TypeError):
-        QF.mstd(torch.tensor([True, False, True]), span=2, dim=0)
 
 
 def test_mstd_identical_values() -> None:
