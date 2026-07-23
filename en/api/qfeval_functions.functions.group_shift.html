@@ -159,18 +159,25 @@ series data where certain time points should be excluded from the shift
 operation, such as weekends in financial data or missing observations.</p>
 <p>The function works by reordering elements based on the mask, applying the
 shift only to valid positions, and then restoring the original order.
-Elements at masked-out positions are replaced with NaN values.</p>
+Elements at masked-out positions are replaced with the fill value (NaN
+for floating-point tensors, <code class="docutils literal notranslate"><span class="pre">0</span></code> for integer tensors, and <code class="docutils literal notranslate"><span class="pre">False</span></code> for
+boolean tensors).</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Unmasked values (where mask is <code class="docutils literal notranslate"><span class="pre">False</span></code>) are replaced with NaN before
-shifting. This means that even a zero shift (<code class="docutils literal notranslate"><span class="pre">shift=0</span></code>) will not
-return the original input, as unmasked values will be NaN in the
-output.</p>
+<p>Unmasked values (where mask is <code class="docutils literal notranslate"><span class="pre">False</span></code>) are replaced with the fill
+value before shifting. This means that even a zero shift (<code class="docutils literal notranslate"><span class="pre">shift=0</span></code>)
+will not return the original input, as unmasked values will be the
+fill value in the output.</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor to be shifted.</p></li>
+<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor to be shifted.  Masked-out and vacated positions
+are filled with NaN for floating-point (and complex) tensors,
+<code class="docutils literal notranslate"><span class="pre">0</span></code> for integer tensors, and <code class="docutils literal notranslate"><span class="pre">False</span></code> for boolean tensors.
+When a mask is generated automatically from <code class="xref py py-attr docutils literal notranslate"><span class="pre">refdim</span></code>,
+integer and boolean tensors have no NaN pattern, so all positions
+are treated as valid.</p></li>
 <li><p><strong>shift</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The number of positions to shift. Positive values shift forward
 (toward higher indices), negative values shift backward.
 Default is 1.</p></li>
@@ -190,10 +197,15 @@ Default is “any”.</p></li>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A tensor of the same shape as the input, with elements shifted
-according to the mask. Unmasked positions contain NaN.</p>
+according to the mask. Unmasked positions contain the fill value
+(NaN for floating-point and complex, <code class="docutils literal notranslate"><span class="pre">0</span></code> for integer, <code class="docutils literal notranslate"><span class="pre">False</span></code>
+for boolean).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tensor</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If neither <code class="docutils literal notranslate"><span class="pre">mask</span></code> nor <code class="docutils literal notranslate"><span class="pre">refdim</span></code> is specified.</p>
 </dd>
 </dl>
 <p class="rubric">Example</p>

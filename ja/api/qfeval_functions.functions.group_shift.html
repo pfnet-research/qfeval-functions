@@ -154,15 +154,15 @@
 <span class="sig-name descname"><span class="pre">group_shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shift</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">refdim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">agg_f</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'any'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/group_shift.html#group_shift"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.group_shift" title="Link to this definition"></a></dt>
 <dd><p>マスクされた位置をスキップしながら、指定された次元に沿ってテンソルの要素をシフトします。</p>
 <p>この関数は選択的なシフト処理を実行します。マスクで <code class="docutils literal notranslate"><span class="pre">True</span></code> とマークされた位置の要素のみがシフトされ、<code class="docutils literal notranslate"><span class="pre">False</span></code> とマークされた位置の要素はスキップされます。これは、金融データの週末や欠損観測値など、特定の時間ポイントをシフト処理から除外する必要がある時系列データに特に有用です。</p>
-<p>この関数は、マスクに基づいて要素の順序を並べ替え、有効な位置に対してのみシフトを適用し、その後元の順序を復元します。マスクで無効化された位置の要素は NaN 値に置き換えられます。</p>
+<p>この関数は、マスクに基づいて要素の順序を並べ替え、有効な位置に対してのみシフトを適用し、その後元の順序を復元します。マスクで無効化された位置の要素は埋め込み値（浮動小数点テンソルでは NaN、整数テンソルでは <code class="docutils literal notranslate"><span class="pre">0</span></code>、ブールテンソルでは <code class="docutils literal notranslate"><span class="pre">False</span></code>）に置き換えられます。</p>
 <div class="admonition warning">
 <p class="admonition-title">警告</p>
-<p>マスクされていない値（マスクが <code class="docutils literal notranslate"><span class="pre">False</span></code> の場合）はシフト前に NaN に置き換えられます。つまり、シフト値が 0 の場合（<code class="docutils literal notranslate"><span class="pre">shift=0</span></code>）でも、出力ではマスクされていない値が NaN となるため、入力値は復元されません。</p>
+<p>マスクされていない値（マスクが <code class="docutils literal notranslate"><span class="pre">False</span></code> の場合）はシフト前に埋め込み値に置き換えられます。つまり、シフト値が 0 の場合（<code class="docutils literal notranslate"><span class="pre">shift=0</span></code>）でも、出力ではマスクされていない値が埋め込み値となるため、入力値は復元されません。</p>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Tensor</em>) -- シフト対象の入力テンソル。</p></li>
+<li><p><strong>x</strong> (<em>Tensor</em>) -- シフト対象の入力テンソル。マスクで無効化された位置と空いた位置は、浮動小数点（および複素数）テンソルでは NaN、整数テンソルでは <code class="docutils literal notranslate"><span class="pre">0</span></code>、ブールテンソルでは <code class="docutils literal notranslate"><span class="pre">False</span></code> で埋められます。<code class="xref py py-attr docutils literal notranslate"><span class="pre">refdim</span></code> からマスクを自動生成する場合、整数およびブールテンソルには NaN パターンが存在しないため、すべての位置が有効として扱われます。</p></li>
 <li><p><strong>shift</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- シフトする位置の数。正の値は前方へシフト（高いインデックス方向へ）、負の値は後方へシフトします。デフォルト値は 1 です。</p></li>
 <li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- シフトを行う次元。デフォルトは 0 です。</p></li>
 <li><p><strong>mask</strong> (<em>Tensor</em><em>, </em><em>optional</em>) -- 1 次元のブールテンソルで、<code class="docutils literal notranslate"><span class="pre">True</span></code> はシフト処理に含めるべき位置を示し、<code class="docutils literal notranslate"><span class="pre">False</span></code> はスキップすべき位置を示します。長さは <code class="docutils literal notranslate"><span class="pre">x.shape[dim]</span></code> と一致している必要があります。指定されていない場合、<code class="xref py py-attr docutils literal notranslate"><span class="pre">refdim</span></code> を指定する必要があります。</p></li>
@@ -171,10 +171,13 @@
 </ul>
 </dd>
 <dt class="field-even">戻り値<span class="colon">:</span></dt>
-<dd class="field-even"><p>入力と同じ形状のテンソルで、マスクに従って要素がシフトされています。マスクされていない位置には NaN が格納されます。</p>
+<dd class="field-even"><p>入力と同じ形状のテンソルで、マスクに従って要素がシフトされています。マスクされていない位置には埋め込み値（浮動小数点および複素数では NaN、整数では <code class="docutils literal notranslate"><span class="pre">0</span></code>、ブールでは <code class="docutils literal notranslate"><span class="pre">False</span></code>）が格納されます。</p>
 </dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tensor</p>
+</dd>
+<dt class="field-even">例外<span class="colon">:</span></dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> -- <code class="docutils literal notranslate"><span class="pre">mask</span></code> と <code class="docutils literal notranslate"><span class="pre">refdim</span></code> のどちらも指定されていない場合。</p>
 </dd>
 </dl>
 <p class="rubric">サンプル</p>

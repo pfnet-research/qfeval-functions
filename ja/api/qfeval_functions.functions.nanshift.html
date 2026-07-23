@@ -158,7 +158,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Tensor</em>) -- シフト対象の入力テンソル。</p></li>
+<li><p><strong>x</strong> (<em>Tensor</em>) -- シフト対象の入力テンソル。空いた位置は、浮動小数点（および複素数）テンソルでは NaN、整数テンソルでは <code class="docutils literal notranslate"><span class="pre">0</span></code>、ブールテンソルでは <code class="docutils literal notranslate"><span class="pre">False</span></code> で埋められます。整数およびブールテンソルにはスキップすべき NaN 値が存在しないため、<a class="reference internal" href="qfeval_functions.functions.shift.html#qfeval_functions.functions.shift" title="qfeval_functions.functions.shift"><code class="xref py py-func docutils literal notranslate"><span class="pre">shift()</span></code></a> と同様に動作します。</p></li>
 <li><p><strong>shift</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- シフトする位置の数。正の値はインデックスの高い方向へ、負の値はインデックスの低い方向へシフトします。デフォルト値は 1 です。</p></li>
 <li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- シフトを実行する次元。デフォルトは -1（最後の次元）です。</p></li>
 </ul>
@@ -215,7 +215,7 @@
 </div>
 <div class="admonition note">
 <p class="admonition-title">注釈</p>
-<p>シフトは循環しません。<a class="reference internal" href="qfeval_functions.functions.shift.html#qfeval_functions.functions.shift" title="qfeval_functions.functions.shift"><code class="xref py py-func docutils literal notranslate"><span class="pre">shift()</span></code></a> と同様に、有効位置の範囲を越えて移動した有効要素は破棄され、空いた有効位置は NaN で埋められます。保持されるのは NaN の位置のみです。例えば、有効要素が 3 つで <code class="docutils literal notranslate"><span class="pre">shift=1</span></code> の場合、最後の有効要素は破棄され、最初の有効位置は NaN になります。</p>
+<p>シフトは循環しません。<a class="reference internal" href="qfeval_functions.functions.shift.html#qfeval_functions.functions.shift" title="qfeval_functions.functions.shift"><code class="xref py py-func docutils literal notranslate"><span class="pre">shift()</span></code></a> と同様に、有効位置の範囲を越えて移動した有効要素は破棄され、空いた有効位置は埋め込み値（浮動小数点テンソルでは NaN）で埋められます。保持されるのは NaN の位置のみであるため、NaN 値を持たない整数およびブールテンソルでは <a class="reference internal" href="qfeval_functions.functions.shift.html#qfeval_functions.functions.shift" title="qfeval_functions.functions.shift"><code class="xref py py-func docutils literal notranslate"><span class="pre">shift()</span></code></a> と全く同じように動作します。例えば、有効要素が 3 つで <code class="docutils literal notranslate"><span class="pre">shift=1</span></code> の場合、最後の有効要素は破棄され、最初の有効位置は埋め込み値になります。</p>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">参考</p>

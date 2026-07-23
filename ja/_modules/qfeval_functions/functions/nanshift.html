@@ -170,7 +170,11 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        x (Tensor):</span>
-<span class="sd">            The input tensor to be shifted.</span>
+<span class="sd">            The input tensor to be shifted.  Vacated positions are filled</span>
+<span class="sd">            with NaN for floating-point (and complex) tensors, ``0`` for</span>
+<span class="sd">            integer tensors, and ``False`` for boolean tensors.  Integer and</span>
+<span class="sd">            boolean tensors have no NaN values to skip, so this behaves like</span>
+<span class="sd">            :func:`shift`.</span>
 <span class="sd">        shift (int, optional):</span>
 <span class="sd">            Number of positions to shift. Positive values</span>
 <span class="sd">            shift towards higher indices, negative values shift towards lower</span>
@@ -226,9 +230,12 @@
 <span class="sd">    .. note::</span>
 <span class="sd">        The shift is not circular: like :func:`shift`, valid elements moved</span>
 <span class="sd">        beyond the range of valid positions are dropped, and vacated valid</span>
-<span class="sd">        positions are filled with NaN. Only NaN positions are preserved.</span>
-<span class="sd">        For example, with 3 valid elements and ``shift=1``, the last valid</span>
-<span class="sd">        element is dropped and the first valid position becomes NaN.</span>
+<span class="sd">        positions are filled with the fill value (NaN for floating-point</span>
+<span class="sd">        tensors). Only NaN positions are preserved, so for integer and</span>
+<span class="sd">        boolean tensors -- which have no NaN values -- this behaves exactly</span>
+<span class="sd">        like :func:`shift`. For example, with 3 valid elements and</span>
+<span class="sd">        ``shift=1``, the last valid element is dropped and the first valid</span>
+<span class="sd">        position becomes the fill value.</span>
 
 <span class="sd">    .. seealso::</span>
 <span class="sd">        - :func:`shift`: Standard shift function without NaN handling.</span>

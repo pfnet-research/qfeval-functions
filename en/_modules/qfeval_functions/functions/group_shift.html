@@ -143,11 +143,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for qfeval_functions.functions.group_shift</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
+<span class="kn">from</span><span class="w"> </span><span class="nn">.shift</span><span class="w"> </span><span class="kn">import</span> <span class="n">_fill_value</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.shift</span><span class="w"> </span><span class="kn">import</span> <span class="n">shift</span> <span class="k">as</span> <span class="n">_shift</span>
 
 <span class="n">AggregateFunction</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;any&quot;</span><span class="p">,</span> <span class="s2">&quot;all&quot;</span><span class="p">]</span>
@@ -235,17 +235,24 @@
 
 <span class="sd">    The function works by reordering elements based on the mask, applying the</span>
 <span class="sd">    shift only to valid positions, and then restoring the original order.</span>
-<span class="sd">    Elements at masked-out positions are replaced with NaN values.</span>
+<span class="sd">    Elements at masked-out positions are replaced with the fill value (NaN</span>
+<span class="sd">    for floating-point tensors, ``0`` for integer tensors, and ``False`` for</span>
+<span class="sd">    boolean tensors).</span>
 
 <span class="sd">    .. warning::</span>
-<span class="sd">        Unmasked values (where mask is ``False``) are replaced with NaN before</span>
-<span class="sd">        shifting. This means that even a zero shift (``shift=0``) will not</span>
-<span class="sd">        return the original input, as unmasked values will be NaN in the</span>
-<span class="sd">        output.</span>
+<span class="sd">        Unmasked values (where mask is ``False``) are replaced with the fill</span>
+<span class="sd">        value before shifting. This means that even a zero shift (``shift=0``)</span>
+<span class="sd">        will not return the original input, as unmasked values will be the</span>
+<span class="sd">        fill value in the output.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        x (Tensor):</span>
-<span class="sd">            The input tensor to be shifted.</span>
+<span class="sd">            The input tensor to be shifted.  Masked-out and vacated positions</span>
+<span class="sd">            are filled with NaN for floating-point (and complex) tensors,</span>
+<span class="sd">            ``0`` for integer tensors, and ``False`` for boolean tensors.</span>
+<span class="sd">            When a mask is generated automatically from :attr:`refdim`,</span>
+<span class="sd">            integer and boolean tensors have no NaN pattern, so all positions</span>
+<span class="sd">            are treated as valid.</span>
 <span class="sd">        shift (int, optional):</span>
 <span class="sd">            The number of positions to shift. Positive values shift forward</span>
 <span class="sd">            (toward higher indices), negative values shift backward.</span>
@@ -270,7 +277,12 @@
 <span class="sd">    Returns:</span>
 <span class="sd">        Tensor:</span>
 <span class="sd">            A tensor of the same shape as the input, with elements shifted</span>
-<span class="sd">            according to the mask. Unmasked positions contain NaN.</span>
+<span class="sd">            according to the mask. Unmasked positions contain the fill value</span>
+<span class="sd">            (NaN for floating-point and complex, ``0`` for integer, ``False``</span>
+<span class="sd">            for boolean).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If neither ``mask`` nor ``refdim`` is specified.</span>
 
 <span class="sd">    Example:</span>
 
@@ -328,11 +340,11 @@
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">))</span>
 
     <span class="c1"># 3. Gather valid values, apply shift, and scatter them.</span>
-    <span class="c1"># fill unmasked indices with nans</span>
+    <span class="c1"># fill unmasked indices with the dtype-appropriate fill value</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
         <span class="n">mask</span><span class="p">[:,</span> <span class="kc">None</span><span class="p">]</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span>
         <span class="n">x</span><span class="p">,</span>
-        <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
+        <span class="n">_fill_value</span><span class="p">(</span><span class="n">x</span><span class="p">),</span>
     <span class="p">)</span>
     <span class="c1"># sort y so that masked values come first</span>
     <span class="n">y</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:]</span>

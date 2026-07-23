@@ -150,6 +150,18 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_fill_value</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Returns the value used to fill vacated positions for ``x``&#39;s dtype.</span>
+
+<span class="sd">    Floating-point and complex tensors are filled with NaN (``nan+0j`` for</span>
+<span class="sd">    complex), integer tensors with ``0``, and boolean tensors with</span>
+<span class="sd">    ``False``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">is_floating_point</span><span class="p">()</span> <span class="ow">or</span> <span class="n">x</span><span class="o">.</span><span class="n">is_complex</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros</span><span class="p">((),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+
 <span class="nd">@typing</span><span class="o">.</span><span class="n">overload</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">shift</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">shifts</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dims</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
     <span class="k">pass</span>
@@ -172,33 +184,43 @@
     <span class="n">dims</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">]],</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
 <span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Shifts array elements along specified dimensions, filling vacated</span>
-<span class="sd">    positions with NaN.</span>
+<span class="sd">    positions with a dtype-appropriate value.</span>
 
 <span class="sd">    This function behaves like :func:`torch.roll` except that elements</span>
 <span class="sd">    shifted beyond the boundary do not wrap around; instead, the vacated</span>
-<span class="sd">    positions are filled with NaN.  This matches the behavior of</span>
-<span class="sd">    :meth:`pandas.DataFrame.shift` and is useful for creating lagged (or</span>
-<span class="sd">    leading) time series.  A positive shift moves elements toward larger</span>
-<span class="sd">    indices, and a negative shift moves them toward smaller indices.</span>
+<span class="sd">    positions are filled with a dtype-appropriate value.  This matches the</span>
+<span class="sd">    behavior of :meth:`pandas.DataFrame.shift` and is useful for creating</span>
+<span class="sd">    lagged (or leading) time series.  A positive shift moves elements toward</span>
+<span class="sd">    larger indices, and a negative shift moves them toward smaller indices.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        x (Tensor):</span>
-<span class="sd">            The input tensor.  It should have a floating-point dtype</span>
-<span class="sd">            because vacated positions are filled with NaN.</span>
+<span class="sd">            The input tensor.  Vacated positions are filled with NaN for</span>
+<span class="sd">            floating-point (and complex) tensors, ``0`` for integer tensors,</span>
+<span class="sd">            and ``False`` for boolean tensors.</span>
 <span class="sd">        shifts (int or tuple of ints):</span>
 <span class="sd">            The number of places by which the elements are shifted.  If it</span>
 <span class="sd">            is an int, the same shift is applied to all dimensions in</span>
 <span class="sd">            ``dims``.  Shifts whose magnitudes exceed the dimension size are</span>
-<span class="sd">            clamped to the dimension size (i.e., the result becomes all</span>
-<span class="sd">            NaN).</span>
+<span class="sd">            clamped to the dimension size (i.e., the result becomes entirely</span>
+<span class="sd">            the fill value).</span>
 <span class="sd">        dims (int or tuple of ints):</span>
-<span class="sd">            The dimension or dimensions along which to shift.  If both</span>
-<span class="sd">            ``shifts`` and ``dims`` are tuples, they must have the same length.</span>
+<span class="sd">            The dimension or dimensions along which to shift.  Negative</span>
+<span class="sd">            values are counted from the last dimension.  If both ``shifts``</span>
+<span class="sd">            and ``dims`` are tuples, they must have the same length.  If the</span>
+<span class="sd">            same dimension is given multiple times, its shifts are summed,</span>
+<span class="sd">            matching the behavior of :func:`torch.roll`.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Tensor:</span>
 <span class="sd">            A tensor of the same shape as the input, with elements shifted</span>
-<span class="sd">            and vacated positions filled with NaN.</span>
+<span class="sd">            and vacated positions filled with a dtype-appropriate value (NaN</span>
+<span class="sd">            for floating-point and complex, ``0`` for integer, ``False`` for</span>
+<span class="sd">            boolean).</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        RuntimeError: If ``shifts`` and ``dims`` have different lengths.</span>
+<span class="sd">        IndexError: If a dimension in ``dims`` is out of range.</span>
 
 <span class="sd">    Example:</span>
 
@@ -213,6 +235,14 @@
 <span class="sd">        &gt;&gt;&gt; QF.shift(x, (1, 1), (0, 1))</span>
 <span class="sd">        tensor([[nan, nan],</span>
 <span class="sd">                [nan, 1.]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Integer tensors are filled with 0.</span>
+<span class="sd">        &gt;&gt;&gt; QF.shift(torch.tensor([1, 2, 3, 4]), 1, 0)</span>
+<span class="sd">        tensor([0, 1, 2, 3])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Boolean tensors are filled with False.</span>
+<span class="sd">        &gt;&gt;&gt; QF.shift(torch.tensor([True, True, True]), 1, 0)</span>
+<span class="sd">        tensor([False,  True,  True])</span>
 
 <span class="sd">    .. seealso::</span>
 <span class="sd">        - :func:`nanshift`: Shift function that skips NaN values.</span>
@@ -229,22 +259,36 @@
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
             <span class="sa">f</span><span class="s2">&quot;Inconsistent number of dimensions: shifts=</span><span class="si">{</span><span class="n">shifts</span><span class="si">}</span><span class="s2"> dims=</span><span class="si">{</span><span class="n">dims</span><span class="si">}</span><span class="s2">&quot;</span>
         <span class="p">)</span>
+
+    <span class="c1"># 2. Normalize negative dimensions and sum shifts of duplicated</span>
+    <span class="c1"># dimensions so that torch.roll and the mask below agree on the</span>
+    <span class="c1"># effective shift of each dimension.</span>
+    <span class="n">merged_shifts</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Dict</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="k">for</span> <span class="n">shift</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">shifts</span><span class="p">,</span> <span class="n">dims</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&lt;=</span> <span class="n">dim</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">IndexError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">&quot;Dimension out of range (expected to be in range of &quot;</span>
+                <span class="sa">f</span><span class="s2">&quot;[</span><span class="si">{</span><span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span><span class="si">}</span><span class="s2">, </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">ndim</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="si">}</span><span class="s2">], but got </span><span class="si">{</span><span class="n">dim</span><span class="si">}</span><span class="s2">)&quot;</span>
+            <span class="p">)</span>
+        <span class="n">dim</span> <span class="o">=</span> <span class="n">dim</span> <span class="o">%</span> <span class="n">x</span><span class="o">.</span><span class="n">ndim</span>
+        <span class="n">merged_shifts</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="n">merged_shifts</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">shift</span>
+    <span class="n">dims</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">merged_shifts</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
     <span class="c1"># Prevent shifts from causing an out-of-index error.</span>
     <span class="n">shifts</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
-        <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">dims</span><span class="p">[</span><span class="n">i</span><span class="p">]]),</span> <span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">dims</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
-        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">shifts</span><span class="p">)</span>
+        <span class="nb">max</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">dim</span><span class="p">]),</span> <span class="o">-</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">dim</span><span class="p">])</span>
+        <span class="k">for</span> <span class="n">dim</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">merged_shifts</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">)</span>
 
-    <span class="c1"># 2. Build a mask to fill NaNs.</span>
+    <span class="c1"># 3. Build a mask to fill NaNs.</span>
     <span class="n">mask</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">bool</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">shift</span><span class="p">,</span> <span class="n">dim</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">shifts</span><span class="p">,</span> <span class="n">dims</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="nb">slice</span><span class="p">(</span><span class="n">shift</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span> <span class="k">if</span> <span class="n">shift</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">else</span> <span class="nb">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">shift</span><span class="p">)</span>
         <span class="n">key</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">s</span> <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">dim</span> <span class="k">else</span> <span class="nb">slice</span><span class="p">(</span><span class="kc">None</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)))</span>
         <span class="n">mask</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
 
-    <span class="c1"># 3. Apply torch.roll and fill rolled values with NaNs using the mask.</span>
+    <span class="c1"># 4. Apply torch.roll and fill rolled values using the mask.</span>
     <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">roll</span><span class="p">(</span><span class="n">shifts</span><span class="p">,</span> <span class="n">dims</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">_fill_value</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span></div>
 
 </pre></div>
 

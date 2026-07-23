@@ -152,21 +152,27 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="qfeval_functions.functions.shift">
 <span class="sig-name descname"><span class="pre">shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shifts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/shift.html#shift"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.shift" title="Link to this definition"></a></dt>
-<dd><p>指定された次元に沿って配列要素をシフトし、空いた位置を NaN で埋めます。</p>
-<p>この関数は <a class="reference external" href="https://docs.pytorch.org/docs/stable/generated/torch.roll.html#torch.roll" title="(in PyTorch v2.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.roll()</span></code></a> と同様に動作しますが、境界を越えてシフトされた要素は循環せず、空いた位置は NaN で埋められます。これは <code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.shift()</span></code> の動作と一致しており、ラグ付き（または先行）時系列の作成に有用です。正のシフトは要素をより大きいインデックスの方向へ、負のシフトはより小さいインデックスの方向へ移動させます。</p>
+<dd><p>指定された次元に沿って配列要素をシフトし、空いた位置を dtype に応じた値で埋めます。</p>
+<p>この関数は <a class="reference external" href="https://docs.pytorch.org/docs/stable/generated/torch.roll.html#torch.roll" title="(in PyTorch v2.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.roll()</span></code></a> と同様に動作しますが、境界を越えてシフトされた要素は循環せず、空いた位置は dtype に応じた値で埋められます。これは <code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.shift()</span></code> の動作と一致しており、ラグ付き（または先行）時系列の作成に有用です。正のシフトは要素をより大きいインデックスの方向へ、負のシフトはより小さいインデックスの方向へ移動させます。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Tensor</em>) -- 入力テンソル。空いた位置は NaN で埋められるため、浮動小数点の dtype を持つ必要があります。</p></li>
-<li><p><strong>shifts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><em>ints</em>) -- 要素をシフトする量。int の場合、<code class="docutils literal notranslate"><span class="pre">dims</span></code> のすべての次元に同じシフト量が適用されます。シフト量の絶対値が次元のサイズを超える場合は次元のサイズに丸められます（すなわち、結果はすべて NaN になります）。</p></li>
-<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><em>ints</em>) -- シフトを行う次元（複数可）。<code class="docutils literal notranslate"><span class="pre">shifts</span></code> と <code class="docutils literal notranslate"><span class="pre">dims</span></code> の両方がタプルの場合、それらは同じ長さでなければなりません。</p></li>
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 入力テンソル。空いた位置は、浮動小数点（および複素数）テンソルでは NaN、整数テンソルでは <code class="docutils literal notranslate"><span class="pre">0</span></code>、ブールテンソルでは <code class="docutils literal notranslate"><span class="pre">False</span></code> で埋められます。</p></li>
+<li><p><strong>shifts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><em>ints</em>) -- 要素をシフトする量。int の場合、<code class="docutils literal notranslate"><span class="pre">dims</span></code> のすべての次元に同じシフト量が適用されます。シフト量の絶対値が次元のサイズを超える場合は次元のサイズに丸められます（すなわち、結果はすべて埋め込み値になります）。</p></li>
+<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><em>ints</em>) -- シフトを行う次元（複数可）。負の値は最後の次元から数えます。<code class="docutils literal notranslate"><span class="pre">shifts</span></code> と <code class="docutils literal notranslate"><span class="pre">dims</span></code> の両方がタプルの場合、それらは同じ長さでなければなりません。同じ次元が複数回指定された場合、そのシフト量は合算されます（<a class="reference external" href="https://docs.pytorch.org/docs/stable/generated/torch.roll.html#torch.roll" title="(in PyTorch v2.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.roll()</span></code></a> の動作と一致します）。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値<span class="colon">:</span></dt>
-<dd class="field-even"><p>要素がシフトされ、空いた位置が NaN で埋められた、入力と同じ形状のテンソル。</p>
+<dd class="field-even"><p>要素がシフトされ、空いた位置が dtype に応じた値（浮動小数点および複素数では NaN、整数では <code class="docutils literal notranslate"><span class="pre">0</span></code>、ブールでは <code class="docutils literal notranslate"><span class="pre">False</span></code>）で埋められた、入力と同じ形状のテンソル。</p>
 </dd>
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tensor</p>
+</dd>
+<dt class="field-even">例外<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.14)"><strong>RuntimeError</strong></a> -- <code class="docutils literal notranslate"><span class="pre">shifts</span></code> と <code class="docutils literal notranslate"><span class="pre">dims</span></code> の長さが異なる場合。</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IndexError" title="(in Python v3.14)"><strong>IndexError</strong></a> -- <code class="docutils literal notranslate"><span class="pre">dims</span></code> 内の次元が範囲外の場合。</p></li>
+</ul>
 </dd>
 </dl>
 <p class="rubric">サンプル</p>
@@ -183,6 +189,16 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="go">tensor([[nan, nan],</span>
 <span class="go">        [nan, 1.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># 整数テンソルは 0 で埋められます。</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([0, 1, 2, 3])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># ブールテンソルは False で埋められます。</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">]),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([False,  True,  True])</span>
 </pre></div>
 </div>
 <div class="admonition seealso">

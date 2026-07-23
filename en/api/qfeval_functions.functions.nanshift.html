@@ -163,7 +163,11 @@ valid observations are shifted for analysis purposes.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor to be shifted.</p></li>
+<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor to be shifted.  Vacated positions are filled
+with NaN for floating-point (and complex) tensors, <code class="docutils literal notranslate"><span class="pre">0</span></code> for
+integer tensors, and <code class="docutils literal notranslate"><span class="pre">False</span></code> for boolean tensors.  Integer and
+boolean tensors have no NaN values to skip, so this behaves like
+<a class="reference internal" href="qfeval_functions.functions.shift.html#qfeval_functions.functions.shift" title="qfeval_functions.functions.shift"><code class="xref py py-func docutils literal notranslate"><span class="pre">shift()</span></code></a>.</p></li>
 <li><p><strong>shift</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Number of positions to shift. Positive values
 shift towards higher indices, negative values shift towards lower
 indices. Default is 1.</p></li>
@@ -227,9 +231,12 @@ remain unchanged.</p>
 <p class="admonition-title">Note</p>
 <p>The shift is not circular: like <a class="reference internal" href="qfeval_functions.functions.shift.html#qfeval_functions.functions.shift" title="qfeval_functions.functions.shift"><code class="xref py py-func docutils literal notranslate"><span class="pre">shift()</span></code></a>, valid elements moved
 beyond the range of valid positions are dropped, and vacated valid
-positions are filled with NaN. Only NaN positions are preserved.
-For example, with 3 valid elements and <code class="docutils literal notranslate"><span class="pre">shift=1</span></code>, the last valid
-element is dropped and the first valid position becomes NaN.</p>
+positions are filled with the fill value (NaN for floating-point
+tensors). Only NaN positions are preserved, so for integer and
+boolean tensors – which have no NaN values – this behaves exactly
+like <a class="reference internal" href="qfeval_functions.functions.shift.html#qfeval_functions.functions.shift" title="qfeval_functions.functions.shift"><code class="xref py py-func docutils literal notranslate"><span class="pre">shift()</span></code></a>. For example, with 3 valid elements and
+<code class="docutils literal notranslate"><span class="pre">shift=1</span></code>, the last valid element is dropped and the first valid
+position becomes the fill value.</p>
 </div>
 <div class="admonition seealso">
 <p class="admonition-title">See also</p>

@@ -152,33 +152,45 @@
 <dt class="sig sig-object py" id="qfeval_functions.functions.shift">
 <span class="sig-name descname"><span class="pre">shift</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shifts</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dims</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/shift.html#shift"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.shift" title="Link to this definition"></a></dt>
 <dd><p>Shifts array elements along specified dimensions, filling vacated
-positions with NaN.</p>
+positions with a dtype-appropriate value.</p>
 <p>This function behaves like <a class="reference external" href="https://docs.pytorch.org/docs/stable/generated/torch.roll.html#torch.roll" title="(in PyTorch v2.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.roll()</span></code></a> except that elements
 shifted beyond the boundary do not wrap around; instead, the vacated
-positions are filled with NaN.  This matches the behavior of
-<code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.shift()</span></code> and is useful for creating lagged (or
-leading) time series.  A positive shift moves elements toward larger
-indices, and a negative shift moves them toward smaller indices.</p>
+positions are filled with a dtype-appropriate value.  This matches the
+behavior of <code class="xref py py-meth docutils literal notranslate"><span class="pre">pandas.DataFrame.shift()</span></code> and is useful for creating
+lagged (or leading) time series.  A positive shift moves elements toward
+larger indices, and a negative shift moves them toward smaller indices.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor.  It should have a floating-point dtype
-because vacated positions are filled with NaN.</p></li>
+<li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor.  Vacated positions are filled with NaN for
+floating-point (and complex) tensors, <code class="docutils literal notranslate"><span class="pre">0</span></code> for integer tensors,
+and <code class="docutils literal notranslate"><span class="pre">False</span></code> for boolean tensors.</p></li>
 <li><p><strong>shifts</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><em>ints</em>) – The number of places by which the elements are shifted.  If it
 is an int, the same shift is applied to all dimensions in
 <code class="docutils literal notranslate"><span class="pre">dims</span></code>.  Shifts whose magnitudes exceed the dimension size are
-clamped to the dimension size (i.e., the result becomes all
-NaN).</p></li>
-<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><em>ints</em>) – The dimension or dimensions along which to shift.  If both
-<code class="docutils literal notranslate"><span class="pre">shifts</span></code> and <code class="docutils literal notranslate"><span class="pre">dims</span></code> are tuples, they must have the same length.</p></li>
+clamped to the dimension size (i.e., the result becomes entirely
+the fill value).</p></li>
+<li><p><strong>dims</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#tuple" title="(in Python v3.14)"><em>tuple</em></a><em> of </em><em>ints</em>) – The dimension or dimensions along which to shift.  Negative
+values are counted from the last dimension.  If both <code class="docutils literal notranslate"><span class="pre">shifts</span></code>
+and <code class="docutils literal notranslate"><span class="pre">dims</span></code> are tuples, they must have the same length.  If the
+same dimension is given multiple times, its shifts are summed,
+matching the behavior of <a class="reference external" href="https://docs.pytorch.org/docs/stable/generated/torch.roll.html#torch.roll" title="(in PyTorch v2.13)"><code class="xref py py-func docutils literal notranslate"><span class="pre">torch.roll()</span></code></a>.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A tensor of the same shape as the input, with elements shifted
-and vacated positions filled with NaN.</p>
+and vacated positions filled with a dtype-appropriate value (NaN
+for floating-point and complex, <code class="docutils literal notranslate"><span class="pre">0</span></code> for integer, <code class="docutils literal notranslate"><span class="pre">False</span></code> for
+boolean).</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tensor</p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#RuntimeError" title="(in Python v3.14)"><strong>RuntimeError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">shifts</span></code> and <code class="docutils literal notranslate"><span class="pre">dims</span></code> have different lengths.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#IndexError" title="(in Python v3.14)"><strong>IndexError</strong></a> – If a dimension in <code class="docutils literal notranslate"><span class="pre">dims</span></code> is out of range.</p></li>
+</ul>
 </dd>
 </dl>
 <p class="rubric">Example</p>
@@ -195,6 +207,16 @@ and vacated positions filled with NaN.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 <span class="go">tensor([[nan, nan],</span>
 <span class="go">        [nan, 1.]])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Integer tensors are filled with 0.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([0, 1, 2, 3])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># Boolean tensors are filled with False.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">shift</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">]),</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">tensor([False,  True,  True])</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
