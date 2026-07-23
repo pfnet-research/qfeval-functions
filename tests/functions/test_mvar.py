@@ -1,10 +1,21 @@
 import math
+import warnings
 
 import numpy as np
 import pandas as pd
 import torch
 
 import qfeval_functions.functions as QF
+
+from .test_utils import assert_basic_properties
+
+
+def _reference_mvar(x: torch.Tensor, span: int, ddof: int) -> torch.Tensor:
+    """Naive per-window reference implementation for 1-D tensors."""
+    result = torch.full_like(x, math.nan)
+    for i in range(span - 1, x.shape[0]):
+        result[i] = x[i - span + 1 : i + 1].var(correction=ddof)
+    return result
 
 
 def test_mvar_basic_functionality() -> None:
@@ -352,3 +363,133 @@ def test_mvar_precision_validation() -> None:
 
     finite_results = result[torch.isfinite(result)]
     np.testing.assert_allclose(finite_results.numpy(), expected_finite.numpy())
+
+
+def test_mvar_all_length_span_alignments() -> None:
+    """Test every alignment of the data length relative to the window size.
+
+    The implementation splits the data into span-sized chunks, so this
+    exercises all relative positions of windows and chunk boundaries,
+    including data shorter than, equal to, and longer than the window.
+    """
+    torch.manual_seed(0)
+    for span in range(1, 9):
+        for n in range(1, 25):
+            x = torch.randn(n, dtype=torch.float64) * 3 + 100
+            for ddof in (0, 1):
+                if ddof >= span:
+                    continue
+                result = QF.mvar(x, span, dim=0, ddof=ddof)
+                expected = _reference_mvar(x, span, ddof)
+                np.testing.assert_allclose(
+                    result.numpy(),
+                    expected.numpy(),
+                    rtol=1e-10,
+                    atol=1e-12,
+                )
+
+
+def test_mvar_numerical_stability_large_offset() -> None:
+    """Test float32 accuracy with a large offset relative to the variance.
+
+    The naive sum-of-squares formula loses all significant digits in this
+    setting.  The result is compared with a float64 computation on the same
+    (already quantized) input, so the tolerance covers only the error of the
+    algorithm itself.
+    """
+    torch.manual_seed(0)
+    x = (torch.randn(1000, dtype=torch.float64) + 1e6).to(torch.float32)
+
+    result = QF.mvar(x, 20, dim=0)
+    expected = QF.mvar(x.to(torch.float64), 20, dim=0)
+
+    mask = torch.isfinite(expected)
+    relative_error = (result.to(torch.float64) - expected)[
+        mask
+    ].abs() / expected[mask]
+    assert relative_error.max().item() < 1e-4
+    assert (result[mask] >= 0).all()
+
+
+def test_mvar_numerical_stability_drift() -> None:
+    """Test float32 accuracy on a drifting series (random walk).
+
+    Unlike a constant offset, a drift cannot be fixed by subtracting a
+    global constant, so this checks that the computation is locally
+    centered.
+    """
+    torch.manual_seed(1)
+    steps = torch.randn(10000, dtype=torch.float64) * 0.01
+    x = (steps.cumsum(dim=0) + 1000).to(torch.float32)
+
+    result = QF.mvar(x, 50, dim=0)
+    expected = QF.mvar(x.to(torch.float64), 50, dim=0)
+
+    mask = torch.isfinite(expected)
+    relative_error = (result.to(torch.float64) - expected)[
+        mask
+    ].abs() / expected[mask]
+    assert relative_error.max().item() < 1e-4
+    assert (result[mask] >= 0).all()
+
+
+def test_mvar_nan_affects_only_windows_containing_it() -> None:
+    """Test that a NaN contaminates exactly the windows containing it.
+
+    The chunked implementation centers each partial sum on a chunk-boundary
+    element, so this sweeps a NaN through every position to verify that no
+    window outside the NaN's reach is affected.
+    """
+    torch.manual_seed(0)
+    n = 20
+    x = torch.randn(n, dtype=torch.float64)
+    for span in (2, 3, 5, 7):
+        clean = QF.mvar(x, span, dim=0)
+        for position in range(n):
+            xp = x.clone()
+            xp[position] = math.nan
+            result = QF.mvar(xp, span, dim=0)
+            for i in range(n):
+                if i < span - 1 or i - span + 1 <= position <= i:
+                    assert torch.isnan(result[i])
+                else:
+                    assert result[i] == clean[i]
+
+
+def test_mvar_inf_affects_only_windows_containing_it() -> None:
+    """Test that an infinity contaminates exactly the windows containing it."""
+    torch.manual_seed(0)
+    n = 20
+    x = torch.randn(n, dtype=torch.float64)
+    for span in (2, 3, 5, 7):
+        clean = QF.mvar(x, span, dim=0)
+        for value in (math.inf, -math.inf):
+            for position in range(n):
+                xp = x.clone()
+                xp[position] = value
+                result = QF.mvar(xp, span, dim=0)
+                for i in range(n):
+                    if i < span - 1 or i - span + 1 <= position <= i:
+                        assert not torch.isfinite(result[i])
+                    else:
+                        assert result[i] == clean[i]
+
+
+def test_mvar_ddof_greater_or_equal_to_span() -> None:
+    """Test that ddof >= span yields non-finite values without warnings."""
+    x = torch.tensor([1.0, 2.0, 4.0, 8.0, 16.0])
+    for ddof in (3, 5):
+        with warnings.catch_warnings():
+            warnings.simplefilter("error")
+            result = QF.mvar(x, 3, dim=0, ddof=ddof)
+        assert not torch.isfinite(result).any()
+
+
+def test_mvar_dtype_and_shape_preservation() -> None:
+    """Test dtype, device, and shape preservation across dimensions."""
+    torch.manual_seed(0)
+    for dtype in (torch.float32, torch.float64):
+        for shape, dim in (((7,), 0), ((4, 9), 1), ((2, 3, 11), -1)):
+            x = torch.randn(shape, dtype=dtype)
+            result = QF.mvar(x, 3, dim=dim)
+            assert_basic_properties(result, x)

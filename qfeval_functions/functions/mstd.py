@@ -23,6 +23,11 @@ def mstd(
     where :math:`\mu[i]` is the moving average at position :math:`i` and
     :math:`N` is the number of elements in the window.
 
+    Like :func:`mvar`, each window's result is computed from deviations
+    around the window mean, so it is numerically stable even when the input
+    has a large offset relative to its variance (e.g., values around ``1e6``
+    with a variance of ``1e-6``).
+
     Args:
         x (Tensor):
             The input tensor containing values.
@@ -34,7 +39,9 @@ def mstd(
         ddof (int, optional):
             Delta degrees of freedom. The divisor used in
             the calculation is ``N - ddof``, where ``N`` represents the number
-            of elements in the window. Default is 1 (sample standard deviation).
+            of elements in the window. Must be less than ``span``; otherwise the
+            result is ``inf`` or ``nan``. Default is 1 (sample standard
+            deviation).
 
     Returns:
         Tensor:

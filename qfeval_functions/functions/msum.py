@@ -32,6 +32,13 @@ def msum(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
     cannot fully cover preceding elements (i.e., the first ``span - 1`` elements
     along the selected dimension), the result is ``nan``.
 
+    The moving sum is computed in ``O(N)`` time independent of :attr:`span`, by
+    decomposing each window into a chunk suffix and a chunk prefix obtained from
+    cumulative sums bounded to :attr:`span` terms.  See `A Numerically Stable
+    and Fast Implementation of Moving Averages and Variances
+    <https://imoz.jp/scraps/202607_mvar.en.html>`_ for a detailed description of
+    the algorithm.
+
     Args:
         x (Tensor):
             The input tensor.

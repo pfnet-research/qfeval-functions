@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2026-07-15 03:09+0900\n"
+"POT-Creation-Date: 2026-07-16 11:51+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -55,39 +55,43 @@ msgstr ""
 
 #: of qfeval_functions.functions.mvar.mvar:16
 msgid ""
-"This uses the computational formula for variance that is numerically "
-"stable and efficient for sliding window calculations."
-msgstr "この実装では、数値的に安定かつ効率的なスライディングウィンドウ計算向けに設計された分散計算の数式を使用しています。"
+"This computational formula is efficient for sliding window calculations "
+"because it only requires moving sums.  However, it may suffer from "
+"catastrophic cancellation when the input has a large offset relative to "
+"its variance (e.g., values around ``1e6`` with a variance of ``1e-6``)."
+msgstr "この計算式は移動合計のみで計算できるため、スライディングウィンドウ計算において効率的です。ただし、入力がその分散に対して大きなオフセットを持つ場合（例: 値が ``1e6`` 前後で分散が ``1e-6`` 程度の場合）、桁落ちにより精度が低下することがあります。"
 
 #: ../../api/qfeval_functions.functions.mvar.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
-#: of qfeval_functions.functions.mvar.mvar:20
+#: of qfeval_functions.functions.mvar.mvar:22
 msgid "The input tensor containing values."
 msgstr "値を含む入力テンソル。"
 
-#: of qfeval_functions.functions.mvar.mvar:23
+#: of qfeval_functions.functions.mvar.mvar:25
 msgid "The size of the sliding window. Must be positive."
 msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
 
-#: of qfeval_functions.functions.mvar.mvar:26
+#: of qfeval_functions.functions.mvar.mvar:28
 msgid ""
 "The dimension along which to compute the moving variance. Default is -1 "
 "(the last dimension)."
 msgstr "移動分散を計算する次元。デフォルトは -1 で、最後の次元を指定します。"
 
-#: of qfeval_functions.functions.mvar.mvar:30
+#: of qfeval_functions.functions.mvar.mvar:32
 msgid ""
 "Delta degrees of freedom. The divisor used in the calculation is ``span -"
-" ddof``. Use 0 for population variance. Default is 1 (sample variance)."
-msgstr "自由度の差。計算で使用される除数は ``span - ddof`` です。母分散の場合は 0 を指定します。デフォルト値は 1 です（標本分散）。"
+" ddof``. Use 0 for population variance. Must be less than ``span``; "
+"otherwise the result is ``inf`` or ``nan``. Default is 1 (sample "
+"variance)."
+msgstr "自由度の差。計算で使用される除数は ``span - ddof`` です。母分散の場合は 0 を指定します。``span`` より小さい必要があり、そうでない場合は結果が ``inf`` または ``nan`` になります。デフォルト値は 1 です（標本分散）。"
 
 #: ../../api/qfeval_functions.functions.mvar.rst
 msgid "Returns"
 msgstr "戻り値"
 
-#: of qfeval_functions.functions.mvar.mvar:35
+#: of qfeval_functions.functions.mvar.mvar:38
 msgid ""
 "A tensor of the same shape as the input, containing the moving variance "
 "values. The first ``span - 1`` elements along the specified dimension are"
@@ -98,19 +102,23 @@ msgstr "入力と同じ形状のテンソルで、移動分散値を格納して
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.mvar.mvar:41
+#: of qfeval_functions.functions.mvar.mvar:44
 msgid "Example"
 msgstr "使用例"
 
-#: of qfeval_functions.functions.mvar.mvar:43
+#: of qfeval_functions.functions.mvar.mvar:46
 msgid ""
 ">>> # Simple moving variance with window size 3\n"
 ">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
 ">>> QF.mvar(x, span=3)\n"
 "tensor([nan, nan, 1., 1., 1.])"
-msgstr ">>> # ウィンドウサイズ 3 の単純な移動分散\n>>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> QF.mvar(x, span=3)\ntensor([nan, nan, 1., 1., 1.])"
+msgstr ""
+">>> # ウィンドウサイズ 3 の単純な移動分散\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.mvar(x, span=3)\n"
+"tensor([nan, nan, 1., 1., 1.])"
 
-#: of qfeval_functions.functions.mvar.mvar:48
+#: of qfeval_functions.functions.mvar.mvar:51
 msgid ""
 ">>> # 2D tensor with moving variance along columns\n"
 ">>> x = torch.tensor([[1.0, 2.0, 1.0, 3.0],\n"
@@ -120,9 +128,17 @@ msgid ""
 "tensor([[   nan, 0.5000, 0.5000, 2.0000],\n"
 "        [   nan, 0.5000, 0.5000, 2.0000],\n"
 "        [   nan, 0.5000, 0.5000, 2.0000]])"
-msgstr ">>> # 2 次元テンソルの列方向の移動分散\n>>> x = torch.tensor([[1.0, 2.0, 1.0, 3.0],\n...                   [4.0, 5.0, 4.0, 6.0],\n...                   [2.0, 3.0, 2.0, 4.0]])\n>>> QF.mvar(x, span=2, dim=1)\ntensor([[   nan, 0.5000, 0.5000, 2.0000],\n        [   nan, 0.5000, 0.5000, 2.0000],\n        [   nan, 0.5000, 0.5000, 2.0000]])"
+msgstr ""
+">>> # 2 次元テンソルの列方向の移動分散\n"
+">>> x = torch.tensor([[1.0, 2.0, 1.0, 3.0],\n"
+"...                   [4.0, 5.0, 4.0, 6.0],\n"
+"...                   [2.0, 3.0, 2.0, 4.0]])\n"
+">>> QF.mvar(x, span=2, dim=1)\n"
+"tensor([[   nan, 0.5000, 0.5000, 2.0000],\n"
+"        [   nan, 0.5000, 0.5000, 2.0000],\n"
+"        [   nan, 0.5000, 0.5000, 2.0000]])"
 
-#: of qfeval_functions.functions.mvar.mvar:57
+#: of qfeval_functions.functions.mvar.mvar:60
 msgid ""
 ">>> # Population variance (ddof=0)\n"
 ">>> x = torch.tensor([1.0, 3.0, 5.0, 7.0])\n"
@@ -134,7 +150,7 @@ msgstr ""
 ">>> QF.mvar(x, span=2, ddof=0)\n"
 "tensor([nan, 1., 1., 1.])"
 
-#: of qfeval_functions.functions.mvar.mvar:62
+#: of qfeval_functions.functions.mvar.mvar:65
 msgid ""
 ">>> # Sample variance (ddof=1, default)\n"
 ">>> QF.mvar(x, span=2, ddof=1)\n"
@@ -144,7 +160,7 @@ msgstr ""
 ">>> QF.mvar(x, span=2, ddof=1)\n"
 "tensor([nan, 2., 2., 2.])"
 
-#: of qfeval_functions.functions.mvar.mvar:66
+#: of qfeval_functions.functions.mvar.mvar:69
 msgid ""
 ">>> # Moving variance along rows\n"
 ">>> x = torch.tensor([[1.0, 2.0],\n"
@@ -164,22 +180,25 @@ msgstr ""
 "        [2., 2.],\n"
 "        [2., 2.]])"
 
-#: of qfeval_functions.functions.mvar.mvar:75
+#: of qfeval_functions.functions.mvar.mvar:78
 msgid ""
 "If a window contains any NaN value, the moving variance for that window "
 "is NaN. Unlike ``pandas.DataFrame.rolling``, there is no "
 "``min_periods``-style option to skip NaN values."
-msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動分散は NaN になります。``pandas.DataFrame.rolling`` とは異なり、NaN 値をスキップする ``min_periods`` のようなオプションはありません。"
+msgstr ""
+"ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動分散は NaN "
+"になります。``pandas.DataFrame.rolling`` とは異なり、NaN 値をスキップする ``min_periods`` "
+"のようなオプションはありません。"
 
-#: of qfeval_functions.functions.mvar.mvar:80
+#: of qfeval_functions.functions.mvar.mvar:83
 msgid ":func:`mstd`: Moving standard deviation function (square root of this)."
 msgstr ":func:`mstd`: 移動標準偏差関数（この関数の平方根）"
 
-#: of qfeval_functions.functions.mvar.mvar:82
+#: of qfeval_functions.functions.mvar.mvar:85
 msgid ":func:`msum`: Moving sum function used in the implementation."
 msgstr ":func:`msum`: 実装で使用される移動合計関数"
 
-#: of qfeval_functions.functions.mvar.mvar:83
+#: of qfeval_functions.functions.mvar.mvar:86
 msgid ":func:`ma`: Moving average function."
 msgstr ":func:`ma`: 移動平均関数"
 
@@ -198,4 +217,11 @@ msgstr ":func:`ma`: 移動平均関数"
 
 #~ msgid "qfeval\\_functions.functions.mvar"
 #~ msgstr "qfeval\\_functions.functions.mvar"
+
+#~ msgid ""
+#~ "This uses the computational formula for"
+#~ " variance that is numerically stable "
+#~ "and efficient for sliding window "
+#~ "calculations."
+#~ msgstr "この実装では、数値的に安定かつ効率的なスライディングウィンドウ計算向けに設計された分散計算の数式を使用しています。"
 
