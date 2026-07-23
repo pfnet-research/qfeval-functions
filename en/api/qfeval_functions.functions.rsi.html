@@ -165,13 +165,32 @@ are conventionally considered overbought, and values below 30 oversold.</p>
 <p>Two averaging methods are supported:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">use_sma=False</span></code> (default): Wilder’s smoothing (an exponential moving
-average), compatible with TA-Lib.
+average), compatible with TA-Lib except for flat series and NaN
+handling (see the notes below).
 See <a class="reference external" href="https://www.investopedia.com/terms/r/rsi.asp">https://www.investopedia.com/terms/r/rsi.asp</a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">use_sma=True</span></code>: a simple moving average.
 See <a class="reference external" href="https://info.monex.co.jp/technical-analysis/indicators/005.html">https://info.monex.co.jp/technical-analysis/indicators/005.html</a></p></li>
 </ul>
 <p>The first <code class="docutils literal notranslate"><span class="pre">span</span></code> elements along the dimension are filled with NaN
-because they do not have enough preceding elements.</p>
+because they do not have enough preceding elements.  If the dimension
+has <code class="docutils literal notranslate"><span class="pre">span</span></code> or fewer elements, all output values are NaN while the
+output shape still matches the input shape, because computing one RSI
+value requires <code class="docutils literal notranslate"><span class="pre">span</span></code> price changes, i.e., <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">+</span> <span class="pre">1</span></code> prices.</p>
+<p>If a window contains no price changes at all (both the average gain and
+the average loss are zero), the RSI is defined to be the neutral value
+50.  NOTE: This intentionally differs from TA-Lib, which returns 0 for
+flat series.</p>
+<p>NaN values in the input propagate to the output instead of being
+converted to valid RSI values:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">use_sma=False</span></code> (Wilder’s smoothing): once a NaN price change enters
+the initial average or the recursive smoothing, all subsequent outputs
+are NaN.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">use_sma=True</span></code> (simple moving average): a NaN price makes up to two
+adjacent price changes NaN, and only the outputs whose windows contain
+them (at most <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">+</span> <span class="pre">1</span></code> positions) are NaN.</p></li>
+</ul>
+<p>Operations made undefined by infinite prices also result in NaN.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -192,6 +211,13 @@ dimension are NaN).</p>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tensor</p>
 </dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">span</span></code> is not positive.</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.14)"><strong>TypeError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">span</span></code> is not an integer (<code class="docutils literal notranslate"><span class="pre">bool</span></code> is rejected).</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.14)"><strong>TypeError</strong></a> – If <code class="docutils literal notranslate"><span class="pre">x</span></code> is not a floating point tensor.</p></li>
+</ul>
+</dd>
 </dl>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
@@ -201,6 +227,11 @@ dimension are NaN).</p>
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">rsi</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">use_sma</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">tensor([    nan,     nan,     nan, 66.6667, 66.6667, 66.6667, 66.6667])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># A flat series yields the neutral value 50.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">rsi</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">6</span><span class="p">,),</span> <span class="mf">5.0</span><span class="p">),</span> <span class="n">span</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">tensor([nan, nan, nan, 50., 50., 50.])</span>
 </pre></div>
 </div>
 <div class="admonition seealso">

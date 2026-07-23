@@ -144,7 +144,9 @@
            <div itemprop="articleBody">
              
   <h1>qfeval_functions.functions.rsi のソースコード</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">.apply_for_axis</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply_for_axis</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.msum</span><span class="w"> </span><span class="kn">import</span> <span class="n">msum</span>
@@ -174,6 +176,10 @@
 <span class="k">def</span><span class="w"> </span><span class="nf">_rsi</span><span class="p">(</span>
     <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">14</span><span class="p">,</span> <span class="n">use_sma</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span>
 <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="c1"># Computing one RSI value requires `span` differences, i.e., `span + 1`</span>
+    <span class="c1"># prices, so a shorter series has no valid output position.</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">span</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
     <span class="c1"># Ignore metastock compatible mode: https://github.com/TA-Lib/ta-lib/blob/f393d2af97e5526a34b2e3f4bdad25d9e44f83ac/src/ta_func/ta_RSI.c#L270C1-L321C1 # NOQA</span>
     <span class="n">delta</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
     <span class="c1"># for i&lt;span, prevLoss and prevGain is mean gain.</span>
@@ -202,12 +208,20 @@
             <span class="n">alpha</span><span class="o">=</span><span class="mi">1</span> <span class="o">/</span> <span class="n">span</span><span class="p">,</span>
         <span class="p">)</span>
 
-    <span class="n">res_not_padded</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span>
-        <span class="n">gain</span> <span class="o">/</span> <span class="p">(</span><span class="n">gain</span> <span class="o">+</span> <span class="n">loss</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span>
-    <span class="p">)</span>  <span class="c1"># if gain=0 and loss=0, expect 100</span>
+    <span class="c1"># A window with no gains and no losses (i.e., a flat series) yields 0/0.</span>
+    <span class="c1"># RSI is defined to be the neutral value 50 there.  NOTE: This</span>
+    <span class="c1"># intentionally differs from TA-Lib, which returns 0 for flat series.</span>
+    <span class="c1"># Any other NaN (e.g., caused by NaN or infinite inputs) is propagated</span>
+    <span class="c1"># as is instead of being converted to a valid RSI value.</span>
+    <span class="n">ratio</span> <span class="o">=</span> <span class="n">gain</span> <span class="o">/</span> <span class="p">(</span><span class="n">gain</span> <span class="o">+</span> <span class="n">loss</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
+    <span class="n">res_not_padded</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">gain</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">loss</span> <span class="o">==</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="n">ratio</span><span class="o">.</span><span class="n">new_tensor</span><span class="p">(</span><span class="mf">50.0</span><span class="p">),</span>
+        <span class="n">ratio</span><span class="p">,</span>
+    <span class="p">)</span>
     <span class="n">res</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span>
         <span class="p">(</span>
-            <span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="n">res_not_padded</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">span</span><span class="p">),</span> <span class="n">torch</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span>
+            <span class="n">res_not_padded</span><span class="o">.</span><span class="n">new_full</span><span class="p">((</span><span class="n">res_not_padded</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">span</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">),</span>
             <span class="n">res_not_padded</span><span class="p">,</span>
         <span class="p">),</span>
         <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
@@ -237,13 +251,34 @@
 <span class="sd">    Two averaging methods are supported:</span>
 
 <span class="sd">    - ``use_sma=False`` (default): Wilder&#39;s smoothing (an exponential moving</span>
-<span class="sd">      average), compatible with TA-Lib.</span>
+<span class="sd">      average), compatible with TA-Lib except for flat series and NaN </span>
+<span class="sd">      handling (see the notes below).</span>
 <span class="sd">      See https://www.investopedia.com/terms/r/rsi.asp</span>
 <span class="sd">    - ``use_sma=True``: a simple moving average.</span>
 <span class="sd">      See https://info.monex.co.jp/technical-analysis/indicators/005.html</span>
 
 <span class="sd">    The first ``span`` elements along the dimension are filled with NaN</span>
-<span class="sd">    because they do not have enough preceding elements.</span>
+<span class="sd">    because they do not have enough preceding elements.  If the dimension</span>
+<span class="sd">    has ``span`` or fewer elements, all output values are NaN while the</span>
+<span class="sd">    output shape still matches the input shape, because computing one RSI</span>
+<span class="sd">    value requires ``span`` price changes, i.e., ``span + 1`` prices.</span>
+
+<span class="sd">    If a window contains no price changes at all (both the average gain and</span>
+<span class="sd">    the average loss are zero), the RSI is defined to be the neutral value</span>
+<span class="sd">    50.  NOTE: This intentionally differs from TA-Lib, which returns 0 for</span>
+<span class="sd">    flat series.</span>
+
+<span class="sd">    NaN values in the input propagate to the output instead of being</span>
+<span class="sd">    converted to valid RSI values:</span>
+
+<span class="sd">    - ``use_sma=False`` (Wilder&#39;s smoothing): once a NaN price change enters</span>
+<span class="sd">      the initial average or the recursive smoothing, all subsequent outputs</span>
+<span class="sd">      are NaN.</span>
+<span class="sd">    - ``use_sma=True`` (simple moving average): a NaN price makes up to two</span>
+<span class="sd">      adjacent price changes NaN, and only the outputs whose windows contain</span>
+<span class="sd">      them (at most ``span + 1`` positions) are NaN.</span>
+
+<span class="sd">    Operations made undefined by infinite prices also result in NaN.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        x (Tensor):</span>
@@ -264,6 +299,11 @@
 <span class="sd">            in :math:`[0, 100]` (the first ``span`` elements along the</span>
 <span class="sd">            dimension are NaN).</span>
 
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If ``span`` is not positive.</span>
+<span class="sd">        TypeError: If ``span`` is not an integer (``bool`` is rejected).</span>
+<span class="sd">        TypeError: If ``x`` is not a floating point tensor.</span>
+
 <span class="sd">    Example:</span>
 
 <span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 3.0, 2.0, 3.0, 4.0, 3.0])</span>
@@ -273,11 +313,24 @@
 <span class="sd">        &gt;&gt;&gt; QF.rsi(x, span=3, use_sma=True)</span>
 <span class="sd">        tensor([    nan,     nan,     nan, 66.6667, 66.6667, 66.6667, 66.6667])</span>
 
+<span class="sd">        &gt;&gt;&gt; # A flat series yields the neutral value 50.</span>
+<span class="sd">        &gt;&gt;&gt; QF.rsi(torch.full((6,), 5.0), span=3)</span>
+<span class="sd">        tensor([nan, nan, nan, 50., 50., 50.])</span>
+
 <span class="sd">    .. seealso::</span>
 <span class="sd">        - :func:`rci`: Rank Correlation Index, another momentum indicator.</span>
 <span class="sd">        - :func:`ma`: Simple moving average function.</span>
 <span class="sd">        - :func:`ema`: Exponential moving average function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># NOTE: bool is a subclass of int, so it must be rejected explicitly.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;span must be an integer, but got </span><span class="si">{</span><span class="n">span</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">span</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;span must be a positive integer, but got </span><span class="si">{</span><span class="n">span</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">is_floating_point</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;rsi only supports floating point tensors, but got </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
     <span class="k">return</span> <span class="n">apply_for_axis</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">_rsi</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">use_sma</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span></div>
 
 </pre></div>

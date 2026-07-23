@@ -161,10 +161,20 @@
 <p>ここで、gain と loss はそれぞれ、直近 <code class="docutils literal notranslate"><span class="pre">span</span></code> 個の要素からなるウィンドウにおける価格の上昇幅と下落幅の平均です。慣例として、70 を超える値は買われすぎ、30 を下回る値は売られすぎと見なされます。</p>
 <p>2 つの平均化手法がサポートされています:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">use_sma=False</span></code>（デフォルト）: ワイルダー平滑化（指数移動平均の一種）。TA-Lib と互換性があります。<a class="reference external" href="https://www.investopedia.com/terms/r/rsi.asp">https://www.investopedia.com/terms/r/rsi.asp</a> を参照してください。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">use_sma=False</span></code> (default): Wilder's smoothing (an exponential moving
+average), compatible with TA-Lib except for flat series and NaN
+handling (see the notes below).
+See <a class="reference external" href="https://www.investopedia.com/terms/r/rsi.asp">https://www.investopedia.com/terms/r/rsi.asp</a></p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">use_sma=True</span></code>: 単純移動平均。<a class="reference external" href="https://info.monex.co.jp/technical-analysis/indicators/005.html">https://info.monex.co.jp/technical-analysis/indicators/005.html</a> を参照してください。</p></li>
 </ul>
-<p>次元に沿った最初の <code class="docutils literal notranslate"><span class="pre">span</span></code> 個の要素は、先行する要素が不足しているため NaN で埋められます。</p>
+<p>次元に沿った最初の <code class="docutils literal notranslate"><span class="pre">span</span></code> 個の要素は、先行する要素が不足しているため NaN で埋められます。RSI 値を 1 つ計算するには <code class="docutils literal notranslate"><span class="pre">span</span></code> 個の価格変化、すなわち <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">+</span> <span class="pre">1</span></code> 個の価格が必要であるため、次元の要素数が <code class="docutils literal notranslate"><span class="pre">span</span></code> 以下の場合、出力形状は入力形状と一致したまま、すべての出力値が NaN になります。</p>
+<p>ウィンドウ内に価格変化が全くない場合（平均上昇幅と平均下落幅がともに 0 の場合）、RSI は中立値である 50 と定義されます。注意: これは、フラットな系列に対して 0 を返す TA-Lib とは意図的に異なる仕様です。</p>
+<p>入力に含まれる NaN 値は、有効な RSI 値に変換されるのではなく、出力に伝播します:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">use_sma=False</span></code>（ワイルダー平滑化）: NaN の価格変化が初期平均または再帰的な平滑化に入った時点以降、すべての出力が NaN になります。</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">use_sma=True</span></code>（単純移動平均）: NaN の価格は隣接する最大 2 個の価格変化を NaN にし、それらをウィンドウに含む出力（最大 <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">+</span> <span class="pre">1</span></code> 個の位置）だけが NaN になります。</p></li>
+</ul>
+<p>無限大の価格によって未定義となる演算も NaN になります。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -180,6 +190,13 @@
 <dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Tensor</p>
 </dd>
+<dt class="field-even">例外<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> -- <code class="docutils literal notranslate"><span class="pre">span</span></code> が正でない場合。</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.14)"><strong>TypeError</strong></a> -- <code class="docutils literal notranslate"><span class="pre">span</span></code> が整数でない場合（<code class="docutils literal notranslate"><span class="pre">bool</span></code> も拒否されます）。</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.14)"><strong>TypeError</strong></a> -- <code class="docutils literal notranslate"><span class="pre">x</span></code> が浮動小数点テンソルでない場合。</p></li>
+</ul>
+</dd>
 </dl>
 <p class="rubric">サンプル</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">])</span>
@@ -189,6 +206,11 @@
 </div>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">rsi</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">use_sma</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="go">tensor([    nan,     nan,     nan, 66.6667, 66.6667, 66.6667, 66.6667])</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="c1"># フラットな系列は中立値 50 になります。</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">QF</span><span class="o">.</span><span class="n">rsi</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">full</span><span class="p">((</span><span class="mi">6</span><span class="p">,),</span> <span class="mf">5.0</span><span class="p">),</span> <span class="n">span</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">tensor([nan, nan, nan, 50., 50., 50.])</span>
 </pre></div>
 </div>
 <div class="admonition seealso">
