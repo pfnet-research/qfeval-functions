@@ -1,6 +1,7 @@
 import math
 
 import numpy as np
+import pytest
 import torch
 
 import qfeval_functions.functions as QF
@@ -206,20 +207,141 @@ def test_shift_shape_preservation() -> None:
 
 
 def test_shift_negative_dimensions() -> None:
-    """Test shift with negative dimension indices."""
+    """Test that negative dimension indices match their positive counterparts."""
     x = torch.tensor([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0]])
 
-    # Test that negative dimensions work (though they may not be equivalent to positive ones
-    # depending on implementation)
+    # dim=-1 must be equivalent to dim=1.
     result_neg1 = QF.shift(x, 1, -1)
-    assert result_neg1.shape == x.shape
+    expected_neg1 = torch.tensor([[math.nan, 1.0, 2.0], [math.nan, 4.0, 5.0]])
+    torch.testing.assert_close(result_neg1, expected_neg1, equal_nan=True)
+    torch.testing.assert_close(result_neg1, QF.shift(x, 1, 1), equal_nan=True)
 
+    # dim=-2 must be equivalent to dim=0.
     result_neg2 = QF.shift(x, 1, -2)
-    assert result_neg2.shape == x.shape
+    expected_neg2 = torch.tensor(
+        [[math.nan, math.nan, math.nan], [1.0, 2.0, 3.0]]
+    )
+    torch.testing.assert_close(result_neg2, expected_neg2, equal_nan=True)
+    torch.testing.assert_close(result_neg2, QF.shift(x, 1, 0), equal_nan=True)
 
-    # Both should contain some NaN values due to shifting
-    assert torch.isnan(result_neg1).any()
-    assert torch.isnan(result_neg2).any()
+    # Negative shifts along negative dimensions.
+    result_neg_shift = QF.shift(x, -1, -1)
+    expected_neg_shift = torch.tensor(
+        [[2.0, 3.0, math.nan], [5.0, 6.0, math.nan]]
+    )
+    torch.testing.assert_close(
+        result_neg_shift, expected_neg_shift, equal_nan=True
+    )
+
+    # Mixed positive and negative shifts on tuple of negative dimensions.
+    result_mixed = QF.shift(x, (1, -1), (-2, -1))
+    torch.testing.assert_close(
+        result_mixed, QF.shift(x, (1, -1), (0, 1)), equal_nan=True
+    )
+
+    # 3D tensor: each negative dimension matches its positive counterpart.
+    x3d = torch.arange(24, dtype=torch.float64).reshape(2, 3, 4)
+    for neg_dim in (-1, -2, -3):
+        pos_dim = neg_dim + x3d.ndim
+        torch.testing.assert_close(
+            QF.shift(x3d, 2, neg_dim),
+            QF.shift(x3d, 2, pos_dim),
+            equal_nan=True,
+        )
+
+
+def test_shift_duplicate_dimensions() -> None:
+    """Test that duplicated dimensions sum their shifts like torch.roll."""
+    x = torch.tensor([[1.0, 2.0, 3.0], [4.0, 5.0, 6.0], [7.0, 8.0, 9.0]])
+
+    # (1, 1) on the same dimension is equivalent to a single shift of 2.
+    result_dup = QF.shift(x, (1, 1), (0, 0))
+    torch.testing.assert_close(result_dup, QF.shift(x, 2, 0), equal_nan=True)
+
+    # Opposite shifts cancel out.
+    result_cancel = QF.shift(x, (2, -2), (1, 1))
+    torch.testing.assert_close(result_cancel, x)
+
+    # The same dimension given as positive and negative indices is merged.
+    result_mixed_sign = QF.shift(x, (1, 1), (1, -1))
+    torch.testing.assert_close(
+        result_mixed_sign, QF.shift(x, 2, 1), equal_nan=True
+    )
+
+    # Summed shifts exceeding the dimension size result in all NaN.
+    result_overflow = QF.shift(x, (2, 2), (0, 0))
+    assert torch.isnan(result_overflow).all()
+
+
+def test_shift_dimension_out_of_range() -> None:
+    """Test that out-of-range dimensions raise IndexError."""
+    x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])
+
+    with pytest.raises(IndexError):
+        QF.shift(x, 1, 2)
+    with pytest.raises(IndexError):
+        QF.shift(x, 1, -3)
+    with pytest.raises(IndexError):
+        QF.shift(x, (1, 1), (0, 5))
+
+
+def test_shift_tuple_length_mismatch() -> None:
+    """Test that mismatched shifts/dims tuple lengths raise RuntimeError."""
+    x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])
+
+    with pytest.raises(RuntimeError):
+        QF.shift(x, (1, 2, 3), (0, 1))
+    with pytest.raises(RuntimeError):
+        QF.shift(x, (1,), (0, 1))
+
+
+def test_shift_integer_dtype_fills_zero() -> None:
+    """Test that integer tensors are shifted and filled with 0."""
+    for dtype in (torch.int8, torch.int32, torch.int64):
+        x = torch.tensor([1, 2, 3, 4], dtype=dtype)
+        result = QF.shift(x, 1, 0)
+        assert result.dtype == dtype
+        torch.testing.assert_close(
+            result, torch.tensor([0, 1, 2, 3], dtype=dtype)
+        )
+        # Negative shift fills the trailing vacated positions.
+        result_neg = QF.shift(x, -1, 0)
+        torch.testing.assert_close(
+            result_neg, torch.tensor([2, 3, 4, 0], dtype=dtype)
+        )
+
+
+def test_shift_bool_dtype_fills_false() -> None:
+    """Test that boolean tensors are shifted and filled with False."""
+    x = torch.tensor([True, True, True, True])
+    result = QF.shift(x, 1, 0)
+    assert result.dtype == torch.bool
+    torch.testing.assert_close(result, torch.tensor([False, True, True, True]))
+    result_neg = QF.shift(x, -1, 0)
+    torch.testing.assert_close(
+        result_neg, torch.tensor([True, True, True, False])
+    )
+
+
+def test_shift_complex_dtype_fills_nan() -> None:
+    """Test that complex tensors are filled with NaN (as ``nan+0j``)."""
+    for dtype in (torch.complex64, torch.complex128):
+        x = torch.tensor([1 + 2j, 3 + 4j], dtype=dtype)
+        result = QF.shift(x, 1, 0)
+        assert result.dtype == dtype
+        # The shifted-in value moves forward; the vacated position is NaN.
+        assert torch.isnan(result[0])
+        torch.testing.assert_close(result[1], torch.tensor(1 + 2j, dtype=dtype))
+
+
+def test_shift_floating_dtype_preservation() -> None:
+    """Test that shift preserves floating-point dtypes."""
+    for dtype in (torch.float16, torch.float32, torch.float64):
+        x = torch.tensor([1.0, 2.0, 3.0, 4.0], dtype=dtype)
+        result = QF.shift(x, 1, 0)
+        assert result.dtype == dtype
+        expected = torch.tensor([math.nan, 1.0, 2.0, 3.0], dtype=dtype)
+        torch.testing.assert_close(result, expected, equal_nan=True)
 
 
 def test_shift_high_dimensional() -> None:

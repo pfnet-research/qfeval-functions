@@ -1,8 +1,8 @@
-import math
 import typing
 
 import torch
 
+from .shift import _fill_value
 from .shift import shift as _shift
 
 AggregateFunction = typing.Literal["any", "all"]
@@ -85,17 +85,24 @@ def group_shift(
 
     The function works by reordering elements based on the mask, applying the
     shift only to valid positions, and then restoring the original order.
-    Elements at masked-out positions are replaced with NaN values.
+    Elements at masked-out positions are replaced with the fill value (NaN
+    for floating-point tensors, ``0`` for integer tensors, and ``False`` for
+    boolean tensors).
 
     .. warning::
-        Unmasked values (where mask is ``False``) are replaced with NaN before
-        shifting. This means that even a zero shift (``shift=0``) will not
-        return the original input, as unmasked values will be NaN in the
-        output.
+        Unmasked values (where mask is ``False``) are replaced with the fill
+        value before shifting. This means that even a zero shift (``shift=0``)
+        will not return the original input, as unmasked values will be the
+        fill value in the output.
 
     Args:
         x (Tensor):
-            The input tensor to be shifted.
+            The input tensor to be shifted.  Masked-out and vacated positions
+            are filled with NaN for floating-point (and complex) tensors,
+            ``0`` for integer tensors, and ``False`` for boolean tensors.
+            When a mask is generated automatically from :attr:`refdim`,
+            integer and boolean tensors have no NaN pattern, so all positions
+            are treated as valid.
         shift (int, optional):
             The number of positions to shift. Positive values shift forward
             (toward higher indices), negative values shift backward.
@@ -120,7 +127,12 @@ def group_shift(
     Returns:
         Tensor:
             A tensor of the same shape as the input, with elements shifted
-            according to the mask. Unmasked positions contain NaN.
+            according to the mask. Unmasked positions contain the fill value
+            (NaN for floating-point and complex, ``0`` for integer, ``False``
+            for boolean).
+
+    Raises:
+        ValueError: If neither ``mask`` nor ``refdim`` is specified.
 
     Example:
 
@@ -178,11 +190,11 @@ def group_shift(
     x = x.reshape((n, -1))
 
     # 3. Gather valid values, apply shift, and scatter them.
-    # fill unmasked indices with nans
+    # fill unmasked indices with the dtype-appropriate fill value
     y = torch.where(
         mask[:, None].expand(n, x.shape[1]),
         x,
-        torch.tensor(math.nan).to(x),
+        _fill_value(x),
     )
     # sort y so that masked values come first
     y = y[index, :]

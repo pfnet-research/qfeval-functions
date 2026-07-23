@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-15 02:15+0900\n"
+"POT-Creation-Date: 2026-07-16 22:42+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -520,7 +520,9 @@ msgstr "次元 ``dim`` における ``x`` の要素の逆方向累積和を返�
 msgid ""
 ":py:obj:`reduce_nan_patterns "
 "<qfeval_functions.functions.reduce_nan_patterns>`"
-msgstr ":py:obj:`reduce_nan_patterns <qfeval_functions.functions.reduce_nan_patterns>`"
+msgstr ""
+":py:obj:`reduce_nan_patterns "
+"<qfeval_functions.functions.reduce_nan_patterns>`"
 
 #: ../../api/qfeval_functions.functions.rst:76:<autosummary>:1
 msgid "Creates a mask for group shift."
@@ -549,9 +551,10 @@ msgid ":py:obj:`shift <qfeval_functions.functions.shift>`"
 msgstr ":py:obj:`shift <qfeval_functions.functions.shift>`"
 
 #: ../../api/qfeval_functions.functions.rst:76:<autosummary>:1
+#, fuzzy
 msgid ""
 "Shifts array elements along specified dimensions, filling vacated "
-"positions with NaN."
+"positions with a dtype-appropriate value."
 msgstr "指定された次元に沿って配列要素をシフトし、空いた位置を NaN で埋めます。"
 
 #: ../../api/qfeval_functions.functions.rst:76:<autosummary>:1

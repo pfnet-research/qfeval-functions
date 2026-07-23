@@ -237,6 +237,38 @@ def test_nanshift_large_shift() -> None:
     )
 
 
+def test_nanshift_integer_dtype_fills_zero() -> None:
+    """Test that integer tensors have no NaN to skip and fill with 0."""
+    for dtype in (torch.int8, torch.int32, torch.int64):
+        x = torch.tensor([1, 2, 3, 4], dtype=dtype)
+        result = QF.nanshift(x, 1, 0)
+        assert result.dtype == dtype
+        # With no NaN values, nanshift behaves like a plain shift.
+        torch.testing.assert_close(result, QF.shift(x, 1, 0))
+        torch.testing.assert_close(
+            result, torch.tensor([0, 1, 2, 3], dtype=dtype)
+        )
+
+
+def test_nanshift_bool_dtype_fills_false() -> None:
+    """Test that boolean tensors have no NaN to skip and fill with False."""
+    x = torch.tensor([True, True, True, True])
+    result = QF.nanshift(x, 1, 0)
+    assert result.dtype == torch.bool
+    torch.testing.assert_close(result, QF.shift(x, 1, 0))
+    torch.testing.assert_close(result, torch.tensor([False, True, True, True]))
+
+
+def test_nanshift_floating_dtype_preservation() -> None:
+    """Test that nanshift preserves floating-point dtypes."""
+    for dtype in (torch.float16, torch.float32, torch.float64):
+        x = torch.tensor([1.0, math.nan, 3.0, 4.0], dtype=dtype)
+        result = QF.nanshift(x, 1, 0)
+        assert result.dtype == dtype
+        expected = torch.tensor([math.nan, math.nan, 1.0, 3.0], dtype=dtype)
+        torch.testing.assert_close(result, expected, equal_nan=True)
+
+
 def test_nanshift_negative_dimension() -> None:
     """Test nanshift with negative dimension indices."""
     x = torch.tensor(

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-15 02:15+0900\n"
+"POT-Creation-Date: 2026-07-16 22:42+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -43,46 +43,59 @@ msgstr ""
 msgid ""
 "The function works by reordering elements based on the mask, applying the"
 " shift only to valid positions, and then restoring the original order. "
-"Elements at masked-out positions are replaced with NaN values."
+"Elements at masked-out positions are replaced with the fill value (NaN "
+"for floating-point tensors, ``0`` for integer tensors, and ``False`` for "
+"boolean tensors)."
 msgstr ""
 "この関数は、マスクに基づいて要素の順序を並べ替え、有効な位置に対してのみシフトを適用し、その後元の順序を復元します。マスクで無効化された位置の要素は"
-" NaN 値に置き換えられます。"
+"埋め込み値（浮動小数点テンソルでは NaN、整数テンソルでは ``0``、ブールテンソルでは ``False``）に置き換えられます。"
 
-#: of qfeval_functions.functions.group_shift.group_shift:14
+#: of qfeval_functions.functions.group_shift.group_shift:16
 msgid ""
-"Unmasked values (where mask is ``False``) are replaced with NaN before "
-"shifting. This means that even a zero shift (``shift=0``) will not return"
-" the original input, as unmasked values will be NaN in the output."
+"Unmasked values (where mask is ``False``) are replaced with the fill "
+"value before shifting. This means that even a zero shift (``shift=0``) "
+"will not return the original input, as unmasked values will be the fill "
+"value in the output."
 msgstr ""
-"マスクされていない値（マスクが ``False`` の場合）はシフト前に NaN に置き換えられます。つまり、シフト値が 0 "
-"の場合（``shift=0``）でも、出力ではマスクされていない値が NaN となるため、入力値は復元されません。"
+"マスクされていない値（マスクが ``False`` の場合）はシフト前に埋め込み値に置き換えられます。つまり、シフト値が 0 "
+"の場合（``shift=0``）でも、出力ではマスクされていない値が埋め込み値となるため、入力値は復元されません。"
 
 #: ../../api/qfeval_functions.functions.group_shift.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
-#: of qfeval_functions.functions.group_shift.group_shift:20
-msgid "The input tensor to be shifted."
-msgstr "シフト対象の入力テンソル。"
+#: of qfeval_functions.functions.group_shift.group_shift:22
+msgid ""
+"The input tensor to be shifted.  Masked-out and vacated positions are "
+"filled with NaN for floating-point (and complex) tensors, ``0`` for "
+"integer tensors, and ``False`` for boolean tensors. When a mask is "
+"generated automatically from :attr:`refdim`, integer and boolean tensors "
+"have no NaN pattern, so all positions are treated as valid."
+msgstr ""
+"シフト対象の入力テンソル。マスクで無効化された位置と空いた位置は、浮動小数点（および複素数）テンソルでは NaN、整数テンソルでは ``0``、"
+"ブールテンソルでは ``False`` で埋められます。:attr:`refdim` からマスクを自動生成する場合、整数およびブールテンソルには NaN "
+"パターンが存在しないため、すべての位置が有効として扱われます。"
 
-#: of qfeval_functions.functions.group_shift.group_shift:23
+#: of qfeval_functions.functions.group_shift.group_shift:30
 msgid ""
 "The number of positions to shift. Positive values shift forward (toward "
 "higher indices), negative values shift backward. Default is 1."
 msgstr "シフトする位置の数。正の値は前方へシフト（高いインデックス方向へ）、負の値は後方へシフトします。デフォルト値は 1 です。"
 
-#: of qfeval_functions.functions.group_shift.group_shift:28
+#: of qfeval_functions.functions.group_shift.group_shift:35
 msgid "The dimension along which to perform the shift. Default is 0."
 msgstr "シフトを行う次元。デフォルトは 0 です。"
 
-#: of qfeval_functions.functions.group_shift.group_shift:32
+#: of qfeval_functions.functions.group_shift.group_shift:39
 msgid ""
 "A 1D boolean tensor where ``True`` indicates positions to include in the "
 "shift, and ``False`` indicates positions to skip. Length must equal "
 "``x.shape[dim]``. If not provided, :attr:`refdim` must be specified."
-msgstr "1 次元のブールテンソルで、``True`` はシフト処理に含めるべき位置を示し、``False`` はスキップすべき位置を示します。長さは ``x.shape[dim]`` と一致している必要があります。指定されていない場合、:attr:`refdim` を指定する必要があります。"
+msgstr ""
+"1 次元のブールテンソルで、``True`` はシフト処理に含めるべき位置を示し、``False`` はスキップすべき位置を示します。長さは "
+"``x.shape[dim]`` と一致している必要があります。指定されていない場合、:attr:`refdim` を指定する必要があります。"
 
-#: of qfeval_functions.functions.group_shift.group_shift:38
+#: of qfeval_functions.functions.group_shift.group_shift:45
 msgid ""
 "If specified, automatically generates a mask using "
 ":func:`reduce_nan_patterns`. This identifies valid positions based on "
@@ -91,7 +104,7 @@ msgstr ""
 "指定されている場合、:func:`reduce_nan_patterns` を使用して自動的にマスクを生成します。このマスクは、参照次元における非"
 " NaN パターンに基づいて有効な位置を識別します。デフォルト値は -1 です。"
 
-#: of qfeval_functions.functions.group_shift.group_shift:43
+#: of qfeval_functions.functions.group_shift.group_shift:50
 msgid ""
 "Aggregation function used when generating mask from :attr:`refdim`. Can "
 "be \"any\" or \"all\". Default is \"any\"."
@@ -103,21 +116,32 @@ msgstr ""
 msgid "Returns"
 msgstr "戻り値"
 
-#: of qfeval_functions.functions.group_shift.group_shift:48
+#: of qfeval_functions.functions.group_shift.group_shift:55
 msgid ""
 "A tensor of the same shape as the input, with elements shifted according "
-"to the mask. Unmasked positions contain NaN."
-msgstr "入力と同じ形状のテンソルで、マスクに従って要素がシフトされています。マスクされていない位置には NaN が格納されます。"
+"to the mask. Unmasked positions contain the fill value (NaN for floating-"
+"point and complex, ``0`` for integer, ``False`` for boolean)."
+msgstr ""
+"入力と同じ形状のテンソルで、マスクに従って要素がシフトされています。マスクされていない位置には埋め込み値（浮動小数点および複素数では NaN、"
+"整数では ``0``、ブールでは ``False``）が格納されます。"
 
 #: ../../api/qfeval_functions.functions.group_shift.rst
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.group_shift.group_shift:53
+#: ../../api/qfeval_functions.functions.group_shift.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.group_shift.group_shift:61
+msgid "If neither ``mask`` nor ``refdim`` is specified."
+msgstr "``mask`` と ``refdim`` のどちらも指定されていない場合。"
+
+#: of qfeval_functions.functions.group_shift.group_shift:64
 msgid "Example"
 msgstr "使用例"
 
-#: of qfeval_functions.functions.group_shift.group_shift:55
+#: of qfeval_functions.functions.group_shift.group_shift:66
 msgid ""
 ">>> # Basic masked shift\n"
 ">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
@@ -125,9 +149,15 @@ msgid ""
 ">>> shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)\n"
 ">>> shifted\n"
 "tensor([nan, nan, 1., nan, 3.])"
-msgstr ">>> # 基本的なマスク付きシフト\n>>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> mask = torch.tensor([True, False, True, False, True])\n>>> shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)\n>>> shifted\ntensor([nan, nan, 1., nan, 3.])"
+msgstr ""
+">>> # 基本的なマスク付きシフト\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> mask = torch.tensor([True, False, True, False, True])\n"
+">>> shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)\n"
+">>> shifted\n"
+"tensor([nan, nan, 1., nan, 3.])"
 
-#: of qfeval_functions.functions.group_shift.group_shift:62
+#: of qfeval_functions.functions.group_shift.group_shift:73
 msgid ""
 ">>> # Shift with existing NaN values\n"
 ">>> x = torch.tensor([1.0, nan, 2.0, nan, 3.0])\n"
@@ -135,9 +165,15 @@ msgid ""
 ">>> shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)\n"
 ">>> shifted\n"
 "tensor([nan, nan, 1., nan, 2.])"
-msgstr ">>> # 既存の NaN 値を含むシフト\n>>> x = torch.tensor([1.0, nan, 2.0, nan, 3.0])\n>>> mask = torch.tensor([True, False, True, False, True])\n>>> shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)\n>>> shifted\ntensor([nan, nan, 1., nan, 2.])"
+msgstr ""
+">>> # 既存の NaN 値を含むシフト\n"
+">>> x = torch.tensor([1.0, nan, 2.0, nan, 3.0])\n"
+">>> mask = torch.tensor([True, False, True, False, True])\n"
+">>> shifted = QF.group_shift(x, shift=1, dim=0, mask=mask)\n"
+">>> shifted\n"
+"tensor([nan, nan, 1., nan, 2.])"
 
-#: of qfeval_functions.functions.group_shift.group_shift:69
+#: of qfeval_functions.functions.group_shift.group_shift:80
 msgid ""
 ">>> # 2D tensor with automatic mask generation\n"
 ">>> x = torch.tensor([[1.0, 2.0, nan, 4.0],\n"
@@ -149,79 +185,28 @@ msgid ""
 "tensor([[nan,  1., nan,  2.],\n"
 "        [nan,  5., nan,  6.],\n"
 "        [nan,  9., nan, 10.]])"
-msgstr ">>> # マスクを自動生成する 2 次元テンソル\n>>> x = torch.tensor([[1.0, 2.0, nan, 4.0],\n...                   [5.0, 6.0, nan, 8.0],\n...                   [9.0, 10., nan, 12.]])\n>>> # refdim=0 で最初の行の NaN パターンからマスクを生成\n>>> shifted = QF.group_shift(x, shift=1, dim=1, refdim=0)\n>>> shifted\ntensor([[nan,  1., nan,  2.],\n        [nan,  5., nan,  6.],\n        [nan,  9., nan, 10.]])"
+msgstr ""
+">>> # マスクを自動生成する 2 次元テンソル\n"
+">>> x = torch.tensor([[1.0, 2.0, nan, 4.0],\n"
+"...                   [5.0, 6.0, nan, 8.0],\n"
+"...                   [9.0, 10., nan, 12.]])\n"
+">>> # refdim=0 で最初の行の NaN パターンからマスクを生成\n"
+">>> shifted = QF.group_shift(x, shift=1, dim=1, refdim=0)\n"
+">>> shifted\n"
+"tensor([[nan,  1., nan,  2.],\n"
+"        [nan,  5., nan,  6.],\n"
+"        [nan,  9., nan, 10.]])"
 
-#: of qfeval_functions.functions.group_shift.group_shift:80
+#: of qfeval_functions.functions.group_shift.group_shift:91
 msgid ""
 ":func:`reduce_nan_patterns`: For understanding mask generation from "
 "reference dimensions."
 msgstr ":func:`reduce_nan_patterns`: 参照次元からマスクを生成する仕組みを理解するための関数です。"
 
-#: of qfeval_functions.functions.group_shift.group_shift:82
+#: of qfeval_functions.functions.group_shift.group_shift:93
 msgid ":func:`shift`: Standard shift function without grouping."
 msgstr ":func:`shift`: グループ化を行わない標準のシフト関数。"
 
-#: of qfeval_functions.functions.group_shift.group_shift:83
+#: of qfeval_functions.functions.group_shift.group_shift:94
 msgid ":func:`nanshift`: Shift function that skips NaN values."
 msgstr ":func:`nanshift`: NaN をスキップするシフト関数。"
-
-#~ msgid ""
-#~ "This function applies shifts only for"
-#~ " locations specified by the mask. For"
-#~ " example, suppose the mask is `[True,"
-#~ " False, True, False, True]`, then "
-#~ "applying one shift to `[1, nan, 2,"
-#~ " nan, 3]` will get `[nan, nan, "
-#~ "1, nan, 2]`."
-#~ msgstr ""
-#~ "この関数はマスクで指定された位置に対してのみシフトを適用します。例えば、マスクが `[True, False,"
-#~ " True, False, True]` の場合、`[1, nan, 2,"
-#~ " nan, 3]` に対して1回シフトを適用すると `[nan, nan, "
-#~ "1, nan, 2]` という結果が得られます。"
-
-#~ msgid ""
-#~ "CAVEAT: Before applying shifts, the "
-#~ "unmasked values (i.e., mask values are"
-#~ " False) are filled with nans. So, "
-#~ "applying the above masked-shift to "
-#~ "`[1, 2, 3, 4, 5]` will get "
-#~ "`[nan, nan, 1, nan, 3]`, where "
-#~ "unmasked values (2, 4) are just "
-#~ "discarded. Also, zero-shift (`shift =="
-#~ " 0`) will not give the original "
-#~ "input."
-#~ msgstr ""
-#~ "注意: シフトを適用する前に、マスクされていない値（つまりマスク値が False）は nan "
-#~ "で埋められます。したがって、上記のマスク付きシフトを `[1, 2, 3, 4, "
-#~ "5]` に適用すると、`[nan, nan, 1, nan, 3]` "
-#~ "という結果が得られます。ここで、マスクされていない値 (2, 4) は単に破棄されます。また、シフト値が"
-#~ " 0 の場合 (`shift == 0`)、元の入力は復元されません。"
-
-#~ msgid "The number of places by which the elements of the tensor are shifted."
-#~ msgstr "テンソルの要素がシフトされる位置の数。"
-
-#~ msgid ""
-#~ "A 1D boolean tensor, where `False` "
-#~ "values specify the indices to be "
-#~ "skipped during shifts. The length must"
-#~ " be equal to `x.shape[dim]`."
-#~ msgstr "1次元のブールテンソルで、`False`の値はシフト時にスキップするインデックスを指定します。テンソルの長さは`x.shape[dim]`と等しくなければなりません。"
-
-#~ msgid ""
-#~ "If set, the mask is automatically "
-#~ "generated. See `reduce_nan_patterns` for "
-#~ "details."
-#~ msgstr "マスクが設定されている場合、マスクは自動的に生成されます。詳細は `reduce_nan_patterns` を参照してください。"
-
-#~ msgid "A shifted version of `x`."
-#~ msgstr "`x` をシフトしたバージョン。"
-
-#~ msgid "- x_shifted"
-#~ msgstr "- x_shifted"
-
-#~ msgid "x_shifted"
-#~ msgstr "x_shifted"
-
-#~ msgid "qfeval\\_functions.functions.group\\_shift"
-#~ msgstr "qfeval\\_functions.functions.group\\_shift"
-
