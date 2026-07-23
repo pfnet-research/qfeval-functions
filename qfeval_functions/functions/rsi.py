@@ -1,3 +1,5 @@
+import math
+
 import torch
 
 from .apply_for_axis import apply_for_axis
@@ -28,6 +30,10 @@ def _ema_2dim_recursive(x: torch.Tensor, alpha: float) -> torch.Tensor:
 def _rsi(
     x: torch.Tensor, span: int = 14, use_sma: bool = False
 ) -> torch.Tensor:
+    # Computing one RSI value requires `span` differences, i.e., `span + 1`
+    # prices, so a shorter series has no valid output position.
+    if x.shape[1] <= span:
+        return torch.full_like(x, math.nan)
     # Ignore metastock compatible mode: https://github.com/TA-Lib/ta-lib/blob/f393d2af97e5526a34b2e3f4bdad25d9e44f83ac/src/ta_func/ta_RSI.c#L270C1-L321C1 # NOQA
     delta = x.diff(1)
     # for i<span, prevLoss and prevGain is mean gain.
@@ -56,12 +62,20 @@ def _rsi(
             alpha=1 / span,
         )
 
-    res_not_padded = torch.nan_to_num(
-        gain / (gain + loss) * 100, 0
-    )  # if gain=0 and loss=0, expect 100
+    # A window with no gains and no losses (i.e., a flat series) yields 0/0.
+    # RSI is defined to be the neutral value 50 there.  NOTE: This
+    # intentionally differs from TA-Lib, which returns 0 for flat series.
+    # Any other NaN (e.g., caused by NaN or infinite inputs) is propagated
+    # as is instead of being converted to a valid RSI value.
+    ratio = gain / (gain + loss) * 100
+    res_not_padded = torch.where(
+        (gain == 0) & (loss == 0),
+        ratio.new_tensor(50.0),
+        ratio,
+    )
     res = torch.concat(
         (
-            torch.full((res_not_padded.shape[0], span), torch.nan),
+            res_not_padded.new_full((res_not_padded.shape[0], span), math.nan),
             res_not_padded,
         ),
         dim=1,
@@ -89,13 +103,34 @@ def rsi(
     Two averaging methods are supported:
 
     - ``use_sma=False`` (default): Wilder's smoothing (an exponential moving
-      average), compatible with TA-Lib.
+      average), compatible with TA-Lib except for flat series and NaN 
+      handling (see the notes below).
       See https://www.investopedia.com/terms/r/rsi.asp
     - ``use_sma=True``: a simple moving average.
       See https://info.monex.co.jp/technical-analysis/indicators/005.html
 
     The first ``span`` elements along the dimension are filled with NaN
-    because they do not have enough preceding elements.
+    because they do not have enough preceding elements.  If the dimension
+    has ``span`` or fewer elements, all output values are NaN while the
+    output shape still matches the input shape, because computing one RSI
+    value requires ``span`` price changes, i.e., ``span + 1`` prices.
+
+    If a window contains no price changes at all (both the average gain and
+    the average loss are zero), the RSI is defined to be the neutral value
+    50.  NOTE: This intentionally differs from TA-Lib, which returns 0 for
+    flat series.
+
+    NaN values in the input propagate to the output instead of being
+    converted to valid RSI values:
+
+    - ``use_sma=False`` (Wilder's smoothing): once a NaN price change enters
+      the initial average or the recursive smoothing, all subsequent outputs
+      are NaN.
+    - ``use_sma=True`` (simple moving average): a NaN price makes up to two
+      adjacent price changes NaN, and only the outputs whose windows contain
+      them (at most ``span + 1`` positions) are NaN.
+
+    Operations made undefined by infinite prices also result in NaN.
 
     Args:
         x (Tensor):
@@ -116,6 +151,11 @@ def rsi(
             in :math:`[0, 100]` (the first ``span`` elements along the
             dimension are NaN).
 
+    Raises:
+        ValueError: If ``span`` is not positive.
+        TypeError: If ``span`` is not an integer (``bool`` is rejected).
+        TypeError: If ``x`` is not a floating point tensor.
+
     Example:
 
         >>> x = torch.tensor([1.0, 2.0, 3.0, 2.0, 3.0, 4.0, 3.0])
@@ -125,9 +165,22 @@ def rsi(
         >>> QF.rsi(x, span=3, use_sma=True)
         tensor([    nan,     nan,     nan, 66.6667, 66.6667, 66.6667, 66.6667])
 
+        >>> # A flat series yields the neutral value 50.
+        >>> QF.rsi(torch.full((6,), 5.0), span=3)
+        tensor([nan, nan, nan, 50., 50., 50.])
+
     .. seealso::
         - :func:`rci`: Rank Correlation Index, another momentum indicator.
         - :func:`ma`: Simple moving average function.
         - :func:`ema`: Exponential moving average function.
     """
+    # NOTE: bool is a subclass of int, so it must be rejected explicitly.
+    if isinstance(span, bool) or not isinstance(span, int):
+        raise TypeError(f"span must be an integer, but got {span!r}.")
+    if span <= 0:
+        raise ValueError(f"span must be a positive integer, but got {span}.")
+    if not x.is_floating_point():
+        raise TypeError(
+            f"rsi only supports floating point tensors, but got {x.dtype}."
+        )
     return apply_for_axis(lambda x: _rsi(x, span, use_sma), x, dim)
