@@ -2,7 +2,7 @@ import typing
 
 import torch
 
-from .shift import fill_value
+from .shift import _fill_value
 from .shift import shift as _shift
 
 AggregateFunction = typing.Literal["any", "all"]
@@ -194,7 +194,7 @@ def group_shift(
     y = torch.where(
         mask[:, None].expand(n, x.shape[1]),
         x,
-        fill_value(x),
+        _fill_value(x),
     )
     # sort y so that masked values come first
     y = y[index, :]

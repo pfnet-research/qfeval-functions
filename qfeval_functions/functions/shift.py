@@ -4,7 +4,7 @@ import typing
 import torch
 
 
-def fill_value(x: torch.Tensor) -> torch.Tensor:
+def _fill_value(x: torch.Tensor) -> torch.Tensor:
     r"""Returns the value used to fill vacated positions for ``x``'s dtype.
 
     Floating-point and complex tensors are filled with NaN (``nan+0j`` for
@@ -140,4 +140,4 @@ def shift(
 
     # 4. Apply torch.roll and fill rolled values using the mask.
     x = x.roll(shifts, dims)
-    return torch.where(mask, fill_value(x), x)
+    return torch.where(mask, _fill_value(x), x)
