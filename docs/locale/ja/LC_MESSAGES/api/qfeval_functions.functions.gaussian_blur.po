@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-15 02:15+0900\n"
+"POT-Creation-Date: 2026-07-16 11:16+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -35,7 +35,9 @@ msgid ""
 "weighted average of neighboring values, where weights follow a Gaussian "
 "(normal) distribution centered at each point. This is commonly used for "
 "noise reduction, data smoothing, and signal processing."
-msgstr "この関数は、指定された次元に沿って 1 次元ガウシアンフィルタを適用し、データを平滑化します。ガウシアンぼかし処理では、各点を中心としたガウシアン（正規）分布に従って重み付けされた近傍値の加重平均を計算します。これは主にノイズ低減、データ平滑化、および信号処理用途で使用されます。"
+msgstr ""
+"この関数は、指定された次元に沿って 1 "
+"次元ガウシアンフィルタを適用し、データを平滑化します。ガウシアンぼかし処理では、各点を中心としたガウシアン（正規）分布に従って重み付けされた近傍値の加重平均を計算します。これは主にノイズ低減、データ平滑化、および信号処理用途で使用されます。"
 
 #: of qfeval_functions.functions.gaussian_blur.gaussian_blur:9
 msgid ""
@@ -44,23 +46,44 @@ msgid ""
 "averages of the Gaussian function for improved accuracy, especially for "
 "small :attr:`sigma` values. This approach avoids undersampling issues and"
 " provides more accurate results."
-msgstr "一般的な実装手法（例えば ``scipy.ndimage.gaussian_filter1d`` のような点サンプリング手法）とは異なり、この関数はガウス関数の区間平均を用いて精度を向上させています。特に :attr:`sigma` 値が小さい場合に、この手法はサンプリング不足の問題を回避し、より正確な結果を提供します。"
+msgstr ""
+"一般的な実装手法（例えば ``scipy.ndimage.gaussian_filter1d`` "
+"のような点サンプリング手法）とは異なり、この関数はガウス関数の区間平均を用いて精度を向上させています。特に :attr:`sigma` "
+"値が小さい場合に、この手法はサンプリング不足の問題を回避し、より正確な結果を提供します。"
+
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:15
+msgid ""
+"NaN values are excluded from the weighted average: at each output "
+"position, the Gaussian weights are renormalized over the valid (non-NaN) "
+"values only, and positions that are NaN in the input remain NaN in the "
+"output.  All other output positions are finite as long as at least one "
+"valid value exists along the target dimension."
+msgstr ""
+"NaN 値は加重平均から除外されます。各出力位置では、有効な（NaN でない）値のみを対象としてガウシアン重みが再正規化され、入力で NaN "
+"だった位置は出力でも NaN のままになります。対象次元に有効な値が 1 つ以上存在する限り、それ以外のすべての出力位置は有限値になります。"
 
 #: ../../api/qfeval_functions.functions.gaussian_blur.rst
 msgid "Parameters"
 msgstr "パラメータ"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:16
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:22
 msgid "The input tensor to be blurred."
 msgstr "ぼかし処理を施す入力テンソル。"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:19
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:25
 msgid ""
-"The standard deviation of the Gaussian kernel. Larger values produce more"
-" smoothing. Must be positive."
-msgstr "ガウスカーネルの標準偏差。値が大きいほど平滑化効果が強くなります。正の値である必要があります。"
+"The standard deviation of the Gaussian kernel. Larger magnitudes produce "
+"more smoothing; only the magnitude matters, so the sign is ignored. "
+"``sigma=0`` applies no smoothing and returns the input unchanged, while a"
+" very large (or infinite) :attr:`sigma` approaches a uniform average over"
+" the valid values along the target dimension. A ``nan`` :attr:`sigma` "
+"produces an all-``nan`` output."
+msgstr ""
+"ガウスカーネルの標準偏差。絶対値が大きいほど平滑化効果が強くなります。値の大きさのみが意味を持ち、符号は無視されます。``sigma=0`` "
+"の場合は平滑化を行わず入力をそのまま返します。非常に大きな（または無限大の） :attr:`sigma` "
+"は、対象次元に沿った有効な値の一様平均に近づきます。``nan`` の :attr:`sigma` は出力全体が ``nan`` になります。"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:23
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:34
 msgid ""
 "The dimension along which to apply the Gaussian blur. Default is -1 (the "
 "last dimension)."
@@ -70,7 +93,7 @@ msgstr "ガウシアンブラーを適用する次元。デフォルトは -1 �
 msgid "Returns"
 msgstr "戻り値"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:27
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:38
 msgid ""
 "A tensor of the same shape as the input, containing the Gaussian-blurred "
 "values."
@@ -80,19 +103,23 @@ msgstr "入力と同じ形状のテンソルで、ガウシアンぼかし処理
 msgid "Return type"
 msgstr "戻り値の型"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:32
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:43
 msgid "Example"
 msgstr "使用例"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:34
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:45
 msgid ""
 ">>> # Simple 1D Gaussian blur\n"
 ">>> x = torch.tensor([0., 0., 0., 10., 0., 0., 0.])\n"
 ">>> QF.gaussian_blur(x, sigma=1.0)\n"
 "tensor([0.0864, 0.6494, 2.4324, 3.8310, 2.4324, 0.6494, 0.0864])"
-msgstr ">>> # 単純な 1 次元ガウシアンブラー\n>>> x = torch.tensor([0., 0., 0., 10., 0., 0., 0.])\n>>> QF.gaussian_blur(x, sigma=1.0)\ntensor([0.0864, 0.6494, 2.4324, 3.8310, 2.4324, 0.6494, 0.0864])"
+msgstr ""
+">>> # 単純な 1 次元ガウシアンブラー\n"
+">>> x = torch.tensor([0., 0., 0., 10., 0., 0., 0.])\n"
+">>> QF.gaussian_blur(x, sigma=1.0)\n"
+"tensor([0.0864, 0.6494, 2.4324, 3.8310, 2.4324, 0.6494, 0.0864])"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:39
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:50
 msgid ""
 ">>> # 2D tensor: blur along different dimensions\n"
 ">>> x = torch.zeros(3, 5)\n"
@@ -105,21 +132,32 @@ msgid ""
 "tensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n"
 "        [0.0000, 0.0621, 9.8758, 0.0621, 0.0000],\n"
 "        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000]])"
-msgstr ">>> # 2 次元テンソル: 異なる次元に沿ったブラー\n>>> x = torch.zeros(3, 5)\n>>> x[1, 2] = 10.0\n>>> QF.gaussian_blur(x, sigma=0.2, dim=0)  # 行方向のブラー\ntensor([[0.0000, 0.0000, 0.0625, 0.0000, 0.0000],\n        [0.0000, 0.0000, 9.8758, 0.0000, 0.0000],\n        [0.0000, 0.0000, 0.0625, 0.0000, 0.0000]])\n>>> QF.gaussian_blur(x, sigma=0.2, dim=1)  # 列方向のブラー\ntensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n        [0.0000, 0.0621, 9.8758, 0.0621, 0.0000],\n        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000]])"
+msgstr ""
+">>> # 2 次元テンソル: 異なる次元に沿ったブラー\n"
+">>> x = torch.zeros(3, 5)\n"
+">>> x[1, 2] = 10.0\n"
+">>> QF.gaussian_blur(x, sigma=0.2, dim=0)  # 行方向のブラー\n"
+"tensor([[0.0000, 0.0000, 0.0625, 0.0000, 0.0000],\n"
+"        [0.0000, 0.0000, 9.8758, 0.0000, 0.0000],\n"
+"        [0.0000, 0.0000, 0.0625, 0.0000, 0.0000]])\n"
+">>> QF.gaussian_blur(x, sigma=0.2, dim=1)  # 列方向のブラー\n"
+"tensor([[0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n"
+"        [0.0000, 0.0621, 9.8758, 0.0621, 0.0000],\n"
+"        [0.0000, 0.0000, 0.0000, 0.0000, 0.0000]])"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:51
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:62
 msgid ":func:`ma`: Simple moving average, another smoothing function."
 msgstr ":func:`ma`: もう一つの平滑化関数である単純移動平均。"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:52
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:63
 msgid ":func:`ema`: Exponential moving average function."
 msgstr ":func:`ema`: 指数移動平均関数。"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:53
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:64
 msgid "https://en.wikipedia.org/wiki/Gaussian_blur"
 msgstr "https://en.wikipedia.org/wiki/Gaussian_blur"
 
-#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:54
+#: of qfeval_functions.functions.gaussian_blur.gaussian_blur:65
 msgid ""
 "https://bartwronski.com/2021/10/31/gaussian-blur-corrected-improved-and-"
 "optimized/"
@@ -174,4 +212,20 @@ msgstr ""
 
 #~ msgid "qfeval\\_functions.functions.gaussian\\_blur"
 #~ msgstr "qfeval\\_functions.functions.gaussian\\_blur"
+
+#~ msgid ""
+#~ "The standard deviation of the Gaussian"
+#~ " kernel. Larger values produce more "
+#~ "smoothing. Must be a positive finite "
+#~ "number."
+#~ msgstr "ガウスカーネルの標準偏差。値が大きいほど平滑化効果が強くなります。正の有限値である必要があります。"
+
+#~ msgid "Raises"
+#~ msgstr "例外"
+
+#~ msgid ""
+#~ "If :attr:`sigma` is not a positive "
+#~ "finite number (e.g., zero,     negative, "
+#~ "NaN, or infinity)."
+#~ msgstr ":attr:`sigma` が正の有限値でない場合（例: ゼロ、負値、NaN、無限大）。"
 

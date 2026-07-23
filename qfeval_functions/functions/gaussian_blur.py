@@ -16,7 +16,8 @@ def _gaussian_filter(n: int, sigma: float) -> torch.Tensor:
         return (x / math.sqrt(2)).erf() / 2
 
     a = torch.arange(n, dtype=torch.float64) - (n - 1) / 2
-    return f((a + 0.5) / sigma) - f((a - 0.5) / sigma)
+    d = f((a + 0.5) / sigma) - f((a - 0.5) / sigma)
+    return d.clamp(torch.finfo(torch.float64).eps)
 
 
 def gaussian_blur(x: torch.Tensor, sigma: float, dim: int = -1) -> torch.Tensor:
@@ -34,12 +35,23 @@ def gaussian_blur(x: torch.Tensor, sigma: float, dim: int = -1) -> torch.Tensor:
     :attr:`sigma` values. This approach avoids undersampling issues and
     provides more accurate results.
 
+    NaN values are excluded from the weighted average: at each output
+    position, the Gaussian weights are renormalized over the valid
+    (non-NaN) values only, and positions that are NaN in the input remain
+    NaN in the output.  All other output positions are finite as long as at
+    least one valid value exists along the target dimension.
+
     Args:
         x (Tensor):
             The input tensor to be blurred.
         sigma (float):
-            The standard deviation of the Gaussian kernel. Larger values
-            produce more smoothing. Must be positive.
+            The standard deviation of the Gaussian kernel. Larger
+            magnitudes produce more smoothing; only the magnitude matters,
+            so the sign is ignored. ``sigma=0`` applies no smoothing and
+            returns the input unchanged, while a very large (or infinite)
+            :attr:`sigma` approaches a uniform average over the valid
+            values along the target dimension. A ``nan`` :attr:`sigma`
+            produces an all-``nan`` output.
         dim (int, optional):
             The dimension along which to apply the Gaussian blur.
             Default is -1 (the last dimension).
@@ -76,14 +88,22 @@ def gaussian_blur(x: torch.Tensor, sigma: float, dim: int = -1) -> torch.Tensor:
     """
 
     def _blur(x: torch.Tensor) -> torch.Tensor:
-        # Apply convolution with x and a Gaussian filter.
-        w = _gaussian_filter(x.shape[-1] * 2 + 1, sigma).to(x.device)
-        a = F.conv1d(x.to(w)[:, None], w[None, None], padding="same")
-        # TODO(imos): Divding by count is not necessary and confusing. Fix this
-        # in another PR.
-        count = F.conv1d(
-            (~x.isnan()).to(w)[:, None], w[None, None], padding="same"
-        )
-        return (a / count)[:, 0].to(x)
+        # Apply convolution with x and a Gaussian filter, excluding NaNs.
+        # Only the magnitude of sigma matters, so its sign is ignored.
+        w = _gaussian_filter(x.shape[-1] * 2 + 1, abs(sigma)).to(x.device)
+        m = ~x.isnan()
+        xf = torch.where(m, x, torch.zeros_like(x))
+        a = F.conv1d(xf.to(w)[:, None], w[None, None], padding="same")
+        # `weight` accumulates the Gaussian weights of the valid (non-NaN)
+        # values only, so dividing by it both corrects the boundary effect
+        # (weights cut off outside the tensor) and renormalizes the weights
+        # over non-NaN values.
+        weight = F.conv1d(m.to(w)[:, None], w[None, None], padding="same")
+        # Clamp the accumulated weight away from zero to avoid dividing by
+        # zero where no valid value exists (all NaN); such positions are
+        # restored to NaN by the mask below anyway.
+        eps = torch.finfo(weight.dtype).eps
+        out = (a / weight.clamp(min=eps))[:, 0].to(x)
+        return torch.where(m, out, torch.as_tensor(math.nan).to(out))
 
     return apply_for_axis(_blur, x, dim)

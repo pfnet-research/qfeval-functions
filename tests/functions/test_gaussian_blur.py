@@ -165,29 +165,117 @@ def test_gaussian_blur_dim_parameter() -> None:
     assert not torch.allclose(result_dim_0, result_dim_1)
 
 
-def test_gaussian_blur_with_nan() -> None:
-    """Test gaussian blur with NaN values."""
-    # TODO(claude): The gaussian_blur function should implement NaN-aware filtering.
-    # Expected behavior: when encountering NaN values, the filter should normalize
-    # weights over only the finite values in the window, rather than propagating NaN
-    # to all positions influenced by the NaN. This would make the function more robust
-    # for real-world data with missing values.
-    # NaN in middle
+def test_gaussian_blur_nan_positions_are_preserved() -> None:
+    """Test that original NaN positions stay NaN and all others are finite."""
     x_nan_middle = torch.tensor([1.0, 2.0, math.nan, 4.0, 5.0])
     result = QF.gaussian_blur(x_nan_middle, 0.5)
 
-    # Result may contain NaN in positions where NaN values dominate the window
-    # The key property is that the shape is preserved and finite values are handled correctly
     assert result.shape == x_nan_middle.shape
+    # Only the original NaN position remains NaN; all others are finite.
+    assert torch.equal(result.isnan(), x_nan_middle.isnan())
+    assert torch.isfinite(result[~x_nan_middle.isnan()]).all()
 
-    # Test basic properties - some positions may contain NaN due to the implementation
-    # The key test is that shape is preserved and the function doesn't crash
-    assert result.shape == x_nan_middle.shape
-
-    # Test with a case where NaN is isolated to ensure finite values away from NaN work
     x_isolated_nan = torch.tensor([1.0, 2.0, 3.0, math.nan, 0.0, 0.0, 0.0])
     result_isolated = QF.gaussian_blur(x_isolated_nan, 0.5)
-    assert result_isolated.shape == x_isolated_nan.shape
+    assert torch.equal(result_isolated.isnan(), x_isolated_nan.isnan())
+    assert torch.isfinite(result_isolated[~x_isolated_nan.isnan()]).all()
+
+
+def test_gaussian_blur_nan_reference_implementation() -> None:
+    """Compare NaN-aware blur with a naive renormalized reference."""
+    x = torch.tensor(
+        [1.0, math.nan, 3.0, 4.0, math.nan, 6.0, 7.0], dtype=torch.float64
+    )
+    sigma = 1.0
+    n = x.shape[0]
+    w = _gaussian_filter(n * 2 + 1, sigma)
+
+    expected = torch.full_like(x, math.nan)
+    valid = ~x.isnan()
+    for i in range(n):
+        if not valid[i]:
+            continue
+        total = 0.0
+        weight = 0.0
+        for j in range(n):
+            if not valid[j]:
+                continue
+            # The kernel is centered at index i: offset j - i.
+            wj = float(w[n + j - i])
+            total += wj * float(x[j])
+            weight += wj
+        expected[i] = total / weight
+
+    torch.testing.assert_close(
+        QF.gaussian_blur(x, sigma), expected, equal_nan=True
+    )
+
+
+def test_gaussian_blur_nan_free_input_matches_previous_behavior() -> None:
+    """NaN-free inputs must produce the same values as before the NaN fix."""
+    a = torch.tensor([0, 0, 0, 1, 0, 0, 0], dtype=torch.float32)
+    np.testing.assert_array_almost_equal(
+        QF.gaussian_blur(a, 1),
+        [0.009, 0.065, 0.243, 0.383, 0.243, 0.065, 0.009],
+        decimal=3,
+    )
+
+
+def test_gaussian_blur_nan_multidimensional_and_negative_dim() -> None:
+    """Test NaN handling for 2D/3D tensors and negative dimensions."""
+    x2d = torch.tensor(
+        [[1.0, math.nan, 3.0, 4.0], [math.nan, 2.0, 3.0, math.nan]]
+    )
+    for dim in (-1, 1):
+        result = QF.gaussian_blur(x2d, 0.8, dim=dim)
+        assert torch.equal(result.isnan(), x2d.isnan())
+        assert torch.isfinite(result[~x2d.isnan()]).all()
+    # Rows with NaN must not contaminate other rows.
+    torch.testing.assert_close(
+        QF.gaussian_blur(x2d, 0.8)[0],
+        QF.gaussian_blur(x2d[0], 0.8),
+        equal_nan=True,
+    )
+
+    x3d = torch.randn(2, 3, 4)
+    x3d[0, 1, 2] = math.nan
+    x3d[1, 0, 0] = math.nan
+    for dim in (0, 1, 2, -1, -2, -3):
+        result = QF.gaussian_blur(x3d, 1.0, dim=dim)
+        assert torch.equal(result.isnan(), x3d.isnan())
+        assert torch.isfinite(result[~x3d.isnan()]).all()
+
+
+def test_gaussian_blur_nan_dtype_preservation() -> None:
+    """Test that NaN-aware blur preserves float32/float64 dtypes."""
+    for dtype in (torch.float32, torch.float64):
+        x = torch.tensor([1.0, math.nan, 3.0, 4.0, 5.0], dtype=dtype)
+        result = QF.gaussian_blur(x, 1.0)
+        assert result.dtype == dtype
+        assert torch.equal(result.isnan(), x.isnan())
+
+
+def test_gaussian_blur_negative_sigma_matches_absolute() -> None:
+    """Only the magnitude of sigma matters, so the sign is ignored."""
+    x = torch.tensor([1.0, 2.0, math.nan, 4.0, 5.0, 6.0, 7.0])
+    for sigma in (0.3, 1.0, 2.5):
+        torch.testing.assert_close(
+            QF.gaussian_blur(x, -sigma),
+            QF.gaussian_blur(x, sigma),
+            equal_nan=True,
+        )
+
+
+def test_gaussian_blur_zero_sigma_is_identity() -> None:
+    """sigma=0 applies no smoothing and returns the input unchanged."""
+    x = torch.tensor([1.0, 2.0, math.nan, 4.0, 5.0])
+    torch.testing.assert_close(QF.gaussian_blur(x, 0.0), x, equal_nan=True)
+
+
+def test_gaussian_blur_nan_sigma_yields_nan() -> None:
+    """A NaN sigma propagates to a fully NaN output."""
+    x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])
+    assert torch.isnan(QF.gaussian_blur(x, math.nan)).all()
 
 
 def test_gaussian_blur_all_nan() -> None:
