@@ -157,6 +157,11 @@ size <code class="xref py py-attr docutils literal notranslate"><span class="pre
 same shape as the input tensor. For positions where the sliding window
 cannot fully cover preceding elements (i.e., the first <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">-</span> <span class="pre">1</span></code> elements
 along the selected dimension), the result is <code class="docutils literal notranslate"><span class="pre">nan</span></code>.</p>
+<p>The moving sum is computed in <code class="docutils literal notranslate"><span class="pre">O(N)</span></code> time independent of <code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code>, by
+decomposing each window into a chunk suffix and a chunk prefix obtained from
+cumulative sums bounded to <code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code> terms.  See <a class="reference external" href="https://imoz.jp/scraps/202607_mvar.en.html">A Numerically Stable
+and Fast Implementation of Moving Averages and Variances</a> for a detailed description of
+the algorithm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

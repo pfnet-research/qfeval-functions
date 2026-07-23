@@ -155,11 +155,12 @@
 <dd><p>指定された次元に沿ってテンソルにガウシアンぼかしを適用します。</p>
 <p>この関数は、指定された次元に沿って 1 次元ガウシアンフィルタを適用し、データを平滑化します。ガウシアンぼかし処理では、各点を中心としたガウシアン（正規）分布に従って重み付けされた近傍値の加重平均を計算します。これは主にノイズ低減、データ平滑化、および信号処理用途で使用されます。</p>
 <p>一般的な実装手法（例えば <code class="docutils literal notranslate"><span class="pre">scipy.ndimage.gaussian_filter1d</span></code> のような点サンプリング手法）とは異なり、この関数はガウス関数の区間平均を用いて精度を向上させています。特に <code class="xref py py-attr docutils literal notranslate"><span class="pre">sigma</span></code> 値が小さい場合に、この手法はサンプリング不足の問題を回避し、より正確な結果を提供します。</p>
+<p>NaN 値は加重平均から除外されます。各出力位置では、有効な（NaN でない）値のみを対象としてガウシアン重みが再正規化され、入力で NaN だった位置は出力でも NaN のままになります。対象次元に有効な値が 1 つ以上存在する限り、それ以外のすべての出力位置は有限値になります。</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>Tensor</em>) -- ぼかし処理を施す入力テンソル。</p></li>
-<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) -- ガウスカーネルの標準偏差。値が大きいほど平滑化効果が強くなります。正の値である必要があります。</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) -- ガウスカーネルの標準偏差。絶対値が大きいほど平滑化効果が強くなります。値の大きさのみが意味を持ち、符号は無視されます。<code class="docutils literal notranslate"><span class="pre">sigma=0</span></code> の場合は平滑化を行わず入力をそのまま返します。非常に大きな（または無限大の） <code class="xref py py-attr docutils literal notranslate"><span class="pre">sigma</span></code> は、対象次元に沿った有効な値の一様平均に近づきます。<code class="docutils literal notranslate"><span class="pre">nan</span></code> の <code class="xref py py-attr docutils literal notranslate"><span class="pre">sigma</span></code> は出力全体が <code class="docutils literal notranslate"><span class="pre">nan</span></code> になります。</p></li>
 <li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- ガウシアンブラーを適用する次元。デフォルトは -1 で、最後の次元を指定します。</p></li>
 </ul>
 </dd>

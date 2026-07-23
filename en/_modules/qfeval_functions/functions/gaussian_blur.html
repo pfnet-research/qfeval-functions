@@ -161,7 +161,8 @@
         <span class="k">return</span> <span class="p">(</span><span class="n">x</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span><span class="o">.</span><span class="n">erf</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span>
 
     <span class="n">a</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
-    <span class="k">return</span> <span class="n">f</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">-</span> <span class="n">f</span><span class="p">((</span><span class="n">a</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">f</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span> <span class="o">-</span> <span class="n">f</span><span class="p">((</span><span class="n">a</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span> <span class="o">/</span> <span class="n">sigma</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">d</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">float64</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="gaussian_blur">
@@ -181,12 +182,23 @@
 <span class="sd">    :attr:`sigma` values. This approach avoids undersampling issues and</span>
 <span class="sd">    provides more accurate results.</span>
 
+<span class="sd">    NaN values are excluded from the weighted average: at each output</span>
+<span class="sd">    position, the Gaussian weights are renormalized over the valid</span>
+<span class="sd">    (non-NaN) values only, and positions that are NaN in the input remain</span>
+<span class="sd">    NaN in the output.  All other output positions are finite as long as at</span>
+<span class="sd">    least one valid value exists along the target dimension.</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        x (Tensor):</span>
 <span class="sd">            The input tensor to be blurred.</span>
 <span class="sd">        sigma (float):</span>
-<span class="sd">            The standard deviation of the Gaussian kernel. Larger values</span>
-<span class="sd">            produce more smoothing. Must be positive.</span>
+<span class="sd">            The standard deviation of the Gaussian kernel. Larger</span>
+<span class="sd">            magnitudes produce more smoothing; only the magnitude matters,</span>
+<span class="sd">            so the sign is ignored. ``sigma=0`` applies no smoothing and</span>
+<span class="sd">            returns the input unchanged, while a very large (or infinite)</span>
+<span class="sd">            :attr:`sigma` approaches a uniform average over the valid</span>
+<span class="sd">            values along the target dimension. A ``nan`` :attr:`sigma`</span>
+<span class="sd">            produces an all-``nan`` output.</span>
 <span class="sd">        dim (int, optional):</span>
 <span class="sd">            The dimension along which to apply the Gaussian blur.</span>
 <span class="sd">            Default is -1 (the last dimension).</span>
@@ -223,15 +235,23 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">_blur</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
-        <span class="c1"># Apply convolution with x and a Gaussian filter.</span>
-        <span class="n">w</span> <span class="o">=</span> <span class="n">_gaussian_filter</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">sigma</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
-        <span class="n">a</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">conv1d</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">w</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
-        <span class="c1"># TODO(imos): Divding by count is not necessary and confusing. Fix this</span>
-        <span class="c1"># in another PR.</span>
-        <span class="n">count</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">conv1d</span><span class="p">(</span>
-            <span class="p">(</span><span class="o">~</span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">())</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">w</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span>
-        <span class="p">)</span>
-        <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">count</span><span class="p">)[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># Apply convolution with x and a Gaussian filter, excluding NaNs.</span>
+        <span class="c1"># Only the magnitude of sigma matters, so its sign is ignored.</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">_gaussian_filter</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">sigma</span><span class="p">))</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">m</span> <span class="o">=</span> <span class="o">~</span><span class="n">x</span><span class="o">.</span><span class="n">isnan</span><span class="p">()</span>
+        <span class="n">xf</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">conv1d</span><span class="p">(</span><span class="n">xf</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">w</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+        <span class="c1"># `weight` accumulates the Gaussian weights of the valid (non-NaN)</span>
+        <span class="c1"># values only, so dividing by it both corrects the boundary effect</span>
+        <span class="c1"># (weights cut off outside the tensor) and renormalizes the weights</span>
+        <span class="c1"># over non-NaN values.</span>
+        <span class="n">weight</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">conv1d</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">w</span><span class="p">)[:,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">w</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">],</span> <span class="n">padding</span><span class="o">=</span><span class="s2">&quot;same&quot;</span><span class="p">)</span>
+        <span class="c1"># Clamp the accumulated weight away from zero to avoid dividing by</span>
+        <span class="c1"># zero where no valid value exists (all NaN); such positions are</span>
+        <span class="c1"># restored to NaN by the mask below anyway.</span>
+        <span class="n">eps</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">finfo</span><span class="p">(</span><span class="n">weight</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span><span class="o">.</span><span class="n">eps</span>
+        <span class="n">out</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span> <span class="o">/</span> <span class="n">weight</span><span class="o">.</span><span class="n">clamp</span><span class="p">(</span><span class="nb">min</span><span class="o">=</span><span class="n">eps</span><span class="p">))[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="n">out</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">out</span><span class="p">))</span>
 
     <span class="k">return</span> <span class="n">apply_for_axis</span><span class="p">(</span><span class="n">_blur</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span></div>
 

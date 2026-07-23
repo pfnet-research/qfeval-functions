@@ -164,6 +164,10 @@ along the selected dimension), the result is <code class="docutils literal notra
                  \sum_{j=i-\text{span}+1}^{i} (x[j] - \mu[i])^2}\]</div>
 <p>where <span class="math notranslate nohighlight">\(\mu[i]\)</span> is the moving average at position <span class="math notranslate nohighlight">\(i\)</span> and
 <span class="math notranslate nohighlight">\(N\)</span> is the number of elements in the window.</p>
+<p>Like <a class="reference internal" href="qfeval_functions.functions.mvar.html#qfeval_functions.functions.mvar" title="qfeval_functions.functions.mvar"><code class="xref py py-func docutils literal notranslate"><span class="pre">mvar()</span></code></a>, each window’s result is computed from deviations
+around the window mean, so it is numerically stable even when the input
+has a large offset relative to its variance (e.g., values around <code class="docutils literal notranslate"><span class="pre">1e6</span></code>
+with a variance of <code class="docutils literal notranslate"><span class="pre">1e-6</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -173,7 +177,9 @@ along the selected dimension), the result is <code class="docutils literal notra
 standard deviation. Default is -1 (the last dimension).</p></li>
 <li><p><strong>ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Delta degrees of freedom. The divisor used in
 the calculation is <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code>, where <code class="docutils literal notranslate"><span class="pre">N</span></code> represents the number
-of elements in the window. Default is 1 (sample standard deviation).</p></li>
+of elements in the window. Must be less than <code class="docutils literal notranslate"><span class="pre">span</span></code>; otherwise the
+result is <code class="docutils literal notranslate"><span class="pre">inf</span></code> or <code class="docutils literal notranslate"><span class="pre">nan</span></code>. Default is 1 (sample standard
+deviation).</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>

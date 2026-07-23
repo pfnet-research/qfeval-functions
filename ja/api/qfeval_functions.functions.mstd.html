@@ -160,13 +160,17 @@
 \[\text{MSTD}[i] = \sqrt{\frac{1}{N - \text{ddof}}
                  \sum_{j=i-\text{span}+1}^{i} (x[j] - \mu[i])^2}\]</div>
 <p>ここで <span class="math notranslate nohighlight">\(\mu[i]\)</span> は位置 <span class="math notranslate nohighlight">\(i\)</span> における移動平均を表し、<span class="math notranslate nohighlight">\(N\)</span> はウィンドウ内の要素数を示します。</p>
+<p>Like <a class="reference internal" href="qfeval_functions.functions.mvar.html#qfeval_functions.functions.mvar" title="qfeval_functions.functions.mvar"><code class="xref py py-func docutils literal notranslate"><span class="pre">mvar()</span></code></a>, each window's result is computed from deviations
+around the window mean, so it is numerically stable even when the input
+has a large offset relative to its variance (e.g., values around <code class="docutils literal notranslate"><span class="pre">1e6</span></code>
+with a variance of <code class="docutils literal notranslate"><span class="pre">1e-6</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>Tensor</em>) -- 値を含む入力テンソル。</p></li>
 <li><p><strong>span</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) -- スライディングウィンドウのサイズ。正の値である必要があります。</p></li>
 <li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- 移動標準偏差を計算する次元。デフォルトは -1 で、最後の次元を指定します。</p></li>
-<li><p><strong>ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- 自由度のデルタ値。計算で使用される除数は <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code> であり、ここで <code class="docutils literal notranslate"><span class="pre">N</span></code> はウィンドウ内の要素数を表します。デフォルト値は 1 です（標本標準偏差）。</p></li>
+<li><p><strong>ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- 自由度のデルタ値。計算で使用される除数は <code class="docutils literal notranslate"><span class="pre">N</span> <span class="pre">-</span> <span class="pre">ddof</span></code> であり、ここで <code class="docutils literal notranslate"><span class="pre">N</span></code> はウィンドウ内の要素数を表します。<code class="docutils literal notranslate"><span class="pre">span</span></code> より小さい必要があり、そうでない場合は結果が <code class="docutils literal notranslate"><span class="pre">inf</span></code> または <code class="docutils literal notranslate"><span class="pre">nan</span></code> になります。デフォルト値は 1 です（標本標準偏差）。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値<span class="colon">:</span></dt>

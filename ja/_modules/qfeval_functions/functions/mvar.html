@@ -144,9 +144,75 @@
            <div itemprop="articleBody">
              
   <h1>qfeval_functions.functions.mvar のソースコード</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.msum</span><span class="w"> </span><span class="kn">import</span> <span class="n">msum</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.apply_for_axis</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply_for_axis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.rcumsum</span><span class="w"> </span><span class="kn">import</span> <span class="n">rcumsum</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mvar</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">ddof</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the moving variance of the given tensor ``x``, whose shape is</span>
+<span class="sd">    ``(B, N)``, along the 2nd dimension.</span>
+
+<span class="sd">    This follows the chunked cumulative-statistics algorithm described in</span>
+<span class="sd">    https://imoz.jp/scraps/202607_mvar.en.html .  The notation below matches</span>
+<span class="sd">    the article: ``w`` is the window size, and each part (a chunk prefix or</span>
+<span class="sd">    suffix) keeps ``n`` (count), ``r`` (local reference value), ``S`` (sum of</span>
+<span class="sd">    local deviations ``y = x - r``), ``m_bar`` (relative mean ``S / n``) and</span>
+<span class="sd">    ``M`` (sum of squared deviations ``Sum(x - mu)^2``, with ``mu = r +</span>
+<span class="sd">    m_bar``).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">span</span>
+
+    <span class="c1"># 1. Reshape the target dimension into length-`w` chunks with prepended</span>
+    <span class="c1"># NaNs (the same chunk layout as `msum`).</span>
+    <span class="n">pad_len</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">%</span> <span class="n">w</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">pad_len</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">w</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+
+    <span class="c1"># 2. Compute the per-part statistics `(n, S, m_bar, M)` for every chunk</span>
+    <span class="c1"># prefix (part B) and chunk suffix (part A).  Each part is locally</span>
+    <span class="c1"># centered on a reference value `r` (the chunk&#39;s first element for a</span>
+    <span class="c1"># prefix, its last element for a suffix), so that `S`, `m_bar` and `M`</span>
+    <span class="c1"># are all accumulated over small local deviations `y = x - r`.  This</span>
+    <span class="c1"># avoids catastrophic cancellation, and lets NaN/inf contaminate exactly</span>
+    <span class="c1"># the parts that contain them.</span>
+    <span class="c1">#</span>
+    <span class="c1"># Prefixes (part B): counts n = 1..w, reference r_p = first chunk element.</span>
+    <span class="n">n_p</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">r_p</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y_p</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">r_p</span>
+    <span class="n">S_p</span> <span class="o">=</span> <span class="n">y_p</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">m_bar_p</span> <span class="o">=</span> <span class="n">S_p</span> <span class="o">/</span> <span class="n">n_p</span>
+    <span class="n">M_p</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_p</span> <span class="o">*</span> <span class="n">y_p</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">S_p</span> <span class="o">*</span> <span class="n">m_bar_p</span>
+    <span class="c1">#</span>
+    <span class="c1"># Suffixes (part A): counts n = w..1, reference r_s = last chunk element.</span>
+    <span class="n">n_s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">r_s</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">y_s</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">r_s</span>
+    <span class="n">S_s</span> <span class="o">=</span> <span class="n">rcumsum</span><span class="p">(</span><span class="n">y_s</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">m_bar_s</span> <span class="o">=</span> <span class="n">S_s</span> <span class="o">/</span> <span class="n">n_s</span>
+    <span class="n">M_s</span> <span class="o">=</span> <span class="n">rcumsum</span><span class="p">(</span><span class="n">y_s</span> <span class="o">*</span> <span class="n">y_s</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="o">-</span> <span class="n">S_s</span> <span class="o">*</span> <span class="n">m_bar_s</span>
+
+    <span class="c1"># 3. Each window is a suffix of the previous chunk (part A) followed by a</span>
+    <span class="c1"># prefix of the current chunk (part B); an aligned window is just a whole</span>
+    <span class="c1"># chunk prefix.  Merge the two parts with Chan et al.&#39;s parallel formula</span>
+    <span class="c1"># `M = M_A + M_B + n_A * n_B / (n_A + n_B) * delta^2`, where the mean gap</span>
+    <span class="c1"># is `delta = mu_B - mu_A`.  Since the means are stored relative to their</span>
+    <span class="c1"># references, `delta = (r_B - r_A) + (m_bar_B - m_bar_A)` never forms a</span>
+    <span class="c1"># large offset.  Here `n_A + n_B = w`, so the weight is `n_A * n_B / w`.</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">r_p</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">r_s</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span>
+        <span class="n">m_bar_p</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">m_bar_s</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span>
+    <span class="p">)</span>
+    <span class="n">weight</span> <span class="o">=</span> <span class="n">n_s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">*</span> <span class="n">n_p</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">w</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">M_s</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">+</span> <span class="n">M_p</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">delta</span> <span class="o">*</span> <span class="n">delta</span> <span class="o">*</span> <span class="n">weight</span>
+    <span class="n">M</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">M</span><span class="p">,</span> <span class="n">M_p</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="c1"># 4. Var = M / (w - ddof).</span>
+    <span class="k">return</span> <span class="n">M</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">start_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)[:,</span> <span class="n">pad_len</span> <span class="o">-</span> <span class="n">w</span> <span class="p">:]</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">w</span> <span class="o">-</span> <span class="n">ddof</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="mvar">
@@ -165,12 +231,21 @@
 <span class="sd">    The moving variance is computed using the formula:</span>
 
 <span class="sd">    .. math::</span>
-<span class="sd">        \text{MVAR}[i] = \frac{1}{\text{span} - \text{ddof}} \left(</span>
-<span class="sd">        \sum_{j=i-\text{span}+1}^{i} x[j]^2 -</span>
-<span class="sd">        \frac{(\sum_{j=i-\text{span}+1}^{i} x[j])^2}{\text{span}} \right)</span>
+<span class="sd">        \text{MVAR}[i] = \frac{1}{\text{span} - \text{ddof}}</span>
+<span class="sd">        \sum_{j=i-\text{span}+1}^{i} \left(x[j] - \mu[i]\right)^2,</span>
+<span class="sd">        \quad \mu[i] = \frac{1}{\text{span}}</span>
+<span class="sd">        \sum_{j=i-\text{span}+1}^{i} x[j]</span>
 
-<span class="sd">    This uses the computational formula for variance that is numerically stable</span>
-<span class="sd">    and efficient for sliding window calculations.</span>
+<span class="sd">    The moving variance is computed in ``O(N)`` time independent of</span>
+<span class="sd">    :attr:`span`, using cumulative statistics of :attr:`span`-sized chunks</span>
+<span class="sd">    merged by Chan&#39;s parallel algorithm.  All sums are taken over deviations</span>
+<span class="sd">    from nearby reference values, so the result is numerically stable even</span>
+<span class="sd">    when the input has a large offset relative to its variance (e.g., values</span>
+<span class="sd">    around ``1e6`` with a variance of ``1e-6``).</span>
+
+<span class="sd">    See `A Numerically Stable and Fast Implementation of Moving Averages and</span>
+<span class="sd">    Variances &lt;https://imoz.jp/scraps/202607_mvar.en.html&gt;`_ for a detailed</span>
+<span class="sd">    description of the chunked cumulative-statistics algorithm.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        x (Tensor):</span>
@@ -182,7 +257,8 @@
 <span class="sd">            Default is -1 (the last dimension).</span>
 <span class="sd">        ddof (int, optional):</span>
 <span class="sd">            Delta degrees of freedom. The divisor used in the calculation is</span>
-<span class="sd">            ``span - ddof``. Use 0 for population variance.</span>
+<span class="sd">            ``span - ddof``. Use 0 for population variance. Must be less than</span>
+<span class="sd">            ``span``; otherwise the result is ``inf`` or ``nan``.</span>
 <span class="sd">            Default is 1 (sample variance).</span>
 
 <span class="sd">    Returns:</span>
@@ -233,12 +309,10 @@
 <span class="sd">    .. seealso::</span>
 <span class="sd">        - :func:`mstd`: Moving standard deviation function (square root of</span>
 <span class="sd">          this).</span>
-<span class="sd">        - :func:`msum`: Moving sum function used in the implementation.</span>
+<span class="sd">        - :func:`msum`: Moving sum function.</span>
 <span class="sd">        - :func:`ma`: Moving average function.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="n">numerator</span> <span class="o">=</span> <span class="n">msum</span><span class="p">(</span><span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span> <span class="o">-</span> <span class="n">msum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span> <span class="o">/</span> <span class="n">span</span>
-    <span class="n">result</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">numerator</span> <span class="o">/</span> <span class="p">(</span><span class="n">span</span> <span class="o">-</span> <span class="n">ddof</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">result</span></div>
+    <span class="k">return</span> <span class="n">apply_for_axis</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">_mvar</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">ddof</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span></div>
 
 </pre></div>
 

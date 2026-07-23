@@ -179,6 +179,13 @@
 <span class="sd">    cannot fully cover preceding elements (i.e., the first ``span - 1`` elements</span>
 <span class="sd">    along the selected dimension), the result is ``nan``.</span>
 
+<span class="sd">    The moving sum is computed in ``O(N)`` time independent of :attr:`span`, by</span>
+<span class="sd">    decomposing each window into a chunk suffix and a chunk prefix obtained from</span>
+<span class="sd">    cumulative sums bounded to :attr:`span` terms.  See `A Numerically Stable</span>
+<span class="sd">    and Fast Implementation of Moving Averages and Variances</span>
+<span class="sd">    &lt;https://imoz.jp/scraps/202607_mvar.en.html&gt;`_ for a detailed description of</span>
+<span class="sd">    the algorithm.</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        x (Tensor):</span>
 <span class="sd">            The input tensor.</span>

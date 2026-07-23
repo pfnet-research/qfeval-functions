@@ -160,11 +160,19 @@ cannot fully cover preceding elements (i.e., the first <code class="docutils lit
 along the selected dimension), the result is <code class="docutils literal notranslate"><span class="pre">nan</span></code>.</p>
 <p>The moving variance is computed using the formula:</p>
 <div class="math notranslate nohighlight">
-\[\text{MVAR}[i] = \frac{1}{\text{span} - \text{ddof}} \left(
-\sum_{j=i-\text{span}+1}^{i} x[j]^2 -
-\frac{(\sum_{j=i-\text{span}+1}^{i} x[j])^2}{\text{span}} \right)\]</div>
-<p>This uses the computational formula for variance that is numerically stable
-and efficient for sliding window calculations.</p>
+\[\text{MVAR}[i] = \frac{1}{\text{span} - \text{ddof}}
+\sum_{j=i-\text{span}+1}^{i} \left(x[j] - \mu[i]\right)^2,
+\quad \mu[i] = \frac{1}{\text{span}}
+\sum_{j=i-\text{span}+1}^{i} x[j]\]</div>
+<p>The moving variance is computed in <code class="docutils literal notranslate"><span class="pre">O(N)</span></code> time independent of
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code>, using cumulative statistics of <code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code>-sized chunks
+merged by Chan’s parallel algorithm.  All sums are taken over deviations
+from nearby reference values, so the result is numerically stable even
+when the input has a large offset relative to its variance (e.g., values
+around <code class="docutils literal notranslate"><span class="pre">1e6</span></code> with a variance of <code class="docutils literal notranslate"><span class="pre">1e-6</span></code>).</p>
+<p>See <a class="reference external" href="https://imoz.jp/scraps/202607_mvar.en.html">A Numerically Stable and Fast Implementation of Moving Averages and
+Variances</a> for a detailed
+description of the chunked cumulative-statistics algorithm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -173,7 +181,8 @@ and efficient for sliding window calculations.</p>
 <li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The dimension along which to compute the moving variance.
 Default is -1 (the last dimension).</p></li>
 <li><p><strong>ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – Delta degrees of freedom. The divisor used in the calculation is
-<code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">-</span> <span class="pre">ddof</span></code>. Use 0 for population variance.
+<code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">-</span> <span class="pre">ddof</span></code>. Use 0 for population variance. Must be less than
+<code class="docutils literal notranslate"><span class="pre">span</span></code>; otherwise the result is <code class="docutils literal notranslate"><span class="pre">inf</span></code> or <code class="docutils literal notranslate"><span class="pre">nan</span></code>.
 Default is 1 (sample variance).</p></li>
 </ul>
 </dd>
@@ -235,7 +244,7 @@ window is NaN. Unlike <code class="docutils literal notranslate"><span class="pr
 <ul class="simple">
 <li><p><a class="reference internal" href="qfeval_functions.functions.mstd.html#qfeval_functions.functions.mstd" title="qfeval_functions.functions.mstd"><code class="xref py py-func docutils literal notranslate"><span class="pre">mstd()</span></code></a>: Moving standard deviation function (square root of
 this).</p></li>
-<li><p><a class="reference internal" href="qfeval_functions.functions.msum.html#qfeval_functions.functions.msum" title="qfeval_functions.functions.msum"><code class="xref py py-func docutils literal notranslate"><span class="pre">msum()</span></code></a>: Moving sum function used in the implementation.</p></li>
+<li><p><a class="reference internal" href="qfeval_functions.functions.msum.html#qfeval_functions.functions.msum" title="qfeval_functions.functions.msum"><code class="xref py py-func docutils literal notranslate"><span class="pre">msum()</span></code></a>: Moving sum function.</p></li>
 <li><p><a class="reference internal" href="qfeval_functions.functions.ma.html#qfeval_functions.functions.ma" title="qfeval_functions.functions.ma"><code class="xref py py-func docutils literal notranslate"><span class="pre">ma()</span></code></a>: Moving average function.</p></li>
 </ul>
 </div>

@@ -170,6 +170,11 @@
 <span class="sd">    where :math:`\mu[i]` is the moving average at position :math:`i` and</span>
 <span class="sd">    :math:`N` is the number of elements in the window.</span>
 
+<span class="sd">    Like :func:`mvar`, each window&#39;s result is computed from deviations</span>
+<span class="sd">    around the window mean, so it is numerically stable even when the input</span>
+<span class="sd">    has a large offset relative to its variance (e.g., values around ``1e6``</span>
+<span class="sd">    with a variance of ``1e-6``).</span>
+
 <span class="sd">    Args:</span>
 <span class="sd">        x (Tensor):</span>
 <span class="sd">            The input tensor containing values.</span>
@@ -181,7 +186,9 @@
 <span class="sd">        ddof (int, optional):</span>
 <span class="sd">            Delta degrees of freedom. The divisor used in</span>
 <span class="sd">            the calculation is ``N - ddof``, where ``N`` represents the number</span>
-<span class="sd">            of elements in the window. Default is 1 (sample standard deviation).</span>
+<span class="sd">            of elements in the window. Must be less than ``span``; otherwise the</span>
+<span class="sd">            result is ``inf`` or ``nan``. Default is 1 (sample standard</span>
+<span class="sd">            deviation).</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        Tensor:</span>

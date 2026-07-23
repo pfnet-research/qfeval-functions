@@ -157,17 +157,26 @@
 <p>この関数は、指定された次元に沿ってサイズ <code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code> のスライディングウィンドウ内の要素の分散を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">-</span> <span class="pre">1</span></code> 要素の場合）、結果は <code class="docutils literal notranslate"><span class="pre">nan</span></code> となります。</p>
 <p>移動分散は以下の数式を用いて計算されます：</p>
 <div class="math notranslate nohighlight">
-\[\text{MVAR}[i] = \frac{1}{\text{span} - \text{ddof}} \left(
-\sum_{j=i-\text{span}+1}^{i} x[j]^2 -
-\frac{(\sum_{j=i-\text{span}+1}^{i} x[j])^2}{\text{span}} \right)\]</div>
-<p>この実装では、数値的に安定かつ効率的なスライディングウィンドウ計算向けに設計された分散計算の数式を使用しています。</p>
+\[\text{MVAR}[i] = \frac{1}{\text{span} - \text{ddof}}
+\sum_{j=i-\text{span}+1}^{i} \left(x[j] - \mu[i]\right)^2,
+\quad \mu[i] = \frac{1}{\text{span}}
+\sum_{j=i-\text{span}+1}^{i} x[j]\]</div>
+<p>The moving variance is computed in <code class="docutils literal notranslate"><span class="pre">O(N)</span></code> time independent of
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code>, using cumulative statistics of <code class="xref py py-attr docutils literal notranslate"><span class="pre">span</span></code>-sized chunks
+merged by Chan's parallel algorithm.  All sums are taken over deviations
+from nearby reference values, so the result is numerically stable even
+when the input has a large offset relative to its variance (e.g., values
+around <code class="docutils literal notranslate"><span class="pre">1e6</span></code> with a variance of <code class="docutils literal notranslate"><span class="pre">1e-6</span></code>).</p>
+<p>See <a class="reference external" href="https://imoz.jp/scraps/202607_mvar.en.html">A Numerically Stable and Fast Implementation of Moving Averages and
+Variances</a> for a detailed
+description of the chunked cumulative-statistics algorithm.</p>
 <dl class="field-list simple">
 <dt class="field-odd">パラメータ<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>Tensor</em>) -- 値を含む入力テンソル。</p></li>
 <li><p><strong>span</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a>) -- スライディングウィンドウのサイズ。正の値である必要があります。</p></li>
 <li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- 移動分散を計算する次元。デフォルトは -1 で、最後の次元を指定します。</p></li>
-<li><p><strong>ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- 自由度の差。計算で使用される除数は <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">-</span> <span class="pre">ddof</span></code> です。母分散の場合は 0 を指定します。デフォルト値は 1 です（標本分散）。</p></li>
+<li><p><strong>ddof</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- 自由度の差。計算で使用される除数は <code class="docutils literal notranslate"><span class="pre">span</span> <span class="pre">-</span> <span class="pre">ddof</span></code> です。母分散の場合は 0 を指定します。<code class="docutils literal notranslate"><span class="pre">span</span></code> より小さい必要があり、そうでない場合は結果が <code class="docutils literal notranslate"><span class="pre">inf</span></code> または <code class="docutils literal notranslate"><span class="pre">nan</span></code> になります。デフォルト値は 1 です（標本分散）。</p></li>
 </ul>
 </dd>
 <dt class="field-even">戻り値<span class="colon">:</span></dt>
@@ -223,7 +232,7 @@
 <p class="admonition-title">参考</p>
 <ul class="simple">
 <li><p><a class="reference internal" href="qfeval_functions.functions.mstd.html#qfeval_functions.functions.mstd" title="qfeval_functions.functions.mstd"><code class="xref py py-func docutils literal notranslate"><span class="pre">mstd()</span></code></a>: 移動標準偏差関数（この関数の平方根）</p></li>
-<li><p><a class="reference internal" href="qfeval_functions.functions.msum.html#qfeval_functions.functions.msum" title="qfeval_functions.functions.msum"><code class="xref py py-func docutils literal notranslate"><span class="pre">msum()</span></code></a>: 実装で使用される移動合計関数</p></li>
+<li><p><a class="reference internal" href="qfeval_functions.functions.msum.html#qfeval_functions.functions.msum" title="qfeval_functions.functions.msum"><code class="xref py py-func docutils literal notranslate"><span class="pre">msum()</span></code></a>: Moving sum function.</p></li>
 <li><p><a class="reference internal" href="qfeval_functions.functions.ma.html#qfeval_functions.functions.ma" title="qfeval_functions.functions.ma"><code class="xref py py-func docutils literal notranslate"><span class="pre">ma()</span></code></a>: 移動平均関数</p></li>
 </ul>
 </div>

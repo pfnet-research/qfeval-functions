@@ -162,12 +162,22 @@ noise reduction, data smoothing, and signal processing.</p>
 of the Gaussian function for improved accuracy, especially for small
 <code class="xref py py-attr docutils literal notranslate"><span class="pre">sigma</span></code> values. This approach avoids undersampling issues and
 provides more accurate results.</p>
+<p>NaN values are excluded from the weighted average: at each output
+position, the Gaussian weights are renormalized over the valid
+(non-NaN) values only, and positions that are NaN in the input remain
+NaN in the output.  All other output positions are finite as long as at
+least one valid value exists along the target dimension.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>x</strong> (<em>Tensor</em>) – The input tensor to be blurred.</p></li>
-<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The standard deviation of the Gaussian kernel. Larger values
-produce more smoothing. Must be positive.</p></li>
+<li><p><strong>sigma</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#float" title="(in Python v3.14)"><em>float</em></a>) – The standard deviation of the Gaussian kernel. Larger
+magnitudes produce more smoothing; only the magnitude matters,
+so the sign is ignored. <code class="docutils literal notranslate"><span class="pre">sigma=0</span></code> applies no smoothing and
+returns the input unchanged, while a very large (or infinite)
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">sigma</span></code> approaches a uniform average over the valid
+values along the target dimension. A <code class="docutils literal notranslate"><span class="pre">nan</span></code> <code class="xref py py-attr docutils literal notranslate"><span class="pre">sigma</span></code>
+produces an all-<code class="docutils literal notranslate"><span class="pre">nan</span></code> output.</p></li>
 <li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) – The dimension along which to apply the Gaussian blur.
 Default is -1 (the last dimension).</p></li>
 </ul>
