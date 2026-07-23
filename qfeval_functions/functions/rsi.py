@@ -103,7 +103,8 @@ def rsi(
     Two averaging methods are supported:
 
     - ``use_sma=False`` (default): Wilder's smoothing (an exponential moving
-      average), compatible with TA-Lib.
+      average), compatible with TA-Lib except for flat series and NaN 
+      handling (see the notes below).
       See https://www.investopedia.com/terms/r/rsi.asp
     - ``use_sma=True``: a simple moving average.
       See https://info.monex.co.jp/technical-analysis/indicators/005.html
