@@ -1,0 +1,249 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.stochastics.rst:2
+msgid "stochastics"
+msgstr ""
+
+#: of qfeval_functions.functions.stochastics.stochastics:1
+msgid ""
+"Compute the Stochastic Oscillator (%K, %D, and Slow %D) along the "
+"specified dimension."
+msgstr "指定された次元に沿ってストキャスティクス（%K、%D、Slow %D）を計算します。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:4
+msgid ""
+"The Stochastic Oscillator is a momentum indicator that locates the "
+"closing price within the trailing high-low range, ranging from 0 to 100:"
+msgstr "ストキャスティクスは、直近の高値・安値レンジの中で終値がどの位置にあるかを示すモメンタム指標で、0 から 100 の範囲を取ります:"
+
+#: of qfeval_functions.functions.stochastics.stochastics:8
+msgid ""
+"\\%K[i] = \\frac{\\text{close}[i] - \\text{LL}[i]}\n"
+"{\\text{HH}[i] - \\text{LL}[i]} \\times 100\n"
+"\n"
+msgstr "\\%K[i] = \\frac{\\text{close}[i] - \\text{LL}[i]}\n{\\text{HH}[i] - \\text{LL}[i]} \\times 100\n\n"
+
+#: of qfeval_functions.functions.stochastics.stochastics:12
+#, python-brace-format
+msgid ""
+"where :math:`\\text{LL}[i]` and :math:`\\text{HH}[i]` are the lowest low "
+"and the highest high over the trailing window of ``k_span`` elements. %D "
+"is the simple moving average of %K over ``d_span`` elements, and Slow %D "
+"is the simple moving average of %D over ``sd_span`` elements:"
+msgstr "ここで :math:`\\text{LL}[i]` と :math:`\\text{HH}[i]` は、直近 ``k_span`` 要素のウィンドウにおける最安値と最高値です。%D は %K の ``d_span`` 要素にわたる単純移動平均、Slow %D は %D の ``sd_span`` 要素にわたる単純移動平均です:"
+
+#: of qfeval_functions.functions.stochastics.stochastics:17
+#, python-brace-format
+msgid ""
+"\\%D = \\text{SMA}_{d\\_span}(\\%K), \\quad\n"
+"\\text{Slow \\%D} = \\text{SMA}_{sd\\_span}(\\%D)\n"
+"\n"
+msgstr "\\%D = \\text{SMA}_{d\\_span}(\\%K), \\quad\n\\text{Slow \\%D} = \\text{SMA}_{sd\\_span}(\\%D)\n\n"
+
+#: of qfeval_functions.functions.stochastics.stochastics:21
+msgid ""
+"The returned tuple ``(k, d, slow_d)`` contains the fast stochastics pair "
+"(Fast %K, Fast %D) followed by one more smoothing stage; ``(d, slow_d)`` "
+"equals the commonly used slow stochastics pair (Slow %K, Slow %D).  The "
+"three input tensors are broadcast against each other. See "
+"https://www.investopedia.com/terms/s/stochasticoscillator.asp and "
+"https://info.monex.co.jp/technical-analysis/indicators/006.html"
+msgstr "返されるタプル ``(k, d, slow_d)`` は、ファストストキャスティクスのペア（Fast %K、Fast %D）に、さらにもう 1 段の平滑化を加えたものです。``(d, slow_d)`` は、一般的に使われるスローストキャスティクスのペア（Slow %K、Slow %D）に一致します。3 つの入力テンソルは互いにブロードキャストされます。https://www.investopedia.com/terms/s/stochasticoscillator.asp および https://info.monex.co.jp/technical-analysis/indicators/006.html を参照してください。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:28
+msgid ""
+"Following the pandas rolling convention, positions whose trailing window "
+"does not fully cover preceding elements are NaN: the first ``k_span - 1``"
+" elements of %K, the first ``k_span + d_span - 2`` elements of %D, and "
+"the first ``k_span + d_span + sd_span - 3`` elements of Slow %D along the"
+" dimension."
+msgstr "pandas の rolling の慣例に従い、直近のウィンドウが先行要素を完全にカバーできない位置は NaN になります。次元に沿って、%K は最初の ``k_span - 1`` 要素、%D は最初の ``k_span + d_span - 2`` 要素、Slow %D は最初の ``k_span + d_span + sd_span - 3`` 要素が NaN です。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:34
+msgid ""
+"If a trailing window contains no price variation at all (its highest high"
+" equals its lowest low), the raw formula is 0/0, and %K is defined to be "
+"the neutral value 50.  NOTE: This intentionally differs from TA-Lib, "
+"which returns 0 for such windows.  Windows whose price range is NaN "
+"(e.g., caused by NaN inputs or by equally infinite highs and lows) are "
+"propagated as NaN instead of being converted to a valid value."
+msgstr "直近のウィンドウに価格変動が全くない場合（最高値と最安値が等しい場合）、元の式は 0/0 となるため、%K は中立値 50 と定義されます。注記: これは、このようなウィンドウに対して 0 を返す TA-Lib とは意図的に異なる挙動です。価格レンジが NaN となるウィンドウ（NaN の入力や、最高値と最安値が同じ無限大になる場合など）は、有効な値に変換されず NaN のまま伝播します。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:42
+msgid ""
+"NaN values in the input propagate to the output: a NaN price makes the %K"
+" values whose windows contain it NaN, the NaN region grows through the "
+"moving averages of %D and Slow %D, and outputs recover once their windows"
+" no longer contain NaN values."
+msgstr "入力の NaN 値は出力に伝播します。NaN の価格は、それを含むウィンドウの %K 値を NaN にし、その NaN の領域は %D と Slow %D の移動平均を通じて拡大します。ウィンドウに NaN 値が含まれなくなると、出力は回復します。"
+
+#: ../../api/qfeval_functions.functions.stochastics.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.stochastics.stochastics:48
+msgid "The input tensor containing high prices."
+msgstr "高値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:51
+msgid "The input tensor containing low prices."
+msgstr "安値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:54
+msgid "The input tensor containing closing prices."
+msgstr "終値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:57
+msgid ""
+"The window size of the highest high and the lowest low used for %K.  "
+"Default is 14."
+msgstr "%K に使用する最高値・最安値のウィンドウサイズ。デフォルトは 14。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:61
+msgid "The window size of the simple moving average used for %D. Default is 3."
+msgstr "%D に使用する単純移動平均のウィンドウサイズ。デフォルトは 3。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:65
+msgid ""
+"The window size of the simple moving average used for Slow %D. Default is"
+" 3."
+msgstr "Slow %D に使用する単純移動平均のウィンドウサイズ。デフォルトは 3。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:69
+msgid ""
+"The dimension along which to compute the oscillator. Default is -1 (the "
+"last dimension)."
+msgstr "オシレーターを計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.stochastics.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.stochastics.stochastics:73
+msgid ""
+"A tuple ``(k, d, slow_d)`` of tensors of the broadcast input shape:  - "
+"``k``: Fast %K, the raw stochastic value in :math:`[0, 100]`   (the first"
+" ``k_span - 1`` elements are NaN). - ``d``: Fast %D (= Slow %K), the "
+"moving average of ``k`` over   ``d_span`` elements. - ``slow_d``: Slow "
+"%D, the moving average of ``d`` over   ``sd_span`` elements."
+msgstr ""
+
+#: of qfeval_functions.functions.stochastics.stochastics:73
+msgid "A tuple ``(k, d, slow_d)`` of tensors of the broadcast input shape:"
+msgstr "ブロードキャスト後の入力形状を持つテンソルのタプル ``(k, d, slow_d)``:"
+
+#: of qfeval_functions.functions.stochastics.stochastics:76
+msgid ""
+"``k``: Fast %K, the raw stochastic value in :math:`[0, 100]` (the first "
+"``k_span - 1`` elements are NaN)."
+msgstr "``k``: Fast %K。:math:`[0, 100]` の範囲の生のストキャスティクス値（最初の ``k_span - 1`` 要素は NaN）。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:78
+msgid ""
+"``d``: Fast %D (= Slow %K), the moving average of ``k`` over ``d_span`` "
+"elements."
+msgstr "``d``: Fast %D（= Slow %K）。``k`` の ``d_span`` 要素にわたる移動平均。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:80
+msgid ""
+"``slow_d``: Slow %D, the moving average of ``d`` over ``sd_span`` "
+"elements."
+msgstr "``slow_d``: Slow %D。``d`` の ``sd_span`` 要素にわたる移動平均。"
+
+#: ../../api/qfeval_functions.functions.stochastics.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: ../../api/qfeval_functions.functions.stochastics.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.stochastics.stochastics:84
+msgid "If any of ``k_span``, ``d_span``, and ``sd_span`` is     not positive."
+msgstr "``k_span``、``d_span``、``sd_span`` のいずれかが正でない場合。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:85
+msgid ""
+"If any of ``k_span``, ``d_span``, and ``sd_span`` is     not an integer "
+"(``bool`` is rejected)."
+msgstr "``k_span``、``d_span``、``sd_span`` のいずれかが整数でない場合（``bool`` は拒否されます）。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:86
+msgid ""
+"If any of ``high``, ``low``, and ``close`` is not a     floating point "
+"tensor."
+msgstr "``high``、``low``、``close`` のいずれかが浮動小数点テンソルでない場合。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:89
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.stochastics.stochastics:91
+msgid ""
+">>> high = torch.tensor([2.0, 3.0, 4.0, 5.0, 6.0])\n"
+">>> low = torch.tensor([0.0, 1.0, 2.0, 3.0, 4.0])\n"
+">>> close = torch.tensor([1.0, 3.0, 4.0, 4.0, 5.0])\n"
+">>> k, d, slow_d = QF.stochastics(\n"
+"...     high, low, close, k_span=3, d_span=2, sd_span=2)\n"
+">>> k\n"
+"tensor([ nan,  nan, 100.,  75.,  75.])\n"
+">>> d\n"
+"tensor([    nan,     nan,     nan, 87.5000, 75.0000])\n"
+">>> slow_d\n"
+"tensor([    nan,     nan,     nan,     nan, 81.2500])"
+msgstr ">>> high = torch.tensor([2.0, 3.0, 4.0, 5.0, 6.0])\n>>> low = torch.tensor([0.0, 1.0, 2.0, 3.0, 4.0])\n>>> close = torch.tensor([1.0, 3.0, 4.0, 4.0, 5.0])\n>>> k, d, slow_d = QF.stochastics(\n...     high, low, close, k_span=3, d_span=2, sd_span=2)\n>>> k\ntensor([ nan,  nan, 100.,  75.,  75.])\n>>> d\ntensor([    nan,     nan,     nan, 87.5000, 75.0000])\n>>> slow_d\ntensor([    nan,     nan,     nan,     nan, 81.2500])"
+
+#: of qfeval_functions.functions.stochastics.stochastics:103
+msgid ""
+">>> # A window with no price variation yields the neutral value 50.\n"
+">>> c = torch.full((4,), 5.0)\n"
+">>> QF.stochastics(c, c, c, k_span=2, d_span=2, sd_span=2)[0]\n"
+"tensor([nan, 50., 50., 50.])"
+msgstr ">>> # 価格変動のないウィンドウは中立値 50 になります。\n>>> c = torch.full((4,), 5.0)\n>>> QF.stochastics(c, c, c, k_span=2, d_span=2, sd_span=2)[0]\ntensor([nan, 50., 50., 50.])"
+
+#: of qfeval_functions.functions.stochastics.stochastics:108
+msgid ""
+"The inputs are not validated against the OHLC invariants (such as ``high "
+">= low`` and ``low <= close <= high``); each output is simply the result "
+"of the formulas above for the given inputs.  For inputs satisfying the "
+"invariants, all outputs lie in :math:`[0, 100]`."
+msgstr "入力が OHLC の不変条件（``high >= low`` や ``low <= close <= high`` など）を満たしているかどうかは検証されません。各出力は、与えられた入力に対して上記の式を単純に適用した結果になります。不変条件を満たす入力では、すべての出力は :math:`[0, 100]` の範囲に収まります。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:115
+msgid ""
+":func:`rsi`: Relative Strength Index, another momentum oscillator ranging"
+" from 0 to 100."
+msgstr ":func:`rsi`: 0 から 100 の範囲を取るもう 1 つのモメンタムオシレーターである RSI（Relative Strength Index）。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:117
+msgid ":func:`mmax`: Moving maximum, used for the highest high."
+msgstr ":func:`mmax`: 最高値の計算に使用される移動最大値関数。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:118
+msgid ":func:`mmin`: Moving minimum, used for the lowest low."
+msgstr ":func:`mmin`: 最安値の計算に使用される移動最小値関数。"
+
+#: of qfeval_functions.functions.stochastics.stochastics:119
+msgid ":func:`ma`: Simple moving average, used for %D and Slow %D."
+msgstr ":func:`ma`: %D と Slow %D に使用される単純移動平均関数。"
+

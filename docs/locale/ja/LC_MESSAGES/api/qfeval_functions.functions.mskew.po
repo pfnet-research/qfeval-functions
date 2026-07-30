@@ -1,0 +1,209 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.mskew.rst:2
+msgid "mskew"
+msgstr ""
+
+#: of qfeval_functions.functions.mskew.mskew:1
+msgid "Compute the moving (sliding window) sample skewness of a tensor."
+msgstr "テンソルの移動標本歪度（スライディングウィンドウ歪度）を計算します。"
+
+#: of qfeval_functions.functions.mskew.mskew:3
+msgid ""
+"This function calculates the skewness of elements within a sliding window"
+" of size :attr:`span` along the specified dimension. The output tensor "
+"has the same shape as the input tensor. For positions where the sliding "
+"window cannot fully cover preceding elements (i.e., the first ``span - "
+"1`` elements along the selected dimension), the result is ``nan``."
+msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の歪度を計算します。出力テンソルは入力テンソルと同じ形状を持ちます。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
+
+#: of qfeval_functions.functions.mskew.mskew:10
+msgid ""
+"The moving skewness is the adjusted Fisher-Pearson standardized moment "
+"coefficient :math:`G_1`, the same estimator as "
+"``pandas.DataFrame.rolling(span).skew()`` and ``scipy.stats.skew(..., "
+"bias=False)``.  With the windowed central moment sums"
+msgstr "移動歪度は、調整済み Fisher-Pearson 標準化モーメント係数 :math:`G_1` であり、``pandas.DataFrame.rolling(span).skew()`` および ``scipy.stats.skew(..., bias=False)`` と同じ推定量です。ウィンドウごとの中心モーメント和を"
+
+#: of qfeval_functions.functions.mskew.mskew:16
+msgid ""
+"M_k[i] = \\sum_{j=i-\\text{span}+1}^{i}\n"
+"\\left(x[j] - \\mu[i]\\right)^k,\n"
+"\\quad \\mu[i] = \\frac{1}{\\text{span}}\n"
+"\\sum_{j=i-\\text{span}+1}^{i} x[j],\n"
+"\n"
+msgstr ""
+"M_k[i] = \\sum_{j=i-\\text{span}+1}^{i}\n"
+"\\left(x[j] - \\mu[i]\\right)^k,\n"
+"\\quad \\mu[i] = \\frac{1}{\\text{span}}\n"
+"\\sum_{j=i-\\text{span}+1}^{i} x[j],\n"
+"\n"
+
+#: of qfeval_functions.functions.mskew.mskew:22
+msgid "it is defined as:"
+msgstr "とすると、以下のように定義されます："
+
+#: of qfeval_functions.functions.mskew.mskew:24
+msgid ""
+"\\text{MSKEW}[i] =\n"
+"\\frac{\\sqrt{\\text{span} \\left(\\text{span} - 1\\right)}}\n"
+"{\\text{span} - 2}\n"
+"\\cdot \\frac{\\sqrt{\\text{span}} \\, M_3[i]}{M_2[i]^{3/2}}\n"
+"\n"
+msgstr ""
+"\\text{MSKEW}[i] =\n"
+"\\frac{\\sqrt{\\text{span} \\left(\\text{span} - 1\\right)}}\n"
+"{\\text{span} - 2}\n"
+"\\cdot \\frac{\\sqrt{\\text{span}} \\, M_3[i]}{M_2[i]^{3/2}}\n"
+"\n"
+
+#: of qfeval_functions.functions.mskew.mskew:30
+msgid ""
+"The moving skewness is computed in ``O(N)`` time independent of "
+":attr:`span`, using cumulative central moment sums of :attr:`span`-sized "
+"chunks merged by the pairwise update formulas by Chan et al. and "
+"Terriberry (see `Algorithms for calculating variance "
+"<https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance>`_). "
+"All sums are taken over deviations from nearby reference values, so the "
+"result is numerically stable even when the input has a large offset "
+"relative to its scale (e.g., values around ``1e6`` with a standard "
+"deviation of ``1e-3``).  See `A Numerically Stable and Fast "
+"Implementation of Moving Averages and Variances "
+"<https://imoz.jp/scraps/202607_mvar.en.html>`_ for a detailed description"
+" of the chunked cumulative-statistics algorithm, which this function "
+"extends to the 3rd central moment."
+msgstr "移動歪度は、:attr:`span` サイズのチャンクごとの累積中心モーメント和を Chan らおよび Terriberry によるペアワイズ更新式で結合することにより、:attr:`span` に依存しない ``O(N)`` 時間で計算されます（`Algorithms for calculating variance <https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance>`_ を参照）。すべての和は近傍の参照値からの偏差に対して計算されるため、入力がそのスケールに対して大きなオフセットを持つ場合（例: 値が ``1e6`` 前後で標準偏差が ``1e-3`` 程度の場合）でも、結果は数値的に安定しています。チャンク化された累積統計量アルゴリズムの詳細な説明は `A Numerically Stable and Fast Implementation of Moving Averages and Variances <https://imoz.jp/scraps/202607_mvar.en.html>`_ を参照してください。この関数は、そのアルゴリズムを 3 次中心モーメントに拡張したものです。"
+
+#: ../../api/qfeval_functions.functions.mskew.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mskew.mskew:45
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.mskew.mskew:48
+msgid ""
+"The size of the sliding window. If it is less than 3, the result is all-"
+"NaN because the bias correction is undefined."
+msgstr "スライディングウィンドウのサイズ。3 未満の場合は、バイアス補正が定義されないため、結果はすべて NaN になります。"
+
+#: of qfeval_functions.functions.mskew.mskew:52
+msgid ""
+"The dimension along which to compute the moving skewness. Default is -1 "
+"(the last dimension)."
+msgstr "移動歪度を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.mskew.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.mskew.mskew:56
+msgid ""
+"A tensor of the same shape as the input, containing the moving skewness "
+"values. The first ``span - 1`` elements along the specified dimension are"
+" ``nan``."
+msgstr "入力と同じ形状のテンソルで、移動歪度の値を格納しています。指定された次元に沿った最初の ``span - 1`` 要素は ``nan`` になります。"
+
+#: ../../api/qfeval_functions.functions.mskew.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.mskew.mskew:62
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mskew.mskew:64
+msgid ""
+">>> # Simple moving skewness with window size 3\n"
+">>> x = torch.tensor([1.0, 2.0, 4.0, 8.0, 16.0])\n"
+">>> QF.mskew(x, span=3)\n"
+"tensor([   nan,    nan, 0.9352, 0.9352, 0.9352])"
+msgstr ""
+">>> # ウィンドウサイズ 3 の単純な移動歪度\n"
+">>> x = torch.tensor([1.0, 2.0, 4.0, 8.0, 16.0])\n"
+">>> QF.mskew(x, span=3)\n"
+"tensor([   nan,    nan, 0.9352, 0.9352, 0.9352])"
+
+#: of qfeval_functions.functions.mskew.mskew:69
+msgid ""
+">>> # Symmetric windows have zero skewness\n"
+">>> x = torch.tensor([3.0, 1.0, 2.0, 3.0, 1.0, 2.0])\n"
+">>> QF.mskew(x, span=3)\n"
+"tensor([nan, nan, 0., 0., 0., 0.])"
+msgstr ""
+">>> # 対称なウィンドウの歪度は 0 になります\n"
+">>> x = torch.tensor([3.0, 1.0, 2.0, 3.0, 1.0, 2.0])\n"
+">>> QF.mskew(x, span=3)\n"
+"tensor([nan, nan, 0., 0., 0., 0.])"
+
+#: of qfeval_functions.functions.mskew.mskew:74
+msgid ""
+">>> # 2D tensor with moving skewness along rows\n"
+">>> x = torch.tensor([[1.0, 2.0, 4.0, 8.0],\n"
+"...                   [1.0, 4.0, 5.0, 6.0]])\n"
+">>> QF.mskew(x, span=3, dim=1)\n"
+"tensor([[    nan,     nan,  0.9352,  0.9352],\n"
+"        [    nan,     nan, -1.2933,  0.0000]])"
+msgstr ""
+">>> # 2 次元テンソルの行方向の移動歪度\n"
+">>> x = torch.tensor([[1.0, 2.0, 4.0, 8.0],\n"
+"...                   [1.0, 4.0, 5.0, 6.0]])\n"
+">>> QF.mskew(x, span=3, dim=1)\n"
+"tensor([[    nan,     nan,  0.9352,  0.9352],\n"
+"        [    nan,     nan, -1.2933,  0.0000]])"
+
+#: of qfeval_functions.functions.mskew.mskew:81
+msgid ""
+">>> # Constant windows have no defined skewness\n"
+">>> x = torch.tensor([1.0, 1.0, 1.0, 1.0, 2.0])\n"
+">>> QF.mskew(x, span=4)\n"
+"tensor([nan, nan, nan, nan, 2.])"
+msgstr ""
+">>> # 値が一定のウィンドウでは歪度は定義されません\n"
+">>> x = torch.tensor([1.0, 1.0, 1.0, 1.0, 2.0])\n"
+">>> QF.mskew(x, span=4)\n"
+"tensor([nan, nan, nan, nan, 2.])"
+
+#: of qfeval_functions.functions.mskew.mskew:86
+msgid ""
+"If a window contains any NaN value, the moving skewness for that window "
+"is NaN. Unlike ``pandas.DataFrame.rolling``, there is no "
+"``min_periods``-style option to skip NaN values.  A window whose values "
+"are all (nearly) equal has no defined skewness because the "
+"standardization divides by a vanishing variance; the result is NaN "
+"(``pandas`` instead special-cases perfectly uniform windows to ``0.0``)."
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動歪度は NaN になります。``pandas.DataFrame.rolling`` とは異なり、NaN 値をスキップする ``min_periods`` のようなオプションはありません。値がすべて（ほぼ）等しいウィンドウでは、標準化においてゼロに近づく分散で除算することになるため歪度が定義されず、結果は NaN になります（``pandas`` は完全に一様なウィンドウを特別扱いし、``0.0`` を返します）。"
+
+#: of qfeval_functions.functions.mskew.mskew:95
+msgid ":func:`mkurtosis`: Moving kurtosis function (4th standardized moment)."
+msgstr ":func:`mkurtosis`: 移動尖度関数（4 次標準化モーメント）。"
+
+#: of qfeval_functions.functions.mskew.mskew:97
+msgid ":func:`nanskew`: NaN-aware (non-moving) skewness function."
+msgstr ":func:`nanskew`: NaN を考慮した（移動ではない）歪度関数。"
+
+#: of qfeval_functions.functions.mskew.mskew:98
+msgid ":func:`mvar`: Moving variance function, which this algorithm extends."
+msgstr ":func:`mvar`: 移動分散関数（本アルゴリズムの拡張元）。"
+

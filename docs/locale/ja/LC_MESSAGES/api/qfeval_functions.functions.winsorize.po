@@ -1,0 +1,185 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.winsorize.rst:2
+msgid "winsorize"
+msgstr ""
+
+#: of qfeval_functions.functions.winsorize.winsorize:1
+msgid "Clamp tensor values to quantile bounds, ignoring NaN values."
+msgstr "NaN 値を無視して、テンソルの値を分位点の境界にクリッピングします。"
+
+#: of qfeval_functions.functions.winsorize.winsorize:3
+msgid ""
+"This function limits the influence of outliers by clipping the values of "
+":attr:`x` to the range ``[nanquantile(x, lower), nanquantile(x, "
+"upper)]``, where both bounds are computed along :attr:`dim` while "
+"ignoring NaN values. Values below the lower quantile are replaced with "
+"the lower quantile, and values above the upper quantile are replaced with"
+" the upper quantile.  NaN values are excluded from the quantile "
+"computation and remain NaN in the result.  This is equivalent to the "
+"pandas idiom ``s.clip(s.quantile(lower), s.quantile(upper))`` applied to "
+"each slice along :attr:`dim`."
+msgstr "この関数は、:attr:`x` の値を ``[nanquantile(x, lower), nanquantile(x, upper)]`` の範囲に制限する分位点によるクリッピング（ウィンザライズ）を行うことで、外れ値の影響を抑えます。両方の境界は、NaN 値を無視して :attr:`dim` に沿って計算されます。下側分位点を下回る値は下側分位点に、上側分位点を上回る値は上側分位点に置き換えられます。NaN 値は分位点の計算から除外され、結果でも NaN のままです。これは、:attr:`dim` に沿った各スライスに pandas のイディオム ``s.clip(s.quantile(lower), s.quantile(upper))`` を適用することと等価です。"
+
+#: ../../api/qfeval_functions.functions.winsorize.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.winsorize.winsorize:15
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.winsorize.winsorize:18
+msgid ""
+"The quantile used as the lower clipping bound.  Must satisfy ``0 <= lower"
+" <= upper <= 1``.  Default is 0.05."
+msgstr "下側のクリッピング境界として用いる分位点。``0 <= lower <= upper <= 1`` を満たす必要があります。デフォルトは 0.05 です。"
+
+#: of qfeval_functions.functions.winsorize.winsorize:22
+msgid ""
+"The quantile used as the upper clipping bound.  Must satisfy ``0 <= lower"
+" <= upper <= 1``.  Default is 0.95."
+msgstr "上側のクリッピング境界として用いる分位点。``0 <= lower <= upper <= 1`` を満たす必要があります。デフォルトは 0.95 です。"
+
+#: of qfeval_functions.functions.winsorize.winsorize:26
+msgid ""
+"The dimension(s) along which to compute the quantile bounds.  If None, "
+"the bounds are computed over all elements.  Default is -1, so each cross "
+"section along the last dimension is winsorized independently."
+msgstr "分位点の境界を計算する次元。None の場合は、すべての要素に対して境界が計算されます。デフォルトは -1 であり、最後の次元に沿った各クロスセクションが独立にウィンザライズされます。"
+
+#: ../../api/qfeval_functions.functions.winsorize.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.winsorize.winsorize:32
+msgid ""
+"A tensor of the same shape as the input with values clipped to the "
+"quantile bounds.  NaN values remain NaN."
+msgstr "値が分位点の境界にクリッピングされた、入力と同じ形状のテンソル。NaN 値は NaN のままです。"
+
+#: ../../api/qfeval_functions.functions.winsorize.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: ../../api/qfeval_functions.functions.winsorize.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.winsorize.winsorize:36
+msgid "If ``0 <= lower <= upper <= 1`` is violated."
+msgstr "``0 <= lower <= upper <= 1`` が満たされない場合。"
+
+#: of qfeval_functions.functions.winsorize.winsorize:39
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.winsorize.winsorize:41
+msgid ""
+">>> # Clip outliers with the default 5%/95% quantile bounds\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 100.0])\n"
+">>> QF.winsorize(x)\n"
+"tensor([ 1.2000,  2.0000,  3.0000,  4.0000, 80.8000])"
+msgstr ""
+">>> # デフォルトの 5%/95% 分位点の境界で外れ値をクリッピング\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 100.0])\n"
+">>> QF.winsorize(x)\n"
+"tensor([ 1.2000,  2.0000,  3.0000,  4.0000, 80.8000])"
+
+#: of qfeval_functions.functions.winsorize.winsorize:46
+msgid ""
+">>> # Tighter bounds clip more aggressively\n"
+">>> QF.winsorize(x, lower=0.25, upper=0.75)\n"
+"tensor([2., 2., 3., 4., 4.])"
+msgstr ""
+">>> # 境界を狭くするとより強くクリッピングされます\n"
+">>> QF.winsorize(x, lower=0.25, upper=0.75)\n"
+"tensor([2., 2., 3., 4., 4.])"
+
+#: of qfeval_functions.functions.winsorize.winsorize:50
+msgid ""
+">>> # NaN values are ignored and preserved\n"
+">>> x = torch.tensor([nan, 1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.winsorize(x, lower=0.25, upper=0.75)\n"
+"tensor([nan, 2., 2., 3., 4., 4.])"
+msgstr ""
+">>> # NaN 値は無視され、そのまま保持されます\n"
+">>> x = torch.tensor([nan, 1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.winsorize(x, lower=0.25, upper=0.75)\n"
+"tensor([nan, 2., 2., 3., 4., 4.])"
+
+#: of qfeval_functions.functions.winsorize.winsorize:55
+msgid ""
+">>> # Each row is winsorized independently by default (dim=-1)\n"
+">>> x = torch.tensor([[0.0, 1.0, 2.0, 3.0, 10.0],\n"
+"...                   [5.0, 6.0, 7.0, 8.0, 9.0]])\n"
+">>> QF.winsorize(x, lower=0.25, upper=0.75)\n"
+"tensor([[1., 1., 2., 3., 3.],\n"
+"        [6., 6., 7., 8., 8.]])"
+msgstr ""
+">>> # デフォルト（dim=-1）では各行が独立にウィンザライズされます\n"
+">>> x = torch.tensor([[0.0, 1.0, 2.0, 3.0, 10.0],\n"
+"...                   [5.0, 6.0, 7.0, 8.0, 9.0]])\n"
+">>> QF.winsorize(x, lower=0.25, upper=0.75)\n"
+"tensor([[1., 1., 2., 3., 3.],\n"
+"        [6., 6., 7., 8., 8.]])"
+
+#: of qfeval_functions.functions.winsorize.winsorize:62
+msgid ""
+">>> # Global winsorization over all elements\n"
+">>> QF.winsorize(x, lower=0.25, upper=0.75, dim=None)\n"
+"tensor([[2.2500, 2.2500, 2.2500, 3.0000, 7.7500],\n"
+"        [5.0000, 6.0000, 7.0000, 7.7500, 7.7500]])"
+msgstr ""
+">>> # すべての要素にわたるグローバルなウィンザライズ\n"
+">>> QF.winsorize(x, lower=0.25, upper=0.75, dim=None)\n"
+"tensor([[2.2500, 2.2500, 2.2500, 3.0000, 7.7500],\n"
+"        [5.0000, 6.0000, 7.0000, 7.7500, 7.7500]])"
+
+#: of qfeval_functions.functions.winsorize.winsorize:67
+msgid ""
+"The clipping bounds are linearly interpolated quantiles, so clipped "
+"values are generally not elements of the input.  This differs from "
+"``scipy.stats.mstats.winsorize``, which replaces the smallest and largest"
+" values with the nearest remaining order statistics (actual input "
+"values)."
+msgstr "クリッピングの境界は線形補間された分位点であるため、クリッピングされた値は一般に入力の要素ではありません。この点は、最小値と最大値を最も近い残りの順序統計量（実際の入力値）に置き換える ``scipy.stats.mstats.winsorize`` とは異なります。"
+
+#: of qfeval_functions.functions.winsorize.winsorize:74
+msgid ""
+":func:`nanquantile`: NaN-aware quantile used to compute the clipping "
+"bounds."
+msgstr ":func:`nanquantile`: クリッピングの境界の計算に用いられる、NaN を考慮した分位点関数。"
+
+#: of qfeval_functions.functions.winsorize.winsorize:76
+msgid ":func:`fillna`: Replace NaN and infinity values."
+msgstr ":func:`fillna`: NaN と無限大の値を置き換えます。"
+
+#: of qfeval_functions.functions.winsorize.winsorize:77
+msgid ":func:`zscore`: Standardize values along a dimension."
+msgstr ":func:`zscore`: 次元に沿って値を標準化します。"
+
+#: of qfeval_functions.functions.winsorize.winsorize:78
+msgid ":func:`rank`: Rank-based normalization robust to outliers."
+msgstr ":func:`rank`: 外れ値に対して頑健な、順位に基づく正規化。"
+

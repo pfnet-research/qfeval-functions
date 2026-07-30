@@ -1,0 +1,191 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.mcovar.rst:2
+msgid "mcovar"
+msgstr ""
+
+#: of qfeval_functions.functions.mcovar.mcovar:1
+msgid "Compute the moving (sliding window) covariance of two tensors."
+msgstr "2 つのテンソルの移動共分散（スライディングウィンドウ共分散）を計算します。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:3
+msgid ""
+"This function calculates the covariance between elements of :attr:`x` and"
+" :attr:`y` within a sliding window of size :attr:`span` along the "
+"specified dimension.  The input tensors are broadcast to a common shape, "
+"and the output tensor has that shape.  For positions where the sliding "
+"window cannot fully cover preceding elements (i.e., the first ``span - "
+"1`` elements along the selected dimension), the result is ``nan``.  This "
+"is compatible with ``pandas.DataFrame.rolling(span).cov(other, "
+"ddof=ddof)``."
+msgstr "この関数は、指定された次元に沿って、サイズ :attr:`span` のスライディングウィンドウ内で :attr:`x` と :attr:`y` の要素間の共分散を計算します。入力テンソルは共通の形状にブロードキャストされ、出力テンソルはその形状になります。スライディングウィンドウが先行要素を完全にカバーできない位置（選択した次元に沿った最初の ``span - 1`` 要素）では、結果は ``nan`` になります。これは ``pandas.DataFrame.rolling(span).cov(other, ddof=ddof)`` と互換性があります。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:12
+msgid "The moving covariance is computed using the formula:"
+msgstr "移動共分散は次の式で計算されます:"
+
+#: of qfeval_functions.functions.mcovar.mcovar:14
+msgid ""
+"\\text{MCOVAR}[i] = \\frac{1}{\\text{span} - \\text{ddof}}\n"
+"\\sum_{j=i-\\text{span}+1}^{i}\n"
+"\\left(x[j] - \\mu_x[i]\\right)\\left(y[j] - \\mu_y[i]\\right)\n"
+"\n"
+msgstr "\\text{MCOVAR}[i] = \\frac{1}{\\text{span} - \\text{ddof}}\n\\sum_{j=i-\\text{span}+1}^{i}\n\\left(x[j] - \\mu_x[i]\\right)\\left(y[j] - \\mu_y[i]\\right)\n\n"
+
+#: of qfeval_functions.functions.mcovar.mcovar:19
+msgid ""
+"where :math:`\\mu_x[i]` and :math:`\\mu_y[i]` are the means of ``x`` and "
+"``y`` over the same window."
+msgstr "ここで :math:`\\mu_x[i]` と :math:`\\mu_y[i]` は、同じウィンドウにおける ``x`` と ``y`` の平均です。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:22
+msgid ""
+"The moving covariance is computed in ``O(N)`` time independent of "
+":attr:`span`, using cumulative statistics of :attr:`span`-sized chunks "
+"merged by Chan's parallel algorithm.  All sums are taken over deviations "
+"from nearby reference values, so the result is numerically stable even "
+"when the inputs have large offsets relative to their covariance (e.g., "
+"values around ``1e6`` with a covariance of ``1e-6``)."
+msgstr "移動共分散は、:attr:`span` サイズのチャンクごとの累積統計量を Chan の並列アルゴリズムで結合することにより、:attr:`span` に依存しない ``O(N)`` 時間で計算されます。すべての和は近傍の参照値からの偏差に対して取られるため、入力が共分散に比べて大きなオフセットを持つ場合（例えば共分散が ``1e-6`` で値が ``1e6`` 前後の場合）でも、結果は数値的に安定しています。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:29
+msgid ""
+"See `A Numerically Stable and Fast Implementation of Moving Averages and "
+"Variances <https://imoz.jp/scraps/202607_mvar.en.html>`_ for a detailed "
+"description of the chunked cumulative-statistics algorithm."
+msgstr "チャンク化された累積統計量アルゴリズムの詳細は `A Numerically Stable and Fast Implementation of Moving Averages and Variances <https://imoz.jp/scraps/202607_mvar.en.html>`_ を参照してください。"
+
+#: ../../api/qfeval_functions.functions.mcovar.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mcovar.mcovar:34
+msgid "The first input tensor."
+msgstr "最初の入力テンソル。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:37
+msgid "The second input tensor. Must be broadcastable with :attr:`x`."
+msgstr "第 2 の入力テンソル。:attr:`x` とブロードキャスト可能である必要があります。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:40
+msgid "The size of the sliding window. Must be positive."
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:43
+msgid ""
+"The dimension along which to compute the moving covariance. Default is -1"
+" (the last dimension)."
+msgstr "移動共分散を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:47
+msgid ""
+"Delta degrees of freedom. The divisor used in the calculation is ``span -"
+" ddof``. Use 0 for population covariance. Must be less than ``span``; "
+"otherwise the result is ``inf`` or ``nan``. Default is 1 (sample "
+"covariance)."
+msgstr "自由度のデルタ値。計算に使用する除数は ``span - ddof`` です。母共分散には 0 を使用します。``span`` より小さい必要があり、そうでない場合、結果は ``inf`` または ``nan`` になります。デフォルトは 1（標本共分散）です。"
+
+#: ../../api/qfeval_functions.functions.mcovar.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.mcovar.mcovar:53
+msgid ""
+"A tensor of the broadcast shape of the inputs, containing the moving "
+"covariance values. The first ``span - 1`` elements along the specified "
+"dimension are ``nan``."
+msgstr "入力をブロードキャストした形状のテンソルで、移動共分散の値を含みます。指定された次元に沿った最初の ``span - 1`` 要素は ``nan`` になります。"
+
+#: ../../api/qfeval_functions.functions.mcovar.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.mcovar.mcovar:59
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mcovar.mcovar:61
+msgid ""
+">>> # Simple moving covariance with window size 3\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> y = torch.tensor([2.0, 4.0, 6.0, 8.0, 10.0])\n"
+">>> QF.mcovar(x, y, span=3)\n"
+"tensor([nan, nan, 2., 2., 2.])"
+msgstr ">>> # ウィンドウサイズ 3 の単純な移動共分散\n>>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> y = torch.tensor([2.0, 4.0, 6.0, 8.0, 10.0])\n>>> QF.mcovar(x, y, span=3)\ntensor([nan, nan, 2., 2., 2.])"
+
+#: of qfeval_functions.functions.mcovar.mcovar:67
+msgid ""
+">>> # Negatively related series\n"
+">>> y = torch.tensor([10.0, 8.0, 6.0, 4.0, 2.0])\n"
+">>> QF.mcovar(x, y, span=3)\n"
+"tensor([nan, nan, -2., -2., -2.])"
+msgstr ">>> # 負の関係を持つ系列\n>>> y = torch.tensor([10.0, 8.0, 6.0, 4.0, 2.0])\n>>> QF.mcovar(x, y, span=3)\ntensor([nan, nan, -2., -2., -2.])"
+
+#: of qfeval_functions.functions.mcovar.mcovar:72
+msgid ""
+">>> # Population covariance (ddof=0)\n"
+">>> QF.mcovar(x, y, span=3, ddof=0)\n"
+"tensor([    nan,     nan, -1.3333, -1.3333, -1.3333])"
+msgstr ">>> # 母共分散（ddof=0）\n>>> QF.mcovar(x, y, span=3, ddof=0)\ntensor([    nan,     nan, -1.3333, -1.3333, -1.3333])"
+
+#: of qfeval_functions.functions.mcovar.mcovar:76
+msgid ""
+">>> # Covariance of a series with itself is its variance\n"
+">>> QF.mcovar(x, x, span=2)\n"
+"tensor([   nan, 0.5000, 0.5000, 0.5000, 0.5000])"
+msgstr ">>> # 系列自身との共分散はその分散になります\n>>> QF.mcovar(x, x, span=2)\ntensor([   nan, 0.5000, 0.5000, 0.5000, 0.5000])"
+
+#: of qfeval_functions.functions.mcovar.mcovar:80
+msgid ""
+">>> # Broadcasting: one series against each row of a matrix\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0])\n"
+">>> y = torch.tensor([[2.0, 4.0, 6.0, 8.0],\n"
+"...                   [4.0, 3.0, 2.0, 1.0]])\n"
+">>> QF.mcovar(x, y, span=2)\n"
+"tensor([[    nan,  1.0000,  1.0000,  1.0000],\n"
+"        [    nan, -0.5000, -0.5000, -0.5000]])"
+msgstr ">>> # ブロードキャスト: 1 つの系列と行列の各行\n>>> x = torch.tensor([1.0, 2.0, 3.0, 4.0])\n>>> y = torch.tensor([[2.0, 4.0, 6.0, 8.0],\n...                   [4.0, 3.0, 2.0, 1.0]])\n>>> QF.mcovar(x, y, span=2)\ntensor([[    nan,  1.0000,  1.0000,  1.0000],\n        [    nan, -0.5000, -0.5000, -0.5000]])"
+
+#: of qfeval_functions.functions.mcovar.mcovar:88
+msgid ""
+"If a window contains any NaN value in either input, the moving covariance"
+" for that window is NaN. Unlike ``pandas.DataFrame.rolling``, there is no"
+" ``min_periods``-style option to skip NaN values."
+msgstr "いずれかの入力のウィンドウに NaN 値が 1 つでも含まれる場合、そのウィンドウの移動共分散は NaN になります。``pandas.DataFrame.rolling`` と異なり、NaN 値をスキップする ``min_periods`` 相当のオプションはありません。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:94
+msgid ":func:`covar`: Covariance over an entire dimension."
+msgstr ":func:`covar`: 次元全体に対する共分散関数。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:95
+msgid ":func:`mcorrel`: Moving Pearson correlation function."
+msgstr ":func:`mcorrel`: 移動ピアソン相関関数。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:96
+msgid ":func:`mvar`: Moving variance function (this with ``y = x``)."
+msgstr ":func:`mvar`: 移動分散関数（この関数で ``y = x`` としたもの）。"
+
+#: of qfeval_functions.functions.mcovar.mcovar:97
+msgid ":func:`nancovar`: NaN-aware covariance function."
+msgstr ":func:`nancovar`: NaN を考慮した共分散関数。"
+

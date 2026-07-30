@@ -1,0 +1,146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.roc.rst:2
+msgid "roc"
+msgstr ""
+
+#: of qfeval_functions.functions.roc.roc:1
+msgid "Compute the rate of change (ROC) along the specified dimension."
+msgstr "指定された次元に沿って変化率（ROC）を計算します。"
+
+#: of qfeval_functions.functions.roc.roc:3
+msgid ""
+"ROC is a momentum indicator measuring the relative change between the "
+"current value and the value ``span`` positions earlier:"
+msgstr "ROC は、現在の値と ``span`` 個前の位置の値との相対的な変化を測定するモメンタム指標です:"
+
+#: of qfeval_functions.functions.roc.roc:6
+#, python-brace-format
+msgid ""
+"\\text{ROC}[i] = \\frac{x[i]}{x[i - \\text{span}]} - 1\n"
+"\n"
+msgstr ""
+"\\text{ROC}[i] = \\frac{x[i]}{x[i - \\text{span}]} - 1\n"
+"\n"
+
+#: of qfeval_functions.functions.roc.roc:9
+msgid ""
+"This is equivalent to ``pandas.DataFrame.pct_change(span)``.  The first "
+"``span`` elements along the dimension are NaN because they have no "
+"preceding value (:func:`shift` fills vacated positions with NaN).  A "
+"negative ``span`` looks forward instead, matching ``pct_change`` with "
+"negative periods, and ``span=0`` yields all zeros for finite nonzero "
+"inputs."
+msgstr "これは ``pandas.DataFrame.pct_change(span)`` に相当します。次元に沿った最初の ``span`` 個の要素は、先行する値が存在しないため NaN になります（:func:`shift` が空いた位置を NaN で埋めます）。負の ``span`` は逆に将来の値を参照し、負の periods を指定した ``pct_change`` と一致します。また、``span=0`` の場合、有限かつ非ゼロの入力に対してはすべて 0 になります。"
+
+#: of qfeval_functions.functions.roc.roc:16
+msgid ""
+"Division follows IEEE 754 semantics: a zero previous value yields ``inf``"
+" or ``-inf``, and ``0 / 0`` yields NaN.  A NaN input affects exactly the "
+"output positions where it appears as the numerator or the denominator."
+msgstr "除算は IEEE 754 の規則に従います: 過去の値が 0 の場合は ``inf`` または ``-inf`` になり、``0 / 0`` は NaN になります。入力の NaN は、それが分子または分母として現れる出力位置にのみ影響します。"
+
+#: ../../api/qfeval_functions.functions.roc.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.roc.roc:22
+msgid "The input tensor containing values.  Must be a floating point tensor."
+msgstr "値を含む入力テンソル。浮動小数点テンソルである必要があります。"
+
+#: of qfeval_functions.functions.roc.roc:26
+msgid ""
+"The number of positions to look back (negative values look forward).  "
+"Default is 1."
+msgstr "遡って参照する位置の数（負の値は将来を参照します）。デフォルトは 1 です。"
+
+#: of qfeval_functions.functions.roc.roc:30
+msgid ""
+"The dimension along which to compute the rate of change. Default is -1 "
+"(the last dimension)."
+msgstr "変化率を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.roc.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.roc.roc:34
+msgid ""
+"A tensor of the same shape as the input, containing the rate of change "
+"values.  The first ``span`` elements along the dimension (the last "
+"``-span`` elements for a negative ``span``) are NaN."
+msgstr "入力と同じ形状のテンソルで、変化率の値を格納します。次元に沿った最初の ``span`` 個の要素（負の ``span`` の場合は最後の ``-span`` 個の要素）は NaN になります。"
+
+#: ../../api/qfeval_functions.functions.roc.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: ../../api/qfeval_functions.functions.roc.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.roc.roc:40
+msgid "If ``span`` is not an integer (``bool`` is rejected)."
+msgstr "``span`` が整数でない場合（``bool`` も拒否されます）。"
+
+#: of qfeval_functions.functions.roc.roc:41
+msgid "If ``x`` is not a floating point tensor."
+msgstr "``x`` が浮動小数点テンソルでない場合。"
+
+#: of qfeval_functions.functions.roc.roc:44
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.roc.roc:46
+msgid ""
+">>> x = torch.tensor([100.0, 110.0, 121.0])\n"
+">>> QF.roc(x)\n"
+"tensor([   nan, 0.1000, 0.1000])"
+msgstr ">>> x = torch.tensor([100.0, 110.0, 121.0])\n>>> QF.roc(x)\ntensor([   nan, 0.1000, 0.1000])"
+
+#: of qfeval_functions.functions.roc.roc:50
+msgid ""
+">>> # A negative span compares against future values.\n"
+">>> QF.roc(x, span=-1)\n"
+"tensor([-0.0909, -0.0909,     nan])"
+msgstr ">>> # 負の span は将来の値と比較します。\n>>> QF.roc(x, span=-1)\ntensor([-0.0909, -0.0909,     nan])"
+
+#: of qfeval_functions.functions.roc.roc:54
+msgid ""
+">>> # A zero previous value yields inf, and 0 / 0 yields NaN.\n"
+">>> QF.roc(torch.tensor([0.0, 1.0, 0.0, 0.0]))\n"
+"tensor([nan, inf, -1., nan])"
+msgstr ">>> # 直前の値が 0 の場合は inf に、0 / 0 は NaN になります。\n>>> QF.roc(torch.tensor([0.0, 1.0, 0.0, 0.0]))\ntensor([nan, inf, -1., nan])"
+
+#: of qfeval_functions.functions.roc.roc:58
+msgid ":func:`shift`: Shift function used to align previous values."
+msgstr ":func:`shift`: 過去の値を揃えるために使用されるシフト関数。"
+
+#: of qfeval_functions.functions.roc.roc:59
+msgid ":func:`nandiff`: Difference function that skips NaN values."
+msgstr ":func:`nandiff`: NaN 値をスキップする差分関数。"
+
+#: of qfeval_functions.functions.roc.roc:60
+msgid ":func:`ema`: Exponential moving average function."
+msgstr ":func:`ema`: 指数移動平均関数。"
+

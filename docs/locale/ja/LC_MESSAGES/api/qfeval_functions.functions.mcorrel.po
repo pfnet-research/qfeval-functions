@@ -1,0 +1,158 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.mcorrel.rst:2
+msgid "mcorrel"
+msgstr ""
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:1
+msgid "Compute the moving (sliding window) Pearson correlation of two tensors."
+msgstr "2 つのテンソル間の移動ピアソン相関係数（スライディングウィンドウ相関）を計算します。"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:4
+msgid ""
+"This function calculates the Pearson correlation coefficient between "
+"elements of :attr:`x` and :attr:`y` within a sliding window of size "
+":attr:`span` along the specified dimension.  The input tensors are "
+"broadcast to a common shape, and the output tensor has that shape.  For "
+"positions where the sliding window cannot fully cover preceding elements "
+"(i.e., the first ``span - 1`` elements along the selected dimension), the"
+" result is ``nan``.  This is compatible with "
+"``pandas.DataFrame.rolling(span).corr(other)``."
+msgstr "この関数は、指定された次元に沿って、サイズ :attr:`span` のスライディングウィンドウ内で :attr:`x` と :attr:`y` の要素間のピアソン相関係数を計算します。入力テンソルは共通の形状にブロードキャストされ、出力テンソルはその形状になります。スライディングウィンドウが先行要素を完全にカバーできない位置（選択した次元に沿った最初の ``span - 1`` 要素）では、結果は ``nan`` になります。これは ``pandas.DataFrame.rolling(span).corr(other)`` と互換性があります。"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:13
+msgid "The moving correlation is computed using the formula:"
+msgstr "移動相関は次の式で計算されます:"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:15
+msgid ""
+"\\text{MCORREL}[i] = \\frac{\n"
+"    \\sum_{j=i-\\text{span}+1}^{i}\n"
+"    \\left(x[j] - \\mu_x[i]\\right)\\left(y[j] - \\mu_y[i]\\right)\n"
+"}{\n"
+"    \\sqrt{\\sum_{j=i-\\text{span}+1}^{i}\n"
+"    \\left(x[j] - \\mu_x[i]\\right)^2}\n"
+"    \\sqrt{\\sum_{j=i-\\text{span}+1}^{i}\n"
+"    \\left(y[j] - \\mu_y[i]\\right)^2}\n"
+"}\n"
+"\n"
+msgstr "\\text{MCORREL}[i] = \\frac{\n    \\sum_{j=i-\\text{span}+1}^{i}\n    \\left(x[j] - \\mu_x[i]\\right)\\left(y[j] - \\mu_y[i]\\right)\n}{\n    \\sqrt{\\sum_{j=i-\\text{span}+1}^{i}\n    \\left(x[j] - \\mu_x[i]\\right)^2}\n    \\sqrt{\\sum_{j=i-\\text{span}+1}^{i}\n    \\left(y[j] - \\mu_y[i]\\right)^2}\n}\n\n"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:26
+msgid ""
+"where :math:`\\mu_x[i]` and :math:`\\mu_y[i]` are the means of ``x`` and "
+"``y`` over the same window.  This is a convenience composition of "
+":func:`mcovar` and :func:`mstd` (with a consistent ``ddof``, which "
+"cancels out), so it inherits their ``O(N)`` time complexity and their "
+"numerical stability against large offsets."
+msgstr "ここで :math:`\\mu_x[i]` と :math:`\\mu_y[i]` は、同じウィンドウにおける ``x`` と ``y`` の平均です。これは :func:`mcovar` と :func:`mstd` を（打ち消し合う一貫した ``ddof`` で）組み合わせた便宜的な合成関数であり、両者の ``O(N)`` の時間計算量と、大きなオフセットに対する数値的安定性を継承します。"
+
+#: ../../api/qfeval_functions.functions.mcorrel.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:33
+msgid "The first input tensor."
+msgstr "最初の入力テンソル。"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:36
+msgid "The second input tensor. Must be broadcastable with :attr:`x`."
+msgstr "第 2 の入力テンソル。:attr:`x` とブロードキャスト可能である必要があります。"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:39
+msgid "The size of the sliding window. Must be positive."
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:42
+msgid ""
+"The dimension along which to compute the moving correlation. Default is "
+"-1 (the last dimension)."
+msgstr "移動相関を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.mcorrel.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:46
+msgid ""
+"A tensor of the broadcast shape of the inputs, containing the moving "
+"correlation values. The first ``span - 1`` elements along the specified "
+"dimension are ``nan``."
+msgstr "入力をブロードキャストした形状のテンソルで、移動相関の値を含みます。指定された次元に沿った最初の ``span - 1`` 要素は ``nan`` になります。"
+
+#: ../../api/qfeval_functions.functions.mcorrel.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:52
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:54
+msgid ""
+">>> # Perfectly positively correlated series\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> y = torch.tensor([2.0, 4.0, 6.0, 8.0, 10.0])\n"
+">>> QF.mcorrel(x, y, span=3)\n"
+"tensor([nan, nan, 1., 1., 1.])"
+msgstr ">>> # 完全な正の相関を持つ系列\n>>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> y = torch.tensor([2.0, 4.0, 6.0, 8.0, 10.0])\n>>> QF.mcorrel(x, y, span=3)\ntensor([nan, nan, 1., 1., 1.])"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:60
+msgid ""
+">>> # Perfectly negatively correlated series\n"
+">>> y = torch.tensor([5.0, 4.0, 3.0, 2.0, 1.0])\n"
+">>> QF.mcorrel(x, y, span=3)\n"
+"tensor([nan, nan, -1., -1., -1.])"
+msgstr ">>> # 完全な負の相関を持つ系列\n>>> y = torch.tensor([5.0, 4.0, 3.0, 2.0, 1.0])\n>>> QF.mcorrel(x, y, span=3)\ntensor([nan, nan, -1., -1., -1.])"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:65
+msgid ""
+">>> # Partially correlated series\n"
+">>> y = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n"
+">>> QF.mcorrel(x, y, span=3)\n"
+"tensor([   nan,    nan, 0.5000, 0.6547, 0.6547])"
+msgstr ">>> # 部分的に相関する系列\n>>> y = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n>>> QF.mcorrel(x, y, span=3)\ntensor([   nan,    nan, 0.5000, 0.6547, 0.6547])"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:70
+msgid ""
+"If either series is constant within a window (zero variance), the "
+"correlation is mathematically undefined and the result is NaN. Due to "
+"floating-point rounding, results may exceed the interval ``[-1, 1]`` by a"
+" tiny error.  If a window contains any NaN value in either input, the "
+"moving correlation for that window is NaN. Unlike "
+"``pandas.DataFrame.rolling``, there is no ``min_periods``-style option to"
+" skip NaN values."
+msgstr "いずれかの系列がウィンドウ内で定数（分散がゼロ）の場合、相関は数学的に未定義であり、結果は NaN になります。浮動小数点の丸めにより、結果が ``[-1, 1]`` の区間をごくわずかに超えることがあります。いずれかの入力のウィンドウに NaN 値が 1 つでも含まれる場合、そのウィンドウの移動相関は NaN になります。``pandas.DataFrame.rolling`` と異なり、NaN 値をスキップする ``min_periods`` 相当のオプションはありません。"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:79
+msgid ":func:`correl`: Pearson correlation over an entire dimension."
+msgstr ":func:`correl`: 次元全体に対するピアソン相関関数。"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:80
+msgid ":func:`mcovar`: Moving covariance function."
+msgstr ":func:`mcovar`: 移動共分散関数。"
+
+#: of qfeval_functions.functions.mcorrel.mcorrel:81
+msgid ":func:`nancorrel`: NaN-aware Pearson correlation function."
+msgstr ":func:`nancorrel`: NaN を考慮したピアソン相関関数。"
+

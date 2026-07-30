@@ -1,0 +1,173 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.ewmcorrel.rst:2
+msgid "ewmcorrel"
+msgstr ""
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:1
+msgid "Compute the exponentially weighted moving correlation of two tensors."
+msgstr "2 つのテンソルの指数加重移動相関を計算します。"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:3
+msgid ""
+"This function calculates the Pearson correlation coefficient between "
+":attr:`x` and :attr:`y` over all elements up to each position along the "
+"specified dimension, giving exponentially larger weights to more recent "
+"pairs.  It follows the ``adjust=True`` convention of pandas, so the "
+"result matches ``x.ewm(alpha=alpha, adjust=True).corr(y)`` for pandas "
+"series/frames."
+msgstr "この関数は、指定された次元に沿って各位置までのすべての要素を対象に、:attr:`x` と :attr:`y` の間のピアソン相関係数を計算します。その際、より新しいペアほど指数関数的に大きい重みが与えられます。pandas の ``adjust=True`` の規約に従っているため、結果は pandas の Series/DataFrame に対する ``x.ewm(alpha=alpha, adjust=True).corr(y)`` と一致します。"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:10
+#, python-brace-format
+msgid ""
+"With the weights :math:`w_{ij} = (1 - \\alpha)^{i-j}`, the correlation is"
+" the ratio of the biased exponentially weighted covariance to the product"
+" of the biased exponentially weighted standard deviations:"
+msgstr "重み :math:`w_{ij} = (1 - \\alpha)^{i-j}` のもとで、相関は、偏りありの指数加重共分散を、偏りありの指数加重標準偏差の積で割った比になります:"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:14
+msgid ""
+"\\text{Corr}[i] =\n"
+"\\frac{\\text{Cov}_b[i]}\n"
+"     {\\sqrt{\\text{Var}_b^x[i] \\cdot \\text{Var}_b^y[i]}}.\n"
+"\n"
+msgstr ""
+"\\text{Corr}[i] =\n"
+"\\frac{\\text{Cov}_b[i]}\n"
+"     {\\sqrt{\\text{Var}_b^x[i] \\cdot \\text{Var}_b^y[i]}}.\n"
+"\n"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:19
+msgid ""
+"The bias-correction factor of :func:`ewmcovar` and :func:`ewmvar` cancels"
+" between the numerator and the denominator, so the correlation has no "
+"``bias`` argument."
+msgstr ":func:`ewmcovar` と :func:`ewmvar` のバイアス補正係数は分子と分母の間で打ち消し合うため、相関には ``bias`` 引数はありません。"
+
+#: ../../api/qfeval_functions.functions.ewmcorrel.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:24
+msgid "The first input tensor."
+msgstr "最初の入力テンソル。"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:27
+msgid "The second input tensor. Must be broadcastable with :attr:`x`."
+msgstr "第 2 の入力テンソル。:attr:`x` とブロードキャスト可能である必要があります。"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:31
+msgid ""
+"The smoothing factor, must be in the range (0, 1). Smaller values result "
+"in more smoothing (slower decay)."
+msgstr "平滑化係数。範囲は (0, 1) でなければなりません。値が小さいほど、より平滑化され（減衰が緩やかになります）。"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:35
+msgid ""
+"The dimension along which to compute the exponentially weighted moving "
+"correlation. Default is -1 (the last dimension)."
+msgstr "指数加重移動相関を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.ewmcorrel.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:40
+msgid ""
+"A tensor of the broadcast shape of the inputs, containing the "
+"exponentially weighted moving correlation values."
+msgstr "入力をブロードキャストした形状のテンソルで、指数加重移動相関の値を格納します。"
+
+#: ../../api/qfeval_functions.functions.ewmcorrel.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:45
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:47
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> y = torch.tensor([2.0, 1.0, 4.0, 3.0, 6.0])\n"
+">>> QF.ewmcorrel(x, y, alpha=0.5)\n"
+"tensor([    nan, -1.0000,  0.7856,  0.4845,  0.8512])"
+msgstr ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> y = torch.tensor([2.0, 1.0, 4.0, 3.0, 6.0])\n"
+">>> QF.ewmcorrel(x, y, alpha=0.5)\n"
+"tensor([    nan, -1.0000,  0.7856,  0.4845,  0.8512])"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:52
+msgid ""
+">>> # A positive linear relationship gives a correlation of 1.\n"
+">>> QF.ewmcorrel(x, 2 * x + 1, alpha=0.5)\n"
+"tensor([nan, 1., 1., 1., 1.])"
+msgstr ""
+">>> # 正の線形関係では相関は 1 になります。\n"
+">>> QF.ewmcorrel(x, 2 * x + 1, alpha=0.5)\n"
+"tensor([nan, 1., 1., 1., 1.])"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:56
+msgid ""
+">>> # A negative linear relationship gives a correlation of -1.\n"
+">>> QF.ewmcorrel(x, -x, alpha=0.5)\n"
+"tensor([nan, -1., -1., -1., -1.])"
+msgstr ""
+">>> # 負の線形関係では相関は -1 になります。\n"
+">>> QF.ewmcorrel(x, -x, alpha=0.5)\n"
+"tensor([nan, -1., -1., -1., -1.])"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:60
+msgid ""
+"The correlation of a single pair is undefined (0/0), so the first element"
+" along :attr:`dim` is NaN, exactly as in pandas ``ewm().corr()``.  If "
+"either input is constant so far, its variance is zero and the correlation"
+" is NaN as well.  Because of floating-point rounding, results may exceed "
+"the interval :math:`[-1, 1]` by a tiny margin."
+msgstr "単一のペアの相関は未定義（0/0）であるため、:attr:`dim` に沿った最初の要素は、pandas の ``ewm().corr()`` とまったく同様に NaN になります。その位置までにいずれかの入力が一定である場合、その分散は 0 となり、相関も同様に NaN になります。浮動小数点の丸めのため、結果は区間 :math:`[-1, 1]` をごくわずかに超えることがあります。"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:68
+msgid ""
+"Like :func:`ema`, a NaN value in either input contaminates all subsequent"
+" outputs along :attr:`dim`.  This differs from pandas, which skips NaN "
+"values instead."
+msgstr ":func:`ema` と同様に、いずれかの入力に NaN 値が現れると、:attr:`dim` に沿ってそれ以降のすべての出力が NaN になります。これは、NaN 値をスキップする pandas とは異なる動作です。"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:73
+msgid ":func:`ewmcovar`: Exponentially weighted moving covariance."
+msgstr ":func:`ewmcovar`: 指数加重移動共分散。"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:74
+msgid ":func:`ewmvar`: Exponentially weighted moving variance."
+msgstr ":func:`ewmvar`: 指数加重移動分散。"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:75
+msgid ":func:`correl`: Pearson correlation over a whole dimension."
+msgstr ":func:`correl`: 次元全体にわたるピアソン相関。"
+
+#: of qfeval_functions.functions.ewmcorrel.ewmcorrel:76
+msgid ":func:`mcorrel`: Moving correlation over a fixed-size window."
+msgstr ":func:`mcorrel`: 固定サイズのウィンドウにわたる移動相関。"
+

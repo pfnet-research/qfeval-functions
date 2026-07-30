@@ -1,0 +1,160 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.mslope.rst:2
+msgid "mslope"
+msgstr ""
+
+#: of qfeval_functions.functions.mslope.mslope:1
+msgid "Compute the moving (sliding window) slope of a simple linear regression."
+msgstr "移動（スライディングウィンドウ）単回帰の傾きを計算します。"
+
+#: of qfeval_functions.functions.mslope.mslope:4
+msgid ""
+"This function calculates, for each sliding window of size :attr:`span` "
+"along the specified dimension, the ordinary least squares slope "
+"coefficient :math:`\\beta` of the regression :math:`y = \\alpha + \\beta "
+"x` over the window, where :attr:`x` holds the explanatory (independent) "
+"values and :attr:`y` holds the response (dependent) values.  The input "
+"tensors are broadcast to a common shape, and the output tensor has that "
+"shape.  For positions where the sliding window cannot fully cover "
+"preceding elements (i.e., the first ``span - 1`` elements along the "
+"selected dimension), the result is ``nan``.  This is compatible with "
+"``pandas.DataFrame.rolling(span).cov(other)`` divided by "
+"``pandas.DataFrame.rolling(span).var()``."
+msgstr "この関数は、指定された次元に沿ったサイズ :attr:`span` の各スライディングウィンドウに対して、ウィンドウ上の回帰 :math:`y = \\alpha + \\beta x` の最小二乗法による傾き係数 :math:`\\beta` を計算します。ここで :attr:`x` は説明変数（独立変数）、:attr:`y` は目的変数（従属変数）の値を保持します。入力テンソルは共通の形状にブロードキャストされ、出力テンソルはその形状になります。スライディングウィンドウが先行要素を完全にカバーできない位置（選択した次元に沿った最初の ``span - 1`` 要素）では、結果は ``nan`` になります。これは ``pandas.DataFrame.rolling(span).cov(other)`` を ``pandas.DataFrame.rolling(span).var()`` で割った値と互換性があります。"
+
+#: of qfeval_functions.functions.mslope.mslope:16
+msgid "The moving slope is computed using the formula:"
+msgstr "移動傾きは次の式で計算されます:"
+
+#: of qfeval_functions.functions.mslope.mslope:18
+msgid ""
+"\\text{MSLOPE}[i] = \\frac{\n"
+"    \\sum_{j=i-\\text{span}+1}^{i}\n"
+"    \\left(x[j] - \\mu_x[i]\\right)\\left(y[j] - \\mu_y[i]\\right)\n"
+"}{\n"
+"    \\sum_{j=i-\\text{span}+1}^{i} \\left(x[j] - \\mu_x[i]\\right)^2\n"
+"}\n"
+"\n"
+msgstr "\\text{MSLOPE}[i] = \\frac{\n    \\sum_{j=i-\\text{span}+1}^{i}\n    \\left(x[j] - \\mu_x[i]\\right)\\left(y[j] - \\mu_y[i]\\right)\n}{\n    \\sum_{j=i-\\text{span}+1}^{i} \\left(x[j] - \\mu_x[i]\\right)^2\n}\n\n"
+
+#: of qfeval_functions.functions.mslope.mslope:26
+msgid ""
+"where :math:`\\mu_x[i]` and :math:`\\mu_y[i]` are the means of ``x`` and "
+"``y`` over the same window.  This is a convenience composition of "
+":func:`mcovar` and :func:`mvar` (with a consistent ``ddof``, which "
+"cancels out), so it inherits their ``O(N)`` time complexity and their "
+"numerical stability against large offsets."
+msgstr "ここで :math:`\\mu_x[i]` と :math:`\\mu_y[i]` は、同じウィンドウにおける ``x`` と ``y`` の平均です。これは :func:`mcovar` と :func:`mvar` を（打ち消し合う一貫した ``ddof`` で）組み合わせた便宜的な合成関数であり、両者の ``O(N)`` の時間計算量と、大きなオフセットに対する数値的安定性を継承します。"
+
+#: of qfeval_functions.functions.mslope.mslope:32
+msgid ""
+"In quantitative finance, this is used, for example, to estimate the "
+"rolling beta of an asset's returns against market returns."
+msgstr "定量金融では、例えば市場リターンに対する資産リターンのローリングベータの推定に使用されます。"
+
+#: ../../api/qfeval_functions.functions.mslope.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mslope.mslope:36
+msgid "The input tensor of explanatory (independent) values."
+msgstr "説明変数（独立変数）の値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.mslope.mslope:39
+msgid ""
+"The input tensor of response (dependent) values. Must be broadcastable "
+"with :attr:`x`."
+msgstr "目的変数（従属変数）の値を含む入力テンソル。:attr:`x` とブロードキャスト可能である必要があります。"
+
+#: of qfeval_functions.functions.mslope.mslope:43
+msgid "The size of the sliding window. Must be positive."
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
+
+#: of qfeval_functions.functions.mslope.mslope:46
+msgid ""
+"The dimension along which to compute the moving slope. Default is -1 (the"
+" last dimension)."
+msgstr "移動傾きを計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.mslope.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.mslope.mslope:50
+msgid ""
+"A tensor of the broadcast shape of the inputs, containing the moving "
+"slope values. The first ``span - 1`` elements along the specified "
+"dimension are ``nan``."
+msgstr "入力をブロードキャストした形状のテンソルで、移動傾きの値を含みます。指定された次元に沿った最初の ``span - 1`` 要素は ``nan`` になります。"
+
+#: ../../api/qfeval_functions.functions.mslope.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.mslope.mslope:56
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mslope.mslope:58
+msgid ""
+">>> # A perfectly linear relationship: y = 2 * x + 3\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> y = torch.tensor([5.0, 7.0, 9.0, 11.0, 13.0])\n"
+">>> QF.mslope(x, y, span=3)\n"
+"tensor([nan, nan, 2., 2., 2.])"
+msgstr ">>> # 完全な線形関係: y = 2 * x + 3\n>>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> y = torch.tensor([5.0, 7.0, 9.0, 11.0, 13.0])\n>>> QF.mslope(x, y, span=3)\ntensor([nan, nan, 2., 2., 2.])"
+
+#: of qfeval_functions.functions.mslope.mslope:64
+msgid ""
+">>> # A noisy relationship\n"
+">>> y = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n"
+">>> QF.mslope(x, y, span=3)\n"
+"tensor([   nan,    nan, 0.5000, 1.0000, 1.0000])"
+msgstr ">>> # ノイズを含む関係\n>>> y = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n>>> QF.mslope(x, y, span=3)\ntensor([   nan,    nan, 0.5000, 1.0000, 1.0000])"
+
+#: of qfeval_functions.functions.mslope.mslope:69
+msgid ""
+"If :attr:`x` is constant within a window (zero variance), the slope is "
+"mathematically undefined and the result is non-finite (NaN or infinity)."
+"  If a window contains any NaN value in either input, the moving slope "
+"for that window is NaN.  Unlike ``pandas.DataFrame.rolling``, there is no"
+" ``min_periods``-style option to skip NaN values."
+msgstr ":attr:`x` がウィンドウ内で定数（分散がゼロ）の場合、傾きは数学的に未定義であり、結果は非有限値（NaN または無限大）になります。いずれかの入力のウィンドウに NaN 値が 1 つでも含まれる場合、そのウィンドウの移動傾きは NaN になります。``pandas.DataFrame.rolling`` と異なり、NaN 値をスキップする ``min_periods`` 相当のオプションはありません。"
+
+#: of qfeval_functions.functions.mslope.mslope:77
+msgid ":func:`slope`: Simple linear regression slope over an entire dimension."
+msgstr ":func:`slope`: 次元全体に対する単回帰の傾き関数。"
+
+#: of qfeval_functions.functions.mslope.mslope:79
+msgid ":func:`nanslope`: NaN-aware slope function."
+msgstr ":func:`nanslope`: NaN を考慮した傾き関数。"
+
+#: of qfeval_functions.functions.mslope.mslope:80
+msgid ":func:`mcovar`: Moving covariance function."
+msgstr ":func:`mcovar`: 移動共分散関数。"
+
+#: of qfeval_functions.functions.mslope.mslope:81
+msgid ":func:`mcorrel`: Moving Pearson correlation function."
+msgstr ":func:`mcorrel`: 移動ピアソン相関関数。"
+

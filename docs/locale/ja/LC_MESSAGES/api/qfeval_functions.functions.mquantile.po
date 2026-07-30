@@ -1,0 +1,233 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.mquantile.rst:2
+msgid "mquantile"
+msgstr ""
+
+#: of qfeval_functions.functions.mquantile.mquantile:1
+msgid "Compute the moving (sliding window) quantile of a tensor."
+msgstr "テンソルの移動分位点（スライディングウィンドウ分位点）を計算します。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:3
+msgid ""
+"This function calculates the :attr:`q`-th quantile of elements within a "
+"sliding window of size :attr:`span` along the specified dimension. The "
+"output tensor has the same shape as the input tensor. For positions where"
+" the sliding window cannot fully cover preceding elements (i.e., the "
+"first ``span - 1`` elements along the selected dimension), the result is "
+"``nan``."
+msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の :attr:`q` 分位点を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:10
+msgid ""
+"Letting :math:`s_0 \\le s_1 \\le \\dots \\le s_{\\text{span}-1}` denote "
+"the sorted values of a window, the quantile is computed with linear "
+"interpolation between adjacent order statistics, compatibly with "
+"``pandas.DataFrame.rolling(span).quantile(q, interpolation=\"linear\")``:"
+msgstr ":math:`s_0 \\le s_1 \\le \\dots \\le s_{\\text{span}-1}` をウィンドウ内の値をソートしたものとすると、分位点は隣接する順序統計量の間の線形補間により、``pandas.DataFrame.rolling(span).quantile(q, interpolation=\"linear\")`` と互換性のある形で計算されます:"
+
+#: of qfeval_functions.functions.mquantile.mquantile:15
+#, python-brace-format
+msgid ""
+"\\text{MQUANTILE}[i] = (1 - \\gamma) \\, s_{\\lfloor h \\rfloor}\n"
+"+ \\gamma \\, s_{\\lceil h \\rceil},\n"
+"\\quad h = q \\, (\\text{span} - 1),\n"
+"\\quad \\gamma = h - \\lfloor h \\rfloor\n"
+"\n"
+msgstr ""
+"\\text{MQUANTILE}[i] = (1 - \\gamma) \\, s_{\\lfloor h \\rfloor}\n"
+"+ \\gamma \\, s_{\\lceil h \\rceil},\n"
+"\\quad h = q \\, (\\text{span} - 1),\n"
+"\\quad \\gamma = h - \\lfloor h \\rfloor\n"
+"\n"
+
+#: of qfeval_functions.functions.mquantile.mquantile:21
+msgid ""
+"In particular, ``q=0.0`` yields the moving minimum, ``q=0.5`` the moving "
+"median, and ``q=1.0`` the moving maximum."
+msgstr "特に、``q=0.0`` は移動最小値、``q=0.5`` は移動中央値、``q=1.0`` は移動最大値になります。"
+
+#: ../../api/qfeval_functions.functions.mquantile.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mquantile.mquantile:25
+msgid "The input tensor containing values. Must be a floating point tensor."
+msgstr "値を含む入力テンソル。浮動小数点テンソルである必要があります。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:29
+msgid "The size of the sliding window. Must be positive."
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:32
+msgid "The quantile to compute. Must be in the range ``[0, 1]``."
+msgstr "計算する分位点。``[0, 1]`` の範囲である必要があります。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:35
+msgid ""
+"The dimension along which to compute the moving quantile. Default is -1 "
+"(the last dimension)."
+msgstr "移動分位点を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.mquantile.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.mquantile.mquantile:39
+msgid ""
+"A tensor of the same shape as the input, containing the moving quantile "
+"values. The first ``span - 1`` elements along the specified dimension are"
+" ``nan``."
+msgstr "入力と同じ形状のテンソルで、移動分位点の値を含みます。指定された次元に沿った最初の ``span - 1`` 要素は ``nan`` になります。"
+
+#: ../../api/qfeval_functions.functions.mquantile.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: ../../api/qfeval_functions.functions.mquantile.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.mquantile.mquantile:44
+msgid "If ``span`` is not an integer (``bool`` is rejected)."
+msgstr "``span`` が整数でない場合（``bool`` も拒否されます）。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:45
+msgid "If ``span`` is not positive."
+msgstr "``span`` が正でない場合。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:46
+msgid "If ``q`` is not in the range ``[0, 1]``."
+msgstr "``q`` が ``[0, 1]`` の範囲にない場合。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:47
+msgid "If ``x`` is not a floating point tensor."
+msgstr "``x`` が浮動小数点テンソルでない場合。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:50
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mquantile.mquantile:52
+msgid ""
+">>> # Moving median (q=0.5) with window size 3\n"
+">>> x = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n"
+">>> QF.mquantile(x, span=3, q=0.5)\n"
+"tensor([nan, nan, 2., 3., 4.])"
+msgstr ""
+">>> # ウィンドウサイズ 3 の移動中央値（q=0.5）\n"
+">>> x = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n"
+">>> QF.mquantile(x, span=3, q=0.5)\n"
+"tensor([nan, nan, 2., 3., 4.])"
+
+#: of qfeval_functions.functions.mquantile.mquantile:57
+msgid ""
+">>> # q=0.0 and q=1.0 yield the moving minimum and maximum\n"
+">>> QF.mquantile(x, span=3, q=0.0)\n"
+"tensor([nan, nan, 1., 2., 2.])\n"
+">>> QF.mquantile(x, span=3, q=1.0)\n"
+"tensor([nan, nan, 3., 5., 5.])"
+msgstr ""
+">>> # q=0.0 と q=1.0 はそれぞれ移動最小値と移動最大値になります\n"
+">>> QF.mquantile(x, span=3, q=0.0)\n"
+"tensor([nan, nan, 1., 2., 2.])\n"
+">>> QF.mquantile(x, span=3, q=1.0)\n"
+"tensor([nan, nan, 3., 5., 5.])"
+
+#: of qfeval_functions.functions.mquantile.mquantile:63
+msgid ""
+">>> # Linear interpolation between adjacent order statistics\n"
+">>> QF.mquantile(x, span=2, q=0.25)\n"
+"tensor([   nan, 1.5000, 2.2500, 2.7500, 4.2500])"
+msgstr ""
+">>> # 隣接する順序統計量の間の線形補間\n"
+">>> QF.mquantile(x, span=2, q=0.25)\n"
+"tensor([   nan, 1.5000, 2.2500, 2.7500, 4.2500])"
+
+#: of qfeval_functions.functions.mquantile.mquantile:67
+msgid ""
+">>> # 2D tensor with moving quantile along rows\n"
+">>> x = torch.tensor([[1.0, 2.0, 4.0, 8.0],\n"
+"...                   [8.0, 4.0, 2.0, 1.0]])\n"
+">>> QF.mquantile(x, span=2, q=0.5, dim=1)\n"
+"tensor([[   nan, 1.5000, 3.0000, 6.0000],\n"
+"        [   nan, 6.0000, 3.0000, 1.5000]])"
+msgstr ""
+">>> # 2 次元テンソルの行方向の移動分位点\n"
+">>> x = torch.tensor([[1.0, 2.0, 4.0, 8.0],\n"
+"...                   [8.0, 4.0, 2.0, 1.0]])\n"
+">>> QF.mquantile(x, span=2, q=0.5, dim=1)\n"
+"tensor([[   nan, 1.5000, 3.0000, 6.0000],\n"
+"        [   nan, 6.0000, 3.0000, 1.5000]])"
+
+#: of qfeval_functions.functions.mquantile.mquantile:74
+msgid ""
+">>> # A window containing NaN yields NaN\n"
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0, 6.0])\n"
+">>> QF.mquantile(x, span=2, q=0.5)\n"
+"tensor([   nan, 1.5000,    nan,    nan, 4.5000, 5.5000])"
+msgstr ""
+">>> # NaN を含むウィンドウは NaN になります\n"
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0, 6.0])\n"
+">>> QF.mquantile(x, span=2, q=0.5)\n"
+"tensor([   nan, 1.5000,    nan,    nan, 4.5000, 5.5000])"
+
+#: of qfeval_functions.functions.mquantile.mquantile:79
+msgid ""
+"If a window contains any NaN value, the moving quantile for that window "
+"is NaN. Unlike ``pandas.DataFrame.rolling``, there is no "
+"``min_periods``-style option to skip NaN values."
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動分位点は NaN になります。``pandas.DataFrame.rolling`` とは異なり、NaN 値をスキップする ``min_periods`` のようなオプションはありません。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:84
+msgid ""
+"Infinite values are ordered like ordinary numbers, so e.g. ``q=1.0`` "
+"returns ``inf`` for windows containing ``inf``, whereas pandas treats "
+"infinities as missing values in rolling aggregations. Interpolating "
+"between ``-inf`` and ``inf`` yields ``nan``."
+msgstr "無限大の値は通常の数値と同様に順序付けられるため、例えば ``q=1.0`` は ``inf`` を含むウィンドウに対して ``inf`` を返します。一方、pandas はローリング集計において無限大を欠損値として扱います。``-inf`` と ``inf`` の間の補間は ``nan`` になります。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:91
+msgid ""
+"Each window is sorted independently, so this function takes ``O(N * span "
+"* log(span))`` time and ``O(N * span)`` transient memory, in contrast to "
+"the ``O(N)`` moving sums and averages (:func:`msum`, :func:`ma`); order "
+"statistics admit no similarly vectorizable ``O(N)`` algorithm."
+msgstr "各ウィンドウは独立にソートされるため、この関数は ``O(N * span * log(span))`` の時間と ``O(N * span)`` の一時メモリを必要とします。これは ``O(N)`` の移動合計・移動平均（:func:`msum`、:func:`ma`）とは対照的です。順序統計量には、同様にベクトル化可能な ``O(N)`` アルゴリズムは存在しません。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:98
+msgid ":func:`mmedian`: Moving median function (this with ``q=0.5``)."
+msgstr ":func:`mmedian`: 移動中央値関数（この関数の ``q=0.5`` の場合）。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:99
+msgid ":func:`nanquantile`: Quantile over a whole dimension, skipping NaNs."
+msgstr ":func:`nanquantile`: NaN をスキップして次元全体の分位点を計算する関数。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:101
+msgid ":func:`mmax`: Moving maximum function."
+msgstr ":func:`mmax`: 移動最大値関数。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:102
+msgid ":func:`mmin`: Moving minimum function."
+msgstr ":func:`mmin`: 移動最小値関数。"
+

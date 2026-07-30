@@ -1,0 +1,162 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.mzscore.rst:2
+msgid "mzscore"
+msgstr ""
+
+#: of qfeval_functions.functions.mzscore.mzscore:1
+msgid "Compute the moving (sliding window) z-score of a tensor."
+msgstr "テンソルの移動 z スコア（スライディングウィンドウ z スコア）を計算します。"
+
+#: of qfeval_functions.functions.mzscore.mzscore:3
+msgid ""
+"This function standardizes each element against its own trailing window: "
+"it subtracts the moving average over the ``span`` elements ending at the "
+"position and divides by the moving standard deviation of the same window."
+"  The output tensor has the same shape as the input tensor.  For "
+"positions where the sliding window cannot fully cover preceding elements "
+"(i.e., the first ``span - 1`` elements along the selected dimension), the"
+" result is ``nan``.  This is equivalent to the pandas expression ``(df - "
+"df.rolling(span).mean()) / df.rolling(span).std(ddof=ddof)``."
+msgstr "この関数は、各要素をその位置で終わる直近のウィンドウに対して標準化します。すなわち、その位置で終わる ``span`` 要素の移動平均を引き、同じウィンドウの移動標準偏差で割ります。出力テンソルは入力テンソルと同じ形状になります。スライディングウィンドウが先行要素を完全にカバーできない位置（選択した次元に沿った最初の ``span - 1`` 要素）では、結果は ``nan`` になります。これは pandas の式 ``(df - df.rolling(span).mean()) / df.rolling(span).std(ddof=ddof)`` と等価です。"
+
+#: of qfeval_functions.functions.mzscore.mzscore:12
+msgid "The moving z-score is computed using the formula:"
+msgstr "移動 z スコアは次の式で計算されます:"
+
+#: of qfeval_functions.functions.mzscore.mzscore:14
+#, python-brace-format
+msgid ""
+"\\text{MZSCORE}[i] = \\frac{x[i] - \\mu[i]}{\\sigma[i]}\n"
+"\n"
+msgstr "\\text{MZSCORE}[i] = \\frac{x[i] - \\mu[i]}{\\sigma[i]}\n\n"
+
+#: of qfeval_functions.functions.mzscore.mzscore:17
+msgid ""
+"where :math:`\\mu[i]` is the moving average and :math:`\\sigma[i]` is the"
+" moving standard deviation of the window ending at position :math:`i`. "
+"This is a convenience composition of :func:`ma` and :func:`mstd`, so it "
+"runs in ``O(N)`` time independent of :attr:`span`.  Note that, unlike "
+":func:`mstd` itself, the numerator :math:`x[i] - \\mu[i]` cancels values "
+"of the input's magnitude, so the absolute precision of the z-score is "
+"bounded by the floating-point resolution of inputs with a large offset "
+"relative to their standard deviation."
+msgstr "ここで :math:`\\mu[i]` は位置 :math:`i` で終わるウィンドウの移動平均、:math:`\\sigma[i]` は移動標準偏差です。これは :func:`ma` と :func:`mstd` を組み合わせた便宜的な合成関数であり、:attr:`span` に依存しない ``O(N)`` 時間で実行されます。なお、:func:`mstd` 自体と異なり、分子 :math:`x[i] - \\mu[i]` は入力の桁の値同士の打ち消し合いになるため、標準偏差に比べて大きなオフセットを持つ入力では、z スコアの絶対精度は浮動小数点の分解能によって制限されます。"
+
+#: ../../api/qfeval_functions.functions.mzscore.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mzscore.mzscore:27
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.mzscore.mzscore:30
+msgid "The size of the sliding window. Must be positive."
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
+
+#: of qfeval_functions.functions.mzscore.mzscore:33
+msgid ""
+"The dimension along which to compute the moving z-score. Default is -1 "
+"(the last dimension)."
+msgstr "移動 z スコアを計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: of qfeval_functions.functions.mzscore.mzscore:37
+msgid ""
+"Delta degrees of freedom used for the moving standard deviation. The "
+"divisor used in the variance calculation is ``span - ddof``. Must be less"
+" than ``span``; otherwise the result is NaN. Default is 1 (sample "
+"standard deviation)."
+msgstr "移動標準偏差に使用する自由度のデルタ値。分散計算に使用する除数は ``span - ddof`` です。``span`` より小さい必要があり、そうでない場合、結果は NaN になります。デフォルトは 1（標本標準偏差）です。"
+
+#: ../../api/qfeval_functions.functions.mzscore.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.mzscore.mzscore:43
+msgid ""
+"A tensor of the same shape as the input, containing the moving z-score "
+"values. The first ``span - 1`` elements along the specified dimension are"
+" ``nan``."
+msgstr "入力と同じ形状のテンソルで、移動 z スコアの値を含みます。指定された次元に沿った最初の ``span - 1`` 要素は ``nan`` になります。"
+
+#: ../../api/qfeval_functions.functions.mzscore.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.mzscore.mzscore:49
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mzscore.mzscore:51
+msgid ""
+">>> # A linear ramp has a constant moving z-score\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.mzscore(x, span=3)\n"
+"tensor([nan, nan, 1., 1., 1.])"
+msgstr ">>> # 線形に増加する系列の移動 z スコアは一定になります\n>>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> QF.mzscore(x, span=3)\ntensor([nan, nan, 1., 1., 1.])"
+
+#: of qfeval_functions.functions.mzscore.mzscore:56
+msgid ""
+">>> # Population statistics (ddof=0)\n"
+">>> QF.mzscore(x, span=3, ddof=0)\n"
+"tensor([   nan,    nan, 1.2247, 1.2247, 1.2247])"
+msgstr ">>> # 母集団統計量（ddof=0）\n>>> QF.mzscore(x, span=3, ddof=0)\ntensor([   nan,    nan, 1.2247, 1.2247, 1.2247])"
+
+#: of qfeval_functions.functions.mzscore.mzscore:60
+msgid ""
+">>> # The latest element is standardized against its own window\n"
+">>> x = torch.tensor([1.0, 2.0, 4.0, 0.0])\n"
+">>> QF.mzscore(x, span=2)\n"
+"tensor([    nan,  0.7071,  0.7071, -0.7071])"
+msgstr ">>> # 最新の要素が自身のウィンドウに対して標準化されます\n>>> x = torch.tensor([1.0, 2.0, 4.0, 0.0])\n>>> QF.mzscore(x, span=2)\ntensor([    nan,  0.7071,  0.7071, -0.7071])"
+
+#: of qfeval_functions.functions.mzscore.mzscore:65
+msgid ""
+">>> # A constant window yields NaN\n"
+">>> x = torch.tensor([1.0, 3.0, 3.0, 3.0])\n"
+">>> QF.mzscore(x, span=3)\n"
+"tensor([   nan,    nan, 0.5774,    nan])"
+msgstr ">>> # 定数値のウィンドウは NaN になります\n>>> x = torch.tensor([1.0, 3.0, 3.0, 3.0])\n>>> QF.mzscore(x, span=3)\ntensor([   nan,    nan, 0.5774,    nan])"
+
+#: of qfeval_functions.functions.mzscore.mzscore:70
+msgid ""
+"If a window is constant (zero standard deviation), the moving z-score is "
+"undefined and the result is NaN; in particular, ``span=1`` yields NaN "
+"everywhere.  If a window contains any NaN value, the moving z-score for "
+"that window is NaN.  Unlike ``pandas.DataFrame.rolling``, there is no "
+"``min_periods``-style option to skip NaN values."
+msgstr "ウィンドウが定数（標準偏差がゼロ）の場合、移動 z スコアは未定義であり、結果は NaN になります。特に ``span=1`` ではすべての位置で NaN になります。ウィンドウに NaN 値が 1 つでも含まれる場合、そのウィンドウの移動 z スコアは NaN になります。``pandas.DataFrame.rolling`` と異なり、NaN 値をスキップする ``min_periods`` 相当のオプションはありません。"
+
+#: of qfeval_functions.functions.mzscore.mzscore:78
+msgid ":func:`ma`: Moving average function."
+msgstr ":func:`ma`: 移動平均関数。"
+
+#: of qfeval_functions.functions.mzscore.mzscore:79
+msgid ":func:`mstd`: Moving standard deviation function."
+msgstr ":func:`mstd`: 移動標準偏差関数。"
+
+#: of qfeval_functions.functions.mzscore.mzscore:80
+msgid ":func:`zscore`: Cross-sectional z-score over an entire dimension."
+msgstr ":func:`zscore`: 次元全体に対するクロスセクショナルな z スコア関数。"
+

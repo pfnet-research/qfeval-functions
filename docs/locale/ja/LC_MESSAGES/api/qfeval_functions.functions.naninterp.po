@@ -1,0 +1,147 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.naninterp.rst:2
+msgid "naninterp"
+msgstr ""
+
+#: of qfeval_functions.functions.naninterp.naninterp:1
+msgid "Linearly interpolate NaN values between valid values."
+msgstr "有効値の間にある NaN 値を線形補間します。"
+
+#: of qfeval_functions.functions.naninterp.naninterp:3
+msgid ""
+"This function replaces each NaN value lying strictly between two valid "
+"(non-NaN) values along the specified dimension with its linear "
+"interpolation.  For a NaN at position :math:`t` whose nearest valid "
+"neighbors are at position :math:`p` (before, with value :math:`v_p`) and "
+"position :math:`n` (after, with value :math:`v_n`), the result is:"
+msgstr "この関数は、指定された次元に沿って、2 つの有効値（NaN でない値）に厳密に挟まれた各 NaN 値を、その線形補間で置き換えます。位置 :math:`t` にある NaN について、直前の有効な隣接値の位置を :math:`p`、その値を :math:`v_p`、直後の有効な隣接値の位置を :math:`n`、その値を :math:`v_n` とすると、結果は次のようになります:"
+
+#: of qfeval_functions.functions.naninterp.naninterp:10
+#, python-brace-format
+msgid ""
+"y[t] = v_p + (v_n - v_p) \\cdot \\frac{t - p}{n - p}\n"
+"\n"
+msgstr ""
+"y[t] = v_p + (v_n - v_p) \\cdot \\frac{t - p}{n - p}\n"
+"\n"
+
+#: of qfeval_functions.functions.naninterp.naninterp:13
+msgid ""
+"Leading and trailing NaN values, which lack a valid neighbor on one side,"
+" remain NaN.  Valid values are returned unchanged.  This matches "
+"``Series.interpolate(method=\"linear\", limit_area=\"inside\")`` of "
+"pandas and differs from pandas' default ``interpolate()``, which also "
+"forward-fills trailing NaN values."
+msgstr "片側に有効な隣接値を持たない先頭および末尾の NaN 値は、NaN のまま残ります。有効値は変更されずにそのまま返されます。これは pandas の ``Series.interpolate(method=\"linear\", limit_area=\"inside\")`` と一致し、末尾の NaN 値まで前方補完してしまう pandas のデフォルトの ``interpolate()`` とは異なります。"
+
+#: ../../api/qfeval_functions.functions.naninterp.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.naninterp.naninterp:20
+msgid ""
+"The input tensor containing values to be interpolated.  Must be a "
+"floating point tensor."
+msgstr "補間する値を含む入力テンソル。浮動小数点テンソルである必要があります。"
+
+#: of qfeval_functions.functions.naninterp.naninterp:24
+msgid ""
+"The dimension along which to interpolate. Default is -1 (the last "
+"dimension)."
+msgstr "補間を行う次元。デフォルトは -1 で、最後の次元を意味します。"
+
+#: ../../api/qfeval_functions.functions.naninterp.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.naninterp.naninterp:28
+msgid ""
+"A tensor of the same shape as the input, with interior NaN values "
+"replaced by linear interpolations.  Leading and trailing NaN values "
+"remain NaN."
+msgstr "入力と同じ形状のテンソルで、内側（有効値に挟まれた区間）の NaN 値は線形補間で置き換えられます。先頭および末尾の NaN 値は NaN のままです。"
+
+#: ../../api/qfeval_functions.functions.naninterp.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: ../../api/qfeval_functions.functions.naninterp.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.naninterp.naninterp:33
+msgid "If ``x`` is not a floating point tensor."
+msgstr "``x`` が浮動小数点テンソルでない場合。"
+
+#: of qfeval_functions.functions.naninterp.naninterp:36
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.naninterp.naninterp:38
+msgid ""
+">>> QF.naninterp(torch.tensor([0.0, nan, nan, 3.0]))\n"
+"tensor([0., 1., 2., 3.])"
+msgstr ">>> QF.naninterp(torch.tensor([0.0, nan, nan, 3.0]))\ntensor([0., 1., 2., 3.])"
+
+#: of qfeval_functions.functions.naninterp.naninterp:41
+msgid ""
+">>> # Leading and trailing NaNs remain NaN.\n"
+">>> QF.naninterp(torch.tensor([nan, 1.0, nan, 2.0, nan]))\n"
+"tensor([   nan, 1.0000, 1.5000, 2.0000,    nan])"
+msgstr ">>> # 先頭と末尾の NaN は NaN のままになります。\n>>> QF.naninterp(torch.tensor([nan, 1.0, nan, 2.0, nan]))\ntensor([   nan, 1.0000, 1.5000, 2.0000,    nan])"
+
+#: of qfeval_functions.functions.naninterp.naninterp:45
+msgid ""
+">>> # 2D example with dim=1\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [10.0, nan, 20.0]])\n"
+">>> QF.naninterp(x, dim=1)\n"
+"tensor([[ 1.,  2.,  3.],\n"
+"        [10., 15., 20.]])"
+msgstr ">>> # dim=1 を指定した 2 次元の例\n>>> x = torch.tensor([[1.0, nan, 3.0],\n...                   [10.0, nan, 20.0]])\n>>> QF.naninterp(x, dim=1)\ntensor([[ 1.,  2.,  3.],\n        [10., 15., 20.]])"
+
+#: of qfeval_functions.functions.naninterp.naninterp:52
+msgid ""
+"Infinite values are treated as valid values and are kept as is. A gap "
+"adjacent to a ±inf neighbor is filled following IEEE 754 arithmetic; "
+"e.g., interpolating between a finite value and inf yields inf or NaN "
+"depending on the direction."
+msgstr "無限大の値は有効な値として扱われ、そのまま保持されます。±inf に隣接するギャップは IEEE 754 演算に従って埋められます。例えば、有限値と inf の間の補間は、方向に応じて inf または NaN になります。"
+
+#: of qfeval_functions.functions.naninterp.naninterp:58
+msgid ":func:`ffill`: Forward fill missing values."
+msgstr ":func:`ffill`: 欠損値を前方補完する関数。"
+
+#: of qfeval_functions.functions.naninterp.naninterp:59
+msgid ":func:`bfill`: Backward fill missing values."
+msgstr ":func:`bfill`: 欠損値を後方補完する関数。"
+
+#: of qfeval_functions.functions.naninterp.naninterp:60
+msgid ":func:`fillna`: Replace NaN/infinity values with fixed numbers."
+msgstr ":func:`fillna`: NaN および無限大の値を固定値に置換する関数。"
+
+#: of qfeval_functions.functions.naninterp.naninterp:61
+msgid ":func:`nanema`: Exponential moving average skipping NaN values."
+msgstr ":func:`nanema`: NaN 値をスキップする指数移動平均関数。"
+

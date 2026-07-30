@@ -1,0 +1,187 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.ewmvar.rst:2
+msgid "ewmvar"
+msgstr ""
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:1
+msgid "Compute the exponentially weighted moving variance of a tensor."
+msgstr "テンソルの指数加重移動分散を計算します。"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:3
+msgid ""
+"This function calculates the variance of all elements up to each position"
+" along the specified dimension, giving exponentially larger weights to "
+"more recent values.  It follows the ``adjust=True`` convention of pandas,"
+" so the result matches ``pandas.DataFrame.ewm(alpha=alpha, "
+"adjust=True).var(bias=bias)``."
+msgstr "この関数は、指定された次元に沿って、各位置までのすべての要素の分散を、より新しい値ほど指数的に大きな重みを与えて計算します。pandas の ``adjust=True`` の慣例に従うため、結果は ``pandas.DataFrame.ewm(alpha=alpha, adjust=True).var(bias=bias)`` と一致します。"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:9
+#, python-brace-format
+msgid ""
+"At position :math:`i`, each value :math:`x[j]` (:math:`j \\le i`) "
+"contributes with the weight :math:`w_{ij} = (1 - \\alpha)^{i-j}`, and the"
+" biased variance is the weighted average of squared deviations around the"
+" weighted mean :math:`\\mu[i]`:"
+msgstr "位置 :math:`i` では、各値 :math:`x[j]`\\ （:math:`j \\le i`）が重み :math:`w_{ij} = (1 - \\alpha)^{i-j}` で寄与し、偏りのある分散は加重平均 :math:`\\mu[i]` まわりの二乗偏差の加重平均になります:"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:14
+msgid ""
+"\\mu[i] = \\frac{\\sum_{j=0}^{i} w_{ij} x[j]}{W_1[i]},\n"
+"\\qquad\n"
+"\\text{Var}_b[i] =\n"
+"\\frac{\\sum_{j=0}^{i} w_{ij} (x[j] - \\mu[i])^2}{W_1[i]},\n"
+"\n"
+msgstr "\\mu[i] = \\frac{\\sum_{j=0}^{i} w_{ij} x[j]}{W_1[i]},\n\\qquad\n\\text{Var}_b[i] =\n\\frac{\\sum_{j=0}^{i} w_{ij} (x[j] - \\mu[i])^2}{W_1[i]},\n\n"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:20
+#, python-brace-format
+msgid ""
+"where :math:`W_1[i] = \\sum_{j=0}^{i} w_{ij}`.  With ``bias=False`` (the "
+"default), the result is corrected for the effective sample size implied "
+"by the weights:"
+msgstr "ここで :math:`W_1[i] = \\sum_{j=0}^{i} w_{ij}` です。``bias=False``\\ （デフォルト）の場合、重みから導かれる実効的な標本サイズに応じて結果が補正されます:"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:24
+#, python-brace-format
+msgid ""
+"\\text{Var}[i] = \\text{Var}_b[i] \\cdot\n"
+"\\frac{W_1[i]^2}{W_1[i]^2 - W_2[i]},\n"
+"\\qquad\n"
+"W_2[i] = \\sum_{j=0}^{i} w_{ij}^2.\n"
+"\n"
+msgstr "\\text{Var}[i] = \\text{Var}_b[i] \\cdot\n\\frac{W_1[i]^2}{W_1[i]^2 - W_2[i]},\n\\qquad\nW_2[i] = \\sum_{j=0}^{i} w_{ij}^2.\n\n"
+
+#: ../../api/qfeval_functions.functions.ewmvar.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:31
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:34
+msgid ""
+"The smoothing factor, must be in the range (0, 1). Smaller values result "
+"in more smoothing (slower decay)."
+msgstr "平滑化係数。(0, 1) の範囲内である必要があります。小さい値ほど平滑化が強くなります（減衰が遅くなります）。"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:38
+msgid ""
+"The dimension along which to compute the exponentially weighted moving "
+"variance. Default is -1 (the last dimension)."
+msgstr "指数加重移動分散を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:42
+msgid ""
+"If True, return the biased (population-style) weighted variance. If False"
+" (default), apply the same bias correction as pandas."
+msgstr "True の場合、偏りのある（母集団型の）加重分散を返します。False（デフォルト）の場合、pandas と同じバイアス補正を適用します。"
+
+#: ../../api/qfeval_functions.functions.ewmvar.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:47
+msgid ""
+"A tensor of the same shape as the input, containing the exponentially "
+"weighted moving variance values."
+msgstr "入力と同じ形状のテンソルで、指数加重移動分散の値を含みます。"
+
+#: ../../api/qfeval_functions.functions.ewmvar.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:52
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:54
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.ewmvar(x, alpha=0.5)\n"
+"tensor([   nan, 0.5000, 0.9286, 1.3857, 1.8097])"
+msgstr ">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> QF.ewmvar(x, alpha=0.5)\ntensor([   nan, 0.5000, 0.9286, 1.3857, 1.8097])"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:58
+msgid ""
+">>> # The biased variance defines the first element as zero.\n"
+">>> QF.ewmvar(x, alpha=0.5, bias=True)\n"
+"tensor([0.0000, 0.2222, 0.5306, 0.8622, 1.1675])"
+msgstr ">>> # 偏りのある分散では最初の要素は 0 と定義されます。\n>>> QF.ewmvar(x, alpha=0.5, bias=True)\ntensor([0.0000, 0.2222, 0.5306, 0.8622, 1.1675])"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:62
+msgid ""
+">>> # 2D example along dim=1\n"
+">>> x = torch.tensor([[1.0, 2.0, 4.0, 8.0],\n"
+"...                   [1.0, 1.0, 1.0, 1.0]])\n"
+">>> QF.ewmvar(x, alpha=0.5, dim=1)\n"
+"tensor([[    nan,  0.5000,  2.5000, 11.0714],\n"
+"        [    nan,  0.0000,  0.0000,  0.0000]])"
+msgstr ">>> # dim=1 を指定した 2 次元の例\n>>> x = torch.tensor([[1.0, 2.0, 4.0, 8.0],\n...                   [1.0, 1.0, 1.0, 1.0]])\n>>> QF.ewmvar(x, alpha=0.5, dim=1)\ntensor([[    nan,  0.5000,  2.5000, 11.0714],\n        [    nan,  0.0000,  0.0000,  0.0000]])"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:69
+msgid ""
+"With ``bias=False``, the variance of a single observation is undefined "
+"(:math:`W_1^2 - W_2 = 0`), so the first element along :attr:`dim` is NaN,"
+" exactly as in pandas ``ewm().var()``.  With ``bias=True``, the first "
+"element is 0."
+msgstr "``bias=False`` の場合、1 つの観測値だけの分散は未定義（:math:`W_1^2 - W_2 = 0`）であるため、:attr:`dim` に沿った最初の要素は、pandas の ``ewm().var()`` と全く同様に NaN になります。``bias=True`` の場合、最初の要素は 0 になります。"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:75
+msgid ""
+"For numerical stability, the input is centered on its NaN-aware mean "
+"(:func:`nanmean`) before any moment is accumulated; the variance is "
+"invariant to such a shift.  This keeps the result accurate even for "
+"values with a large offset relative to their variance (e.g., values "
+"around ``1e6`` with a variance of ``1``), though extremely long drifting "
+"series may still lose some precision.  Tiny negative results caused by "
+"rounding are clamped to zero."
+msgstr "数値的安定性のため、モーメントを累積する前に、入力は NaN を考慮した平均（:func:`nanmean`）を引いて中心化されます。分散はこのようなシフトに対して不変です。これにより、分散に比べて大きなオフセットを持つ値（例えば分散が ``1`` で値が ``1e6`` 前後の場合）でも正確な結果が保たれますが、極端に長いドリフトする系列では精度が多少低下する可能性があります。丸めによって生じるごく小さな負の結果は 0 にクランプされます。"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:85
+msgid ""
+"Like :func:`ema`, a NaN value contaminates all subsequent outputs along "
+":attr:`dim`.  This differs from pandas, which skips NaN values instead.  "
+"(:func:`nanema` is the NaN-skipping counterpart of :func:`ema`.)"
+msgstr ":func:`ema` と同様に、NaN 値が現れると、:attr:`dim` に沿ったそれ以降のすべての出力が NaN になります。これは NaN 値をスキップする pandas とは異なります（:func:`nanema` は :func:`ema` の NaN をスキップする対応版です）。"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:91
+msgid ""
+":func:`ewmstd`: Exponentially weighted moving standard deviation (square "
+"root of this)."
+msgstr ":func:`ewmstd`: 指数加重移動標準偏差（この関数の平方根）。"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:93
+msgid ":func:`ewmcovar`: Exponentially weighted moving covariance."
+msgstr ":func:`ewmcovar`: 指数加重移動共分散関数。"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:94
+msgid ":func:`ema`: Exponential moving average (the matching mean)."
+msgstr ":func:`ema`: 指数移動平均（対応する平均）関数。"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:95
+msgid ":func:`mvar`: Moving variance over a fixed-size window."
+msgstr ":func:`mvar`: 固定サイズのウィンドウに対する移動分散関数。"
+

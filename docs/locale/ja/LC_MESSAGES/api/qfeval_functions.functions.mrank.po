@@ -1,0 +1,200 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.mrank.rst:2
+msgid "mrank"
+msgstr ""
+
+#: of qfeval_functions.functions.mrank.mrank:1
+msgid "Compute the moving (sliding window) rank of the latest element."
+msgstr "最新要素の移動順位（スライディングウィンドウ順位）を計算します。"
+
+#: of qfeval_functions.functions.mrank.mrank:3
+msgid ""
+"This function calculates the rank of the newest element within its "
+"trailing window of size :attr:`span` along the specified dimension, "
+"resolving ties by the average rank of the tied group.  The result is "
+"compatible with ``pandas.DataFrame.rolling(span).rank(method=\"average\","
+" pct=pct)``. The output tensor has the same shape as the input tensor.  "
+"For positions where the sliding window cannot fully cover preceding "
+"elements (i.e., the first ``span - 1`` elements along the selected "
+"dimension), the result is ``nan``."
+msgstr "この関数は、指定された次元に沿って、サイズ :attr:`span` の直近のウィンドウ内における最新要素の順位を計算します。同順位は、同順位となったグループの平均順位によって解決されます。結果は ``pandas.DataFrame.rolling(span).rank(method=\"average\", pct=pct)`` と互換性があります。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
+
+#: of qfeval_functions.functions.mrank.mrank:13
+msgid "The moving rank is computed as:"
+msgstr "移動順位は次のように計算されます:"
+
+#: of qfeval_functions.functions.mrank.mrank:15
+msgid ""
+"\\text{MRANK}[i] = \\#\\{j : x[j] < x[i]\\}\n"
+"+ \\frac{\\#\\{j : x[j] = x[i]\\} + 1}{2}\n"
+"\n"
+msgstr ""
+"\\text{MRANK}[i] = \\#\\{j : x[j] < x[i]\\}\n"
+"+ \\frac{\\#\\{j : x[j] = x[i]\\} + 1}{2}\n"
+"\n"
+
+#: of qfeval_functions.functions.mrank.mrank:19
+#, python-brace-format
+msgid ""
+"where :math:`j` ranges over the trailing window :math:`i - \\text{span} +"
+" 1 \\le j \\le i`.  If :attr:`pct` is true, the rank is further divided "
+"by :math:`\\text{span}`."
+msgstr "ここで :math:`j` は直近のウィンドウ :math:`i - \\text{span} + 1 \\le j \\le i` の範囲を動きます。:attr:`pct` が真の場合、順位はさらに :math:`\\text{span}` で除算されます。"
+
+#: ../../api/qfeval_functions.functions.mrank.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mrank.mrank:24
+msgid "The input tensor containing values.  Must be a floating point tensor."
+msgstr "値を含む入力テンソル。浮動小数点テンソルである必要があります。"
+
+#: of qfeval_functions.functions.mrank.mrank:28
+msgid "The size of the sliding window. Must be positive."
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
+
+#: of qfeval_functions.functions.mrank.mrank:31
+msgid ""
+"The dimension along which to compute the moving rank. Default is -1 (the "
+"last dimension)."
+msgstr "移動順位を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: of qfeval_functions.functions.mrank.mrank:35
+#, python-brace-format
+msgid ""
+"If ``True``, return the percentile rank, i.e., the average rank divided "
+"by ``span``, which lies in :math:`(0, 1]`. If ``False``, return the "
+"1-based average rank, which lies in :math:`[1, \\text{span}]`.  Default "
+"is ``True``."
+msgstr "``True`` の場合、パーセンタイル順位、すなわち平均順位を ``span`` で割った値を返します。この値は :math:`(0, 1]` の範囲に収まります。``False`` の場合、1 始まりの平均順位を返します。この値は :math:`[1, \\text{span}]` の範囲に収まります。デフォルトは ``True`` です。"
+
+#: ../../api/qfeval_functions.functions.mrank.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.mrank.mrank:41
+msgid ""
+"A tensor of the same shape as the input, containing the moving rank "
+"values.  The first ``span - 1`` elements along the specified dimension "
+"are ``nan``."
+msgstr "入力と同じ形状のテンソルで、移動順位の値を含みます。指定された次元に沿った最初の ``span - 1`` 要素は ``nan`` になります。"
+
+#: ../../api/qfeval_functions.functions.mrank.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: ../../api/qfeval_functions.functions.mrank.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.mrank.mrank:46
+msgid "If ``span`` is not positive."
+msgstr "``span`` が正でない場合。"
+
+#: of qfeval_functions.functions.mrank.mrank:47
+msgid "If ``span`` is not an integer (``bool`` is rejected)."
+msgstr "``span`` が整数でない場合（``bool`` も拒否されます）。"
+
+#: of qfeval_functions.functions.mrank.mrank:48
+msgid "If ``x`` is not a floating point tensor."
+msgstr "``x`` が浮動小数点テンソルでない場合。"
+
+#: of qfeval_functions.functions.mrank.mrank:51
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mrank.mrank:53
+msgid ""
+">>> # Percentile rank of the latest element (default)\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 2.0, 1.0])\n"
+">>> QF.mrank(x, span=3)\n"
+"tensor([   nan,    nan, 1.0000, 0.5000, 0.3333])"
+msgstr ""
+">>> # 最新要素のパーセンタイル順位（デフォルト）\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 2.0, 1.0])\n"
+">>> QF.mrank(x, span=3)\n"
+"tensor([   nan,    nan, 1.0000, 0.5000, 0.3333])"
+
+#: of qfeval_functions.functions.mrank.mrank:58
+msgid ""
+">>> # 1-based average rank\n"
+">>> QF.mrank(x, span=3, pct=False)\n"
+"tensor([   nan,    nan, 3.0000, 1.5000, 1.0000])"
+msgstr ""
+">>> # 1 始まりの平均順位\n"
+">>> QF.mrank(x, span=3, pct=False)\n"
+"tensor([   nan,    nan, 3.0000, 1.5000, 1.0000])"
+
+#: of qfeval_functions.functions.mrank.mrank:62
+msgid ""
+">>> # Ties are resolved by the average rank.\n"
+">>> QF.mrank(torch.full((4,), 2.0), span=2)\n"
+"tensor([   nan, 0.7500, 0.7500, 0.7500])"
+msgstr ""
+">>> # 同順位は平均順位によって解決されます。\n"
+">>> QF.mrank(torch.full((4,), 2.0), span=2)\n"
+"tensor([   nan, 0.7500, 0.7500, 0.7500])"
+
+#: of qfeval_functions.functions.mrank.mrank:66
+msgid ""
+">>> # 2D tensor with moving rank along rows\n"
+">>> x = torch.tensor([[1.0, 2.0, 3.0],\n"
+"...                   [3.0, 2.0, 1.0]])\n"
+">>> QF.mrank(x, span=2, dim=1)\n"
+"tensor([[   nan, 1.0000, 1.0000],\n"
+"        [   nan, 0.5000, 0.5000]])"
+msgstr ""
+">>> # 2 次元テンソルの行方向の移動順位\n"
+">>> x = torch.tensor([[1.0, 2.0, 3.0],\n"
+"...                   [3.0, 2.0, 1.0]])\n"
+">>> QF.mrank(x, span=2, dim=1)\n"
+"tensor([[   nan, 1.0000, 1.0000],\n"
+"        [   nan, 0.5000, 0.5000]])"
+
+#: of qfeval_functions.functions.mrank.mrank:73
+msgid ""
+"If a window contains any NaN value, the moving rank for that window is "
+"NaN.  This matches ``pandas.DataFrame.rolling``, whose default "
+"``min_periods`` equals the window size."
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動順位は NaN になります。これは、デフォルトの ``min_periods`` がウィンドウサイズに等しい ``pandas.DataFrame.rolling`` の挙動と一致します。"
+
+#: of qfeval_functions.functions.mrank.mrank:78
+msgid ""
+"The implementation compares every window element with the window's latest"
+" element, so it takes ``O(N * span)`` time and memory, unlike the "
+"``O(N)`` moving aggregations such as :func:`msum`."
+msgstr "この実装は、ウィンドウ内のすべての要素をウィンドウの最新要素と比較するため、:func:`msum` のような ``O(N)`` の移動集計とは異なり、``O(N * span)`` の時間とメモリを必要とします。"
+
+#: of qfeval_functions.functions.mrank.mrank:84
+msgid ":func:`rank`: Cross-sectional rank along an entire dimension."
+msgstr ":func:`rank`: 次元全体に沿ったクロスセクション順位。"
+
+#: of qfeval_functions.functions.mrank.mrank:85
+msgid ":func:`mmax`: Moving maximum function."
+msgstr ":func:`mmax`: 移動最大値関数。"
+
+#: of qfeval_functions.functions.mrank.mrank:86
+msgid ":func:`mmin`: Moving minimum function."
+msgstr ":func:`mmin`: 移動最小値関数。"
+

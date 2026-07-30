@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qfeval-functions \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-15 21:46+0900\n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: ja\n"
@@ -61,13 +61,11 @@ msgstr "2 つの平均化手法がサポートされています:"
 #: of qfeval_functions.functions.rsi.rsi:17
 msgid ""
 "``use_sma=False`` (default): Wilder's smoothing (an exponential moving "
-"average), compatible with TA-Lib. See "
-"https://www.investopedia.com/terms/r/rsi.asp"
-msgstr ""
-"``use_sma=False``\\ （デフォルト）: ワイルダー平滑化（指数移動平均の一種）。TA-Lib "
-"と互換性があります。https://www.investopedia.com/terms/r/rsi.asp を参照してください。"
+"average), compatible with TA-Lib except for flat series and NaN handling "
+"(see the notes below). See https://www.investopedia.com/terms/r/rsi.asp"
+msgstr "``use_sma=False``\\ （デフォルト）: ワイルダー平滑化（指数移動平均の一種）。フラットな系列と NaN の扱いを除いて TA-Lib と互換性があります（下記の注記を参照）。https://www.investopedia.com/terms/r/rsi.asp を参照してください。"
 
-#: of qfeval_functions.functions.rsi.rsi:20
+#: of qfeval_functions.functions.rsi.rsi:21
 msgid ""
 "``use_sma=True``: a simple moving average. See https://info.monex.co.jp"
 "/technical-analysis/indicators/005.html"
@@ -75,7 +73,7 @@ msgstr ""
 "``use_sma=True``: 単純移動平均。https://info.monex.co.jp/technical-"
 "analysis/indicators/005.html を参照してください。"
 
-#: of qfeval_functions.functions.rsi.rsi:23
+#: of qfeval_functions.functions.rsi.rsi:24
 msgid ""
 "The first ``span`` elements along the dimension are filled with NaN "
 "because they do not have enough preceding elements.  If the dimension has"
@@ -87,7 +85,7 @@ msgstr ""
 "``span`` 個の価格変化、すなわち ``span + 1`` 個の価格が必要であるため、次元の要素数が ``span`` "
 "以下の場合、出力形状は入力形状と一致したまま、すべての出力値が NaN になります。"
 
-#: of qfeval_functions.functions.rsi.rsi:29
+#: of qfeval_functions.functions.rsi.rsi:30
 msgid ""
 "If a window contains no price changes at all (both the average gain and "
 "the average loss are zero), the RSI is defined to be the neutral value "
@@ -97,13 +95,13 @@ msgstr ""
 "ウィンドウ内に価格変化が全くない場合（平均上昇幅と平均下落幅がともに 0 の場合）、RSI は中立値である 50 と定義されます。注意: "
 "これは、フラットな系列に対して 0 を返す TA-Lib とは意図的に異なる仕様です。"
 
-#: of qfeval_functions.functions.rsi.rsi:34
+#: of qfeval_functions.functions.rsi.rsi:35
 msgid ""
 "NaN values in the input propagate to the output instead of being "
 "converted to valid RSI values:"
 msgstr "入力に含まれる NaN 値は、有効な RSI 値に変換されるのではなく、出力に伝播します:"
 
-#: of qfeval_functions.functions.rsi.rsi:37
+#: of qfeval_functions.functions.rsi.rsi:38
 msgid ""
 "``use_sma=False`` (Wilder's smoothing): once a NaN price change enters "
 "the initial average or the recursive smoothing, all subsequent outputs "
@@ -112,7 +110,7 @@ msgstr ""
 "``use_sma=False``\\ （ワイルダー平滑化）: NaN の価格変化が初期平均または再帰的な平滑化に入った時点以降、すべての出力が "
 "NaN になります。"
 
-#: of qfeval_functions.functions.rsi.rsi:40
+#: of qfeval_functions.functions.rsi.rsi:41
 msgid ""
 "``use_sma=True`` (simple moving average): a NaN price makes up to two "
 "adjacent price changes NaN, and only the outputs whose windows contain "
@@ -121,7 +119,7 @@ msgstr ""
 "``use_sma=True``\\ （単純移動平均）: NaN の価格は隣接する最大 2 個の価格変化を NaN "
 "にし、それらをウィンドウに含む出力（最大 ``span + 1`` 個の位置）だけが NaN になります。"
 
-#: of qfeval_functions.functions.rsi.rsi:44
+#: of qfeval_functions.functions.rsi.rsi:45
 msgid "Operations made undefined by infinite prices also result in NaN."
 msgstr "無限大の価格によって未定義となる演算も NaN になります。"
 
@@ -129,21 +127,21 @@ msgstr "無限大の価格によって未定義となる演算も NaN になり�
 msgid "Parameters"
 msgstr "パラメータ"
 
-#: of qfeval_functions.functions.rsi.rsi:47
+#: of qfeval_functions.functions.rsi.rsi:48
 msgid "The input tensor containing prices."
 msgstr "価格を含む入力テンソル。"
 
-#: of qfeval_functions.functions.rsi.rsi:50
+#: of qfeval_functions.functions.rsi.rsi:51
 msgid "The window size used to average gains and losses. Default is 14."
 msgstr "上昇幅と下落幅の平均化に用いるウィンドウサイズ。デフォルトは 14 です。"
 
-#: of qfeval_functions.functions.rsi.rsi:54
+#: of qfeval_functions.functions.rsi.rsi:55
 msgid ""
 "If ``True``, use a simple moving average instead of Wilder's smoothing.  "
 "Default is ``False``."
 msgstr "``True`` の場合、ワイルダー平滑化の代わりに単純移動平均を使用します。デフォルトは ``False`` です。"
 
-#: of qfeval_functions.functions.rsi.rsi:58
+#: of qfeval_functions.functions.rsi.rsi:59
 msgid ""
 "The dimension along which to compute RSI. Default is -1 (the last "
 "dimension)."
@@ -153,7 +151,7 @@ msgstr "RSI を計算する次元。デフォルトは -1（最後の次元）�
 msgid "Returns"
 msgstr "戻り値"
 
-#: of qfeval_functions.functions.rsi.rsi:62
+#: of qfeval_functions.functions.rsi.rsi:63
 msgid ""
 "A tensor of the same shape as the input, containing RSI values in "
 ":math:`[0, 100]` (the first ``span`` elements along the dimension are "
@@ -168,23 +166,23 @@ msgstr "戻り値の型"
 msgid "Raises"
 msgstr "例外"
 
-#: of qfeval_functions.functions.rsi.rsi:67
+#: of qfeval_functions.functions.rsi.rsi:68
 msgid "If ``span`` is not positive."
 msgstr "``span`` が正でない場合。"
 
-#: of qfeval_functions.functions.rsi.rsi:68
+#: of qfeval_functions.functions.rsi.rsi:69
 msgid "If ``span`` is not an integer (``bool`` is rejected)."
 msgstr "``span`` が整数でない場合（``bool`` も拒否されます）。"
 
-#: of qfeval_functions.functions.rsi.rsi:69
+#: of qfeval_functions.functions.rsi.rsi:70
 msgid "If ``x`` is not a floating point tensor."
 msgstr "``x`` が浮動小数点テンソルでない場合。"
 
-#: of qfeval_functions.functions.rsi.rsi:72
+#: of qfeval_functions.functions.rsi.rsi:73
 msgid "Example"
 msgstr "使用例"
 
-#: of qfeval_functions.functions.rsi.rsi:74
+#: of qfeval_functions.functions.rsi.rsi:75
 msgid ""
 ">>> x = torch.tensor([1.0, 2.0, 3.0, 2.0, 3.0, 4.0, 3.0])\n"
 ">>> QF.rsi(x, span=3)\n"
@@ -194,7 +192,7 @@ msgstr ""
 ">>> QF.rsi(x, span=3)\n"
 "tensor([    nan,     nan,     nan, 66.6667, 77.7778, 85.1852, 56.7901])"
 
-#: of qfeval_functions.functions.rsi.rsi:78
+#: of qfeval_functions.functions.rsi.rsi:79
 msgid ""
 ">>> QF.rsi(x, span=3, use_sma=True)\n"
 "tensor([    nan,     nan,     nan, 66.6667, 66.6667, 66.6667, 66.6667])"
@@ -202,7 +200,7 @@ msgstr ""
 ">>> QF.rsi(x, span=3, use_sma=True)\n"
 "tensor([    nan,     nan,     nan, 66.6667, 66.6667, 66.6667, 66.6667])"
 
-#: of qfeval_functions.functions.rsi.rsi:81
+#: of qfeval_functions.functions.rsi.rsi:82
 msgid ""
 ">>> # A flat series yields the neutral value 50.\n"
 ">>> QF.rsi(torch.full((6,), 5.0), span=3)\n"
@@ -212,15 +210,15 @@ msgstr ""
 ">>> QF.rsi(torch.full((6,), 5.0), span=3)\n"
 "tensor([nan, nan, nan, 50., 50., 50.])"
 
-#: of qfeval_functions.functions.rsi.rsi:85
+#: of qfeval_functions.functions.rsi.rsi:86
 msgid ":func:`rci`: Rank Correlation Index, another momentum indicator."
 msgstr ":func:`rci`: 順位相関指数（RCI）。同種のモメンタム指標。"
 
-#: of qfeval_functions.functions.rsi.rsi:86
+#: of qfeval_functions.functions.rsi.rsi:87
 msgid ":func:`ma`: Simple moving average function."
 msgstr ":func:`ma`: 単純移動平均関数。"
 
-#: of qfeval_functions.functions.rsi.rsi:87
+#: of qfeval_functions.functions.rsi.rsi:88
 msgid ":func:`ema`: Exponential moving average function."
 msgstr ":func:`ema`: 指数移動平均関数。"
 
