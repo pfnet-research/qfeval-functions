@@ -184,10 +184,10 @@ msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、その�
 
 #: of qfeval_functions.functions.mmedian.mmedian:78
 msgid ""
-"Like :func:`mquantile`, this function takes ``O(N * span * log(span))`` "
-"time and ``O(N * span)`` transient memory because each window is sorted "
-"independently."
-msgstr ":func:`mquantile` と同様に、各ウィンドウが独立にソートされるため、この関数は ``O(N * span * log(span))`` の時間と ``O(N * span)`` の一時メモリを必要とします。"
+"This function delegates to :func:`mquantile` with its automatic algorithm "
+"selection: narrow windows or very short outputs use the vectorized sort, "
+"while larger-window workloads use wavelet-matrix range selection."
+msgstr "この関数は :func:`mquantile` の自動アルゴリズム選択に処理を委譲します。狭いウィンドウまたは非常に短い出力ではベクトル化されたソートを、より大きなウィンドウのワークロードでは Wavelet Matrix による範囲選択を使用します。"
 
 #: of qfeval_functions.functions.mmedian.mmedian:83
 msgid ":func:`mquantile`: The underlying moving quantile function."
@@ -200,4 +200,3 @@ msgstr ":func:`nanmedian`: NaN をスキップして次元全体の中央値を�
 #: of qfeval_functions.functions.mmedian.mmedian:85
 msgid ":func:`ma`: Moving average function."
 msgstr ":func:`ma`: 移動平均関数。"
-

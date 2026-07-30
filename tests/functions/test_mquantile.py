@@ -6,10 +6,23 @@ import pytest
 import torch
 
 import qfeval_functions.functions as QF
+from qfeval_functions.functions.mquantile import MQuantileAlgorithm
 
 from .test_utils import assert_basic_properties
 
 QS = (0.0, 0.25, 0.5, 0.9, 1.0)
+ALGORITHMS: tuple[MQuantileAlgorithm, ...] = (
+    "sort",
+    "wavelet",
+)
+ACCELERATOR_DEVICES = [
+    device
+    for device, available in (
+        ("cuda", torch.cuda.is_available()),
+        ("mps", torch.backends.mps.is_available()),
+    )
+    if available
+]
 
 
 def _reference_mquantile(x: torch.Tensor, span: int, q: float) -> torch.Tensor:
@@ -60,6 +73,56 @@ def test_mquantile_all_length_span_alignments() -> None:
                     atol=1e-12,
                     equal_nan=True,
                 )
+
+
+def test_mquantile_wavelet_long_monotone_and_tied_series() -> None:
+    """Exercise wavelet range selection on structured and tied inputs."""
+    span = 64
+    increasing = torch.arange(512, dtype=torch.float64)
+    for x in (increasing, increasing.flip(0), torch.ones_like(increasing)):
+        for q in (0.0, 0.37, 0.5, 1.0):
+            torch.testing.assert_close(
+                QF.mquantile(x, span, q, dim=0, algorithm="wavelet"),
+                _reference_mquantile(x, span, q),
+                equal_nan=True,
+            )
+
+
+def test_mquantile_wavelet_matches_sort() -> None:
+    """Wavelet range selection matches sort on varied exact cases."""
+    torch.manual_seed(19)
+    x = torch.randn(3, 79, dtype=torch.float64)
+    x[0, 11] = math.nan
+    x[1, 23] = math.inf
+    x[1, 51] = -math.inf
+    x[2] = torch.arange(79, dtype=x.dtype).remainder(7)
+
+    for span in (1, 2, 7, 16, 32, 83):
+        for q in (0.0, 0.13, 0.5, 0.91, 1.0):
+            expected = QF.mquantile(x, span, q, dim=1, algorithm="sort")
+            actual = QF.mquantile(x, span, q, dim=1, algorithm="wavelet")
+            torch.testing.assert_close(actual, expected, equal_nan=True)
+
+
+def test_mquantile_auto_large_window_matches_sort() -> None:
+    """The automatic large-window path preserves the reference semantics."""
+    torch.manual_seed(29)
+    x = torch.randn(2, 400, dtype=torch.float64)
+    x[0, 211] = math.nan
+    x[1] = torch.arange(400, dtype=x.dtype).remainder(11)
+    for q in (0.0, 0.37, 0.5, 1.0):
+        expected = QF.mquantile(x, 256, q, dim=1, algorithm="sort")
+        actual = QF.mquantile(x, 256, q, dim=1, algorithm="auto")
+        torch.testing.assert_close(actual, expected, equal_nan=True)
+
+
+def test_mquantile_auto_selection_thresholds() -> None:
+    """The measured crossover policy keeps small workloads on sort."""
+    from qfeval_functions.functions.mquantile import _choose_mquantile_algorithm
+
+    assert _choose_mquantile_algorithm(torch.empty(1, 4_096), 64) == "sort"
+    assert _choose_mquantile_algorithm(torch.empty(1, 4_096), 256) == "wavelet"
+    assert _choose_mquantile_algorithm(torch.empty(1, 260), 256) == "sort"
 
 
 def test_mquantile_known_values() -> None:
@@ -251,6 +314,53 @@ def test_mquantile_dtype_and_shape_preservation() -> None:
             assert_basic_properties(result, x)
 
 
+@pytest.mark.parametrize("device", ACCELERATOR_DEVICES)
+def test_mquantile_accelerator_device(device: str) -> None:
+    """Order-statistic indices are gathered on the input device."""
+    x_cpu = torch.tensor(
+        [[3.0, 1.0, 4.0, 2.0, 5.0], [1.0, math.nan, 3.0, 4.0, 2.0]]
+    )
+    expected = QF.mquantile(x_cpu, 3, 0.25, dim=1)
+    result = QF.mquantile(x_cpu.to(device), 3, 0.25, dim=1)
+    assert result.device.type == device
+    torch.testing.assert_close(result.cpu(), expected, equal_nan=True)
+
+
+@pytest.mark.parametrize("algorithm", ALGORITHMS)
+def test_mquantile_preserves_autograd_path(
+    algorithm: MQuantileAlgorithm,
+) -> None:
+    """Gradients flow to the selected adjacent order statistics."""
+    values = [8.0, 1.0, 6.0, 3.0, 7.0, 2.0, 5.0, 4.0]
+    span = 4
+    q = 0.25
+
+    x = torch.tensor(values, dtype=torch.float64, requires_grad=True)
+    QF.mquantile(x, span, q, dim=0, algorithm=algorithm)[
+        span - 1 :
+    ].sum().backward()
+    actual_grad = x.grad
+
+    reference_x = torch.tensor(values, dtype=torch.float64, requires_grad=True)
+    sorted_windows = reference_x.unfold(0, span, 1).sort(dim=-1).values
+    pos = q * (span - 1)
+    lo = math.floor(pos)
+    frac = pos - lo
+    reference = (
+        sorted_windows[:, lo] * (1 - frac) + sorted_windows[:, lo + 1] * frac
+    )
+    reference.sum().backward()
+
+    torch.testing.assert_close(actual_grad, reference_x.grad)
+
+
+def test_mquantile_empty_batch() -> None:
+    """An empty batch preserves its shape without constructing indices."""
+    x = torch.empty((0, 8), dtype=torch.float64)
+    result = QF.mquantile(x, 3, 0.5, dim=1)
+    assert_basic_properties(result, x)
+
+
 def test_mquantile_q_out_of_range_raises_value_error() -> None:
     """``q`` must be in the range [0, 1]."""
     x = torch.tensor([1.0, 2.0, 3.0])
@@ -283,3 +393,10 @@ def test_mquantile_non_floating_point_input_raises_type_error() -> None:
         x = torch.ones(10, dtype=dtype)
         with pytest.raises(TypeError, match="floating point"):
             QF.mquantile(x, 3, 0.5)
+
+
+def test_mquantile_invalid_algorithm_raises_value_error() -> None:
+    """Unknown implementations are rejected instead of silently falling back."""
+    x = torch.tensor([1.0, 2.0, 3.0])
+    with pytest.raises(ValueError, match="algorithm must be one of"):
+        QF.mquantile(x, 2, 0.5, algorithm="tree")  # type: ignore[arg-type]

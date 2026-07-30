@@ -89,6 +89,13 @@ msgid ""
 "(the last dimension)."
 msgstr "移動分位点を計算する次元。デフォルトは -1（最後の次元）です。"
 
+#: of qfeval_functions.functions.mquantile.mquantile:39
+msgid ""
+"The implementation to use. ``\"sort\"`` is the original all-window sort, "
+"while ``\"wavelet\"`` uses batched range-selection queries in a wavelet matrix. "
+"``\"auto\"`` (default) chooses based on the input size and :attr:`span`."
+msgstr "使用する実装。``\"sort\"`` は従来の全ウィンドウソート、``\"wavelet\"`` は Wavelet Matrix による一括範囲選択クエリを使用します。``\"auto\"`` （デフォルト）は入力サイズと :attr:`span` に基づいて選択します。"
+
 #: ../../api/qfeval_functions.functions.mquantile.rst
 msgid "Returns"
 msgstr "戻り値"
@@ -123,6 +130,10 @@ msgstr "``q`` が ``[0, 1]`` の範囲にない場合。"
 #: of qfeval_functions.functions.mquantile.mquantile:47
 msgid "If ``x`` is not a floating point tensor."
 msgstr "``x`` が浮動小数点テンソルでない場合。"
+
+#: of qfeval_functions.functions.mquantile.mquantile:57
+msgid "If ``algorithm`` is not a supported implementation."
+msgstr "``algorithm`` がサポート対象の実装でない場合。"
 
 #: of qfeval_functions.functions.mquantile.mquantile:50
 msgid "Example"
@@ -209,11 +220,12 @@ msgstr "無限大の値は通常の数値と同様に順序付けられるため
 
 #: of qfeval_functions.functions.mquantile.mquantile:91
 msgid ""
-"Each window is sorted independently, so this function takes ``O(N * span "
-"* log(span))`` time and ``O(N * span)`` transient memory, in contrast to "
-"the ``O(N)`` moving sums and averages (:func:`msum`, :func:`ma`); order "
-"statistics admit no similarly vectorizable ``O(N)`` algorithm."
-msgstr "各ウィンドウは独立にソートされるため、この関数は ``O(N * span * log(span))`` の時間と ``O(N * span)`` の一時メモリを必要とします。これは ``O(N)`` の移動合計・移動平均（:func:`msum`、:func:`ma`）とは対照的です。順序統計量には、同様にベクトル化可能な ``O(N)`` アルゴリズムは存在しません。"
+"The ``\"wavelet\"`` algorithm avoids the original ``O(N * span)`` all-"
+"window materialization and takes "
+"``O(N * log(N) + N * log(U))`` time including coordinate compression, "
+"with linear workspace per slice, where ``U`` is the number of distinct "
+"values."
+msgstr "``\"wavelet\"`` アルゴリズムは、従来の ``O(N * span)`` 個の全ウィンドウ要素の実体化を回避します。座標圧縮を含めて ``O(N * log(N) + N * log(U))`` 時間を必要とし、スライスごとの作業領域は線形です。ここで ``U`` は異なる値の個数です。"
 
 #: of qfeval_functions.functions.mquantile.mquantile:98
 msgid ":func:`mmedian`: Moving median function (this with ``q=0.5``)."
@@ -230,4 +242,3 @@ msgstr ":func:`mmax`: 移動最大値関数。"
 #: of qfeval_functions.functions.mquantile.mquantile:102
 msgid ":func:`mmin`: Moving minimum function."
 msgstr ":func:`mmin`: 移動最小値関数。"
-
