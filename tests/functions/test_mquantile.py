@@ -13,6 +13,7 @@ from .test_utils import assert_basic_properties
 QS = (0.0, 0.25, 0.5, 0.9, 1.0)
 ALGORITHMS: tuple[MQuantileAlgorithm, ...] = (
     "sort",
+    "select",
     "wavelet",
 )
 ACCELERATOR_DEVICES = [
@@ -121,8 +122,23 @@ def test_mquantile_auto_selection_thresholds() -> None:
     from qfeval_functions.functions.mquantile import _choose_mquantile_algorithm
 
     assert _choose_mquantile_algorithm(torch.empty(1, 4_096), 64) == "sort"
-    assert _choose_mquantile_algorithm(torch.empty(1, 4_096), 256) == "wavelet"
+    assert _choose_mquantile_algorithm(torch.empty(1, 4_096), 128) == "wavelet"
     assert _choose_mquantile_algorithm(torch.empty(1, 260), 256) == "sort"
+
+
+def test_mquantile_auto_endpoint_fast_path_matches_sort() -> None:
+    """Endpoint quantiles use linear moving extrema without changing results."""
+    torch.manual_seed(31)
+    x = torch.randn(3, 400, dtype=torch.float64)
+    x[0, 211] = math.nan
+    x[1, 170] = math.inf
+    x[2] = torch.arange(400, dtype=x.dtype).remainder(13)
+    for q in (0.0, 1.0):
+        torch.testing.assert_close(
+            QF.mquantile(x, 256, q, dim=1),
+            QF.mquantile(x, 256, q, dim=1, algorithm="sort"),
+            equal_nan=True,
+        )
 
 
 def test_mquantile_known_values() -> None:

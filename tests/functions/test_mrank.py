@@ -71,6 +71,27 @@ def test_mrank_all_length_span_alignments() -> None:
                     np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
+def test_mrank_large_window_wavelet_matches_comparison() -> None:
+    """The automatic large-window path preserves ties and NaN semantics."""
+    from qfeval_functions.functions.mrank import _mrank_compare
+    from qfeval_functions.functions.mrank import _mrank_wavelet
+
+    torch.manual_seed(23)
+    x = torch.randn(3, 640, dtype=torch.float64)
+    x[0, 311] = math.nan
+    x[1] = torch.arange(640, dtype=x.dtype).remainder(17)
+    x[2, 200] = math.inf
+    x[2, 400] = -math.inf
+    for pct in (True, False):
+        expected = _mrank_compare(x, 513, pct)
+        torch.testing.assert_close(
+            _mrank_wavelet(x, 513, pct), expected, equal_nan=True
+        )
+        torch.testing.assert_close(
+            QF.mrank(x, 513, dim=1, pct=pct), expected, equal_nan=True
+        )
+
+
 def test_mrank_known_values() -> None:
     """Test moving rank with simple known data."""
     x = torch.tensor([1.0, 2.0, 3.0, 2.0, 1.0])

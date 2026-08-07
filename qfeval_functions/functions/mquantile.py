@@ -2,11 +2,17 @@ import math
 import typing
 
 import torch
+import torch.nn.functional as F
 
+from ._moving_order import _apply_partition
+from ._moving_order import _coordinate_ranks
+from ._moving_order import _stable_partition_destination
+from ._moving_order import _window_has_nan
 from .apply_for_axis import apply_for_axis
+from .mmax import mmax
 
-MQuantileAlgorithm = typing.Literal["auto", "sort", "wavelet"]
-_MQUANTILE_ALGORITHMS = frozenset(("auto", "sort", "wavelet"))
+MQuantileAlgorithm = typing.Literal["auto", "sort", "select", "wavelet"]
+_MQUANTILE_ALGORITHMS = frozenset(("auto", "sort", "select", "wavelet"))
 
 
 def _quantile_position(span: int, q: float) -> tuple[int, int, float]:
@@ -48,8 +54,37 @@ def _mquantile_sort(x: torch.Tensor, span: int, q: float) -> torch.Tensor:
     lower = sorted_windows[..., lo]
     upper = None if lo == hi else sorted_windows[..., hi]
     completed = _interpolate_order_statistics(lower, upper, frac)
-    completed = completed.masked_fill(windows.isnan().any(dim=-1), math.nan)
+    completed = completed.masked_fill(_window_has_nan(x, span), math.nan)
     return _prepend_incomplete(x, completed, span)
+
+
+def _mquantile_select(x: torch.Tensor, span: int, q: float) -> torch.Tensor:
+    """Compute moving quantiles with one or two order-statistic selections."""
+    if x.shape[1] < span:
+        return torch.full_like(x, math.nan)
+    if span == 1 or x.shape[0] == 0:
+        return x.clone()
+
+    windows = x.unfold(1, span, 1)
+    lo, hi, frac = _quantile_position(span, q)
+    lower = windows.kthvalue(lo + 1, dim=-1).values
+    upper = None if lo == hi else windows.kthvalue(hi + 1, dim=-1).values
+    completed = _interpolate_order_statistics(lower, upper, frac)
+    completed = completed.masked_fill(_window_has_nan(x, span), math.nan)
+    return _prepend_incomplete(x, completed, span)
+
+
+def _mquantile_extremum(
+    x: torch.Tensor, span: int, largest: bool
+) -> torch.Tensor:
+    """Compute the exact endpoint quantiles with a linear moving extremum."""
+    if x.shape[1] < span:
+        return torch.full_like(x, math.nan)
+    if span == 1 or x.shape[0] == 0:
+        return x.clone()
+
+    moving = mmax(x, span, dim=1) if largest else -mmax(-x, span, dim=1)
+    return _prepend_incomplete(x, moving[:, span - 1 :], span)
 
 
 def _wavelet_order_indices(
@@ -70,56 +105,63 @@ def _wavelet_order_indices(
     ordering_values = torch.where(
         is_nan, torch.zeros_like(ordering_values), ordering_values
     )
-    unique_values, sequence = torch.unique(
-        ordering_values, sorted=True, return_inverse=True
-    )
+    sequence = _coordinate_ranks(ordering_values)
 
-    window_count = values.shape[0] - span + 1
-    starts = torch.arange(window_count, dtype=torch.long, device=values.device)
+    batch_size, length = values.shape
+    window_count = length - span + 1
+    starts = torch.arange(
+        window_count, dtype=torch.long, device=values.device
+    ).view(1, 1, window_count)
     query_count = len(orders)
-    left = starts.unsqueeze(0).expand(query_count, -1).clone()
+    left = starts.expand(batch_size, query_count, window_count).clone()
     right = left + span
     kth = (
         torch.tensor(orders, dtype=torch.long, device=values.device)
-        .unsqueeze(1)
-        .expand(-1, window_count)
+        .view(1, query_count, 1)
+        .expand(batch_size, query_count, window_count)
         .clone()
     )
 
-    permutation = torch.arange(
-        values.shape[0], dtype=torch.long, device=values.device
+    permutation = (
+        torch.arange(length, dtype=torch.long, device=values.device)
+        .view(1, length)
+        .expand(batch_size, length)
+        .clone()
     )
-    bit_count = max(1, (unique_values.numel() - 1).bit_length())
+    bit_count = max(1, (length - 1).bit_length())
     for shift in range(bit_count - 1, -1, -1):
         is_zero = ((sequence >> shift) & 1) == 0
-        zero_prefix = torch.cat(
-            (
-                torch.zeros(1, dtype=torch.long, device=values.device),
-                is_zero.to(torch.long).cumsum(dim=0),
-            )
+        zero_prefix = F.pad(
+            is_zero.to(torch.long).cumsum(dim=1),
+            (1, 0),
         )
-        zero_left = zero_prefix[left]
-        zero_right = zero_prefix[right]
+        zero_left = zero_prefix.gather(
+            1, left.reshape(batch_size, -1)
+        ).reshape_as(left)
+        zero_right = zero_prefix.gather(
+            1, right.reshape(batch_size, -1)
+        ).reshape_as(right)
         zeros_in_range = zero_right - zero_left
         take_one = kth >= zeros_in_range
-        zero_count = zero_prefix[-1]
+        zero_count = zero_prefix[:, -1:].view(batch_size, 1, 1)
         left = torch.where(take_one, zero_count + left - zero_left, zero_left)
         right = torch.where(
             take_one, zero_count + right - zero_right, zero_right
         )
         kth = torch.where(take_one, kth - zeros_in_range, kth)
 
-        permutation = torch.cat((permutation[is_zero], permutation[~is_zero]))
-        sequence = torch.cat((sequence[is_zero], sequence[~is_zero]))
+        destination = _stable_partition_destination(is_zero)
+        permutation = _apply_partition(permutation, destination)
+        sequence = _apply_partition(sequence, destination)
 
-    selected = permutation[left + kth]
-    nan_prefix = torch.cat(
-        (
-            torch.zeros(1, dtype=torch.long, device=values.device),
-            is_nan.to(torch.long).cumsum(dim=0),
-        )
+    selected = permutation.gather(
+        1, (left + kth).reshape(batch_size, -1)
+    ).reshape(batch_size, query_count, window_count)
+    nan_prefix = F.pad(
+        is_nan.to(torch.long).cumsum(dim=1),
+        (1, 0),
     )
-    invalid = (nan_prefix[span:] - nan_prefix[:-span]) != 0
+    invalid = (nan_prefix[:, span:] - nan_prefix[:, :-span]) != 0
     return selected, invalid
 
 
@@ -132,16 +174,13 @@ def _mquantile_wavelet(x: torch.Tensor, span: int, q: float) -> torch.Tensor:
 
     lo, hi, frac = _quantile_position(span, q)
     orders = (lo,) if lo == hi else (lo, hi)
-    rows: list[torch.Tensor] = []
-    for values in x:
-        indices, invalid = _wavelet_order_indices(values, span, orders)
-        selected = values[indices]
-        lower = selected[0]
-        upper = None if lo == hi else selected[1]
-        completed = _interpolate_order_statistics(lower, upper, frac)
-        rows.append(completed.masked_fill(invalid, math.nan))
-
-    return _prepend_incomplete(x, torch.stack(rows), span)
+    indices, invalid = _wavelet_order_indices(x, span, orders)
+    selected = x.gather(1, indices.flatten(1)).reshape_as(indices)
+    lower = selected[:, 0]
+    upper = None if lo == hi else selected[:, 1]
+    completed = _interpolate_order_statistics(lower, upper, frac)
+    completed = completed.masked_fill(invalid, math.nan)
+    return _prepend_incomplete(x, completed, span)
 
 
 def _choose_mquantile_algorithm(
@@ -152,8 +191,8 @@ def _choose_mquantile_algorithm(
     # Sorting is highly vectorized and wins for narrow windows.  It also
     # avoids wavelet-matrix setup when only a handful of windows exist.
     # Benchmarks in `benchmarks/mquantile_results.md` show the crossover
-    # near span=256 on CPU for both one and multiple slices.
-    if span < 256 or window_count <= 8:
+    # near span=128 on CPU after vectorizing across slices.
+    if span < 128 or window_count <= 8:
         return "sort"
     return "wavelet"
 
@@ -164,6 +203,13 @@ def _mquantile(
     q: float,
     algorithm: MQuantileAlgorithm,
 ) -> torch.Tensor:
+    if algorithm == "auto":
+        if q == 0.0 or q == 1.0:
+            return _mquantile_extremum(x, span, largest=q == 1.0)
+        lo, hi, _ = _quantile_position(span, q)
+        if span < 128 and lo == hi:
+            return _mquantile_select(x, span, q)
+
     selected_algorithm = (
         _choose_mquantile_algorithm(x, span)
         if algorithm == "auto"
@@ -171,6 +217,8 @@ def _mquantile(
     )
     if selected_algorithm == "sort":
         return _mquantile_sort(x, span, q)
+    if selected_algorithm == "select":
+        return _mquantile_select(x, span, q)
     if selected_algorithm == "wavelet":
         return _mquantile_wavelet(x, span, q)
     raise AssertionError(f"Unhandled mquantile algorithm: {selected_algorithm}")
@@ -218,11 +266,12 @@ def mquantile(
         dim (int, optional):
             The dimension along which to compute the moving quantile.
             Default is -1 (the last dimension).
-        algorithm ({"auto", "sort", "wavelet"}, optional):
+        algorithm ({"auto", "sort", "select", "wavelet"}, optional):
             The implementation to use. ``"sort"`` is the original
-            all-window sort, while ``"wavelet"`` uses batched
-            range-selection queries in a wavelet matrix. ``"auto"``
-            (default) chooses based on the input size and :attr:`span`.
+            all-window sort, ``"select"`` uses one or two ``kthvalue``
+            operations per window, and ``"wavelet"`` uses batched range
+            selection in a wavelet matrix. ``"auto"`` (default) also
+            specializes endpoint quantiles as linear moving extrema.
 
     Returns:
         Tensor:
@@ -282,8 +331,8 @@ def mquantile(
         The ``"wavelet"`` algorithm avoids the original
         ``O(N * span)`` all-window materialization and takes
         ``O(N * log(N) + N * log(U))`` time including coordinate
-        compression, with linear workspace per slice, where ``U`` is the
-        number of distinct values.
+        compression, with linear workspace, where ``U`` is the number of
+        distinct values. Endpoint quantiles use an ``O(N)`` algorithm.
 
     .. seealso::
         - :func:`mmedian`: Moving median function (this with ``q=0.5``).

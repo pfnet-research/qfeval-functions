@@ -1,11 +1,23 @@
 import math
 
 import torch
+import torch.nn.functional as F
 
+from ._moving_order import _apply_partition
+from ._moving_order import _coordinate_ranks
+from ._moving_order import _stable_partition_destination
+from ._moving_order import _window_has_nan
 from .apply_for_axis import apply_for_axis
 
 
-def _mrank(x: torch.Tensor, span: int, pct: bool) -> torch.Tensor:
+def _prepend_incomplete(
+    x: torch.Tensor, completed: torch.Tensor, span: int
+) -> torch.Tensor:
+    nans = x.new_full((x.shape[0], span - 1), math.nan)
+    return torch.cat((nans, completed), dim=1)
+
+
+def _mrank_compare(x: torch.Tensor, span: int, pct: bool) -> torch.Tensor:
     """Returns the moving rank of the latest element of the given tensor
     ``x``, whose shape is ``(B, N)``, along the 2nd dimension."""
 
@@ -28,11 +40,75 @@ def _mrank(x: torch.Tensor, span: int, pct: bool) -> torch.Tensor:
         r = r / span
 
     # 4. A window containing NaN has no well-defined rank.
-    r = r.masked_fill(torch.isnan(w).any(dim=-1), math.nan)
+    r = r.masked_fill(_window_has_nan(x, span), math.nan)
 
     # 5. Prepend NaNs for the first `span - 1` positions.
-    nans = x.new_full((x.shape[0], span - 1), math.nan)
-    return torch.cat((nans, r), dim=1)
+    return _prepend_incomplete(x, r, span)
+
+
+def _mrank_wavelet(x: torch.Tensor, span: int, pct: bool) -> torch.Tensor:
+    """Compute moving ranks with batched wavelet-matrix range counts."""
+    if x.shape[1] < span:
+        return torch.full_like(x, math.nan)
+    if x.shape[0] == 0:
+        return x.clone()
+
+    batch_size, length = x.shape
+    window_count = length - span + 1
+    ordering_values = x.detach()
+    ordering_values = torch.where(
+        ordering_values.isnan(),
+        torch.zeros_like(ordering_values),
+        ordering_values,
+    )
+    sequence = _coordinate_ranks(ordering_values)
+    targets = sequence[:, span - 1 :].clone()
+
+    left = (
+        torch.arange(window_count, dtype=torch.long, device=x.device)
+        .view(1, window_count)
+        .expand(batch_size, window_count)
+        .clone()
+    )
+    right = left + span
+    less = torch.zeros_like(left)
+
+    bit_count = max(1, (length - 1).bit_length())
+    for shift in range(bit_count - 1, -1, -1):
+        is_zero = ((sequence >> shift) & 1) == 0
+        zero_prefix = F.pad(
+            is_zero.to(torch.long).cumsum(dim=1),
+            (1, 0),
+        )
+        zero_left = zero_prefix.gather(1, left)
+        zero_right = zero_prefix.gather(1, right)
+        zeros_in_range = zero_right - zero_left
+        take_one = ((targets >> shift) & 1) != 0
+        zero_count = zero_prefix[:, -1:]
+
+        less = less + torch.where(take_one, zeros_in_range, 0)
+        left = torch.where(take_one, zero_count + left - zero_left, zero_left)
+        right = torch.where(
+            take_one, zero_count + right - zero_right, zero_right
+        )
+
+        destination = _stable_partition_destination(is_zero)
+        sequence = _apply_partition(sequence, destination)
+
+    equal = right - left
+    result = less.to(x.dtype) + (equal.to(x.dtype) + 1) / 2
+    if pct:
+        result = result / span
+    result = result.masked_fill(_window_has_nan(x, span), math.nan)
+    return _prepend_incomplete(x, result, span)
+
+
+def _mrank(x: torch.Tensor, span: int, pct: bool) -> torch.Tensor:
+    """Choose the fastest measured exact moving-rank implementation."""
+    window_count = max(0, x.shape[1] - span + 1)
+    if span < 512 or (span == 512 and x.shape[0] < 8) or window_count <= 8:
+        return _mrank_compare(x, span, pct)
+    return _mrank_wavelet(x, span, pct)
 
 
 def mrank(
@@ -114,10 +190,10 @@ def mrank(
         default ``min_periods`` equals the window size.
 
     .. note::
-        The implementation compares every window element with the
-        window's latest element, so it takes ``O(N * span)`` time and
-        memory, unlike the ``O(N)`` moving aggregations such as
-        :func:`msum`.
+        Narrow windows use a fully vectorized comparison. Larger windows
+        use wavelet-matrix range counts, avoiding ``O(N * span)`` window
+        materialization and taking ``O(N * log(N))`` time with linear
+        workspace.
 
     .. seealso::
         - :func:`rank`: Cross-sectional rank along an entire dimension.

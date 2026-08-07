@@ -168,10 +168,11 @@ msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、その�
 
 #: of qfeval_functions.functions.margmax.margmax:73
 msgid ""
-"The implementation compares every window element with the window maximum,"
-" so it takes ``O(N * span)`` time and memory, unlike the ``O(N)`` moving "
-"aggregations such as :func:`mmax`."
-msgstr "この実装は、ウィンドウ内のすべての要素をウィンドウ最大値と比較するため、:func:`mmax` のような ``O(N)`` の移動集計とは異なり、``O(N * span)`` の時間とメモリを必要とします。"
+"Narrow windows use a vectorized reduction. Larger windows combine a linear"
+" moving maximum with batched predecessor queries, avoiding ``O(N * span)``"
+" window materialization and taking ``O(N * log(N))`` time with linear "
+"workspace."
+msgstr "狭いウィンドウではベクトル化されたリダクションを使用します。大きなウィンドウでは線形時間の移動最大値と一括先行要素クエリを組み合わせ、``O(N * span)`` のウィンドウ実体化を回避して、線形の作業領域で ``O(N * log(N))`` 時間を要します。"
 
 #: of qfeval_functions.functions.margmax.margmax:78
 msgid ":func:`margmin`: Number of periods since the moving minimum."
@@ -184,4 +185,3 @@ msgstr ":func:`mmax`: 移動最大値関数。"
 #: of qfeval_functions.functions.margmax.margmax:80
 msgid ":func:`mrank`: Moving rank of the latest element."
 msgstr ":func:`mrank`: 最新要素の移動順位。"
-

@@ -82,9 +82,9 @@ def mmedian(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
 
     .. note::
         This function delegates to :func:`mquantile` with its automatic
-        algorithm selection: narrow windows or very short outputs use
-        the vectorized sort, while larger-window workloads use
-        wavelet-matrix range selection.
+        algorithm selection: narrow windows use vectorized window
+        operations, while larger-window workloads use wavelet-matrix
+        range selection.
 
     .. seealso::
         - :func:`mquantile`: The underlying moving quantile function.

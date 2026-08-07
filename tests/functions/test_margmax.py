@@ -54,6 +54,29 @@ def test_margmax_all_length_span_alignments() -> None:
                 np.testing.assert_allclose(result.numpy(), expected.numpy())
 
 
+def test_margmax_large_window_predecessor_matches_reduction() -> None:
+    """The large-window predecessor path preserves ties and special values."""
+    from qfeval_functions.functions.margmax import _mextremum_distance_compare
+    from qfeval_functions.functions.margmax import (
+        _mextremum_distance_predecessor,
+    )
+
+    torch.manual_seed(37)
+    x = torch.randn(4, 400, dtype=torch.float64)
+    x[0, 211] = math.nan
+    x[1] = torch.arange(400, dtype=x.dtype).remainder(13)
+    x[2, 120] = math.inf
+    expected = _mextremum_distance_compare(x, 256, largest=True)
+    torch.testing.assert_close(
+        _mextremum_distance_predecessor(x, 256, largest=True),
+        expected,
+        equal_nan=True,
+    )
+    torch.testing.assert_close(
+        QF.margmax(x, 256, dim=1), expected, equal_nan=True
+    )
+
+
 def test_margmax_pandas_cross_check() -> None:
     """Cross-check against a pandas rolling.apply implementation."""
     a = QF.randn(100, 10)

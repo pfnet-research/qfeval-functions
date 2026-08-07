@@ -79,9 +79,10 @@ def margmin(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
     .. note::
         ``margmin(x, span, dim)`` is equivalent to
         ``margmax(-x, span, dim)``.  Both share the same implementation,
-        which compares every window element with the window extremum and
-        thus takes ``O(N * span)`` time and memory, unlike the ``O(N)``
-        moving aggregations such as :func:`mmin`.
+        using a vectorized reduction for narrow windows and batched
+        predecessor queries for larger windows. The latter avoids
+        ``O(N * span)`` window materialization and takes
+        ``O(N * log(N))`` time with linear workspace.
 
     .. seealso::
         - :func:`margmax`: Number of periods since the moving maximum.

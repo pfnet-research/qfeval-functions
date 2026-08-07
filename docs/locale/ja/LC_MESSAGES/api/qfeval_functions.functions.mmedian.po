@@ -185,9 +185,9 @@ msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、その�
 #: of qfeval_functions.functions.mmedian.mmedian:78
 msgid ""
 "This function delegates to :func:`mquantile` with its automatic algorithm "
-"selection: narrow windows or very short outputs use the vectorized sort, "
-"while larger-window workloads use wavelet-matrix range selection."
-msgstr "この関数は :func:`mquantile` の自動アルゴリズム選択に処理を委譲します。狭いウィンドウまたは非常に短い出力ではベクトル化されたソートを、より大きなウィンドウのワークロードでは Wavelet Matrix による範囲選択を使用します。"
+"selection: narrow windows use vectorized window operations, while larger-"
+"window workloads use wavelet-matrix range selection."
+msgstr "この関数は :func:`mquantile` の自動アルゴリズム選択に処理を委譲します。狭いウィンドウではベクトル化されたウィンドウ演算を、より大きなウィンドウのワークロードでは Wavelet Matrix による範囲選択を使用します。"
 
 #: of qfeval_functions.functions.mmedian.mmedian:83
 msgid ":func:`mquantile`: The underlying moving quantile function."

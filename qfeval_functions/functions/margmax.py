@@ -2,48 +2,120 @@ import math
 
 import torch
 
+from ._moving_order import _window_has_nan
 from .apply_for_axis import apply_for_axis
+from .mmax import mmax
+
+
+def _prepend_incomplete(
+    x: torch.Tensor, completed: torch.Tensor, span: int
+) -> torch.Tensor:
+    nans = x.new_full((x.shape[0], span - 1), math.nan)
+    return torch.cat((nans, completed), dim=1)
+
+
+def _mextremum_distance_compare(
+    x: torch.Tensor, span: int, largest: bool
+) -> torch.Tensor:
+    """Compute extremum distances by reducing materialized windows."""
+    if x.shape[1] < span:
+        return torch.full_like(x, math.nan)
+
+    # Reversing each window makes the first extremum the most recent one,
+    # so the reduction result is already the elapsed-period count.
+    windows = x.unfold(1, span, 1).flip(-1)
+    if largest:
+        distance = windows.argmax(dim=-1)
+    else:
+        distance = windows.argmin(dim=-1)
+    completed = distance.to(x.dtype)
+    completed = completed.masked_fill(_window_has_nan(x, span), math.nan)
+    return _prepend_incomplete(x, completed, span)
+
+
+def _mextremum_distance_predecessor(
+    x: torch.Tensor, span: int, largest: bool
+) -> torch.Tensor:
+    """Compute distances with moving extrema and offline predecessors."""
+    if x.shape[1] < span:
+        return torch.full_like(x, math.nan)
+    if x.shape[0] == 0:
+        return x.clone()
+
+    batch_size, length = x.shape
+    prefix_length = span - 1
+    ordering_values = x if largest else -x
+    moving = mmax(ordering_values, span, dim=1)
+
+    # Interleave each complete-window extremum query immediately after its
+    # input event. A stable value sort then groups equal values while
+    # retaining time order, reducing every query to a predecessor lookup.
+    tail = torch.stack(
+        (ordering_values[:, prefix_length:], moving[:, prefix_length:]),
+        dim=-1,
+    ).flatten(1)
+    combined = torch.cat((ordering_values[:, :prefix_length], tail), dim=1)
+
+    completed_times = torch.arange(
+        prefix_length, length, dtype=torch.long, device=x.device
+    )
+    tail_event_times = torch.stack(
+        (completed_times, torch.full_like(completed_times, -1)),
+        dim=-1,
+    ).flatten()
+    event_times = (
+        torch.cat(
+            (
+                torch.arange(prefix_length, dtype=torch.long, device=x.device),
+                tail_event_times,
+            )
+        )
+        .view(1, -1)
+        .expand(batch_size, -1)
+    )
+
+    ordering = combined.argsort(dim=1, stable=True)
+    sorted_event_times = event_times.gather(1, ordering)
+    sorted_positions = (
+        torch.arange(combined.shape[1], dtype=torch.long, device=x.device)
+        .view(1, -1)
+        .expand(batch_size, -1)
+    )
+    previous_event_position = (
+        torch.where(sorted_event_times >= 0, sorted_positions, -1)
+        .cummax(dim=1)
+        .values
+    )
+    latest_time_sorted = sorted_event_times.gather(
+        1, previous_event_position.clamp_min(0)
+    )
+    latest_time = torch.empty_like(latest_time_sorted)
+    latest_time.scatter_(1, ordering, latest_time_sorted)
+    latest_completed = latest_time[:, span::2]
+
+    current_time = completed_times.to(x.dtype)
+    completed = current_time - latest_completed.to(x.dtype)
+    completed = completed.masked_fill(_window_has_nan(x, span), math.nan)
+    return _prepend_incomplete(x, completed, span)
 
 
 def _mextremum_distance(
     x: torch.Tensor, span: int, largest: bool
 ) -> torch.Tensor:
-    """Returns the number of periods elapsed since the extremum of each
-    trailing window of the given tensor ``x``, whose shape is ``(B, N)``,
-    along the 2nd dimension.
+    """Return periods since each trailing-window extremum.
 
-    If ``largest`` is true, the extremum is the window maximum; otherwise,
-    it is the window minimum.  Ties are resolved to the most recent
-    occurrence, i.e., the smallest distance.
+    Ties resolve to the most recent occurrence. The implementation is
+    selected from measured small- and large-window algorithms.
     """
-
-    # 1. A series shorter than the window has no valid output position.
-    if x.shape[1] < span:
-        return torch.full_like(x, math.nan)
-
-    # 2. Materialize all windows as `(B, N - span + 1, span)` and mark the
-    # elements attaining the window extremum.
-    w = x.unfold(1, span, 1)
-    if largest:
-        m = w.amax(dim=-1, keepdim=True)
-    else:
-        m = w.amin(dim=-1, keepdim=True)
-    tie = w == m
-
-    # 3. Take the largest marked window index, i.e., the most recent
-    # occurrence of the extremum.  For a window containing NaN, `m` is NaN,
-    # so `tie` is all false and the index falls back to 0, but such
-    # windows are overwritten with NaN below anyway.
-    idx = torch.arange(span, device=x.device)
-    most_recent = (tie * idx).amax(dim=-1)
-    dist = (span - 1 - most_recent).to(x.dtype)
-
-    # 4. A window containing NaN has no well-defined extremum.
-    dist = dist.masked_fill(torch.isnan(w).any(dim=-1), math.nan)
-
-    # 5. Prepend NaNs for the first `span - 1` positions.
-    nans = x.new_full((x.shape[0], span - 1), math.nan)
-    return torch.cat((nans, dist), dim=1)
+    window_count = max(0, x.shape[1] - span + 1)
+    enough_parallel_work = x.shape[0] * span >= 1_024
+    if (
+        span < 128
+        or (span < 512 and not enough_parallel_work)
+        or window_count <= 8
+    ):
+        return _mextremum_distance_compare(x, span, largest)
+    return _mextremum_distance_predecessor(x, span, largest)
 
 
 def margmax(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
@@ -119,9 +191,10 @@ def margmax(x: torch.Tensor, span: int, dim: int = -1) -> torch.Tensor:
         does not affect the result unless it is the window maximum.
 
     .. note::
-        The implementation compares every window element with the window
-        maximum, so it takes ``O(N * span)`` time and memory, unlike the
-        ``O(N)`` moving aggregations such as :func:`mmax`.
+        Narrow windows use a vectorized reduction. Larger windows combine
+        a linear moving maximum with batched predecessor queries, avoiding
+        ``O(N * span)`` window materialization and taking
+        ``O(N * log(N))`` time with linear workspace.
 
     .. seealso::
         - :func:`margmin`: Number of periods since the moving minimum.

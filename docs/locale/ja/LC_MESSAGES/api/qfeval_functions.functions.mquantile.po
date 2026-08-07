@@ -92,9 +92,11 @@ msgstr "移動分位点を計算する次元。デフォルトは -1（最後の
 #: of qfeval_functions.functions.mquantile.mquantile:39
 msgid ""
 "The implementation to use. ``\"sort\"`` is the original all-window sort, "
-"while ``\"wavelet\"`` uses batched range-selection queries in a wavelet matrix. "
-"``\"auto\"`` (default) chooses based on the input size and :attr:`span`."
-msgstr "使用する実装。``\"sort\"`` は従来の全ウィンドウソート、``\"wavelet\"`` は Wavelet Matrix による一括範囲選択クエリを使用します。``\"auto\"`` （デフォルト）は入力サイズと :attr:`span` に基づいて選択します。"
+"``\"select\"`` uses one or two ``kthvalue`` operations per window, and "
+"``\"wavelet\"`` uses batched range selection in a wavelet matrix. "
+"``\"auto\"`` (default) also specializes endpoint quantiles as linear "
+"moving extrema."
+msgstr "使用する実装。``\"sort\"`` は従来の全ウィンドウソート、``\"select\"`` はウィンドウごとに 1 回または 2 回の ``kthvalue`` 演算、``\"wavelet\"`` は Wavelet Matrix による一括範囲選択を使用します。``\"auto\"`` （デフォルト）は端点分位点を線形時間の移動極値として処理する最適化も行います。"
 
 #: ../../api/qfeval_functions.functions.mquantile.rst
 msgid "Returns"
@@ -223,9 +225,9 @@ msgid ""
 "The ``\"wavelet\"`` algorithm avoids the original ``O(N * span)`` all-"
 "window materialization and takes "
 "``O(N * log(N) + N * log(U))`` time including coordinate compression, "
-"with linear workspace per slice, where ``U`` is the number of distinct "
-"values."
-msgstr "``\"wavelet\"`` アルゴリズムは、従来の ``O(N * span)`` 個の全ウィンドウ要素の実体化を回避します。座標圧縮を含めて ``O(N * log(N) + N * log(U))`` 時間を必要とし、スライスごとの作業領域は線形です。ここで ``U`` は異なる値の個数です。"
+"with linear workspace, where ``U`` is the number of distinct values. "
+"Endpoint quantiles use an ``O(N)`` algorithm."
+msgstr "``\"wavelet\"`` アルゴリズムは、従来の ``O(N * span)`` 個の全ウィンドウ要素の実体化を回避します。座標圧縮を含めて ``O(N * log(N) + N * log(U))`` 時間を必要とし、作業領域は線形です。ここで ``U`` は異なる値の個数です。端点分位点には ``O(N)`` アルゴリズムを使用します。"
 
 #: of qfeval_functions.functions.mquantile.mquantile:98
 msgid ":func:`mmedian`: Moving median function (this with ``q=0.5``)."

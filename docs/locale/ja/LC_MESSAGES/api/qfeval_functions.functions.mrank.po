@@ -181,10 +181,10 @@ msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、その�
 
 #: of qfeval_functions.functions.mrank.mrank:78
 msgid ""
-"The implementation compares every window element with the window's latest"
-" element, so it takes ``O(N * span)`` time and memory, unlike the "
-"``O(N)`` moving aggregations such as :func:`msum`."
-msgstr "この実装は、ウィンドウ内のすべての要素をウィンドウの最新要素と比較するため、:func:`msum` のような ``O(N)`` の移動集計とは異なり、``O(N * span)`` の時間とメモリを必要とします。"
+"Narrow windows use a fully vectorized comparison. Larger windows use "
+"wavelet-matrix range counts, avoiding ``O(N * span)`` window "
+"materialization and taking ``O(N * log(N))`` time with linear workspace."
+msgstr "狭いウィンドウでは完全にベクトル化された比較を使用します。大きなウィンドウでは Wavelet Matrix による範囲カウントを使用し、``O(N * span)`` のウィンドウ実体化を回避して、線形の作業領域で ``O(N * log(N))`` 時間を要します。"
 
 #: of qfeval_functions.functions.mrank.mrank:84
 msgid ":func:`rank`: Cross-sectional rank along an entire dimension."
@@ -197,4 +197,3 @@ msgstr ":func:`mmax`: 移動最大値関数。"
 #: of qfeval_functions.functions.mrank.mrank:86
 msgid ":func:`mmin`: Moving minimum function."
 msgstr ":func:`mmin`: 移動最小値関数。"
-
