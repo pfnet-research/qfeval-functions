@@ -11,8 +11,8 @@ from ._moving_order import _window_has_nan
 from .apply_for_axis import apply_for_axis
 from .mmax import mmax
 
-MQuantileAlgorithm = typing.Literal["auto", "sort", "select", "wavelet"]
-_MQUANTILE_ALGORITHMS = frozenset(("auto", "sort", "select", "wavelet"))
+MQuantileAlgorithm = typing.Literal["auto", "sort", "wavelet"]
+_MQUANTILE_ALGORITHMS = frozenset(("auto", "sort", "wavelet"))
 
 
 def _quantile_position(span: int, q: float) -> tuple[int, int, float]:
@@ -53,22 +53,6 @@ def _mquantile_sort(x: torch.Tensor, span: int, q: float) -> torch.Tensor:
     lo, hi, frac = _quantile_position(span, q)
     lower = sorted_windows[..., lo]
     upper = None if lo == hi else sorted_windows[..., hi]
-    completed = _interpolate_order_statistics(lower, upper, frac)
-    completed = completed.masked_fill(_window_has_nan(x, span), math.nan)
-    return _prepend_incomplete(x, completed, span)
-
-
-def _mquantile_select(x: torch.Tensor, span: int, q: float) -> torch.Tensor:
-    """Compute moving quantiles with one or two order-statistic selections."""
-    if x.shape[1] < span:
-        return torch.full_like(x, math.nan)
-    if span == 1 or x.shape[0] == 0:
-        return x.clone()
-
-    windows = x.unfold(1, span, 1)
-    lo, hi, frac = _quantile_position(span, q)
-    lower = windows.kthvalue(lo + 1, dim=-1).values
-    upper = None if lo == hi else windows.kthvalue(hi + 1, dim=-1).values
     completed = _interpolate_order_statistics(lower, upper, frac)
     completed = completed.masked_fill(_window_has_nan(x, span), math.nan)
     return _prepend_incomplete(x, completed, span)
@@ -206,9 +190,6 @@ def _mquantile(
     if algorithm == "auto":
         if q == 0.0 or q == 1.0:
             return _mquantile_extremum(x, span, largest=q == 1.0)
-        lo, hi, _ = _quantile_position(span, q)
-        if span < 128 and lo == hi:
-            return _mquantile_select(x, span, q)
 
     selected_algorithm = (
         _choose_mquantile_algorithm(x, span)
@@ -217,8 +198,6 @@ def _mquantile(
     )
     if selected_algorithm == "sort":
         return _mquantile_sort(x, span, q)
-    if selected_algorithm == "select":
-        return _mquantile_select(x, span, q)
     if selected_algorithm == "wavelet":
         return _mquantile_wavelet(x, span, q)
     raise AssertionError(f"Unhandled mquantile algorithm: {selected_algorithm}")
@@ -266,12 +245,11 @@ def mquantile(
         dim (int, optional):
             The dimension along which to compute the moving quantile.
             Default is -1 (the last dimension).
-        algorithm ({"auto", "sort", "select", "wavelet"}, optional):
+        algorithm ({"auto", "sort", "wavelet"}, optional):
             The implementation to use. ``"sort"`` is the original
-            all-window sort, ``"select"`` uses one or two ``kthvalue``
-            operations per window, and ``"wavelet"`` uses batched range
-            selection in a wavelet matrix. ``"auto"`` (default) also
-            specializes endpoint quantiles as linear moving extrema.
+            all-window sort, and ``"wavelet"`` uses batched range selection
+            in a wavelet matrix. ``"auto"`` (default) chooses between them
+            and also specializes endpoint quantiles as linear moving extrema.
 
     Returns:
         Tensor:

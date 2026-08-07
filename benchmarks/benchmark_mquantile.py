@@ -30,7 +30,6 @@ from qfeval_functions.functions.mquantile import (  # noqa: E402
 
 ALGORITHMS: tuple[MQuantileAlgorithm, ...] = (
     "sort",
-    "select",
     "wavelet",
     "auto",
 )

@@ -13,7 +13,6 @@ from .test_utils import assert_basic_properties
 QS = (0.0, 0.25, 0.5, 0.9, 1.0)
 ALGORITHMS: tuple[MQuantileAlgorithm, ...] = (
     "sort",
-    "select",
     "wavelet",
 )
 ACCELERATOR_DEVICES = [
@@ -414,5 +413,8 @@ def test_mquantile_non_floating_point_input_raises_type_error() -> None:
 def test_mquantile_invalid_algorithm_raises_value_error() -> None:
     """Unknown implementations are rejected instead of silently falling back."""
     x = torch.tensor([1.0, 2.0, 3.0])
-    with pytest.raises(ValueError, match="algorithm must be one of"):
-        QF.mquantile(x, 2, 0.5, algorithm="tree")  # type: ignore[arg-type]
+    for algorithm in ("select", "tree"):
+        with pytest.raises(ValueError, match="algorithm must be one of"):
+            QF.mquantile(
+                x, 2, 0.5, algorithm=algorithm  # type: ignore[arg-type]
+            )

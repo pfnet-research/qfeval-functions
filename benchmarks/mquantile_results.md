@@ -1,8 +1,8 @@
 # `mquantile` algorithm benchmark
 
 Measured on 2026-07-31. The benchmark compares the original all-window
-sort with exact order-statistic selection, batched wavelet-matrix range
-selection, and the automatic policy. Every timed result is checked with
+sort with batched wavelet-matrix range selection and the automatic policy.
+Every timed result is checked with
 `torch.testing.assert_close(..., equal_nan=True)` against the sort result.
 
 ## Implementations
@@ -10,7 +10,6 @@ selection, and the automatic policy. Every timed result is checked with
 | Algorithm | Approach | Time | Extra workspace |
 |:---|:---|:---|:---|
 | `sort` | Sort every sliding window (original) | `O(N * span * log(span))` | `O(N * span)` |
-| `select` | Select one or two order statistics in every window | `O(N * span)` average | `O(N * span)` |
 | `wavelet` | Coordinate-compress and answer all batched range selections while building a wavelet matrix | `O(N * log(N) + N * log(U))` | `O(N)` |
 | `auto` | Select the measured best implementation; use moving extrema for `q=0/1` | workload-dependent | workload-dependent |
 
@@ -41,31 +40,24 @@ uv run python benchmarks/benchmark_mquantile.py \
 | N | span | algorithm | median (ms) | speedup vs sort |
 |---:|---:|:---|---:|---:|
 | 16,384 | 64 | `sort` | 3.542 | 1.00x |
-| 16,384 | 64 | `select` | 3.970 | 0.89x |
 | 16,384 | 64 | `wavelet` | 5.301 | 0.67x |
 | 16,384 | 64 | `auto` | 3.432 | 1.03x |
 | 16,384 | 256 | `sort` | 16.922 | 1.00x |
-| 16,384 | 256 | `select` | 13.976 | 1.21x |
 | 16,384 | 256 | `wavelet` | 5.173 | 3.27x |
 | 16,384 | 256 | `auto` | 5.316 | 3.18x |
 | 16,384 | 1,024 | `sort` | 80.540 | 1.00x |
-| 16,384 | 1,024 | `select` | 49.484 | 1.63x |
 | 16,384 | 1,024 | `wavelet` | 5.138 | 15.67x |
 | 16,384 | 1,024 | `auto` | 5.072 | 15.88x |
 | 16,384 | 4,096 | `sort` | 311.395 | 1.00x |
-| 16,384 | 4,096 | `select` | 154.510 | 2.02x |
 | 16,384 | 4,096 | `wavelet` | 4.759 | 65.43x |
 | 16,384 | 4,096 | `auto` | 4.695 | 66.33x |
 | 65,536 | 64 | `sort` | 13.816 | 1.00x |
-| 65,536 | 64 | `select` | 16.670 | 0.83x |
 | 65,536 | 64 | `wavelet` | 27.416 | 0.50x |
 | 65,536 | 64 | `auto` | 14.308 | 0.97x |
 | 65,536 | 256 | `sort` | 66.666 | 1.00x |
-| 65,536 | 256 | `select` | 60.756 | 1.10x |
 | 65,536 | 256 | `wavelet` | 28.254 | 2.36x |
 | 65,536 | 256 | `auto` | 27.214 | 2.45x |
 | 65,536 | 1,024 | `sort` | 333.934 | 1.00x |
-| 65,536 | 1,024 | `select` | 209.343 | 1.60x |
 | 65,536 | 1,024 | `wavelet` | 27.788 | 12.02x |
 | 65,536 | 1,024 | `auto` | 27.723 | 12.05x |
 

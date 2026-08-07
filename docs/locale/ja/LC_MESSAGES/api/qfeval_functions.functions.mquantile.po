@@ -92,11 +92,10 @@ msgstr "移動分位点を計算する次元。デフォルトは -1（最後の
 #: of qfeval_functions.functions.mquantile.mquantile:39
 msgid ""
 "The implementation to use. ``\"sort\"`` is the original all-window sort, "
-"``\"select\"`` uses one or two ``kthvalue`` operations per window, and "
-"``\"wavelet\"`` uses batched range selection in a wavelet matrix. "
-"``\"auto\"`` (default) also specializes endpoint quantiles as linear "
-"moving extrema."
-msgstr "使用する実装。``\"sort\"`` は従来の全ウィンドウソート、``\"select\"`` はウィンドウごとに 1 回または 2 回の ``kthvalue`` 演算、``\"wavelet\"`` は Wavelet Matrix による一括範囲選択を使用します。``\"auto\"`` （デフォルト）は端点分位点を線形時間の移動極値として処理する最適化も行います。"
+"and ``\"wavelet\"`` uses batched range selection in a wavelet matrix. "
+"``\"auto\"`` (default) chooses between them and also specializes endpoint "
+"quantiles as linear moving extrema."
+msgstr "使用する実装。``\"sort\"`` は従来の全ウィンドウソート、``\"wavelet\"`` は Wavelet Matrix による一括範囲選択を使用します。``\"auto\"`` （デフォルト）は両者を切り替え、端点分位点を線形時間の移動極値として処理する最適化も行います。"
 
 #: ../../api/qfeval_functions.functions.mquantile.rst
 msgid "Returns"
