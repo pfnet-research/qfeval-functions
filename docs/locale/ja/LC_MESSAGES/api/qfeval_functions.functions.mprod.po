@@ -1,0 +1,158 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.mprod.rst:2
+msgid "mprod"
+msgstr ""
+
+#: of qfeval_functions.functions.mprod.mprod:1
+msgid "Compute the moving (sliding window) product of a tensor."
+msgstr "テンソルの移動積（スライディングウィンドウ積）を計算します。"
+
+#: of qfeval_functions.functions.mprod.mprod:3
+msgid ""
+"This function calculates the product of elements within a sliding window "
+"of size :attr:`span` along the specified dimension. The output tensor has"
+" the same shape as the input tensor. For positions where the sliding "
+"window cannot fully cover preceding elements (i.e., the first ``span - "
+"1`` elements along the selected dimension), the result is ``nan``."
+msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の積を計算します。出力テンソルは入力テンソルと同じ形状を持ちます。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
+
+#: of qfeval_functions.functions.mprod.mprod:9
+msgid "The moving product is computed using the formula:"
+msgstr "移動積は以下の数式を用いて計算されます："
+
+#: of qfeval_functions.functions.mprod.mprod:11
+msgid ""
+"\\text{MPROD}[i] = \\prod_{j=i-\\text{span}+1}^{i} x[j]\n"
+"\n"
+msgstr ""
+"\\text{MPROD}[i] = \\prod_{j=i-\\text{span}+1}^{i} x[j]\n"
+"\n"
+
+#: of qfeval_functions.functions.mprod.mprod:14
+msgid ""
+"The moving product is computed in ``O(N)`` time independent of "
+":attr:`span`, by decomposing each window into a chunk suffix and a chunk "
+"prefix obtained from cumulative products bounded to :attr:`span` terms. "
+"See `A Numerically Stable and Fast Implementation of Moving Averages and "
+"Variances <https://imoz.jp/scraps/202607_mvar.en.html>`_ for a detailed "
+"description of the chunked algorithm.  Because no division is involved, a"
+" window containing ``0`` yields exactly ``0.0`` without contaminating "
+"neighboring windows, which is a key advantage over division-based running"
+" products."
+msgstr "移動積は、各ウィンドウを、:attr:`span` 項に限定された累積積から得られるチャンクの接尾辞とチャンクの接頭辞に分解することにより、:attr:`span` に依存しない ``O(N)`` 時間で計算されます。チャンク化されたアルゴリズムの詳細な説明は `A Numerically Stable and Fast Implementation of Moving Averages and Variances <https://imoz.jp/scraps/202607_mvar.en.html>`_ を参照してください。除算を用いないため、``0`` を含むウィンドウは、隣接するウィンドウに影響を与えることなく正確に ``0.0`` になります。これは、除算に基づく逐次的な積の計算に対する重要な利点です。"
+
+#: ../../api/qfeval_functions.functions.mprod.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mprod.mprod:25
+msgid "The input tensor."
+msgstr "入力テンソル。"
+
+#: of qfeval_functions.functions.mprod.mprod:28
+msgid "The size of the sliding window."
+msgstr "スライディングウィンドウのサイズ。"
+
+#: of qfeval_functions.functions.mprod.mprod:31
+msgid ""
+"The dimension along which to compute the moving product. Default is -1 "
+"(the last dimension)."
+msgstr "移動積を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.mprod.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.mprod.mprod:35
+msgid "A tensor of the same shape as the input, containing the moving products."
+msgstr "入力と同じ形状のテンソルで、移動積を格納しています。"
+
+#: ../../api/qfeval_functions.functions.mprod.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.mprod.mprod:40
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mprod.mprod:42
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.mprod(x, span=3)\n"
+"tensor([nan, nan,  6., 24., 60.])"
+msgstr ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.mprod(x, span=3)\n"
+"tensor([nan, nan,  6., 24., 60.])"
+
+#: of qfeval_functions.functions.mprod.mprod:46
+msgid ""
+">>> # A window containing zero is exactly zero; other windows are\n"
+">>> # not affected.\n"
+">>> x = torch.tensor([1.0, 2.0, 0.0, 4.0, 5.0])\n"
+">>> QF.mprod(x, span=2)\n"
+"tensor([nan,  2.,  0.,  0., 20.])"
+msgstr ""
+">>> # 0 を含むウィンドウは正確に 0 になります。他のウィンドウは\n"
+">>> # 影響を受けません。\n"
+">>> x = torch.tensor([1.0, 2.0, 0.0, 4.0, 5.0])\n"
+">>> QF.mprod(x, span=2)\n"
+"tensor([nan,  2.,  0.,  0., 20.])"
+
+#: of qfeval_functions.functions.mprod.mprod:52
+msgid ""
+">>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n"
+"...                   [5.0, 6.0, 7.0, 8.0]])\n"
+">>> QF.mprod(x, span=2, dim=1)\n"
+"tensor([[nan,  2.,  6., 12.],\n"
+"        [nan, 30., 42., 56.]])"
+msgstr ""
+">>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n"
+"...                   [5.0, 6.0, 7.0, 8.0]])\n"
+">>> QF.mprod(x, span=2, dim=1)\n"
+"tensor([[nan,  2.,  6., 12.],\n"
+"        [nan, 30., 42., 56.]])"
+
+#: of qfeval_functions.functions.mprod.mprod:58
+msgid ""
+"If a window contains any NaN value, the moving product for that window is"
+" NaN. Infinities follow IEEE 754 semantics; in particular, a window "
+"containing both ``0`` and ``inf`` results in NaN. For large spans, "
+"products of many terms may overflow or underflow; for strictly positive "
+"data in that regime, consider computing ``QF.msum(x.log(), span, "
+"dim).exp()`` instead."
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動積は NaN になります。無限大は IEEE 754 のセマンティクスに従います。特に、``0`` と ``inf`` の両方を含むウィンドウの結果は NaN になります。span が大きい場合、多数の項の積はオーバーフローまたはアンダーフローする可能性があります。そのような状況で厳密に正のデータを扱う場合は、代わりに ``QF.msum(x.log(), span, dim).exp()`` を計算することを検討してください。"
+
+#: of qfeval_functions.functions.mprod.mprod:66
+msgid ":func:`msum`: Moving sum function (the additive counterpart)."
+msgstr ":func:`msum`: 移動合計関数（本関数の加算版）。"
+
+#: of qfeval_functions.functions.mprod.mprod:67
+msgid ":func:`nancumprod`: NaN-aware cumulative product function."
+msgstr ":func:`nancumprod`: NaN を考慮した累積積関数。"
+
+#: of qfeval_functions.functions.mprod.mprod:68
+msgid ":func:`ma`: Moving average function."
+msgstr ":func:`ma`: 移動平均関数。"
+

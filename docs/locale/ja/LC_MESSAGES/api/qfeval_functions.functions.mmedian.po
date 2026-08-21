@@ -1,0 +1,202 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.mmedian.rst:2
+msgid "mmedian"
+msgstr ""
+
+#: of qfeval_functions.functions.mmedian.mmedian:1
+msgid "Compute the moving (sliding window) median of a tensor."
+msgstr "テンソルの移動中央値（スライディングウィンドウ中央値）を計算します。"
+
+#: of qfeval_functions.functions.mmedian.mmedian:3
+msgid ""
+"This function calculates the median of elements within a sliding window "
+"of size :attr:`span` along the specified dimension. The output tensor has"
+" the same shape as the input tensor. For positions where the sliding "
+"window cannot fully cover preceding elements (i.e., the first ``span - "
+"1`` elements along the selected dimension), the result is ``nan``."
+msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の中央値を計算します。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
+
+#: of qfeval_functions.functions.mmedian.mmedian:10
+msgid ""
+"Letting :math:`s_0 \\le s_1 \\le \\dots \\le s_{\\text{span}-1}` denote "
+"the sorted values of a window, the moving median is:"
+msgstr ":math:`s_0 \\le s_1 \\le \\dots \\le s_{\\text{span}-1}` をウィンドウ内の値をソートしたものとすると、移動中央値は次のようになります:"
+
+#: of qfeval_functions.functions.mmedian.mmedian:13
+msgid ""
+"\\text{MMEDIAN}[i] =\n"
+"\\begin{cases}\n"
+"    s_{(\\text{span}-1)/2}\n"
+"    & \\text{if } \\text{span} \\text{ is odd} \\\\\n"
+"    \\left(s_{\\text{span}/2-1} + s_{\\text{span}/2}\\right) / 2\n"
+"    & \\text{if } \\text{span} \\text{ is even}\n"
+"\\end{cases}\n"
+"\n"
+msgstr ""
+"\\text{MMEDIAN}[i] =\n"
+"\\begin{cases}\n"
+"    s_{(\\text{span}-1)/2}\n"
+"    & \\text{if } \\text{span} \\text{ is odd} \\\\\n"
+"    \\left(s_{\\text{span}/2-1} + s_{\\text{span}/2}\\right) / 2\n"
+"    & \\text{if } \\text{span} \\text{ is even}\n"
+"\\end{cases}\n"
+"\n"
+
+#: of qfeval_functions.functions.mmedian.mmedian:22
+msgid ""
+"This is equivalent to ``QF.mquantile(x, span, 0.5, dim)`` and compatible "
+"with ``pandas.DataFrame.rolling(span).median()``: for an even window "
+"size, the two central values are averaged (linear interpolation)."
+msgstr "これは ``QF.mquantile(x, span, 0.5, dim)`` と等価であり、``pandas.DataFrame.rolling(span).median()`` と互換性があります。ウィンドウサイズが偶数の場合、中央の 2 つの値が平均されます（線形補間）。"
+
+#: ../../api/qfeval_functions.functions.mmedian.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mmedian.mmedian:28
+msgid "The input tensor containing values. Must be a floating point tensor."
+msgstr "値を含む入力テンソル。浮動小数点テンソルである必要があります。"
+
+#: of qfeval_functions.functions.mmedian.mmedian:32
+msgid "The size of the sliding window. Must be positive."
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
+
+#: of qfeval_functions.functions.mmedian.mmedian:35
+msgid ""
+"The dimension along which to compute the moving median. Default is -1 "
+"(the last dimension)."
+msgstr "移動中央値を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.mmedian.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.mmedian.mmedian:39
+msgid ""
+"A tensor of the same shape as the input, containing the moving median "
+"values. The first ``span - 1`` elements along the specified dimension are"
+" ``nan``."
+msgstr "入力と同じ形状のテンソルで、移動中央値の値を含みます。指定された次元に沿った最初の ``span - 1`` 要素は ``nan`` になります。"
+
+#: ../../api/qfeval_functions.functions.mmedian.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: ../../api/qfeval_functions.functions.mmedian.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.mmedian.mmedian:44
+msgid "If ``span`` is not an integer (``bool`` is rejected)."
+msgstr "``span`` が整数でない場合（``bool`` も拒否されます）。"
+
+#: of qfeval_functions.functions.mmedian.mmedian:45
+msgid "If ``span`` is not positive."
+msgstr "``span`` が正でない場合。"
+
+#: of qfeval_functions.functions.mmedian.mmedian:46
+msgid "If ``x`` is not a floating point tensor."
+msgstr "``x`` が浮動小数点テンソルでない場合。"
+
+#: of qfeval_functions.functions.mmedian.mmedian:49
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mmedian.mmedian:51
+msgid ""
+">>> # Moving median with an odd window size\n"
+">>> x = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n"
+">>> QF.mmedian(x, span=3)\n"
+"tensor([nan, nan, 2., 3., 4.])"
+msgstr ""
+">>> # 奇数のウィンドウサイズでの移動中央値\n"
+">>> x = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n"
+">>> QF.mmedian(x, span=3)\n"
+"tensor([nan, nan, 2., 3., 4.])"
+
+#: of qfeval_functions.functions.mmedian.mmedian:56
+msgid ""
+">>> # An even window size averages the two central values\n"
+">>> QF.mmedian(x, span=2)\n"
+"tensor([   nan, 2.0000, 2.5000, 3.5000, 4.5000])"
+msgstr ""
+">>> # 偶数のウィンドウサイズでは中央の 2 つの値が平均されます\n"
+">>> QF.mmedian(x, span=2)\n"
+"tensor([   nan, 2.0000, 2.5000, 3.5000, 4.5000])"
+
+#: of qfeval_functions.functions.mmedian.mmedian:60
+msgid ""
+">>> # Moving median along the first dimension\n"
+">>> x = torch.tensor([[1.0, 2.0],\n"
+"...                   [5.0, 3.0],\n"
+"...                   [3.0, 7.0]])\n"
+">>> QF.mmedian(x, span=3, dim=0)\n"
+"tensor([[nan, nan],\n"
+"        [nan, nan],\n"
+"        [3., 3.]])"
+msgstr ""
+">>> # 最初の次元に沿った移動中央値\n"
+">>> x = torch.tensor([[1.0, 2.0],\n"
+"...                   [5.0, 3.0],\n"
+"...                   [3.0, 7.0]])\n"
+">>> QF.mmedian(x, span=3, dim=0)\n"
+"tensor([[nan, nan],\n"
+"        [nan, nan],\n"
+"        [3., 3.]])"
+
+#: of qfeval_functions.functions.mmedian.mmedian:69
+msgid ""
+">>> # A window containing NaN yields NaN\n"
+">>> QF.mmedian(torch.tensor([1.0, nan, 3.0, 4.0, 5.0]), span=2)\n"
+"tensor([   nan,    nan,    nan, 3.5000, 4.5000])"
+msgstr ""
+">>> # NaN を含むウィンドウは NaN になります\n"
+">>> QF.mmedian(torch.tensor([1.0, nan, 3.0, 4.0, 5.0]), span=2)\n"
+"tensor([   nan,    nan,    nan, 3.5000, 4.5000])"
+
+#: of qfeval_functions.functions.mmedian.mmedian:73
+msgid ""
+"If a window contains any NaN value, the moving median for that window is "
+"NaN. Unlike ``pandas.DataFrame.rolling``, there is no "
+"``min_periods``-style option to skip NaN values."
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動中央値は NaN になります。``pandas.DataFrame.rolling`` とは異なり、NaN 値をスキップする ``min_periods`` のようなオプションはありません。"
+
+#: of qfeval_functions.functions.mmedian.mmedian:78
+msgid ""
+"This function delegates to :func:`mquantile` with its automatic algorithm "
+"selection: narrow windows use vectorized window operations, while larger-"
+"window workloads use wavelet-matrix range selection."
+msgstr "この関数は :func:`mquantile` の自動アルゴリズム選択に処理を委譲します。狭いウィンドウではベクトル化されたウィンドウ演算を、より大きなウィンドウのワークロードでは Wavelet Matrix による範囲選択を使用します。"
+
+#: of qfeval_functions.functions.mmedian.mmedian:83
+msgid ":func:`mquantile`: The underlying moving quantile function."
+msgstr ":func:`mquantile`: 基盤となる移動分位点関数。"
+
+#: of qfeval_functions.functions.mmedian.mmedian:84
+msgid ":func:`nanmedian`: Median over a whole dimension, skipping NaNs."
+msgstr ":func:`nanmedian`: NaN をスキップして次元全体の中央値を計算する関数。"
+
+#: of qfeval_functions.functions.mmedian.mmedian:85
+msgid ":func:`ma`: Moving average function."
+msgstr ":func:`ma`: 移動平均関数。"

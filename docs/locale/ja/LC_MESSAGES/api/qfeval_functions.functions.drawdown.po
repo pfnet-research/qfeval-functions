@@ -1,0 +1,134 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.drawdown.rst:2
+msgid "drawdown"
+msgstr ""
+
+#: of qfeval_functions.functions.drawdown.drawdown:1
+msgid ""
+"Compute the drawdown series from the running peak along the specified "
+"dimension."
+msgstr "指定された次元に沿って、累積最大値からのドローダウン系列を計算します。"
+
+#: of qfeval_functions.functions.drawdown.drawdown:4
+msgid ""
+"Drawdown measures the relative loss from the highest value observed so "
+"far, which is widely used to assess the downside risk of a price or "
+"equity curve:"
+msgstr "ドローダウンは、それまでに観測された最高値からの相対的な損失を測定する指標であり、価格や資産曲線（エクイティカーブ）の下方リスクを評価するために広く用いられます:"
+
+#: of qfeval_functions.functions.drawdown.drawdown:8
+msgid ""
+"\\text{DD}[i] = \\frac{x[i]}{\\max_{j \\le i} x[j]} - 1\n"
+"\n"
+msgstr ""
+"\\text{DD}[i] = \\frac{x[i]}{\\max_{j \\le i} x[j]} - 1\n"
+"\n"
+
+#: of qfeval_functions.functions.drawdown.drawdown:11
+msgid ""
+"For a positive price series the result is non-positive: it is 0 at the "
+"first element and whenever a new running high is reached, and negative "
+"while the series is below its running peak.  This function assumes "
+"strictly positive prices; ratios are meaningless for non-positive values."
+msgstr "正の価格系列に対しては、結果は非正（0 以下）になります。最初の要素と、新たな高値を更新した時点では常に 0 となり、系列が累積最大値（それまでの高値）を下回っている間は負となります。この関数は厳密に正の価格を前提としています。非正の値に対しては、比率は意味を持たないためです。"
+
+#: ../../api/qfeval_functions.functions.drawdown.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.drawdown.drawdown:18
+msgid "The input tensor containing strictly positive prices."
+msgstr "厳密に正の価格を含む入力テンソル。"
+
+#: of qfeval_functions.functions.drawdown.drawdown:21
+msgid ""
+"The dimension along which to compute the drawdown. Default is -1 (the "
+"last dimension)."
+msgstr "ドローダウンを計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.drawdown.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.drawdown.drawdown:25
+msgid ""
+"A tensor of the same shape as the input, containing the drawdown values "
+"(non-positive for positive price series)."
+msgstr "ドローダウン値を含む、入力と同じ形状のテンソル（正の価格系列に対しては非正の値になります）。"
+
+#: ../../api/qfeval_functions.functions.drawdown.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.drawdown.drawdown:30
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.drawdown.drawdown:32
+msgid ""
+">>> x = torch.tensor([100.0, 120.0, 90.0, 130.0, 65.0])\n"
+">>> QF.drawdown(x)\n"
+"tensor([ 0.0000,  0.0000, -0.2500,  0.0000, -0.5000])"
+msgstr ""
+">>> x = torch.tensor([100.0, 120.0, 90.0, 130.0, 65.0])\n"
+">>> QF.drawdown(x)\n"
+"tensor([ 0.0000,  0.0000, -0.2500,  0.0000, -0.5000])"
+
+#: of qfeval_functions.functions.drawdown.drawdown:36
+msgid ""
+">>> # 2D example: each row is an independent series.\n"
+">>> x = torch.tensor([[100.0, 120.0, 90.0, 130.0, 65.0],\n"
+"...                   [10.0, 20.0, 30.0, 40.0, 50.0]])\n"
+">>> QF.drawdown(x, dim=1)\n"
+"tensor([[ 0.0000,  0.0000, -0.2500,  0.0000, -0.5000],\n"
+"        [ 0.0000,  0.0000,  0.0000,  0.0000,  0.0000]])"
+msgstr ""
+">>> # 2 次元の例: 各行は独立した系列です。\n"
+">>> x = torch.tensor([[100.0, 120.0, 90.0, 130.0, 65.0],\n"
+"...                   [10.0, 20.0, 30.0, 40.0, 50.0]])\n"
+">>> QF.drawdown(x, dim=1)\n"
+"tensor([[ 0.0000,  0.0000, -0.2500,  0.0000, -0.5000],\n"
+"        [ 0.0000,  0.0000,  0.0000,  0.0000,  0.0000]])"
+
+#: of qfeval_functions.functions.drawdown.drawdown:43
+msgid ""
+"NaN is sticky: ``torch.cummax`` propagates NaN, so every output at or "
+"after the first NaN along the dimension is NaN.  A ``+inf`` price makes "
+"subsequent drawdowns relative to ``inf`` (``-1`` or NaN per IEEE 754)."
+msgstr "NaN は粘着的です: 一度 NaN が現れると ``torch.cummax`` による累積最大値が NaN になるため、次元に沿ってそれ以降の出力はすべて NaN になります。``+inf`` の価格があると、それ以降のドローダウンは ``inf`` に対する相対値となります（IEEE 754 に従って ``-1`` または NaN になります）。"
+
+#: of qfeval_functions.functions.drawdown.drawdown:49
+msgid ":func:`max_drawdown`: The most negative drawdown of the series."
+msgstr ":func:`max_drawdown`: 系列の中で最も負のドローダウン（最大ドローダウン）。"
+
+#: of qfeval_functions.functions.drawdown.drawdown:50
+msgid ""
+":func:`rcummax`: Reverse cumulative maximum (not used here; this function"
+" uses the forward cumulative maximum)."
+msgstr ":func:`rcummax`: 逆方向の累積最大値（ここでは使用されません。この関数は順方向の累積最大値を使用します）。"
+
+#: of qfeval_functions.functions.drawdown.drawdown:52
+msgid "``torch.cummax``: Standard (forward) cumulative maximum."
+msgstr "``torch.cummax``: 標準的な（順方向の）累積最大値。"
+

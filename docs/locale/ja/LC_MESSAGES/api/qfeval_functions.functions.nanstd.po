@@ -1,0 +1,177 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.nanstd.rst:2
+msgid "nanstd"
+msgstr ""
+
+#: of qfeval_functions.functions.nanstd.nanstd:1
+msgid "Compute the standard deviation of a tensor, ignoring NaN values."
+msgstr "NaN 値を無視して、テンソルの標準偏差を計算します。"
+
+#: of qfeval_functions.functions.nanstd.nanstd:3
+msgid ""
+"This function calculates the standard deviation of tensor elements along "
+"the specified dimension(s) while excluding NaN values, as the square root"
+" of :func:`nanvar`.  The standard deviation can be computed using either "
+"the unbiased estimator (dividing by ``N-1``) or the biased estimator "
+"(dividing by ``N``), where ``N`` is the number of non-NaN elements."
+msgstr "この関数は、指定された次元に沿ってテンソル要素の標準偏差を、:func:`nanvar` の平方根として計算します。計算時には NaN 値は除外されます。標準偏差は、不偏推定量（``N-1`` で除算）または偏推定量（``N`` で除算）のいずれかを用いて計算できます。ここで ``N`` は NaN 値を除いた要素数です。"
+
+#: of qfeval_functions.functions.nanstd.nanstd:10
+msgid "The NaN-aware standard deviation is computed as:"
+msgstr "NaN を考慮した標準偏差は以下のように計算されます："
+
+#: of qfeval_functions.functions.nanstd.nanstd:12
+msgid ""
+"\\text{nanstd}(X) = \\sqrt{\\frac{1}{N_{\\text{valid}} - \\delta}\n"
+"    \\sum_{i \\text{ valid}} (X_i - \\bar{X})^2}\n"
+"\n"
+msgstr ""
+"\\text{nanstd}(X) = \\sqrt{\\frac{1}{N_{\\text{valid}} - \\delta}\n"
+"    \\sum_{i \\text{ valid}} (X_i - \\bar{X})^2}\n"
+"\n"
+
+#: of qfeval_functions.functions.nanstd.nanstd:16
+msgid ""
+"where :math:`\\bar{X}` is the mean of valid (non-NaN) values, "
+":math:`N_{\\text{valid}}` is the number of valid values, and "
+":math:`\\delta` is 1 if :attr:`unbiased` is ``True`` and 0 otherwise."
+msgstr "ここで、:math:`\\bar{X}` は有効な値（NaN でない値）の平均、:math:`N_{\\text{valid}}` は有効な値の個数であり、:math:`\\delta` は :attr:`unbiased` が ``True`` の場合は 1、そうでない場合は 0 です。"
+
+#: ../../api/qfeval_functions.functions.nanstd.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.nanstd.nanstd:21
+msgid "The input tensor."
+msgstr "入力テンソル。"
+
+#: of qfeval_functions.functions.nanstd.nanstd:24
+msgid ""
+"The dimension(s) along which to compute the standard deviation. If None "
+"(default), the standard deviation is computed over all elements. Can be a"
+" single dimension or multiple dimensions."
+msgstr "標準偏差を計算する次元を指定します。None（デフォルト）の場合は、すべての要素に対して標準偏差を計算します。単一の次元または複数の次元を指定できます。"
+
+#: of qfeval_functions.functions.nanstd.nanstd:30
+msgid ""
+"If ``True`` (default), uses Bessel's correction and divides by ``N-1`` "
+"where ``N`` is the number of non-NaN elements. If ``False``, divides by "
+"``N``."
+msgstr "デフォルト値の ``True`` の場合、ベッセル補正を適用し、非 NaN 要素の数を ``N`` として ``N-1`` で除算します。``False`` の場合、``N`` で除算します。"
+
+#: of qfeval_functions.functions.nanstd.nanstd:35
+msgid ""
+"If ``True``, the output tensor has the same number of dimensions as the "
+"input, with the reduced dimensions having size 1. If ``False`` (default),"
+" the reduced dimensions are removed."
+msgstr "``True`` の場合、出力テンソルは入力テンソルと同じ数の次元を持ち、削減された次元のサイズは 1 になります。``False`` の場合（デフォルト）、削減された次元は削除されます。"
+
+#: ../../api/qfeval_functions.functions.nanstd.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.nanstd.nanstd:41
+msgid ""
+"The standard deviation of non-NaN elements. The shape depends on the "
+":attr:`dim` and :attr:`keepdim` parameters."
+msgstr "非 NaN 要素の標準偏差。形状は :attr:`dim` と :attr:`keepdim` パラメータに依存します。"
+
+#: ../../api/qfeval_functions.functions.nanstd.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanstd.nanstd:46
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.nanstd.nanstd:48
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n"
+">>> QF.nanstd(x)\n"
+"tensor(1.8257)"
+msgstr ""
+">>> x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0])\n"
+">>> QF.nanstd(x)\n"
+"tensor(1.8257)"
+
+#: of qfeval_functions.functions.nanstd.nanstd:52
+msgid ""
+">>> # With biased estimator\n"
+">>> QF.nanstd(x, unbiased=False)\n"
+"tensor(1.5811)"
+msgstr ""
+">>> # 偏りのある推定量を使用\n"
+">>> QF.nanstd(x, unbiased=False)\n"
+"tensor(1.5811)"
+
+#: of qfeval_functions.functions.nanstd.nanstd:56
+msgid ""
+">>> # 2D tensor with dimension specification\n"
+">>> x = torch.tensor([[1.0, 2.0, nan],\n"
+"...                   [4.0, nan, 6.0]])\n"
+">>> QF.nanstd(x, dim=1)\n"
+"tensor([0.7071, 1.4142])"
+msgstr ""
+">>> # 次元を指定した 2 次元テンソル\n"
+">>> x = torch.tensor([[1.0, 2.0, nan],\n"
+"...                   [4.0, nan, 6.0]])\n"
+">>> QF.nanstd(x, dim=1)\n"
+"tensor([0.7071, 1.4142])"
+
+#: of qfeval_functions.functions.nanstd.nanstd:62
+msgid ""
+">>> # Keep dimensions\n"
+">>> QF.nanstd(x, dim=1, keepdim=True)\n"
+"tensor([[0.7071],\n"
+"        [1.4142]])"
+msgstr ""
+">>> # 次元を保持\n"
+">>> QF.nanstd(x, dim=1, keepdim=True)\n"
+"tensor([[0.7071],\n"
+"        [1.4142]])"
+
+#: of qfeval_functions.functions.nanstd.nanstd:67
+msgid ""
+"With :attr:`unbiased` set to ``True``, slices with fewer than two valid "
+"values yield NaN because Bessel's correction divides by ``N-1``. With "
+":attr:`unbiased` set to ``False``, a slice with a single valid value "
+"yields 0, and only all-NaN slices yield NaN."
+msgstr ":attr:`unbiased` が ``True`` の場合、ベッセル補正では ``N-1`` で除算するため、有効な値が 2 個未満のスライスは NaN になります。:attr:`unbiased` が ``False`` の場合、有効な値が 1 個だけのスライスは 0 になり、すべてが NaN のスライスのみが NaN になります。"
+
+#: of qfeval_functions.functions.nanstd.nanstd:73
+msgid ":func:`nanvar`: NaN-aware variance function."
+msgstr ":func:`nanvar`: NaN を考慮した分散関数。"
+
+#: of qfeval_functions.functions.nanstd.nanstd:74
+msgid ":func:`nanmean`: NaN-aware mean function."
+msgstr ":func:`nanmean`: NaN を考慮した平均関数。"
+
+#: of qfeval_functions.functions.nanstd.nanstd:75
+msgid ":func:`mstd`: Moving standard deviation function."
+msgstr ":func:`mstd`: 移動標準偏差関数。"
+
+#: of qfeval_functions.functions.nanstd.nanstd:76
+msgid "``torch.std``: Standard deviation function (NaN propagates)."
+msgstr "``torch.std``: 標準偏差関数（NaN は伝播します）。"
+

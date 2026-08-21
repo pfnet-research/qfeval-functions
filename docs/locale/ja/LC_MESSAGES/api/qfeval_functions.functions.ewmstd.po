@@ -1,0 +1,164 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.ewmstd.rst:2
+msgid "ewmstd"
+msgstr ""
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:1
+msgid "Compute the exponentially weighted moving standard deviation."
+msgstr "指数加重移動標準偏差を計算します。"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:3
+msgid ""
+"This function calculates the standard deviation of all elements up to "
+"each position along the specified dimension, giving exponentially larger "
+"weights to more recent values.  It is the square root of :func:`ewmvar` "
+"and follows the ``adjust=True`` convention of pandas, so the result "
+"matches ``pandas.DataFrame.ewm(alpha=alpha, "
+"adjust=True).std(bias=bias)``."
+msgstr "この関数は、指定された次元に沿って、各位置までのすべての要素の標準偏差を、より新しい値ほど指数的に大きな重みを与えて計算します。:func:`ewmvar` の平方根であり、pandas の ``adjust=True`` の慣例に従うため、結果は ``pandas.DataFrame.ewm(alpha=alpha, adjust=True).std(bias=bias)`` と一致します。"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:10
+#, python-brace-format
+msgid "With the weights :math:`w_{ij} = (1 - \\alpha)^{i-j}`, the result is:"
+msgstr "重み :math:`w_{ij} = (1 - \\alpha)^{i-j}` を用いて、結果は次のようになります:"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:12
+msgid ""
+"\\text{Std}[i] = \\sqrt{\\text{Var}[i]},\n"
+"\\qquad\n"
+"\\text{Var}_b[i] =\n"
+"\\frac{\\sum_{j=0}^{i} w_{ij} (x[j] - \\mu[i])^2}\n"
+"     {\\sum_{j=0}^{i} w_{ij}},\n"
+"\n"
+msgstr "\\text{Std}[i] = \\sqrt{\\text{Var}[i]},\n\\qquad\n\\text{Var}_b[i] =\n\\frac{\\sum_{j=0}^{i} w_{ij} (x[j] - \\mu[i])^2}\n     {\\sum_{j=0}^{i} w_{ij}},\n\n"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:19
+#, python-brace-format
+msgid ""
+"where :math:`\\mu[i]` is the exponentially weighted mean and, unless "
+"``bias=True``, :math:`\\text{Var}_b[i]` is corrected by the factor "
+":math:`W_1[i]^2 / (W_1[i]^2 - W_2[i])` with :math:`W_1[i] = \\sum_j "
+"w_{ij}` and :math:`W_2[i] = \\sum_j w_{ij}^2`."
+msgstr "ここで :math:`\\mu[i]` は指数加重平均であり、``bias=True`` でない限り、:math:`\\text{Var}_b[i]` は :math:`W_1[i] = \\sum_j w_{ij}` と :math:`W_2[i] = \\sum_j w_{ij}^2` を用いた係数 :math:`W_1[i]^2 / (W_1[i]^2 - W_2[i])` で補正されます。"
+
+#: ../../api/qfeval_functions.functions.ewmstd.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:25
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:28
+msgid ""
+"The smoothing factor, must be in the range (0, 1). Smaller values result "
+"in more smoothing (slower decay)."
+msgstr "平滑化係数。(0, 1) の範囲内である必要があります。小さい値ほど平滑化が強くなります（減衰が遅くなります）。"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:32
+msgid ""
+"The dimension along which to compute the exponentially weighted moving "
+"standard deviation. Default is -1 (the last dimension)."
+msgstr "指数加重移動標準偏差を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:37
+msgid ""
+"If True, take the square root of the biased weighted variance. If False "
+"(default), apply the same bias correction as pandas first."
+msgstr "True の場合、偏りのある加重分散の平方根を取ります。False（デフォルト）の場合、先に pandas と同じバイアス補正を適用します。"
+
+#: ../../api/qfeval_functions.functions.ewmstd.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:42
+msgid ""
+"A tensor of the same shape as the input, containing the exponentially "
+"weighted moving standard deviation values."
+msgstr "入力と同じ形状のテンソルで、指数加重移動標準偏差の値を含みます。"
+
+#: ../../api/qfeval_functions.functions.ewmstd.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:47
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:49
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.ewmstd(x, alpha=0.5)\n"
+"tensor([   nan, 0.7071, 0.9636, 1.1772, 1.3452])"
+msgstr ">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n>>> QF.ewmstd(x, alpha=0.5)\ntensor([   nan, 0.7071, 0.9636, 1.1772, 1.3452])"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:53
+msgid ""
+">>> # The biased standard deviation starts at zero.\n"
+">>> QF.ewmstd(x, alpha=0.5, bias=True)\n"
+"tensor([0.0000, 0.4714, 0.7284, 0.9286, 1.0805])"
+msgstr ">>> # 偏りのある標準偏差は 0 から始まります。\n>>> QF.ewmstd(x, alpha=0.5, bias=True)\ntensor([0.0000, 0.4714, 0.7284, 0.9286, 1.0805])"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:57
+msgid ""
+">>> # 2D example along dim=0\n"
+">>> x = torch.tensor([[1.0, 8.0],\n"
+"...                   [2.0, 4.0],\n"
+"...                   [3.0, 2.0]])\n"
+">>> QF.ewmstd(x, alpha=0.5, dim=0)\n"
+"tensor([[   nan,    nan],\n"
+"        [0.7071, 2.8284],\n"
+"        [0.9636, 2.7255]])"
+msgstr ">>> # dim=0 を指定した 2 次元の例\n>>> x = torch.tensor([[1.0, 8.0],\n...                   [2.0, 4.0],\n...                   [3.0, 2.0]])\n>>> QF.ewmstd(x, alpha=0.5, dim=0)\ntensor([[   nan,    nan],\n        [0.7071, 2.8284],\n        [0.9636, 2.7255]])"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:66
+msgid ""
+"Since :func:`ewmvar` clamps tiny negative rounding results to zero, this "
+"function never produces spurious NaN values from the square root.  The "
+"first element along :attr:`dim` is NaN with ``bias=False`` (matching "
+"pandas ``ewm().std()``) and 0 with ``bias=True``."
+msgstr ":func:`ewmvar` は丸めによるごく小さな負の結果を 0 にクランプするため、この関数が平方根に起因する誤った NaN 値を生成することはありません。:attr:`dim` に沿った最初の要素は、``bias=False`` では NaN（pandas の ``ewm().std()`` と一致）、``bias=True`` では 0 になります。"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:73
+msgid ""
+"Like :func:`ema`, a NaN value contaminates all subsequent outputs along "
+":attr:`dim`.  This differs from pandas, which skips NaN values instead."
+msgstr ":func:`ema` と同様に、NaN 値が現れると、:attr:`dim` に沿ったそれ以降のすべての出力が NaN になります。これは NaN 値をスキップする pandas とは異なります。"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:78
+msgid ":func:`ewmvar`: Exponentially weighted moving variance."
+msgstr ":func:`ewmvar`: 指数加重移動分散関数。"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:79
+msgid ":func:`ewmcovar`: Exponentially weighted moving covariance."
+msgstr ":func:`ewmcovar`: 指数加重移動共分散関数。"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:80
+msgid ":func:`ema`: Exponential moving average (the matching mean)."
+msgstr ":func:`ema`: 指数移動平均（対応する平均）関数。"
+
+#: of qfeval_functions.functions.ewmstd.ewmstd:81
+msgid ":func:`mstd`: Moving standard deviation over a fixed-size window."
+msgstr ":func:`mstd`: 固定サイズのウィンドウに対する移動標準偏差関数。"
+

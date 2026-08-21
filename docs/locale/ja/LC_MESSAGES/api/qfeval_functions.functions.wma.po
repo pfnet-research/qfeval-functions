@@ -1,0 +1,171 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.wma.rst:2
+msgid "wma"
+msgstr ""
+
+#: of qfeval_functions.functions.wma.wma:1
+msgid "Compute the linearly-weighted moving average (WMA) of a tensor."
+msgstr "テンソルの線形加重移動平均（WMA）を計算します。"
+
+#: of qfeval_functions.functions.wma.wma:3
+msgid ""
+"This function calculates the weighted average of elements within a "
+"sliding window of size :attr:`span` along the specified dimension, where "
+"weights increase linearly from ``1`` for the oldest element to "
+":attr:`span` for the newest element. The output tensor has the same shape"
+" as the input tensor. For positions where the sliding window cannot fully"
+" cover preceding elements (i.e., the first ``span - 1`` elements along "
+"the selected dimension), the result is ``nan``."
+msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の加重平均を計算します。重みは、最も古い要素の ``1`` から最も新しい要素の :attr:`span` まで線形に増加します。出力テンソルは入力テンソルと同じ形状を持ちます。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
+
+#: of qfeval_functions.functions.wma.wma:11
+msgid "The weighted moving average is computed using the formula:"
+msgstr "加重移動平均は以下の数式を用いて計算されます："
+
+#: of qfeval_functions.functions.wma.wma:13
+msgid ""
+"\\text{WMA}[i] = \\frac{\\sum_{k=1}^{\\text{span}}\n"
+"k \\cdot x[i - \\text{span} + k]}\n"
+"{\\text{span} \\cdot (\\text{span} + 1) / 2}\n"
+"\n"
+msgstr ""
+"\\text{WMA}[i] = \\frac{\\sum_{k=1}^{\\text{span}}\n"
+"k \\cdot x[i - \\text{span} + k]}\n"
+"{\\text{span} \\cdot (\\text{span} + 1) / 2}\n"
+"\n"
+
+#: of qfeval_functions.functions.wma.wma:18
+msgid ""
+"The weighted moving average is computed in ``O(N)`` time independent of "
+":attr:`span`, by decomposing each window into a chunk suffix and a chunk "
+"prefix obtained from cumulative sums of ``x`` and ``k * x``, where ``k`` "
+"is the index local to a :attr:`span`-sized chunk.  All partial sums are "
+"local to a two-chunk range and no global position index is multiplied in,"
+" so the computation stays numerically stable even for long series with a "
+"large offset or drift.  See `A Numerically Stable and Fast Implementation"
+" of Moving Averages and Variances "
+"<https://imoz.jp/scraps/202607_mvar.en.html>`_ for a detailed description"
+" of the chunked algorithm."
+msgstr "加重移動平均は、各ウィンドウを、``x`` と ``k * x``\\ （``k`` は :attr:`span` サイズのチャンク内の局所インデックス）の累積和から得られるチャンクの接尾辞とチャンクの接頭辞に分解することにより、:attr:`span` に依存しない ``O(N)`` 時間で計算されます。すべての部分和は連続する 2 つのチャンクの範囲内に閉じており、系列全体での位置インデックスが乗算されることもないため、大きなオフセットやドリフトを持つ長い系列でも計算は数値的に安定に保たれます。チャンク化されたアルゴリズムの詳細な説明は `A Numerically Stable and Fast Implementation of Moving Averages and Variances <https://imoz.jp/scraps/202607_mvar.en.html>`_ を参照してください。"
+
+#: of qfeval_functions.functions.wma.wma:29
+msgid ""
+"In terms of weighting, WMA sits between :func:`ma`, which weights all "
+"window elements uniformly, and :func:`ema`, which decays weights "
+"exponentially: WMA reacts to recent changes faster than the simple moving"
+" average while still dropping old elements completely."
+msgstr "重み付けの観点では、WMA は、ウィンドウ内のすべての要素を均等に重み付けする :func:`ma` と、重みを指数的に減衰させる :func:`ema` の中間に位置します。WMA は、単純移動平均よりも直近の変化に速く反応しつつ、古い要素を完全に切り捨てます。"
+
+#: ../../api/qfeval_functions.functions.wma.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.wma.wma:35
+msgid "The input tensor."
+msgstr "入力テンソル。"
+
+#: of qfeval_functions.functions.wma.wma:38
+msgid "The size of the sliding window. Must be positive."
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
+
+#: of qfeval_functions.functions.wma.wma:41
+msgid ""
+"The dimension along which to compute the weighted moving average. Default"
+" is -1 (the last dimension)."
+msgstr "加重移動平均を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.wma.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.wma.wma:45
+msgid ""
+"A tensor of the same shape as the input, containing the weighted moving "
+"averages. The first ``span - 1`` elements along the specified dimension "
+"are ``nan``."
+msgstr "入力と同じ形状のテンソルで、加重移動平均を格納しています。指定された次元に沿った最初の ``span - 1`` 要素は ``nan`` になります。"
+
+#: ../../api/qfeval_functions.functions.wma.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.wma.wma:51
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.wma.wma:53
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.wma(x, span=3)\n"
+"tensor([   nan,    nan, 2.3333, 3.3333, 4.3333])"
+msgstr ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.wma(x, span=3)\n"
+"tensor([   nan,    nan, 2.3333, 3.3333, 4.3333])"
+
+#: of qfeval_functions.functions.wma.wma:57
+msgid ""
+">>> # A constant input stays constant.\n"
+">>> x = torch.tensor([7.0, 7.0, 7.0, 7.0])\n"
+">>> QF.wma(x, span=2)\n"
+"tensor([nan, 7., 7., 7.])"
+msgstr ""
+">>> # 値が一定の入力は一定のままです。\n"
+">>> x = torch.tensor([7.0, 7.0, 7.0, 7.0])\n"
+">>> QF.wma(x, span=2)\n"
+"tensor([nan, 7., 7., 7.])"
+
+#: of qfeval_functions.functions.wma.wma:62
+msgid ""
+">>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n"
+"...                   [5.0, 6.0, 7.0, 8.0]])\n"
+">>> QF.wma(x, span=2, dim=1)\n"
+"tensor([[   nan, 1.6667, 2.6667, 3.6667],\n"
+"        [   nan, 5.6667, 6.6667, 7.6667]])"
+msgstr ""
+">>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n"
+"...                   [5.0, 6.0, 7.0, 8.0]])\n"
+">>> QF.wma(x, span=2, dim=1)\n"
+"tensor([[   nan, 1.6667, 2.6667, 3.6667],\n"
+"        [   nan, 5.6667, 6.6667, 7.6667]])"
+
+#: of qfeval_functions.functions.wma.wma:68
+msgid ""
+"If a window contains any NaN value, the weighted moving average for that "
+"window is NaN. Unlike ``pandas.DataFrame.rolling``, there is no "
+"``min_periods``-style option to skip NaN values."
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの加重移動平均は NaN になります。``pandas.DataFrame.rolling`` とは異なり、NaN 値をスキップする ``min_periods`` のようなオプションはありません。"
+
+#: of qfeval_functions.functions.wma.wma:73
+msgid ":func:`ma`: Moving average function (uniform weights)."
+msgstr ":func:`ma`: 移動平均関数（均等な重み）。"
+
+#: of qfeval_functions.functions.wma.wma:74
+msgid ":func:`ema`: Exponential moving average function."
+msgstr ":func:`ema`: 指数移動平均関数。"
+
+#: of qfeval_functions.functions.wma.wma:75
+msgid ":func:`msum`: Moving sum function (the same chunked algorithm)."
+msgstr ":func:`msum`: 移動合計関数（同じチャンク化アルゴリズムを使用）。"
+

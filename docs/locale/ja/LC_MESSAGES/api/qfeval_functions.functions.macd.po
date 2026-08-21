@@ -1,0 +1,194 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.macd.rst:2
+msgid "macd"
+msgstr ""
+
+#: of qfeval_functions.functions.macd.macd:1
+msgid ""
+"Compute the Moving Average Convergence Divergence (MACD) along the "
+"specified dimension."
+msgstr "指定された次元に沿って MACD（Moving Average Convergence Divergence）を計算します。"
+
+#: of qfeval_functions.functions.macd.macd:4
+msgid ""
+"MACD is a trend-following momentum indicator built from the difference of"
+" a fast and a slow exponential moving average (EMA).  A signal line (an "
+"EMA of the MACD line) and a histogram (the difference between the two) "
+"are commonly used to detect trend changes and momentum shifts:"
+msgstr "MACD は、短期と長期の指数移動平均（EMA）の差から構成されるトレンドフォロー型のモメンタム指標です。シグナルライン（MACD ラインの EMA）とヒストグラム（両者の差）は、トレンドの転換やモメンタムの変化を検出するために広く用いられます:"
+
+#: of qfeval_functions.functions.macd.macd:9
+msgid ""
+"\\begin{aligned}\n"
+"\\text{MACD}[i] &= \\text{EMA}_{\\text{fast}}(x)[i]\n"
+"    - \\text{EMA}_{\\text{slow}}(x)[i] \\\\\n"
+"\\text{Signal}[i] &= \\text{EMA}_{\\text{signal}}(\\text{MACD})[i] \\\\\n"
+"\\text{Histogram}[i] &= \\text{MACD}[i] - \\text{Signal}[i]\n"
+"\\end{aligned}\n"
+"\n"
+msgstr ""
+"\\begin{aligned}\n"
+"\\text{MACD}[i] &= \\text{EMA}_{\\text{fast}}(x)[i]\n"
+"    - \\text{EMA}_{\\text{slow}}(x)[i] \\\\\n"
+"\\text{Signal}[i] &= \\text{EMA}_{\\text{signal}}(\\text{MACD})[i] \\\\\n"
+"\\text{Histogram}[i] &= \\text{MACD}[i] - \\text{Signal}[i]\n"
+"\\end{aligned}\n"
+"\n"
+
+#: of qfeval_functions.functions.macd.macd:17
+#, python-brace-format
+msgid ""
+"where :math:`\\text{EMA}_n` denotes :func:`ema` with the standard span-"
+"to-alpha mapping :math:`\\alpha_n = 2 / (n + 1)`."
+msgstr "ここで :math:`\\text{EMA}_n` は、期間（スパン）から平滑化係数への標準的な変換 :math:`\\alpha_n = 2 / (n + 1)` を用いた :func:`ema` を表します。"
+
+#: ../../api/qfeval_functions.functions.macd.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.macd.macd:21
+msgid "The input tensor containing prices."
+msgstr "価格を含む入力テンソル。"
+
+#: of qfeval_functions.functions.macd.macd:24
+msgid ""
+"The span of the fast EMA.  Must be positive and less than ``slow_span``."
+"  Default is 12."
+msgstr "短期 EMA の期間（スパン）。正であり、かつ ``slow_span`` より小さい必要があります。デフォルトは 12 です。"
+
+#: of qfeval_functions.functions.macd.macd:28
+msgid "The span of the slow EMA.  Must be positive. Default is 26."
+msgstr "長期 EMA の期間（スパン）。正である必要があります。デフォルトは 26 です。"
+
+#: of qfeval_functions.functions.macd.macd:32
+msgid ""
+"The span of the EMA applied to the MACD line to obtain the signal line.  "
+"Must be positive.  Default is 9."
+msgstr "シグナルラインを得るために MACD ラインに適用される EMA の期間（スパン）。正である必要があります。デフォルトは 9 です。"
+
+#: of qfeval_functions.functions.macd.macd:36
+msgid ""
+"The dimension along which to compute MACD. Default is -1 (the last "
+"dimension)."
+msgstr "MACD を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.macd.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.macd.macd:40
+msgid ""
+"A tuple containing three tensors of the same shape as the input:  - MACD "
+"line: fast EMA - slow EMA - Signal line: EMA of the MACD line - "
+"Histogram: MACD line - signal line"
+msgstr ""
+
+#: of qfeval_functions.functions.macd.macd:40
+msgid "A tuple containing three tensors of the same shape as the input:"
+msgstr "入力と同じ形状の 3 つのテンソルを含むタプル:"
+
+#: of qfeval_functions.functions.macd.macd:42
+msgid "MACD line: fast EMA - slow EMA"
+msgstr "MACD ライン: 短期 EMA - 長期 EMA"
+
+#: of qfeval_functions.functions.macd.macd:43
+msgid "Signal line: EMA of the MACD line"
+msgstr "シグナルライン: MACD ラインの EMA"
+
+#: of qfeval_functions.functions.macd.macd:44
+msgid "Histogram: MACD line - signal line"
+msgstr "ヒストグラム: MACD ライン - シグナルライン"
+
+#: ../../api/qfeval_functions.functions.macd.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: ../../api/qfeval_functions.functions.macd.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.macd.macd:47
+msgid ""
+"If a span is not positive, or if ``fast_span`` is not     less than "
+"``slow_span``."
+msgstr "いずれかのスパンが正でない場合、または ``fast_span`` が ``slow_span`` より小さくない場合。"
+
+#: of qfeval_functions.functions.macd.macd:48
+msgid "If a span is not an integer (``bool`` is rejected)."
+msgstr "いずれかのスパンが整数でない場合（``bool`` も拒否されます）。"
+
+#: of qfeval_functions.functions.macd.macd:51
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.macd.macd:53
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0, 6.0])\n"
+">>> macd_line, signal_line, histogram = QF.macd(\n"
+"...     x, fast_span=3, slow_span=6, signal_span=4)\n"
+">>> macd_line\n"
+"tensor([0.0000, 0.0833, 0.2084, 0.3590, 0.5193, 0.6763])\n"
+">>> signal_line\n"
+"tensor([0.0000, 0.0521, 0.1318, 0.2362, 0.3590, 0.4921])\n"
+">>> histogram\n"
+"tensor([0.0000, 0.0312, 0.0766, 0.1228, 0.1603, 0.1842])"
+msgstr ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0, 6.0])\n"
+">>> macd_line, signal_line, histogram = QF.macd(\n"
+"...     x, fast_span=3, slow_span=6, signal_span=4)\n"
+">>> macd_line\n"
+"tensor([0.0000, 0.0833, 0.2084, 0.3590, 0.5193, 0.6763])\n"
+">>> signal_line\n"
+"tensor([0.0000, 0.0521, 0.1318, 0.2362, 0.3590, 0.4921])\n"
+">>> histogram\n"
+"tensor([0.0000, 0.0312, 0.0766, 0.1228, 0.1603, 0.1842])"
+
+#: of qfeval_functions.functions.macd.macd:63
+msgid ""
+"The EMAs are computed by :func:`ema`, whose weighting is equivalent to "
+"``pandas.DataFrame.ewm(span=n, adjust=True).mean()``.  This differs from "
+"TA-Lib, which uses a recursive EMA seeded with a simple moving average; "
+"the two conventions converge for long series.  Consequently, there is no "
+"warm-up NaN prefix: outputs are defined from the first element, whereas "
+"TA-Lib pads the lookback period with NaN."
+msgstr "EMA は :func:`ema` によって計算され、その重み付けは ``pandas.DataFrame.ewm(span=n, adjust=True).mean()`` と等価です。これは、単純移動平均を初期値とする再帰的な EMA を用いる TA-Lib とは異なりますが、系列が長くなると両者の方式は収束します。その結果、先頭にウォームアップの NaN 区間はなく、出力は最初の要素から定義されます。これに対し、TA-Lib はルックバック期間を NaN で埋めます。"
+
+#: of qfeval_functions.functions.macd.macd:72
+msgid ""
+"Like :func:`ema`, a NaN in the input contaminates all outputs at and "
+"after its position along the dimension."
+msgstr ":func:`ema` と同様に、入力に NaN が現れると、次元に沿ってその位置以降のすべての出力が NaN になります。"
+
+#: of qfeval_functions.functions.macd.macd:76
+msgid ":func:`ema`: Exponential moving average function used for all three lines."
+msgstr ":func:`ema`: 3 つのラインすべてに使用される指数移動平均関数。"
+
+#: of qfeval_functions.functions.macd.macd:78
+msgid ":func:`rsi`: Relative Strength Index, another momentum indicator."
+msgstr ":func:`rsi`: 相対力指数（RSI）。同種のモメンタム指標。"
+
+#: of qfeval_functions.functions.macd.macd:79
+msgid ":func:`bollinger_band`: Another indicator returning multiple series."
+msgstr ":func:`bollinger_band`: 複数の系列を返す同種の指標。"
+

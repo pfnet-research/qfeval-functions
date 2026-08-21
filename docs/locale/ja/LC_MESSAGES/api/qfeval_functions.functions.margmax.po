@@ -1,0 +1,187 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.margmax.rst:2
+msgid "margmax"
+msgstr ""
+
+#: of qfeval_functions.functions.margmax.margmax:1
+msgid "Compute the number of periods since the moving maximum."
+msgstr "移動最大値からの経過期間数を計算します。"
+
+#: of qfeval_functions.functions.margmax.margmax:3
+msgid ""
+"This function calculates, for each position, the number of periods "
+"elapsed since the maximum value inside the trailing window of size "
+":attr:`span` along the specified dimension: ``0`` means the latest "
+"element is the window maximum, and ``span - 1`` means the oldest element "
+"in the window is.  If the maximum appears multiple times in a window, the"
+" most recent occurrence is used, i.e., the smallest distance is returned."
+"  The output tensor has the same shape as the input tensor.  For "
+"positions where the sliding window cannot fully cover preceding elements "
+"(i.e., the first ``span - 1`` elements along the selected dimension), the"
+" result is ``nan``."
+msgstr "この関数は、各位置について、指定された次元に沿ったサイズ :attr:`span` の直近のウィンドウ内で最大値が出現してからの経過期間数を計算します。``0`` は最新の要素がウィンドウ最大値であることを、``span - 1`` はウィンドウ内の最も古い要素が最大値であることを意味します。最大値がウィンドウ内に複数回出現する場合は、最も新しい（直近の）出現位置が使われます。すなわち、最小の距離が返されます。出力テンソルの形状は入力テンソルと同じです。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
+
+#: of qfeval_functions.functions.margmax.margmax:14
+msgid "The number of periods since the maximum is computed as:"
+msgstr "最大値からの経過期間数は次のように計算されます:"
+
+#: of qfeval_functions.functions.margmax.margmax:16
+msgid ""
+"\\text{MARGMAX}[i] = i - \\max\\{j : x[j] = M[i],\\;\n"
+"i - \\text{span} < j \\le i\\},\n"
+"\\quad M[i] = \\max_{k=i-\\text{span}+1}^{i} x[k]\n"
+"\n"
+msgstr ""
+"\\text{MARGMAX}[i] = i - \\max\\{j : x[j] = M[i],\\;\n"
+"i - \\text{span} < j \\le i\\},\n"
+"\\quad M[i] = \\max_{k=i-\\text{span}+1}^{i} x[k]\n"
+"\n"
+
+#: of qfeval_functions.functions.margmax.margmax:21
+msgid ""
+"This function is the building block of the Aroon indicator; for a window "
+"of size :attr:`span`, the Aroon up indicator is ``(span - margmax(x, "
+"span)) / span * 100``."
+msgstr "この関数は Aroon 指標の構成要素です。サイズ :attr:`span` のウィンドウに対して、Aroon Up 指標は ``(span - margmax(x, span)) / span * 100`` となります。"
+
+#: ../../api/qfeval_functions.functions.margmax.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.margmax.margmax:26
+msgid "The input tensor containing values.  Must be a floating point tensor."
+msgstr "値を含む入力テンソル。浮動小数点テンソルである必要があります。"
+
+#: of qfeval_functions.functions.margmax.margmax:30
+msgid "The size of the sliding window. Must be positive."
+msgstr "スライディングウィンドウのサイズ。正の値である必要があります。"
+
+#: of qfeval_functions.functions.margmax.margmax:33
+msgid ""
+"The dimension along which to compute the number of periods since the "
+"moving maximum. Default is -1 (the last dimension)."
+msgstr "移動最大値からの経過期間数を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.margmax.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.margmax.margmax:37
+msgid ""
+"A tensor of the same shape and dtype as the input, containing the number "
+"of periods since the window maximum as floating point values.  The first "
+"``span - 1`` elements along the specified dimension are ``nan``."
+msgstr "入力と同じ形状および dtype のテンソルで、ウィンドウ最大値からの経過期間数を浮動小数点値として含みます。指定された次元に沿った最初の ``span - 1`` 要素は ``nan`` になります。"
+
+#: ../../api/qfeval_functions.functions.margmax.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: ../../api/qfeval_functions.functions.margmax.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.margmax.margmax:43
+msgid "If ``span`` is not positive."
+msgstr "``span`` が正でない場合。"
+
+#: of qfeval_functions.functions.margmax.margmax:44
+msgid "If ``span`` is not an integer (``bool`` is rejected)."
+msgstr "``span`` が整数でない場合（``bool`` も拒否されます）。"
+
+#: of qfeval_functions.functions.margmax.margmax:45
+msgid "If ``x`` is not a floating point tensor."
+msgstr "``x`` が浮動小数点テンソルでない場合。"
+
+#: of qfeval_functions.functions.margmax.margmax:48
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.margmax.margmax:50
+msgid ""
+">>> # Number of periods since the window maximum\n"
+">>> x = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n"
+">>> QF.margmax(x, span=3)\n"
+"tensor([nan, nan, 1., 0., 1.])"
+msgstr ""
+">>> # ウィンドウ最大値からの経過期間数\n"
+">>> x = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])\n"
+">>> QF.margmax(x, span=3)\n"
+"tensor([nan, nan, 1., 0., 1.])"
+
+#: of qfeval_functions.functions.margmax.margmax:55
+msgid ""
+">>> # Ties resolve to the most recent occurrence.\n"
+">>> x = torch.tensor([2.0, 1.0, 2.0, 2.0])\n"
+">>> QF.margmax(x, span=3)\n"
+"tensor([nan, nan, 0., 0.])"
+msgstr ""
+">>> # 同値の場合は最も新しい（直近の）出現位置が使われます。\n"
+">>> x = torch.tensor([2.0, 1.0, 2.0, 2.0])\n"
+">>> QF.margmax(x, span=3)\n"
+"tensor([nan, nan, 0., 0.])"
+
+#: of qfeval_functions.functions.margmax.margmax:60
+msgid ""
+">>> # 2D tensor with the number of periods computed along rows\n"
+">>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n"
+"...                   [4.0, 3.0, 2.0, 1.0]])\n"
+">>> QF.margmax(x, span=2, dim=1)\n"
+"tensor([[nan, 0., 0., 0.],\n"
+"        [nan, 1., 1., 1.]])"
+msgstr ""
+">>> # 2 次元テンソルの行方向に計算した経過期間数\n"
+">>> x = torch.tensor([[1.0, 2.0, 3.0, 4.0],\n"
+"...                   [4.0, 3.0, 2.0, 1.0]])\n"
+">>> QF.margmax(x, span=2, dim=1)\n"
+"tensor([[nan, 0., 0., 0.],\n"
+"        [nan, 1., 1., 1.]])"
+
+#: of qfeval_functions.functions.margmax.margmax:67
+msgid ""
+"If a window contains any NaN value, the result for that window is NaN.  A"
+" ``+inf`` value is a legitimate maximum, so the result measures the "
+"distance to the ``+inf`` element; a ``-inf`` value does not affect the "
+"result unless it is the window maximum."
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの結果は NaN になります。``+inf`` 値は正当な最大値であるため、結果は ``+inf`` 要素までの距離を測ります。``-inf`` 値は、それがウィンドウ最大値である場合を除き、結果に影響しません。"
+
+#: of qfeval_functions.functions.margmax.margmax:73
+msgid ""
+"Narrow windows use a vectorized reduction. Larger windows combine a linear"
+" moving maximum with batched predecessor queries, avoiding ``O(N * span)``"
+" window materialization and taking ``O(N * log(N))`` time with linear "
+"workspace."
+msgstr "狭いウィンドウではベクトル化されたリダクションを使用します。大きなウィンドウでは線形時間の移動最大値と一括先行要素クエリを組み合わせ、``O(N * span)`` のウィンドウ実体化を回避して、線形の作業領域で ``O(N * log(N))`` 時間を要します。"
+
+#: of qfeval_functions.functions.margmax.margmax:78
+msgid ":func:`margmin`: Number of periods since the moving minimum."
+msgstr ":func:`margmin`: 移動最小値からの経過期間数。"
+
+#: of qfeval_functions.functions.margmax.margmax:79
+msgid ":func:`mmax`: Moving maximum function."
+msgstr ":func:`mmax`: 移動最大値関数。"
+
+#: of qfeval_functions.functions.margmax.margmax:80
+msgid ":func:`mrank`: Moving rank of the latest element."
+msgstr ":func:`mrank`: 最新要素の移動順位。"

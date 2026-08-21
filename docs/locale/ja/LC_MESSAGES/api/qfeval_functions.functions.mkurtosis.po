@@ -1,0 +1,218 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.mkurtosis.rst:2
+msgid "mkurtosis"
+msgstr ""
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:1
+msgid "Compute the moving (sliding window) sample excess kurtosis of a tensor."
+msgstr "テンソルの移動標本超過尖度（スライディングウィンドウ尖度）を計算します。"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:4
+msgid ""
+"This function calculates the excess kurtosis of elements within a sliding"
+" window of size :attr:`span` along the specified dimension. The output "
+"tensor has the same shape as the input tensor. For positions where the "
+"sliding window cannot fully cover preceding elements (i.e., the first "
+"``span - 1`` elements along the selected dimension), the result is "
+"``nan``."
+msgstr "この関数は、指定された次元に沿ってサイズ :attr:`span` のスライディングウィンドウ内の要素の超過尖度を計算します。出力テンソルは入力テンソルと同じ形状を持ちます。スライディングウィンドウが先行する要素を完全にカバーできない場合（すなわち、指定された次元に沿って最初の ``span - 1`` 要素の場合）、結果は ``nan`` となります。"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:11
+msgid ""
+"The moving kurtosis is the bias-corrected sample excess kurtosis "
+":math:`G_2` (0 for normally distributed data), the same estimator as "
+"``pandas.DataFrame.rolling(span).kurt()`` and ``scipy.stats.kurtosis(...,"
+" bias=False, fisher=True)``.  With the windowed central moment sums"
+msgstr "移動尖度は、バイアス補正済みの標本超過尖度 :math:`G_2`\\ （正規分布に従うデータでは 0）であり、``pandas.DataFrame.rolling(span).kurt()`` および ``scipy.stats.kurtosis(..., bias=False, fisher=True)`` と同じ推定量です。ウィンドウごとの中心モーメント和を"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:17
+msgid ""
+"M_k[i] = \\sum_{j=i-\\text{span}+1}^{i}\n"
+"\\left(x[j] - \\mu[i]\\right)^k,\n"
+"\\quad \\mu[i] = \\frac{1}{\\text{span}}\n"
+"\\sum_{j=i-\\text{span}+1}^{i} x[j],\n"
+"\n"
+msgstr ""
+"M_k[i] = \\sum_{j=i-\\text{span}+1}^{i}\n"
+"\\left(x[j] - \\mu[i]\\right)^k,\n"
+"\\quad \\mu[i] = \\frac{1}{\\text{span}}\n"
+"\\sum_{j=i-\\text{span}+1}^{i} x[j],\n"
+"\n"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:23
+msgid "it is defined as:"
+msgstr "とすると、以下のように定義されます："
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:25
+msgid ""
+"\\text{MKURT}[i] =\n"
+"\\frac{\\text{span} - 1}\n"
+"{\\left(\\text{span} - 2\\right) \\left(\\text{span} - 3\\right)}\n"
+"\\left(\n"
+"\\text{span} \\left(\\text{span} + 1\\right)\n"
+"\\frac{M_4[i]}{M_2[i]^2}\n"
+"- 3 \\left(\\text{span} - 1\\right)\n"
+"\\right)\n"
+"\n"
+msgstr ""
+"\\text{MKURT}[i] =\n"
+"\\frac{\\text{span} - 1}\n"
+"{\\left(\\text{span} - 2\\right) \\left(\\text{span} - 3\\right)}\n"
+"\\left(\n"
+"\\text{span} \\left(\\text{span} + 1\\right)\n"
+"\\frac{M_4[i]}{M_2[i]^2}\n"
+"- 3 \\left(\\text{span} - 1\\right)\n"
+"\\right)\n"
+"\n"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:35
+msgid ""
+"The moving kurtosis is computed in ``O(N)`` time independent of "
+":attr:`span`, using cumulative central moment sums of :attr:`span`-sized "
+"chunks merged by the pairwise update formulas by Chan et al. and "
+"Terriberry (see `Algorithms for calculating variance "
+"<https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance>`_). "
+"All sums are taken over deviations from nearby reference values, so the "
+"result is numerically stable even when the input has a large offset "
+"relative to its scale (e.g., values around ``1e6`` with a standard "
+"deviation of ``1e-3``).  See `A Numerically Stable and Fast "
+"Implementation of Moving Averages and Variances "
+"<https://imoz.jp/scraps/202607_mvar.en.html>`_ for a detailed description"
+" of the chunked cumulative-statistics algorithm, which this function "
+"extends to the 3rd and 4th central moments."
+msgstr "移動尖度は、:attr:`span` サイズのチャンクごとの累積中心モーメント和を Chan らおよび Terriberry によるペアワイズ更新式で結合することにより、:attr:`span` に依存しない ``O(N)`` 時間で計算されます（`Algorithms for calculating variance <https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance>`_ を参照）。すべての和は近傍の参照値からの偏差に対して計算されるため、入力がそのスケールに対して大きなオフセットを持つ場合（例: 値が ``1e6`` 前後で標準偏差が ``1e-3`` 程度の場合）でも、結果は数値的に安定しています。チャンク化された累積統計量アルゴリズムの詳細な説明は `A Numerically Stable and Fast Implementation of Moving Averages and Variances <https://imoz.jp/scraps/202607_mvar.en.html>`_ を参照してください。この関数は、そのアルゴリズムを 3 次および 4 次中心モーメントに拡張したものです。"
+
+#: ../../api/qfeval_functions.functions.mkurtosis.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:50
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:53
+msgid ""
+"The size of the sliding window. If it is less than 4, the result is all-"
+"NaN because the bias correction is undefined."
+msgstr "スライディングウィンドウのサイズ。4 未満の場合は、バイアス補正が定義されないため、結果はすべて NaN になります。"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:57
+msgid ""
+"The dimension along which to compute the moving kurtosis. Default is -1 "
+"(the last dimension)."
+msgstr "移動尖度を計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: ../../api/qfeval_functions.functions.mkurtosis.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:61
+msgid ""
+"A tensor of the same shape as the input, containing the moving excess "
+"kurtosis values. The first ``span - 1`` elements along the specified "
+"dimension are ``nan``."
+msgstr "入力と同じ形状のテンソルで、移動超過尖度の値を格納しています。指定された次元に沿った最初の ``span - 1`` 要素は ``nan`` になります。"
+
+#: ../../api/qfeval_functions.functions.mkurtosis.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:67
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:69
+msgid ""
+">>> # Simple moving kurtosis with window size 4\n"
+">>> x = torch.tensor([1.0, 2.0, 4.0, 8.0, 16.0])\n"
+">>> QF.mkurtosis(x, span=4)\n"
+"tensor([   nan,    nan,    nan, 0.7577, 0.7577])"
+msgstr ""
+">>> # ウィンドウサイズ 4 の単純な移動尖度\n"
+">>> x = torch.tensor([1.0, 2.0, 4.0, 8.0, 16.0])\n"
+">>> QF.mkurtosis(x, span=4)\n"
+"tensor([   nan,    nan,    nan, 0.7577, 0.7577])"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:74
+msgid ""
+">>> # An outlier makes a window heavy-tailed (positive kurtosis)\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0, 100.0])\n"
+">>> QF.mkurtosis(x, span=5)\n"
+"tensor([    nan,     nan,     nan,     nan, -1.2000,  4.9866])"
+msgstr ""
+">>> # 外れ値を含むウィンドウは裾が重くなります（正の尖度）\n"
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0, 100.0])\n"
+">>> QF.mkurtosis(x, span=5)\n"
+"tensor([    nan,     nan,     nan,     nan, -1.2000,  4.9866])"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:79
+msgid ""
+">>> # 2D tensor with moving kurtosis along rows\n"
+">>> x = torch.tensor([[1.0, 2.0, 4.0, 8.0, 9.0],\n"
+"...                   [0.0, 5.0, 6.0, 7.0, 12.0]])\n"
+">>> QF.mkurtosis(x, span=4, dim=1)\n"
+"tensor([[    nan,     nan,     nan,  0.7577, -3.8690],\n"
+"        [    nan,     nan,     nan,  2.7039,  2.7039]])"
+msgstr ""
+">>> # 2 次元テンソルの行方向の移動尖度\n"
+">>> x = torch.tensor([[1.0, 2.0, 4.0, 8.0, 9.0],\n"
+"...                   [0.0, 5.0, 6.0, 7.0, 12.0]])\n"
+">>> QF.mkurtosis(x, span=4, dim=1)\n"
+"tensor([[    nan,     nan,     nan,  0.7577, -3.8690],\n"
+"        [    nan,     nan,     nan,  2.7039,  2.7039]])"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:86
+msgid ""
+">>> # Constant windows have no defined kurtosis\n"
+">>> x = torch.tensor([2.0, 2.0, 2.0, 2.0, 3.0])\n"
+">>> QF.mkurtosis(x, span=4)\n"
+"tensor([   nan,    nan,    nan,    nan, 4.0000])"
+msgstr ""
+">>> # 値が一定のウィンドウでは尖度は定義されません\n"
+">>> x = torch.tensor([2.0, 2.0, 2.0, 2.0, 3.0])\n"
+">>> QF.mkurtosis(x, span=4)\n"
+"tensor([   nan,    nan,    nan,    nan, 4.0000])"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:91
+msgid ""
+"If a window contains any NaN value, the moving kurtosis for that window "
+"is NaN. Unlike ``pandas.DataFrame.rolling``, there is no "
+"``min_periods``-style option to skip NaN values.  A window whose values "
+"are all (nearly) equal has no defined kurtosis because the "
+"standardization divides by a vanishing variance; the result is NaN "
+"(``pandas`` instead special-cases perfectly uniform windows to ``-3.0``)."
+msgstr "ウィンドウ内に NaN 値が 1 つでも含まれる場合、そのウィンドウの移動尖度は NaN になります。``pandas.DataFrame.rolling`` とは異なり、NaN 値をスキップする ``min_periods`` のようなオプションはありません。値がすべて（ほぼ）等しいウィンドウでは、標準化においてゼロに近づく分散で除算することになるため尖度が定義されず、結果は NaN になります（``pandas`` は完全に一様なウィンドウを特別扱いし、``-3.0`` を返します）。"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:100
+msgid ":func:`mskew`: Moving skewness function (3rd standardized moment)."
+msgstr ":func:`mskew`: 移動歪度関数（3 次標準化モーメント）。"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:102
+msgid ":func:`nankurtosis`: NaN-aware (non-moving) kurtosis function."
+msgstr ":func:`nankurtosis`: NaN を考慮した（移動ではない）尖度関数。"
+
+#: of qfeval_functions.functions.mkurtosis.mkurtosis:103
+msgid ":func:`mvar`: Moving variance function, which this algorithm extends."
+msgstr ":func:`mvar`: 移動分散関数（本アルゴリズムの拡張元）。"
+

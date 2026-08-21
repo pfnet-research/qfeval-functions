@@ -1,0 +1,166 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.nanema.rst:2
+msgid "nanema"
+msgstr ""
+
+#: of qfeval_functions.functions.nanema.nanema:1
+msgid "Compute exponential moving average, skipping NaN values."
+msgstr "NaN 値をスキップして指数移動平均を計算します。"
+
+#: of qfeval_functions.functions.nanema.nanema:3
+msgid ""
+"This function calculates the exponential moving average (EMA) of a tensor"
+" along the specified dimension while ignoring NaN values.  At each valid "
+"(non-NaN) position :math:`i`, only the valid values are averaged, but the"
+" weight of each value still decays with the absolute distance in "
+"positions (i.e., calendar time), not with the number of valid values in "
+"between:"
+msgstr "この関数は、NaN 値を無視しながら、指定された次元に沿ってテンソルの指数移動平均 (EMA) を計算します。各有効（NaN でない）位置 :math:`i` では有効な値のみが平均されますが、各値の重みは、間にある有効値の数ではなく、位置の絶対的な距離（すなわちカレンダー時間）に応じて減衰します:"
+
+#: of qfeval_functions.functions.nanema.nanema:10
+msgid ""
+"\\text{nanema}[i] = \\frac\n"
+"    {\\sum_{j \\le i,\\ x[j]\\ \\text{valid}} x[j] \\cdot\n"
+"        (1-\\alpha)^{i-j}}\n"
+"    {\\sum_{j \\le i,\\ x[j]\\ \\text{valid}} (1-\\alpha)^{i-j}}\n"
+"\n"
+msgstr ""
+"\\text{nanema}[i] = \\frac\n"
+"    {\\sum_{j \\le i,\\ x[j]\\ \\text{valid}} x[j] \\cdot\n"
+"        (1-\\alpha)^{i-j}}\n"
+"    {\\sum_{j \\le i,\\ x[j]\\ \\text{valid}} (1-\\alpha)^{i-j}}\n"
+"\n"
+
+#: of qfeval_functions.functions.nanema.nanema:16
+msgid ""
+"At valid positions, this matches ``Series.ewm(alpha=alpha, adjust=True, "
+"ignore_na=False).mean()`` of pandas.  Unlike pandas, which carries the "
+"last mean forward at NaN positions, this function returns NaN there, "
+"preserving the missingness of the input.  Positions before the first "
+"valid value are also NaN.  On NaN-free input, this function is identical "
+"to :func:`ema`."
+msgstr "有効な位置では、この結果は pandas の ``Series.ewm(alpha=alpha, adjust=True, ignore_na=False).mean()`` と一致します。NaN の位置で直前の平均値をそのまま引き継ぐ pandas とは異なり、この関数は NaN の位置では NaN を返し、入力の欠損情報を保持します。最初の有効値より前の位置も NaN になります。NaN を含まない入力に対しては、この関数は :func:`ema` と同一です。"
+
+#: ../../api/qfeval_functions.functions.nanema.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.nanema.nanema:25
+msgid ""
+"The input tensor containing values to be averaged.  It may contain NaN "
+"values, which are skipped."
+msgstr "平均化する値を含む入力テンソル。NaN 値を含んでいてもよく、NaN 値はスキップされます。"
+
+#: of qfeval_functions.functions.nanema.nanema:29
+msgid ""
+"The smoothing factor, must be in the range (0, 1).  Smaller values result"
+" in more smoothing (slower decay)."
+msgstr "平滑化係数。(0, 1) の範囲内である必要があります。値が小さいほど平滑化が強くなります（減衰が緩やかになります）。"
+
+#: of qfeval_functions.functions.nanema.nanema:33
+msgid ""
+"The dimension along which to compute the exponential moving average. "
+"Default is -1 (the last dimension)."
+msgstr "指数移動平均を計算する次元。デフォルトは -1 で、最後の次元を意味します。"
+
+#: ../../api/qfeval_functions.functions.nanema.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.nanema.nanema:38
+msgid ""
+"A tensor of the same shape as the input, containing the exponential "
+"moving average of the valid values.  NaN input positions and positions "
+"before the first valid value are NaN."
+msgstr "入力と同じ形状のテンソルで、有効値の指数移動平均を格納します。入力が NaN の位置と、最初の有効値より前の位置は NaN になります。"
+
+#: ../../api/qfeval_functions.functions.nanema.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.nanema.nanema:44
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.nanema.nanema:46
+msgid ""
+">>> x = torch.tensor([1.0, nan, 3.0, 4.0])\n"
+">>> QF.nanema(x, alpha=0.5)\n"
+"tensor([1.0000,    nan, 2.6000, 3.4615])"
+msgstr ""
+">>> x = torch.tensor([1.0, nan, 3.0, 4.0])\n"
+">>> QF.nanema(x, alpha=0.5)\n"
+"tensor([1.0000,    nan, 2.6000, 3.4615])"
+
+#: of qfeval_functions.functions.nanema.nanema:50
+msgid ""
+">>> # Positions before the first valid value remain NaN.\n"
+">>> QF.nanema(torch.tensor([nan, nan, 2.0, nan]), alpha=0.5)\n"
+"tensor([nan, nan, 2., nan])"
+msgstr ""
+">>> # 最初の有効値より前の位置は NaN のままです。\n"
+">>> QF.nanema(torch.tensor([nan, nan, 2.0, nan]), alpha=0.5)\n"
+"tensor([nan, nan, 2., nan])"
+
+#: of qfeval_functions.functions.nanema.nanema:54
+msgid ""
+">>> # 2D example with dim=1\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [4.0, 5.0, nan]])\n"
+">>> QF.nanema(x, alpha=0.5, dim=1)\n"
+"tensor([[1.0000,    nan, 2.6000],\n"
+"        [4.0000, 4.6667,    nan]])"
+msgstr ""
+">>> # dim=1 を指定した 2 次元の例\n"
+">>> x = torch.tensor([[1.0, nan, 3.0],\n"
+"...                   [4.0, 5.0, nan]])\n"
+">>> QF.nanema(x, alpha=0.5, dim=1)\n"
+"tensor([[1.0000,    nan, 2.6000],\n"
+"        [4.0000, 4.6667,    nan]])"
+
+#: of qfeval_functions.functions.nanema.nanema:61
+msgid ""
+"This function shares the efficient doubling-based algorithm of "
+":func:`ema` (:math:`O(\\log n)` doubling steps along the dimension).  "
+"Infinite values are treated as valid values: once a ±inf value enters the"
+" weighted sums, subsequent outputs become inf (or NaN if infinities of "
+"both signs are mixed)."
+msgstr "この関数は :func:`ema` と同じ、倍加（ダブリング）に基づく効率的なアルゴリズムを使用しています（次元に沿って :math:`O(\\log n)` 回の倍加ステップ）。無限大の値は有効な値として扱われます。±inf の値が一度重み付き和に入ると、それ以降の出力は inf になります（両符号の無限大が混在する場合は NaN になります）。"
+
+#: of qfeval_functions.functions.nanema.nanema:68
+msgid ":func:`ema`: Exponential moving average without NaN handling."
+msgstr ":func:`ema`: NaN 処理を行わない指数移動平均関数。"
+
+#: of qfeval_functions.functions.nanema.nanema:69
+msgid ":func:`nanmean`: Mean of valid values."
+msgstr ":func:`nanmean`: 有効値の平均を計算する関数。"
+
+#: of qfeval_functions.functions.nanema.nanema:70
+msgid ":func:`fillna`: Replace NaN/infinity values with fixed numbers."
+msgstr ":func:`fillna`: NaN や無限大を固定値で置き換える関数。"
+
+#: of qfeval_functions.functions.nanema.nanema:71
+msgid ":func:`naninterp`: Linear interpolation of NaN values."
+msgstr ":func:`naninterp`: NaN 値を線形補間する関数。"
+

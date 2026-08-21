@@ -1,0 +1,208 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.zscore.rst:2
+msgid "zscore"
+msgstr ""
+
+#: of qfeval_functions.functions.zscore.zscore:1
+msgid "Compute the z-score along specified dimensions, ignoring NaN values."
+msgstr "NaN 値を無視して、指定された次元に沿って z スコアを計算します。"
+
+#: of qfeval_functions.functions.zscore.zscore:4
+msgid ""
+"This function standardizes tensor elements by subtracting the NaN-aware "
+"mean and dividing by the NaN-aware standard deviation along the specified"
+" dimension(s).  NaN values are excluded from the statistics and stay NaN "
+"in the output.  The result is compatible with :func:`scipy.stats.zscore` "
+"with ``nan_policy=\"omit\"``, where :attr:`unbiased` corresponds to its "
+"``ddof`` parameter (``True`` to ``ddof=1`` and ``False`` to ``ddof=0``)."
+msgstr "この関数は、指定された次元に沿って、NaN を考慮した平均を減算し、NaN を考慮した標準偏差で除算することで、テンソル要素を標準化します。NaN 値は統計量から除外され、出力でも NaN のままです。結果は ``nan_policy=\"omit\"`` を指定した :func:`scipy.stats.zscore` と互換であり、:attr:`unbiased` はその ``ddof`` パラメータに対応します（``True`` は ``ddof=1`` に、``False`` は ``ddof=0`` に対応します）。"
+
+#: of qfeval_functions.functions.zscore.zscore:12
+msgid "The z-score is computed as:"
+msgstr "z スコアは以下のように計算されます："
+
+#: of qfeval_functions.functions.zscore.zscore:14
+#, python-brace-format
+msgid ""
+"\\text{ZSCORE}[i] = \\frac{x[i] - \\mu}{\\sigma}\n"
+"\n"
+msgstr ""
+"\\text{ZSCORE}[i] = \\frac{x[i] - \\mu}{\\sigma}\n"
+"\n"
+
+#: of qfeval_functions.functions.zscore.zscore:17
+msgid ""
+"where :math:`\\mu` and :math:`\\sigma` are the mean and the standard "
+"deviation of the valid (non-NaN) elements along the specified "
+"dimension(s)."
+msgstr "ここで、:math:`\\mu` と :math:`\\sigma` は、指定された次元に沿った有効な（NaN でない）要素の平均と標準偏差です。"
+
+#: ../../api/qfeval_functions.functions.zscore.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.zscore.zscore:22
+msgid "The input tensor containing values."
+msgstr "値を含む入力テンソル。"
+
+#: of qfeval_functions.functions.zscore.zscore:25
+msgid ""
+"The dimension(s) along which to standardize elements.  If None, elements "
+"are standardized over all dimensions. Default is -1 (the last dimension)."
+msgstr "要素を標準化する次元。None の場合は、すべての次元にわたって要素が標準化されます。デフォルトは -1（最後の次元）です。"
+
+#: of qfeval_functions.functions.zscore.zscore:30
+msgid ""
+"If ``True`` (default), the standard deviation is computed with Bessel's "
+"correction, dividing the sum of squared deviations by ``N - 1``, where "
+"``N`` is the number of valid elements.  If ``False``, divides by ``N``."
+msgstr "``True``\\ （デフォルト）の場合、標準偏差はベッセル補正を適用して計算され、偏差の二乗和を ``N - 1`` で除算します。ここで ``N`` は有効な要素数です。``False`` の場合、``N`` で除算します。"
+
+#: ../../api/qfeval_functions.functions.zscore.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.zscore.zscore:36
+msgid ""
+"A tensor of the same shape as the input, containing z-scores. Positions "
+"holding NaN in the input are NaN in the output."
+msgstr "z スコアを含む、入力と同じ形状のテンソル。入力で NaN であった位置は、出力でも NaN になります。"
+
+#: ../../api/qfeval_functions.functions.zscore.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.zscore.zscore:41
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.zscore.zscore:43
+msgid ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.zscore(x)\n"
+"tensor([-1.2649, -0.6325,  0.0000,  0.6325,  1.2649])"
+msgstr ""
+">>> x = torch.tensor([1.0, 2.0, 3.0, 4.0, 5.0])\n"
+">>> QF.zscore(x)\n"
+"tensor([-1.2649, -0.6325,  0.0000,  0.6325,  1.2649])"
+
+#: of qfeval_functions.functions.zscore.zscore:47
+msgid ""
+">>> # Biased (population) standard deviation\n"
+">>> QF.zscore(x, unbiased=False)\n"
+"tensor([-1.4142, -0.7071,  0.0000,  0.7071,  1.4142])"
+msgstr ""
+">>> # 偏りのある（母集団）標準偏差\n"
+">>> QF.zscore(x, unbiased=False)\n"
+"tensor([-1.4142, -0.7071,  0.0000,  0.7071,  1.4142])"
+
+#: of qfeval_functions.functions.zscore.zscore:51
+msgid ""
+">>> # NaN values are excluded from the statistics.\n"
+">>> QF.zscore(torch.tensor([1.0, nan, 3.0]))\n"
+"tensor([-0.7071,     nan,  0.7071])"
+msgstr ""
+">>> # NaN 値は統計量から除外されます。\n"
+">>> QF.zscore(torch.tensor([1.0, nan, 3.0]))\n"
+"tensor([-0.7071,     nan,  0.7071])"
+
+#: of qfeval_functions.functions.zscore.zscore:55
+msgid ""
+">>> # Each row is standardized independently.\n"
+">>> x = torch.tensor([[1.0, 2.0, 3.0],\n"
+"...                   [2.0, 4.0, 6.0]])\n"
+">>> QF.zscore(x, dim=1)\n"
+"tensor([[-1.,  0.,  1.],\n"
+"        [-1.,  0.,  1.]])"
+msgstr ""
+">>> # 各行は独立に標準化されます。\n"
+">>> x = torch.tensor([[1.0, 2.0, 3.0],\n"
+"...                   [2.0, 4.0, 6.0]])\n"
+">>> QF.zscore(x, dim=1)\n"
+"tensor([[-1.,  0.,  1.],\n"
+"        [-1.,  0.,  1.]])"
+
+#: of qfeval_functions.functions.zscore.zscore:62
+msgid ""
+">>> # Standardization over all elements\n"
+">>> x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])\n"
+">>> QF.zscore(x, dim=None, unbiased=False)\n"
+"tensor([[-1.3416, -0.4472],\n"
+"        [ 0.4472,  1.3416]])"
+msgstr ""
+">>> # すべての要素にわたる標準化\n"
+">>> x = torch.tensor([[1.0, 2.0], [3.0, 4.0]])\n"
+">>> QF.zscore(x, dim=None, unbiased=False)\n"
+"tensor([[-1.3416, -0.4472],\n"
+"        [ 0.4472,  1.3416]])"
+
+#: of qfeval_functions.functions.zscore.zscore:68
+msgid ""
+">>> # A constant slice yields NaN.\n"
+">>> QF.zscore(torch.full((3,), 2.0))\n"
+"tensor([nan, nan, nan])"
+msgstr ""
+">>> # 定数値のスライスでは NaN になります。\n"
+">>> QF.zscore(torch.full((3,), 2.0))\n"
+"tensor([nan, nan, nan])"
+
+#: of qfeval_functions.functions.zscore.zscore:72
+msgid ""
+"A constant slice has zero standard deviation, so its z-scores are NaN "
+"(:math:`0 / 0`).  A slice with a single valid element also yields NaN: "
+"the variance itself is NaN if :attr:`unbiased` is true, and the zero "
+"standard deviation leads to :math:`0 / 0` otherwise.  A slice with no "
+"valid elements stays NaN.  A slice containing infinite values yields NaN "
+"because the mean and the standard deviation become infinite or undefined."
+msgstr "定数値のスライスは標準偏差がゼロになるため、その z スコアは :math:`0 / 0` により NaN になります。有効な要素が 1 つだけのスライスも NaN になります。:attr:`unbiased` が true の場合は分散自体が NaN となり、そうでない場合は標準偏差がゼロとなって :math:`0 / 0` になるためです。有効な要素がないスライスは NaN のままです。無限大の値を含むスライスは、平均と標準偏差が無限大または未定義になるため、NaN になります。"
+
+#: of qfeval_functions.functions.zscore.zscore:81
+msgid ""
+"Wherever a slice has at least two distinct valid values, the output has "
+"(approximately) zero mean and unit standard deviation over the valid "
+"elements along the specified dimension(s)."
+msgstr "スライスが少なくとも 2 つの相異なる有効な値を持つ場合、出力は指定された次元に沿った有効な要素にわたって（近似的に）平均が 0、標準偏差が 1 になります。"
+
+#: of qfeval_functions.functions.zscore.zscore:86
+msgid ":func:`mzscore`: Moving (sliding window) version of this function."
+msgstr ":func:`mzscore`: この関数の移動（スライディングウィンドウ）版。"
+
+#: of qfeval_functions.functions.zscore.zscore:88
+msgid ""
+":func:`rank`: Cross-sectional percentile rank, another way to normalize "
+"values along a dimension."
+msgstr ":func:`rank`: クロスセクショナルなパーセンタイル順位。次元に沿って値を正規化するもう 1 つの方法。"
+
+#: of qfeval_functions.functions.zscore.zscore:90
+msgid ":func:`winsorize`: Cross-sectional clipping of extreme values."
+msgstr ":func:`winsorize`: 極端な値のクロスセクショナルなクリッピング。"
+
+#: of qfeval_functions.functions.zscore.zscore:91
+msgid ":func:`nanmean`: NaN-aware mean function."
+msgstr ":func:`nanmean`: NaN を考慮した平均関数。"
+
+#: of qfeval_functions.functions.zscore.zscore:92
+msgid ":func:`nanvar`: NaN-aware variance function."
+msgstr ":func:`nanvar`: NaN を考慮した分散関数。"
+

@@ -1,0 +1,146 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2025, qfeval-functions contributors
+# This file is distributed under the same license as the qfeval-functions
+# package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: qfeval-functions \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-07-30 03:58+0900\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.17.0\n"
+
+#: ../../api/qfeval_functions.functions.max_drawdown.rst:2
+msgid "max\\_drawdown"
+msgstr ""
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:1
+msgid "Compute the maximum drawdown along the specified dimension."
+msgstr "指定された次元に沿って最大ドローダウンを計算します。"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:3
+msgid ""
+"The maximum drawdown is the largest peak-to-trough loss of a price or "
+"equity curve, i.e., the most negative value of the drawdown series:"
+msgstr "最大ドローダウンは、価格や資産曲線（エクイティカーブ）におけるピークからボトムまでの最大の損失、すなわちドローダウン系列の最も負の値です:"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:6
+msgid ""
+"\\text{MDD} = \\min_i \\left(\n"
+"    \\frac{x[i]}{\\max_{j \\le i} x[j]} - 1 \\right)\n"
+"\n"
+msgstr ""
+"\\text{MDD} = \\min_i \\left(\n"
+"    \\frac{x[i]}{\\max_{j \\le i} x[j]} - 1 \\right)\n"
+"\n"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:10
+msgid ""
+"Following the convention of quantitative finance libraries such as "
+"empyrical, the result is returned as a non-positive number (e.g., "
+"``-0.35`` denotes a 35% peak-to-trough loss).  A monotonically non-"
+"decreasing series yields ``0.0``."
+msgstr "empyrical などのクオンツファイナンスライブラリの慣例に従い、結果は非正（0 以下）の数として返されます（例えば ``-0.35`` は、ピークからボトムまでの 35% の損失を表します）。単調非減少の系列では ``0.0`` になります。"
+
+#: ../../api/qfeval_functions.functions.max_drawdown.rst
+msgid "Parameters"
+msgstr "パラメータ"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:16
+msgid "The input tensor containing strictly positive prices."
+msgstr "厳密に正の価格を含む入力テンソル。"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:19
+msgid ""
+"The dimension along which to compute the maximum drawdown. Default is -1 "
+"(the last dimension)."
+msgstr "最大ドローダウンを計算する次元。デフォルトは -1（最後の次元）です。"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:23
+msgid ""
+"Whether the output tensor has ``dim`` retained or not. Default is "
+"``False``."
+msgstr "出力テンソルが ``dim`` を保持するかどうか。デフォルトは ``False`` です。"
+
+#: ../../api/qfeval_functions.functions.max_drawdown.rst
+msgid "Returns"
+msgstr "戻り値"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:27
+msgid ""
+"A tensor with the specified dimension reduced (retained with size 1 if "
+"``keepdim`` is ``True``), containing the most negative drawdown values as"
+" non-positive numbers."
+msgstr "最も負のドローダウン値を非正（0 以下）の数として含む、指定された次元が縮約されたテンソル（``keepdim`` が ``True`` の場合、その次元はサイズ 1 で保持されます）。"
+
+#: ../../api/qfeval_functions.functions.max_drawdown.rst
+msgid "Return type"
+msgstr "戻り値の型"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:33
+msgid "Example"
+msgstr "使用例"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:35
+msgid ""
+">>> x = torch.tensor([100.0, 120.0, 90.0, 130.0, 65.0])\n"
+">>> QF.max_drawdown(x)\n"
+"tensor(-0.5000)"
+msgstr ""
+">>> x = torch.tensor([100.0, 120.0, 90.0, 130.0, 65.0])\n"
+">>> QF.max_drawdown(x)\n"
+"tensor(-0.5000)"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:39
+msgid ""
+">>> # 2D example: one value per row.\n"
+">>> x = torch.tensor([[100.0, 120.0, 90.0, 130.0, 65.0],\n"
+"...                   [10.0, 20.0, 30.0, 40.0, 50.0]])\n"
+">>> QF.max_drawdown(x, dim=1)\n"
+"tensor([-0.5000,  0.0000])"
+msgstr ""
+">>> # 2 次元の例: 行ごとに 1 つの値。\n"
+">>> x = torch.tensor([[100.0, 120.0, 90.0, 130.0, 65.0],\n"
+"...                   [10.0, 20.0, 30.0, 40.0, 50.0]])\n"
+">>> QF.max_drawdown(x, dim=1)\n"
+"tensor([-0.5000,  0.0000])"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:45
+msgid ""
+">>> QF.max_drawdown(x, dim=1, keepdim=True)\n"
+"tensor([[-0.5000],\n"
+"        [ 0.0000]])"
+msgstr ""
+">>> QF.max_drawdown(x, dim=1, keepdim=True)\n"
+"tensor([[-0.5000],\n"
+"        [ 0.0000]])"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:49
+msgid ""
+"Any NaN along the reduced dimension makes the result NaN, because "
+":func:`drawdown` propagates NaN stickily and ``amin`` propagates NaN as "
+"well."
+msgstr "縮約される次元に沿って NaN が 1 つでもあると、結果は NaN になります。:func:`drawdown` が NaN を粘着的に伝播し、``amin`` も同様に NaN を伝播するためです。"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:54
+msgid ":func:`drawdown`: The full drawdown series this function minimizes."
+msgstr ":func:`drawdown`: この関数が最小値を求める対象となるドローダウン系列全体。"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:56
+msgid ":func:`nanmin`: Minimum function that skips NaN values."
+msgstr ":func:`nanmin`: NaN 値をスキップする最小値関数。"
+
+#: of qfeval_functions.functions.max_drawdown.max_drawdown:57
+msgid ":func:`mmin`: Moving minimum function."
+msgstr ":func:`mmin`: 移動最小値関数。"
+
