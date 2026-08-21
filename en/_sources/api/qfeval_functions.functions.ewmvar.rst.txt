@@ -1,0 +1,6 @@
+﻿ewmvar
+======
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: ewmvar

@@ -1,0 +1,6 @@
+﻿margmax
+=======
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: margmax

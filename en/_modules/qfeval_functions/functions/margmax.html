@@ -1,0 +1,428 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qfeval_functions.functions.margmax &mdash; qfeval-functions  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=fdfa09e0" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            qfeval-functions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/qfeval_functions.functions.html">Functions (qfeval_functions.functions)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.apply_for_axis.html">apply_for_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.atr.html">atr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bfill.html">bfill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bincount.html">bincount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bollinger_band.html">bollinger_band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.correl.html">correl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.covar.html">covar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.cumcount.html">cumcount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.drawdown.html">drawdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.eigh.html">eigh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.einsum.html">einsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ema.html">ema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmcorrel.html">ewmcorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmcovar.html">ewmcovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmstd.html">ewmstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmvar.html">ewmvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ffill.html">ffill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.fillna.html">fillna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.gaussian_blur.html">gaussian_blur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.group_shift.html">group_shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.groupby.html">groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ma.html">ma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.macd.html">macd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.margmax.html">margmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.margmin.html">margmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.max_drawdown.html">max_drawdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mcorrel.html">mcorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mcovar.html">mcovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mkurtosis.html">mkurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmax.html">mmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmedian.html">mmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmin.html">mmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mprod.html">mprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mquantile.html">mquantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mrank.html">mrank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mskew.html">mskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mslope.html">mslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mstd.html">mstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.msum.html">msum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mulmean.html">mulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mulsum.html">mulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mvar.html">mvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mzscore.html">mzscore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanamax.html">nanamax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanamin.html">nanamin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancorrel.html">nancorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancovar.html">nancovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancumprod.html">nancumprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancumsum.html">nancumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nandiff.html">nandiff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanema.html">nanema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.naninterp.html">naninterp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nankurtosis.html">nankurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmax.html">nanmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmean.html">nanmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmedian.html">nanmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmin.html">nanmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmulmean.html">nanmulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmulsum.html">nanmulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanones.html">nanones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanpca.html">nanpca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanprod.html">nanprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanquantile.html">nanquantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanrms.html">nanrms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanshift.html">nanshift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanskew.html">nanskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanslope.html">nanslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanstd.html">nanstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nansum.html">nansum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanvar.html">nanvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.orthogonalize.html">orthogonalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.orthonormalize.html">orthonormalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.pca.html">pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.pca_cov.html">pca_cov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.project.html">project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rand.html">rand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rand_like.html">rand_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randint.html">randint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randn.html">randn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randn_like.html">randn_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randperm.html">randperm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rank.html">rank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rci.html">rci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rcummax.html">rcummax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rcumsum.html">rcumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.reduce_nan_patterns.html">reduce_nan_patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rms.html">rms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.roc.html">roc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rsi.html">rsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.shift.html">shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.signif.html">signif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.skipna.html">skipna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.slope.html">slope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.soft_topk.html">soft_topk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.soft_topk_bottomk.html">soft_topk_bottomk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.stable_sort.html">stable_sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.stochastics.html">stochastics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.winsorize.html">winsorize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.wma.html">wma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.zscore.html">zscore</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/qfeval_functions.random.html">Random (qfeval_functions.random)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.is_fast.html">is_fast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.rng.html">rng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.seed.html">seed</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">qfeval-functions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">qfeval_functions.functions.margmax</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for qfeval_functions.functions.margmax</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">._moving_order</span><span class="w"> </span><span class="kn">import</span> <span class="n">_window_has_nan</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.apply_for_axis</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply_for_axis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.mmax</span><span class="w"> </span><span class="kn">import</span> <span class="n">mmax</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_prepend_incomplete</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">completed</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">nans</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">new_full</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">span</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">nans</span><span class="p">,</span> <span class="n">completed</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mextremum_distance_compare</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">largest</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute extremum distances by reducing materialized windows.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">span</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+
+    <span class="c1"># Reversing each window makes the first extremum the most recent one,</span>
+    <span class="c1"># so the reduction result is already the elapsed-period count.</span>
+    <span class="n">windows</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">unfold</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">flip</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">largest</span><span class="p">:</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="n">windows</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">distance</span> <span class="o">=</span> <span class="n">windows</span><span class="o">.</span><span class="n">argmin</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">completed</span> <span class="o">=</span> <span class="n">distance</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">completed</span> <span class="o">=</span> <span class="n">completed</span><span class="o">.</span><span class="n">masked_fill</span><span class="p">(</span><span class="n">_window_has_nan</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_prepend_incomplete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">completed</span><span class="p">,</span> <span class="n">span</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mextremum_distance_predecessor</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">largest</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute distances with moving extrema and offline predecessors.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">span</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+    <span class="n">batch_size</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">prefix_length</span> <span class="o">=</span> <span class="n">span</span> <span class="o">-</span> <span class="mi">1</span>
+    <span class="n">ordering_values</span> <span class="o">=</span> <span class="n">x</span> <span class="k">if</span> <span class="n">largest</span> <span class="k">else</span> <span class="o">-</span><span class="n">x</span>
+    <span class="n">moving</span> <span class="o">=</span> <span class="n">mmax</span><span class="p">(</span><span class="n">ordering_values</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># Interleave each complete-window extremum query immediately after its</span>
+    <span class="c1"># input event. A stable value sort then groups equal values while</span>
+    <span class="c1"># retaining time order, reducing every query to a predecessor lookup.</span>
+    <span class="n">tail</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">ordering_values</span><span class="p">[:,</span> <span class="n">prefix_length</span><span class="p">:],</span> <span class="n">moving</span><span class="p">[:,</span> <span class="n">prefix_length</span><span class="p">:]),</span>
+        <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">combined</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">ordering_values</span><span class="p">[:,</span> <span class="p">:</span><span class="n">prefix_length</span><span class="p">],</span> <span class="n">tail</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="n">completed_times</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span>
+        <span class="n">prefix_length</span><span class="p">,</span> <span class="n">length</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span>
+    <span class="p">)</span>
+    <span class="n">tail_event_times</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span>
+        <span class="p">(</span><span class="n">completed_times</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">completed_times</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)),</span>
+        <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+    <span class="n">event_times</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">(</span>
+            <span class="p">(</span>
+                <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">prefix_length</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">),</span>
+                <span class="n">tail_event_times</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
+        <span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+
+    <span class="n">ordering</span> <span class="o">=</span> <span class="n">combined</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">stable</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">sorted_event_times</span> <span class="o">=</span> <span class="n">event_times</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ordering</span><span class="p">)</span>
+    <span class="n">sorted_positions</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">combined</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">previous_event_position</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sorted_event_times</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">sorted_positions</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">cummax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">values</span>
+    <span class="p">)</span>
+    <span class="n">latest_time_sorted</span> <span class="o">=</span> <span class="n">sorted_event_times</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span> <span class="n">previous_event_position</span><span class="o">.</span><span class="n">clamp_min</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">latest_time</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">empty_like</span><span class="p">(</span><span class="n">latest_time_sorted</span><span class="p">)</span>
+    <span class="n">latest_time</span><span class="o">.</span><span class="n">scatter_</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">ordering</span><span class="p">,</span> <span class="n">latest_time_sorted</span><span class="p">)</span>
+    <span class="n">latest_completed</span> <span class="o">=</span> <span class="n">latest_time</span><span class="p">[:,</span> <span class="n">span</span><span class="p">::</span><span class="mi">2</span><span class="p">]</span>
+
+    <span class="n">current_time</span> <span class="o">=</span> <span class="n">completed_times</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">completed</span> <span class="o">=</span> <span class="n">current_time</span> <span class="o">-</span> <span class="n">latest_completed</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+    <span class="n">completed</span> <span class="o">=</span> <span class="n">completed</span><span class="o">.</span><span class="n">masked_fill</span><span class="p">(</span><span class="n">_window_has_nan</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_prepend_incomplete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">completed</span><span class="p">,</span> <span class="n">span</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mextremum_distance</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">largest</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Return periods since each trailing-window extremum.</span>
+
+<span class="sd">    Ties resolve to the most recent occurrence. The implementation is</span>
+<span class="sd">    selected from measured small- and large-window algorithms.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">window_count</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">span</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">enough_parallel_work</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">span</span> <span class="o">&gt;=</span> <span class="mi">1_024</span>
+    <span class="k">if</span> <span class="p">(</span>
+        <span class="n">span</span> <span class="o">&lt;</span> <span class="mi">128</span>
+        <span class="ow">or</span> <span class="p">(</span><span class="n">span</span> <span class="o">&lt;</span> <span class="mi">512</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">enough_parallel_work</span><span class="p">)</span>
+        <span class="ow">or</span> <span class="n">window_count</span> <span class="o">&lt;=</span> <span class="mi">8</span>
+    <span class="p">):</span>
+        <span class="k">return</span> <span class="n">_mextremum_distance_compare</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">largest</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_mextremum_distance_predecessor</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">largest</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="margmax">
+<a class="viewcode-back" href="../../../api/qfeval_functions.functions.margmax.html#qfeval_functions.functions.margmax">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">margmax</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the number of periods since the moving maximum.</span>
+
+<span class="sd">    This function calculates, for each position, the number of periods</span>
+<span class="sd">    elapsed since the maximum value inside the trailing window of size</span>
+<span class="sd">    :attr:`span` along the specified dimension: ``0`` means the latest</span>
+<span class="sd">    element is the window maximum, and ``span - 1`` means the oldest</span>
+<span class="sd">    element in the window is.  If the maximum appears multiple times in a</span>
+<span class="sd">    window, the most recent occurrence is used, i.e., the smallest</span>
+<span class="sd">    distance is returned.  The output tensor has the same shape as the</span>
+<span class="sd">    input tensor.  For positions where the sliding window cannot fully</span>
+<span class="sd">    cover preceding elements (i.e., the first ``span - 1`` elements along</span>
+<span class="sd">    the selected dimension), the result is ``nan``.</span>
+
+<span class="sd">    The number of periods since the maximum is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{MARGMAX}[i] = i - \max\{j : x[j] = M[i],\;</span>
+<span class="sd">        i - \text{span} &lt; j \le i\},</span>
+<span class="sd">        \quad M[i] = \max_{k=i-\text{span}+1}^{i} x[k]</span>
+
+<span class="sd">    This function is the building block of the Aroon indicator; for a</span>
+<span class="sd">    window of size :attr:`span`, the Aroon up indicator is</span>
+<span class="sd">    ``(span - margmax(x, span)) / span * 100``.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.  Must be a floating point</span>
+<span class="sd">            tensor.</span>
+<span class="sd">        span (int):</span>
+<span class="sd">            The size of the sliding window. Must be positive.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to compute the number of periods</span>
+<span class="sd">            since the moving maximum. Default is -1 (the last dimension).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape and dtype as the input, containing</span>
+<span class="sd">            the number of periods since the window maximum as floating</span>
+<span class="sd">            point values.  The first ``span - 1`` elements along the</span>
+<span class="sd">            specified dimension are ``nan``.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If ``span`` is not positive.</span>
+<span class="sd">        TypeError: If ``span`` is not an integer (``bool`` is rejected).</span>
+<span class="sd">        TypeError: If ``x`` is not a floating point tensor.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Number of periods since the window maximum</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.margmax(x, span=3)</span>
+<span class="sd">        tensor([nan, nan, 1., 0., 1.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Ties resolve to the most recent occurrence.</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([2.0, 1.0, 2.0, 2.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.margmax(x, span=3)</span>
+<span class="sd">        tensor([nan, nan, 0., 0.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with the number of periods computed along rows</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, 3.0, 4.0],</span>
+<span class="sd">        ...                   [4.0, 3.0, 2.0, 1.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.margmax(x, span=2, dim=1)</span>
+<span class="sd">        tensor([[nan, 0., 0., 0.],</span>
+<span class="sd">                [nan, 1., 1., 1.]])</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        If a window contains any NaN value, the result for that window is</span>
+<span class="sd">        NaN.  A ``+inf`` value is a legitimate maximum, so the result</span>
+<span class="sd">        measures the distance to the ``+inf`` element; a ``-inf`` value</span>
+<span class="sd">        does not affect the result unless it is the window maximum.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Narrow windows use a vectorized reduction. Larger windows combine</span>
+<span class="sd">        a linear moving maximum with batched predecessor queries, avoiding</span>
+<span class="sd">        ``O(N * span)`` window materialization and taking</span>
+<span class="sd">        ``O(N * log(N))`` time with linear workspace.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        - :func:`margmin`: Number of periods since the moving minimum.</span>
+<span class="sd">        - :func:`mmax`: Moving maximum function.</span>
+<span class="sd">        - :func:`mrank`: Moving rank of the latest element.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># NOTE: bool is a subclass of int, so it must be rejected explicitly.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;span must be an integer, but got </span><span class="si">{</span><span class="n">span</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">span</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;span must be a positive integer, but got </span><span class="si">{</span><span class="n">span</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">is_floating_point</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;margmax only supports floating point tensors, but got &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">apply_for_axis</span><span class="p">(</span>
+        <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">_mextremum_distance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">largest</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">dim</span>
+    <span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, qfeval-functions contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

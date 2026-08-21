@@ -1,0 +1,6 @@
+﻿nanstd
+======
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: nanstd

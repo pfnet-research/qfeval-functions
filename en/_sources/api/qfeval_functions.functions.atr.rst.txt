@@ -1,0 +1,6 @@
+﻿atr
+===
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: atr

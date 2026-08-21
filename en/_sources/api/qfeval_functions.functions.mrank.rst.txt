@@ -1,0 +1,6 @@
+﻿mrank
+=====
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: mrank

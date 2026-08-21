@@ -1,0 +1,292 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="ja" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>macd &mdash; qfeval-functions  ドキュメント</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=fdfa09e0" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=c033477b"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/translations.js?v=4755f45a"></script>
+      <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="検索" href="../search.html" />
+    <link rel="next" title="margmax" href="qfeval_functions.functions.margmax.html" />
+    <link rel="prev" title="ma" href="qfeval_functions.functions.ma.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            qfeval-functions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="qfeval_functions.functions.html">関数 (qfeval_functions.functions)</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.apply_for_axis.html">apply_for_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.atr.html">atr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bfill.html">bfill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bincount.html">bincount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.bollinger_band.html">bollinger_band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.correl.html">correl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.covar.html">covar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.cumcount.html">cumcount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.drawdown.html">drawdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.eigh.html">eigh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.einsum.html">einsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ema.html">ema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ewmcorrel.html">ewmcorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ewmcovar.html">ewmcovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ewmstd.html">ewmstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ewmvar.html">ewmvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ffill.html">ffill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.fillna.html">fillna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.gaussian_blur.html">gaussian_blur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.group_shift.html">group_shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.groupby.html">groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.ma.html">ma</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">macd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.margmax.html">margmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.margmin.html">margmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.max_drawdown.html">max_drawdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mcorrel.html">mcorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mcovar.html">mcovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mkurtosis.html">mkurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mmax.html">mmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mmedian.html">mmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mmin.html">mmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mprod.html">mprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mquantile.html">mquantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mrank.html">mrank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mskew.html">mskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mslope.html">mslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mstd.html">mstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.msum.html">msum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mulmean.html">mulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mulsum.html">mulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mvar.html">mvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.mzscore.html">mzscore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanamax.html">nanamax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanamin.html">nanamin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancorrel.html">nancorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancovar.html">nancovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancumprod.html">nancumprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nancumsum.html">nancumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nandiff.html">nandiff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanema.html">nanema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.naninterp.html">naninterp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nankurtosis.html">nankurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmax.html">nanmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmean.html">nanmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmedian.html">nanmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmin.html">nanmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmulmean.html">nanmulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanmulsum.html">nanmulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanones.html">nanones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanpca.html">nanpca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanprod.html">nanprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanquantile.html">nanquantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanrms.html">nanrms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanshift.html">nanshift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanskew.html">nanskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanslope.html">nanslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanstd.html">nanstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nansum.html">nansum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.nanvar.html">nanvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.orthogonalize.html">orthogonalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.orthonormalize.html">orthonormalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.pca.html">pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.pca_cov.html">pca_cov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.project.html">project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rand.html">rand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rand_like.html">rand_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randint.html">randint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randn.html">randn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randn_like.html">randn_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.randperm.html">randperm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rank.html">rank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rci.html">rci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rcummax.html">rcummax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rcumsum.html">rcumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.reduce_nan_patterns.html">reduce_nan_patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rms.html">rms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.roc.html">roc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.rsi.html">rsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.shift.html">shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.signif.html">signif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.skipna.html">skipna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.slope.html">slope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.soft_topk.html">soft_topk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.soft_topk_bottomk.html">soft_topk_bottomk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.stable_sort.html">stable_sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.stochastics.html">stochastics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.winsorize.html">winsorize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.wma.html">wma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.functions.zscore.html">zscore</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="qfeval_functions.random.html">乱数 (qfeval_functions.random)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.is_fast.html">is_fast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.rng.html">rng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="qfeval_functions.random.seed.html">seed</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">qfeval-functions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="qfeval_functions.functions.html">関数 (qfeval_functions.functions)</a></li>
+      <li class="breadcrumb-item active">macd</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/api/qfeval_functions.functions.macd.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="macd">
+<h1>macd<a class="headerlink" href="#macd" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="qfeval_functions.functions.macd">
+<span class="sig-name descname"><span class="pre">macd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fast_span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">12</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">slow_span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">26</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">signal_span</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dim</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qfeval_functions/functions/macd.html#macd"><span class="viewcode-link"><span class="pre">[ソース]</span></span></a><a class="headerlink" href="#qfeval_functions.functions.macd" title="Link to this definition"></a></dt>
+<dd><p>指定された次元に沿って MACD（Moving Average Convergence Divergence）を計算します。</p>
+<p>MACD は、短期と長期の指数移動平均（EMA）の差から構成されるトレンドフォロー型のモメンタム指標です。シグナルライン（MACD ラインの EMA）とヒストグラム（両者の差）は、トレンドの転換やモメンタムの変化を検出するために広く用いられます:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{aligned}
+\text{MACD}[i] &amp;= \text{EMA}_{\text{fast}}(x)[i]
+    - \text{EMA}_{\text{slow}}(x)[i] \\
+\text{Signal}[i] &amp;= \text{EMA}_{\text{signal}}(\text{MACD})[i] \\
+\text{Histogram}[i] &amp;= \text{MACD}[i] - \text{Signal}[i]
+\end{aligned}\end{split}\]</div>
+<p>ここで <span class="math notranslate nohighlight">\(\text{EMA}_n\)</span> は、期間（スパン）から平滑化係数への標準的な変換 <span class="math notranslate nohighlight">\(\alpha_n = 2 / (n + 1)\)</span> を用いた <a class="reference internal" href="qfeval_functions.functions.ema.html#qfeval_functions.functions.ema" title="qfeval_functions.functions.ema"><code class="xref py py-func docutils literal notranslate"><span class="pre">ema()</span></code></a> を表します。</p>
+<dl class="field-list simple">
+<dt class="field-odd">パラメータ<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>Tensor</em>) -- 価格を含む入力テンソル。</p></li>
+<li><p><strong>fast_span</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- 短期 EMA の期間（スパン）。正であり、かつ <code class="docutils literal notranslate"><span class="pre">slow_span</span></code> より小さい必要があります。デフォルトは 12 です。</p></li>
+<li><p><strong>slow_span</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- 長期 EMA の期間（スパン）。正である必要があります。デフォルトは 26 です。</p></li>
+<li><p><strong>signal_span</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- シグナルラインを得るために MACD ラインに適用される EMA の期間（スパン）。正である必要があります。デフォルトは 9 です。</p></li>
+<li><p><strong>dim</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.14)"><em>int</em></a><em>, </em><em>optional</em>) -- MACD を計算する次元。デフォルトは -1（最後の次元）です。</p></li>
+</ul>
+</dd>
+<dt class="field-even">戻り値<span class="colon">:</span></dt>
+<dd class="field-even"><p><p>入力と同じ形状の 3 つのテンソルを含むタプル:</p>
+<ul class="simple">
+<li><p>MACD ライン: 短期 EMA - 長期 EMA</p></li>
+<li><p>シグナルライン: MACD ラインの EMA</p></li>
+<li><p>ヒストグラム: MACD ライン - シグナルライン</p></li>
+</ul>
+</p>
+</dd>
+<dt class="field-odd">戻り値の型<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[Tensor, Tensor, Tensor]</p>
+</dd>
+<dt class="field-even">例外<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#ValueError" title="(in Python v3.14)"><strong>ValueError</strong></a> -- いずれかのスパンが正でない場合、または <code class="docutils literal notranslate"><span class="pre">fast_span</span></code> が <code class="docutils literal notranslate"><span class="pre">slow_span</span></code> より小さくない場合。</p></li>
+<li><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#TypeError" title="(in Python v3.14)"><strong>TypeError</strong></a> -- いずれかのスパンが整数でない場合（<code class="docutils literal notranslate"><span class="pre">bool</span></code> も拒否されます）。</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">サンプル</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">([</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">macd_line</span><span class="p">,</span> <span class="n">signal_line</span><span class="p">,</span> <span class="n">histogram</span> <span class="o">=</span> <span class="n">QF</span><span class="o">.</span><span class="n">macd</span><span class="p">(</span>
+<span class="gp">... </span>    <span class="n">x</span><span class="p">,</span> <span class="n">fast_span</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">slow_span</span><span class="o">=</span><span class="mi">6</span><span class="p">,</span> <span class="n">signal_span</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">macd_line</span>
+<span class="go">tensor([0.0000, 0.0833, 0.2084, 0.3590, 0.5193, 0.6763])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">signal_line</span>
+<span class="go">tensor([0.0000, 0.0521, 0.1318, 0.2362, 0.3590, 0.4921])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">histogram</span>
+<span class="go">tensor([0.0000, 0.0312, 0.0766, 0.1228, 0.1603, 0.1842])</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p>EMA は <a class="reference internal" href="qfeval_functions.functions.ema.html#qfeval_functions.functions.ema" title="qfeval_functions.functions.ema"><code class="xref py py-func docutils literal notranslate"><span class="pre">ema()</span></code></a> によって計算され、その重み付けは <code class="docutils literal notranslate"><span class="pre">pandas.DataFrame.ewm(span=n,</span> <span class="pre">adjust=True).mean()</span></code> と等価です。これは、単純移動平均を初期値とする再帰的な EMA を用いる TA-Lib とは異なりますが、系列が長くなると両者の方式は収束します。その結果、先頭にウォームアップの NaN 区間はなく、出力は最初の要素から定義されます。これに対し、TA-Lib はルックバック期間を NaN で埋めます。</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注釈</p>
+<p><a class="reference internal" href="qfeval_functions.functions.ema.html#qfeval_functions.functions.ema" title="qfeval_functions.functions.ema"><code class="xref py py-func docutils literal notranslate"><span class="pre">ema()</span></code></a> と同様に、入力に NaN が現れると、次元に沿ってその位置以降のすべての出力が NaN になります。</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">参考</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="qfeval_functions.functions.ema.html#qfeval_functions.functions.ema" title="qfeval_functions.functions.ema"><code class="xref py py-func docutils literal notranslate"><span class="pre">ema()</span></code></a>: 3 つのラインすべてに使用される指数移動平均関数。</p></li>
+<li><p><a class="reference internal" href="qfeval_functions.functions.rsi.html#qfeval_functions.functions.rsi" title="qfeval_functions.functions.rsi"><code class="xref py py-func docutils literal notranslate"><span class="pre">rsi()</span></code></a>: 相対力指数（RSI）。同種のモメンタム指標。</p></li>
+<li><p><a class="reference internal" href="qfeval_functions.functions.bollinger_band.html#qfeval_functions.functions.bollinger_band" title="qfeval_functions.functions.bollinger_band"><code class="xref py py-func docutils literal notranslate"><span class="pre">bollinger_band()</span></code></a>: 複数の系列を返す同種の指標。</p></li>
+</ul>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="qfeval_functions.functions.ma.html" class="btn btn-neutral float-left" title="ma" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="qfeval_functions.functions.margmax.html" class="btn btn-neutral float-right" title="margmax" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, qfeval-functions contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+﻿nanrms
+======
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: nanrms

@@ -1,0 +1,456 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qfeval_functions.functions.mskew &mdash; qfeval-functions  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=fdfa09e0" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            qfeval-functions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/qfeval_functions.functions.html">Functions (qfeval_functions.functions)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.apply_for_axis.html">apply_for_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.atr.html">atr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bfill.html">bfill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bincount.html">bincount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bollinger_band.html">bollinger_band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.correl.html">correl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.covar.html">covar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.cumcount.html">cumcount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.drawdown.html">drawdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.eigh.html">eigh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.einsum.html">einsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ema.html">ema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmcorrel.html">ewmcorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmcovar.html">ewmcovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmstd.html">ewmstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmvar.html">ewmvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ffill.html">ffill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.fillna.html">fillna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.gaussian_blur.html">gaussian_blur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.group_shift.html">group_shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.groupby.html">groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ma.html">ma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.macd.html">macd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.margmax.html">margmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.margmin.html">margmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.max_drawdown.html">max_drawdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mcorrel.html">mcorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mcovar.html">mcovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mkurtosis.html">mkurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmax.html">mmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmedian.html">mmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmin.html">mmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mprod.html">mprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mquantile.html">mquantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mrank.html">mrank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mskew.html">mskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mslope.html">mslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mstd.html">mstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.msum.html">msum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mulmean.html">mulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mulsum.html">mulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mvar.html">mvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mzscore.html">mzscore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanamax.html">nanamax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanamin.html">nanamin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancorrel.html">nancorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancovar.html">nancovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancumprod.html">nancumprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancumsum.html">nancumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nandiff.html">nandiff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanema.html">nanema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.naninterp.html">naninterp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nankurtosis.html">nankurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmax.html">nanmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmean.html">nanmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmedian.html">nanmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmin.html">nanmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmulmean.html">nanmulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmulsum.html">nanmulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanones.html">nanones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanpca.html">nanpca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanprod.html">nanprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanquantile.html">nanquantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanrms.html">nanrms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanshift.html">nanshift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanskew.html">nanskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanslope.html">nanslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanstd.html">nanstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nansum.html">nansum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanvar.html">nanvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.orthogonalize.html">orthogonalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.orthonormalize.html">orthonormalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.pca.html">pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.pca_cov.html">pca_cov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.project.html">project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rand.html">rand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rand_like.html">rand_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randint.html">randint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randn.html">randn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randn_like.html">randn_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randperm.html">randperm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rank.html">rank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rci.html">rci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rcummax.html">rcummax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rcumsum.html">rcumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.reduce_nan_patterns.html">reduce_nan_patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rms.html">rms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.roc.html">roc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rsi.html">rsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.shift.html">shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.signif.html">signif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.skipna.html">skipna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.slope.html">slope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.soft_topk.html">soft_topk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.soft_topk_bottomk.html">soft_topk_bottomk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.stable_sort.html">stable_sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.stochastics.html">stochastics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.winsorize.html">winsorize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.wma.html">wma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.zscore.html">zscore</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/qfeval_functions.random.html">Random (qfeval_functions.random)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.is_fast.html">is_fast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.rng.html">rng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.seed.html">seed</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">qfeval-functions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">qfeval_functions.functions.mskew</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for qfeval_functions.functions.mskew</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.apply_for_axis</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply_for_axis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.rcumsum</span><span class="w"> </span><span class="kn">import</span> <span class="n">rcumsum</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mmoments</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">need_m4</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">typing</span><span class="o">.</span><span class="n">Tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="o">...</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the moving central moment sums ``(M2, M3)`` of the given</span>
+<span class="sd">    tensor ``x``, whose shape is ``(B, N)``, along the 2nd dimension,</span>
+<span class="sd">    followed by ``M4`` if ``need_m4`` is set.</span>
+
+<span class="sd">    This extends the chunked cumulative-statistics algorithm of ``_mvar``</span>
+<span class="sd">    (https://imoz.jp/scraps/202607_mvar.en.html) to the 3rd and 4th central</span>
+<span class="sd">    moments.  As in ``_mvar``, each part (a chunk prefix or suffix) keeps</span>
+<span class="sd">    ``n`` (count), ``r`` (local reference value), the power sums ``S1..S4``</span>
+<span class="sd">    of local deviations ``y = x - r``, ``m_bar`` (relative mean ``S1 / n``)</span>
+<span class="sd">    and ``Mk`` (central moment sums ``Sum((x - mu)^k)``, with ``mu = r +</span>
+<span class="sd">    m_bar``).  Parts are merged with the pairwise update formulas by Chan et</span>
+<span class="sd">    al. and Terriberry (see &quot;Algorithms for calculating variance&quot;,</span>
+<span class="sd">    Wikipedia).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">span</span>
+
+    <span class="c1"># 1. Reshape the target dimension into length-`w` chunks with prepended</span>
+    <span class="c1"># NaNs (the same chunk layout as `_mvar`).</span>
+    <span class="n">pad_len</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">%</span> <span class="n">w</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">nn</span><span class="o">.</span><span class="n">functional</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">pad_len</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">value</span><span class="o">=</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">//</span> <span class="n">w</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span>
+
+    <span class="c1"># 2. Compute the per-part statistics for every chunk prefix (part B) and</span>
+    <span class="c1"># chunk suffix (part A), locally centered on a reference value `r` (the</span>
+    <span class="c1"># chunk&#39;s first element for a prefix, its last element for a suffix) to</span>
+    <span class="c1"># avoid catastrophic cancellation (see `_mvar`).  The central moment</span>
+    <span class="c1"># sums follow from the power sums of `y = x - r`:</span>
+    <span class="c1"># `M2 = S2 - S1 * m_bar`,</span>
+    <span class="c1"># `M3 = S3 - 3 * m_bar * S2 + 2 * m_bar^2 * S1`, and</span>
+    <span class="c1"># `M4 = S4 - 4 * m_bar * S3 + 6 * m_bar^2 * S2 - 3 * m_bar^3 * S1`.</span>
+    <span class="c1">#</span>
+    <span class="c1"># Prefixes (part B): counts n = 1..w, reference r_p = first chunk element.</span>
+    <span class="n">n_p</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">w</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">r_p</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">y_p</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">r_p</span>
+    <span class="n">S1_p</span> <span class="o">=</span> <span class="n">y_p</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">S2_p</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_p</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">S3_p</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_p</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">m_bar_p</span> <span class="o">=</span> <span class="n">S1_p</span> <span class="o">/</span> <span class="n">n_p</span>
+    <span class="n">M2_p</span> <span class="o">=</span> <span class="n">S2_p</span> <span class="o">-</span> <span class="n">S1_p</span> <span class="o">*</span> <span class="n">m_bar_p</span>
+    <span class="n">M3_p</span> <span class="o">=</span> <span class="n">S3_p</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">m_bar_p</span> <span class="o">*</span> <span class="n">S2_p</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">m_bar_p</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">S1_p</span>
+    <span class="k">if</span> <span class="n">need_m4</span><span class="p">:</span>
+        <span class="n">S4_p</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_p</span><span class="o">**</span><span class="mi">4</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">M4_p</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">S4_p</span>
+            <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">m_bar_p</span> <span class="o">*</span> <span class="n">S3_p</span>
+            <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">m_bar_p</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">S2_p</span>
+            <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">m_bar_p</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">S1_p</span>
+        <span class="p">)</span>
+    <span class="c1">#</span>
+    <span class="c1"># Suffixes (part A): counts n = w..1, reference r_s = last chunk element.</span>
+    <span class="n">n_s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">x</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">r_s</span> <span class="o">=</span> <span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="n">y_s</span> <span class="o">=</span> <span class="n">x</span> <span class="o">-</span> <span class="n">r_s</span>
+    <span class="n">S1_s</span> <span class="o">=</span> <span class="n">rcumsum</span><span class="p">(</span><span class="n">y_s</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">S2_s</span> <span class="o">=</span> <span class="n">rcumsum</span><span class="p">(</span><span class="n">y_s</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">S3_s</span> <span class="o">=</span> <span class="n">rcumsum</span><span class="p">(</span><span class="n">y_s</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+    <span class="n">m_bar_s</span> <span class="o">=</span> <span class="n">S1_s</span> <span class="o">/</span> <span class="n">n_s</span>
+    <span class="n">M2_s</span> <span class="o">=</span> <span class="n">S2_s</span> <span class="o">-</span> <span class="n">S1_s</span> <span class="o">*</span> <span class="n">m_bar_s</span>
+    <span class="n">M3_s</span> <span class="o">=</span> <span class="n">S3_s</span> <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">m_bar_s</span> <span class="o">*</span> <span class="n">S2_s</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">m_bar_s</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">S1_s</span>
+    <span class="k">if</span> <span class="n">need_m4</span><span class="p">:</span>
+        <span class="n">S4_s</span> <span class="o">=</span> <span class="n">rcumsum</span><span class="p">(</span><span class="n">y_s</span><span class="o">**</span><span class="mi">4</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">M4_s</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">S4_s</span>
+            <span class="o">-</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">m_bar_s</span> <span class="o">*</span> <span class="n">S3_s</span>
+            <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">m_bar_s</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">S2_s</span>
+            <span class="o">-</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">m_bar_s</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">S1_s</span>
+        <span class="p">)</span>
+
+    <span class="c1"># 3. Each window is a suffix of the previous chunk (part A, count `n_a`)</span>
+    <span class="c1"># followed by a prefix of the current chunk (part B, count `n_b`); an</span>
+    <span class="c1"># aligned window is just a whole chunk prefix.  Merge the two parts with</span>
+    <span class="c1"># the pairwise update formulas by Chan et al. and Terriberry, where the</span>
+    <span class="c1"># mean gap `delta = mu_B - mu_A` never forms a large offset because the</span>
+    <span class="c1"># means are stored relative to their references (see `_mvar`).  With</span>
+    <span class="c1"># `n_a + n_b = w`:</span>
+    <span class="c1"># `M2 = M2_A + M2_B + delta^2 * n_a * n_b / w`,</span>
+    <span class="c1"># `M3 = M3_A + M3_B + delta^3 * n_a * n_b * (n_a - n_b) / w^2</span>
+    <span class="c1">#       + 3 * delta * (n_a * M2_B - n_b * M2_A) / w`, and</span>
+    <span class="c1"># `M4 = M4_A + M4_B</span>
+    <span class="c1">#       + delta^4 * n_a * n_b * (n_a^2 - n_a * n_b + n_b^2) / w^3</span>
+    <span class="c1">#       + 6 * delta^2 * (n_a^2 * M2_B + n_b^2 * M2_A) / w^2</span>
+    <span class="c1">#       + 4 * delta * (n_a * M3_B - n_b * M3_A) / w`.</span>
+    <span class="n">delta</span> <span class="o">=</span> <span class="p">(</span><span class="n">r_p</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:]</span> <span class="o">-</span> <span class="n">r_s</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="p">(</span>
+        <span class="n">m_bar_p</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">m_bar_s</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span>
+    <span class="p">)</span>
+    <span class="n">n_a</span><span class="p">,</span> <span class="n">n_b</span> <span class="o">=</span> <span class="n">n_s</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="n">n_p</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">M2_a</span><span class="p">,</span> <span class="n">M2_b</span> <span class="o">=</span> <span class="n">M2_s</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">M2_p</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">M3_a</span><span class="p">,</span> <span class="n">M3_b</span> <span class="o">=</span> <span class="n">M3_s</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:],</span> <span class="n">M3_p</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">M2</span> <span class="o">=</span> <span class="n">M2_a</span> <span class="o">+</span> <span class="n">M2_b</span> <span class="o">+</span> <span class="n">delta</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_a</span> <span class="o">*</span> <span class="n">n_b</span> <span class="o">/</span> <span class="n">w</span><span class="p">)</span>
+    <span class="n">M3</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">M3_a</span>
+        <span class="o">+</span> <span class="n">M3_b</span>
+        <span class="o">+</span> <span class="n">delta</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_a</span> <span class="o">*</span> <span class="n">n_b</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_a</span> <span class="o">-</span> <span class="n">n_b</span><span class="p">)</span> <span class="o">/</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">delta</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_a</span> <span class="o">*</span> <span class="n">M2_b</span> <span class="o">-</span> <span class="n">n_b</span> <span class="o">*</span> <span class="n">M2_a</span><span class="p">)</span> <span class="o">/</span> <span class="n">w</span>
+    <span class="p">)</span>
+    <span class="n">moments</span> <span class="o">=</span> <span class="p">[(</span><span class="n">M2</span><span class="p">,</span> <span class="n">M2_p</span><span class="p">),</span> <span class="p">(</span><span class="n">M3</span><span class="p">,</span> <span class="n">M3_p</span><span class="p">)]</span>
+    <span class="k">if</span> <span class="n">need_m4</span><span class="p">:</span>
+        <span class="n">M4</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">M4_s</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">:]</span>
+            <span class="o">+</span> <span class="n">M4_p</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="o">+</span> <span class="n">delta</span><span class="o">**</span><span class="mi">4</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_a</span> <span class="o">*</span> <span class="n">n_b</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_a</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">n_a</span> <span class="o">*</span> <span class="n">n_b</span> <span class="o">+</span> <span class="n">n_b</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="n">w</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span>
+            <span class="o">+</span> <span class="mi">6</span> <span class="o">*</span> <span class="n">delta</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_a</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">M2_b</span> <span class="o">+</span> <span class="n">n_b</span><span class="o">**</span><span class="mi">2</span> <span class="o">*</span> <span class="n">M2_a</span><span class="p">)</span> <span class="o">/</span> <span class="n">w</span><span class="o">**</span><span class="mi">2</span>
+            <span class="o">+</span> <span class="mi">4</span> <span class="o">*</span> <span class="n">delta</span> <span class="o">*</span> <span class="p">(</span><span class="n">n_a</span> <span class="o">*</span> <span class="n">M3_b</span> <span class="o">-</span> <span class="n">n_b</span> <span class="o">*</span> <span class="n">M3_a</span><span class="p">)</span> <span class="o">/</span> <span class="n">w</span>
+        <span class="p">)</span>
+        <span class="n">moments</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="n">M4</span><span class="p">,</span> <span class="n">M4_p</span><span class="p">))</span>
+
+    <span class="c1"># 4. Append the aligned windows (whole chunk prefixes), restore the</span>
+    <span class="c1"># original layout, and drop the columns coming from the padding.</span>
+    <span class="k">return</span> <span class="nb">tuple</span><span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">m_p</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="n">start_dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)[</span>
+            <span class="p">:,</span> <span class="n">pad_len</span> <span class="o">-</span> <span class="n">w</span> <span class="p">:</span>
+        <span class="p">]</span>
+        <span class="k">for</span> <span class="n">m</span><span class="p">,</span> <span class="n">m_p</span> <span class="ow">in</span> <span class="n">moments</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mskew</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns the moving sample skewness of the given tensor ``x``, whose</span>
+<span class="sd">    shape is ``(B, N)``, along the 2nd dimension.&quot;&quot;&quot;</span>
+
+    <span class="n">w</span> <span class="o">=</span> <span class="n">span</span>
+    <span class="n">m2</span><span class="p">,</span> <span class="n">m3</span> <span class="o">=</span> <span class="n">_mmoments</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">need_m4</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">g1</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">w</span><span class="p">)</span> <span class="o">*</span> <span class="n">m3</span> <span class="o">/</span> <span class="n">m2</span><span class="o">**</span><span class="mf">1.5</span>
+    <span class="n">result</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="n">w</span> <span class="o">-</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">g1</span>
+    <span class="k">return</span> <span class="n">result</span>
+
+
+<div class="viewcode-block" id="mskew">
+<a class="viewcode-back" href="../../../api/qfeval_functions.functions.mskew.html#qfeval_functions.functions.mskew">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mskew</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the moving (sliding window) sample skewness of a tensor.</span>
+
+<span class="sd">    This function calculates the skewness of elements within a sliding</span>
+<span class="sd">    window of size :attr:`span` along the specified dimension. The output</span>
+<span class="sd">    tensor has the same shape as the input tensor. For positions where the</span>
+<span class="sd">    sliding window cannot fully cover preceding elements (i.e., the first</span>
+<span class="sd">    ``span - 1`` elements along the selected dimension), the result is</span>
+<span class="sd">    ``nan``.</span>
+
+<span class="sd">    The moving skewness is the adjusted Fisher-Pearson standardized moment</span>
+<span class="sd">    coefficient :math:`G_1`, the same estimator as</span>
+<span class="sd">    ``pandas.DataFrame.rolling(span).skew()`` and</span>
+<span class="sd">    ``scipy.stats.skew(..., bias=False)``.  With the windowed central</span>
+<span class="sd">    moment sums</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        M_k[i] = \sum_{j=i-\text{span}+1}^{i}</span>
+<span class="sd">        \left(x[j] - \mu[i]\right)^k,</span>
+<span class="sd">        \quad \mu[i] = \frac{1}{\text{span}}</span>
+<span class="sd">        \sum_{j=i-\text{span}+1}^{i} x[j],</span>
+
+<span class="sd">    it is defined as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{MSKEW}[i] =</span>
+<span class="sd">        \frac{\sqrt{\text{span} \left(\text{span} - 1\right)}}</span>
+<span class="sd">        {\text{span} - 2}</span>
+<span class="sd">        \cdot \frac{\sqrt{\text{span}} \, M_3[i]}{M_2[i]^{3/2}}</span>
+
+<span class="sd">    The moving skewness is computed in ``O(N)`` time independent of</span>
+<span class="sd">    :attr:`span`, using cumulative central moment sums of</span>
+<span class="sd">    :attr:`span`-sized chunks merged by the pairwise update formulas by</span>
+<span class="sd">    Chan et al. and Terriberry (see `Algorithms for calculating variance</span>
+<span class="sd">    &lt;https://en.wikipedia.org/wiki/Algorithms_for_calculating_variance&gt;`_).</span>
+<span class="sd">    All sums are taken over deviations from nearby reference values, so the</span>
+<span class="sd">    result is numerically stable even when the input has a large offset</span>
+<span class="sd">    relative to its scale (e.g., values around ``1e6`` with a standard</span>
+<span class="sd">    deviation of ``1e-3``).  See `A Numerically Stable and Fast</span>
+<span class="sd">    Implementation of Moving Averages and Variances</span>
+<span class="sd">    &lt;https://imoz.jp/scraps/202607_mvar.en.html&gt;`_ for a detailed</span>
+<span class="sd">    description of the chunked cumulative-statistics algorithm, which this</span>
+<span class="sd">    function extends to the 3rd central moment.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.</span>
+<span class="sd">        span (int):</span>
+<span class="sd">            The size of the sliding window. If it is less than 3, the</span>
+<span class="sd">            result is all-NaN because the bias correction is undefined.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to compute the moving skewness.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, containing the moving</span>
+<span class="sd">            skewness values. The first ``span - 1`` elements along the</span>
+<span class="sd">            specified dimension are ``nan``.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Simple moving skewness with window size 3</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, 4.0, 8.0, 16.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mskew(x, span=3)</span>
+<span class="sd">        tensor([   nan,    nan, 0.9352, 0.9352, 0.9352])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Symmetric windows have zero skewness</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([3.0, 1.0, 2.0, 3.0, 1.0, 2.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mskew(x, span=3)</span>
+<span class="sd">        tensor([nan, nan, 0., 0., 0., 0.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with moving skewness along rows</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, 4.0, 8.0],</span>
+<span class="sd">        ...                   [1.0, 4.0, 5.0, 6.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mskew(x, span=3, dim=1)</span>
+<span class="sd">        tensor([[    nan,     nan,  0.9352,  0.9352],</span>
+<span class="sd">                [    nan,     nan, -1.2933,  0.0000]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Constant windows have no defined skewness</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 1.0, 1.0, 1.0, 2.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mskew(x, span=4)</span>
+<span class="sd">        tensor([nan, nan, nan, nan, 2.])</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        If a window contains any NaN value, the moving skewness for that</span>
+<span class="sd">        window is NaN. Unlike ``pandas.DataFrame.rolling``, there is no</span>
+<span class="sd">        ``min_periods``-style option to skip NaN values.  A window whose</span>
+<span class="sd">        values are all (nearly) equal has no defined skewness because the</span>
+<span class="sd">        standardization divides by a vanishing variance; the result is NaN</span>
+<span class="sd">        (``pandas`` instead special-cases perfectly uniform windows to</span>
+<span class="sd">        ``0.0``).</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        - :func:`mkurtosis`: Moving kurtosis function (4th standardized</span>
+<span class="sd">          moment).</span>
+<span class="sd">        - :func:`nanskew`: NaN-aware (non-moving) skewness function.</span>
+<span class="sd">        - :func:`mvar`: Moving variance function, which this algorithm</span>
+<span class="sd">          extends.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">span</span> <span class="o">&lt;</span> <span class="mi">3</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">apply_for_axis</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">_mskew</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, qfeval-functions contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

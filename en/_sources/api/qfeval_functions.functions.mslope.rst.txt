@@ -1,0 +1,6 @@
+﻿mslope
+======
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: mslope

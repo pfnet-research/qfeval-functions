@@ -9,45 +9,73 @@ Functions (qfeval_functions.functions)
    :nosignatures:
 
    apply_for_axis
+   atr
    bfill
    bincount
    bollinger_band
    correl
    covar
    cumcount
+   drawdown
    eigh
    einsum
    ema
+   ewmcorrel
+   ewmcovar
+   ewmstd
+   ewmvar
    ffill
    fillna
    gaussian_blur
    group_shift
    groupby
    ma
+   macd
+   margmax
+   margmin
+   max_drawdown
+   mcorrel
+   mcovar
+   mkurtosis
    mmax
+   mmedian
    mmin
+   mprod
+   mquantile
+   mrank
+   mskew
+   mslope
    mstd
    msum
    mulmean
    mulsum
    mvar
+   mzscore
    nanamax
    nanamin
    nancorrel
    nancovar
    nancumprod
    nancumsum
+   nandiff
+   nanema
+   naninterp
    nankurtosis
    nanmax
    nanmean
+   nanmedian
    nanmin
    nanmulmean
    nanmulsum
    nanones
    nanpca
+   nanprod
+   nanquantile
+   nanrms
    nanshift
    nanskew
    nanslope
+   nanstd
    nansum
    nanvar
    orthogonalize
@@ -61,11 +89,13 @@ Functions (qfeval_functions.functions)
    randn
    randn_like
    randperm
+   rank
    rci
    rcummax
    rcumsum
    reduce_nan_patterns
    rms
+   roc
    rsi
    shift
    signif
@@ -74,3 +104,7 @@ Functions (qfeval_functions.functions)
    soft_topk
    soft_topk_bottomk
    stable_sort
+   stochastics
+   winsorize
+   wma
+   zscore

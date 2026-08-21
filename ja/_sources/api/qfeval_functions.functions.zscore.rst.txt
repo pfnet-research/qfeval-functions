@@ -1,0 +1,6 @@
+﻿zscore
+======
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: zscore

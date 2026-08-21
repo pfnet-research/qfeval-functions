@@ -1,0 +1,6 @@
+﻿nanema
+======
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: nanema

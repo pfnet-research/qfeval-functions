@@ -1,0 +1,6 @@
+﻿mquantile
+=========
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: mquantile

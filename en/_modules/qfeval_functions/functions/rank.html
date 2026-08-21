@@ -1,0 +1,344 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qfeval_functions.functions.rank &mdash; qfeval-functions  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=fdfa09e0" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            qfeval-functions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/qfeval_functions.functions.html">Functions (qfeval_functions.functions)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.apply_for_axis.html">apply_for_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.atr.html">atr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bfill.html">bfill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bincount.html">bincount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bollinger_band.html">bollinger_band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.correl.html">correl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.covar.html">covar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.cumcount.html">cumcount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.drawdown.html">drawdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.eigh.html">eigh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.einsum.html">einsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ema.html">ema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmcorrel.html">ewmcorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmcovar.html">ewmcovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmstd.html">ewmstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmvar.html">ewmvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ffill.html">ffill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.fillna.html">fillna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.gaussian_blur.html">gaussian_blur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.group_shift.html">group_shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.groupby.html">groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ma.html">ma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.macd.html">macd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.margmax.html">margmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.margmin.html">margmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.max_drawdown.html">max_drawdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mcorrel.html">mcorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mcovar.html">mcovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mkurtosis.html">mkurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmax.html">mmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmedian.html">mmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmin.html">mmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mprod.html">mprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mquantile.html">mquantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mrank.html">mrank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mskew.html">mskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mslope.html">mslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mstd.html">mstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.msum.html">msum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mulmean.html">mulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mulsum.html">mulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mvar.html">mvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mzscore.html">mzscore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanamax.html">nanamax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanamin.html">nanamin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancorrel.html">nancorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancovar.html">nancovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancumprod.html">nancumprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancumsum.html">nancumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nandiff.html">nandiff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanema.html">nanema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.naninterp.html">naninterp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nankurtosis.html">nankurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmax.html">nanmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmean.html">nanmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmedian.html">nanmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmin.html">nanmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmulmean.html">nanmulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmulsum.html">nanmulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanones.html">nanones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanpca.html">nanpca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanprod.html">nanprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanquantile.html">nanquantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanrms.html">nanrms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanshift.html">nanshift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanskew.html">nanskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanslope.html">nanslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanstd.html">nanstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nansum.html">nansum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanvar.html">nanvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.orthogonalize.html">orthogonalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.orthonormalize.html">orthonormalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.pca.html">pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.pca_cov.html">pca_cov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.project.html">project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rand.html">rand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rand_like.html">rand_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randint.html">randint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randn.html">randn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randn_like.html">randn_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randperm.html">randperm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rank.html">rank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rci.html">rci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rcummax.html">rcummax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rcumsum.html">rcumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.reduce_nan_patterns.html">reduce_nan_patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rms.html">rms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.roc.html">roc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rsi.html">rsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.shift.html">shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.signif.html">signif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.skipna.html">skipna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.slope.html">slope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.soft_topk.html">soft_topk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.soft_topk_bottomk.html">soft_topk_bottomk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.stable_sort.html">stable_sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.stochastics.html">stochastics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.winsorize.html">winsorize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.wma.html">wma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.zscore.html">zscore</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/qfeval_functions.random.html">Random (qfeval_functions.random)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.is_fast.html">is_fast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.rng.html">rng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.seed.html">seed</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">qfeval-functions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">qfeval_functions.functions.rank</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for qfeval_functions.functions.rank</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+
+
+<div class="viewcode-block" id="rank">
+<a class="viewcode-back" href="../../../api/qfeval_functions.functions.rank.html#qfeval_functions.functions.rank">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">rank</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">pct</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the cross-sectional rank of elements along a dimension.</span>
+
+<span class="sd">    This function ranks all valid (non-NaN) elements along the specified</span>
+<span class="sd">    dimension in ascending order, resolving ties by the average of their</span>
+<span class="sd">    1-based ranks.  NaN values keep their positions as NaN in the output</span>
+<span class="sd">    and are excluded from both the ranking and the percentile denominator.</span>
+<span class="sd">    The result is compatible with</span>
+<span class="sd">    ``pandas.DataFrame.rank(method=&quot;average&quot;, na_option=&quot;keep&quot;, pct=pct)``</span>
+<span class="sd">    applied along the same axis.</span>
+
+<span class="sd">    The rank of a valid element is computed as:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{RANK}[i] = \#\{j : x[j] &lt; x[i]\}</span>
+<span class="sd">        + \frac{\#\{j : x[j] = x[i]\} + 1}{2}</span>
+
+<span class="sd">    where :math:`j` ranges over the valid elements along the selected</span>
+<span class="sd">    dimension.  If :attr:`pct` is true, the rank is further divided by</span>
+<span class="sd">    the number of valid elements :math:`N_{\text{valid}}`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values.  Must be a floating point</span>
+<span class="sd">            tensor.  Infinite values are valid and are ranked as the</span>
+<span class="sd">            smallest (:math:`-\infty`) or the largest (:math:`+\infty`)</span>
+<span class="sd">            values.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to rank elements.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+<span class="sd">        pct (bool, optional):</span>
+<span class="sd">            If ``True``, return the percentile rank, i.e., the average</span>
+<span class="sd">            rank divided by the number of valid elements, which lies in</span>
+<span class="sd">            :math:`(0, 1]`.  If ``False``, return the 1-based average</span>
+<span class="sd">            rank, which lies in :math:`[1, N_{\text{valid}}]`.</span>
+<span class="sd">            Default is ``True``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, containing the rank</span>
+<span class="sd">            values.  Positions holding NaN in the input are NaN in the</span>
+<span class="sd">            output.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError: If ``x`` is not a floating point tensor.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Percentile rank (default)</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([3.0, 1.0, 2.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.rank(x)</span>
+<span class="sd">        tensor([1.0000, 0.3333, 0.6667])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 1-based average rank</span>
+<span class="sd">        &gt;&gt;&gt; QF.rank(x, pct=False)</span>
+<span class="sd">        tensor([3., 1., 2.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Ties are resolved by the average rank.</span>
+<span class="sd">        &gt;&gt;&gt; QF.rank(torch.tensor([1.0, 1.0, 2.0]), pct=False)</span>
+<span class="sd">        tensor([1.5000, 1.5000, 3.0000])</span>
+
+<span class="sd">        &gt;&gt;&gt; # NaN values keep their positions and do not affect the</span>
+<span class="sd">        &gt;&gt;&gt; # percentile denominator.</span>
+<span class="sd">        &gt;&gt;&gt; QF.rank(torch.tensor([2.0, nan, 1.0]))</span>
+<span class="sd">        tensor([1.0000,    nan, 0.5000])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Infinite values are ranked as the smallest/largest values.</span>
+<span class="sd">        &gt;&gt;&gt; QF.rank(torch.tensor([1.0, inf, -inf, nan]), pct=False)</span>
+<span class="sd">        tensor([2., 3., 1., nan])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with ranks along each row</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 3.0, 2.0],</span>
+<span class="sd">        ...                   [3.0, 1.0, 2.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.rank(x, dim=1, pct=False)</span>
+<span class="sd">        tensor([[1., 3., 2.],</span>
+<span class="sd">                [3., 1., 2.]])</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        If all elements along the dimension are NaN, the result is NaN</span>
+<span class="sd">        for all of them.  A slice with a single valid element yields the</span>
+<span class="sd">        rank ``1.0`` (also ``1.0`` as the percentile rank).</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        The implementation sorts the input and then locates each element</span>
+<span class="sd">        by binary search, so it takes :math:`O(N \log N)` time for each</span>
+<span class="sd">        slice of length :math:`N`.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        - :func:`mrank`: Moving (sliding window) version of this</span>
+<span class="sd">          function.</span>
+<span class="sd">        - :func:`zscore`: Cross-sectional standardization, another way</span>
+<span class="sd">          to normalize values along a dimension.</span>
+<span class="sd">        - :func:`winsorize`: Cross-sectional clipping of extreme values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">is_floating_point</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">&quot;rank only supports floating point tensors, but got </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+
+    <span class="c1"># 1. Move the target dimension to the last dimension because</span>
+    <span class="c1"># torch.searchsorted operates on the last dimension.</span>
+    <span class="n">xt</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+
+    <span class="c1"># 2. Sort values so that each element can be located by binary search.</span>
+    <span class="c1"># NOTE: torch.sort places NaN values at the end, so replacing them</span>
+    <span class="c1"># with +inf keeps the binary search within the valid region.</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">xt</span><span class="p">,</span> <span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">sf</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">nan_to_num</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">,</span> <span class="o">-</span><span class="n">math</span><span class="o">.</span><span class="n">inf</span><span class="p">)</span>
+    <span class="n">nv</span> <span class="o">=</span> <span class="p">(</span><span class="o">~</span><span class="n">xt</span><span class="o">.</span><span class="n">isnan</span><span class="p">())</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdim</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># 3. For each element v, count the values less than v (left) and the</span>
+    <span class="c1"># values less than or equal to v (right).  The latter must be clamped</span>
+    <span class="c1"># by the number of valid values so that the +inf values converted</span>
+    <span class="c1"># from NaN do not count as ties of a real +inf.</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">sf</span><span class="o">.</span><span class="n">contiguous</span><span class="p">(),</span> <span class="n">xt</span><span class="o">.</span><span class="n">contiguous</span><span class="p">(),</span> <span class="n">right</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">searchsorted</span><span class="p">(</span><span class="n">sf</span><span class="o">.</span><span class="n">contiguous</span><span class="p">(),</span> <span class="n">xt</span><span class="o">.</span><span class="n">contiguous</span><span class="p">(),</span> <span class="n">right</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="n">right</span><span class="p">,</span> <span class="n">nv</span><span class="p">)</span>
+
+    <span class="c1"># 4. The group tied with v occupies the ranks `left + 1, ..., right`,</span>
+    <span class="c1"># so its average rank is `(left + right + 1) / 2`.</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">xt</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span>
+    <span class="k">if</span> <span class="n">pct</span><span class="p">:</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">r</span> <span class="o">/</span> <span class="n">nv</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">xt</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+
+    <span class="c1"># 5. Restore NaN values and the original dimension order.</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">xt</span><span class="o">.</span><span class="n">isnan</span><span class="p">(),</span> <span class="n">torch</span><span class="o">.</span><span class="n">as_tensor</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">xt</span><span class="p">),</span> <span class="n">r</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">dim</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, qfeval-functions contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

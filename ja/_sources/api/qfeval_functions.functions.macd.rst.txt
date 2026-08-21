@@ -1,0 +1,6 @@
+﻿macd
+====
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: macd

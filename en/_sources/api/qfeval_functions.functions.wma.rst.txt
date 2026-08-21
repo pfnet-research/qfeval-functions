@@ -1,0 +1,6 @@
+﻿wma
+===
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: wma

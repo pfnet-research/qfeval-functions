@@ -1,0 +1,6 @@
+﻿mskew
+=====
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: mskew

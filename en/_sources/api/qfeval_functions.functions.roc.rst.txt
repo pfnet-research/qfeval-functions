@@ -1,0 +1,6 @@
+﻿roc
+===
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: roc

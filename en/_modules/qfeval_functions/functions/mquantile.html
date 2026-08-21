@@ -1,0 +1,551 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>qfeval_functions.functions.mquantile &mdash; qfeval-functions  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css?v=fdfa09e0" />
+
+  
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            qfeval-functions
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/qfeval_functions.functions.html">Functions (qfeval_functions.functions)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.apply_for_axis.html">apply_for_axis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.atr.html">atr</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bfill.html">bfill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bincount.html">bincount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.bollinger_band.html">bollinger_band</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.correl.html">correl</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.covar.html">covar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.cumcount.html">cumcount</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.drawdown.html">drawdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.eigh.html">eigh</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.einsum.html">einsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ema.html">ema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmcorrel.html">ewmcorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmcovar.html">ewmcovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmstd.html">ewmstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ewmvar.html">ewmvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ffill.html">ffill</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.fillna.html">fillna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.gaussian_blur.html">gaussian_blur</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.group_shift.html">group_shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.groupby.html">groupby</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.ma.html">ma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.macd.html">macd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.margmax.html">margmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.margmin.html">margmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.max_drawdown.html">max_drawdown</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mcorrel.html">mcorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mcovar.html">mcovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mkurtosis.html">mkurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmax.html">mmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmedian.html">mmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mmin.html">mmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mprod.html">mprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mquantile.html">mquantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mrank.html">mrank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mskew.html">mskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mslope.html">mslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mstd.html">mstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.msum.html">msum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mulmean.html">mulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mulsum.html">mulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mvar.html">mvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.mzscore.html">mzscore</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanamax.html">nanamax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanamin.html">nanamin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancorrel.html">nancorrel</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancovar.html">nancovar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancumprod.html">nancumprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nancumsum.html">nancumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nandiff.html">nandiff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanema.html">nanema</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.naninterp.html">naninterp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nankurtosis.html">nankurtosis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmax.html">nanmax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmean.html">nanmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmedian.html">nanmedian</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmin.html">nanmin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmulmean.html">nanmulmean</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanmulsum.html">nanmulsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanones.html">nanones</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanpca.html">nanpca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanprod.html">nanprod</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanquantile.html">nanquantile</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanrms.html">nanrms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanshift.html">nanshift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanskew.html">nanskew</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanslope.html">nanslope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanstd.html">nanstd</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nansum.html">nansum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.nanvar.html">nanvar</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.orthogonalize.html">orthogonalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.orthonormalize.html">orthonormalize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.pca.html">pca</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.pca_cov.html">pca_cov</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.project.html">project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rand.html">rand</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rand_like.html">rand_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randint.html">randint</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randn.html">randn</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randn_like.html">randn_like</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.randperm.html">randperm</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rank.html">rank</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rci.html">rci</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rcummax.html">rcummax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rcumsum.html">rcumsum</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.reduce_nan_patterns.html">reduce_nan_patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rms.html">rms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.roc.html">roc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.rsi.html">rsi</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.shift.html">shift</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.signif.html">signif</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.skipna.html">skipna</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.slope.html">slope</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.soft_topk.html">soft_topk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.soft_topk_bottomk.html">soft_topk_bottomk</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.stable_sort.html">stable_sort</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.stochastics.html">stochastics</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.winsorize.html">winsorize</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.wma.html">wma</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.functions.zscore.html">zscore</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../api/qfeval_functions.random.html">Random (qfeval_functions.random)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.is_fast.html">is_fast</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.rng.html">rng</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../api/qfeval_functions.random.seed.html">seed</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">qfeval-functions</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">qfeval_functions.functions.mquantile</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for qfeval_functions.functions.mquantile</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">typing</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.functional</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">F</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">._moving_order</span><span class="w"> </span><span class="kn">import</span> <span class="n">_apply_partition</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">._moving_order</span><span class="w"> </span><span class="kn">import</span> <span class="n">_coordinate_ranks</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">._moving_order</span><span class="w"> </span><span class="kn">import</span> <span class="n">_stable_partition_destination</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">._moving_order</span><span class="w"> </span><span class="kn">import</span> <span class="n">_window_has_nan</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.apply_for_axis</span><span class="w"> </span><span class="kn">import</span> <span class="n">apply_for_axis</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.mmax</span><span class="w"> </span><span class="kn">import</span> <span class="n">mmax</span>
+
+<span class="n">MQuantileAlgorithm</span> <span class="o">=</span> <span class="n">typing</span><span class="o">.</span><span class="n">Literal</span><span class="p">[</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;sort&quot;</span><span class="p">,</span> <span class="s2">&quot;wavelet&quot;</span><span class="p">]</span>
+<span class="n">_MQUANTILE_ALGORITHMS</span> <span class="o">=</span> <span class="nb">frozenset</span><span class="p">((</span><span class="s2">&quot;auto&quot;</span><span class="p">,</span> <span class="s2">&quot;sort&quot;</span><span class="p">,</span> <span class="s2">&quot;wavelet&quot;</span><span class="p">))</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_quantile_position</span><span class="p">(</span><span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">q</span> <span class="o">*</span> <span class="p">(</span><span class="n">span</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">lo</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+    <span class="n">hi</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">ceil</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">,</span> <span class="n">pos</span> <span class="o">-</span> <span class="n">lo</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_prepend_incomplete</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">completed</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="n">nans</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">new_full</span><span class="p">((</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">span</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">nans</span><span class="p">,</span> <span class="n">completed</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_interpolate_order_statistics</span><span class="p">(</span>
+    <span class="n">lower</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">upper</span><span class="p">:</span> <span class="n">typing</span><span class="o">.</span><span class="n">Optional</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">],</span>
+    <span class="n">frac</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">upper</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="c1"># Do not add an unused endpoint multiplied by zero: `0 * inf` is</span>
+        <span class="c1"># NaN and would corrupt an exact order statistic.</span>
+        <span class="k">return</span> <span class="n">lower</span>
+    <span class="k">return</span> <span class="n">lower</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">frac</span><span class="p">)</span> <span class="o">+</span> <span class="n">upper</span> <span class="o">*</span> <span class="n">frac</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mquantile_sort</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute moving quantiles by sorting every materialized window.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">span</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">span</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+    <span class="n">windows</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">unfold</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">sorted_windows</span> <span class="o">=</span> <span class="n">windows</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">dim</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+    <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">,</span> <span class="n">frac</span> <span class="o">=</span> <span class="n">_quantile_position</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">sorted_windows</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">lo</span><span class="p">]</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">lo</span> <span class="o">==</span> <span class="n">hi</span> <span class="k">else</span> <span class="n">sorted_windows</span><span class="p">[</span><span class="o">...</span><span class="p">,</span> <span class="n">hi</span><span class="p">]</span>
+    <span class="n">completed</span> <span class="o">=</span> <span class="n">_interpolate_order_statistics</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">frac</span><span class="p">)</span>
+    <span class="n">completed</span> <span class="o">=</span> <span class="n">completed</span><span class="o">.</span><span class="n">masked_fill</span><span class="p">(</span><span class="n">_window_has_nan</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">),</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_prepend_incomplete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">completed</span><span class="p">,</span> <span class="n">span</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mquantile_extremum</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">largest</span><span class="p">:</span> <span class="nb">bool</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute the exact endpoint quantiles with a linear moving extremum.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">span</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">span</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+    <span class="n">moving</span> <span class="o">=</span> <span class="n">mmax</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="k">if</span> <span class="n">largest</span> <span class="k">else</span> <span class="o">-</span><span class="n">mmax</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_prepend_incomplete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">moving</span><span class="p">[:,</span> <span class="n">span</span> <span class="o">-</span> <span class="mi">1</span> <span class="p">:],</span> <span class="n">span</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_wavelet_order_indices</span><span class="p">(</span>
+    <span class="n">values</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">orders</span><span class="p">:</span> <span class="nb">tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">[</span><span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Answer all fixed-width range selections with a wavelet matrix.</span>
+
+<span class="sd">    The wavelet matrix is built one bit level at a time.  Every window&#39;s</span>
+<span class="sd">    left/right query bounds are advanced through that level immediately,</span>
+<span class="sd">    allowing the prefix counts to be discarded before the next level.</span>
+<span class="sd">    Consequently the workspace is linear rather than ``O(N log U)``,</span>
+<span class="sd">    where ``U`` is the number of distinct values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">ordering_values</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span>
+    <span class="n">is_nan</span> <span class="o">=</span> <span class="n">ordering_values</span><span class="o">.</span><span class="n">isnan</span><span class="p">()</span>
+    <span class="n">ordering_values</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">is_nan</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">ordering_values</span><span class="p">),</span> <span class="n">ordering_values</span>
+    <span class="p">)</span>
+    <span class="n">sequence</span> <span class="o">=</span> <span class="n">_coordinate_ranks</span><span class="p">(</span><span class="n">ordering_values</span><span class="p">)</span>
+
+    <span class="n">batch_size</span><span class="p">,</span> <span class="n">length</span> <span class="o">=</span> <span class="n">values</span><span class="o">.</span><span class="n">shape</span>
+    <span class="n">window_count</span> <span class="o">=</span> <span class="n">length</span> <span class="o">-</span> <span class="n">span</span> <span class="o">+</span> <span class="mi">1</span>
+    <span class="n">starts</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span>
+        <span class="n">window_count</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">device</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">window_count</span><span class="p">)</span>
+    <span class="n">query_count</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">orders</span><span class="p">)</span>
+    <span class="n">left</span> <span class="o">=</span> <span class="n">starts</span><span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">query_count</span><span class="p">,</span> <span class="n">window_count</span><span class="p">)</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+    <span class="n">right</span> <span class="o">=</span> <span class="n">left</span> <span class="o">+</span> <span class="n">span</span>
+    <span class="n">kth</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">tensor</span><span class="p">(</span><span class="n">orders</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">query_count</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">query_count</span><span class="p">,</span> <span class="n">window_count</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+    <span class="p">)</span>
+
+    <span class="n">permutation</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">torch</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">length</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="n">values</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">expand</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+    <span class="p">)</span>
+    <span class="n">bit_count</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">length</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">bit_length</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">shift</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">bit_count</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+        <span class="n">is_zero</span> <span class="o">=</span> <span class="p">((</span><span class="n">sequence</span> <span class="o">&gt;&gt;</span> <span class="n">shift</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mi">1</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
+        <span class="n">zero_prefix</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+            <span class="n">is_zero</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+        <span class="p">)</span>
+        <span class="n">zero_left</span> <span class="o">=</span> <span class="n">zero_prefix</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+            <span class="mi">1</span><span class="p">,</span> <span class="n">left</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">reshape_as</span><span class="p">(</span><span class="n">left</span><span class="p">)</span>
+        <span class="n">zero_right</span> <span class="o">=</span> <span class="n">zero_prefix</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+            <span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="p">)</span><span class="o">.</span><span class="n">reshape_as</span><span class="p">(</span><span class="n">right</span><span class="p">)</span>
+        <span class="n">zeros_in_range</span> <span class="o">=</span> <span class="n">zero_right</span> <span class="o">-</span> <span class="n">zero_left</span>
+        <span class="n">take_one</span> <span class="o">=</span> <span class="n">kth</span> <span class="o">&gt;=</span> <span class="n">zeros_in_range</span>
+        <span class="n">zero_count</span> <span class="o">=</span> <span class="n">zero_prefix</span><span class="p">[:,</span> <span class="o">-</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">left</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">take_one</span><span class="p">,</span> <span class="n">zero_count</span> <span class="o">+</span> <span class="n">left</span> <span class="o">-</span> <span class="n">zero_left</span><span class="p">,</span> <span class="n">zero_left</span><span class="p">)</span>
+        <span class="n">right</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="n">take_one</span><span class="p">,</span> <span class="n">zero_count</span> <span class="o">+</span> <span class="n">right</span> <span class="o">-</span> <span class="n">zero_right</span><span class="p">,</span> <span class="n">zero_right</span>
+        <span class="p">)</span>
+        <span class="n">kth</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">take_one</span><span class="p">,</span> <span class="n">kth</span> <span class="o">-</span> <span class="n">zeros_in_range</span><span class="p">,</span> <span class="n">kth</span><span class="p">)</span>
+
+        <span class="n">destination</span> <span class="o">=</span> <span class="n">_stable_partition_destination</span><span class="p">(</span><span class="n">is_zero</span><span class="p">)</span>
+        <span class="n">permutation</span> <span class="o">=</span> <span class="n">_apply_partition</span><span class="p">(</span><span class="n">permutation</span><span class="p">,</span> <span class="n">destination</span><span class="p">)</span>
+        <span class="n">sequence</span> <span class="o">=</span> <span class="n">_apply_partition</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">destination</span><span class="p">)</span>
+
+    <span class="n">selected</span> <span class="o">=</span> <span class="n">permutation</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span>
+        <span class="mi">1</span><span class="p">,</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">kth</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">query_count</span><span class="p">,</span> <span class="n">window_count</span><span class="p">)</span>
+    <span class="n">nan_prefix</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">pad</span><span class="p">(</span>
+        <span class="n">is_nan</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">long</span><span class="p">)</span><span class="o">.</span><span class="n">cumsum</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+        <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+    <span class="p">)</span>
+    <span class="n">invalid</span> <span class="o">=</span> <span class="p">(</span><span class="n">nan_prefix</span><span class="p">[:,</span> <span class="n">span</span><span class="p">:]</span> <span class="o">-</span> <span class="n">nan_prefix</span><span class="p">[:,</span> <span class="p">:</span><span class="o">-</span><span class="n">span</span><span class="p">])</span> <span class="o">!=</span> <span class="mi">0</span>
+    <span class="k">return</span> <span class="n">selected</span><span class="p">,</span> <span class="n">invalid</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mquantile_wavelet</span><span class="p">(</span><span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">q</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute moving quantiles with batched wavelet-matrix queries.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">span</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">span</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">or</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">clone</span><span class="p">()</span>
+
+    <span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">,</span> <span class="n">frac</span> <span class="o">=</span> <span class="n">_quantile_position</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+    <span class="n">orders</span> <span class="o">=</span> <span class="p">(</span><span class="n">lo</span><span class="p">,)</span> <span class="k">if</span> <span class="n">lo</span> <span class="o">==</span> <span class="n">hi</span> <span class="k">else</span> <span class="p">(</span><span class="n">lo</span><span class="p">,</span> <span class="n">hi</span><span class="p">)</span>
+    <span class="n">indices</span><span class="p">,</span> <span class="n">invalid</span> <span class="o">=</span> <span class="n">_wavelet_order_indices</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">orders</span><span class="p">)</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">indices</span><span class="o">.</span><span class="n">flatten</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">reshape_as</span><span class="p">(</span><span class="n">indices</span><span class="p">)</span>
+    <span class="n">lower</span> <span class="o">=</span> <span class="n">selected</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+    <span class="n">upper</span> <span class="o">=</span> <span class="kc">None</span> <span class="k">if</span> <span class="n">lo</span> <span class="o">==</span> <span class="n">hi</span> <span class="k">else</span> <span class="n">selected</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="n">completed</span> <span class="o">=</span> <span class="n">_interpolate_order_statistics</span><span class="p">(</span><span class="n">lower</span><span class="p">,</span> <span class="n">upper</span><span class="p">,</span> <span class="n">frac</span><span class="p">)</span>
+    <span class="n">completed</span> <span class="o">=</span> <span class="n">completed</span><span class="o">.</span><span class="n">masked_fill</span><span class="p">(</span><span class="n">invalid</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_prepend_incomplete</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">completed</span><span class="p">,</span> <span class="n">span</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_choose_mquantile_algorithm</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span> <span class="n">span</span><span class="p">:</span> <span class="nb">int</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MQuantileAlgorithm</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Choose an implementation without changing numerical semantics.&quot;&quot;&quot;</span>
+    <span class="n">window_count</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">span</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># Sorting is highly vectorized and wins for narrow windows.  It also</span>
+    <span class="c1"># avoids wavelet-matrix setup when only a handful of windows exist.</span>
+    <span class="c1"># Benchmarks in `benchmarks/mquantile_results.md` show the crossover</span>
+    <span class="c1"># near span=128 on CPU after vectorizing across slices.</span>
+    <span class="k">if</span> <span class="n">span</span> <span class="o">&lt;</span> <span class="mi">128</span> <span class="ow">or</span> <span class="n">window_count</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">:</span>
+        <span class="k">return</span> <span class="s2">&quot;sort&quot;</span>
+    <span class="k">return</span> <span class="s2">&quot;wavelet&quot;</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_mquantile</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">q</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">algorithm</span><span class="p">:</span> <span class="n">MQuantileAlgorithm</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">algorithm</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">q</span> <span class="o">==</span> <span class="mf">0.0</span> <span class="ow">or</span> <span class="n">q</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">_mquantile_extremum</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">largest</span><span class="o">=</span><span class="n">q</span> <span class="o">==</span> <span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="n">selected_algorithm</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">_choose_mquantile_algorithm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">algorithm</span> <span class="o">==</span> <span class="s2">&quot;auto&quot;</span>
+        <span class="k">else</span> <span class="n">algorithm</span>
+    <span class="p">)</span>
+    <span class="k">if</span> <span class="n">selected_algorithm</span> <span class="o">==</span> <span class="s2">&quot;sort&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_mquantile_sort</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">selected_algorithm</span> <span class="o">==</span> <span class="s2">&quot;wavelet&quot;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_mquantile_wavelet</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">q</span><span class="p">)</span>
+    <span class="k">raise</span> <span class="ne">AssertionError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Unhandled mquantile algorithm: </span><span class="si">{</span><span class="n">selected_algorithm</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="mquantile">
+<a class="viewcode-back" href="../../../api/qfeval_functions.functions.mquantile.html#qfeval_functions.functions.mquantile">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">mquantile</span><span class="p">(</span>
+    <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">,</span>
+    <span class="n">span</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+    <span class="n">q</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+    <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+    <span class="o">*</span><span class="p">,</span>
+    <span class="n">algorithm</span><span class="p">:</span> <span class="n">MQuantileAlgorithm</span> <span class="o">=</span> <span class="s2">&quot;auto&quot;</span><span class="p">,</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="o">.</span><span class="n">Tensor</span><span class="p">:</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Compute the moving (sliding window) quantile of a tensor.</span>
+
+<span class="sd">    This function calculates the :attr:`q`-th quantile of elements within</span>
+<span class="sd">    a sliding window of size :attr:`span` along the specified dimension.</span>
+<span class="sd">    The output tensor has the same shape as the input tensor. For</span>
+<span class="sd">    positions where the sliding window cannot fully cover preceding</span>
+<span class="sd">    elements (i.e., the first ``span - 1`` elements along the selected</span>
+<span class="sd">    dimension), the result is ``nan``.</span>
+
+<span class="sd">    Letting :math:`s_0 \le s_1 \le \dots \le s_{\text{span}-1}` denote the</span>
+<span class="sd">    sorted values of a window, the quantile is computed with linear</span>
+<span class="sd">    interpolation between adjacent order statistics, compatibly with</span>
+<span class="sd">    ``pandas.DataFrame.rolling(span).quantile(q, interpolation=&quot;linear&quot;)``:</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \text{MQUANTILE}[i] = (1 - \gamma) \, s_{\lfloor h \rfloor}</span>
+<span class="sd">        + \gamma \, s_{\lceil h \rceil},</span>
+<span class="sd">        \quad h = q \, (\text{span} - 1),</span>
+<span class="sd">        \quad \gamma = h - \lfloor h \rfloor</span>
+
+<span class="sd">    In particular, ``q=0.0`` yields the moving minimum, ``q=0.5`` the</span>
+<span class="sd">    moving median, and ``q=1.0`` the moving maximum.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (Tensor):</span>
+<span class="sd">            The input tensor containing values. Must be a floating point</span>
+<span class="sd">            tensor.</span>
+<span class="sd">        span (int):</span>
+<span class="sd">            The size of the sliding window. Must be positive.</span>
+<span class="sd">        q (float):</span>
+<span class="sd">            The quantile to compute. Must be in the range ``[0, 1]``.</span>
+<span class="sd">        dim (int, optional):</span>
+<span class="sd">            The dimension along which to compute the moving quantile.</span>
+<span class="sd">            Default is -1 (the last dimension).</span>
+<span class="sd">        algorithm ({&quot;auto&quot;, &quot;sort&quot;, &quot;wavelet&quot;}, optional):</span>
+<span class="sd">            The implementation to use. ``&quot;sort&quot;`` is the original</span>
+<span class="sd">            all-window sort, and ``&quot;wavelet&quot;`` uses batched range selection</span>
+<span class="sd">            in a wavelet matrix. ``&quot;auto&quot;`` (default) chooses between them</span>
+<span class="sd">            and also specializes endpoint quantiles as linear moving extrema.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tensor:</span>
+<span class="sd">            A tensor of the same shape as the input, containing the moving</span>
+<span class="sd">            quantile values. The first ``span - 1`` elements along the</span>
+<span class="sd">            specified dimension are ``nan``.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        TypeError: If ``span`` is not an integer (``bool`` is rejected).</span>
+<span class="sd">        ValueError: If ``span`` is not positive.</span>
+<span class="sd">        ValueError: If ``q`` is not in the range ``[0, 1]``.</span>
+<span class="sd">        TypeError: If ``x`` is not a floating point tensor.</span>
+<span class="sd">        ValueError: If ``algorithm`` is not a supported implementation.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; # Moving median (q=0.5) with window size 3</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 3.0, 2.0, 5.0, 4.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mquantile(x, span=3, q=0.5)</span>
+<span class="sd">        tensor([nan, nan, 2., 3., 4.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # q=0.0 and q=1.0 yield the moving minimum and maximum</span>
+<span class="sd">        &gt;&gt;&gt; QF.mquantile(x, span=3, q=0.0)</span>
+<span class="sd">        tensor([nan, nan, 1., 2., 2.])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mquantile(x, span=3, q=1.0)</span>
+<span class="sd">        tensor([nan, nan, 3., 5., 5.])</span>
+
+<span class="sd">        &gt;&gt;&gt; # Linear interpolation between adjacent order statistics</span>
+<span class="sd">        &gt;&gt;&gt; QF.mquantile(x, span=2, q=0.25)</span>
+<span class="sd">        tensor([   nan, 1.5000, 2.2500, 2.7500, 4.2500])</span>
+
+<span class="sd">        &gt;&gt;&gt; # 2D tensor with moving quantile along rows</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([[1.0, 2.0, 4.0, 8.0],</span>
+<span class="sd">        ...                   [8.0, 4.0, 2.0, 1.0]])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mquantile(x, span=2, q=0.5, dim=1)</span>
+<span class="sd">        tensor([[   nan, 1.5000, 3.0000, 6.0000],</span>
+<span class="sd">                [   nan, 6.0000, 3.0000, 1.5000]])</span>
+
+<span class="sd">        &gt;&gt;&gt; # A window containing NaN yields NaN</span>
+<span class="sd">        &gt;&gt;&gt; x = torch.tensor([1.0, 2.0, nan, 4.0, 5.0, 6.0])</span>
+<span class="sd">        &gt;&gt;&gt; QF.mquantile(x, span=2, q=0.5)</span>
+<span class="sd">        tensor([   nan, 1.5000,    nan,    nan, 4.5000, 5.5000])</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        If a window contains any NaN value, the moving quantile for that</span>
+<span class="sd">        window is NaN. Unlike ``pandas.DataFrame.rolling``, there is no</span>
+<span class="sd">        ``min_periods``-style option to skip NaN values.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        Infinite values are ordered like ordinary numbers, so e.g.</span>
+<span class="sd">        ``q=1.0`` returns ``inf`` for windows containing ``inf``, whereas</span>
+<span class="sd">        pandas treats infinities as missing values in rolling</span>
+<span class="sd">        aggregations. Interpolating between ``-inf`` and ``inf`` yields</span>
+<span class="sd">        ``nan``.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">        The ``&quot;wavelet&quot;`` algorithm avoids the original</span>
+<span class="sd">        ``O(N * span)`` all-window materialization and takes</span>
+<span class="sd">        ``O(N * log(N) + N * log(U))`` time including coordinate</span>
+<span class="sd">        compression, with linear workspace, where ``U`` is the number of</span>
+<span class="sd">        distinct values. Endpoint quantiles use an ``O(N)`` algorithm.</span>
+
+<span class="sd">    .. seealso::</span>
+<span class="sd">        - :func:`mmedian`: Moving median function (this with ``q=0.5``).</span>
+<span class="sd">        - :func:`nanquantile`: Quantile over a whole dimension, skipping</span>
+<span class="sd">          NaNs.</span>
+<span class="sd">        - :func:`mmax`: Moving maximum function.</span>
+<span class="sd">        - :func:`mmin`: Moving minimum function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># NOTE: bool is a subclass of int, so it must be rejected explicitly.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="nb">bool</span><span class="p">)</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">span</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;span must be an integer, but got </span><span class="si">{</span><span class="n">span</span><span class="si">!r}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">span</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;span must be a positive integer, but got </span><span class="si">{</span><span class="n">span</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="mf">0.0</span> <span class="o">&lt;=</span> <span class="n">q</span> <span class="o">&lt;=</span> <span class="mf">1.0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;q must be in the range [0, 1], but got </span><span class="si">{</span><span class="n">q</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">x</span><span class="o">.</span><span class="n">is_floating_point</span><span class="p">():</span>
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s2">&quot;mquantile only supports floating point tensors, &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;but got </span><span class="si">{</span><span class="n">x</span><span class="o">.</span><span class="n">dtype</span><span class="si">}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">if</span> <span class="n">algorithm</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">_MQUANTILE_ALGORITHMS</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;algorithm must be one of &quot;</span>
+            <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="nb">sorted</span><span class="p">(</span><span class="n">_MQUANTILE_ALGORITHMS</span><span class="p">)</span><span class="si">}</span><span class="s2">, but got </span><span class="si">{</span><span class="n">algorithm</span><span class="si">!r}</span><span class="s2">.&quot;</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">apply_for_axis</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">_mquantile</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">span</span><span class="p">,</span> <span class="n">q</span><span class="p">,</span> <span class="n">algorithm</span><span class="p">),</span> <span class="n">x</span><span class="p">,</span> <span class="n">dim</span><span class="p">)</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, qfeval-functions contributors.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

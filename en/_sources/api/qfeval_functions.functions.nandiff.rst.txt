@@ -1,0 +1,6 @@
+﻿nandiff
+=======
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: nandiff

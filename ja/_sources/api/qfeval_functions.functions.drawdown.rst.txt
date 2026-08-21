@@ -1,0 +1,6 @@
+﻿drawdown
+========
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: drawdown

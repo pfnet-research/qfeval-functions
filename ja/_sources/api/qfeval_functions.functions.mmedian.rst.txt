@@ -1,0 +1,6 @@
+﻿mmedian
+=======
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: mmedian

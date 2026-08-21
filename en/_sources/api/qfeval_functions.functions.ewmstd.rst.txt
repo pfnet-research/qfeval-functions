@@ -1,0 +1,6 @@
+﻿ewmstd
+======
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: ewmstd

@@ -1,0 +1,6 @@
+﻿max\_drawdown
+=============
+
+.. currentmodule:: qfeval_functions.functions
+
+.. autofunction:: max_drawdown
