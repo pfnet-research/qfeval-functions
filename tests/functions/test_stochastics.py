@@ -127,6 +127,20 @@ def test_stochastics_flat_window_returns_neutral_50() -> None:
     assert np.isnan(pandas_k[2:]).all()
 
 
+def test_stochastics_flat_window_with_nan_close_stays_nan() -> None:
+    """A NaN close is not replaced by 50 even when the range is zero."""
+    high = torch.full((5,), 5.0)
+    low = high.clone()
+    close = torch.tensor([5.0, 5.0, math.nan, 5.0, 5.0])
+    k, d, slow_d = QF.stochastics(
+        high, low, close, k_span=2, d_span=2, sd_span=2
+    )
+    expected_k = torch.tensor([math.nan, 50.0, math.nan, 50.0, 50.0])
+    torch.testing.assert_close(k, expected_k, equal_nan=True)
+    assert torch.isnan(d[2:4]).all()
+    assert torch.isnan(slow_d[2:]).all()
+
+
 def test_stochastics_partially_flat_series() -> None:
     """Only the windows with no price variation get the neutral value;
     other windows use the raw formula."""
@@ -269,6 +283,19 @@ def test_stochastics_broadcasting() -> None:
             np.testing.assert_allclose(
                 out[i].numpy(), want.numpy(), equal_nan=True
             )
+
+
+@pytest.mark.parametrize(
+    ("shape", "dim"), [((0,), 0), ((0, 3), 1), ((2, 0, 3), 1)]
+)
+def test_stochastics_empty_tensor(
+    shape: typing.Tuple[int, ...], dim: int
+) -> None:
+    """Empty inputs produce three empty outputs with the same shape."""
+    x = torch.empty(shape)
+    outputs = QF.stochastics(x, x, x, dim=dim)
+    for output in outputs:
+        assert_basic_properties(output, x)
 
 
 def test_stochastics_invalid_span_raises_value_error() -> None:

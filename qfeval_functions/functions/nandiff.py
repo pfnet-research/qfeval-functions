@@ -81,4 +81,9 @@ def nandiff(x: torch.Tensor, shift: int = 1, dim: int = -1) -> torch.Tensor:
         - :func:`shift`: Standard shift function without NaN handling.
         - :func:`ffill`: Forward fill missing values.
     """
+    if x.numel() == 0:
+        # ``nanshift`` cannot reshape an empty target dimension.  A double
+        # transpose validates ``dim`` while preserving the original shape.
+        x = x.transpose(0, dim).transpose(0, dim)
+        return x - x
     return x - nanshift(x, shift, dim)

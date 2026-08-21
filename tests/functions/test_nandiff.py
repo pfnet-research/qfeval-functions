@@ -103,6 +103,13 @@ def test_nandiff_edge_cases() -> None:
     assert QF.nandiff(torch.tensor([3.0]), 0).item() == 0.0
 
 
+def test_nandiff_empty_tensor() -> None:
+    """Empty tensors pass through with the same shape and dtype."""
+    for shape, dim in (((0,), 0), ((0, 3), 1), ((2, 0, 3), 1)):
+        x = torch.empty(shape)
+        assert_basic_properties(QF.nandiff(x, dim=dim), x)
+
+
 def test_nandiff_multi_dim_and_negative_dim() -> None:
     """Test nandiff on 2D/3D tensors and with negative dimensions."""
     torch.manual_seed(3)

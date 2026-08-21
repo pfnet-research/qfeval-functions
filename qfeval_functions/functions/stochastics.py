@@ -156,6 +156,13 @@ def stochastics(
                 f"{name} has dtype {tensor.dtype}."
             )
     high, low, close = torch.broadcast_tensors(high, low, close)
+    if high.numel() == 0:
+        # The moving extrema helpers do not support empty tensors.  Build an
+        # empty result with the same dtype-promotion semantics as the formula;
+        # the double transpose also validates ``dim``.
+        empty = (close - low) / (high - low) * 100
+        empty = empty.transpose(0, dim).transpose(0, dim)
+        return empty, empty.clone(), empty.clone()
     lowest = mmin(low, k_span, dim)
     highest = mmax(high, k_span, dim)
     price_range = highest - lowest
@@ -166,7 +173,9 @@ def stochastics(
     # A NaN price range (e.g., caused by NaN or infinite inputs) fails the
     # comparison below, so it is propagated as is instead of being
     # converted to a valid value.
-    k = torch.where(price_range == 0, raw.new_tensor(50.0), raw)
+    k = torch.where(
+        (price_range == 0) & ~close.isnan(), raw.new_tensor(50.0), raw
+    )
     # `mmax`/`mmin` use partial windows at the start, but this indicator
     # follows the pandas rolling convention, so mask the first
     # `k_span - 1` positions along `dim` with NaN explicitly.

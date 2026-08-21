@@ -40,7 +40,7 @@ def ewmvar(
         x (Tensor):
             The input tensor containing values.
         alpha (float):
-            The smoothing factor, must be in the range (0, 1). Smaller
+            The smoothing factor, must be in the range (0, 1]. Smaller
             values result in more smoothing (slower decay).
         dim (int, optional):
             The dimension along which to compute the exponentially
@@ -54,6 +54,9 @@ def ewmvar(
         Tensor:
             A tensor of the same shape as the input, containing the
             exponentially weighted moving variance values.
+
+    Raises:
+        ValueError: If ``alpha`` does not satisfy ``0 < alpha <= 1``.
 
     Example:
 
@@ -101,6 +104,8 @@ def ewmvar(
         - :func:`ema`: Exponential moving average (the matching mean).
         - :func:`mvar`: Moving variance over a fixed-size window.
     """
+    if not 0.0 < alpha <= 1.0:
+        raise ValueError(f"alpha must satisfy 0 < alpha <= 1, but got {alpha}.")
     y = x - nanmean(x, dim=dim, keepdim=True)
     ones = torch.ones_like(y)
     w1 = _exponential_weighted_sum(ones, alpha=alpha, dim=dim)

@@ -83,9 +83,9 @@ msgstr "値を含む入力テンソル。"
 
 #: of qfeval_functions.functions.ewmvar.ewmvar:34
 msgid ""
-"The smoothing factor, must be in the range (0, 1). Smaller values result "
+"The smoothing factor, must be in the range (0, 1]. Smaller values result "
 "in more smoothing (slower decay)."
-msgstr "平滑化係数。(0, 1) の範囲内である必要があります。小さい値ほど平滑化が強くなります（減衰が遅くなります）。"
+msgstr "平滑化係数。(0, 1] の範囲内である必要があります。小さい値ほど平滑化が強くなります（減衰が遅くなります）。"
 
 #: of qfeval_functions.functions.ewmvar.ewmvar:38
 msgid ""
@@ -112,6 +112,14 @@ msgstr "入力と同じ形状のテンソルで、指数加重移動分散の値
 #: ../../api/qfeval_functions.functions.ewmvar.rst
 msgid "Return type"
 msgstr "戻り値の型"
+
+#: ../../api/qfeval_functions.functions.ewmvar.rst
+msgid "Raises"
+msgstr "例外"
+
+#: of qfeval_functions.functions.ewmvar.ewmvar:52
+msgid "If ``alpha`` does not satisfy ``0 < alpha <= 1``."
+msgstr "``alpha`` が ``0 < alpha <= 1`` を満たさない場合。"
 
 #: of qfeval_functions.functions.ewmvar.ewmvar:52
 msgid "Example"
@@ -184,4 +192,3 @@ msgstr ":func:`ema`: 指数移動平均（対応する平均）関数。"
 #: of qfeval_functions.functions.ewmvar.ewmvar:95
 msgid ":func:`mvar`: Moving variance over a fixed-size window."
 msgstr ":func:`mvar`: 固定サイズのウィンドウに対する移動分散関数。"
-

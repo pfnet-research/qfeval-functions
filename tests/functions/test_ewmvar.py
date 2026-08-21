@@ -2,6 +2,7 @@ import math
 
 import numpy as np
 import pandas as pd
+import pytest
 import torch
 
 import qfeval_functions.functions as QF
@@ -161,6 +162,28 @@ def test_ewmvar_alpha_extremes() -> None:
                 atol=1e-4,
                 equal_nan=True,
             )
+
+
+def test_ewmvar_alpha_one_matches_pandas() -> None:
+    """Alpha 1 is a valid boundary value and matches pandas."""
+    x = torch.tensor([1.0, 2.0, 3.0])
+    expected = pd.Series(x.numpy()).ewm(alpha=1.0)
+    for bias in (False, True):
+        result = QF.ewmvar(x, 1.0, bias=bias)
+        np.testing.assert_allclose(
+            result.numpy(),
+            expected.var(bias=bias).to_numpy(),
+            equal_nan=True,
+        )
+
+
+@pytest.mark.parametrize(
+    "alpha", [-math.inf, -1.0, 0.0, 1.01, math.inf, math.nan]
+)
+def test_ewmvar_invalid_alpha_raises_value_error(alpha: float) -> None:
+    """Alpha must satisfy the same ``0 < alpha <= 1`` bound as pandas."""
+    with pytest.raises(ValueError, match="alpha must satisfy"):
+        QF.ewmvar(torch.ones(3), alpha)
 
 
 def test_ewmvar_empty_tensor() -> None:
